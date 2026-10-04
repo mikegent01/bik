@@ -212,7 +212,7 @@
     "controllingFaction": "Fawful's Dominion (Current Occupier)",
     "status": "Occupied; Celestial Alignment Imminent",
     "summary": "The ancestral seat of the Mushroom Kingdom's royal family, now occupied by the cackling madman Fawful. This castle is not merely a palace—it is a dimensional anchor point, a convergence of reality-warping architecture, and the housing for the ancient Star Core that powers continental barriers. Waluigi has studied the available intelligence on this structure, and he can confirm: this castle should not exist according to normal physics. It is bigger on the inside, connects to places it shouldn't, and contains secrets buried for centuries. The basement contains fifteen distinct areas of interdimensional horror, while the main floor exists as TWENTY-NINE simultaneous lobby variants, each a different version of reality. This is not a building. This is a probability engine with a moat.",
-    "description": "Waluigi has spent considerable time mapping the intelligence reports on Peach's Castle, and he has reached a singular conclusion: whoever designed this place was either a genius, a madman, or something far older than the Mushroom Kingdom itself.\n\nThe castle that most people remember—the cheerful pink palace with the stained glass windows and the pleasant gardens—is a FACADE. A beautiful mask over something ancient and deeply wrong. The structure predates Princess Peach. It predates the Toadstool dynasty. Some architectural historians believe the upper castle was BUILT ON TOP of a pre-existing structure, and that structure was built on top of something even older.\n\nFawful currently occupies the castle, and Waluigi suspects he chose this location specifically because of what lies beneath it: the Star Core, an ancient power source capable of maintaining continental barriers and, according to some theories, manipulating the boundary between life and death. The upcoming 'Celestial Alignment' will supposedly unlock the deepest vaults, and Waluigi does not want to be anywhere near this place when that happens.\n\nBut to understand why Fawful wants the Star Core, you must first understand the castle's structure. And to understand the structure, you must start at the bottom. The castle's subterranean levels are not merely deep—they are LAYERED. Multiple basement floors stack beneath each other, each stranger and more dangerous than the last. Floors 2B, 3B, and 4B descend into increasingly bizarre territory, while parallel basement systems like the Beta Basement and the Basement Maze create a three-dimensional web of interconnected spaces that defies architectural sanity.\n\nWAH.",
+    "description": "Waluigi has spent considerable time mapping the intelligence reports on Peach's Castle, and he has reached a singular conclusion: whoever designed this place was either a genius, a madman, or something far older than the Mushroom Kingdom itself.\n\nThe castle that most people remember—the cheerful pink palace with the stained glass windows and the pleasant gardens—is a FACADE. A beautiful mask over something ancient and deeply wrong. The structure predates Princess Peach. It predates the Toadstool dynasty. Some architectural historians believe the upper castle was BUILT ON TOP of a pre-existing structure, and that structure was built on top of something even older.\n\nFawful currently occupies the castle, and Waluigi suspects he chose this location specifically because of what lies beneath it: the Star Core, an ancient power source capable of maintaining continental barriers and, according to some theories, manipulating the boundary between life and death. The upcoming 'Celestial Alignment' will supposedly unlock the deepest vaults, and Waluigi does not want to be anywhere near this place when that happens.\n\nBut to understand why Fawful wants the Star Core, you must first understand the castle's structure. And to understand the structure, you must start at the bottom. The castle's subterranean levels are not merely deep—they are LAYERED. Multiple basement floors stack beneath each other, each stranger and more dangerous than the last. Floors 2B, 3B, and 4B descend into increasingly bizarre territory, while parallel basement systems like the Beta Basement and the Basement Maze create a three-dimensional web of interconnected spaces that defies architectural sanity.\n\nWAH.\n\n## Efferd, 955 BF — The Night of the Unlocked Cell\n\nOne account places the castle a month before Highsun 1: a lantern post on the ceremonial route, a ballroom rehearsing a procession at one in the morning, a corridor walled with heavy Toads, the dining hall with a chambermaid and a small boy at the long table, a tower storage room, and a dungeon cell that was unlocked by key and left that way for a Koopa who was expecting a friend. Bowser came through a wall of the hall that night and was put down by one Guild orb; the Chamberlain gave the Mages' Guild a kill order out loud; a ceremonial guard left by the warp drains, which run from the dungeon to a bean shop's cellar in Toad Town in five hours by lantern. Filed as [The Unlocked Cell](#/article/the_unlocked_cell_955_bf). The basements below are the ones this article maps; the account went through them in the dark and did not stop to look.",
     "sections": [
       {
         "name": "Basement Overview",
@@ -1356,7 +1356,10 @@
       "mushroom_kingdom",
       "princess_peach",
       "koopa_troop",
-      "liberated_toads"
+      "liberated_toads",
+      "the_unlocked_cell_955_bf",
+      "fawfuls_bean_badge",
+      "john_lee"
     ],
     "plane": "material",
     "planeConfidence": "medium",
@@ -3463,5 +3466,35 @@
       "wario",
       "the_tape_and_the_wario_files"
     ]
+  },
+  {
+    "id": "fawfuls_bean_badge",
+    "name": "Fawful's Bean Badge",
+    "type": "Location/Shop (Front)",
+    "region": "Mushroom Kingdom — Toad Town (955 BF)",
+    "controllingFaction": "Fawful (proprietor, 955 BF) — Mages' Guild operatives in the back room by the only account",
+    "status": "Historical — trading in Efferd, 955 BF; no shop of the name trades in Toad Town in 1040 BF and the archive has not found the drain that reached it",
+    "summary": "A bean shop in Toad Town with Fawful's name over the counter: jars of beans on the shelves, a tray of enamel badges by the till, and a cellar that connects to the warp drains under Peach's Castle closely enough that a lost ceremonial guard reached it from the dungeon in five hours with a letter for a map. On the one night the archive has it, the shop held the Koopa who was never locked in, two Mages' Guild operatives, a Goomba on a sack by the door, Fawful in a borrowed Guild cloak, and the plan for the vacuum shroom. Waluigi files it as a front, because a shop that a dead palace guard carried directions to in his coat is not selling beans.",
+    "description": "The Bean Badge is on the archive's map for one dawn. Everything below is from the account filed as [The Unlocked Cell](#/article/the_unlocked_cell_955_bf), which reached the shop through a grate and a cellar at about six in the morning in Efferd, 955 BF, and never left it on the record.\n\n## The Shop\n\nSmall. Shelves of glass jars — beans, by the account, which did not inspect them — a counter, a tray of badges, lamps still lit against a grey window. A sign with Fawful's name on it, remembered by the account imperfectly. A Goomba sat by the door on a sack like a shop cat. The word *Badge* in the name is the shop's and not the archive's; what the badges were for, who wore them, and whether the tray on the counter was stock or a register are open.\n\n## The Cellar and the Drain\n\nJohn Lee came up into the shop from below — a grate, a cellar, the shop — after five hours in the warp system under Peach's Castle. The account does not map the route. It establishes that a route exists, that it runs from the palace dungeon to this cellar, and that it is navigable by a ceremonial guard with a lantern and no training, which means it was built to be navigated. The Koopa who left the dungeon ahead of him was already upstairs.\n\n## Who Was In It\n\nThe Koopa prisoner, with the fat vial. Two Mages' Guild operatives — the people who told the father his son was being taken care of, and who asked him whether he was stupid for wanting an escort from people he had just said he did not trust. A Goomba. And Fawful, who put on a Mages' Guild cloak over the red to explain the vacuum shroom — inhaled, the Koopa King sucks up everything in reach, the brothers included; the castle's wards still active; *dispatch of this finkrat and takeover kingdom* — and whom the two operatives did not correct.\n\n## Why It Is a Front\n\nA dead palace guard in the hall of Peach's Castle had *meet me in Fawful's bean shop* in his livery before the shop had been mentioned to anyone. The Guild met there. The Koopa reported there. The plan was explained there. The archive has one bean shop in 955 BF that doubles as the Arrangement's back office and it is this one, and the archive would like to know what the Regency's first year did with it, because by 1040 BF nothing trades under the name and nobody in Toad Town remembers a bean shop with a cellar.",
+    "notableFeatures": [
+      "A sign with Fawful's name — remembered by the account, not read",
+      "The badge tray on the counter: a shop card from it is filed as an exhibit",
+      "A cellar grate onto the warp drains that run to the palace dungeon — five hours, by lantern, with a letter for a map",
+      "The vacuum shroom and the fat vial, explained here and not yet used",
+      "A Goomba on a sack by the door"
+    ],
+    "relatedArticles": [
+      "the_unlocked_cell_955_bf",
+      "fawful",
+      "the_koopa_prisoner",
+      "john_lee",
+      "mages_guild",
+      "peachs_castle",
+      "toad_town",
+      "the_arrangement"
+    ],
+    "plane": "material",
+    "planeConfidence": "filed",
+    "planeClue": "Toad Town, under the castle's drains — the Material capital as it stood before Highsun 1, 955 BF"
   }
 ]

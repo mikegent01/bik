@@ -547,6 +547,29 @@
   ];
   T.reactor.view = {yaw:0.5, pitch:0.2};
 
+  /* Fawful's vacuum shroom: a red-capped mushroom whose stem is a hose into a
+     nozzle, with the fat vial beside it. Explained at the Bean Badge, 955 BF. */
+  T.vacuum_shroom = (P)=>[
+    sph(0.5,[0,0.95,0],'cap',{sc:[1,0.62,1]}), cyl(0.5,0.5,0.08,[0,0.8,0],'cap'),
+    ...[0,1,2,3,4].map(i=>sph(0.1,[Math.sin(ring(i,5))*0.3,1.05+(i%2)*0.06,Math.cos(ring(i,5))*0.3],'spots',{sc:[1,0.5,1]})),
+    lathe([[0,0],[0.2,0],[0.24,0.2],[0.2,0.5],[0.22,0.78],[0,0.8]],[0,0,0],'stem',{seg:24}),
+    tube([[0.15,0.15,0.1],[0.6,0.1,0.3],[0.95,0.3,0.35],[1.05,0.65,0.25]],0.05,'hose'),
+    bar3([1.05,0.65,0.25],[1.15,0.95,0.2],0.09,'nozzle',{r2:0.06}),
+    lathe([[0,0],[0.26,0],[0.3,0.12],[0.3,0.34],[0.14,0.46],[0.1,0.6],[0,0.6]],[-0.75,0,0.1],'vial',{seg:24}),
+    cyl(0.1,0.1,0.06,[-0.75,0.63,0.1],'nozzle'),
+  ];
+  T.vacuum_shroom.view = {yaw:0.5, pitch:0.3};
+
+  /* The Guild's small orb: a fist-sized sphere with a bright core, a metal
+     band, held up in a gloved hand. One use, one Koopa King down. */
+  T.guild_orb = (P)=>[
+    sph(0.32,[0,0.95,0],'orb',{a:0.85}), sph(0.14,[0,0.95,0],'core',{e:0.6}),
+    tor(0.33,0.025,[0,0.95,0],'band',{r:[X,0,0]}), tor(0.33,0.025,[0,0.95,0],'band',{r:[0,0,X]}),
+    lathe([[0,0],[0.22,0],[0.26,0.3],[0.2,0.55],[0.1,0.6],[0,0.6]],[0,0.05,0],'hand',{seg:20}),
+    ...[0,1,2,3].map(i=>cyl(0.045,0.04,0.3,[Math.sin(ring(i,4)+0.4)*0.22,0.7,Math.cos(ring(i,4)+0.4)*0.22],'hand',{r:[Math.cos(ring(i,4)+0.4)*0.5,0,-Math.sin(ring(i,4)+0.4)*0.5]})),
+  ];
+  T.guild_orb.view = {yaw:0.4, pitch:0.25};
+
   /* ---------- builder ---------- */
   /* Resolve palette keys to colours (recursively through groups) and hand the
      part list to the renderer in tech-gl.js, which returns a compiled model

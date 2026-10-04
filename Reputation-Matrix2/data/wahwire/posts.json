@@ -8522,6 +8522,70 @@
         }
       ],
       "status": "posted"
+    },
+    {
+      "id": "ww_the_unlocked_cell",
+      "author": "waluigi",
+      "type": "text",
+      "order": 211,
+      "date": null,
+      "timestamp": "5 Aethel, 1040 BF — filed against a night in Efferd, 955 BF, from the one account the archive has of it",
+      "content": "FIFTEEN YEARS of arguing about a dead man's handwriting and the Arrangement turns out to have a corridor with people in it. A ceremonial guard. A lantern. A cell that was never locked. A Koopa who said 'oh, it's you' to the wrong visitor. Fawful's hand in his, three Guild hoods behind him saying the Guild was ALREADY IN PLACE. Then Bowser through a wall, one small orb, a hall of Toads cheering the Guild, and a Toad in a new suit telling that same Guild to dispatch of the only witness. The guard crawled five hours of drain to a bean shop and found the prisoner there first. His son was already 'being taken care of'. I have filed the night posting, the dead guard's letter and the shop card. I have filed the man in the suit as the Chamberlain and marked it as MY reading. Argue with the reading. You cannot argue with the lantern. WAH.",
+      "likes": 1044,
+      "links": [
+        {
+          "id": "the_unlocked_cell_955_bf",
+          "type": "event"
+        },
+        {
+          "id": "the_arrangement",
+          "type": "event"
+        },
+        {
+          "id": "john_lee",
+          "type": "character"
+        },
+        {
+          "id": "toadsworth_sr",
+          "type": "character"
+        },
+        {
+          "id": "fawfuls_bean_badge",
+          "type": "location"
+        }
+      ],
+      "tags": [
+        "955 BF",
+        "the arrangement",
+        "peach's castle",
+        "mages' guild",
+        "fawful",
+        "capital intrigue",
+        "john lee"
+      ],
+      "reaction": "suspicion",
+      "comments": [
+        {
+          "id": "ww_the_unlocked_cell_c1",
+          "author": "chancellor_toadsworth",
+          "content": "The Chancellery notes that the archive has attributed a sentence to my father on the strength of a guard's recollection, a suit, and the archivist's opinion of my prose style. The Chancellery's position on the journal is unchanged. The Chancellery will not be commenting on the dungeon.",
+          "likes": 388,
+          "topReply": true
+        },
+        {
+          "id": "ww_the_unlocked_cell_c2",
+          "author": "toad_lee",
+          "content": "I have read it. The archivist has not asked me, and I have noticed that he has not. When he does, it will be in daylight and not on the wire. That is all I am going to say about Marilyn here.",
+          "likes": 731
+        },
+        {
+          "id": "ww_the_unlocked_cell_c3",
+          "author": "wario",
+          "content": "A Guild that puts down a Koopa King for FREE and bills three hundred gold for a potion. That's-a not a mystery, that's-a loss leader. Somebody check what the shop charges for a badge.",
+          "likes": 402
+        }
+      ],
+      "status": "posted"
     }
   ]
 }

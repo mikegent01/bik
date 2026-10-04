@@ -9,9 +9,9 @@
     "folderRoot": "Waluipedia Cast",
     "castImport": "actors/cast/import.json",
     "counts": {
-      "characters": 190,
-      "sheets": 184,
-      "generated": 152,
+      "characters": 194,
+      "sheets": 188,
+      "generated": 156,
       "eras": 3,
       "existing": 32,
       "party": 17,
@@ -1248,6 +1248,59 @@
       "items": 2,
       "ac": 14,
       "cr": 0.5,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "captain_of_the_palace_guard_955",
+      "name": "The Captain of the Palace Guard (955 BF)",
+      "title": "The Captain Who Stood Between the Fire and the Stair",
+      "sheetName": "The Captain of the Palace Guard (955 BF)",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-captain_of_the_palace_guard_955.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Elsewhere",
+      "portrait": "portraits/captain_of_the_palace_guard_955.jpg",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "officer",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Sabre",
+          "quote": "The Captain Who Stood Between the Fire and the Stair",
+          "source": "title"
+        },
+        {
+          "feature": "Sneak Attack",
+          "quote": "Deceased — killed by Bowser's fire in the hall of Peach's Castle on a night in Efferd, 955 BF, a month or so before the assassination; his sash left the castle on John Lee's arms",
+          "source": "article"
+        },
+        {
+          "feature": "Leadership",
+          "quote": "The Captain Who Stood Between the Fire and the Stair",
+          "source": "article"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 15,
+        "dex": 13,
+        "con": 14,
+        "int": 12,
+        "wis": 13,
+        "cha": 14
+      },
+      "hp": 49,
+      "speed": "25",
+      "size": "sm",
+      "items": 3,
+      "ac": 14,
+      "cr": 2,
       "type": "humanoid (Toad)",
       "versions": []
     },
@@ -3951,6 +4004,59 @@
       "versions": []
     },
     {
+      "id": "john_lee",
+      "name": "John Lee",
+      "title": "The Ceremonial Guard Who Got Lost in the Right Direction",
+      "sheetName": "John Lee",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-john_lee.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Elsewhere",
+      "portrait": "portraits/john_lee.jpg",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "soldier",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Sabre",
+          "quote": "He left the castle through the drains with a dead Toad's shortsword, a letter that was not addressed to him and the captain's sash on both arms.",
+          "source": "article"
+        },
+        {
+          "feature": "Sneak Attack",
+          "quote": "A second ambush out of a pipe.",
+          "source": "article"
+        },
+        {
+          "feature": "Pack Tactics",
+          "quote": "On one night in Efferd, 955 BF he jumped four times because the Mario brothers were coming, got lost five times in the right direction, and ended up in the dungeon corridor where a Koopa who was never locked in shook",
+          "source": "article"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 15,
+        "dex": 12,
+        "con": 14,
+        "int": 10,
+        "wis": 11,
+        "cha": 10
+      },
+      "hp": 22,
+      "speed": "25",
+      "size": "sm",
+      "items": 3,
+      "ac": 14,
+      "cr": 0.5,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
       "id": "jory_dobbs",
       "name": "Jory Dobbs",
       "title": "Hired Off a Noticeboard",
@@ -5263,6 +5369,54 @@
         "hitDie": "d8",
         "formula": "3d8 + 3"
       },
+      "versions": []
+    },
+    {
+      "id": "marilyn_the_chambermaid",
+      "name": "Marilyn",
+      "title": "The Maid at the Dining-Hall Table",
+      "sheetName": "Marilyn",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-marilyn_the_chambermaid.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Elsewhere",
+      "portrait": "portraits/marilyn_the_chambermaid.jpg",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "civilian",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Club",
+          "quote": "The Maid at the Dining-Hall Table",
+          "source": "title"
+        },
+        {
+          "feature": "Keen Records",
+          "quote": "By dawn the Mages' Guild had the boy and described it as protection.",
+          "source": "article"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 10,
+        "dex": 10,
+        "con": 10,
+        "int": 10,
+        "wis": 10,
+        "cha": 10
+      },
+      "hp": 3,
+      "speed": "25",
+      "size": "sm",
+      "items": 2,
+      "ac": 10,
+      "cr": 0,
+      "type": "humanoid (Toad)",
       "versions": []
     },
     {
@@ -8737,6 +8891,59 @@
       "ac": 14,
       "cr": 0.5,
       "type": "fey",
+      "versions": []
+    },
+    {
+      "id": "the_koopa_prisoner",
+      "name": "The Koopa Prisoner",
+      "title": "The Prisoner Who Was Never Locked In",
+      "sheetName": "The Koopa Prisoner",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-the_koopa_prisoner.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Mages' Guild",
+      "portrait": "portraits/the_koopa_prisoner.jpg",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "caster",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Staff",
+          "quote": "The Prisoner Who Was Never Locked In",
+          "source": "title"
+        },
+        {
+          "feature": "Keen Records",
+          "quote": "The prisoner nobody in Peach's Castle would describe to a guard.",
+          "source": "article"
+        },
+        {
+          "feature": "Guild Spellcasting",
+          "quote": "Unknown employer — worked with Fawful by his own word ('never thought I'd work with a bean'); moved through Peach's Castle and the Mages' Guild's company without being stopped",
+          "source": "article"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 9,
+        "dex": 13,
+        "con": 12,
+        "int": 16,
+        "wis": 13,
+        "cha": 12
+      },
+      "hp": 38,
+      "speed": "30",
+      "size": "med",
+      "items": 3,
+      "ac": 12,
+      "cr": 2,
+      "type": "humanoid (Koopa)",
       "versions": []
     },
     {

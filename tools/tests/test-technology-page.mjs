@@ -191,7 +191,7 @@ check('Router sends #/technology, #/tech and the old #/research to the ledger', 
 check('sidebar carries a Discovered Technology link with a count', index.includes("label:'Discovered Technology'") && index.includes('DATA.technology.entries'));
 check('event apparatus band adds the Technology tab', index.includes("add('tech','🔬','Technology'"));
 check('Research Bureau indexes and routes the technology kind', index.includes('TECH.searchDocs()') && index.includes("d.kind==='technology')Router.go('#/technology/'"));
-check('SITE_UPDATES announces the section as a route after the newest filing', /let SITE_UPDATES=\[\{"id": "the_rot_zone_at_star_hill"[^\n]*"id": "technology", "kind": "route", "route": "#\/technology"/.test(index));
+check('SITE_UPDATES announces the section as a route directly after the newest filing', /let SITE_UPDATES=\[\{"id": "[a-z0-9_]+", "kind": "event"(?:(?!\{"id": )[^\n])*\},\s*\{"id": "technology", "kind": "route", "route": "#\/technology"/.test(index));
 
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

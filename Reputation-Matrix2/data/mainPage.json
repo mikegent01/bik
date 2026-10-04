@@ -1,13 +1,13 @@
 {
   "featuredArticle": {
-    "id": "the_rot_zone_at_star_hill",
+    "id": "the_unlocked_cell_955_bf",
     "type": "event",
-    "excerpt": "Nothing the pair flew to Star Hill for was confirmed, reached, or recovered. One object changed hands: Waluigi's working notebook, taken at gunpoint by a courier with a route, a satchel, and an issued word for the hill — 'rot-zone'. The night is filed as custody, not rescue."
+    "excerpt": "The Arrangement, which the capital file has held for fifteen years as a dead chamberlain's disputed journal, is on the record as a corridor with people in it: a Koopa out of an unlocked cell, Fawful's hand in his, the Guild already in place, and the Chamberlain giving a kill order out loud to a hall that had just cheered the people he gave it to. One witness. A ceremonial guard. His son is in the Guild's care."
   },
   "latestUpdate": {
-    "id": "the_rot_zone_at_star_hill",
-    "label": "Latest Filing · Session Event",
-    "excerpt": "Straight from the siege, Wario fires his pilot at altitude for saying a hospital is not a landing pad, and the helicopter leg to Star Hill ends on a storehouse roof beside the clinic. In the street below: a man in Luigi's clothes reciting verse, a courier who shoots him, a mouth that opens in the road, and three copies of Mr. L on a staircase. A steel-door bar puts Wario down; Waluigi slaps him awake twice and invoices the second one. A pistol in Waluigi's face on the stairs, a bluff made with no MP at all, a fire-ladder retreat — and in the street the courier shoots the notebook's owner down and Wario throws him the book. The courier walks away reading it. Luigi is never reached. The archive keeps one scrap from a thorn, and Waluigi wakes asking who took his notebook."
+    "id": "the_unlocked_cell_955_bf",
+    "label": "Latest Filing · Session Event · 955 BF",
+    "excerpt": "One in the morning at Peach's Castle, a month before the assassination. A ceremonial guard jumps four times because the Mario brothers are coming, gets lectured by a Toadsworth in a new suit who has the keys to every door, gets lost five times in the right direction — past his own small son at the dining-hall table — and is walked down to a dungeon cell that was never locked. The prisoner is a Koopa expecting a friend; the escort falls dead; Fawful shakes the Koopa's hand with three Mages' Guild hoods behind him. Bowser comes through the wall, kills the captain, asks for Peach and has never heard of Fawful; one small Guild orb puts him down and the hall cheers the Guild; the brothers are late. The guard says the Guild works with Fawful and the Chamberlain tells the Guild to dispatch of him. Five hours of drains and one stomped Goomba later he is in Fawful's Bean Badge, where the Guild has his son, Fawful has a Guild cloak and a vacuum shroom, and the only escort on offer is the people he has just said he does not trust."
   },
   "didYouKnow": [
     "...that the Scorncrow told three separate filings it was not a monster, and when Remi Akamatsu finally tested the claim with a point-blank musket, the blood under the face was human?",
@@ -36,12 +36,12 @@
   ],
   "campaignCovers": [
     {
-      "id": "the-rot-zone-at-star-hill-cover",
+      "id": "the-unlocked-cell-955-bf-cover",
       "campaign": "Mario",
-      "title": "MARIO — The Rot-Zone at Star Hill",
-      "caption": "The storehouse roof beside Dr. Toad's clinic, minutes after the skid caught the parapet.",
-      "image": "assets/images/events/rot-zone-star-hill/rot-01-roof-wreck.jpg",
-      "articleId": "the_rot_zone_at_star_hill"
+      "title": "MARIO — The Unlocked Cell",
+      "caption": "The dungeon corridor under Peach's Castle as the account places it: the cell door standing open, the Koopa out of it and shaking Fawful's hand, three Mages' Guild hoods arriving behind them with their hands…",
+      "image": "assets/images/events/the-unlocked-cell-955/cell-01-the-handshake.jpg",
+      "articleId": "the_unlocked_cell_955_bf"
     },
     {
       "id": "you-said-leave-no-one-behind-cover",
@@ -189,6 +189,18 @@
         "the_debt_siege_and_the_sixty_thirty_split"
       ],
       "order": 3
+    },
+    {
+      "id": "unlocked-cell-backfill-01",
+      "label": "Historical Backfill · Efferd, 955 BF · Peach's Castle",
+      "title": "The Unlocked Cell — A Ceremonial Guard Watches the Arrangement Shake Hands",
+      "summary": "A month before Highsun 1. A Koopa in a cell that was never locked, Fawful's hand in his, three Mages' Guild hoods behind him. Bowser through the wall, the captain dead, one small orb, a hall cheering the Guild. The Chamberlain's dispatch order. Five hours of drains to a bean shop where the Guild had the witness's son and Fawful had a Guild cloak.",
+      "caption": "Capital Intrigue File · the Arrangement, witnessed · one survivor, no escort.",
+      "image": "assets/images/events/the-unlocked-cell-955/cell-01-the-handshake.jpg",
+      "events": [
+        "the_unlocked_cell_955_bf"
+      ],
+      "order": 4
     }
   ]
 }

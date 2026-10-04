@@ -2583,6 +2583,60 @@
       "stamps": [
         "evidence"
       ]
+    },
+    "prop_john_lee_night_posting": {
+      "kind": "order",
+      "icon": "🏮",
+      "title": "Night Posting — Ceremonial Route, Lantern Post, First Watch After Midnight",
+      "subtitle": "Office of the Captain of the Palace Guard · Peach's Castle · Efferd, 955 BF",
+      "items": [],
+      "articles": [
+        "the_unlocked_cell_955_bf",
+        "john_lee",
+        "captain_of_the_palace_guard_955",
+        "peachs_castle"
+      ],
+      "note": "A posting slip. It puts a named guard on a named post at a named hour on the night the account describes, which is more than any paper in the Arrangement file has managed. Reconstructed from the account's description of the posting; the slip itself, like the rest of the palace roll for Efferd 955, is wherever the Regency keeps the forty-seven minutes.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">PALACE GUARD &mdash; ORDER OF POSTING</div><div class=\"pd-sub\">Peach's Castle &middot; Office of the Captain &middot; night of the broadcast, Efferd, 955 BF</div></div><div class=\"pd-meta\"><span>Guard</span><b>LEE, John &mdash; ceremonial establishment</b><span>Post</span><b>Lantern post, ceremonial route, east stair side</b><span>Watch</span><b>First after midnight &middot; one o'clock relief</b><span>Issue</span><b>Lantern (lit), sword (pattern), livery (pressed)</b><span>Orders</span><b>Stand. Light. Salute the household. Do not leave the post.</b></div><div class=\"pd-clause\"><b>Special for the night:</b> the household keeps late hours for the broadcast. Visitors expected at the East Door; the Chamberlain's office will direct them. Dungeon detail is <span class=\"pd-strike\">four</span> two. Any guard found off post is to be walked to the dungeon detail and left there.</div><div class=\"pd-clause\"><b>Prisoner:</b> held. No description to be given to the ceremonial establishment or to visitors. Enquiries to the Chamberlain's office.</div><div class=\"pd-sign\"><div class=\"pd-sigline\">Captain of the Palace Guard</div><div class=\"pd-sigcap\">for the Chamberlain &middot; keys held by his office</div></div><div class=\"pd-margin\">Read the amendment. Dungeon detail cut from four to two on the one night the dungeon mattered. Read the standing order under it: any guard off post is walked to the dungeon. The building was arranged so that the fewest Toads possible were below, and so that any Toad who wandered would be delivered there, where the door was already unlocked. The guard it delivered was the one who could not stop jumping. &mdash; W.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_bean_shop_letter": {
+      "kind": "letter",
+      "icon": "✉️",
+      "title": "Letter Taken From a Dead Palace Guard — 'Meet Me in Fawful's Bean Shop'",
+      "subtitle": "Found in the livery of a guard killed in the hall of Peach's Castle · read by firelight · carried to the address",
+      "items": [],
+      "articles": [
+        "the_unlocked_cell_955_bf",
+        "john_lee",
+        "fawfuls_bean_badge",
+        "fawful"
+      ],
+      "note": "One line, no signature the account mentions, an address in effect. It was on a palace guard — not a hood, not a Koopa — before the bean shop had been said aloud to John Lee by anyone. He went where a dead Toad's pocket told him to go.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">FOLDED NOTE</div><div class=\"pd-sub\">Recovered from the inside breast of a palace guard's livery, hall of Peach's Castle, Efferd, 955 BF &mdash; by John Lee, ceremonial guard</div></div><div class=\"pd-meta\"><span>Paper</span><b>Shop stock, thin, folded twice</b><span>Hand</span><b>Not the guard's &mdash; the account did not know it</b><span>Condition</span><b>Scorched at one corner; read by the fire that scorched it</b><span>Signature</span><b>None the account records</b></div><div class=\"pd-quote\">meet me in Fawful's bean shop</div><div class=\"pd-clause\"><b>Reverse:</b> blank, by the account. Nothing names the night, the hour, or the Toad it was for.</div><div class=\"pd-margin\">Six words on a guard who was standing in a hall waiting for the Mario brothers. The Guild was in the dungeon, the Koopa was in the dungeon, the bean was in the dungeon &mdash; and up here, among the Toads, at least one already had the address. I filed the Arrangement for years as a thing under the castle. This is the paper that says the castle was full of it. &mdash; W.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_bean_badge_shop_card": {
+      "kind": "note",
+      "icon": "🫘",
+      "title": "Shop Card — Fawful's Bean Badge, Toad Town",
+      "subtitle": "From the badge tray on the counter · the only paper the shop handed anyone",
+      "items": [],
+      "articles": [
+        "the_unlocked_cell_955_bf",
+        "fawfuls_bean_badge",
+        "fawful",
+        "the_koopa_prisoner"
+      ],
+      "note": "A trade card from the tray by the till, as the account describes the tray. The shop's own voice: a bean shop, open early, badges for the loyal customer. Waluigi has reproduced it because the back of it is where the shop stopped pretending.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">FAWFUL'S BEAN BADGE</div><div class=\"pd-sub\">Toad Town &middot; beans of all nations &middot; open before the castle wakes</div></div><div class=\"pd-meta\"><span>Stock</span><b>Beans &mdash; jarred, dried, roasted, and one kind the proprietor will not name</b><span>Badges</span><b>One per loyal customer. Loyalty is decided by the proprietor.</b><span>Hours</span><b>Dawn. Earlier for friends. The cellar does not keep hours.</b><span>Proprietor</span><b>FAWFUL &mdash; I HAVE BEANS</b></div><div class=\"pd-clause\"><b>Reverse, in a different hand:</b> <em>Back room. Bring the vial. Do not bring the guard unless he has decided.</em></div><div class=\"pd-margin\">The front of the card is a joke and the back of it is a schedule. 'Do not bring the guard unless he has decided' &mdash; written before John Lee came up through the grate, by somebody who knew a guard was coming and that he had not decided. The Koopa reached the shop first. The Koopa had the card. &mdash; W.</div>",
+      "stamps": [
+        "evidence"
+      ]
     }
   }
 }

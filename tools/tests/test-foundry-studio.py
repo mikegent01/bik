@@ -116,7 +116,7 @@ with tempfile.TemporaryDirectory() as tmp:
         "bonesclean.webp": {"name": "Bones", "kind": "tokens", "faction": "liberated_toads", "character": "bones"},
         "danm.png": {"name": "Dan", "kind": "portraits", "faction": "liberated_toads"},
         "court-mage-a.png": {"name": "Court Mage A", "kind": "tokens", "faction": "mushroom_regency", "version": "955-bf"},
-        "3f9a2c1d7b8e4f60-removebg-preview.png": {"name": "John Lee", "kind": "tokens", "faction": "peach_loyalists", "version": "955 BF", "notes": "ceremonial guard"},
+        "3f9a2c1d7b8e4f60-removebg-preview.png": {"name": "Court Herald", "kind": "tokens", "faction": "peach_loyalists", "version": "955 BF", "notes": "ceremonial herald"},
         "28.-bowser's-stolen-castle.mp3": {"name": "Bowser's Stolen Castle", "kind": "audio", "faction": "koopa_troop"},
         "chest.png": {"name": "s"},
         "dog.png": {"name": "d"},
@@ -131,12 +131,12 @@ with tempfile.TemporaryDirectory() as tmp:
           os.path.isfile(os.path.join(lib, "tokens", "liberated_toads", "bones.webp"))
           and os.path.isfile(os.path.join(lib, "portraits", "liberated_toads", "dan.png"))
           and os.path.isfile(os.path.join(lib, "tokens", "mushroom_regency", "court_mage_a--955-bf.png"))
-          and os.path.isfile(os.path.join(lib, "tokens", "peach_loyalists", "john_lee--955-bf.png"))
+          and os.path.isfile(os.path.join(lib, "tokens", "peach_loyalists", "court_herald--955-bf.png"))
           and os.path.isfile(os.path.join(lib, "audio", "koopa_troop", "bowser_s_stolen_castle.mp3")))
     check("the manifest records name, faction, character, version, notes and the files",
           L.entries["bones"]["character"] == "bones" and L.entries["bones"]["files"]["tokens"] == "tokens/liberated_toads/bones.webp"
           and L.entries["dan"]["character"] == "dan" and L.entries["court_mage_a--955-bf"]["version"] == "955-bf"
-          and L.entries["john_lee--955-bf"]["notes"] == "ceremonial guard" and L.entries["john_lee--955-bf"]["character"] is None)
+          and L.entries["court_herald--955-bf"]["notes"] == "ceremonial herald" and L.entries["court_herald--955-bf"]["character"] is None)
     check("s skips (remembered), d deletes to _trash", "chest.png" in L.data["skipped"] and os.path.isfile(os.path.join(lib, "_trash", "dog.png")) and not os.path.exists(os.path.join(lib, "dog.png")))
     check("an answers file is the whole conversation: the other files stay loose", os.path.isfile(os.path.join(lib, "Bluey.png")) and os.path.isfile(os.path.join(lib, "cree.png")) and "cree" not in L.entries)
     rc, out = run("sort", lib, "--auto")
@@ -219,7 +219,7 @@ with tempfile.TemporaryDirectory() as tmp:
     check("adopt copies the entry's portrait/token to <portraits>/<character id>.<ext>", rc == 0 and os.path.isfile(os.path.join(pdir, "bones.webp")) and "build-character-sheets" in out)
     rc, out = run("adopt", lib, "bones", "--portraits-dir", pdir)
     check("adopt refuses to overwrite without --force", rc != 0 and "already has a portrait" in out)
-    rc, out = run("adopt", lib, "john_lee--955-bf", "--portraits-dir", pdir)
+    rc, out = run("adopt", lib, "court_herald--955-bf", "--portraits-dir", pdir)
     check("adopt needs a character id", rc != 0 and "--as" in out)
     cpath = os.path.join(tmp, "changes.json")
     rc, out = run("changes", lib, "--out", cpath)

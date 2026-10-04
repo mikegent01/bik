@@ -1583,7 +1583,7 @@
         "capital_intrigue"
       ],
       "opened": "24 Harvestide, 1040 BF",
-      "lastFiled": "25 Harvestide, 1040 BF",
+      "lastFiled": "5 Aethel, 1040 BF",
       "archivist": "Waluigi, Auditor-General",
       "icon": "🏛️",
       "accent": "#d4a017",
@@ -1609,6 +1609,10 @@
         {
           "point": "Nobody in the capital helps for free.",
           "detail": "Every rescue in this file has an unpaid invoice attached to it somewhere. Assume the bill is still outstanding."
+        },
+        {
+          "point": "The Arrangement has a witness now, and he was shot at for it.",
+          "detail": "A 955 BF account from a ceremonial guard: a Koopa in an unlocked cell shook Fawful's hand with three Mages' Guild hoods watching, a month before the assassination; after a Guild orb put Bowser down to applause, the Chamberlain told the Guild to dispatch of the guard who had seen it. The Guild has his small son and calls it protection. The file holds the night posting, the dead guard's letter to Fawful's bean shop, and the shop's own card."
         }
       ],
       "background": [
@@ -1659,6 +1663,12 @@
           "title": "Every rescue in this file was billed to somebody",
           "state": "open",
           "text": "Three hundred gold for *compounding under duress*, invented on the spot by the Mages' Guild and never received. An inert dragon scale traded for six bags of spotted mushrooms with both parties recorded as satisfied. An empty canister returned with a prisoner whose kit was supposedly removed on entry. The capital does not refuse assistance; it prices it and then argues about the invoice.\n\n**In plain terms:** nobody in the capital refuses to help. They help, then invoice, then argue about the invoice. Treat every rescue in this file as a transaction with an unpaid balance somewhere."
+        },
+        {
+          "id": "th_witnessed_arrangement",
+          "title": "The Arrangement has a corridor now — and the Guild was loved first",
+          "text": "Until this session the Arrangement was a dead chamberlain's disputed handwriting. Now it is a corridor with people in it: a Koopa out of an unlocked cell, Fawful's hand in his, three Mages' Guild hoods saying the Guild is already in place and will not act yet, and — a quarter of an hour later, in a hall that had just cheered the Guild for putting Bowser down with one orb — the Chamberlain telling the Guild to dispatch of the only witness. The thread is the order of those events. The Guild did not seize the castle. It was applauded into it, and the first thing the applause bought was a kill order nobody in the hall objected to. The journals say *the Guild provided the method, the Regency provided the opportunity*. The account shows the method being cheered and the opportunity being spoken aloud, a month early, by a man in a new suit.",
+          "state": "open"
         }
       ],
       "leads": [
@@ -1734,6 +1744,50 @@
             "ex_ci_archmage_bill",
             "ex_ci_dragon_barter"
           ]
+        },
+        {
+          "id": "lead_the_fat_vial",
+          "title": "Find out what is in the fat vial, and who filled it",
+          "state": "open",
+          "priority": "critical",
+          "objective": "Trace the vial the Koopa prisoner carried from the dungeon to the Bean Badge — through the shop card's 'bring the vial', Fawful's own description of the vacuum shroom going into Bowser by way of it, and any Guild or Beanish apothecary record of a vessel built to dose a Koopa King.",
+          "why": "The vial is the one object in the night that was built to go into somebody, it was on the Koopa's errand list before Bowser came through the wall, and the Highsun 1 record has Bowser dragged across a corridor unconscious a month later with nobody asking why he went down so easily. If the vial was used, the official murderer of Highsun 1 was dosed by the people who later accused him, and that moves the file from 'who held the blade' to 'who held the Koopa King'.",
+          "exhibits": [
+            "ex_ci_bean_badge_card"
+          ]
+        },
+        {
+          "id": "lead_the_dispatch_order",
+          "title": "Establish which Toadsworth gave the Guild the dispatch order — and why the brothers did nothing",
+          "state": "open",
+          "priority": "high",
+          "objective": "Put a second account beside John Lee's for the hall after the orb: who stood where, which Toadsworth spoke, what Mario and Luigi were doing when a hood loosed a bolt at a ceremonial guard in front of them.",
+          "why": "The account calls the man 'the chancellor' and the archive reads him as the Chamberlain; the whole Loyalist case against Toadsworth the Elder would change weight if the son said it, and the Regency's defence of the Elder would collapse if a second witness puts the words in the father's mouth. And two heroes watched a kill order given and obeyed. Either they did not hear it, or Highsun 1 was not the first night the brothers were in the wrong place with permission.",
+          "exhibits": [
+            "ex_ci_night_posting"
+          ]
+        },
+        {
+          "id": "lead_the_guards_address",
+          "title": "Name the dead guard with the bean shop's address in his coat",
+          "state": "open",
+          "priority": "medium",
+          "objective": "Match the palace guard who died in Bowser's fire with the letter in his livery against the palace roll for Efferd 955, the Regency's casualty list for the incursion, and the Bean Badge card's 'the guard' who had not decided.",
+          "why": "If the hall had one Toad holding the Arrangement's address it had more than one, and a name turns 'the castle was full of it' from Waluigi's reading into a roster. It also tells the file whether the Arrangement recruited palace guards or planted paper on them, which decides how much of the forty-seven minutes on Highsun 1 was consent.",
+          "exhibits": [
+            "ex_ci_bean_shop_letter"
+          ]
+        },
+        {
+          "id": "lead_marilyn_and_the_boy",
+          "title": "Find out how the Guild came to have Toad Lee, and where Marilyn went",
+          "state": "open",
+          "priority": "medium",
+          "objective": "Account for the small boy between the dining-hall table past midnight — with the chambermaid Marilyn — and the Guild's dawn statement that his son was 'being taken care of' and would not have to worry about being trafficked in their care; find the maid.",
+          "why": "The Guild volunteered the word 'trafficked' about a child it was holding, unasked, to a father it had shot at. A custody chain for the boy is a custody chain for the one hostage the Arrangement is on record taking, and the boy grew up to be a member of Disaster Inc. whose own file already has a lead open on his missing time. The maid is the last person on the record with him before the Guild, and nobody has asked her anything because nobody has found her.",
+          "exhibits": [
+            "ex_ci_night_posting"
+          ]
         }
       ],
       "sessions": [
@@ -1766,6 +1820,12 @@
           "label": "Paper obtained from the capital itself",
           "date": "Ongoing",
           "event": "the_arrangement"
+        },
+        {
+          "id": "s_ci_unlocked_cell",
+          "label": "The unlocked cell — the Arrangement, witnessed a month early",
+          "date": "Efferd, 955 BF — one night, 1 a.m. to dawn",
+          "event": "the_unlocked_cell_955_bf"
         }
       ],
       "relatedEvents": [
@@ -1775,7 +1835,8 @@
         "the_tree_of_woe_engagement",
         "the_arrangement",
         "thornwood_manor_silent_field_dossier",
-        "glazed_congress_founding"
+        "glazed_congress_founding",
+        "the_unlocked_cell_955_bf"
       ],
       "exhibits": [
         {
@@ -2077,6 +2138,85 @@
             "items": [],
             "characters": [
               "waluigi"
+            ]
+          }
+        },
+        {
+          "id": "ex_ci_night_posting",
+          "propId": "prop_john_lee_night_posting",
+          "session": "s_ci_unlocked_cell",
+          "icon": "🏮",
+          "kind": "order",
+          "category": "administration",
+          "title": "The posting that walked him to the door",
+          "secured": "Reconstructed from the account of the night; the palace roll of Efferd 955 is in the Regency's keeping",
+          "custody": "Archive — reconstruction, so marked",
+          "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(180deg,rgba(60,40,20,.5),rgba(12,8,4,.96))\"><div style=\"position:absolute;left:18px;top:14px;width:10px;height:10px;border-radius:50%;background:#ffb547;box-shadow:0 0 18px 8px rgba(255,181,71,.55)\"></div><div style=\"position:absolute;left:14px;top:30px;width:18px;height:26px;border:2px solid #c9a86a;border-radius:3px\"></div><div style=\"position:absolute;left:52px;top:18px;right:18px;height:1px;background:rgba(255,255,255,.18)\"></div><div style=\"position:absolute;left:52px;top:30px;right:18px;height:1px;background:rgba(255,255,255,.18)\"></div><div style=\"position:absolute;left:52px;top:42px;right:60px;height:1px;background:rgba(255,255,255,.18)\"></div><div style=\"position:absolute;left:52px;top:56px;color:#f1d9a8;font-size:11px;letter-spacing:.12em;text-transform:uppercase\">Dungeon detail <span style=\"text-decoration:line-through;opacity:.6\">four</span> two</div><div style=\"position:absolute;left:18px;bottom:14px;color:#c9a86a;font-size:11px;letter-spacing:.14em;text-transform:uppercase\">Any guard off post → the dungeon</div><div style=\"position:absolute;right:16px;bottom:12px;color:#8b8398;font-size:11px;text-align:right\">Efferd, 955 BF<br>reconstruction</div></div>",
+          "dc": 3,
+          "onRecord": "A posting slip for the ceremonial lantern post on the night of the account, reconstructed from what John Lee says he was issued and ordered: stand, light, salute the household, do not leave the post. Two clauses the account's night turns on — the dungeon detail amended from four to two, and a standing order that any guard found off post is to be walked down to the dungeon detail and left there. Prisoner held; no description to be given to the ceremonial establishment. The slip is signed for the Chamberlain, whose office [[roll:3|holds the keys|— and the account has the Chamberlain in a new suit telling a lantern post 'I have the keys to every door' an hour before the cell was found unlocked, which makes the signature line and the boast the same sentence twice|— which is the ordinary arrangement in any palace; the Chamberlain's office holds the household keys in every reign, and a guard's slip signed 'for the Chamberlain' is routine paper]].",
+          "analysis": "## What the slip is and is not\n\nIt is a reconstruction and the exhibit says so twice. Waluigi did not recover a posting slip from 955 BF; he recovered a guard's account of being posted, and has written the slip the way the Captain's office would have written it, from the account's details, so that the file has a document to argue with instead of a paragraph. Every word of the two clauses that matter is a claim the account supports — the dungeon was thinly held enough for a lantern post to be sent to it, and the guards who found John Lee in a tower walked him down there without discussion, as though that were the order. The slip states the order. The account shows it being obeyed.\n\n## Why the amendment matters more than the prisoner\n\nThe journals attributed to the Chamberlain say *the positions were cleared*. The Loyalists read that as Highsun 1 — the forty-seven minutes with nobody at the Royal Suite. Here is a position being cleared a month early: a dungeon detail cut in half on the night a Koopa sat in an unlocked cell waiting for Fawful. Either this is the rehearsal or the Arrangement cleared positions as a habit, and in both readings the forty-seven minutes stop being an anomaly and start being a method. [[roll:4|Count the Toads below|: two on detail, both of whom the account later places as John Lee's escort — which means the dungeon was empty of guards the moment they went up to fetch a lantern post from a tower, and the cell stood unlocked in a corridor with nobody in it for as long as that took|: the account names no numbers for the detail; two is the slip's figure, built from the two escorts, and a reader should treat it as the archive's arithmetic, not the palace's]].\n\n## The standing order\n\n*Any guard found off post is to be walked to the dungeon detail and left there.* Waluigi has thought about this clause more than any other paper in the file this year. It is not a punishment order — a palace punishes a wandering guard with a sergeant, not a dungeon. It is a funnel. Whoever wrote the night's orders wanted any Toad who was where he should not be delivered to the one place in the castle where everything that should not be was. That is either staggering carelessness or a design that assumed nobody would come back up the stairs. One did. He had a lantern.\n\n## What it fails to prove\n\nIt does not name the Chamberlain. 'For the Chamberlain' is how every slip in every palace is signed and the son was in the building too. It does not prove the detail was cut *for* the handshake rather than for the broadcast. And it is a reconstruction, which means a hostile reader can refuse it entirely — and Waluigi has left them the room to, by marking it. What it proves is smaller and harder: that the account's night is internally consistent with a palace that had arranged its own guard, and that a guard who was arranged into the dungeon came out of it with a story nobody had planned for.",
+          "links": {
+            "events": [
+              "the_unlocked_cell_955_bf",
+              "the_arrangement"
+            ],
+            "items": [],
+            "characters": [
+              "john_lee",
+              "toadsworth_sr",
+              "captain_of_the_palace_guard_955"
+            ]
+          }
+        },
+        {
+          "id": "ex_ci_bean_shop_letter",
+          "propId": "prop_bean_shop_letter",
+          "session": "s_ci_unlocked_cell",
+          "icon": "✉️",
+          "kind": "letter",
+          "category": "correspondence",
+          "title": "Six words in a dead guard's coat",
+          "secured": "Taken from the livery of a palace guard killed in the hall, by John Lee, by firelight",
+          "custody": "John Lee — carried to the address; present whereabouts with him",
+          "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(135deg,rgba(90,30,10,.45),rgba(14,8,4,.97))\"><div style=\"position:absolute;left:50%;top:50%;width:150px;height:72px;margin:-36px 0 0 -75px;background:#efe3c6;border-radius:2px;transform:rotate(-4deg);box-shadow:0 6px 18px rgba(0,0,0,.5)\"></div><div style=\"position:absolute;left:50%;top:50%;width:150px;height:72px;margin:-36px 0 0 -75px;transform:rotate(-4deg);background:linear-gradient(135deg,transparent 78%,rgba(40,20,5,.85))\"></div><div style=\"position:absolute;left:50%;top:50%;margin:-8px 0 0 -62px;color:#2a1a0a;font-size:11px;font-style:italic;letter-spacing:.04em;transform:rotate(-4deg)\">meet me in Fawful's bean shop</div><div style=\"position:absolute;left:18px;bottom:12px;color:#ffb547;font-size:11px;letter-spacing:.14em;text-transform:uppercase\">read by the fire that scorched it</div><div style=\"position:absolute;right:16px;top:12px;color:#8b8398;font-size:11px;text-align:right\">hall of Peach's Castle<br>Efferd, 955 BF</div></div>",
+          "dc": 4,
+          "onRecord": "Thin shop stock, folded twice, scorched at one corner, six words in a hand the account did not recognise and no signature it mentions: *meet me in Fawful's bean shop*. Found by John Lee on a palace guard who had died in Bowser's fire in the hall — a Toad in livery, waiting with the rest of the hall for the Mario brothers — and found before anybody had said the words 'bean shop' to John Lee. He went to the address because the paper told him to. The Koopa, [[roll:4|who was there first|, had the shop's own card with 'do not bring the guard unless he has decided' on the back of it — so the shop expected a guard and did not expect this one; the letter in the dead Toad's coat was for somebody who had decided|, had left the dungeon by a route the account never saw and could have reached Toad Town by any door in the castle; nothing on the record makes the letter his]].",
+          "analysis": "## The wrong pocket\n\nEverything about the Arrangement, until this paper, lived below stairs: the dungeon, the unlocked cell, the hoods coming in from the dark end of a corridor. The letter is upstairs. It is in the coat of a palace guard standing in the hall, in livery, among the Toads, waiting for Mario. If the Arrangement had one Toad in the hall holding its address, it had more than one, and the hall that cheered the Guild a quarter of an hour later was not a hall of innocents being manipulated. It was a hall with its own people in it.\n\n## Why the account's order matters\n\nJohn Lee read the letter before anyone had mentioned the bean shop to him. That is the kind of detail a liar would not bother with and a guard would — because to the guard it is simply the reason he went where he went. For the file it is the whole chain of custody: the destination came from a dead Toad's pocket, not from Fawful, not from the Guild, not from the Koopa. Whoever wrote the six words wrote them for a palace guard, and a palace guard carried them into Bowser's fire without having gone. [[roll:5|Whether he was ever going to|: the slip was folded twice and scorched only at the corner, which is a note kept flat in a breast pocket for the length of a watch, not one read and discarded — he was carrying it to a time, and the time had not come|: the account cannot say; a note in a breast pocket is a note in a breast pocket, and guards keep all sorts of paper against their chests]].\n\n## The hand\n\nNot the guard's — the account was sure of that and nothing else. Waluigi will not name a writer from six words he has never seen. He will note that the Bean Badge's own shop card carries a second hand on its reverse, and that the capital file now holds two notes from the same night, in two hands, both routing people to one shop, one of them written before the night and one during it. A file that can put those two hands side by side can start asking who in the palace wrote letters for the shop.\n\n## What it does not prove\n\nThat the dead guard was a conspirator. A note can be planted on a body; a note can be given to a Toad who did not know what the shop was. The letter proves the address was in the hall, and that is all it proves, and it is enough to move the Arrangement up one floor.",
+          "links": {
+            "events": [
+              "the_unlocked_cell_955_bf"
+            ],
+            "items": [],
+            "characters": [
+              "john_lee",
+              "the_koopa_prisoner",
+              "fawful"
+            ]
+          }
+        },
+        {
+          "id": "ex_ci_bean_badge_card",
+          "propId": "prop_bean_badge_shop_card",
+          "session": "s_ci_unlocked_cell",
+          "icon": "🫘",
+          "kind": "note",
+          "category": "commerce",
+          "title": "The shop that expected a guard",
+          "secured": "From the badge tray on the Bean Badge's counter, by the account's description of the tray",
+          "custody": "Archive — reproduced; the tray stayed on the counter",
+          "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:radial-gradient(circle at 30% 30%,rgba(120,200,80,.18),transparent 60%),linear-gradient(180deg,rgba(30,40,20,.6),rgba(8,10,6,.97))\"><div style=\"position:absolute;left:22px;top:22px;width:110px;height:64px;background:#f3ead0;border-radius:4px;transform:rotate(3deg);box-shadow:0 5px 14px rgba(0,0,0,.5)\"></div><div style=\"position:absolute;left:36px;top:36px;color:#2d4d1f;font-size:11px;font-weight:800;letter-spacing:.12em;transform:rotate(3deg)\">FAWFUL'S</div><div style=\"position:absolute;left:36px;top:52px;color:#2d4d1f;font-size:10px;letter-spacing:.1em;transform:rotate(3deg)\">BEAN BADGE</div><div style=\"position:absolute;right:20px;top:20px;display:flex;gap:6px\"><div style=\"width:16px;height:16px;border-radius:50%;background:#c0392b;border:2px solid #f1c40f\"></div><div style=\"width:16px;height:16px;border-radius:50%;background:#2980b9;border:2px solid #f1c40f\"></div><div style=\"width:16px;height:16px;border-radius:50%;background:#8e44ad;border:2px solid #f1c40f\"></div></div><div style=\"position:absolute;left:22px;bottom:14px;color:#b8e986;font-size:11px;letter-spacing:.12em;text-transform:uppercase\">Reverse: do not bring the guard unless he has decided</div><div style=\"position:absolute;right:16px;bottom:34px;color:#8b8398;font-size:11px;text-align:right\">Toad Town<br>dawn, Efferd 955</div></div>",
+          "dc": 5,
+          "onRecord": "A trade card from the tray on the counter: beans of all nations, open before the castle wakes, one badge per loyal customer, *loyalty is decided by the proprietor*. On the reverse, in a different hand: *Back room. Bring the vial. Do not bring the guard unless he has decided.* The card is the shop's own voice and the back of it is a schedule — one that names the vial the Koopa was holding and a guard who had not yet decided, written before the guard came up through the grate. [[roll:3|Which guard|: the reverse was written for a Toad who would be brought, which is the dead guard's letter from the other side — somebody in the hall was expected at the shop and had not committed; the man who actually arrived was the one who had been shot at for not committing|: the card says 'the guard' and the night had a hall of them; the archive cannot say from the card alone which one the back room was waiting for]].",
+          "analysis": "## A card with two hands on it\n\nThe front is Fawful. Nobody else writes *I HAVE BEANS* on a trade card and means it as a threat. The back is not Fawful: it is terse, it gives an order, it names an object and a condition, and it is written by somebody who had the authority to decide who came into the back room of Fawful's own shop. That is the Guild's hand or the Koopa's, and Waluigi leans Guild, because *do not bring the guard unless he has decided* is a sentence about recruitment, and the recruitment at dawn was conducted by the two operatives while Fawful explained a mushroom.\n\n## 'Bring the vial'\n\nThe fat vial — the account's phrase — is the only object in the night that was built to go into somebody, and here it is on a shop card as a thing to be fetched. The vacuum shroom goes into Bowser by way of it; Fawful said so in the cloak. The card puts the vial on the Koopa's errand list *before* the dungeon, which means the plan for Bowser existed before Bowser came through the wall, which means the castle's warning about Bowser's attack — delivered, by his own admission, by the Koopa — was not a warning. It was a delivery schedule. [[roll:5|Read the hours line again|: 'the cellar does not keep hours' — a shop advertising, on its own card, that its cellar is open at all hours is a shop whose cellar is a door, and the drain the guard came up is the door it meant|: a bean shop with a cellar keeps stock in it, and a joke about hours on a trade card is a joke; the drain is in the account whatever the card says]].\n\n## 'Unless he has decided'\n\nThe Guild wanted a guard who had chosen. Not a captured guard, not a frightened one — a decided one, because a Toad who has decided is a Toad who will stand a post on the right night and not jump. The hall's dead guard had the address and had not gone. John Lee arrived instead, having been shot at by the people writing the card, and was asked to join anyway, and was asked whether he was stupid when he wanted an escort. He had not decided. The card says he was not to be brought. He brought himself. The archive files that as the one thing in the night the Arrangement did not schedule.\n\n## The limit\n\nWaluigi has reproduced a card from an account's description of a tray. He has not held it. The front is reconstruction in the shop's voice; the reverse is the account's report of what the Koopa showed or said at the counter, rendered as the card the account describes. A reader is entitled to weigh that. Waluigi weighs it as the first piece of paper in the Arrangement file that was written by the Arrangement for its own use, rather than about it by its enemies afterwards.",
+          "links": {
+            "events": [
+              "the_unlocked_cell_955_bf"
+            ],
+            "items": [],
+            "characters": [
+              "fawful",
+              "the_koopa_prisoner",
+              "john_lee"
             ]
           }
         }

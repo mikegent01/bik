@@ -1706,6 +1706,145 @@
         "regency",
         "signals"
       ]
+    },
+    {
+      "id": "tech_fawful_vacuum_shroom",
+      "name": "The Vacuum Shroom",
+      "kind": "magitek",
+      "tier": "discovery",
+      "icon": "🍄",
+      "territory": {
+        "nation": null,
+        "plane": "material",
+        "location": "fawfuls_bean_badge",
+        "label": "Fawful's Bean Badge, Toad Town — explained at the counter at dawn; built for Peach's Castle"
+      },
+      "origin": {
+        "faction": "fawful_forces",
+        "maker": "Fawful — his own make, by the account: Fawful tech",
+        "holder": "fawful"
+      },
+      "firstSeen": {
+        "event": "the_unlocked_cell_955_bf",
+        "date": "Efferd, 955 BF — dawn, in the shop; not yet used",
+        "year": 955,
+        "confidence": "filed"
+      },
+      "sightings": [],
+      "status": "Explained, not used — the last account has it in Fawful's hand and the vial in the Koopa's",
+      "summary": "A mushroom of Fawful's making that, inhaled, turns the inhaler into a vacuum: Bowser breathes it and sucks up everything in reach, the Mario brothers included. The dose was to reach him through the Koopa prisoner's fat vial, with the castle's wards still active.",
+      "record": "Fawful put on a Mages' Guild cloak to explain it, in his own shop, to a ceremonial guard who had been shot at by the people whose cloak it was. The archive files the shroom as described and not one word further, because the account does not see it used; what it sees is a plan with a mushroom in it, a vial to carry the mushroom, and two Guild operatives who did not correct the pronoun when Fawful said he would take over the kingdom. A device that makes the Koopa King inhale the heroes is the kind of thing the Highsun 1 record would explain very neatly, and the archive distrusts neatness.",
+      "quotes": [
+        {
+          "event": "the_unlocked_cell_955_bf",
+          "text": "The vacuum shroom — Fawful's own make, the account says, Fawful tech — which, inhaled, turns the inhaler into a vacuum: Bowser breathes it and sucks up everything in reach, the brothers included."
+        },
+        {
+          "event": "the_unlocked_cell_955_bf",
+          "text": "The Koopa had a fat vial — the account calls it that, the fat vial, a glass thing with weight in it — and the shroom was to go into Bowser by way of it."
+        }
+      ],
+      "pressure": 2,
+      "tension": [
+        {
+          "between": [
+            "fawful_forces",
+            "koopa_troop"
+          ],
+          "weight": 2,
+          "why": "A device built to be fed to the Koopa King so that he swallows his own enemies for somebody else's benefit."
+        },
+        {
+          "between": [
+            "mages_guild",
+            "koopa_troop"
+          ],
+          "weight": 1,
+          "why": "The Guild lent the cloak the plan was explained in, and a month later Bowser was the official murderer."
+        }
+      ],
+      "model": {
+        "recipe": "vacuum_shroom",
+        "palette": {
+          "cap": "#c0392b",
+          "spots": "#f6efe0",
+          "stem": "#f3e9d2",
+          "hose": "#3b3b4a",
+          "nozzle": "#8d8d99",
+          "vial": "#7fb069"
+        }
+      },
+      "tags": [
+        "fawful",
+        "955 BF",
+        "bean badge",
+        "arrangement",
+        "bowser"
+      ]
+    },
+    {
+      "id": "tech_guild_small_orb",
+      "name": "The Guild's Small Orb",
+      "kind": "magitek",
+      "tier": "iron",
+      "icon": "🔮",
+      "territory": {
+        "nation": null,
+        "plane": "material",
+        "location": "peachs_castle",
+        "label": "The hall of Peach's Castle — held up by one Mages' Guild hood, once"
+      },
+      "origin": {
+        "faction": "mages_guild",
+        "maker": "Mages' Guild — pattern unknown; nothing the archive holds from the Guild in 1040 BF resembles it",
+        "holder": null
+      },
+      "firstSeen": {
+        "event": "the_unlocked_cell_955_bf",
+        "date": "Efferd, 955 BF — the hall, after Bowser's fire",
+        "year": 955,
+        "confidence": "filed"
+      },
+      "sightings": [],
+      "status": "Seen working once — one use, one Koopa King on the floor; not seen since",
+      "summary": "A hand-sized orb held up, not thrown, by a Mages' Guild member in the hall of Peach's Castle: Bowser went down at once, as a thing goes down when what was holding it up has been switched off. The Toads cheered.",
+      "record": "The archive files what it is shown working, and this was shown working on Bowser, in front of a hall of witnesses, to applause. One object, one use, one result. It is on the ledger because the Highsun 1 record has Bowser beaten in a corridor of the same castle a month later and dragged away unconscious, and because the thing that put him down this night belonged to the people who had been shaking a Koopa's hand in the dungeon twenty minutes before. The archive has no name for it and has not given it one.",
+      "quotes": [
+        {
+          "event": "the_unlocked_cell_955_bf",
+          "text": "A Mages' Guild member ended it. The account is clear that it was one hood, one object — a small orb, held up, not thrown — and that Bowser went down."
+        },
+        {
+          "event": "the_unlocked_cell_955_bf",
+          "text": "One shot. The Koopa King on the floor of Peach's Castle with his fire still smoking in the walls."
+        }
+      ],
+      "pressure": 1,
+      "tension": [
+        {
+          "between": [
+            "mages_guild",
+            "koopa_troop"
+          ],
+          "weight": 1,
+          "why": "One orb, one Koopa King down, and a hall of Toads learning to cheer the Guild."
+        }
+      ],
+      "model": {
+        "recipe": "guild_orb",
+        "palette": {
+          "orb": "#7a3fcf",
+          "core": "#e9d8ff",
+          "band": "#c9a86a",
+          "hand": "#2a2238"
+        }
+      },
+      "tags": [
+        "mages guild",
+        "955 BF",
+        "bowser",
+        "arrangement"
+      ]
     }
   ]
 }
