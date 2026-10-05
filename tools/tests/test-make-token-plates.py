@@ -87,8 +87,11 @@ def scratch_repo():
 
 # ------------------------------------------------------- fake ComfyUI ----
 class FakeComfy(BaseHTTPRequestHandler):
-    """Upload → prompt → history → view. 'Renders' by handing back the uploaded reference canvas; the second
-    attempt for an id stretches the figure to full height, so the QC/retry path is exercised."""
+    """Upload → prompt → history → view, for either engine. 'Renders' by handing back the uploaded reference
+    canvas; the second attempt for an id stretches the figure to full height, so the QC/retry path is exercised.
+    With engine qwen21 a prompt that asks for transparency (or the remove-background instruction) comes back as a
+    real RGBA image, keyed off the canvas colour — what Qwen-Image-2.1 does natively."""
+    engine = "qwen21"
     inputs = {}
     outputs = {}
     attempts = {}
@@ -108,7 +111,10 @@ class FakeComfy(BaseHTTPRequestHandler):
             return self._send(200, {"system": {"os": "fake"}})
         if self.path.startswith("/object_info/"):
             name = self.path.rsplit("/", 1)[1]
-            return self._send(200, {name: {"input": {}}} if name == "TextEncodeQwenImageEdit" else {})
+            have = {"qwen21": {"TextEncodeQwenImage21", "QwenImage21Cache"}, "qwen-edit": {"TextEncodeQwenImageEdit"}}[self.engine]
+            if name == "UNETLoader":
+                return self._send(200, {"UNETLoader": {"input": {"required": {"unet_name": [["qwen_image_2.1_int8_convrot.safetensors", "other.safetensors"]], "weight_dtype": [["default"]]}}}})
+            return self._send(200, {name: {"input": {}}} if name in have else {})
         if self.path.startswith("/history/"):
             pid = self.path.rsplit("/", 1)[1]
             out = self.outputs.get(pid)
@@ -131,20 +137,29 @@ class FakeComfy(BaseHTTPRequestHandler):
             self.inputs[name] = path
             return self._send(200, {"name": name, "subfolder": "token-plates", "type": "input"})
         if self.path == "/prompt":
+            import numpy as np
             wf = json.loads(body)["prompt"]
             self.prompts.append(wf)
             load = [v for v in wf.values() if v["class_type"] == "LoadImage"][0]["inputs"]["image"].split("/")[-1]
             prefix = [v for v in wf.values() if v["class_type"] == "SaveImage"][0]["inputs"]["filename_prefix"]
+            enc = [v for v in wf.values() if v["class_type"].startswith("TextEncodeQwenImage")]
+            text = " ".join(v["inputs"].get("prompt", "") for v in enc)
             cid = prefix.split("/")[-1]
             self.attempts[cid] = self.attempts.get(cid, 0) + 1
             im = Image.open(self.inputs[load]).convert("RGB")
-            if self.attempts[cid] >= 2:   # "the model drew the body": stretch the non-key content to 85% of the height
-                import numpy as np
-                arr = np.asarray(im).astype(int)
-                mask = np.sqrt(((arr - np.array([255, 0, 255])) ** 2).sum(axis=2)) > 95
+            arr = np.asarray(im).astype(int)
+            ring = np.concatenate([arr[0], arr[-1], arr[:, 0], arr[:, -1]])
+            kc = np.median(ring, axis=0)
+            mask = np.sqrt(((arr - kc) ** 2).sum(axis=2)) > 95
+            if self.attempts[cid] >= 2 and cid != "removebg":   # "the model drew the body": stretch the non-key content to 85% of the height
                 ys, xs = np.where(mask)
                 fig = im.crop((xs.min(), ys.min(), xs.max() + 1, ys.max() + 1)).resize((int(im.width * 0.4), int(im.height * 0.85)))
-                im = Image.new("RGB", im.size, (255, 0, 255)); im.paste(fig, ((im.width - fig.width) // 2, int(im.height * 0.07)))
+                im = Image.new("RGB", im.size, tuple(int(x) for x in kc)); im.paste(fig, ((im.width - fig.width) // 2, int(im.height * 0.07)))
+                arr = np.asarray(im).astype(int); mask = np.sqrt(((arr - kc) ** 2).sum(axis=2)) > 95
+            transparent = self.engine == "qwen21" and ("Transparent background" in text or "Remove the background" in text)
+            if transparent:
+                rgba = np.dstack([np.asarray(im), (mask * 255).astype("uint8")])
+                im = Image.fromarray(rgba, "RGBA")
             pid = "p%d" % len(self.prompts)
             fn = "%s.png" % pid
             im.save(os.path.join(self.server.outdir, fn))
@@ -153,8 +168,10 @@ class FakeComfy(BaseHTTPRequestHandler):
         self._send(404, {})
 
 
-def serve():
+def serve(engine="qwen21"):
     outdir = tempfile.mkdtemp(prefix="fakecomfy-")
+    FakeComfy.engine = engine
+    FakeComfy.inputs, FakeComfy.outputs, FakeComfy.attempts, FakeComfy.prompts = {}, {}, {}, []
     srv = HTTPServer(("127.0.0.1", 0), FakeComfy)
     srv.outdir = outdir
     threading.Thread(target=srv.serve_forever, daemon=True).start()
@@ -167,6 +184,8 @@ def main():
     rm = os.path.join(root, "Reputation-Matrix2")
     env = dict(os.environ, TOKEN_PLATES_ROOT=root)
     run = lambda *args: subprocess.run([sys.executable, TOOL, *args], env=env, capture_output=True, text=True)  # noqa: E731
+
+    mod = load_tool(root)
 
     # plan: statuses
     out = run("plan").stdout
@@ -206,11 +225,12 @@ def main():
     check(list(arts["flatguy"].keys()).index("fullBody") == list(arts["flatguy"].keys()).index("image") + 1, "fullBody sits right after image")
     check("fullBody" not in arts["nosheet"], "apply leaves articles without a plate alone")
 
-    # render against the fake ComfyUI
-    srv, url = serve()
+    # render against the fake ComfyUI — Qwen-Image-Edit engine (chroma key)
+    srv, url = serve("qwen-edit")
     raw = os.path.join(root, "renders")
     res = run("render", "--url", url, "--raw-dir", raw, "--retries", "2", "--date", "2026-10-05")
     out = res.stdout + res.stderr
+    check("(qwen-edit)" in out, "engine picked from the server's nodes: " + out[:200])
     check("bustguy: attempt 1 not usable" in out and "bust?" in out, "QC rejected the bust-sized first attempt: " + out[-400:])
     check(re.search(r"bustguy: ok in \d+s \(seed \d+, attempt 2\)", out) is not None, "second attempt accepted")
     check("linkguy: no usable reference" in out, "hotlinked lead is skipped with a reason")
@@ -226,12 +246,55 @@ def main():
     check("whole figure" in pos and "Extend the body downward" in pos and "bright magenta" in pos, "edit prompt filled on the sampler's positive")
     check("cropped feet" in neg and wf["3"]["inputs"]["seed"] > 0 and wf["78"]["inputs"]["image"].endswith("bustguy.png"), "negative, seed and LoadImage filled")
     check(os.path.isfile(os.path.join(raw, "bustguy.rejected-1.png")), "rejected attempt kept for eyes")
-    # resume: nothing left
     res = run("render", "--url", url, "--raw-dir", raw)
-    check("render: 0 plated, 0 left" in res.stdout or "1 character(s) to do" in res.stdout, "resume skips plated ids: " + res.stdout.strip().splitlines()[-1])
+    check("render: 0 plated" in res.stdout, "resume skips plated ids: " + res.stdout.strip().splitlines()[-1])
+    srv.shutdown()
+
+    # render — Qwen-Image-2.1 engine: native alpha, portrait reference canvas, <image1> prompt
+    srv, url = serve("qwen21")
+    os.remove(bp)
+    arts = json.load(open(os.path.join(rm, "data/characters.json"), encoding="utf-8"))
+    for art in arts:
+        art.pop("fullBody", None); art.pop("fullBodyCaption", None)
+    json.dump(arts, open(os.path.join(rm, "data/characters.json"), "w", encoding="utf-8"), indent=2, ensure_ascii=False)
+    raw2 = os.path.join(root, "renders21")
+    res = run("render", "--url", url, "--raw-dir", raw2, "--retries", "2", "--ids", "bustguy", "--steps", "8", "--resolution", "1536")
+    out = res.stdout + res.stderr
+    check("(qwen21)" in out and re.search(r"bustguy: ok in \d+s \(seed \d+, attempt 2\)", out), "2.1 engine renders and retries: " + out[-300:])
+    wf = FakeComfy.prompts[0]
+    enc = wf["474"]["inputs"]
+    check("<image1>" in enc["prompt"] and "Transparent background" in enc["prompt"] and enc["negative_prompt"] == mod.NEGATIVE, "2.1 prompt on the one encoder node")
+    check(enc["resolution"] == 1536 and wf["458"]["inputs"]["steps"] == 8 and wf["458"]["inputs"]["cfg"] == 1.0 and "469" in wf, "2.1 graph tuned: resolution, steps, cache node kept")
+    check(enc["images.image_1"] == ["470", 0] and wf["470"]["inputs"]["image"].endswith("bustguy.png"), "reference wired into images.image_1")
+    ref = Image.open(os.path.join(raw2, "bustguy.ref.png"))
+    check(ref.size == (832, 1216), "2.1 reference canvas is portrait: %s" % (ref.size,))
+    rawim = Image.open(os.path.join(raw2, "bustguy.png"))
+    check(rawim.mode == "RGBA", "the fake 2.1 returned RGBA")
+    log = json.load(open(os.path.join(raw2, "render-log.json")))
+    check(log["bustguy"]["ok"] and log["bustguy"]["engine"] == "qwen21", "2.1 log entry")
+    check(os.path.isfile(bp) and Image.open(bp).getpixel((0, 0))[3] == 0, "2.1 plate on disk, transparent")
+    # Renderer.remove_background: a second pass with the official instruction
+    comfy = mod.Comfy(url)
+    rend = mod.Renderer(comfy, resolution=1024)
+    opaque = os.path.join(root, "opaque.png")
+    Image.open(os.path.join(raw2, "bustguy.ref.png")).convert("RGB").save(opaque)
+    outp = rend.remove_background(opaque, os.path.join(root, "removed.png"))
+    check(Image.open(outp).mode == "RGBA" and FakeComfy.prompts[-1]["474"]["inputs"]["prompt"] == mod.REMOVE_BG_PROMPT, "remove-background pass")
+    check(comfy.choices("UNETLoader", "unet_name") == ["qwen_image_2.1_int8_convrot.safetensors", "other.safetensors"], "loader choices read from the server")
+    srv.shutdown()
+
+    # cut: a native-alpha render is trimmed and squared, never keyed
+    nat = Image.new("RGBA", (400, 600), (0, 0, 0, 0)); f = figure(200, 500); nat.paste(f, (100, 50), f)
+    natp = os.path.join(root, "native.png"); nat.save(natp)
+    facts = mod.cut(natp, os.path.join(root, "native-plate.png"))
+    check(facts["key"] == "alpha" and facts["figure"][1] >= 450 and facts["border_clear"] >= 0.95, "native alpha cut: %s" % facts)
+
+    # workflow_tune drops the cache node cleanly when asked
+    wf0 = mod.workflow_tune(mod.BUILTIN_QWEN21, steps=4, resolution=2048, models={"unet": "x.safetensors"}, engine="qwen21", cache=False)
+    check("469" not in wf0 and wf0["458"]["inputs"]["model"] == ["451", 0] and wf0["451"]["inputs"]["unet_name"] == "x.safetensors"
+          and wf0["474"]["inputs"]["resolution"] == 2048 and wf0["458"]["inputs"]["steps"] == 4, "workflow_tune")
 
     # workflow_fill on an exported workflow with a KSamplerAdvanced and a CLIPTextEncode
-    mod = load_tool(root)
     wf2 = {"1": {"class_type": "KSamplerAdvanced", "inputs": {"noise_seed": 1, "positive": ["2", 0], "negative": ["3", 0]}},
            "2": {"class_type": "CLIPTextEncode", "inputs": {"text": "old"}}, "3": {"class_type": "CLIPTextEncode", "inputs": {"text": ""}},
            "4": {"class_type": "LoadImage", "inputs": {"image": "a.png"}}, "5": {"class_type": "SaveImage", "inputs": {"filename_prefix": "x"}}}
@@ -264,7 +327,6 @@ def main():
     out = run("check").stdout
     check("fullBody plate(s)" in out, "check runs: " + out.splitlines()[0])
 
-    srv.shutdown()
     shutil.rmtree(root, ignore_errors=True)
     shutil.rmtree(srv.outdir, ignore_errors=True)
     print(f"{PASSED} passed, {FAILED} failed")

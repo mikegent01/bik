@@ -232,6 +232,21 @@ def cut(src, dst, key="auto", hard_tol=None, soft_tol=None):
     from PIL import Image
     np = _np()
     im = Image.open(src).convert("RGBA")
+    has_alpha = Image.open(src).mode in ("RGBA", "LA", "PA") or (Image.open(src).mode == "P" and "transparency" in Image.open(src).info)
+    if key == "alpha" or (key == "auto" and has_alpha and plate_facts(src)[2] >= BORDER_CLEAR):
+        # the generator drew the alpha itself (Qwen-Image-2.1 does): trim, square, done — nothing to key
+        a = im.split()[3]
+        bbox = a.point(lambda v: 255 if v > 8 else 0).getbbox()
+        if not bbox:
+            raise SystemExit(f"cut: {src} is entirely transparent")
+        res = im.crop(bbox)
+        w, h = res.size
+        canvas = square_plate(res, (0, 0, 0))
+        os.makedirs(os.path.dirname(dst), exist_ok=True)
+        canvas.save(dst, optimize=True)
+        fw, fh, clear, _ = plate_facts(dst)
+        keyed = float((np.asarray(im)[:, :, 3] < 16).mean())
+        return {"src": src, "dst": dst, "key": "alpha", "figure": (w, h), "size": (fw, fh), "border_clear": round(clear, 3), "keyed": round(keyed, 3)}
     arr = np.asarray(im).astype(np.int32)   # int32: a squared channel difference does not fit int16
     rgb = arr[:, :, :3]
     if key == "auto":
@@ -847,7 +862,8 @@ def cmd_sheet(a):
 
 
 # -------------------------------------------------------------- render ----
-COMFY_URL = os.environ.get("COMFY_URL", "http://127.0.0.1:8188")
+COMFY_URL = os.environ.get("COMFY_URL") or ""                     # empty = probe COMFY_PORTS
+COMFY_PORTS = (8000, 8188)                                         # Comfy Desktop, then a classic install
 RENDER_LOG = "render-log.json"
 
 # The official Qwen-Image-Edit template as ComfyUI's API format (ComfyUI >= 0.3.51). Model file names are the
@@ -870,18 +886,70 @@ BUILTIN_QWEN_EDIT = {
     "8": {"class_type": "VAEDecode", "inputs": {"samples": ["3", 0], "vae": ["39", 0]}},
     "60": {"class_type": "SaveImage", "inputs": {"filename_prefix": "token-plates/plate", "images": ["8", 0]}},
 }
+# Qwen-Image-2.1 (ComfyUI >= 0.37): one checkpoint for text-to-image and editing, native RGBA output, reference
+# images spliced into the text encoder (`<image1>` in the prompt). The filenames are the Comfy-Org repackage.
+QWEN21_MODELS = {"unet": "qwen_image_2.1_int8_convrot.safetensors", "clip": "qwen3vl_8b_int8_convrot.safetensors",
+                 "vae": "qwen_image_2.1_vae_bf16.safetensors"}
+BUILTIN_QWEN21 = {
+    "451": {"class_type": "UNETLoader", "inputs": {"unet_name": QWEN21_MODELS["unet"], "weight_dtype": "default"}},
+    "453": {"class_type": "CLIPLoader", "inputs": {"clip_name": QWEN21_MODELS["clip"], "type": "qwen_image", "device": "default"}},
+    "454": {"class_type": "VAELoader", "inputs": {"vae_name": QWEN21_MODELS["vae"]}},
+    "469": {"class_type": "QwenImage21Cache", "inputs": {"model": ["451", 0], "device": "auto", "dtype": "default"}},
+    "470": {"class_type": "LoadImage", "inputs": {"image": "reference.png"}},
+    "474": {"class_type": "TextEncodeQwenImage21", "inputs": {"clip": ["453", 0], "vae": ["454", 0], "prompt": "", "negative_prompt": "",
+                                                              "resolution": 1024, "images.image_1": ["470", 0]}},
+    "458": {"class_type": "KSampler", "inputs": {"seed": 0, "steps": 25, "cfg": 1.0, "sampler_name": "euler", "scheduler": "simple", "denoise": 1.0,
+                                                 "model": ["469", 0], "positive": ["474", 0], "negative": ["474", 1], "latent_image": ["474", 2]}},
+    "457": {"class_type": "VAEDecode", "inputs": {"samples": ["458", 0], "vae": ["454", 0]}},
+    "461": {"class_type": "SaveImage", "inputs": {"filename_prefix": "token-plates/plate", "images": ["457", 0]}},
+}
+ENGINES = {"qwen21": ("TextEncodeQwenImage21", BUILTIN_QWEN21, {"unet": "451", "clip": "453", "vae": "454"}),
+           "qwen-edit": ("TextEncodeQwenImageEdit", BUILTIN_QWEN_EDIT, {"unet": "37", "clip": "38", "vae": "39"})}
+REMOVE_BG_PROMPT = "Remove the background, and output a PNG image"
 NEGATIVE = "scenery, floor, ground shadow, text, letters, watermark, border, frame, cropped feet, cropped head, bust, portrait crop, extra figures"
 PROMPT_FIELDS = ("prompt", "text")
 SAMPLERS = ("KSampler", "KSamplerAdvanced")
+REF_SIZES = {"qwen21": (832, 1216), "qwen-edit": (1024, 1024)}   # the edit canvas is the reference's: portrait for a standing figure
 
 
 class Comfy:
     """The little HTTP the ComfyUI server speaks (urllib only, so it runs where start.py runs)."""
 
-    def __init__(self, url=COMFY_URL):
-        self.url = url.rstrip("/")
+    def __init__(self, url=None):
+        self.url = (url or COMFY_URL or "http://127.0.0.1:%d" % COMFY_PORTS[0]).rstrip("/")
         import uuid
         self.client = uuid.uuid4().hex
+
+    @classmethod
+    def discover(cls, url=None):
+        """The server to talk to: the one given, else the first of COMFY_PORTS that answers (Comfy Desktop's 8000 first)."""
+        if url or COMFY_URL:
+            return cls(url or COMFY_URL)
+        for port in COMFY_PORTS:
+            c = cls("http://127.0.0.1:%d" % port)
+            if c.alive():
+                return c
+        return cls("http://127.0.0.1:%d" % COMFY_PORTS[0])
+
+    def engine(self):
+        """Which builtin graph this server can run: qwen21 (Qwen-Image-2.1), qwen-edit (Qwen-Image-Edit), or None."""
+        for name, (node, _, _) in ENGINES.items():
+            if self.has_node(node):
+                return name
+        return None
+
+    def choices(self, class_type, field):
+        """The files a loader node offers (the server's own model folders)."""
+        try:
+            info = self._json("/object_info/" + class_type)[class_type]["input"]["required"][field][0]
+            return list(info) if isinstance(info, list) else []
+        except Exception:  # noqa: BLE001
+            return []
+
+    def run(self, workflow, dst, timeout=900):
+        """Queue, wait, download — one image."""
+        pid = self.queue(workflow)
+        return self.download(self.wait(pid, timeout=timeout), dst)
 
     def _json(self, path, data=None, method=None):
         import urllib.request
@@ -971,7 +1039,8 @@ def workflow_fill(wf, prompt, image_name, prefix, seed, negative=NEGATIVE):
             link = inp.get(role)
             if isinstance(link, list):
                 node = wf.get(str(link[0]), {})
-                for f in PROMPT_FIELDS:
+                fields = ("negative_prompt",) if role == "negative" and "negative_prompt" in node.get("inputs", {}) else PROMPT_FIELDS
+                for f in fields:
                     if f in node.get("inputs", {}):
                         node["inputs"][f] = text
     for v in wf.values():
@@ -982,22 +1051,67 @@ def workflow_fill(wf, prompt, image_name, prefix, seed, negative=NEGATIVE):
     return wf
 
 
-def prep_reference(src, dst, key, full_body):
-    """The reference the edit model sees: the figure on a square key-colour canvas — a full-body plate with a
-    margin, a bust in the upper part with empty key colour below it, which is where the body gets drawn."""
+def workflow_tune(wf, steps=None, resolution=None, cfg=None, models=None, engine=None, cache=True):
+    """Dial a builtin graph: sampler steps / cfg, the 2.1 reference budget, loader filenames, the optional cache node."""
+    wf = json.loads(json.dumps(wf))
+    for v in wf.values():
+        if v.get("class_type") in SAMPLERS:
+            if steps:
+                v["inputs"]["steps"] = int(steps)
+            if cfg is not None:
+                v["inputs"]["cfg"] = float(cfg)
+        if v.get("class_type") == "TextEncodeQwenImage21" and resolution is not None:
+            v["inputs"]["resolution"] = int(resolution)
+    if models and engine in ENGINES:
+        ids = ENGINES[engine][2]
+        for key, field in (("unet", "unet_name"), ("clip", "clip_name"), ("vae", "vae_name")):
+            if models.get(key):
+                wf[ids[key]]["inputs"][field] = models[key]
+    if not cache and "469" in wf and wf["469"].get("class_type") == "QwenImage21Cache":
+        src = wf["469"]["inputs"]["model"]
+        del wf["469"]
+        for v in wf.values():
+            if v.get("inputs", {}).get("model") == ["469", 0]:
+                v["inputs"]["model"] = src
+    return wf
+
+
+def prep_reference(src, dst, key, full_body, size=(1024, 1024)):
+    """The reference the edit model sees: the figure on a key-colour canvas — a full-body plate with a margin, a
+    bust in the upper part with empty key colour below it, which is where the body gets drawn. The canvas is also
+    the edit's output size (2.1 samples at the first reference's size), so a standing figure gets a portrait one."""
     from PIL import Image
     kc = KEYS[key]
     im = Image.open(src).convert("RGBA")
-    side = 1024
-    canvas = Image.new("RGBA", (side, side), kc + (255,))
+    w, h = size
+    canvas = Image.new("RGBA", (w, h), kc + (255,))
     if full_body:
-        im.thumbnail((int(side * 0.86), int(side * 0.86)))
-        canvas.paste(im, ((side - im.width) // 2, (side - im.height) // 2), im)
+        im.thumbnail((int(w * 0.86), int(h * 0.88)))
+        canvas.paste(im, ((w - im.width) // 2, (h - im.height) // 2), im)
     else:
-        im.thumbnail((int(side * 0.5), int(side * 0.42)))
-        canvas.paste(im, ((side - im.width) // 2, int(side * 0.05)), im)
+        im.thumbnail((int(w * 0.6), int(h * 0.42)))
+        canvas.paste(im, ((w - im.width) // 2, int(h * 0.05)), im)
     canvas.convert("RGB").save(dst)
     return dst
+
+
+def qwen21_prompt(entry, full_body, transparent=True):
+    """The 2.1 instruction: the reference is <image1>; ask for the PNG with alpha the model can draw natively."""
+    colour = "bright magenta" if entry["key"] == "magenta" else "bright green"
+    body = ("Show the character from <image1> as a complete standing figure from the top of the head to the soles of the feet, "
+            "facing the viewer and turned slightly, arms and hands visible, holding their weapon or tool if they carry one. "
+            "Keep exactly the same face, colours, wardrobe and art style as <image1>. ")
+    if not full_body:
+        body += "<image1> shows only the upper body: continue the body downward and draw the legs and feet to match, nothing cropped. "
+    look = entry.get("look") or ""
+    if look:
+        body += f"Established look: {look}. "
+    body += "One figure only, centred, with empty space on every side; no floor, no cast shadow, no scenery, no text, no border. "
+    if transparent:
+        body += "Transparent background: output a PNG image with an alpha channel and nothing behind the figure."
+    else:
+        body += f"The entire background is plain solid flat {colour}."
+    return body
 
 
 def render_prompt(entry, full_body):
@@ -1025,12 +1139,14 @@ def render_qc(raw_path, facts):
         why.append("background is not the key colour")
     if facts["border_clear"] < BORDER_CLEAR:
         why.append("border not clear after the cut")
-    im = Image.open(raw_path).convert("RGB")
-    arr = np.asarray(im).astype(int)
-    kc = np.array(KEYS[facts["key"]]) if facts["key"] in KEYS else None
-    if kc is not None:
-        dist = np.sqrt(((arr - kc) ** 2).sum(axis=2))
-        fig = dist > 95
+    im = Image.open(raw_path)
+    fig = None
+    if facts["key"] == "alpha":
+        fig = np.asarray(im.convert("RGBA"))[:, :, 3] > 16
+    elif facts["key"] in KEYS:
+        arr = np.asarray(im.convert("RGB")).astype(int)
+        fig = np.sqrt(((arr - np.array(KEYS[facts["key"]])) ** 2).sum(axis=2)) > 95
+    if fig is not None:
         h, w = fig.shape
         m = max(2, h // 50)
         if fig[:m, :].mean() > 0.02 or fig[-m:, :].mean() > 0.02:
@@ -1041,6 +1157,79 @@ def render_qc(raw_path, facts):
         if len(rows) and (rows[-1] - rows[0]) < 0.45 * h:
             why.append("figure is under 45%% of the frame tall (%d px) — a bust?" % (rows[-1] - rows[0]))
     return why
+
+
+def reference_for(art, row):
+    """(relative path or "", full_body?) — the art the edit model is shown: the plate if there is one, else the lead."""
+    cid = art["id"]
+    fb = (art.get("fullBody") or "").replace("\\", "/")
+    if cid in NO_REFERENCE:
+        return "", False
+    ref = fb if fb and os.path.isfile(os.path.join(RM, fb)) else (art.get("image") or "").replace("\\", "/")
+    if not ref or ref.startswith("http") or not os.path.isfile(os.path.join(RM, ref)):
+        return "", False
+    full_body = bool(fb) or (row or {}).get("status") == "SMALL" or plate_facts(os.path.join(RM, ref))[2] >= BORDER_CLEAR
+    return ref, full_body
+
+
+def default_prompt(art, row, engine, transparent=True):
+    ref, full_body = reference_for(art, row)
+    entry = {"id": art["id"], "key": key_for(art), "look": look_of(art)}
+    if engine == "qwen21":
+        return qwen21_prompt(entry, full_body, transparent=transparent)
+    return render_prompt(entry, full_body)
+
+
+class Renderer:
+    """One ComfyUI, one graph, many characters: upload the prepared reference, queue, wait, download, cut, QC."""
+
+    def __init__(self, comfy, engine=None, workflow=None, models=None, steps=None, resolution=None, cache=True, timeout=900):
+        self.comfy = comfy
+        self.engine = engine or ("custom" if workflow else comfy.engine())
+        if workflow:
+            self.wf = workflow
+        else:
+            if self.engine not in ENGINES:
+                raise RuntimeError("this ComfyUI has neither TextEncodeQwenImage21 (Qwen-Image-2.1) nor TextEncodeQwenImageEdit — update ComfyUI, or export your own edit workflow and pass --workflow")
+            self.wf = workflow_tune(ENGINES[self.engine][1], steps=steps, resolution=resolution, models=models, engine=self.engine,
+                                    cache=cache and comfy.has_node("QwenImage21Cache"))
+        self.timeout = timeout
+
+    def prompt_for(self, art, row, transparent=True):
+        return default_prompt(art, row, self.engine, transparent=transparent)
+
+    def render(self, art, row, raw_dir, seed, prompt=None, transparent=True, raw_name=None, reference=None):
+        """Returns (raw_path, facts_or_None, why[]) — facts from the cut when the render came back usable."""
+        cid = art["id"]
+        ref_rel, full_body = reference_for(art, row)
+        if reference:
+            ref_src, full_body = reference, True
+        elif ref_rel:
+            ref_src = os.path.join(RM, ref_rel)
+        else:
+            return None, None, ["no usable reference — an edit model needs one; render this one by hand"]
+        key = key_for(art)
+        ref_png = os.path.join(raw_dir, cid + ".ref.png")
+        prep_reference(ref_src, ref_png, key, full_body, size=REF_SIZES.get(self.engine, (1024, 1024)))
+        prompt = prompt or self.prompt_for(art, row, transparent=transparent)
+        raw = os.path.join(raw_dir, raw_name or (cid + ".png"))
+        name = self.comfy.upload(ref_png, f"{cid}.png")
+        self.comfy.run(workflow_fill(self.wf, prompt, name, f"token-plates/{cid}", seed), raw, timeout=self.timeout)
+        tmp = os.path.join(raw_dir, cid + ".cut.png")
+        try:
+            facts = cut(raw, tmp, "auto" if transparent else key)
+        except SystemExit as exc:
+            return raw, None, [str(exc)]
+        if facts["key"] not in ("alpha", key) and transparent:
+            facts = cut(raw, tmp, key)            # the model ignored the alpha request: key the field it drew
+        why = render_qc(raw, facts)
+        return raw, facts, why
+
+    def remove_background(self, src, dst, seed=1):
+        """A second pass through the model with the official instruction — for a render that came back opaque."""
+        name = self.comfy.upload(src, "removebg-" + os.path.basename(src))
+        wf = workflow_fill(self.wf, REMOVE_BG_PROMPT, name, "token-plates/removebg", seed, negative="")
+        return self.comfy.run(wf, dst, timeout=self.timeout)
 
 
 def cmd_render(a):
@@ -1058,35 +1247,32 @@ def cmd_render(a):
     os.makedirs(raw_dir, exist_ok=True)
     log_path = os.path.join(raw_dir, RENDER_LOG)
     log = json.load(open(log_path, encoding="utf-8")) if os.path.isfile(log_path) else {}
+    workflow = None
     if a.workflow:
-        wf = json.load(open(a.workflow, encoding="utf-8"))
-        if "nodes" in wf and "links" in wf:
+        workflow = json.load(open(a.workflow, encoding="utf-8"))
+        if "nodes" in workflow and "links" in workflow:
             raise SystemExit("render: that is the UI save, not the API format — in ComfyUI turn on Dev mode and use 'Save (API Format)'")
-    else:
-        wf = json.loads(json.dumps(BUILTIN_QWEN_EDIT))
-        for key, node in (("unet", "37"), ("clip", "38"), ("vae", "39")):
-            val = getattr(a, key, None)
-            if val:
-                field = {"37": "unet_name", "38": "clip_name", "39": "vae_name"}[node]
-                wf[node]["inputs"][field] = val
-        if a.lora:
-            wf["89"] = {"class_type": "LoraLoaderModelOnly", "inputs": {"lora_name": a.lora, "strength_model": 1.0, "model": ["37", 0]}}
-            wf["75"]["inputs"]["model"] = ["89", 0]
-            wf["3"]["inputs"]["steps"] = a.steps or 4
-            wf["3"]["inputs"]["cfg"] = 1.0
-        if a.steps and not a.lora:
-            wf["3"]["inputs"]["steps"] = a.steps
-    comfy = Comfy(a.url)
     if a.dry_run:
         print(f"render: {len(todo)} to do (dry run, nothing sent)")
         for r in todo:
             print(f"  {r['id']:<36} tier {r['tier']} {r['status']}")
         return 0
+    comfy = Comfy.discover(a.url)
     if not comfy.alive():
-        raise SystemExit(f"render: no ComfyUI answering at {a.url} — start ComfyUI (or pass --url); the queue is untouched")
-    if not a.workflow and not comfy.has_node("TextEncodeQwenImageEdit"):
-        raise SystemExit("render: this ComfyUI has no TextEncodeQwenImageEdit node — update ComfyUI, or export your own Qwen edit workflow and pass --workflow")
-    print(f"render: {len(todo)} character(s) to do through {a.url}; raws + log in {raw_dir}")
+        raise SystemExit(f"render: no ComfyUI answering at {comfy.url} (tried ports {', '.join(map(str, COMFY_PORTS))}) — open Comfy Desktop / start ComfyUI, or pass --url; the queue is untouched")
+    models = {"unet": a.unet, "clip": a.clip, "vae": a.vae}
+    try:
+        rend = Renderer(comfy, engine=None if a.model == "auto" else a.model, workflow=workflow, models=models, steps=a.steps,
+                        resolution=a.resolution, timeout=a.timeout)
+    except RuntimeError as exc:
+        raise SystemExit(f"render: {exc}")
+    if a.lora and rend.engine == "qwen-edit":
+        wf = rend.wf
+        wf["89"] = {"class_type": "LoraLoaderModelOnly", "inputs": {"lora_name": a.lora, "strength_model": 1.0, "model": ["37", 0]}}
+        wf["75"]["inputs"]["model"] = ["89", 0]
+        wf["3"]["inputs"]["steps"] = a.steps or 4
+        wf["3"]["inputs"]["cfg"] = 1.0
+    print(f"render: {len(todo)} character(s) to do through {comfy.url} ({rend.engine}); raws + log in {raw_dir}")
     done = failed = 0
     for n, r in enumerate(todo, 1):
         cid = r["id"]
@@ -1094,45 +1280,34 @@ def cmd_render(a):
         plate = os.path.join(RM, PLATES, cid + ".png")
         if os.path.isfile(plate) and not a.redo and plate_facts(plate)[2] >= BORDER_CLEAR:
             continue
-        fb = (art.get("fullBody") or "").replace("\\", "/")
-        ref_rel = "" if cid in NO_REFERENCE else (fb if fb and os.path.isfile(os.path.join(RM, fb)) else (art.get("image") or ""))
-        if not ref_rel or ref_rel.startswith("http"):
+        if not reference_for(art, r)[0]:
             print(f"[{n}/{len(todo)}] {cid}: no usable reference — an edit model needs one; render this one by hand")
             log[cid] = {"skipped": "no reference"}
             json.dump(log, open(log_path, "w", encoding="utf-8"), indent=1)
             failed += 1
             continue
-        full_body = bool(fb) or r["status"] == "SMALL" or (plate_facts(os.path.join(RM, ref_rel))[2] >= BORDER_CLEAR)
-        key = key_for(art)
-        entry = {"id": cid, "key": key, "look": look_of(art)}
-        prompt = render_prompt(entry, full_body)
-        ref_png = os.path.join(raw_dir, cid + ".ref.png")
-        prep_reference(os.path.join(RM, ref_rel), ref_png, key, full_body)
         ok = False
+        why = []
         for attempt in range(1, (a.retries or 0) + 2):
             seed = random.randint(1, 2 ** 31 - 1)
-            raw = os.path.join(raw_dir, cid + ".png")
             t0 = time.time()
             try:
-                name = comfy.upload(ref_png, f"{cid}.png")
-                pid = comfy.queue(workflow_fill(wf, prompt, name, f"token-plates/{cid}", seed))
-                outputs = comfy.wait(pid, timeout=a.timeout)
-                comfy.download(outputs, raw)
-                facts = cut(raw, plate, key)
-                why = render_qc(raw, facts)
+                raw, facts, why = rend.render(art, r, raw_dir, seed, transparent=not a.opaque)
             except KeyboardInterrupt:
                 print("\nrender: stopped between characters — run again to resume"); json.dump(log, open(log_path, "w", encoding="utf-8"), indent=1); return 130
             except Exception as exc:  # noqa: BLE001
                 why = [f"{type(exc).__name__}: {str(exc)[:200]}"]
+                raw = None
             secs = time.time() - t0
             if not why:
+                os.replace(os.path.join(raw_dir, cid + ".cut.png"), plate)
                 print(f"[{n}/{len(todo)}] {cid}: ok in {secs:.0f}s (seed {seed}, attempt {attempt}) -> {PLATES}/{cid}.png")
-                log[cid] = {"ok": True, "seed": seed, "attempt": attempt, "seconds": round(secs)}
+                log[cid] = {"ok": True, "seed": seed, "attempt": attempt, "seconds": round(secs), "engine": rend.engine}
                 ok = True
                 break
             print(f"[{n}/{len(todo)}] {cid}: attempt {attempt} not usable — {'; '.join(why)}")
-            if os.path.isfile(plate):
-                os.replace(plate, os.path.join(raw_dir, f"{cid}.rejected-{attempt}.png"))
+            if raw and os.path.isfile(raw):
+                os.replace(raw, os.path.join(raw_dir, f"{cid}.rejected-{attempt}.png"))
         if ok:
             done += 1
             cmd_apply(argparse.Namespace(date=a.date))
@@ -1155,7 +1330,8 @@ def main(argv=None):
     p = sub.add_parser("check"); p.add_argument("--check", action="store_true")
     p = sub.add_parser("pixel"); p.add_argument("--ids", nargs="*")
     p = sub.add_parser("heal"); p.add_argument("--ids", nargs="*"); p.add_argument("--key", choices=list(KEYS))
-    p = sub.add_parser("render"); p.add_argument("--url", default=COMFY_URL); p.add_argument("--workflow"); p.add_argument("--tier", type=int)
+    p = sub.add_parser("render"); p.add_argument("--url", default=None); p.add_argument("--workflow"); p.add_argument("--tier", type=int)
+    p.add_argument("--model", choices=["auto", "qwen21", "qwen-edit"], default="auto"); p.add_argument("--resolution", type=int); p.add_argument("--opaque", action="store_true")
     p.add_argument("--ids", nargs="*"); p.add_argument("--limit", type=int); p.add_argument("--retries", type=int, default=2); p.add_argument("--timeout", type=int, default=900)
     p.add_argument("--raw-dir", default=os.path.join(ROOT, "..", "token-renders")); p.add_argument("--redo", action="store_true"); p.add_argument("--dry-run", action="store_true")
     p.add_argument("--unet"); p.add_argument("--clip"); p.add_argument("--vae"); p.add_argument("--lora"); p.add_argument("--steps", type=int); p.add_argument("--date")
