@@ -556,7 +556,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "portraits/paulo.jpg",
+      "src": "portraits/player/fullbody/paulo.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",

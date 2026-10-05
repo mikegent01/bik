@@ -27,6 +27,7 @@ what a token survives):
   python3 tools/make-token-plates.py plan [--manifest /tmp/plates/manifest.json] [--tier 1]
   python3 tools/make-token-plates.py cut  --id waluigi --src /tmp/plates/raw/waluigi.png [--key magenta|green|auto]
   python3 tools/make-token-plates.py cut  --flat                 # key every opaque plate whose field is flat
+  python3 tools/make-token-plates.py cut  --raw-dir ~/renders    # every <id>.png rendered elsewhere from the manifest
   python3 tools/make-token-plates.py apply [--date 2026-10-05]
   python3 tools/make-token-plates.py check
   python3 tools/make-token-plates.py sheet --out /tmp/plates/sheet.jpg [--ids a b c]
@@ -52,9 +53,15 @@ BORDER_CLEAR = 0.95   # share of border pixels that must be transparent
 MARGIN = 0.04         # empty space around the trimmed figure
 
 KEYS = {"magenta": (255, 0, 255), "green": (0, 255, 0)}
+IMAGE_EXT = (".png", ".jpg", ".jpeg", ".webp")
 # leads that are not a picture of the character (an icon, a letter, an event scene): never a reference, never cut
 NO_REFERENCE = {"kyrn", "gee_lady", "pet_rock", "prunsel", "scorncrow", "alistair_marshkeeper", "cosmic_jester", "director_mario",
                 "evil_mario", "lord_darian_marsh", "marilyn_the_chambermaid", "gabriel_freddy", "creek_medic_scene"}
+# a flat border around a scene: the lead is a fine reference but nothing to key — render instead
+FORCE_GENERATE = {"john_lee", "paulo"}
+# wardrobe in the magenta family — key these on green instead
+GREEN_KEY_IDS = {"waluigi", "wario", "princess_peach", "captain_toadette", "birdo", "vivian_corvinarus", "ryan", "purple_t", "toadette",
+                 "lady_aurelian", "earl_grey", "kamek"}
 GREEN_KEY_WORDS = re.compile(r"\b(purple|pink|magenta|violet|plum|lilac|fuchsia|mauve|lavender)\b", re.I)
 MAGENTA_KEY_WORDS = re.compile(r"\b(green|emerald|olive|frog|moss|lime)\b", re.I)
 
@@ -80,6 +87,8 @@ def look_of(a):
     """One line of established look from the appearance captions, else nothing (the reference carries it)."""
     for key in ("fullBodyCaption", "imageCaption"):
         cap = (a.get(key) or "").strip()
+        if cap.startswith("Full-body token plate"):   # the pipeline's own caption says nothing about the look
+            continue
         if cap:
             cap = re.sub(r"^(Lead plate|Full-body plate|Full-body token plate)\s*[—-]+\s*(established look:)?\s*", "", cap, flags=re.I)
             cap = re.split(r"\.\s+(?:Full figure|Replaces|Painted|The token|Her own|Found|Cut from)", cap)[0]
@@ -89,7 +98,7 @@ def look_of(a):
 
 def key_for(a):
     blob = " ".join(str(a.get(k) or "") for k in ("name", "imageCaption", "fullBodyCaption", "race"))
-    if GREEN_KEY_WORDS.search(blob) and not MAGENTA_KEY_WORDS.search(blob):
+    if a["id"] in GREEN_KEY_IDS or (GREEN_KEY_WORDS.search(blob) and not MAGENTA_KEY_WORDS.search(blob)):
         return "green"
     return "magenta"
 
@@ -186,7 +195,9 @@ def cut(src, dst, key="auto", hard_tol=None, soft_tol=None):
         soft_tol = soft_tol or 70
     dist = np.sqrt(((rgb - np.array(kc, dtype=np.int16)) ** 2).sum(axis=2).astype(float))
     hard = dist <= hard_tol
-    bg = _label_from_border(hard)
+    # a chroma key is background wherever it is (the hole between an arm and a body is not connected to the
+    # border); a flat field is keyed only where it touches the border, so a cream cap survives a cream field
+    bg = hard if isinstance(key, str) else _label_from_border(hard)
     # the soft band: pixels touching the background whose colour is part key, part figure
     band = np.zeros_like(bg)
     for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1), (1, 1), (-1, -1), (1, -1), (-1, 1)):
@@ -246,7 +257,7 @@ def statuses(arts, by_sheet):
             status = "READY" if fb else "READY-LEAD"
         elif clear >= BORDER_CLEAR:
             status = "SMALL"           # transparent, but under MIN_PX — regenerate when it matters
-        elif flat is not None and max(w, h) >= MIN_PX and a["id"] not in NO_REFERENCE:
+        elif flat is not None and max(w, h) >= MIN_PX and a["id"] not in NO_REFERENCE and a["id"] not in FORCE_GENERATE:
             status = "CUT"
         else:
             status = "GENERATE"
@@ -274,9 +285,11 @@ def cmd_plan(a):
         print(f"{r['id']:<36} {r['tier']:>4} {r['uses']:>4} {r['status']:<10} {'%dx%d' % r['size']:<10} {r['candidate']}")
     manifest = []
     for r in todo:
-        if r["status"] in ("GENERATE", "SMALL"):
+        if r["status"] in ("GENERATE", "SMALL") or a.ids:     # named ids are rendered whatever their status
             prompt, key = prompt_for(by_id[r["id"]])
-            ref = "" if r["id"] in NO_REFERENCE else (by_id[r["id"]].get("image") or "")
+            art = by_id[r["id"]]
+            fb = (art.get("fullBody") or "").replace("\\", "/")
+            ref = "" if r["id"] in NO_REFERENCE else (fb if fb and os.path.isfile(os.path.join(RM, fb)) else (art.get("image") or ""))
             if not ref:
                 summary = re.sub(r"\s+", " ", by_id[r["id"]].get("summary") or "")[:400]
                 prompt = prompt.replace("The same character and the same art style as the reference image, with the same face, colours and wardrobe. ",
@@ -302,9 +315,15 @@ def cmd_cut(a):
         for r in statuses(arts, by_sheet):
             if r["status"] == "CUT" and (not a.ids or r["id"] in set(a.ids)):
                 jobs.append((r["id"], os.path.join(RM, r["candidate"]), "auto"))
+    elif a.raw_dir:
+        import glob
+        for f in sorted(glob.glob(os.path.join(os.path.expanduser(a.raw_dir), "*.*"))):
+            cid = os.path.splitext(os.path.basename(f))[0]
+            if cid in by_id and f.lower().endswith(IMAGE_EXT) and (not a.ids or cid in set(a.ids)):
+                jobs.append((cid, f, a.key))
     else:
         if not a.id or not a.src:
-            raise SystemExit("cut: --id and --src (or --flat)")
+            raise SystemExit("cut: --id and --src (or --flat, or --raw-dir)")
         jobs.append((a.id, a.src, a.key))
     for cid, src, key in jobs:
         if cid not in by_id:
@@ -498,7 +517,7 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     sub = ap.add_subparsers(dest="cmd", required=True)
     p = sub.add_parser("plan"); p.add_argument("--manifest"); p.add_argument("--tier", type=int); p.add_argument("--ids", nargs="*")
-    p = sub.add_parser("cut"); p.add_argument("--id"); p.add_argument("--src"); p.add_argument("--key", default="auto"); p.add_argument("--flat", action="store_true"); p.add_argument("--ids", nargs="*")
+    p = sub.add_parser("cut"); p.add_argument("--id"); p.add_argument("--src"); p.add_argument("--key", default="auto"); p.add_argument("--flat", action="store_true"); p.add_argument("--raw-dir"); p.add_argument("--ids", nargs="*")
     p = sub.add_parser("apply"); p.add_argument("--date")
     p = sub.add_parser("check"); p.add_argument("--check", action="store_true")
     p = sub.add_parser("pixel"); p.add_argument("--ids", nargs="*")

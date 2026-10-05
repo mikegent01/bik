@@ -293,6 +293,10 @@ def main(argv=None):
         if cur and cur.get("generatedBy") == SELF:
             new = article_for(row, detail, meta, intake)
             new["id"] = cur["id"]
+            if (cur.get("fullBody") or "").startswith("portraits/player/fullbody/"):   # a transparent token plate outranks the roster cut
+                new["fullBody"] = cur["fullBody"]
+                if cur.get("fullBodyCaption"):
+                    new["fullBodyCaption"] = cur["fullBodyCaption"]
             if new != cur:
                 cur.clear(); cur.update(new); refreshed += 1
     if filed or refreshed:

@@ -905,7 +905,9 @@
         "note": "Whatever E. Gadd's Method is, Luigi is its most experienced field practitioner and its least willing one. He has operated the Poltergust in conditions the Method's own literature calls theoretical. The contract is with the Guild now, which has not improved the working relationship with the doctrine."
       }
     ],
-    "image": "portraits/luigi.jpg"
+    "image": "portraits/luigi.jpg",
+    "fullBody": "portraits/player/fullbody/luigi.png",
+    "fullBodyCaption": "Full-body token plate — Luigi head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token."
   },
   {
     "id": "chief_thornpaw",
@@ -6556,7 +6558,9 @@
       "luigi"
     ],
     "image": "portraits/paulo.jpg",
-    "imageCaption": "The courier as the lamp caught him: satchel strap across the chest, cap low, the pistol he would later throw. He never put the bag down."
+    "imageCaption": "The courier as the lamp caught him: satchel strap across the chest, cap low, the pistol he would later throw. He never put the bag down.",
+    "fullBody": "portraits/player/fullbody/paulo.png",
+    "fullBodyCaption": "Full-body token plate — Paulo head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token."
   },
   {
     "id": "john_lee",
@@ -6586,7 +6590,9 @@
       "highsun_1_955_bf_the_day_of"
     ],
     "image": "portraits/john_lee.jpg",
-    "imageCaption": "John Lee as the account leaves him: the lantern, the dead Toad's shortsword, the captain's sash wound around both forearms, the livery scorched at the hem. He is looking past the viewer because, by this point in the night, something was always behind him."
+    "imageCaption": "John Lee as the account leaves him: the lantern, the dead Toad's shortsword, the captain's sash wound around both forearms, the livery scorched at the hem. He is looking past the viewer because, by this point in the night, something was always behind him.",
+    "fullBody": "portraits/player/fullbody/john_lee.png",
+    "fullBodyCaption": "Full-body token plate — John Lee head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token."
   },
   {
     "id": "the_koopa_prisoner",

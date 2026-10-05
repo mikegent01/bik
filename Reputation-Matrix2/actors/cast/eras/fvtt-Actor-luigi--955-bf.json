@@ -559,7 +559,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "portraits/luigi.jpg",
+      "src": "portraits/player/fullbody/luigi.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
