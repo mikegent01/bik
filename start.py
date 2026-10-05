@@ -24,7 +24,9 @@ server (chat + LM Studio bridge), the character-sheet suite (the GM's Foundry
 export → world mirror → player sheets at ledger XP → sheets.json + the import
 packets Foundry pulls back), the Qwen3-TTS studio (off unless you tick it) —
 a start/stop button, live status lights for each, and a log pane. Your ticks
-are remembered in ~/.waluipedia-start.json.
+are remembered in ~/.waluipedia-start.json. The "Token plates" button opens
+the Token Plate Studio (tools/token-plate-studio.py), which renders full-body
+token plates through Comfy Desktop's ComfyUI and wires the ones you accept.
 
 Ctrl-C to stop (terminal mode). Nothing is built — this only serves the
 repository as it already exists.
@@ -72,6 +74,10 @@ LM_STUDIO_PORT = 1234
 # packets off this server, hence the CORS header on the static handler.
 SHEETS_SCRIPT = ROOT / "tools" / "sheets-suite.py"
 SHEETS_ROUTE = "#/sheets"
+# The Token Plate Studio (tools/token-plate-studio.py): a local page that renders
+# full-body token plates through Comfy Desktop's ComfyUI and wires the accepted ones.
+PLATES_SCRIPT = ROOT / "tools" / "token-plate-studio.py"
+PLATES_PORT = 8766
 # The launcher window remembers its ticks here.
 PREFS_PATH = Path.home() / ".waluipedia-start.json"
 
@@ -252,6 +258,32 @@ def launch_tts_studio(say=print) -> None:
     say("  qwen   : launched %s" % bat)
     say("            the studio loads its model first — Read aloud works once")
     say("            it answers on http://%s:%d" % (TTS_HOST, TTS_PORT))
+
+
+def launch_plate_studio(say=print) -> None:
+    """Open the Token Plate Studio. If one already answers on PLATES_PORT just
+    open the page; otherwise start tools/token-plate-studio.py as its own
+    process (own console on Windows) — it opens the browser itself. Renders
+    need Comfy Desktop running; the page says so and can launch it."""
+    if port_open("127.0.0.1", PLATES_PORT):
+        webbrowser.open("http://127.0.0.1:%d/" % PLATES_PORT)
+        say("  plates : studio already up — opened http://127.0.0.1:%d/" % PLATES_PORT)
+        return
+    if not PLATES_SCRIPT.is_file():
+        say("  plates : %s is missing" % PLATES_SCRIPT)
+        return
+    try:
+        subprocess.Popen(
+            [sys.executable, str(PLATES_SCRIPT)],
+            cwd=str(ROOT),
+            creationflags=getattr(subprocess, "CREATE_NEW_CONSOLE", 0),
+            close_fds=True,
+        )
+    except Exception as exc:  # a failed launch must not kill the site
+        say("  plates : could not launch %s (%s)" % (PLATES_SCRIPT, exc))
+        return
+    say("  plates : Token Plate Studio starting — it opens http://127.0.0.1:%d/ itself" % PLATES_PORT)
+    say("            (renders go through Comfy Desktop; open it, or press Start Comfy on the page)")
 
 
 # --------------------------------------------------------------------------
@@ -530,6 +562,7 @@ def run_gui(args) -> int:
     b_chat = ttk.Button(buttons, text="Open the chatroom"); b_chat.pack(side="left", padx=(6, 0))
     b_sheets = ttk.Button(buttons, text="Open the sheets"); b_sheets.pack(side="left", padx=(6, 0))
     b_tts = ttk.Button(buttons, text="Open the TTS studio"); b_tts.pack(side="left", padx=(6, 0))
+    b_plates = ttk.Button(buttons, text="Token plates"); b_plates.pack(side="left", padx=(6, 0))
     b_prefs = ttk.Button(buttons, text="Remember these ticks"); b_prefs.pack(side="right")
 
     log = ScrolledText(root, height=12, wrap="word", font=("TkFixedFont", 9), state="disabled")
@@ -639,6 +672,9 @@ def run_gui(args) -> int:
     def open_tts():
         webbrowser.open("http://%s:%d/" % (TTS_HOST, TTS_PORT))
 
+    def open_plates():
+        launch_plate_studio(say)
+
     def remember():
         ok = save_prefs(current_prefs())
         say("  prefs  : %s" % ("remembered in %s" % PREFS_PATH if ok else "could not write %s" % PREFS_PATH))
@@ -680,6 +716,7 @@ def run_gui(args) -> int:
     b_chat.configure(command=open_chat)
     b_sheets.configure(command=open_sheets)
     b_tts.configure(command=open_tts)
+    b_plates.configure(command=open_plates)
     b_prefs.configure(command=remember)
     root.protocol("WM_DELETE_WINDOW", on_close)
 

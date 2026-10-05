@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Token Plate Studio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root { --bg:#17181c; --panel:#20222a; --line:#32353f; --ink:#e8e8ee; --dim:#9a9db0; --acc:#8fd3ff; --ok:#6fd38a; --bad:#ff7b7b; --warn:#ffcc66; }
+  * { box-sizing:border-box; }
+  html, body { margin:0; height:100%; background:var(--bg); color:var(--ink); font:14px/1.4 system-ui, Segoe UI, Roboto, sans-serif; }
+  body { display:grid; grid-template-rows:auto 1fr; grid-template-columns:320px 1fr; grid-template-areas:"head head" "side main"; height:100vh; }
+  header { grid-area:head; display:flex; flex-wrap:wrap; gap:10px; align-items:center; padding:8px 12px; border-bottom:1px solid var(--line); background:var(--panel); }
+  header h1 { font-size:16px; margin:0 12px 0 0; letter-spacing:.3px; }
+  .pill { padding:3px 9px; border-radius:999px; background:#2b2e38; color:var(--dim); font-size:12px; }
+  .pill.on { background:#1f3a2a; color:var(--ok); }
+  .pill.off { background:#3a2323; color:var(--bad); }
+  button { background:#2d3140; color:var(--ink); border:1px solid var(--line); border-radius:6px; padding:5px 10px; cursor:pointer; font:inherit; }
+  button:hover { background:#394057; }
+  button:disabled { opacity:.45; cursor:default; }
+  button.primary { background:#2a5a8a; border-color:#3a74ad; }
+  button.primary:hover { background:#336ba3; }
+  button.good { background:#245a3a; border-color:#2f7a4d; }
+  button.good:hover { background:#2d7048; }
+  button.danger { background:#5a2a2a; border-color:#7a3a3a; }
+  select, input[type=text], input[type=number], textarea { background:#15161b; color:var(--ink); border:1px solid var(--line); border-radius:6px; padding:4px 6px; font:inherit; }
+  select.model { max-width:260px; }
+  label.inline { display:inline-flex; align-items:center; gap:5px; color:var(--dim); font-size:12px; }
+  aside { grid-area:side; border-right:1px solid var(--line); display:flex; flex-direction:column; min-height:0; background:var(--panel); }
+  aside .filters { padding:8px; border-bottom:1px solid var(--line); display:flex; flex-wrap:wrap; gap:6px; align-items:center; }
+  aside .filters input[type=text] { flex:1 1 100%; }
+  .chip { padding:2px 8px; border-radius:999px; border:1px solid var(--line); font-size:12px; cursor:pointer; color:var(--dim); user-select:none; }
+  .chip.on { background:#2a5a8a; color:#fff; border-color:#3a74ad; }
+  #roster { flex:1; overflow:auto; }
+  .row { display:grid; grid-template-columns:1fr auto; gap:2px 8px; padding:6px 10px; border-bottom:1px solid #262830; cursor:pointer; }
+  .row:hover { background:#272a35; }
+  .row.sel { background:#2b3a55; }
+  .row .nm { font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .row .id { color:var(--dim); font-size:11px; grid-column:1 / span 2; }
+  .badge { font-size:11px; padding:1px 6px; border-radius:4px; background:#2d3140; color:var(--dim); white-space:nowrap; }
+  .badge.GENERATE { background:#4a3a1c; color:var(--warn); }
+  .badge.SMALL { background:#4a3a1c; color:var(--warn); }
+  .badge.CUT { background:#1c3a4a; color:var(--acc); }
+  .badge.READY, .badge.READY-LEAD { background:#1f3a2a; color:var(--ok); }
+  .badge.t1 { background:#5a2a5a; color:#f0b0f0; }
+  aside .queue { padding:8px; border-top:1px solid var(--line); display:flex; flex-wrap:wrap; gap:6px; align-items:center; font-size:12px; color:var(--dim); }
+  aside .queue .prog { flex:1 1 100%; white-space:pre-wrap; max-height:90px; overflow:auto; }
+  main { grid-area:main; display:grid; grid-template-rows:1fr auto; min-height:0; }
+  .panes { display:grid; grid-template-columns:1fr 1.3fr 1fr; gap:1px; background:var(--line); min-height:0; }
+  .pane { background:var(--bg); display:flex; flex-direction:column; min-height:0; min-width:0; }
+  .pane .bar { display:flex; gap:8px; align-items:center; padding:6px 10px; border-bottom:1px solid var(--line); font-size:12px; color:var(--dim); flex-wrap:wrap; }
+  .pane .bar b { color:var(--ink); }
+  .pane .body { flex:1; min-height:0; display:flex; align-items:center; justify-content:center; padding:8px; overflow:hidden; position:relative; }
+  .ground { background:#2a2a2a; }
+  .ground.checker { background-color:#bbb; background-image:linear-gradient(45deg,#888 25%,transparent 25%),linear-gradient(-45deg,#888 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#888 75%),linear-gradient(-45deg,transparent 75%,#888 75%); background-size:20px 20px; background-position:0 0,0 10px,10px -10px,-10px 0; }
+  .ground.dark { background:#111; }
+  .ground.white { background:#fff; }
+  .ground.magenta { background:#f0f; }
+  .ground.green { background:#0f0; }
+  .pane img { max-width:100%; max-height:100%; object-fit:contain; image-rendering:auto; }
+  #renderCanvas { max-width:100%; max-height:100%; cursor:crosshair; touch-action:none; }
+  .facts { padding:6px 10px; border-top:1px solid var(--line); font-size:12px; color:var(--dim); min-height:52px; }
+  .facts .ok { color:var(--ok); }
+  .facts .bad { color:var(--bad); }
+  .controls { border-top:1px solid var(--line); background:var(--panel); padding:8px 12px; display:grid; grid-template-columns:1fr 360px; gap:10px; }
+  .controls textarea { width:100%; height:92px; resize:vertical; }
+  .controls .rowc { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-top:6px; }
+  .controls .keyer { display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+  input[type=range] { width:110px; vertical-align:middle; }
+  #log { grid-column:1 / span 2; font-size:12px; color:var(--dim); white-space:pre-wrap; min-height:18px; }
+  .spin { display:inline-block; width:12px; height:12px; border:2px solid var(--acc); border-right-color:transparent; border-radius:50%; animation:sp .8s linear infinite; vertical-align:-2px; }
+  @keyframes sp { to { transform:rotate(360deg); } }
+  .empty { color:var(--dim); font-size:13px; text-align:center; padding:20px; }
+  kbd { background:#2d3140; border:1px solid var(--line); border-radius:4px; padding:0 5px; font-size:11px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Token Plate Studio</h1>
+  <span id="conn" class="pill off">not connected</span>
+  <button id="btnConnect">Connect</button>
+  <button id="btnStartComfy" title="Launch Comfy Desktop (Windows), then press Connect once it is up">Start Comfy</button>
+  <input type="text" id="url" placeholder="http://127.0.0.1:8000" size="24" title="ComfyUI server; empty = probe 8000 then 8188">
+  <label class="inline">diffusion <select id="mUnet" class="model"></select></label>
+  <label class="inline">text encoder <select id="mClip" class="model"></select></label>
+  <label class="inline">vae <select id="mVae" class="model"></select></label>
+  <span class="pill" id="rawDir" title="renders, rejects and previews"></span>
+</header>
+
+<aside>
+  <div class="filters">
+    <input type="text" id="search" placeholder="search name or id">
+    <span class="chip on" data-tier="1">tier 1 party</span>
+    <span class="chip on" data-tier="2">tier 2</span>
+    <span class="chip" data-tier="3">tier 3</span>
+    <span class="chip on" data-st="todo">to do</span>
+    <span class="chip" data-st="done">plated</span>
+    <span class="chip" data-st="noref">no reference</span>
+    <span id="count" class="pill"></span>
+  </div>
+  <div id="roster"></div>
+  <div class="queue">
+    <b style="color:var(--ink)">Run queue</b>
+    <label class="inline">tier ≤ <select id="qTier"><option>1</option><option selected>2</option><option>3</option></select></label>
+    <label class="inline">limit <input type="number" id="qLimit" value="10" min="1" style="width:60px"></label>
+    <button id="btnRun" class="primary">Run</button>
+    <button id="btnStop" class="danger">Stop</button>
+    <div class="prog" id="qProg">Auto-accepts whatever passes QC; the rest stays in the list for your eyes.</div>
+  </div>
+</aside>
+
+<main>
+  <div class="panes">
+    <div class="pane">
+      <div class="bar"><b>Reference</b> <span id="refInfo"></span>
+        <label class="inline"><input type="radio" name="refView" value="lead" checked> lead</label>
+        <label class="inline"><input type="radio" name="refView" value="prepared"> what the model sees</label>
+      </div>
+      <div class="body ground dark" id="refBody"><div class="empty">Pick a character on the left.</div></div>
+      <div class="facts" id="refFacts"></div>
+    </div>
+    <div class="pane">
+      <div class="bar"><b>Render</b>
+        <select id="renderPick" title="renders kept for this character"></select>
+        <button id="btnResetCrop" title="clear the crop rectangle">Reset crop</button>
+        <span id="cropInfo">drag a rectangle to crop</span>
+      </div>
+      <div class="body ground dark" id="renderBody"><canvas id="renderCanvas" width="10" height="10"></canvas><div class="empty" id="renderEmpty">No render yet — press Generate.</div></div>
+      <div class="facts" id="renderFacts"></div>
+    </div>
+    <div class="pane">
+      <div class="bar"><b>Plate</b>
+        <label class="inline">ground
+          <select id="ground"><option value="checker">checker</option><option value="dark" selected>dark</option><option value="white">white</option><option value="key">key colour</option></select>
+        </label>
+        <span id="plateInfo"></span>
+      </div>
+      <div class="body ground dark" id="plateBody"><div class="empty">The plate appears here after Generate (auto) or Plate.</div></div>
+      <div class="facts" id="plateFacts"></div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <div>
+      <textarea id="prompt" placeholder="prompt — <image1> is the reference"></textarea>
+      <div class="rowc">
+        <button id="btnPromptReset" title="the generator's default prompt for this character">Default prompt</button>
+        <label class="inline">seed <input type="number" id="seed" style="width:120px" placeholder="random"></label>
+        <label class="inline">steps <input type="number" id="steps" value="25" min="1" max="60" style="width:60px"></label>
+        <label class="inline">resolution <select id="resolution"><option>1024</option><option>1536</option><option>2048</option></select></label>
+        <label class="inline"><input type="checkbox" id="transparent" checked> ask for alpha (2.1)</label>
+        <button id="btnGenerate" class="primary">Generate <kbd>G</kbd></button>
+        <button id="btnReroll" title="same prompt, new seed">Re-roll <kbd>R</kbd></button>
+        <button id="btnRemoveBg" title="a second pass through the model: 'Remove the background, and output a PNG image'">Remove background <kbd>B</kbd></button>
+      </div>
+    </div>
+    <div>
+      <div class="keyer">
+        <label class="inline">cut-out
+          <select id="mode"><option value="auto">auto (alpha if present, else key)</option><option value="alpha">alpha only</option><option value="magenta">magenta key</option><option value="green">green key</option><option value="flat">flat field (border colour)</option></select>
+        </label>
+        <label class="inline">hard <input type="range" id="hard" min="20" max="200" value="95"> <span id="hardV">95</span></label>
+        <label class="inline">soft <input type="range" id="soft" min="40" max="260" value="150"> <span id="softV">150</span></label>
+        <label class="inline"><input type="checkbox" id="heal" checked> heal specks</label>
+        <button id="btnPlate">Plate <kbd>P</kbd></button>
+      </div>
+      <div class="rowc">
+        <button id="btnAccept" class="good">Accept → wire plate <kbd>A</kbd></button>
+        <button id="btnReject" class="danger">Reject <kbd>X</kbd></button>
+        <button id="btnSkip">Skip <kbd>N</kbd></button>
+      </div>
+    </div>
+    <div id="log"></div>
+  </div>
+</main>
+
+<script>
+(function () {
+  "use strict";
+  const $ = (id) => document.getElementById(id);
+  const S = { roster: [], cur: null, render: null, crop: null, img: null, job: null, poll: null, plate: null, filters: { tiers: new Set([1, 2]), st: new Set(["todo"]) }, prepared: false };
+
+  // ------------------------------------------------------------ helpers ----
+  async function api(path, body) {
+    const r = await fetch(path, body === undefined ? {} : { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+    let data = {};
+    try { data = await r.json(); } catch (e) { data = { error: "bad response" }; }
+    if (!r.ok) throw new Error(data.error || (r.status + " " + r.statusText));
+    return data;
+  }
+  function log(msg, cls) { $("log").textContent = msg; $("log").style.color = cls === "bad" ? "var(--bad)" : cls === "ok" ? "var(--ok)" : "var(--dim)"; }
+  const imgUrl = (k, p) => "/img?k=" + k + "&p=" + encodeURIComponent(p) + "&t=" + Date.now();
+  function setGround(el, g) { el.className = "body ground " + g; }
+  function pct(x) { return Math.round((x || 0) * 100) + "%"; }
+
+  // ------------------------------------------------------------ connection ----
+  function fillModels(conn) {
+    const map = { unet: "mUnet", clip: "mClip", vae: "mVae" };
+    for (const k in map) {
+      const sel = $(map[k]); sel.innerHTML = "";
+      const choices = (conn.choices && conn.choices[k] && conn.choices[k].length) ? conn.choices[k] : [conn.models[k]];
+      for (const c of choices) { const o = document.createElement("option"); o.value = o.textContent = c; if (c === conn.models[k]) o.selected = true; sel.appendChild(o); }
+    }
+  }
+  function showConnection(conn) {
+    const el = $("conn");
+    if (conn.connected) { el.className = "pill on"; el.textContent = conn.url + " · " + (conn.engine || "no Qwen edit node"); }
+    else { el.className = "pill off"; el.textContent = "not connected — open Comfy Desktop, then Connect (ports " + (conn.ports || []).join(", ") + ")"; }
+    if (conn.url && !$("url").value) $("url").value = conn.url;
+    fillModels(conn);
+    $("transparent").disabled = conn.engine !== "qwen21";
+    if (conn.engine && conn.engine !== "qwen21") $("transparent").checked = false;
+  }
+  async function connect() {
+    log("connecting…");
+    try { const c = await api("/api/connect", { url: $("url").value.trim() || null }); showConnection(c); log(c.connected ? "connected to " + c.url + " (" + (c.engine || "no Qwen edit node — update ComfyUI") + ")" : "no ComfyUI answering — open Comfy Desktop", c.connected ? "ok" : "bad"); if (S.cur) loadCharacter(S.cur.id, true); }
+    catch (e) { log(e.message, "bad"); }
+  }
+  async function refreshState() {
+    try {
+      const st = await api("/api/state");
+      showConnection(st.connection);
+      $("rawDir").textContent = st.rawDir;
+      $("rawDir").title = "renders, rejects and previews: " + st.rawDir;
+      showQueue(st.queue);
+    } catch (e) { log(e.message, "bad"); }
+  }
+  const models = () => ({ unet: $("mUnet").value, clip: $("mClip").value, vae: $("mVae").value });
+
+  // ------------------------------------------------------------ roster ----
+  function rowVisible(r) {
+    if (!S.filters.tiers.has(r.tier)) return false;
+    const q = $("search").value.trim().toLowerCase();
+    if (q && !(r.id.includes(q) || r.name.toLowerCase().includes(q))) return false;
+    const done = r.status === "READY" || r.status === "READY-LEAD" || r.plate;
+    const todo = !done && r.hasRef;
+    const noref = !r.hasRef && !done;
+    return (S.filters.st.has("todo") && todo) || (S.filters.st.has("done") && done) || (S.filters.st.has("noref") && noref);
+  }
+  function drawRoster() {
+    const box = $("roster"); box.innerHTML = "";
+    let n = 0;
+    for (const r of S.roster) {
+      if (!rowVisible(r)) continue;
+      n++;
+      const d = document.createElement("div");
+      d.className = "row" + (S.cur && S.cur.id === r.id ? " sel" : "");
+      d.dataset.id = r.id;
+      const extra = (r.plate ? " · plate" : "") + (r.renders ? " · " + r.renders + " render" + (r.renders > 1 ? "s" : "") : "") + (r.rejected ? " · " + r.rejected + " rejected" : "") + (r.hasRef ? "" : " · no reference");
+      d.innerHTML = '<span class="nm"></span><span><span class="badge t' + r.tier + '">T' + r.tier + '</span> <span class="badge ' + r.status + '">' + r.status + "</span></span>" + '<span class="id"></span>';
+      d.querySelector(".nm").textContent = r.name;
+      d.querySelector(".id").textContent = r.id + extra;
+      d.addEventListener("click", () => loadCharacter(r.id));
+      box.appendChild(d);
+    }
+    $("count").textContent = n + " shown";
+  }
+  async function loadRoster(keepSel) {
+    if (!S.roster.length) $("roster").innerHTML = '<div class="empty"><span class="spin"></span> reading the roster (every plate and lead is measured once)…</div>';
+    try { S.roster = (await api("/api/roster")).rows; drawRoster(); if (!keepSel && !S.cur) { const first = S.roster.find(rowVisible); if (first) loadCharacter(first.id); } }
+    catch (e) { log(e.message, "bad"); }
+  }
+  function nextId() {
+    const vis = S.roster.filter(rowVisible);
+    if (!vis.length) return null;
+    const i = S.cur ? vis.findIndex((r) => r.id === S.cur.id) : -1;
+    return (vis[i + 1] || vis[0]).id;
+  }
+
+  // ------------------------------------------------------------ character ----
+  async function loadCharacter(id, keepPrompt) {
+    try {
+      const c = await api("/api/character?id=" + encodeURIComponent(id));
+      const same = S.cur && S.cur.id === id;
+      S.cur = c; S.plate = null; S.crop = null;
+      if (!same) S.prepared = false;
+      if (!same || !keepPrompt) $("prompt").value = $("transparent").checked ? c.prompt : c.promptOpaque;
+      $("refInfo").innerHTML = "<b></b> · T" + c.tier + " · " + c.status + (c.fullBodyRef ? " · full-body reference" : " · bust/half reference (the model extends it)");
+      $("refInfo").querySelector("b").textContent = c.name;
+      $("refFacts").textContent = (c.reference ? c.reference : "no usable reference — render this one by hand or give the article an image") + (c.look ? "\nlook: " + c.look : "");
+      showReference();
+      // renders
+      const sel = $("renderPick"); sel.innerHTML = "";
+      for (const r of c.renders) { const o = document.createElement("option"); o.value = r.file; o.textContent = r.file + (r.nobg ? " (bg removed)" : ""); sel.appendChild(o); }
+      S.render = c.renders.length ? c.renders[0].file : null;
+      showRender();
+      // plate
+      const pb = $("plateBody"); pb.innerHTML = "";
+      if (c.plate) { const im = document.createElement("img"); im.src = imgUrl("rm", c.plate); pb.appendChild(im); $("plateInfo").textContent = "current plate (wired)"; $("plateFacts").textContent = c.plateFacts ? c.plateFacts.size.join("×") + " · border clear " + pct(c.plateFacts.border_clear) : ""; }
+      else { pb.innerHTML = '<div class="empty">No plate yet.</div>'; $("plateInfo").textContent = ""; $("plateFacts").textContent = ""; }
+      drawRoster();
+      const row = document.querySelector('.row[data-id="' + CSS.escape(id) + '"]'); if (row && row.scrollIntoView) row.scrollIntoView({ block: "nearest" });
+    } catch (e) { log(e.message, "bad"); }
+  }
+  function showReference() {
+    const c = S.cur; const body = $("refBody"); body.innerHTML = "";
+    const prepared = document.querySelector('input[name=refView]:checked').value === "prepared";
+    if (prepared && S.prepared) { const im = document.createElement("img"); im.src = imgUrl("raw", c.id + ".ref.png"); body.appendChild(im); return; }
+    if (prepared) { body.innerHTML = '<div class="empty">The prepared canvas appears after the first Generate.</div>'; return; }
+    if (!c.reference) { body.innerHTML = '<div class="empty">No reference.</div>'; return; }
+    const im = document.createElement("img"); im.src = imgUrl("rm", c.reference); body.appendChild(im);
+  }
+
+  // ------------------------------------------------------------ render canvas + crop ----
+  const canvas = $("renderCanvas"), ctx = canvas.getContext("2d");
+  function showRender() {
+    const empty = $("renderEmpty");
+    if (!S.render) { S.img = null; canvas.style.display = "none"; empty.style.display = ""; $("renderFacts").textContent = ""; $("cropInfo").textContent = "drag a rectangle to crop"; return; }
+    $("renderPick").value = S.render;
+    const im = new Image();
+    im.onload = () => { S.img = im; canvas.style.display = ""; empty.style.display = "none"; fitCanvas(); drawCanvas(); $("renderFacts").textContent = S.render + " · " + im.naturalWidth + "×" + im.naturalHeight; };
+    im.onerror = () => { log("could not load " + S.render, "bad"); };
+    im.src = imgUrl("raw", S.render);
+  }
+  function fitCanvas() {
+    if (!S.img) return;
+    const box = $("renderBody").getBoundingClientRect();
+    const sc = Math.min((box.width - 16) / S.img.naturalWidth, (box.height - 16) / S.img.naturalHeight, 1);
+    canvas.width = Math.max(1, Math.floor(S.img.naturalWidth * sc));
+    canvas.height = Math.max(1, Math.floor(S.img.naturalHeight * sc));
+    canvas.dataset.scale = sc;
+  }
+  function drawCanvas() {
+    if (!S.img) return;
+    const sc = parseFloat(canvas.dataset.scale || "1");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(S.img, 0, 0, canvas.width, canvas.height);
+    if (S.crop) {
+      const [x0, y0, x1, y1] = S.crop.map((v) => v * sc);
+      ctx.fillStyle = "rgba(0,0,0,0.55)";
+      ctx.fillRect(0, 0, canvas.width, y0); ctx.fillRect(0, y1, canvas.width, canvas.height - y1);
+      ctx.fillRect(0, y0, x0, y1 - y0); ctx.fillRect(x1, y0, canvas.width - x1, y1 - y0);
+      ctx.strokeStyle = "#8fd3ff"; ctx.lineWidth = 2; ctx.strokeRect(x0 + 1, y0 + 1, x1 - x0 - 2, y1 - y0 - 2);
+      $("cropInfo").textContent = "crop " + Math.round(S.crop[0]) + "," + Math.round(S.crop[1]) + " → " + Math.round(S.crop[2] - S.crop[0]) + "×" + Math.round(S.crop[3] - S.crop[1]);
+    } else $("cropInfo").textContent = "drag a rectangle to crop";
+  }
+  let drag = null;
+  function pos(ev) { const r = canvas.getBoundingClientRect(); const sc = parseFloat(canvas.dataset.scale || "1"); return [Math.max(0, Math.min(S.img.naturalWidth, (ev.clientX - r.left) / sc)), Math.max(0, Math.min(S.img.naturalHeight, (ev.clientY - r.top) / sc))]; }
+  canvas.addEventListener("pointerdown", (ev) => { if (!S.img) return; canvas.setPointerCapture(ev.pointerId); drag = pos(ev); S.crop = null; drawCanvas(); });
+  canvas.addEventListener("pointermove", (ev) => { if (!drag) return; const p = pos(ev); S.crop = [Math.min(drag[0], p[0]), Math.min(drag[1], p[1]), Math.max(drag[0], p[0]), Math.max(drag[1], p[1])]; drawCanvas(); });
+  canvas.addEventListener("pointerup", () => { if (!drag) return; drag = null; if (S.crop && (S.crop[2] - S.crop[0] < 8 || S.crop[3] - S.crop[1] < 8)) S.crop = null; drawCanvas(); if (S.crop) plate(); });
+  window.addEventListener("resize", () => { fitCanvas(); drawCanvas(); });
+  $("btnResetCrop").addEventListener("click", () => { S.crop = null; drawCanvas(); if (S.render) plate(); });
+  $("renderPick").addEventListener("change", () => { S.render = $("renderPick").value; S.crop = null; showRender(); plate(); });
+
+  // ------------------------------------------------------------ plate ----
+  function showPlate(res) {
+    S.plate = res;
+    const pb = $("plateBody"); pb.innerHTML = "";
+    const im = document.createElement("img"); im.src = imgUrl("raw", res.preview); pb.appendChild(im);
+    const f = res.facts;
+    $("plateInfo").textContent = "preview — " + (res.ok ? "passes QC" : "needs eyes");
+    const lines = [f.size.join("×") + " plate · figure " + f.figure.join("×") + " · cut-out: " + f.key + " · border clear " + pct(f.border_clear) + (f.healed ? " · healed " + f.healed + " px" : "") + (f.specks ? " · specks " + f.specks : "")];
+    for (const w of res.qc) lines.push("⚠ " + w);
+    $("plateFacts").innerHTML = "";
+    lines.forEach((l, i) => { const d = document.createElement("div"); d.textContent = l; d.className = i === 0 ? (res.ok ? "ok" : "") : "bad"; $("plateFacts").appendChild(d); });
+  }
+  async function plate() {
+    if (!S.cur || !S.render) { log("nothing to plate — generate first", "bad"); return; }
+    try {
+      log("cutting…");
+      const res = await api("/api/plate", { id: S.cur.id, render: S.render, crop: S.crop, mode: $("mode").value, hard: +$("hard").value, soft: +$("soft").value, heal: $("heal").checked });
+      showPlate(res); log(res.ok ? "plate passes QC — Accept wires it" : "plate needs eyes: " + res.qc.join("; "), res.ok ? "ok" : "");
+    } catch (e) { log(e.message, "bad"); }
+  }
+
+  // ------------------------------------------------------------ jobs ----
+  function watch(job, onDone) {
+    S.job = job;
+    const t0 = Date.now();
+    const b = [$("btnGenerate"), $("btnReroll"), $("btnRemoveBg")]; b.forEach((x) => (x.disabled = true));
+    clearInterval(S.poll);
+    S.poll = setInterval(async () => {
+      try {
+        const j = await api("/api/job?id=" + job.id);
+        const secs = Math.round((Date.now() - t0) / 1000);
+        if (j.status === "queued" || j.status === "running") { log((j.kind === "removebg" ? "removing background… " : "rendering… ") + secs + "s (the first render after opening Comfy loads the model and takes longer)"); return; }
+        clearInterval(S.poll); b.forEach((x) => (x.disabled = false));
+        if (j.status === "error") { log(j.error, "bad"); return; }
+        onDone(j.result, secs);
+      } catch (e) { clearInterval(S.poll); b.forEach((x) => (x.disabled = false)); log(e.message, "bad"); }
+    }, 1500);
+  }
+  async function generate(reroll) {
+    if (!S.cur) return;
+    if (!S.cur.reference) { log("no usable reference for this character", "bad"); return; }
+    const seedField = $("seed").value.trim();
+    const body = { id: S.cur.id, prompt: $("prompt").value, seed: reroll || !seedField ? null : +seedField, steps: +$("steps").value || null, resolution: +$("resolution").value, transparent: $("transparent").checked, models: models() };
+    try {
+      const job = await api("/api/generate", body);
+      log("queued " + job.id);
+      watch(job, async (res, secs) => {
+        S.prepared = true;
+        $("seed").value = res.seed;
+        log("render back in " + secs + "s (seed " + res.seed + ", " + res.engine + ")" + (res.qc.length ? " — QC: " + res.qc.join("; ") : " — passes QC"), res.qc.length ? "" : "ok");
+        await loadCharacter(S.cur.id, true);
+        S.render = res.render; showRender(); showReference();
+        plate();
+        loadRoster(true);
+      });
+    } catch (e) { log(e.message, "bad"); }
+  }
+  async function removeBg() {
+    if (!S.cur || !S.render) { log("no render to clean", "bad"); return; }
+    try {
+      const job = await api("/api/removebg", { id: S.cur.id, render: S.render, resolution: +$("resolution").value });
+      watch(job, async (res, secs) => { log("background removed in " + secs + "s", "ok"); await loadCharacter(S.cur.id, true); S.render = res.render; showRender(); plate(); });
+    } catch (e) { log(e.message, "bad"); }
+  }
+  async function accept() {
+    if (!S.cur || !S.plate) { log("plate first (Generate makes one automatically)", "bad"); return; }
+    try {
+      const res = await api("/api/accept", { id: S.cur.id });
+      log("wired " + res.plate + " and applied to characters.json — run the sheets suite when you are done", "ok");
+      const next = nextId();
+      await loadRoster(true);
+      if (next && next !== S.cur.id) loadCharacter(next); else loadCharacter(S.cur.id);
+    } catch (e) { log(e.message, "bad"); }
+  }
+  async function reject() {
+    if (!S.cur || !S.render) return;
+    try { const res = await api("/api/reject", { id: S.cur.id, render: S.render }); log("kept as " + res.rejected, "ok"); await loadCharacter(S.cur.id, true); loadRoster(true); }
+    catch (e) { log(e.message, "bad"); }
+  }
+  function skip() { const n = nextId(); if (n) loadCharacter(n); }
+
+  // ------------------------------------------------------------ queue ----
+  function showQueue(q) {
+    const el = $("qProg");
+    if (!q) return;
+    if (q.running) { el.innerHTML = '<span class="spin"></span> ' + (q.done + q.failed) + "/" + q.total + " · now " + (q.current || "…") + " · " + q.done + " plated · " + q.failed + " for eyes\n" + (q.log || []).slice(-4).join("\n"); }
+    else if (q.total) el.textContent = "queue finished: " + q.done + " plated, " + q.failed + " for eyes" + (q.eyes && q.eyes.length ? " (" + q.eyes.map((e) => e.id).join(", ") + ")" : "") + "\n" + (q.log || []).slice(-3).join("\n");
+    $("btnRun").disabled = !!q.running;
+  }
+  let qTimer = null;
+  async function runQueue() {
+    try {
+      const q = await api("/api/queue/run", { tier: +$("qTier").value, limit: +$("qLimit").value || null, steps: +$("steps").value || null, resolution: +$("resolution").value, transparent: $("transparent").checked });
+      showQueue(q);
+      clearInterval(qTimer);
+      qTimer = setInterval(async () => { const st = await api("/api/state"); showQueue(st.queue); if (!st.queue.running) { clearInterval(qTimer); loadRoster(true); } }, 2000);
+    } catch (e) { log(e.message, "bad"); }
+  }
+
+  // ------------------------------------------------------------ wiring ----
+  $("btnConnect").addEventListener("click", connect);
+  $("btnStartComfy").addEventListener("click", async () => { try { const r = await api("/api/start-comfy", {}); log(r.started ? "Comfy Desktop launching — give it a minute, then Connect" : r.error, r.started ? "ok" : "bad"); } catch (e) { log(e.message, "bad"); } });
+  $("btnGenerate").addEventListener("click", () => generate(false));
+  $("btnReroll").addEventListener("click", () => generate(true));
+  $("btnRemoveBg").addEventListener("click", removeBg);
+  $("btnPlate").addEventListener("click", plate);
+  $("btnAccept").addEventListener("click", accept);
+  $("btnReject").addEventListener("click", reject);
+  $("btnSkip").addEventListener("click", skip);
+  $("btnRun").addEventListener("click", runQueue);
+  $("btnStop").addEventListener("click", async () => { try { await api("/api/queue/stop", {}); log("stopping after the current character"); } catch (e) { log(e.message, "bad"); } });
+  $("btnPromptReset").addEventListener("click", () => { if (S.cur) $("prompt").value = $("transparent").checked ? S.cur.prompt : S.cur.promptOpaque; });
+  $("transparent").addEventListener("change", () => { if (S.cur) $("prompt").value = $("transparent").checked ? S.cur.prompt : S.cur.promptOpaque; });
+  $("hard").addEventListener("input", () => ($("hardV").textContent = $("hard").value));
+  $("soft").addEventListener("input", () => ($("softV").textContent = $("soft").value));
+  $("hard").addEventListener("change", plate); $("soft").addEventListener("change", plate); $("mode").addEventListener("change", plate); $("heal").addEventListener("change", plate);
+  $("ground").addEventListener("change", () => { const g = $("ground").value === "key" ? (S.cur ? S.cur.key : "magenta") : $("ground").value; setGround($("plateBody"), g); });
+  document.querySelectorAll('input[name=refView]').forEach((r) => r.addEventListener("change", showReference));
+  $("search").addEventListener("input", drawRoster);
+  document.querySelectorAll(".chip").forEach((ch) => ch.addEventListener("click", () => {
+    ch.classList.toggle("on");
+    if (ch.dataset.tier) { const t = +ch.dataset.tier; ch.classList.contains("on") ? S.filters.tiers.add(t) : S.filters.tiers.delete(t); }
+    if (ch.dataset.st) { ch.classList.contains("on") ? S.filters.st.add(ch.dataset.st) : S.filters.st.delete(ch.dataset.st); }
+    drawRoster();
+  }));
+  document.addEventListener("keydown", (ev) => {
+    if (ev.target && (ev.target.tagName === "TEXTAREA" || ev.target.tagName === "INPUT" || ev.target.tagName === "SELECT")) return;
+    const k = ev.key.toLowerCase();
+    if (k === "g") generate(false); else if (k === "r") generate(true); else if (k === "b") removeBg(); else if (k === "p") plate();
+    else if (k === "a") accept(); else if (k === "x") reject(); else if (k === "n") skip();
+  });
+
+  refreshState().then(() => loadRoster(false));
+})();
+</script>
+</body>
+</html>

@@ -150,6 +150,7 @@ def main() -> int:
     try:  # token plates: the keyer, heal, and the ComfyUI render loop against a fake server (needs Pillow + numpy + scipy)
         import PIL, numpy, scipy  # noqa: F401
         checks.append(("token plates", [py, "tools/tests/test-make-token-plates.py"], ROOT))
+        checks.append(("token plate studio", [py, "tools/tests/test-token-plate-studio.py"], ROOT))
     except ImportError:
         pass
 
