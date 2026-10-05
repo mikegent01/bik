@@ -162,6 +162,35 @@ The table places characters on the map; a token needs the whole figure. The
   same nine figures come out ~950 px from single renders and ~275 px from
   a 3×3 at 1024 — a grid is for background NPCs, and worth it only from a
   generator that returns 2048 px or more.
+* **Hands-off with a local ComfyUI** — `render`. With ComfyUI running
+  (Qwen-Image-Edit loaded; default `http://127.0.0.1:8188`, or `--url` /
+  `COMFY_URL`), `python tools\make-token-plates.py render` walks every sheet
+  character still without a plate in table-use order: the reference is
+  padded onto a canvas of its key colour (a bust sits in the top of the
+  canvas with empty key colour below, so the edit has room to draw the
+  rest), the edit instruction + reference go to the server, the result is
+  cut, QC'd (keyed field, clear border, nothing touching the frame, figure
+  at least 45 % of the frame tall), retried with a new seed when it fails,
+  applied, next. A plate on disk is skipped, so the run resumes; Ctrl-C
+  between characters is safe; rejected attempts stay in
+  `<raw-dir>/<id>.rejected-N.png` and `render-log.json` says what happened
+  to every id. The builtin graph is the stock Qwen-Image-Edit workflow
+  (`--lora Qwen-Image-Lightning-4steps-V1.0.safetensors` for the 4-step
+  LoRA); for anything else export your own from ComfyUI (Dev mode → *Save
+  (API Format)*) and pass `--workflow file.json` — the tool fills the
+  sampler's positive and negative prompts, the seed, every LoadImage and
+  the SaveImage prefix and leaves the rest alone. Ids with no local
+  reference (a hotlinked lead, nothing at all) are logged "skipped" for a
+  hand render. Start with `--tier 2 --limit 20` and `sheet` the result
+  before letting it run through the rest.
+* **Keyer facts** (2026-10-05): the chroma distance is int32 — the int16
+  version overflowed on dark purples / blues / reds and punched holes
+  through 27 plates; `heal` restores those (exact where the plate still
+  stores its colour under the clear pixels, neighbour fill for tiny
+  patches, edge despill) and `check` names any plate that still needs it.
+  The key also matches its own hue in shadow, because generators shade the
+  field next to the figure to a dark magenta / green. A render that fits
+  1024 is never resampled.
 * **Look on the shelf before generating.** `tools/portrait-audit.py
   --orphans` lists every file under `portraits/` that no record points at;
   the 2026-10-05 pass found finished plates for Captain Syrup, Captain

@@ -219,3 +219,33 @@ between an arm and a body is not connected to the border; a flat cream
 field is keyed only from the border so a white cap survives); 500 px
 cut-outs and 450 px roster cuts are usable tokens — the floor is 400, the
 target 1024; pixel art is upscaled by whole pixels, never regenerated.
+
+**Same day, later — the loop goes local.** Asked to let the tool drive the
+GM's own generator (Qwen-Image-Edit on ComfyUI) through everything left,
+one at a time, until done. The repo had no ComfyUI or Qwen-Image code to
+reuse (the only Qwen piece is the Qwen3-TTS bridge, `docs/QWEN_TTS_BRIDGE.md`),
+so `render` is new: a urllib-only ComfyUI client (`/upload/image`,
+`/prompt`, `/history`, `/view`), the stock Qwen-Image-Edit graph built in
+(your own exported API-format graph with `--workflow`), reference padded
+onto the key colour, QC + retry + apply per character, resumable, logged.
+It is proven against a fake ComfyUI in `tools/tests/test-make-token-plates.py`
+(a bust reference fails QC once and passes on the second attempt), not
+against a real one — the first real run is the GM's, which is why
+`--tier 2 --limit 20` + `sheet` is the advice before the long run.
+
+**Found on the way, fixed:** the keyer's chroma distance was computed in
+int16; a channel difference over 181 overflowed, so dark purples, blues,
+reds and skin-against-green landed under the hard tolerance and were keyed
+out — pinholes and blobs of background through 27 of the committed plates
+(Waluigi's face against the green key, Eager's cap spot, John Lee's coat).
+Invisible on the 160 px contact sheet, obvious on a dark map at token
+scale. Now int32; `heal` gave back what was recoverable (exact where the
+plate still stores the render's colour under its clear pixels; neighbour
+fill for tiny patches; edge despill), and `check` now flags keyed-out
+figure pixels. Four plates had been downscaled after the cut, which
+blackens what sits under a cleared pixel, so their larger holes were gone
+for good: Wario, Salam, Luigi and Paulo were rendered again from the
+healed plates and cut with the fixed keyer. Two more keyer rules came out
+of that: the key matches its own hue in shadow (generators shade the field
+next to the figure to a dark magenta / green — Luigi's hose loop), and a
+render that already fits 1024 is not resampled.

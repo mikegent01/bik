@@ -147,6 +147,12 @@ def main() -> int:
         ("regal empire POIs", [py, "tools/fix-regal-empire-pois.py", "--check"], ROOT),
     ]
 
+    try:  # token plates: the keyer, heal, and the ComfyUI render loop against a fake server (needs Pillow + numpy + scipy)
+        import PIL, numpy, scipy  # noqa: F401
+        checks.append(("token plates", [py, "tools/tests/test-make-token-plates.py"], ROOT))
+    except ImportError:
+        pass
+
     if shutil.which("node"):
         checks.append(("Bros discovery test", ["node", "tools/tests/test_bros_discovery.mjs"], RM))
         checks.append(("Foundry ATB module", ["node", "tools/tests/test-active-time-battle-module.mjs"], ROOT))
