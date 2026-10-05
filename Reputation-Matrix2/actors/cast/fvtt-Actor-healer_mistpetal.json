@@ -524,7 +524,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "portraits/healer_mistpetal.jpg",
+      "src": "portraits/player/fullbody/healer_mistpetal.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",

@@ -524,7 +524,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "portraits/lazybones.png",
+      "src": "portraits/player/fullbody/lazybones.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",

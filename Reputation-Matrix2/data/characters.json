@@ -99,6 +99,8 @@
     "faction": "undertale_monsters",
     "membership": "Snowdin Perimeter Watch / Underground local guide",
     "image": "portraits/sans.png",
+    "fullBody": "portraits/player/fullbody/sans.png",
+    "fullBodyCaption": "Full-body token plate — Sans head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token.",
     "faiths": [
       {
         "id": "void_nihilism",
@@ -2210,6 +2212,8 @@
     ],
     "image": "portraits/dan_grove_splinted.png",
     "imageCaption": "Lead plate — Feyward Dan after the grove floor: one arm, the shield on it, the thumb in a splint (Permanent Injury Table 59, one week), the web still in the cap. The scowl is permanent. The earlier plate is in the rotator.",
+    "fullBody": "portraits/player/fullbody/dan_the_toad.png",
+    "fullBodyCaption": "Full-body token plate — Dan (The Parallel Paradox) head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token.",
     "eventStates": [
       {
         "event": "the_airlift_that_never_came",
@@ -3255,6 +3259,8 @@
     "fameScore": 18,
     "fameTier": "Obscure",
     "image": "portraits/papyrus.png",
+    "fullBody": "portraits/player/fullbody/papyrus.png",
+    "fullBodyCaption": "Full-body token plate — Papyrus head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token.",
     "faiths": [
       {
         "id": "star_spirits",
@@ -3294,6 +3300,8 @@
     ],
     "familyTreeSource": "family-tree.js / Snowdin Bone-Line",
     "image": "portraits/grandpa_semi.png",
+    "fullBody": "portraits/player/fullbody/grandpa_semi.png",
+    "fullBodyCaption": "Full-body token plate — Grandpa Semi head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token.",
     "faiths": [
       {
         "id": "yggdrasil_pact",
@@ -3341,6 +3349,8 @@
     "fameScore": 18,
     "fameTier": "Obscure",
     "image": "portraits/lazybones.png",
+    "fullBody": "portraits/player/fullbody/lazybones.png",
+    "fullBodyCaption": "Full-body token plate — Lazybones head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token.",
     "faiths": [
       {
         "id": "void_nihilism",
@@ -3387,7 +3397,9 @@
     "powerLevel": 1,
     "fameScore": 18,
     "fameTier": "Obscure",
-    "image": "portraits/baby_bones.png"
+    "image": "portraits/baby_bones.png",
+    "fullBody": "portraits/player/fullbody/baby_bones.png",
+    "fullBodyCaption": "Full-body token plate — Baby Bones head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token."
   },
   {
     "id": "dirty_brother",
@@ -3428,6 +3440,8 @@
     "fameScore": 18,
     "fameTier": "Obscure",
     "image": "portraits/dirty_brother.png",
+    "fullBody": "portraits/player/fullbody/dirty_brother.png",
+    "fullBodyCaption": "Full-body token plate — Dirty Brother head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token.",
     "faiths": [
       {
         "id": "steam_covenant",
@@ -3522,6 +3536,8 @@
     "fameScore": 18,
     "fameTier": "Obscure",
     "image": "portraits/cursive.png",
+    "fullBody": "portraits/player/fullbody/cursive.png",
+    "fullBodyCaption": "Full-body token plate — Cursive head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token.",
     "faiths": [
       {
         "id": "unown_alphabet",
@@ -3569,6 +3585,8 @@
     "fameScore": 18,
     "fameTier": "Obscure",
     "image": "portraits/times_new_roman.png",
+    "fullBody": "portraits/player/fullbody/times_new_roman.png",
+    "fullBodyCaption": "Full-body token plate — Times New Roman head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token.",
     "faiths": [
       {
         "id": "millennium_logic",
@@ -3663,6 +3681,8 @@
     "fameScore": 18,
     "fameTier": "Obscure",
     "image": "portraits/real_star.png",
+    "fullBody": "portraits/player/fullbody/real_star.png",
+    "fullBodyCaption": "Full-body token plate — S' a Real Star head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token.",
     "faiths": [
       {
         "id": "luma_caretakers",
@@ -3713,6 +3733,8 @@
     "fameScore": 18,
     "fameTier": "Obscure",
     "image": "portraits/wing_gaster.png",
+    "fullBody": "portraits/player/fullbody/wing_gaster.png",
+    "fullBodyCaption": "Full-body token plate — Wing Gaster head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token.",
     "faiths": [
       {
         "id": "missingno_glitch",
@@ -3760,6 +3782,8 @@
     "fameScore": 18,
     "fameTier": "Obscure",
     "image": "portraits/helvetica.png",
+    "fullBody": "portraits/player/fullbody/helvetica.png",
+    "fullBodyCaption": "Full-body token plate — Helvetica head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token.",
     "faiths": [
       {
         "id": "unown_alphabet",
@@ -3901,6 +3925,8 @@
     "fameScore": 18,
     "fameTier": "Obscure",
     "image": "portraits/mystery_man.png",
+    "fullBody": "portraits/player/fullbody/mystery_man.png",
+    "fullBodyCaption": "Full-body token plate — Mysteryman head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token.",
     "faiths": [
       {
         "id": "missingno_glitch",
@@ -4034,6 +4060,8 @@
     "fameScore": 18,
     "fameTier": "Obscure",
     "image": "portraits/has_a_very_special_attack.png",
+    "fullBody": "portraits/player/fullbody/has_a_very_special_attack.png",
+    "fullBodyCaption": "Full-body token plate — Has A Very Special Attack head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token.",
     "faiths": [
       {
         "id": "jester_cult",
@@ -4081,6 +4109,8 @@
     "fameScore": 18,
     "fameTier": "Obscure",
     "image": "portraits/brother_killer.png",
+    "fullBody": "portraits/player/fullbody/brother_killer.png",
+    "fullBodyCaption": "Full-body token plate — Brother Killer head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token.",
     "faiths": [
       {
         "id": "khornate_blood_cult",
@@ -4167,7 +4197,9 @@
     "powerLevel": 1,
     "fameScore": 18,
     "fameTier": "Obscure",
-    "image": "portraits/ness.png"
+    "image": "portraits/ness.png",
+    "fullBody": "portraits/player/fullbody/ness.png",
+    "fullBodyCaption": "Full-body token plate — Ness head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token."
   },
   {
     "id": "my_brother",
@@ -4207,7 +4239,9 @@
     "powerLevel": 1,
     "fameScore": 18,
     "fameTier": "Obscure",
-    "image": "portraits/my_brother.png"
+    "image": "portraits/my_brother.png",
+    "fullBody": "portraits/player/fullbody/my_brother.png",
+    "fullBodyCaption": "Full-body token plate — My Brother? head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token."
   },
   {
     "id": "pretty_soon",
@@ -4248,6 +4282,8 @@
     "fameScore": 18,
     "fameTier": "Obscure",
     "image": "portraits/pretty_soon.png",
+    "fullBody": "portraits/player/fullbody/pretty_soon.png",
+    "fullBodyCaption": "Full-body token plate — Pretty Soon head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token.",
     "faiths": [
       {
         "id": "bean_star_faith",
@@ -4335,6 +4371,8 @@
     "fameScore": 18,
     "fameTier": "Obscure",
     "image": "portraits/starman.png",
+    "fullBody": "portraits/player/fullbody/starman.png",
+    "fullBodyCaption": "Full-body token plate — Starman head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token.",
     "faiths": [
       {
         "id": "luma_caretakers",
@@ -4636,7 +4674,9 @@
         "note": "Sans names Toriel as one of the only authorities who can grant personal royal approval through the Underground. The Sanctum's emphasis on healing and protection describes her function exactly, and she has exercised it without any of the institution that usually comes attached."
       }
     ],
-    "image": "portraits/toriel.jpg"
+    "image": "portraits/toriel.jpg",
+    "fullBody": "portraits/player/fullbody/toriel.png",
+    "fullBodyCaption": "Full-body token plate — Toriel head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token."
   },
   {
     "id": "asgore",
@@ -4969,7 +5009,9 @@
         "note": "Mistpetal measures every proposed operation against the casualty list it implies, which is the Sanctum's actual doctrine rather than its decorative one. The Menders pray over the wounded and then argue with the council, in that order."
       }
     ],
-    "image": "portraits/healer_mistpetal.jpg"
+    "image": "portraits/healer_mistpetal.jpg",
+    "fullBody": "portraits/player/fullbody/healer_mistpetal.png",
+    "fullBodyCaption": "Full-body token plate — Healer Mistpetal head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token."
   },
   {
     "id": "kyrn",
@@ -6220,7 +6262,9 @@
     "keyEvents": [
       "the_telescope_and_the_tennis_match"
     ],
-    "image": "portraits/orange_t_v2.png"
+    "image": "portraits/orange_t_v2.png",
+    "fullBody": "portraits/player/fullbody/orange_t.png",
+    "fullBodyCaption": "Full-body token plate — Orange T head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token."
   },
   {
     "id": "pierce_anamatar",
@@ -6660,8 +6704,9 @@
     "microArticleFlag": true,
     "waluigiComment": "Roster micro-article — generated from the Toadslist line; expand when testimony is filed. WAH.",
     "image": "assets/images/toads/roster/toad_11_lucky_t.png",
-    "fullBody": "assets/images/toads/roster/toad_11_lucky_t.png",
     "imageCaption": "Roster plate — cut from the cohort sheet; full body on a plain field, the token the table uses.",
+    "fullBody": "portraits/player/fullbody/toad_lucky_t.png",
+    "fullBodyCaption": "Full-body token plate — Lucky T head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token.",
     "sheetRole": "soldier",
     "rosterNumber": 11,
     "generatedBy": "tools/file-roster-toads.py"
@@ -6686,8 +6731,9 @@
     "microArticleFlag": true,
     "waluigiComment": "Roster micro-article — generated from the Toadslist line; expand when testimony is filed. WAH.",
     "image": "assets/images/toads/roster/toad_15_bearr.png",
-    "fullBody": "assets/images/toads/roster/toad_15_bearr.png",
     "imageCaption": "Roster plate — cut from the cohort sheet; full body on a plain field, the token the table uses.",
+    "fullBody": "portraits/player/fullbody/toad_bearr.png",
+    "fullBodyCaption": "Full-body token plate — Bearr head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token.",
     "sheetRole": "soldier",
     "rosterNumber": 15,
     "generatedBy": "tools/file-roster-toads.py"
@@ -6712,8 +6758,9 @@
     "microArticleFlag": true,
     "waluigiComment": "Roster micro-article — generated from the Toadslist line; expand when testimony is filed. WAH.",
     "image": "assets/images/toads/roster/toad_16_spoky.png",
-    "fullBody": "assets/images/toads/roster/toad_16_spoky.png",
     "imageCaption": "Roster plate — cut from the cohort sheet; full body on a plain field, the token the table uses.",
+    "fullBody": "portraits/player/fullbody/toad_spoky.png",
+    "fullBodyCaption": "Full-body token plate — Spoky head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token.",
     "sheetRole": "soldier",
     "rosterNumber": 16,
     "generatedBy": "tools/file-roster-toads.py"
@@ -6738,8 +6785,9 @@
     "microArticleFlag": true,
     "waluigiComment": "Roster micro-article — generated from the Toadslist line; expand when testimony is filed. WAH.",
     "image": "assets/images/toads/roster/toad_17_bion.png",
-    "fullBody": "assets/images/toads/roster/toad_17_bion.png",
     "imageCaption": "Roster plate — cut from the cohort sheet; full body on a plain field, the token the table uses.",
+    "fullBody": "portraits/player/fullbody/toad_bion.png",
+    "fullBodyCaption": "Full-body token plate — Bion head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token.",
     "sheetRole": "soldier",
     "rosterNumber": 17,
     "generatedBy": "tools/file-roster-toads.py"
@@ -6764,8 +6812,9 @@
     "microArticleFlag": true,
     "waluigiComment": "Roster micro-article — generated from the Toadslist line; expand when testimony is filed. WAH.",
     "image": "assets/images/toads/roster/toad_18_axie.png",
-    "fullBody": "assets/images/toads/roster/toad_18_axie.png",
     "imageCaption": "Roster plate — cut from the cohort sheet; full body on a plain field, the token the table uses.",
+    "fullBody": "portraits/player/fullbody/toad_axie.png",
+    "fullBodyCaption": "Full-body token plate — Axie head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token.",
     "sheetRole": "soldier",
     "rosterNumber": 18,
     "generatedBy": "tools/file-roster-toads.py"
@@ -6790,8 +6839,9 @@
     "microArticleFlag": true,
     "waluigiComment": "Roster micro-article — generated from the Toadslist line; expand when testimony is filed. WAH.",
     "image": "assets/images/toads/roster/toad_19_freaza.png",
-    "fullBody": "assets/images/toads/roster/toad_19_freaza.png",
     "imageCaption": "Roster plate — cut from the cohort sheet; full body on a plain field, the token the table uses.",
+    "fullBody": "portraits/player/fullbody/toad_freaza.png",
+    "fullBodyCaption": "Full-body token plate — Freaza head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token.",
     "sheetRole": "soldier",
     "rosterNumber": 19,
     "generatedBy": "tools/file-roster-toads.py"
@@ -6842,8 +6892,9 @@
     "microArticleFlag": true,
     "waluigiComment": "Roster micro-article — generated from the Toadslist line; expand when testimony is filed. WAH.",
     "image": "assets/images/toads/roster/toad_22_naners.png",
-    "fullBody": "assets/images/toads/roster/toad_22_naners.png",
     "imageCaption": "Roster plate — cut from the cohort sheet; full body on a plain field, the token the table uses.",
+    "fullBody": "portraits/player/fullbody/toad_naners.png",
+    "fullBodyCaption": "Full-body token plate — Naners head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token.",
     "sheetRole": "soldier",
     "rosterNumber": 22,
     "generatedBy": "tools/file-roster-toads.py"
@@ -6894,8 +6945,9 @@
     "microArticleFlag": true,
     "waluigiComment": "Roster micro-article — generated from the Toadslist line; expand when testimony is filed. WAH.",
     "image": "assets/images/toads/roster/toad_24_rawra.png",
-    "fullBody": "assets/images/toads/roster/toad_24_rawra.png",
     "imageCaption": "Roster plate — cut from the cohort sheet; full body on a plain field, the token the table uses.",
+    "fullBody": "portraits/player/fullbody/toad_rawra.png",
+    "fullBodyCaption": "Full-body token plate — Rawra head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token.",
     "sheetRole": "soldier",
     "rosterNumber": 24,
     "generatedBy": "tools/file-roster-toads.py"
@@ -6920,8 +6972,9 @@
     "microArticleFlag": true,
     "waluigiComment": "Roster micro-article — generated from the Toadslist line; expand when testimony is filed. WAH.",
     "image": "assets/images/toads/roster/toad_25_regan.png",
-    "fullBody": "assets/images/toads/roster/toad_25_regan.png",
     "imageCaption": "Roster plate — cut from the cohort sheet; full body on a plain field, the token the table uses.",
+    "fullBody": "portraits/player/fullbody/toad_regan.png",
+    "fullBodyCaption": "Full-body token plate — Regan head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token.",
     "sheetRole": "soldier",
     "rosterNumber": 25,
     "generatedBy": "tools/file-roster-toads.py"
@@ -6972,8 +7025,9 @@
     "microArticleFlag": true,
     "waluigiComment": "Roster micro-article — generated from the Toadslist line; expand when testimony is filed. WAH.",
     "image": "assets/images/toads/roster/toad_27_bluey.png",
-    "fullBody": "assets/images/toads/roster/toad_27_bluey.png",
     "imageCaption": "Roster plate — cut from the cohort sheet; full body on a plain field, the token the table uses.",
+    "fullBody": "portraits/player/fullbody/toad_bluey.png",
+    "fullBodyCaption": "Full-body token plate — Bluey head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token.",
     "sheetRole": "soldier",
     "rosterNumber": 27,
     "generatedBy": "tools/file-roster-toads.py"
@@ -6998,8 +7052,9 @@
     "microArticleFlag": true,
     "waluigiComment": "Roster micro-article — generated from the Toadslist line; expand when testimony is filed. WAH.",
     "image": "assets/images/toads/roster/toad_28_slinat.png",
-    "fullBody": "assets/images/toads/roster/toad_28_slinat.png",
     "imageCaption": "Roster plate — cut from the cohort sheet; full body on a plain field, the token the table uses.",
+    "fullBody": "portraits/player/fullbody/toad_slinat.png",
+    "fullBodyCaption": "Full-body token plate — Slinat head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token.",
     "sheetRole": "soldier",
     "rosterNumber": 28,
     "generatedBy": "tools/file-roster-toads.py"
@@ -7024,8 +7079,9 @@
     "microArticleFlag": true,
     "waluigiComment": "Roster micro-article — generated from the Toadslist line; expand when testimony is filed. WAH.",
     "image": "assets/images/toads/roster/toad_29_swig.png",
-    "fullBody": "assets/images/toads/roster/toad_29_swig.png",
     "imageCaption": "Roster plate — cut from the cohort sheet; full body on a plain field, the token the table uses.",
+    "fullBody": "portraits/player/fullbody/toad_swig.png",
+    "fullBodyCaption": "Full-body token plate — Swig head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token.",
     "sheetRole": "soldier",
     "rosterNumber": 29,
     "generatedBy": "tools/file-roster-toads.py"
@@ -7050,8 +7106,9 @@
     "microArticleFlag": true,
     "waluigiComment": "Roster micro-article — generated from the Toadslist line; expand when testimony is filed. WAH.",
     "image": "assets/images/toads/roster/toad_38_transparen_t.png",
-    "fullBody": "assets/images/toads/roster/toad_38_transparen_t.png",
     "imageCaption": "Roster plate — cut from the cohort sheet; full body on a plain field, the token the table uses.",
+    "fullBody": "portraits/player/fullbody/toad_transparen_t.png",
+    "fullBodyCaption": "Full-body token plate — Transparen T head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token.",
     "sheetRole": "caster",
     "rosterNumber": 38,
     "generatedBy": "tools/file-roster-toads.py"
@@ -7207,8 +7264,9 @@
     "microArticleFlag": true,
     "waluigiComment": "Roster micro-article — generated from the Toadslist line; expand when testimony is filed. WAH.",
     "image": "assets/images/toads/roster/toad_44_lilystalker.png",
-    "fullBody": "assets/images/toads/roster/toad_44_lilystalker.png",
     "imageCaption": "Roster plate — cut from the cohort sheet; full body on a plain field, the token the table uses.",
+    "fullBody": "portraits/player/fullbody/toad_lilystalker.png",
+    "fullBodyCaption": "Full-body token plate — Lilystalker head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token.",
     "sheetRole": "soldier",
     "rosterNumber": 44,
     "generatedBy": "tools/file-roster-toads.py",
@@ -7236,8 +7294,9 @@
     "microArticleFlag": true,
     "waluigiComment": "Roster micro-article — generated from the Toadslist line; expand when testimony is filed. WAH.",
     "image": "assets/images/toads/roster/toad_45_inkspot.png",
-    "fullBody": "assets/images/toads/roster/toad_45_inkspot.png",
     "imageCaption": "Roster plate — cut from the cohort sheet; full body on a plain field, the token the table uses.",
+    "fullBody": "portraits/player/fullbody/toad_inkspot.png",
+    "fullBodyCaption": "Full-body token plate — Inkspot head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token.",
     "sheetRole": "caster",
     "rosterNumber": 45,
     "generatedBy": "tools/file-roster-toads.py"
@@ -7262,8 +7321,9 @@
     "microArticleFlag": true,
     "waluigiComment": "Roster micro-article — generated from the Toadslist line; expand when testimony is filed. WAH.",
     "image": "assets/images/toads/roster/toad_46_quillback.png",
-    "fullBody": "assets/images/toads/roster/toad_46_quillback.png",
     "imageCaption": "Roster plate — cut from the cohort sheet; full body on a plain field, the token the table uses.",
+    "fullBody": "portraits/player/fullbody/toad_quillback.png",
+    "fullBodyCaption": "Full-body token plate — Quillback head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token.",
     "sheetRole": "caster",
     "rosterNumber": 46,
     "generatedBy": "tools/file-roster-toads.py"
@@ -7288,8 +7348,9 @@
     "microArticleFlag": true,
     "waluigiComment": "Roster micro-article — generated from the Toadslist line; expand when testimony is filed. WAH.",
     "image": "assets/images/toads/roster/toad_47_gearspore.png",
-    "fullBody": "assets/images/toads/roster/toad_47_gearspore.png",
     "imageCaption": "Roster plate — cut from the cohort sheet; full body on a plain field, the token the table uses.",
+    "fullBody": "portraits/player/fullbody/toad_gearspore.png",
+    "fullBodyCaption": "Full-body token plate — Gearspore head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token.",
     "sheetRole": "caster",
     "rosterNumber": 47,
     "generatedBy": "tools/file-roster-toads.py"
@@ -8008,8 +8069,9 @@
     "microArticleFlag": true,
     "waluigiComment": "Roster micro-article — generated from the Toadslist line; expand when testimony is filed. WAH.",
     "image": "assets/images/toads/roster/toad_75_4331_t.png",
-    "fullBody": "assets/images/toads/roster/toad_75_4331_t.png",
     "imageCaption": "Roster plate — cut from the cohort sheet; full body on a plain field, the token the table uses.",
+    "fullBody": "portraits/player/fullbody/toad_4331_t.png",
+    "fullBodyCaption": "Full-body token plate — 4331 T head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token.",
     "sheetRole": "civilian",
     "rosterNumber": 75,
     "generatedBy": "tools/file-roster-toads.py"

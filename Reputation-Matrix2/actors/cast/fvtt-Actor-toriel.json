@@ -560,7 +560,7 @@
     "width": 2,
     "height": 2,
     "texture": {
-      "src": "portraits/toriel.jpg",
+      "src": "portraits/player/fullbody/toriel.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",

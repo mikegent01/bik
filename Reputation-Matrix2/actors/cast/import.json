@@ -45897,7 +45897,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_75_4331_t.png",
+          "src": "portraits/player/fullbody/toad_4331_t.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -47573,7 +47573,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_18_axie.png",
+          "src": "portraits/player/fullbody/toad_axie.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -49249,7 +49249,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_15_bearr.png",
+          "src": "portraits/player/fullbody/toad_bearr.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -50090,7 +50090,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_17_bion.png",
+          "src": "portraits/player/fullbody/toad_bion.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -50930,7 +50930,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_27_bluey.png",
+          "src": "portraits/player/fullbody/toad_bluey.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -58853,7 +58853,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_19_freaza.png",
+          "src": "portraits/player/fullbody/toad_freaza.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -59692,7 +59692,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_47_gearspore.png",
+          "src": "portraits/player/fullbody/toad_gearspore.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -63150,7 +63150,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "portraits/healer_mistpetal.jpg",
+          "src": "portraits/player/fullbody/healer_mistpetal.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -64880,7 +64880,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_45_inkspot.png",
+          "src": "portraits/player/fullbody/toad_inkspot.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -68291,7 +68291,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_44_lilystalker.png",
+          "src": "portraits/player/fullbody/toad_lilystalker.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -70016,7 +70016,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_11_lucky_t.png",
+          "src": "portraits/player/fullbody/toad_lucky_t.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -71692,7 +71692,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_22_naners.png",
+          "src": "portraits/player/fullbody/toad_naners.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -79339,7 +79339,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_46_quillback.png",
+          "src": "portraits/player/fullbody/toad_quillback.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -81062,7 +81062,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_24_rawra.png",
+          "src": "portraits/player/fullbody/toad_rawra.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -82786,7 +82786,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_25_regan.png",
+          "src": "portraits/player/fullbody/toad_regan.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -87956,7 +87956,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_28_slinat.png",
+          "src": "portraits/player/fullbody/toad_slinat.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -94151,7 +94151,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_16_spoky.png",
+          "src": "portraits/player/fullbody/toad_spoky.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -96661,7 +96661,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_29_swig.png",
+          "src": "portraits/player/fullbody/toad_swig.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -100856,7 +100856,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_38_transparen_t.png",
+          "src": "portraits/player/fullbody/toad_transparen_t.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -150847,7 +150847,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "portraits/baby_bones.png",
+          "src": "portraits/player/fullbody/baby_bones.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -151773,7 +151773,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "portraits/brother_killer.png",
+          "src": "portraits/player/fullbody/brother_killer.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -152659,7 +152659,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "portraits/cursive.png",
+          "src": "portraits/player/fullbody/cursive.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -154428,7 +154428,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "portraits/dirty_brother.png",
+          "src": "portraits/player/fullbody/dirty_brother.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -157212,7 +157212,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "portraits/grandpa_semi.png",
+          "src": "portraits/player/fullbody/grandpa_semi.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -158140,7 +158140,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "portraits/has_a_very_special_attack.png",
+          "src": "portraits/player/fullbody/has_a_very_special_attack.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -159069,7 +159069,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "portraits/helvetica.png",
+          "src": "portraits/player/fullbody/helvetica.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -159952,7 +159952,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "portraits/lazybones.png",
+          "src": "portraits/player/fullbody/lazybones.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -160880,7 +160880,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "portraits/my_brother.png",
+          "src": "portraits/player/fullbody/my_brother.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -162736,7 +162736,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "portraits/mystery_man.png",
+          "src": "portraits/player/fullbody/mystery_man.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -163664,7 +163664,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "portraits/ness.png",
+          "src": "portraits/player/fullbody/ness.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -164540,7 +164540,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "portraits/papyrus.png",
+          "src": "portraits/player/fullbody/papyrus.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -166516,7 +166516,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "portraits/pretty_soon.png",
+          "src": "portraits/player/fullbody/pretty_soon.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -169213,7 +169213,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "portraits/real_star.png",
+          "src": "portraits/player/fullbody/real_star.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -170128,7 +170128,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "portraits/sans.png",
+          "src": "portraits/player/fullbody/sans.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -172987,7 +172987,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "portraits/starman.png",
+          "src": "portraits/player/fullbody/starman.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -173828,7 +173828,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "portraits/times_new_roman.png",
+          "src": "portraits/player/fullbody/times_new_roman.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -175686,7 +175686,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "portraits/wing_gaster.png",
+          "src": "portraits/player/fullbody/wing_gaster.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -182654,7 +182654,7 @@
         "width": 2,
         "height": 2,
         "texture": {
-          "src": "portraits/toriel.jpg",
+          "src": "portraits/player/fullbody/toriel.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",

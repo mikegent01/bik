@@ -524,7 +524,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "assets/images/toads/roster/toad_17_bion.png",
+      "src": "portraits/player/fullbody/toad_bion.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",

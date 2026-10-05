@@ -524,7 +524,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "portraits/times_new_roman.png",
+      "src": "portraits/player/fullbody/times_new_roman.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",

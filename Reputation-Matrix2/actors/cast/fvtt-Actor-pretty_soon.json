@@ -524,7 +524,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "portraits/pretty_soon.png",
+      "src": "portraits/player/fullbody/pretty_soon.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",

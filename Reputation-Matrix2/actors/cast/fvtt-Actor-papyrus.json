@@ -560,7 +560,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "portraits/papyrus.png",
+      "src": "portraits/player/fullbody/papyrus.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",

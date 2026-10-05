@@ -524,7 +524,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "portraits/starman.png",
+      "src": "portraits/player/fullbody/starman.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
