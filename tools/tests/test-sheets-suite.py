@@ -16,12 +16,15 @@ packets, the module and the art into the Foundry Data folder the suite finds
 
     python3 tools/tests/test-sheets-suite.py
 """
+import functools
+import http.server
 import importlib.util
 import json
 import os
 import subprocess
 import sys
 import tempfile
+import threading
 import time
 from pathlib import Path
 
@@ -260,6 +263,33 @@ with tempfile.TemporaryDirectory() as tmp:
     check("install_module copies the module into <Data>/modules/<id> (version from module.json)", before is None and ver == MODULE_VERSION and "module.json" in changed
           and os.path.exists(os.path.join(data, "modules", suite.MODULE_ID, "scripts", "mass-import.js")) and os.path.exists(os.path.join(data, "modules", suite.MODULE_ID, "macros", "sync-from-waluipedia.js")))
     check("…a second install changes nothing; the version read back is the repo's", suite.install_module(data, True) == (MODULE_VERSION, MODULE_VERSION, []))
+    check("the installed module is the loader + core pair (1.6: the entry Foundry caches stays tiny; the core is fetched fresh on every load)",
+          os.path.exists(os.path.join(data, "modules", suite.MODULE_ID, "scripts", "mass-import-core.js")) and "mass-import-core.js?v=" in open(os.path.join(data, "modules", suite.MODULE_ID, "scripts", "mass-import.js"), encoding="utf-8").read())
+
+    # the probe: a throwaway HTTP server standing in for Foundry, serving that Data folder
+    handler = functools.partial(http.server.SimpleHTTPRequestHandler, directory=data)
+    handler.log_message = lambda *a, **k: None
+    httpd = http.server.ThreadingHTTPServer(("127.0.0.1", 0), handler)
+    threading.Thread(target=httpd.serve_forever, daemon=True).start()
+    base = f"http://127.0.0.1:{httpd.server_address[1]}"
+    try:
+        check("probe_served_module reads the version the server really serves", suite.probe_served_module(base) == ("served", MODULE_VERSION), suite.probe_served_module(base))
+        check("…a server without the module says 'missing' (Foundry reads another Data folder)", suite.probe_served_module(base + "/npc")[0] == "missing")
+        check("…nothing listening says 'down'", suite.probe_served_module("http://127.0.0.1:9")[0] == "down")
+        ok_line = suite.served_module_verdict("served", MODULE_VERSION, MODULE_VERSION, data, base)
+        check("verdict, same version: relaunch instructions, no talk of another folder", len(ok_line) == 1 and "Return to Setup" in ok_line[0] and "Ctrl+F5" in ok_line[0] and "different Data folder" not in ok_line[0], ok_line)
+        old_line = suite.served_module_verdict("served", "1.2.0", MODULE_VERSION, data, base)
+        check("verdict, older version served: names both versions and says Foundry reads a different Data folder (+ how to point the suite at it)", "1.2.0" in old_line[0] and MODULE_VERSION in old_line[0] and "different Data folder" in old_line[0] and "--foundry-data" in old_line[0], old_line)
+        check("verdict, module missing on the server: not reading this folder", "NO modules/" in suite.served_module_verdict("missing", None, MODULE_VERSION, data, base)[0])
+        check("verdict, server down: says so and names the URL", base in suite.served_module_verdict("down", None, MODULE_VERSION, data, base)[0])
+    finally:
+        httpd.shutdown()
+    check("foundry_server_url: --foundry-url, then WALUIPEDIA_FOUNDRY_URL, then Config/options.json's port, then 30000",
+          suite.foundry_server_url("http://h:1/") == "http://h:1" and suite.foundry_server_url(None, environ={"WALUIPEDIA_FOUNDRY_URL": "http://h:2"}) == "http://h:2"
+          and suite.foundry_server_url(None, environ={}, options={"port": 30123}) == "http://127.0.0.1:30123" and suite.foundry_server_url(None, environ={}, options={}) == "http://127.0.0.1:30000")
+    with open(os.path.join(tmp, "FoundryVTT", "Config", "options.json"), "w", encoding="utf-8") as fh:
+        json.dump({"dataPath": os.path.join(tmp, "elsewhere"), "port": 30555}, fh)
+    check("foundry_options reads Config/options.json beside Data (port and dataPath)", suite.foundry_options(environ={"LOCALAPPDATA": tmp}, home=tmp, sysname="Windows").get("port") == 30555)
 
     # a fake checkout with a tiny world mirror + cast packet, so the paths/URLs in packets.json can be checked exactly
     froot = os.path.join(tmp, "bik")

@@ -10,8 +10,38 @@ existing ones updated in place (same `_id`), every image path checked, and a
 report. Together with `tools/foundry-bridge.py` this turns "add characters to
 the game" into a loop of *export → edit in the repo → import*.
 
-Module id: `waluipedia-mass-import`, version 1.5. Core v12–v14, any game
+Module id: `waluipedia-mass-import`, version 1.6. Core v12–v14, any game
 system (built and tested against dnd5e 5.x on core v14).
+
+## 1.6 — the world was running 1.2.0 the whole time
+
+Three installs (1.3, 1.4, 1.5) and three runs that still printed `2 FAILED`,
+`Only a single Species…`, `%252B` image paths and the v12 progress bar. The
+console told on itself: `mass-import.js:949 [waluipedia-mass-import] ready`,
+`progress (mass-import.js:616)`, `openImportDialog (mass-import.js:857)` —
+**those are 1.2.0's line numbers**, the last version with no Sync button
+(hence *Mass import → file picker* every time). The script on disk had moved
+on; the one in the browser had not. Foundry hands the browser
+`scripts/mass-import.js?v=<version in the manifest it read at world launch>`,
+the browser keeps that file for as long as its cache allows, and a plain F5
+revalidates the page, not the module. So a new copy under `Data/modules/`
+only runs after **Return to Setup → Launch World** (new `?v=`) **and** a
+hard reload — and nobody had done both.
+
+| Now | How |
+| --- | --- |
+| **A newer install runs after a plain F5.** | `scripts/mass-import.js` is a 20-line **loader** that never changes; it imports `scripts/mass-import-core.js?v=<now>` — a fresh query string on every load, so the browser cannot serve a stale core and the server's manifest version does not matter. The loader registers `init` / `ready` / `renderActorDirectory` synchronously and hands each to the core when it arrives. |
+| **The console says which version runs.** | First module line: `[waluipedia-mass-import] 1.6.0 ready`. When Foundry's manifest is older than the code running it adds *(Foundry loaded the manifest of 1.2.0 — Setup → Launch World refreshes it)* and links a fresh copy of the stylesheet so the summary looks right; when `module.json` on disk is **newer** than the code running (impossible from 1.6 on unless the loader itself was cached) the GM gets an orange warning at `ready`: *Setup → Launch World, then Ctrl+F5*. |
+| **The suite asks Foundry what it serves.** | After installing, `tools/sheets-suite.py` fetches `modules/waluipedia-mass-import/module.json` from the running server (`Config/options.json`'s port, default 30000, or `--foundry-url`) and prints one line: *serves 1.6.0 (the copy just installed) — relaunch the world if the console does not say so* / *serves 1.2.0, NOT the 1.6.0 just written to `<Data>` — Foundry reads a different Data folder; Setup → Configuration shows the User Data Path; `--foundry-data "<that path>\Data"`* / *no modules/waluipedia-mass-import on that server* / *no Foundry server answered*. |
+
+**Once, to get from the cached 1.2.0 to 1.6:** run the suite (start.py does),
+read its `foundry :` line, then in Foundry **Game Settings → Return to Setup →
+Launch World**, and on the game page **Ctrl+F5** (Foundry app: F12 → Network →
+tick *Disable cache* → F5). The console must open with
+`[waluipedia-mass-import] 1.6.0 ready`; from then on a plain F5 is enough.
+
+To see what the server serves without the suite: open
+`http://localhost:30000/modules/waluipedia-mass-import/module.json` in a tab.
 
 ## 1.5 — one packet, by itself, no FAILED actors, no leftover folders
 
@@ -90,9 +120,10 @@ whispered to the GMs in chat (one message per sync; not on dry runs).
 * Wrong file in **Mass import** (the site's `data/sheets.json`, or a
   `manifest.json`) is refused with a message that names the right file
   instead of an uncaught error.
-* After the suite installs a new module version: **Setup → relaunch the
-  world, then Ctrl+F5** — the summary tells you when the code running is
-  older than the code on disk.
+* After the suite installs a new module version a plain **F5** runs it
+  (1.6 loader); a world still on a 1.5-or-older script needs **Return to
+  Setup → Launch World, then Ctrl+F5** once — the summary and the console
+  tell you when the code running is older than the code on disk.
 * Macro: `macros/sync-from-waluipedia.js` (`REVIEW` at the top); API:
   `game.modules.get("waluipedia-mass-import").api.syncFromWaluipedia({ world, review, options })`.
 
@@ -123,7 +154,11 @@ https://mikegent01.github.io/bik/Reputation-Matrix2/Foundry/mass_import/module.j
 The zip it points to is `Reputation-Matrix2/Foundry/mass_import.zip`, rebuilt by
 `python3 tools/build-foundry-module-zip.py` whenever the module sources change
 (`check-all.py` fails if it is stale). Offline alternative: copy the
-`mass_import/` folder to `<FoundryData>/Data/modules/waluipedia-mass-import/`.
+`mass_import/` folder to `<FoundryData>/Data/modules/waluipedia-mass-import/`
+— which is what `tools/sheets-suite.py` (and so `start.py`) does on every pass,
+into the Data folder it finds (`--foundry-data` to point it elsewhere); it then
+asks the running Foundry server which version it serves and says whether that
+is the folder Foundry reads.
 
 Enable it in **Game Settings → Manage Modules**. Only GMs see or can use it.
 

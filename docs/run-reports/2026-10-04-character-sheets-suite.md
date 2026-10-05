@@ -330,3 +330,71 @@ stuff too, not several jsons at a time.*
   made.
 - A refused singleton create (two species in a packet for one sheet) stays a
   note; the module does not pick which one to keep.
+
+## 10. Addendum — the world was running module 1.2.0 the whole time (same day, once more)
+
+### What the third run said
+
+The GM pulled `65dfe0f`, ran the suite (the 329-actor packet exists on his
+machine — *Mass import → file* took it), and the console read as before:
+`178 created, 149 updated, 2 FAILED, 15 folders, 18 missing images`, the
+`_id already exists` / `Only a single Species` / `Item "…" does not exist!`
+lines, the `%252B` Fawful path, the `SceneNavigation.displayProgressBar`
+deprecation. No Sync button was ever clicked because there was none to
+click: *Mass import: Choose a file, pick a Data path, or give a URL*.
+
+What settled it is the stack: `mass-import.js:949 [waluipedia-mass-import]
+ready` (no version in the line), `progress (mass-import.js:615/616)`,
+`importPayload (mass-import.js:635/696/724)`, `openImportDialog
+(mass-import.js:857)`. Checked against every tagged script in the history,
+only **1.2.0** (`f3f2c0d`) has `ready` on line 949 and `displayProgressBar`
+on 616. The browser has been executing the 1.2.0 script through the installs
+of 1.3, 1.4 and 1.5 — so none of §8's or §9's module fixes have run on the
+GM's machine yet, and the 1.5 *running vs on disk* notice could not help:
+it lives in the code that was not running.
+
+Why it can happen: Foundry gives the page
+`modules/waluipedia-mass-import/scripts/mass-import.js?v=<version from the
+manifest it read at world launch>`; the browser caches it; a plain F5
+revalidates the document, not fresh subresources; the `?v=` only moves when
+the world is relaunched from Setup **and** the manifest on disk is newer.
+(The other possibility — the suite writing to a Data folder Foundry does
+not read — is not excluded by the log; the suite now checks it, below.)
+
+### What was done
+
+| Piece | Commit | Detail |
+| --- | --- | --- |
+| Module 1.6.0 — loader + core | this commit | `scripts/mass-import.js` is now a 20-line loader that registers `init` / `ready` / `renderActorDirectory` synchronously and `import()`s `scripts/mass-import-core.js?v=<Date.now()>` — fresh on every load, immune to the `?v=` and to the cache. The former script is the core, with `onInit` / `onReady` / `onRenderActorDirectory` exported (`register()` kept for tests). `onReady` logs `1.6.0 ready`, says when Foundry's manifest is older than the code, links a cache-busted stylesheet in that case, and warns in orange when `module.json` on disk is newer than the code running. `checkModuleVersion()` adds `loaded` (the manifest version Foundry has). Tests 187 / 199 (`WMI_EXPORT` + `WMI_PACKET`); zip 11 files |
+| Suite — ask the server | this commit | `foundry_options()` (Config/options.json), `foundry_server_url()` (`--foundry-url`, `WALUIPEDIA_FOUNDRY_URL`, the options port, 30000), `probe_served_module()` and `served_module_verdict()`: after the install the suite fetches `modules/waluipedia-mass-import/module.json` from the running Foundry and prints a `foundry :` line — same version → relaunch instructions; another version or a 404 → *Foundry reads a different Data folder*, with the `--foundry-data` hint; nothing listening → says so. Suite tests 122 |
+| Docs | this commit | module README 1.6 section, `actors/README.md` module row, this addendum |
+
+### What the GM does now
+
+1. Pull, run `start.py` (or `python3 tools/sheets-suite.py`). Read the
+   `foundry :` line it prints after `module : … 1.6.0 installed`.
+   * *serves module 1.6.0* → go to step 2.
+   * *serves module 1.2.0, NOT the 1.6.0 just written to …* or *has NO
+     modules/waluipedia-mass-import* → Foundry → **Setup → Configuration**
+     → *User Data Path*; put `<that path>\Data` in start.py's *Foundry Data
+     folder* box (or `--foundry-data`) and run again.
+   * *no Foundry server answered* → start Foundry first.
+2. In Foundry, once: **Game Settings → Return to Setup → Launch World**,
+   then **Ctrl+F5** on the game page (Foundry app: F12 → Network → tick
+   *Disable cache* → F5). The console must open with
+   `[waluipedia-mass-import] 1.6.0 ready`. (Also visible without the
+   suite: `http://localhost:30000/modules/waluipedia-mass-import/module.json`
+   in a tab shows what the server serves.)
+3. Sync runs by itself a few seconds later. The 178 actors the 1.2.0 import
+   created are kept (same ids) and moved into the coloured layout; Eager and
+   Feyward Dan are repaired; the 15 bare folders from that import and the
+   empty ones from before are merged / removed. Expect `0 created, ~329
+   updated, 7 broken items repaired, 3 notes`, nothing FAILED.
+4. From then on a plain F5 runs whatever the suite installed last.
+
+### Not done
+
+- The cause is pinned to the browser/`?v=` cache only as far as the log
+  allows; the wrong-folder case is reported by the suite, not fixed by it.
+- The 18 *missing images* are the GM's bare file names and the
+  `house-divided` wildcard tokens (§8) — unchanged.

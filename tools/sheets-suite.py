@@ -33,7 +33,11 @@ One pass, in order (each step is skipped when there is nothing to do):
             Sync button reads them from there, no URL needed), the Mass
             Import module itself under Data/modules/ (so Foundry runs the
             version in this checkout), and the repo-held portraits the sheets
-            reference (foundry-bridge.py install-images).
+            reference (foundry-bridge.py install-images). Then it asks the
+            running Foundry server (Config/options.json's port, default
+            30000, or --foundry-url) which module version IT serves, and says
+            plainly whether the Data folder written to is the one Foundry
+            uses and whether the world must be relaunched.
   verify    ``check-sheets.py`` and ``promote-player-sheets.py --check``.
 
 Then it prints where everything is served (the site's #/sheets route and the
@@ -60,6 +64,8 @@ import subprocess
 import sys
 import time
 import traceback
+import urllib.error
+import urllib.request
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RM = os.path.join(ROOT, "Reputation-Matrix2")
@@ -362,6 +368,75 @@ def install_module(foundry_data, write):
     return before, repo_version, changed
 
 
+def foundry_options(environ=None, home=None, sysname=None):
+    """Foundry's Config/options.json (port, dataPath, ...) from the OS root, or {}."""
+    env = os.environ if environ is None else environ
+    home = home or os.path.expanduser("~")
+    sysname = sysname or platform.system()
+    if sysname == "Windows":
+        roots = [os.path.join(env.get("LOCALAPPDATA") or os.path.join(home, "AppData", "Local"), "FoundryVTT")]
+    elif sysname == "Darwin":
+        roots = [os.path.join(home, "Library", "Application Support", "FoundryVTT")]
+    else:
+        roots = [os.path.join(home, ".local", "share", "FoundryVTT"), os.path.join(home, "foundrydata"), "/home/foundry/foundrydata"]
+    for root in roots:
+        opts = read_json_quiet(os.path.join(root, "Config", "options.json"))
+        if isinstance(opts, dict):
+            return opts
+    return {}
+
+
+def foundry_server_url(explicit=None, environ=None, options=None):
+    """Where the Foundry server answers: --foundry-url, WALUIPEDIA_FOUNDRY_URL,
+    else http://127.0.0.1:<port from Config/options.json, default 30000>."""
+    env = os.environ if environ is None else environ
+    for cand in (explicit, env.get("WALUIPEDIA_FOUNDRY_URL")):
+        if cand and str(cand).strip():
+            return str(cand).strip().rstrip("/")
+    opts = foundry_options(environ=env) if options is None else options
+    port = opts.get("port") or 30000
+    return f"http://127.0.0.1:{port}"
+
+
+def probe_served_module(base_url, timeout=2.0):
+    """Ask the running Foundry server for modules/<id>/module.json.
+    Returns (state, version): state is 'served' (version filled), 'missing'
+    (server up, no such module), 'down' (nothing answers) or 'odd' (answered
+    with something that is not a module manifest)."""
+    url = f"{base_url}/modules/{MODULE_ID}/module.json?t={int(time.time())}"
+    try:
+        req = urllib.request.Request(url, headers={"Cache-Control": "no-cache", "User-Agent": "waluipedia-sheets-suite"})
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            body = resp.read()
+    except urllib.error.HTTPError as exc:
+        return ("missing" if exc.code == 404 else "odd"), None
+    except (urllib.error.URLError, OSError, ValueError):
+        return "down", None
+    try:
+        data = json.loads(body.decode("utf-8"))
+        if isinstance(data, dict) and data.get("id") == MODULE_ID:
+            return "served", data.get("version")
+    except (ValueError, UnicodeDecodeError):
+        pass
+    return "odd", None
+
+
+def served_module_verdict(state, served, repo_version, foundry_data, base_url):
+    """One or two plain lines: does the Foundry server serve the module just
+    installed (so only the world needs relaunching), or does it read another
+    Data folder altogether?"""
+    data_hint = f"Setup -> Configuration shows the User Data Path; run again with --foundry-data \"<that path>\\Data\" (start.py: the Foundry Data folder box)"
+    if state == "down":
+        return [f"  foundry  : no Foundry server answered at {base_url} — start Foundry (or pass --foundry-url) and the suite will say which module version it serves"]
+    if state == "missing":
+        return [f"  foundry  : the server at {base_url} has NO modules/{MODULE_ID} — it is not reading {foundry_data}; {data_hint}"]
+    if state == "odd":
+        return [f"  foundry  : {base_url} answered but not with the module's manifest (another program on that port?) — try --foundry-url"]
+    if served == repo_version:
+        return [f"  foundry  : the server at {base_url} serves module {served} (the copy just installed) — if the console does not say '[{MODULE_ID}] {served} ready', relaunch the world: Game Settings -> Return to Setup -> Launch World, then Ctrl+F5 (F12 -> Network -> Disable cache -> F5 in the Foundry app)"]
+    return [f"  foundry  : the server at {base_url} serves module {served or '?'}, NOT the {repo_version} just written to {foundry_data} — Foundry reads a different Data folder; {data_hint}"]
+
+
 def published_dir(foundry_data, world):
     return os.path.join(foundry_data, *PACKET_DIR.split("/"), world)
 
@@ -425,7 +500,7 @@ def read_json_quiet(path):
         return None
 
 
-def step_publish(world, write, port, foundry_data, how, install=True, images=True):
+def step_publish(world, write, port, foundry_data, how, install=True, images=True, foundry_url=None):
     """Put the packets where Foundry can see them without a URL — the Data
     folder — keep the Mass Import module there current, and copy the repo-held
     art the sheets reference. Nothing here touches the repo."""
@@ -479,6 +554,10 @@ def step_publish(world, write, port, foundry_data, how, install=True, images=Tru
                     + ("; enable it under Game Settings -> Manage Modules" if not before else ""))
             else:
                 say(f"  module   : {MODULE_ID} {repo_version} is current")
+            base_url = foundry_server_url(foundry_url)
+            state, served = probe_served_module(base_url)
+            for line in served_module_verdict(state, served, repo_version, foundry_data, base_url):
+                say(line)
     if images:
         dirs = packet_sources(world)
         ok = run([TOOLS["bridge"], "install-images"] + [os.path.relpath(d, ROOT) for d in dirs] + ["--foundry-data", foundry_data], "images", check=False)[0] and ok
@@ -546,7 +625,7 @@ def one_pass(world, write, port, downloads=None, foundry=None):
     ok = step_combine(world, write) and ok
     if f["publish"]:
         data_dir, how = find_foundry_data(f["data"])
-        ok = step_publish(world, write, port, data_dir, how, install=f["install"], images=f["images"]) and ok
+        ok = step_publish(world, write, port, data_dir, how, install=f["install"], images=f["images"], foundry_url=f.get("url")) and ok
     ok = run([TOOLS["check_sheets"]], "verify")[0] and ok
     ok = run([TOOLS["promote"], "--check"], "verify")[0] and ok
     u = urls(world, port)
@@ -554,7 +633,7 @@ def one_pass(world, write, port, downloads=None, foundry=None):
     if write:
         say(f"  sheets   : {u['sheets']}")
         say(f"  foundry  : Sync runs by itself when the world loads (or Actors sidebar -> Sync): everything, from Data, else {u['everything']}, else GitHub")
-        say(f"  foundry  : after a module update: Setup -> relaunch the world -> Ctrl+F5, or the old module code keeps running")
+        say(f"  foundry  : the console's first module line must read '[{MODULE_ID}] <version> ready' — from 1.6 a newer install runs after a plain F5; an older world needs Return to Setup -> Launch World, then Ctrl+F5 once")
         say(f"  packet   : {u['everything']}  (everything: world + cast + eras; Mass import → URL if you ever need it by hand)")
         say(f"  packet   : {u['players']}  (the Players folder only)")
     return ok
@@ -614,6 +693,8 @@ def main(argv=None):
     ap.add_argument("--downloads", default=None, help="folder to scan for fresh exports (default ~/Downloads; '' = none)")
     ap.add_argument("--foundry-data", default=None, metavar="DIR",
                     help="Foundry's Data folder (default: WALUIPEDIA_FOUNDRY_DATA, FOUNDRY_VTT_DATA_PATH, then the OS default, e.g. %%LOCALAPPDATA%%\\FoundryVTT\\Data)")
+    ap.add_argument("--foundry-url", default=None, metavar="URL",
+                    help="the running Foundry server, asked which module version it serves (default: WALUIPEDIA_FOUNDRY_URL, else http://127.0.0.1:<port in Config/options.json or 30000>)")
     ap.add_argument("--no-publish", action="store_true", help="do not copy the packets / module / art into Foundry's Data folder")
     ap.add_argument("--no-module-install", action="store_true", help="publish the packets but leave Data/modules alone")
     ap.add_argument("--no-images", action="store_true", help="publish without copying the repo's portraits into Data")
@@ -622,7 +703,7 @@ def main(argv=None):
     downloads = args.downloads if args.downloads is not None else None
     if args.downloads == "":
         downloads = ""
-    foundry = {"data": args.foundry_data, "publish": not args.no_publish, "install": not args.no_module_install, "images": not args.no_images}
+    foundry = {"data": args.foundry_data, "url": args.foundry_url, "publish": not args.no_publish, "install": not args.no_module_install, "images": not args.no_images}
     if args.check:
         return 0 if one_pass(args.world, False, args.port, downloads, foundry) else 1
     if args.watch:

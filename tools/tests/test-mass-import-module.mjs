@@ -19,6 +19,8 @@ const manifest = JSON.parse(fs.readFileSync(path.join(MOD_DIR, 'module.json'), '
 check('module id is stable', manifest.id === 'waluipedia-mass-import', manifest.id);
 check('version 1.5 (automatic everything-sync + folder tidy + invalid-document repair, on top of diff updates, identifier repair, folder colours, tags, Data folders, review table, replace on type change)', /^1\.([5-9]|\d{2,})/.test(manifest.version) && /diffs/.test(manifest.description) && /chips/.test(manifest.description) && /Data/.test(manifest.description) && /same id/.test(manifest.description) && /by itself/.test(manifest.description) && /merges duplicate folders/.test(manifest.description) && /could not validate/.test(manifest.description), manifest.version);
 check('manifest loads the script and stylesheet', manifest.esmodules?.includes('scripts/mass-import.js') && manifest.styles?.includes('styles/mass-import.css'));
+const loaderText = fs.readFileSync(path.join(MOD_DIR, 'scripts/mass-import.js'), 'utf8');
+check('v1.6: the entry Foundry loads is a tiny loader — it imports mass-import-core.js with a fresh query string (a newer install runs after a plain F5) and registers the three hooks synchronously', loaderText.split('\n').length < 40 && loaderText.includes('import(`./mass-import-core.js?v=${Date.now()}`)') && ['Hooks.once("init"', 'Hooks.once("ready"', 'Hooks.on("renderActorDirectory"'].every((h) => loaderText.includes(h)) && !/^import\s/m.test(loaderText) && fs.existsSync(path.join(MOD_DIR, 'scripts/mass-import-core.js')));
 check('every manifest file exists', [...manifest.esmodules, ...manifest.styles].every((f) => fs.existsSync(path.join(MOD_DIR, f))));
 check('compatibility spans v12..v14', Number(manifest.compatibility.minimum) <= 12 && Number(manifest.compatibility.verified) >= 14);
 check('manifest + download URLs point at the module folder / zip', manifest.manifest.endsWith('/mass_import/module.json') && manifest.download.endsWith('/mass_import.zip'));
@@ -194,8 +196,8 @@ globalThis.fetch = async (url, init = {}) => {
 let remotePayload = null;
 
 // --------------------------------------------------------------- load it
-const mod = await import(pathToFileURL(path.join(MOD_DIR, 'scripts/mass-import.js')).href);
-check('module registers init/ready/renderActorDirectory hooks', ['init', 'ready', 'renderActorDirectory'].every((h) => hooks[h]?.length));
+const mod = await import(pathToFileURL(path.join(MOD_DIR, 'scripts/mass-import-core.js')).href);
+check('the core registers nothing by itself (the loader decides when); register() wires init/ready/renderActorDirectory', !Object.keys(hooks).length && mod.register() === true && ['init', 'ready', 'renderActorDirectory'].every((h) => hooks[h]?.length === 1));
 globalThis.Hooks.call('init');
 check('init registers the defaultSource world setting', settings.has('waluipedia-mass-import.defaultSource'));
 check('init registers the sync settings with the documented defaults — automatic on, no scope, folder tidy on, a hidden last-stamp', settings.get('waluipedia-mass-import.syncWorld') === 'midlands' && !settings.has('waluipedia-mass-import.syncScope') && settings.get('waluipedia-mass-import.syncAuto') === true && settings.get('waluipedia-mass-import.syncMergeFolders') === true && settings.get('waluipedia-mass-import.syncPruneFolders') === true && settings.get('waluipedia-mass-import.syncPacketDir') === 'npc/waluipedia' && settings.get('waluipedia-mass-import.syncLauncher') === 'http://127.0.0.1:8765/' && settings.get('waluipedia-mass-import.syncBranch') === 'gh-pages' && settings.get('waluipedia-mass-import.syncReview') === false && settings.get('waluipedia-mass-import.syncLastStamp') === '');
@@ -912,6 +914,49 @@ if (process.env.WMI_EXPORT) {
     const emptyLeft = game.folders.contents.filter((f) => !occupiedNow.has(f.id) && !game.folders.contents.some((g) => g.parentId === f.id));
     check(`real packet: the folders the first import left behind are tidied away (${tidy.foldersMerged.length} merged, ${tidy.foldersPruned.length} removed) and no empty folder remains`, tidy.foldersPruned.length >= 10 && emptyLeft.length === 0 && game.actors.size === n + r4.created.length, emptyLeft.map((f) => f.name).join(', '));
     console.log(`real packet: ${r4.created.length} created, ${moved} changed, ${r4.replaced.length} replaced, ${r4.foldersCreated.length} folders, ${coloured} coloured, ${r4.embeddedRepaired} repaired, ${r4.notes.length} notes; tidy: ${tidy.foldersMerged.length} merged, ${tidy.foldersPruned.length} removed → ${game.folders.size} folders; ${mod.summarize(r5)}`);
+  }
+}
+
+// ------------------------------------------------- v1.6: the loader itself
+{
+  for (const k of Object.keys(hooks)) delete hooks[k];
+  const modEntry = modules.get('waluipedia-mass-import');
+  modEntry.api = null;
+  modEntry.version = '1.2.0'; // what the GM's server had loaded at launch while 1.5.0 sat on disk
+  const head = { links: [], querySelector: (sel) => head.links.find((l) => sel.includes('data-wmi-fresh')) ?? null, appendChild(el) { head.links.push(el); } };
+  globalThis.document = { head, createElement: (tag) => ({ tag, dataset: {} }) };
+  const warned = [];
+  const prevWarn = ui.notifications.warn;
+  ui.notifications.warn = (m) => warned.push(m);
+  serverFiles.add('modules/waluipedia-mass-import/module.json');
+  const prevFetch = globalThis.fetch;
+  globalThis.fetch = async (url, init = {}) => (String(url).startsWith('modules/waluipedia-mass-import/module.json') ? { ok: true, status: 200, json: async () => ({ id: 'waluipedia-mass-import', version: '9.9.9' }) } : prevFetch(url, init));
+  settings.set('waluipedia-mass-import.syncAuto', false);
+  const logs = [];
+  const prevLog = console.log;
+  console.log = (...a) => { logs.push(a.join(' ')); };
+  try {
+    await import(pathToFileURL(path.join(MOD_DIR, 'scripts/mass-import.js')).href + '?loader-test');
+    check('loader: the three hooks are registered the moment the script runs, before the core has arrived', ['init', 'ready', 'renderActorDirectory'].every((h) => hooks[h]?.length === 1));
+    settings.clear();
+    globalThis.Hooks.call('init');
+    globalThis.Hooks.call('ready');
+    const header = { html: '', querySelector: (sel) => (sel === '.wmi-buttons' && header.html ? {} : null), insertAdjacentHTML(w, h) { this.html += h; } };
+    const rootEl = { querySelector: (sel) => (sel.includes('header-actions') ? header : null), querySelectorAll: () => [] };
+    globalThis.Hooks.call('renderActorDirectory', {}, rootEl);
+    await new Promise((r) => setTimeout(r, 50));
+    check('loader → core: init registered the settings through the loader', settings.has('waluipedia-mass-import.defaultSource') && settings.get('waluipedia-mass-import.syncWorld') === 'midlands');
+    check('loader → core: ready exposed the api and logged the running version', typeof modEntry.api?.importPayload === 'function' && modEntry.api.MODULE_ID === 'waluipedia-mass-import' && logs.some((l) => l.includes(`[waluipedia-mass-import] ${manifest.version} ready`)));
+    check('ready: when Foundry loaded an older manifest the log says so and a fresh stylesheet is linked with a cache-busting query', logs.some((l) => l.includes('loaded the manifest of 1.2.0')) && head.links.length === 1 && /styles\/mass-import\.css\?v=1\.6\.0-\d+/.test(head.links[0].href) && mod.ensureFreshStyles() === false);
+    check('ready: when module.json on disk is newer than the code running, the GM is warned to Setup → Launch World then Ctrl+F5', warned.length === 1 && /9\.9\.9 is installed/.test(warned[0]) && /Launch World/.test(warned[0]) && /Ctrl\+F5/.test(warned[0]), warned.join(' | '));
+    check('loader → core: renderActorDirectory injected the Sync / Mass import / Mass export buttons', header.html.includes('wmi-sync') && header.html.includes('wmi-import') && header.html.includes('wmi-export'));
+    const v = await mod.checkModuleVersion();
+    check('checkModuleVersion reports running, onDisk and what Foundry loaded', v.running === manifest.version && v.onDisk === '9.9.9' && v.loaded === '1.2.0' && v.stale === true, JSON.stringify(v));
+  } finally {
+    console.log = prevLog;
+    ui.notifications.warn = prevWarn;
+    globalThis.fetch = prevFetch;
+    modEntry.version = manifest.version;
   }
 }
 

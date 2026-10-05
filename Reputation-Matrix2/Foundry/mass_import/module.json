@@ -2,7 +2,7 @@
   "id": "waluipedia-mass-import",
   "title": "Waluipedia Mass Import / Export",
   "description": "Export every actor (with its folder path) to one JSON or into a Data-folder tree (one file per actor, subfolders = Actors folders), and import a JSON, a repo packet, a URL, or a whole Data directory back in: subfolders detected, a review table to untick / rename / move before anything changes, folders rebuilt, existing actors updated in place by id (recreated under the same id when their type changed, e.g. an NPC promoted to a player character), images checked. Sync does everything by itself: when the world loads (and on one button) it finds the newest Waluipedia packet (Foundry Data folder, then the start.py launcher, then GitHub) and imports the whole of it — the live world mirror, the generated cast and the 955 BF court — into coloured folders, merges duplicate folders, removes empty ones and shows a summary; a packet already synced is skipped. Updates are diffs (an unchanged actor is not written; no spurious activity churn), embedded documents Foundry could not validate are repaired through an update instead of failing the actor, dnd5e's cached spells are left to dnd5e, item identifiers dnd5e would reject are repaired, folders arrive in the colours the packet carries, and the suite's tags (website group, pc/npc, role, creature type) show as chips in the Actors sidebar. The Foundry end of the Waluipedia repo bridge (tools/foundry-bridge.py).",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "authors": [
     {
       "name": "Waluipedia"
