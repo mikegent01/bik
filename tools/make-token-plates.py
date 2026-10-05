@@ -190,6 +190,43 @@ def _label_from_border(hard):
             reach = grown
 
 
+def square_plate(fig, key_rgb):
+    """Centre a keyed figure on a square transparent canvas with MARGIN around it. A figure that already fits
+    OUT_PX is never resampled (the margin gives first); a bigger one is downscaled, and because resampling
+    premultiplies alpha, the key colour is written back under the clear pixels so later passes (specks, heal)
+    can still tell background from figure."""
+    from PIL import Image
+    np = _np()
+    w, h = fig.size
+    side = int(max(w, h) * (1 + 2 * MARGIN))
+    if side > OUT_PX >= max(w, h):
+        side = OUT_PX
+    canvas = Image.new("RGBA", (side, side), (0, 0, 0, 0))
+    canvas.paste(fig, ((side - w) // 2, (side - h) // 2))
+    if side > OUT_PX:
+        canvas = canvas.resize((OUT_PX, OUT_PX), Image.LANCZOS)
+        arr = np.asarray(canvas).copy()
+        arr[arr[:, :, 3] < 16, :3] = key_rgb
+        canvas = Image.fromarray(arr, "RGBA")
+    return canvas
+
+
+def key_mask(rgb, key, dist, tol):
+    """Pixels that are background for a chroma key: within `tol` of the key colour, or the key's own hue in
+    shadow — generators like to shade the field near the figure to a dark magenta / dark green, and that has
+    to go too. Only chroma keys get the hue rule; a flat field is matched by distance alone."""
+    np = _np()
+    hard = dist <= tol
+    if key in KEYS:
+        r, g, b = rgb[:, :, 0], rgb[:, :, 1], rgb[:, :, 2]
+        top = rgb.max(axis=2)
+        if key == "magenta":
+            hard |= (top >= 30) & (top - g >= 20) & (g <= top * 0.35) & (np.abs(r - b) <= top * 0.3 + 8)
+        else:
+            hard |= (g >= 30) & (g - np.maximum(r, b) >= 20) & (g >= np.maximum(r, b) * 1.8)
+    return hard
+
+
 def cut(src, dst, key="auto", hard_tol=None, soft_tol=None):
     """Key `src` into a trimmed, square, transparent PNG at `dst`. Returns a facts dict."""
     from PIL import Image
@@ -214,7 +251,7 @@ def cut(src, dst, key="auto", hard_tol=None, soft_tol=None):
         hard_tol = hard_tol or 30
         soft_tol = soft_tol or 70
     dist = np.sqrt(((rgb - np.array(kc, dtype=np.int32)) ** 2).sum(axis=2).astype(float))
-    hard = dist <= hard_tol
+    hard = key_mask(rgb, key, dist, hard_tol)
     # a chroma key is background wherever it is (the hole between an arm and a body is not connected to the
     # border); a flat field is keyed only where it touches the border, so a cream cap survives a cream field
     bg = hard if isinstance(key, str) else _label_from_border(hard)
@@ -252,11 +289,7 @@ def cut(src, dst, key="auto", hard_tol=None, soft_tol=None):
         raise SystemExit(f"cut: nothing left after keying {src}")
     res = res.crop(bbox)
     w, h = res.size
-    side = int(max(w, h) * (1 + 2 * MARGIN))
-    canvas = Image.new("RGBA", (side, side), (0, 0, 0, 0))
-    canvas.paste(res, ((side - w) // 2, (side - h) // 2))
-    if side > OUT_PX:
-        canvas = canvas.resize((OUT_PX, OUT_PX), Image.LANCZOS)
+    canvas = square_plate(res, kc)
     os.makedirs(os.path.dirname(dst), exist_ok=True)
     canvas.save(dst, optimize=True)
     fw, fh, clear, _ = plate_facts(dst)
@@ -418,11 +451,7 @@ def cut_grid(sheet_path, rows, cols, ids, key="auto"):
             print(f"  grid: {cid} cell is empty"); continue
         cell = cell.crop(bbox)
         cw, ch = cell.size
-        side = int(max(cw, ch) * (1 + 2 * MARGIN))
-        canvas = Image.new("RGBA", (side, side), (0, 0, 0, 0))
-        canvas.paste(cell, ((side - cw) // 2, (side - ch) // 2))
-        if side > OUT_PX:
-            canvas = canvas.resize((OUT_PX, OUT_PX), Image.LANCZOS)
+        canvas = square_plate(cell, KEYS[facts["key"]] if facts["key"] in KEYS else tuple(int(x) for x in re.findall(r"\d+", facts["key"])))
         dst = os.path.join(RM, PLATES, cid + ".png")
         os.makedirs(os.path.dirname(dst), exist_ok=True)
         canvas.save(dst, optimize=True)
@@ -668,13 +697,16 @@ def specks(path):
     from PIL import Image
     np = _np()
     rgba = np.asarray(Image.open(path).convert("RGBA")).astype(np.int32)
-    n = int(_speck_mask(rgba[:, :, 3]).sum())
+    tiny = _speck_mask(rgba[:, :, 3])
     key = plate_key(rgba)
-    if key:
-        rgb = rgba[:, :, :3]
-        dist = np.sqrt(((rgb - np.array(KEYS[key])) ** 2).sum(axis=2).astype(float))
-        n += int(((rgba[:, :, 3] < 255) & (dist > 150) & (rgb.sum(axis=2) > 0)).sum())
-    return n
+    if not key:
+        return int(tiny.sum())
+    rgb, alpha = rgba[:, :, :3], rgba[:, :, 3]
+    dist = np.sqrt(((rgb - np.array(KEYS[key])) ** 2).sum(axis=2).astype(float))
+    bg = (alpha < 16) & (key_mask(rgb, key, dist, 95) | (rgb.sum(axis=2) == 0))  # keyed, or the transparent pad
+    edge = _dilate(bg, 1)                                   # the band next to real background is despilled, not damage
+    tiny &= ~bg & ~edge                                     # a tiny gap that really showed the key is a gap
+    return int(tiny.sum() + ((alpha < 255) & (dist > 150) & (rgb.sum(axis=2) > 0) & ~edge).sum())
 
 
 def heal(path, key=None, hard_tol=95, soft_tol=150):
@@ -696,9 +728,10 @@ def heal(path, key=None, hard_tol=95, soft_tol=150):
     if key and plate_key(rgba):                                                   # pass 1: exact, colour still there
         kc = np.array(KEYS[key], dtype=np.int32)
         dist = np.sqrt(((rgb - kc) ** 2).sum(axis=2).astype(float))
-        bg = (dist <= hard_tol) & ~pad
-        band = ~bg & ~pad & _dilate(bg) & (dist <= soft_tol)
-        wrong = ~pad & ~bg & ~band & (alpha < 255)
+        bg = key_mask(rgb, key, dist, hard_tol) & ~pad
+        near = _dilate(bg | pad)
+        band = ~bg & ~pad & near & (dist <= soft_tol)
+        wrong = ~pad & ~bg & ~near & (alpha < 255)                               # next to real background it is the (despilled) band
         ramp = np.clip((dist - hard_tol) / max(1.0, soft_tol - hard_tol), 0.0, 1.0)
         band_alpha = 255.0 * (0.25 + 0.75 * ramp)
         low_band = band & (alpha < band_alpha - 1)
@@ -711,6 +744,8 @@ def heal(path, key=None, hard_tol=95, soft_tol=150):
     else:
         fill = np.zeros_like(changed)
     speck = _speck_mask(out[:, :, 3])                                              # pass 2: tiny holes, any plate
+    if key and plate_key(rgba):
+        speck &= ~((alpha < 16) & key_mask(rgb, key, np.sqrt(((rgb - np.array(KEYS[key])) ** 2).sum(axis=2).astype(float)), hard_tol))   # real gaps stay
     if speck.any():
         out[:, :, 3][speck] = 255
         fill |= speck & ((alpha < 16) | (rgb.sum(axis=2) == 0))                    # nothing usable stored there
