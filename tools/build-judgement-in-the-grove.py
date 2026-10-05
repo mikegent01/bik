@@ -887,7 +887,10 @@ def build(check=False):
         if not row:
             print("judgement in the grove: salam is missing from characters.json")
             return 1
-        if row.get("image") != SALAM_PORTRAIT or row.get("status") != SALAM_STATUS:
+        # The scar is permanent, so the portrait binds for good. The status line
+        # is this session's only until a later filing moves Salam on (the Grove
+        # conclusion already has), same rule as the front-page slots above.
+        if row.get("image") != SALAM_PORTRAIT or (is_newest and row.get("status") != SALAM_STATUS):
             print("judgement in the grove: Salam's portrait/status do not match the generator")
             return 1
         print("judgement in the grove: event, battle, front page and Salam all match "
