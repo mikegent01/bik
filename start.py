@@ -206,6 +206,39 @@ def tailscale_ipv4():
     return None
 
 
+def lan_ipv4():
+    """The address this machine uses to reach the LAN (a UDP socket is
+    never actually sent), or None."""
+    try:
+        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        try:
+            sock.connect(("10.255.255.255", 1))
+            ip = sock.getsockname()[0]
+        finally:
+            sock.close()
+        # 169.254.x is "no lease" (APIPA): nothing else reaches it either
+        return ip if ip and not ip.startswith(("127.", "169.254.")) else None
+    except OSError:
+        return None
+
+
+def art_base_for(port: int, host: str, explicit: str = "") -> str:
+    """The address the Foundry packets name their art by (the suite's
+    --art-base). The explicit choice wins ("copy" = copy the art into Data
+    instead, the old way). Exposed on the network: the Tailscale address (a
+    node's 100.x never changes, so the packets do not churn), else the LAN
+    address; bound to loopback: 127.0.0.1 — honest, since nothing else can
+    reach the server then."""
+    explicit = (explicit or "").strip()
+    if explicit:
+        return explicit
+    if host in ("0.0.0.0", "::"):
+        reach = tailscale_ipv4() or lan_ipv4()
+        if reach:
+            return "http://%s:%d/" % (reach, port)
+    return "http://127.0.0.1:%d/" % port
+
+
 def print_tailnet_tip(port: int, host: str) -> None:
     ts_ip = tailscale_ipv4()
     if not ts_ip:
@@ -331,14 +364,17 @@ def launch_workflow(port: int, host: str, lm_url: str = "", say=print):
     return proc
 
 
-def launch_sheets_suite(site_port: int, say=print, foundry_data: str = "", git_sync: bool = False):
+def launch_sheets_suite(site_port: int, say=print, foundry_data: str = "", git_sync: bool = False, art_base: str = ""):
     """Run tools/sheets-suite.py --watch as a child, its lines going to `say`.
     `foundry_data` (blank = let the suite find it) is the Foundry Data folder
-    the suite publishes packets, the module and the art into — what the Sync
-    button in Foundry reads first. `git_sync` adds --git-sync: pull before a
-    pass, commit + push the mirror / sheets after, poll GitHub while idle (the
-    module and the tools update themselves). Returns the Popen (or None when
-    it cannot start)."""
+    the suite publishes packets and the module into — what the Sync button in
+    Foundry reads first. `git_sync` adds --git-sync: pull before a pass,
+    commit + push the mirror / sheets after, poll GitHub while idle (the
+    module and the tools update themselves). `art_base` is the URL the
+    packets name portraits, tokens and item icons under — this server, at an
+    address every Foundry client can reach (see art_base_for); "copy" copies
+    the art into Data the old way. Returns the Popen (or None when it cannot
+    start)."""
     if not SHEETS_SCRIPT.is_file():
         say("  sheets : %s is missing — the sheets page still serves the committed data/sheets.json" % SHEETS_SCRIPT)
         return None
@@ -351,7 +387,8 @@ def launch_sheets_suite(site_port: int, say=print, foundry_data: str = "", git_s
     try:
         proc = subprocess.Popen(
             [sys.executable, str(SHEETS_SCRIPT), "--watch", "--port", str(site_port)]
-            + (["--foundry-data", foundry_data] if foundry_data else []) + (["--git-sync"] if git_sync else []), cwd=str(ROOT), env=env,
+            + (["--foundry-data", foundry_data] if foundry_data else []) + (["--git-sync"] if git_sync else [])
+            + (["--art-base", art_base] if art_base else []), cwd=str(ROOT), env=env,
             stdout=subprocess.PIPE, stderr=subprocess.STDOUT, encoding="utf-8", errors="replace", bufsize=1,
         )
     except Exception as exc:
@@ -366,6 +403,9 @@ def launch_sheets_suite(site_port: int, say=print, foundry_data: str = "", git_s
             pass
     threading.Thread(target=pump, daemon=True).start()
     say("  sheets : character-sheet suite watching for exports (tools/sheets-suite.py --watch%s); sheets at http://localhost:%d/%s" % (" --git-sync" if git_sync else "", site_port, SHEETS_ROUTE))
+    if art_base and art_base.lower() != "copy":
+        say("  art    : Foundry's sheets load portraits, tokens and item icons from %s — keep this window open whenever Foundry is%s"
+            % (art_base, "" if "127.0.0.1" not in art_base else "; only this machine can reach that address (tick 'reachable from other machines' for players elsewhere)"))
     return proc
 
 
@@ -388,7 +428,7 @@ def stop_process(proc, say=print) -> None:
 PREF_DEFAULTS = {
     "site": True, "workflow": True, "sheets": True, "tts": False, "browser": True,
     "port": DEFAULT_PORT, "workflow_port": WORKFLOW_PORT, "expose": False,
-    "lm_url": "", "open": "home", "route": "", "foundry_data": "", "git_sync": False,
+    "lm_url": "", "open": "home", "route": "", "foundry_data": "", "git_sync": False, "art_base": "",
 }
 
 
@@ -462,6 +502,8 @@ def run_gui(args) -> int:
         prefs["foundry_data"] = args.foundry_data
     if args.git_sync:
         prefs["git_sync"] = True
+    if args.art_base:
+        prefs["art_base"] = args.art_base
     if args.route:
         prefs["open"], prefs["route"] = "route", args.route
     elif args.page and args.page != "index.html":
@@ -494,6 +536,7 @@ def run_gui(args) -> int:
     v_wport = tk.StringVar(value=str(prefs["workflow_port"]))
     v_lm = tk.StringVar(value=prefs["lm_url"])
     v_fd = tk.StringVar(value=prefs.get("foundry_data", ""))
+    v_art = tk.StringVar(value=prefs.get("art_base", ""))
     v_git = tk.BooleanVar(value=bool(prefs.get("git_sync", False)))
     v_open = tk.StringVar(value=prefs["open"])
     v_route = tk.StringVar(value=prefs["route"])
@@ -525,8 +568,12 @@ def run_gui(args) -> int:
     ttk.Checkbutton(row, text="Character sheets — split the GM's Foundry export, player sheets at ledger XP, spoils, sheets.json, import packets; re-runs when an export lands", variable=v_sheets).pack(side="left")
 
     row = ttk.Frame(box); row.pack(fill="x", padx=8, pady=3)
-    ttk.Label(row, text="Foundry Data folder (blank = find it; packets, the module and the art are published there for the Sync button)").pack(side="left", padx=(24, 4))
+    ttk.Label(row, text="Foundry Data folder (blank = find it; the packets and the module are published there for the Sync button)").pack(side="left", padx=(24, 4))
     ttk.Entry(row, textvariable=v_fd, width=34).pack(side="left")
+
+    row = ttk.Frame(box); row.pack(fill="x", padx=8, pady=3)
+    ttk.Label(row, text="Art address (blank = this server: the Tailscale / LAN address when reachable from other machines, else 127.0.0.1; 'copy' = copy the art into Data instead)").pack(side="left", padx=(24, 4))
+    ttk.Entry(row, textvariable=v_art, width=26).pack(side="left")
 
     row = ttk.Frame(box); row.pack(fill="x", padx=8, pady=3)
     ttk.Checkbutton(row, text="Two-way with GitHub — pull before a pass, commit + push the mirror and the sheets after, poll GitHub while idle (the module and the tools update themselves)", variable=v_git).pack(side="left", padx=(24, 0))
@@ -580,6 +627,7 @@ def run_gui(args) -> int:
             "port": num(v_port, DEFAULT_PORT), "workflow_port": num(v_wport, WORKFLOW_PORT),
             "lm_url": v_lm.get().strip(), "open": v_open.get(), "route": v_route.get().strip(),
             "foundry_data": v_fd.get().strip().strip('"'), "git_sync": bool(v_git.get()),
+            "art_base": v_art.get().strip().strip('"'),
         }
 
     def site_url(page: str = "", route: str = "") -> str:
@@ -611,7 +659,8 @@ def run_gui(args) -> int:
         if p["workflow"]:
             state["workflow"] = launch_workflow(p["workflow_port"], host, p["lm_url"], say)
         if p["sheets"]:
-            state["sheets"] = launch_sheets_suite(state["port"], say, p.get("foundry_data", ""), bool(p.get("git_sync", False)))
+            state["sheets"] = launch_sheets_suite(state["port"], say, p.get("foundry_data", ""), bool(p.get("git_sync", False)),
+                                                  art_base_for(state["port"], host, p.get("art_base", "")))
         if p["tts"]:
             launch_tts_studio(say)
         ts_ip = tailscale_ipv4()
@@ -765,9 +814,13 @@ def main() -> int:
                         help="two-way with GitHub: the sheets suite pulls before a pass, commits and pushes the "
                              "world mirror / sheets after, and polls GitHub while idle so the Mass Import module "
                              "and the tools update themselves (needs a clean checkout with push rights)")
+    parser.add_argument("--art-base", default="", metavar="URL",
+                        help="the address Foundry's sheets load the archive's art from (the sheets suite's --art-base). "
+                             "Default: this server — the Tailscale or LAN address with --host 0.0.0.0, else "
+                             "http://127.0.0.1:<port>/; 'copy' copies the art into the Data folder instead (the old way)")
     parser.add_argument("--foundry-data", default="", metavar="DIR",
                         help="your Foundry VTT Data folder (…/FoundryVTT/Data); the suite publishes the packets, "
-                             "the Mass Import module and the art there so Sync in Foundry needs no URL. "
+                             "the Mass Import module there so Sync in Foundry needs no URL (the art is served, see --art-base). "
                              "Blank = the suite finds it (WALUIPEDIA_FOUNDRY_DATA, the usual AppData / "
                              "~/.local/share / Library paths)")
     mode = parser.add_mutually_exclusive_group()
@@ -805,7 +858,8 @@ def main() -> int:
         workflow = launch_workflow(args.workflow_port, args.host)
     sheets_suite = None
     if not args.no_sheets:
-        sheets_suite = launch_sheets_suite(port, foundry_data=args.foundry_data, git_sync=bool(args.git_sync))
+        sheets_suite = launch_sheets_suite(port, foundry_data=args.foundry_data, git_sync=bool(args.git_sync),
+                                           art_base=art_base_for(port, args.host, args.art_base))
     if not args.no_tts:
         launch_tts_studio()
     print_tailnet_tip(port, args.host)

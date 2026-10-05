@@ -299,6 +299,90 @@ with tempfile.TemporaryDirectory() as tmp:
     copied2, skipped2, _ = fb.install_images([out], data_dir)
     check("install-images is idempotent", copied2 == [] and "portraits/salam.png" in skipped2)
 
+    # ---- art URLs (1.8): packets point at the archive's server, mirrors stay host-free
+    base = "http://192.168.1.20:8765/"
+    with open(os.path.join(rm, "portraits", "Toad Lee (1).png"), "wb") as fh:
+        fh.write(b"\x89PNG fake")
+    check("art_url maps a repo path to its URL under the base, percent-encoded, repo-root-relative",
+          fb.art_url("portraits/salam.png", base) == base + "repo/portraits/salam.png"
+          and fb.art_url("portraits/Toad Lee (1).png", base) == base + "repo/portraits/Toad%20Lee%20%281%29.png", fb.art_url("portraits/Toad Lee (1).png", base))
+    check("art_url leaves server, placeholder, unknown and already-external paths alone",
+          all(fb.art_url(x, base) == x for x in ("icons/svg/mystery-man.svg", "modules/x/y.webp", "npc/upload.png", "https://e.test/a.png", "")))
+    check("art_path turns the URL back into the repo path whatever the host, and returns None for anything else",
+          fb.art_path("http://100.64.0.9:9000/repo/portraits/Toad%20Lee%20%281%29.png") == "portraits/Toad Lee (1).png"
+          and fb.art_path(base + "repo/portraits/salam.png?t=1") == "portraits/salam.png"
+          and fb.art_path(base + "repo/portraits/nope.png") is None and fb.art_path("portraits/salam.png") is None)
+    linked, _ = fb.combine([out], world="w", art_base=base)
+    salam_doc = next(a for a in linked["actors"] if a["name"] == "Salam")
+    check("combine --art-base rewrites every repo image in the packet to a URL and records the base",
+          salam_doc["img"] == base + "repo/portraits/salam.png" and linked["artBase"] == base and linked["artLinks"] >= 1, salam_doc["img"])
+    plain, _ = fb.combine([out], world="w")
+    check("…and without it the packet keeps Data paths (the --art-copy way)", next(a for a in plain["actors"] if a["name"] == "Salam")["img"] == "portraits/salam.png" and "artBase" not in plain)
+    # a world that carries URLs exports back → split writes repo paths, so the committed mirror never names a host
+    url_export = json.loads(json.dumps(export))
+    url_export["actors"][2]["img"] = base + "repo/portraits/salam.png"
+    url_export["actors"][2]["prototypeToken"] = {"texture": {"src": "http://100.64.0.9:8765/repo/portraits/salam.png"}}
+    url_export["actors"][2]["items"] = [{"_id": "I2aaaaaaaaaaaaaa", "name": "Kept", "type": "loot", "img": "https://elsewhere.test/x.png", "system": {}}]
+    url_export_path = os.path.join(tmp, "url-export.json")
+    with open(url_export_path, "w", encoding="utf-8") as fh:
+        json.dump(url_export, fh)
+    url_out = os.path.join(tmp, "worlds", "url-world")
+    fb.split(url_export_path, url_out)
+    back = read(os.path.join(url_out, "fvtt-Actor-salam-A3aaaaaaaaaaaaaa.json"))
+    check("split turns art-server URLs (any host) back into repo paths and leaves real external URLs alone",
+          back["img"] == "portraits/salam.png" and back["prototypeToken"]["texture"]["src"] == "portraits/salam.png" and back["items"][0]["img"] == "https://elsewhere.test/x.png", json.dumps([back["img"], back["prototypeToken"]]))
+
+    # ---- prune-images: verified before deleted ---------------------------
+    served = {base + "repo/portraits/salam.png": b"\x89PNG fake", base + "repo/portraits/orange_t.png": b"\x89PNG fake", base + "repo/portraits/bowser.jpg": b"\x89PNG fake"}
+    calls = []
+    def fake_fetch(url, timeout=6.0):
+        calls.append(url)
+        if url not in served:
+            raise OSError("404")
+        return served[url]
+    def fail_fetch(url, timeout=6.0):
+        raise OSError("connection refused")
+    # Data: salam (identical), orange_t (identical), a GM upload sharing the folder, and a same-name file with other bytes
+    fb.install_images([out], data_dir)
+    os.makedirs(os.path.join(data_dir, "portraits", "deep"), exist_ok=True)
+    for fn, blob in (("orange_t.png", b"\x89PNG fake"), ("gm-upload.png", b"mine"), ("bowser.jpg", b"edited by hand")):
+        with open(os.path.join(data_dir, "portraits", fn), "wb") as fh:
+            fh.write(blob)
+    with open(os.path.join(data_dir, "portraits", "deep", "salam.png"), "wb") as fh:
+        fh.write(b"\x89PNG fake")  # a copy where the repo has no file at that path
+    def write_export(payload, name):
+        pth = os.path.join(tmp, name)
+        with open(pth, "w", encoding="utf-8") as fh:
+            json.dump(payload, fh)
+        return pth
+    rep = fb.prune_images(data_dir, base, export_path=None, fetch=fake_fetch)
+    check("prune-images: with no export back nothing goes — every candidate is kept with the reason",
+          rep["deleted"] == [] and {r for r, _ in rep["kept"]} >= {"portraits/salam.png", "portraits/orange_t.png"} and "no export back" in dict(rep["kept"])["portraits/salam.png"], json.dumps(rep["kept"]))
+    old_export = write_export(url_export, "old-export.json")  # module < 1.8: no imagesInUse
+    rep = fb.prune_images(data_dir, base, export_path=old_export, fetch=fake_fetch)
+    check("…an export back without imagesInUse (module < 1.8) cannot vouch for placed tokens — kept, reason says so",
+          rep["deleted"] == [] and "predates module 1.8" in dict(rep["kept"])["portraits/orange_t.png"], json.dumps(rep["kept"]))
+    full = json.loads(json.dumps(url_export))
+    full["imagesInUse"] = ["portraits/orange_t.png", base + "repo/portraits/salam.png", "icons/svg/mystery-man.svg"]
+    new_export = write_export(full, "new-export.json")
+    rep = fb.prune_images(data_dir, base, export_path=new_export, fetch=fail_fetch)
+    check("…a dead art server means nothing is deleted",
+          rep["deleted"] == [] and rep["server"].startswith("down") and all("not answering" in why for _, why in rep["kept"] if _ in ("portraits/salam.png", "portraits/orange_t.png")), json.dumps(rep))
+    rep = fb.prune_images(data_dir, base, export_path=new_export, fetch=fake_fetch)
+    check("prune-images dry run: salam goes (identical, served, unreferenced), orange_t stays (a placed token still uses the Data path), bowser stays (bytes differ), the GM upload and the stray copy are not even candidates",
+          rep["deleted"] == ["portraits/salam.png"] and dict(rep["kept"]).get("portraits/orange_t.png", "").startswith("still referenced")
+          and "differs" in dict(rep["kept"]).get("portraits/bowser.jpg", "") and not any(r.endswith("gm-upload.png") or r.startswith("portraits/deep/") for r, _ in rep["kept"])
+          and os.path.exists(os.path.join(data_dir, "portraits", "salam.png")) and rep["bytes"] == 9, json.dumps(rep))
+    check("…and the server's bytes were compared for the file that goes", base + "repo/portraits/salam.png" in calls)
+    served[base + "repo/portraits/salam.png"] = b"other bytes"
+    rep = fb.prune_images(data_dir, base, export_path=new_export, fetch=fake_fetch)
+    check("…a server answering with different bytes keeps the copy", rep["deleted"] == [] and "different bytes" in dict(rep["kept"])["portraits/salam.png"], json.dumps(rep["kept"]))
+    served[base + "repo/portraits/salam.png"] = b"\x89PNG fake"
+    rep = fb.prune_images(data_dir, base, export_path=new_export, write=True, fetch=fake_fetch)
+    check("prune-images --write deletes the verified copy and reports the bytes freed; a packet that still names the Data path would keep it",
+          rep["deleted"] == ["portraits/salam.png"] and not os.path.exists(os.path.join(data_dir, "portraits", "salam.png")) and rep["bytes"] == 9
+          and fb.prune_images(data_dir, base, export_path=new_export, packets=[export_path], fetch=fake_fetch)["kept"] and os.path.exists(os.path.join(data_dir, "portraits", "orange_t.png")))
+
 print(f"foundry bridge: {len(OKS)} ok, {len(FAILS)} failed")
 for f in FAILS:
     print("  FAIL " + f)

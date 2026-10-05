@@ -103,6 +103,7 @@ class Actor {
   get itemTypes() { const by = {}; for (const i of this.items.contents) (by[i.type] ??= []).push(i); return by; }
   get folder() { return this.folderId ? game.folders.get(this.folderId) : null; }
   get img() { return this._data.img; }
+  get prototypeToken() { return this._data.prototypeToken; }
   get ownership() { return this._data.ownership; }
   async delete() { game.actors.delete(this.id); return this; }
   toObject() { return { ...structuredClone(this._data), folder: this.folderId, items: this.items.contents.map((i) => i.toObject()), effects: this.effects.contents.map((e) => structuredClone(e)) }; }
@@ -712,7 +713,76 @@ check('pickDataPath opens a folder picker and writes the choice into the url box
   const backed = await mod.exportBack({ reason: 'test' });
   const backedText = backed ? [...dataTree.entries()].find(([k]) => k === backed.path)?.[1] : null;
   const backedJson = backedText ? JSON.parse(typeof backedText === 'string' ? backedText : backedText.text ?? '{}') : null;
-  check('v1.7.1: the export back names the last packet applied (lastSync.applied.stamp) beside exportedBy', !!backed && backedJson?.lastSync?.applied?.stamp === direct.sync.stamp && /waluipedia-mass-import 1\.7\.1 \(test\)/.test(backedJson?.exportedBy ?? ''), JSON.stringify([backed, backedJson?.lastSync, backedJson?.exportedBy]));
+  check('v1.7.1: the export back names the last packet applied (lastSync.applied.stamp) beside exportedBy', !!backed && backedJson?.lastSync?.applied?.stamp === direct.sync.stamp && /waluipedia-mass-import 1\.8\.0 \(test\)/.test(backedJson?.exportedBy ?? ''), JSON.stringify([backed, backedJson?.lastSync, backedJson?.exportedBy]));
+  // ---- 1.8: art by URL on the archive's server -------------------------------
+  const base = 'http://100.64.0.9:8765/';
+  const url = (rel) => base + 'Reputation-Matrix2/' + rel;
+  // a scene with placed tokens: two of Remi's still on the Data path, one already moved, one of someone else
+  const remiA = game.actors.contents.find((a) => a.name === 'Remi') ?? game.actors.contents[0];
+  const remiBefore = structuredClone(remiA._data);
+  const prevExportStamp = settings.get('waluipedia-mass-import.syncLastExport');
+  const sceneUpdates = [];
+  const scene = { id: 'S1', background: { src: 'scenes/town.webp' }, foreground: null, thumb: 'scenes/thumb.webp',
+    tokens: new Coll([
+      ['T1', { id: 'T1', actorId: remiA.id, texture: { src: 'portraits/player/remi.png' } }],
+      ['T2', { id: 'T2', actorId: remiA.id, texture: { src: 'portraits/player/remi.png' } }],
+      ['T3', { id: 'T3', actorId: remiA.id, texture: { src: url('portraits/player/remi.png') } }],
+      ['T4', { id: 'T4', actorId: 'other', texture: { src: 'portraits/player/remi.png' } }],
+    ]),
+    tiles: new Coll([['L1', { id: 'L1', texture: { src: 'portraits/tiles/banner.png' } }]]),
+    async updateEmbeddedDocuments(type, rows) { sceneUpdates.push({ type, rows: structuredClone(rows) }); for (const r of rows) { const t = this.tokens.get(r._id); if (t) t.texture.src = r['texture.src']; } return rows; },
+  };
+  game.scenes = new Coll([['S1', scene]]);
+  game.journal = new Coll([['J1', { pages: new Coll([['P1', { src: 'portraits/journal/map.png' }], ['P2', { text: { content: '<p>look <img src="portraits/journal/inline.png" alt=""> and <a href="https://x.test/not-an-image">x</a></p>' } }]]) }]]);
+  game.items = new Coll([['W1', { img: 'icons/weapons/swords/sword-guard-brass-worn.webp' }]]);
+  game.macros = new Coll([['M1', { img: 'icons/svg/dice-target.svg' }]]);
+  const inUse = mod.imagesInUse();
+  check('v1.8: imagesInUse lists scene backgrounds + thumbs, placed tokens (URLs included), tiles, journal image pages and <img> in text, world items, macros and actors — unique, sorted, no data: URIs',
+        ['scenes/town.webp', 'scenes/thumb.webp', 'portraits/player/remi.png', url('portraits/player/remi.png'), 'portraits/tiles/banner.png', 'portraits/journal/map.png', 'portraits/journal/inline.png', 'icons/weapons/swords/sword-guard-brass-worn.webp', 'icons/svg/dice-target.svg'].every((p) => inUse.includes(p))
+        && !inUse.includes('https://x.test/not-an-image') && new Set(inUse).size === inUse.length && JSON.stringify(inUse) === JSON.stringify([...inUse].sort()), JSON.stringify(inUse));
+  const backed2 = await mod.exportBack({ reason: 'test' });
+  const backed2Json = backed2 ? JSON.parse([...dataTree.entries()].find(([k]) => k === backed2.path)?.[1] ?? '{}') : null;
+  check('v1.8: the export back carries imagesInUse (the suite proves a Data copy unneeded with it before deleting)', Array.isArray(backed2Json?.imagesInUse) && backed2Json.imagesInUse.includes('portraits/tiles/banner.png'), JSON.stringify(backed2Json?.imagesInUse));
+  // placed tokens follow the prototype token when an update moves it
+  remiA._data.prototypeToken = { texture: { src: 'portraits/player/remi.png' } };
+  const moved = { ...remiA.toObject(), prototypeToken: { texture: { src: url('portraits/player/remi.png') } }, img: url('portraits/player/remi.png') };
+  delete moved.folder;
+  const dry = await mod.importPayload({ format: 'waluipedia-actors/1', actors: [moved] }, { checkImages: false, dryRun: true });
+  check('v1.8: a dry run counts the placed tokens that would move and moves none', dry.tokensRelinked === 2 && sceneUpdates.length === 0 && scene.tokens.get('T1').texture.src === 'portraits/player/remi.png', JSON.stringify([dry.tokensRelinked, sceneUpdates]));
+  const wet = await mod.importPayload({ format: 'waluipedia-actors/1', actors: [moved] }, { checkImages: false });
+  check('v1.8: the real update re-points the placed tokens of that actor still on the old path (one scene call, two tokens), leaves the moved one and other actors\' tokens alone, and says so in the summary',
+        wet.tokensRelinked === 2 && sceneUpdates.length === 1 && sceneUpdates[0].type === 'Token' && sceneUpdates[0].rows.map((r) => r._id).join() === 'T1,T2' && sceneUpdates[0].rows.every((r) => r['texture.src'] === url('portraits/player/remi.png'))
+        && scene.tokens.get('T4').texture.src === 'portraits/player/remi.png' && /2 placed tokens re-pointed/.test(mod.summarize(wet)), JSON.stringify([wet.tokensRelinked, sceneUpdates, mod.summarize(wet)]));
+  check('…and relinkPlacedTokens is idempotent (nothing left on the old path)', (await mod.relinkPlacedTokens(remiA, 'portraits/player/remi.png', url('portraits/player/remi.png'))) === 0);
+  // the art-server notice: HEAD the probe from packets.json; one toast per load, wording by who and where
+  const artWarned = []; const prevWarnA = ui.notifications.warn; ui.notifications.warn = (m) => artWarned.push(m);
+  const prevFetchA = globalThis.fetch;
+  let artUp = true;
+  globalThis.fetch = async (u, init = {}) => { if (String(u).startsWith(base)) { if (!artUp) throw new TypeError('Failed to fetch'); return { ok: true, status: 200 }; } return prevFetchA(u, init); };
+  check('v1.8: noticeArtServer is null when the packets carry no artBase (pre-1.8 suite: Data copies)', (await mod.noticeArtServer({ digest: 'x' })) === null && artWarned.length === 0);
+  const up = await mod.noticeArtServer({ artBase: base, artProbe: base + 'favicon.ico' });
+  check('…ok and silent when the probe answers', up?.ok === true && up.base === base && artWarned.length === 0, JSON.stringify(up));
+  artUp = false;
+  const down = await mod.noticeArtServer({ artBase: base, artProbe: base + 'favicon.ico' });
+  await mod.noticeArtServer({ artBase: base, artProbe: base + 'favicon.ico' });
+  check('…a dead server: the GM is told to start start.py (start.bat) and keep it open — once per load, not once per sync', down?.ok === false && artWarned.length === 1 && /start\.py is not answering at http:\/\/100\.64\.0\.9:8765\//.test(artWarned[0]) && /start\.bat/.test(artWarned[0]), JSON.stringify(artWarned));
+  artUp = true; await mod.noticeArtServer({ artBase: base, artProbe: base + 'favicon.ico' }); artUp = false; artWarned.length = 0;
+  game.user.isGM = false;
+  const player = await mod.noticeArtServer({ artBase: base, artProbe: base + 'favicon.ico' });
+  check('…a player is told to ask the GM', player?.ok === false && artWarned.length === 1 && /ask the GM/.test(artWarned[0]), JSON.stringify(artWarned));
+  artUp = true; await mod.noticeArtServer({ artBase: base }); artUp = false; artWarned.length = 0;
+  globalThis.location = { hostname: 'gm-desktop.tail1234.ts.net' };
+  const loop = await mod.noticeArtServer({ artBase: 'http://127.0.0.1:8765/', artProbe: 'http://127.0.0.1:8765/favicon.ico' });
+  check('…packets pointing at 127.0.0.1 seen from another machine: the fix is the launcher\'s "reachable from other machines" tick / --art-base', loop?.ok === false && artWarned.length === 1 && /reachable from other machines/.test(artWarned[0]) && /--art-base/.test(artWarned[0]), JSON.stringify(artWarned));
+  delete globalThis.location; game.user.isGM = true;
+  // with no info passed it reads packets.json from Data (the player path at ready)
+  const prevArt = packetsJson.artBase; packetsJson.artBase = base; packetsJson.artProbe = base + 'favicon.ico'; artUp = true;
+  check('…and with no info it reads artBase from the Data packets.json by itself', (await mod.noticeArtServer())?.ok === true, JSON.stringify(packetsJson));
+  packetsJson.artBase = prevArt; delete packetsJson.artProbe;
+  globalThis.fetch = prevFetchA; ui.notifications.warn = prevWarnA;
+  delete game.scenes; delete game.journal; delete game.items; delete game.macros;
+  remiA._data = remiBefore; settings.set('waluipedia-mass-import.syncLastExport', prevExportStamp);
+
   settings.set('waluipedia-mass-import.syncAuto', false);
   settings.set('waluipedia-mass-import.syncAuto', false);
   check('automatic sync respects the setting (off → nothing)', (await mod.autoSync({ delay: 0 })) === null);

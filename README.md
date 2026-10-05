@@ -121,7 +121,16 @@ cast packet are rebuilt; and two import packets are combined for Foundry to
 pull straight off this server (`…/worlds/<world>/players-import.json` for the
 Players folder, `…/import.json` for the whole world — paste the printed URL
 into **Mass import → URL**; the server sends `Access-Control-Allow-Origin: *`
-so Foundry can fetch it). It re-runs whenever an export, `Players.json` or a
+so Foundry can fetch it). The art those packets name — portraits, token
+plates, repo item icons — is **not copied into Foundry**: the packets point
+at it by URL on this server (`--art-base`; the launcher picks the Tailscale or
+LAN address when *reachable from other machines* is ticked, else `127.0.0.1`),
+so **keep `start.py` running whenever Foundry is open** — the Mass Import
+module says so in Foundry when it is not. The copies older passes made under
+Foundry's `Data/portraits` and `Data/assets` are removed once the world no
+longer points at them and this server serves the same bytes
+(`foundry-bridge.py prune-images`; `--art-base copy` restores the old
+copying). It re-runs whenever an export, `Players.json` or a
 changes file changes; `python3 tools/sheets-suite.py --check` is the
 read-only pass `tools/check-all.py` runs. See `docs/SHEETS_SYSTEM.md`.
 

@@ -15,7 +15,11 @@ The loop the table runs at the end of every session:
               actors/peachs-castle-955) back into ONE import payload with the
               folder tree rebuilt — the module imports it by upload, Data path
               or raw GitHub URL, updating existing actors in place.
-  6. install-images  copy every repo image the actors reference into the
+  6. prune-images  (1.8) the packets reference repo art by URL on the
+              archive's own server (combine --art-base); this removes the
+              Data copies step 6b used to make, once the world no longer
+              points at them and the server serves the same bytes.
+  6b. install-images  copy every repo image the actors reference into the
               Foundry Data folder (never deletes, never overwrites a newer
               file without --force).
   check       validates a directory of actor files (ids, duplicates, images).
@@ -48,6 +52,9 @@ import os
 import re
 import shutil
 import sys
+import urllib.error
+import urllib.parse
+import urllib.request
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RM = os.path.join(ROOT, "Reputation-Matrix2")
@@ -432,6 +439,8 @@ def split(export_path, out_dir, flat=False, prune=False):
         # an invalid identifier is an invisible item in Foundry: fix it in the
         # mirror so the next import puts a valid one back
         repaired.extend((actor.get("name"), *f) for f in repair_identifiers(doc))
+        # art served by start.py comes back as the repo path it was built from
+        relink_images(doc, lambda p: art_path(p) or p)
         if path is None:
             # folder id without a name: keep the id, stamp nothing, file at the top
             unresolved[actor.get("folder")] = unresolved.get(actor.get("folder"), 0) + 1
@@ -480,12 +489,13 @@ def split(export_path, out_dir, flat=False, prune=False):
 
 # ------------------------------------------------------------------ combine
 
-def combine(dirs, folder_prefix=None, world=None, ignore_dirs=False, scheme=None, dedupe=None):
+def combine(dirs, folder_prefix=None, world=None, ignore_dirs=False, scheme=None, dedupe=None, art_base=None):
     """Actor files -> one import payload. With several dirs the first one wins
     a name + type clash (dedupe, default on for 2+ dirs): the live world keeps
     its copy of a 955 BF guard, the era packet's copy is left out and listed
     under `omitted`. Duplicates *within* one dir are kept (two different
-    "Guard" statblocks are two actors)."""
+    "Guard" statblocks are two actors). `art_base`: repo art becomes URLs
+    there (see art_url)."""
     prefix = [p.strip() for p in str(folder_prefix or "").split("/") if p.strip()]
     scheme = load_folder_scheme() if scheme is None else scheme
     dedupe = (len(dirs) > 1) if dedupe is None else bool(dedupe)
@@ -507,7 +517,14 @@ def combine(dirs, folder_prefix=None, world=None, ignore_dirs=False, scheme=None
                 seen_names.setdefault(key, base_index)
             rows.append(_combine_row(doc, rel_parts, path, prefix, ignore_dirs))
     rows.sort(key=lambda r: (r[0] is None, r[0] or [], r[1], r[2]))
-    return _combine_payload(rows, scheme, world, omitted)
+    payload, dupes = _combine_payload(rows, scheme, world, omitted)
+    if art_base:
+        n = 0
+        for doc in payload["actors"]:
+            n += len(relink_images(doc, lambda p: art_url(p, art_base)))
+        payload["artBase"] = art_base
+        payload["artLinks"] = n
+    return payload, dupes
 
 
 def _combine_row(doc, rel_parts, path, prefix, ignore_dirs):
@@ -583,10 +600,83 @@ def repo_file_for(image_path):
     if image_path.startswith(("http://", "https://", "data:")):
         return None
     rel = image_path.split("?")[0].replace("\\", "/").lstrip("/")
+    # Foundry keeps paths URL-encoded ("npc/MLSS%2BBM_Art.png"); the file is not
+    for cand_rel in dict.fromkeys((rel, urllib.parse.unquote(rel))):
+        for base in (RM, ROOT):
+            cand = os.path.join(base, *cand_rel.split("/"))
+            if os.path.isfile(cand):
+                return cand
+    return None
+
+
+# ------------------------------------------------------------------- art URLs
+# From 1.8 the art the sheets reference is not copied into Foundry's Data
+# folder: the packets carry URLs on the archive's own server (start.py), so
+# one file serves the website and every Foundry client. `art_url` turns a
+# repo path into that URL (combine, when given --art-base); `art_path` turns
+# it back (split, so the committed mirror stays host-free).
+
+def image_fields(doc):
+    """(container, key) for every image field a packet may carry: the actor's
+    portrait, its prototype token, each item's icon."""
+    out = [(doc, "img")]
+    tex = ((doc.get("prototypeToken") or {}).get("texture") or {})
+    if isinstance(tex, dict):
+        out.append((tex, "src"))
+    for it in doc.get("items") or []:
+        if isinstance(it, dict):
+            out.append((it, "img"))
+    return out
+
+
+def image_paths_of(doc):
+    return [c.get(k) for c, k in image_fields(doc) if isinstance(c.get(k), str) and c.get(k)]
+
+
+def relink_images(doc, fn):
+    """Apply fn(path) -> path to every image field of doc, in place; the
+    fields that changed, as (before, after)."""
+    changed = []
+    for container, key in image_fields(doc):
+        p = container.get(key)
+        if not isinstance(p, str) or not p:
+            continue
+        q = fn(p)
+        if isinstance(q, str) and q != p:
+            container[key] = q
+            changed.append((p, q))
+    return changed
+
+
+def art_url(image_path, base):
+    """A repo-managed image path -> its URL under `base` (the archive's own
+    server, e.g. http://192.168.1.20:8765/); anything else comes back as is."""
+    if not base or not isinstance(image_path, str):
+        return image_path
+    src = repo_file_for(image_path)
+    if not src:
+        return image_path
+    rel = os.path.relpath(src, ROOT).replace(os.sep, "/")
+    return base.rstrip("/") + "/" + urllib.parse.quote(rel, safe="/")
+
+
+def art_path(url):
+    """The repo-relative Foundry path (`portraits/...`) for a URL that points
+    at a repo file on the archive's server — whichever host it names; None
+    when the URL is not that."""
+    if not isinstance(url, str) or not re.match(r"^https?://[^/]+/", url):
+        return None
+    rel = urllib.parse.unquote(url.split("?")[0].split("#")[0].split("/", 3)[3])
+    cand = os.path.join(ROOT, *rel.split("/"))
+    if not os.path.isfile(cand):
+        return None
     for base in (RM, ROOT):
-        cand = os.path.join(base, *rel.split("/"))
-        if os.path.isfile(cand):
-            return cand
+        try:
+            inside = os.path.commonpath([os.path.abspath(cand), os.path.abspath(base)]) == os.path.abspath(base)
+        except ValueError:
+            inside = False
+        if inside:
+            return os.path.relpath(cand, base).replace(os.sep, "/")
     return None
 
 
@@ -908,6 +998,142 @@ def install_images(dirs, foundry_data, dry_run=False, force=False):
     return copied, skipped, missing
 
 
+# ------------------------------------------------------------- prune-images
+# Roots under Foundry's Data folder where install-images used to put copies
+# of repo art (portraits/, assets/images/, assets/icons/ …). Only a file whose
+# path also exists in the repo, with the same bytes, is ever considered — a
+# GM's own assets/srd5e/… are not.
+DATA_ART_ROOTS = ("portraits", "assets")
+
+
+def _sha(path):
+    h = hashlib.sha256()
+    with open(path, "rb") as fh:
+        for chunk in iter(lambda: fh.read(1 << 16), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def _norm_ref(p):
+    """An image reference as the export/packets spell it -> a repo-root-free
+    Data path ("portraits/x.png"), or None for URLs and placeholders."""
+    if not isinstance(p, str) or not p or p.startswith(("http://", "https://", "data:")):
+        return None
+    return urllib.parse.unquote(p.split("?")[0].replace("\\", "/").lstrip("/"))
+
+
+def world_image_refs(export_path):
+    """What the newest export back says the world still points at by Data
+    path: every actor's images plus `imagesInUse` (module 1.8+: scenes,
+    tokens, tiles, journals, items, macros). Returns (refs, verdict) where a
+    verdict other than None means the export cannot vouch for the world."""
+    if not export_path or not os.path.exists(export_path):
+        return set(), "no export back from Foundry yet (module 1.8 writes one after every change; or Mass export into Data)"
+    try:
+        raw = read_json(export_path)
+    except (OSError, ValueError) as exc:
+        return set(), f"export back unreadable ({exc})"
+    _, _, actors = normalize_payload(raw)
+    refs = set()
+    for a in actors:
+        if isinstance(a, dict):
+            refs.update(r for r in (_norm_ref(p) for p in image_paths_of(a)) if r)
+    in_use = raw.get("imagesInUse") if isinstance(raw, dict) else None
+    if not isinstance(in_use, list):
+        return refs, "export back predates module 1.8 (no imagesInUse list: placed tokens and scenes cannot be checked) — let the module export once more"
+    refs.update(r for r in (_norm_ref(p) for p in in_use) if r)
+    return refs, None
+
+
+def fetch_bytes(url, timeout=6.0):
+    with urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": "foundry-bridge"}), timeout=timeout) as resp:
+        return resp.read()
+
+
+def prune_images(foundry_data, art_base, export_path=None, packets=(), write=False, fetch=fetch_bytes):
+    """Remove the copies of repo art under <Data>/portraits and
+    <Data>/assets/images that nothing needs any more. A copy goes only when
+    all of these hold, in this order:
+      1. the repo holds the same file (identical bytes) — a GM upload that
+         merely shares a name is never touched;
+      2. the archive's server returns those very bytes for the file's URL —
+         so the art is really served from where the packets now point;
+      3. the newest export back from Foundry (module 1.8+, which lists every
+         image the world uses: scenes, placed tokens, tiles, journals, items)
+         does not reference the Data path;
+      4. no published packet references the Data path.
+    Returns a report dict; nothing is deleted unless write=True."""
+    rep = {"deleted": [], "kept": [], "bytes": 0, "server": None, "verdict": None, "scanned": 0}
+    refs, verdict = world_image_refs(export_path)
+    rep["verdict"] = verdict
+    for pk in packets:
+        try:
+            _, _, actors = normalize_payload(read_json(pk))
+        except (OSError, ValueError):
+            continue
+        for a in actors:
+            if isinstance(a, dict):
+                refs.update(r for r in (_norm_ref(p) for p in image_paths_of(a)) if r)
+    base = (art_base or "").rstrip("/") + "/"
+    candidates = []
+    for root in DATA_ART_ROOTS:
+        top = os.path.join(foundry_data, root)
+        if not os.path.isdir(top):
+            continue
+        for dirpath, _, files in os.walk(top):
+            for fn in files:
+                full = os.path.join(dirpath, fn)
+                rel = os.path.relpath(full, foundry_data).replace(os.sep, "/")
+                rep["scanned"] += 1
+                src = repo_file_for(rel)
+                if not src:
+                    continue  # not the repo's: a GM upload sharing the folder
+                if os.path.getsize(src) != os.path.getsize(full) or _sha(src) != _sha(full):
+                    rep["kept"].append((rel, "differs from the repo's file"))
+                    continue
+                candidates.append((rel, full, src))
+    if not candidates:
+        return rep
+    if not art_base:
+        rep["kept"].extend((rel, "no art base — the packets still point at Data") for rel, _, _ in candidates)
+        return rep
+    # one probe decides whether the server is up at all
+    try:
+        probe = fetch(base + urllib.parse.quote(os.path.relpath(candidates[0][2], ROOT).replace(os.sep, "/"), safe="/"))
+        rep["server"] = "ok" if probe is not None else "down"
+    except Exception as exc:  # noqa: BLE001 — any failure means "not serving"
+        rep["server"] = f"down ({exc})"
+    if rep["server"] != "ok":
+        rep["kept"].extend((rel, f"art server {base} not answering") for rel, _, _ in candidates)
+        return rep
+    for rel, full, src in candidates:
+        if rel in refs:
+            rep["kept"].append((rel, "still referenced by the world (export back) or a packet"))
+            continue
+        if verdict:
+            rep["kept"].append((rel, verdict))
+            continue
+        url = base + urllib.parse.quote(os.path.relpath(src, ROOT).replace(os.sep, "/"), safe="/")
+        try:
+            served = fetch(url)
+        except Exception as exc:  # noqa: BLE001
+            rep["kept"].append((rel, f"not served at {url} ({exc})"))
+            continue
+        if served is None or hashlib.sha256(served).hexdigest() != _sha(src):
+            rep["kept"].append((rel, f"the server returns different bytes for {url}"))
+            continue
+        size = os.path.getsize(full)
+        if write:
+            os.remove(full)
+            d = os.path.dirname(full)
+            while d != foundry_data and os.path.isdir(d) and not os.listdir(d):
+                os.rmdir(d)
+                d = os.path.dirname(d)
+        rep["deleted"].append(rel)
+        rep["bytes"] += size
+    return rep
+
+
 # ---------------------------------------------------------------------- CLI
 
 def main(argv=None):
@@ -928,6 +1154,7 @@ def main(argv=None):
     p.add_argument("--world", default=None, help="exportedFrom value")
     p.add_argument("--ignore-dirs", action="store_true", help="only use the folderPath flag, never the directory path")
     p.add_argument("--keep-duplicates", action="store_true", help="with several dirs: keep every actor even when a later dir repeats a name + type of an earlier one")
+    p.add_argument("--art-base", default=None, metavar="URL", help="repo art becomes URLs under this base (the archive's own server, e.g. http://192.168.1.20:8765/) instead of Data paths")
     p.add_argument("--check", action="store_true", help="verify --out is current; write nothing")
 
     p = sub.add_parser("link-images", help="connect actors to repo art; report unless --write")
@@ -949,11 +1176,18 @@ def main(argv=None):
     p.add_argument("--image-lib", default=DEFAULT_IMAGE_LIB)
     p.add_argument("--strict-images", action="store_true", help="unknown images are errors, not warnings")
 
-    p = sub.add_parser("install-images", help="copy referenced repo images into the Foundry Data folder")
+    p = sub.add_parser("install-images", help="copy referenced repo images into the Foundry Data folder (the pre-1.8 way; --art-copy in the suite)")
     p.add_argument("dirs", nargs="+")
     p.add_argument("--foundry-data", required=True)
     p.add_argument("--dry-run", action="store_true")
     p.add_argument("--force", action="store_true")
+
+    p = sub.add_parser("prune-images", help="delete Data copies of repo art that the packets (now URLs), the world's export back and the art server all vouch are no longer needed; report unless --write")
+    p.add_argument("--foundry-data", required=True)
+    p.add_argument("--art-base", required=True, metavar="URL")
+    p.add_argument("--export", default=None, help="the newest export back from Foundry (module 1.8+ lists every image the world uses)")
+    p.add_argument("--packet", action="append", default=[], help="a published packet to honour (repeatable)")
+    p.add_argument("--write", action="store_true")
 
     args = ap.parse_args(argv)
 
@@ -972,7 +1206,7 @@ def main(argv=None):
 
     if args.cmd == "combine":
         payload, dupes = combine(args.dirs, folder_prefix=args.folder, world=args.world, ignore_dirs=args.ignore_dirs,
-                                 dedupe=False if args.keep_duplicates else None)
+                                 dedupe=False if args.keep_duplicates else None, art_base=args.art_base)
         for aid, first, second in dupes:
             print(f"  WARNING duplicate _id {aid}: {os.path.relpath(first, ROOT)} and {os.path.relpath(second, ROOT)}", file=sys.stderr)
         text = render(payload)
@@ -990,6 +1224,7 @@ def main(argv=None):
         print(f"combine: {payload['actorCount']} actors, {payload['folderCount']} folders"
               f" ({sum(1 for f in payload['folders'] if f.get('color'))} coloured)"
               + (f", {len(payload['omitted'])} left out (same name + type as an earlier source)" if payload.get("omitted") else "")
+              + (f", {payload['artLinks']} image(s) as URLs under {payload['artBase']}" if payload.get("artBase") else "")
               + f" -> {args.out}")
         return 1 if dupes else 0
 
@@ -1039,6 +1274,20 @@ def main(argv=None):
         print(f"install-images: {len(copied)} copied, {len(skipped)} already there, {len(missing)} missing"
               + (" (dry run)" if args.dry_run else ""))
         return 1 if missing else 0
+
+    if args.cmd == "prune-images":
+        rep = prune_images(args.foundry_data, args.art_base, export_path=args.export, packets=args.packet, write=args.write)
+        verb = "deleted" if args.write else "would delete"
+        for rel in rep["deleted"]:
+            print(f"  {verb} {rel}")
+        reasons = {}
+        for rel, why in rep["kept"]:
+            reasons.setdefault(why, []).append(rel)
+        for why, rels in reasons.items():
+            print(f"  kept {len(rels)}: {why}" + (f" (e.g. {rels[0]})" if rels else ""))
+        print(f"prune-images: {len(rep['deleted'])} {verb} ({rep['bytes'] / 1e6:.1f} MB), {len(rep['kept'])} kept, {rep['scanned']} file(s) under "
+              + ", ".join(DATA_ART_ROOTS) + (" (dry run)" if not args.write else ""))
+        return 0
     return 2
 
 

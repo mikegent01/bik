@@ -302,3 +302,38 @@ record, writes a contact sheet, stops after three characters with no image
 at all (and prints ComfyUI's own reason — a wrong model filename says so
 now instead of "Bad Request"), and `drop --ids` is the undo that pairs with
 `git status`. Both tests grew (54 + 43).
+
+### Addendum — one copy of the art: Foundry loads it from `start.py` (module 1.8)
+
+Every portrait, token plate and repo item icon the sheets reference used to
+be copied into Foundry's Data folder by the publish step — 287 files, 36 MB,
+the same bytes as the repo. The packets now name that art by **URL on the
+archive's own server** (`foundry-bridge.py combine --art-base`, 464 image
+fields in the midlands packet; the live players' own `npc/…` / `player/…`
+uploads are not the repo's and stay as they are). The address is this
+machine's loopback unless the launcher is *reachable from other machines*,
+when it is the Tailscale address, else the LAN one (`start.py --art-base`,
+suite `--art-base`, `WALUIPEDIA_ART_BASE`; `copy` = the old behaviour).
+`split` turns the URLs back into repo paths, so the committed mirror never
+names a host.
+
+Module 1.8.0: placed tokens are re-pointed when their actor's prototype
+token moves (they copied the Data path when dropped); every export back
+carries `imagesInUse` (scenes, placed tokens, tiles, journal images, world
+items, macros, actors); and the GM and each player get one yellow toast per
+load when the probe in `packets.json` (`artBase`, `artProbe`) does not
+answer — with the fix spelled out. Then `foundry-bridge.py prune-images
+--write` (the publish step) deletes a Data copy only when the repo holds the
+identical bytes, the server returns those very bytes, the newest export back
+does not reference the path and no packet does; everything else is kept with
+the reason printed. Proven end to end here against a fake Data folder behind
+a static server: 287 copies in, `prune-images: 0 deleted, 286 kept — no
+export back from Foundry yet`; with a 1.8 export back, `287 deleted (36.0
+MB)`; a copy a placed token still uses is kept
+(`still referenced by the world (export back) or a packet`).
+
+What it costs: `start.py` must run whenever Foundry is open (the module says
+so when it is not), and players on other machines need the exposed address.
+Tests: `test-foundry-bridge.py` 71, `test-sheets-suite.py` 142,
+`test-mass-import-module.mjs` 226.
+

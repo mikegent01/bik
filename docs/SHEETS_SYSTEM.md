@@ -365,10 +365,41 @@ there: the packets (`npc/waluipedia/<world>/players-import.json`,
 `import.json`, `manifest.json`, `packets.json` with the stamps; the cast
 packet under `npc/waluipedia/cast/`), the Mass Import module itself
 (`modules/waluipedia-mass-import/`, kept identical to the checkout — the
-gh-pages zip lags until the branch merges), and every repo-held image the
-sheets reference, copied to the same relative paths (`portraits/…`,
-`assets/images/…`) because Foundry serves `img` from Data and nowhere else.
-Copies, not symlinks (Windows). Nothing in the repo moves.
+gh-pages zip lags until the branch merges), and — until 1.8 — every
+repo-held image the sheets reference, copied to the same relative paths
+(`portraits/…`, `assets/images/…`). Nothing in the repo moves.
+
+**Art by URL (module 1.8, suite `--art-base`).** Those copies were the same
+bytes twice (36 MB of them on the GM's disk, and once more per machine that
+imports). Foundry's `img` and `prototypeToken.texture.src` accept absolute
+URLs, and `start.py` already answers with `Access-Control-Allow-Origin: *`
+(the canvas needs it for token textures), so the combine step now writes the
+repo's art as URLs on the archive's own server:
+`http://<host>:8765/Reputation-Matrix2/portraits/player/fullbody/remi.png`
+(`foundry-bridge.py art_url`; 464 image fields in the midlands packet, the
+live players' own uploads under `npc/…` and `player/…` untouched). The host
+is `127.0.0.1` unless the launcher is *reachable from other machines*, when it
+is the Tailscale address (a node's `100.x` does not churn, so the packets do
+not either) else the LAN one; `--art-base URL` / `WALUIPEDIA_ART_BASE`
+override, `--art-base copy` (suite `--art-copy`) is the old behaviour.
+Three things keep it honest: the module re-points **placed tokens** when an
+actor's prototype token moves (they copied the Data path when dropped), every
+**export back lists `imagesInUse`** (scene backgrounds, placed tokens, tiles,
+journal images, world items, macros, actors), and `split` turns the URLs back
+into repo paths so the committed mirror never names a host. The publish step
+then runs `foundry-bridge.py prune-images --write`: a Data copy under
+`portraits/` or `assets/` is deleted only when the repo has the identical
+bytes, the server returns those very bytes for its URL, the newest export
+back does not reference the Data path, and no packet does — anything else is
+kept and the reason printed (an export back from before 1.8 vouches for
+nothing: nothing is deleted until the module exports once more). The cost:
+**`start.py` must run whenever Foundry is open**, and players elsewhere need
+the exposed address; `packets.json` carries `artBase` + `artProbe`, which the
+module HEADs at load — the GM and each player get one yellow toast when the
+server is not answering (with the fix: start `start.bat`; tick *reachable from
+other machines*; ask the GM). A GM who syncs from GitHub without the suite
+gets Data paths as before; the next suite pass republishes with URLs and the
+sync shows the moved images as changed rows.
 
 The GM's side, in Foundry, is now **one click: Actors sidebar → Sync**
 (module 1.3). It looks in the Data folder first, then the launcher URL

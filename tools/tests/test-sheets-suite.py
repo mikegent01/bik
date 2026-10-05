@@ -379,6 +379,23 @@ with tempfile.TemporaryDirectory() as tmp:
     check("under --check the publish step only reports what it would copy", ok3 and any("would copy" in t for t in checked) and not any("->" in t and "unchanged" in t for t in checked), " | ".join(checked))
     check("with no Data folder the step explains the fallbacks (launcher URL, then GitHub) and passes", ok4 and any("falls back to the launcher URL, then GitHub" in t and "--foundry-data" in t for t in nowhere), " | ".join(nowhere))
     check("step_publish never writes the repo", not os.path.exists(os.path.join(fworlds, world, "packets.json")))
+    # 1.8: art by URL — packets.json names the base + a probe for the module; the publish step prunes rather than copies
+    suite.ROOT, suite.ACTORS, suite.WORLDS, suite.say = froot, os.path.dirname(fworlds), fworlds, said.append
+    try:
+        ok6 = suite.step_publish(world, True, 8765, data, "--foundry-data", install=False, images=False, art_base="http://100.64.0.9:8765/")
+        arted = list(said); said.clear()
+    finally:
+        suite.ROOT, suite.ACTORS, suite.WORLDS, suite.say = saved
+    info6 = read(os.path.join(dest, "packets.json"))
+    check("packets.json carries artBase + artProbe when the packets reference art by URL (and null without)",
+          ok6 and info6["artBase"] == "http://100.64.0.9:8765/" and info6["artProbe"] == "http://100.64.0.9:8765/favicon.ico" and info3.get("artBase") is None, json.dumps(info6))
+    check("art_base_for: default loopback on the site's port; --art-base / WALUIPEDIA_ART_BASE win, get a scheme and one trailing slash; '' / copy / off = None",
+          suite.art_base_for(8765, environ={}) == "http://127.0.0.1:8765/" and suite.art_base_for(8765, "100.64.0.9:9000", environ={}) == "http://100.64.0.9:9000/"
+          and suite.art_base_for(8765, None, environ={"WALUIPEDIA_ART_BASE": "https://gm.tail1234.ts.net:8765//"}) == "https://gm.tail1234.ts.net:8765/"
+          and suite.art_base_for(8765, "copy", environ={}) is None and suite.art_base_for(8765, "", environ={"WALUIPEDIA_ART_BASE": "x"}) is None and suite.art_base_for(8765, None, environ={"WALUIPEDIA_ART_BASE": "off"}) is None)
+    check("the suite wires the art base through combine (--art-base) and publishes with prune-images --write instead of install-images",
+          '"combine"] + sources + ["--out", os.path.relpath(whole, ROOT), "--world", world] + art' in suite_src and '"prune-images", "--foundry-data", foundry_data, "--art-base", art_base, "--write"' in suite_src
+          and "elif images:" in suite_src and '"install-images"' in suite_src and 'ap.add_argument("--art-copy"' in suite_src)
 
 check("start.py passes --foundry-data through to the suite (flag, remembered pref, GUI entry)", '"--foundry-data", foundry_data' in start and '"foundry_data": ""' in start and 'v_fd = tk.StringVar' in start and 'parser.add_argument("--foundry-data"' in start)
 check("start.py --help documents --foundry-data", "--foundry-data DIR" in helptext.stdout)

@@ -10,8 +10,32 @@ existing ones updated in place (same `_id`), every image path checked, and a
 report. Together with `tools/foundry-bridge.py` this turns "add characters to
 the game" into a loop of *export → edit in the repo → import*.
 
-Module id: `waluipedia-mass-import`, version 1.7.1. Core v12–v14, any game
+Module id: `waluipedia-mass-import`, version 1.8.0. Core v12–v14, any game
 system (built and tested against dnd5e 5.x on core v14).
+
+## 1.8 — one copy of the art: Foundry loads it from the archive's own server
+
+Every portrait, token plate and repo item icon used to be copied into Foundry's
+Data folder (`portraits/…`, `assets/images/…`) — the same bytes as the repo,
+twice on the GM's disk, and once more per machine. From 1.8 the packets name
+that art by **URL on the archive's own server** (`start.py`, the suite's
+`--art-base`; e.g. `http://100.64.0.9:8765/Reputation-Matrix2/portraits/player/fullbody/remi.png`).
+Foundry's `img` and `texture.src` take absolute URLs as they are; `start.py`
+answers with `Access-Control-Allow-Origin: *`, which the canvas needs for token
+textures. The live players' own uploads (`npc/…`, `player/…`) are untouched.
+
+| Now | How |
+| --- | --- |
+| **Placed tokens follow.** | A token dropped on a scene copies its prototype's texture path at that moment. When an update moves an actor's prototype token from the Data path to the URL, every placed token of that actor still showing the old path is re-pointed (`N placed tokens re-pointed` in the summary; nothing in a dry run). |
+| **The export back lists what the world uses.** | `imagesInUse`: scene backgrounds, placed tokens, tiles, journal images (pages and `<img>` in text), world items, macros, actors. `tools/foundry-bridge.py prune-images` deletes a Data copy only when the repo has the identical bytes, the server returns those very bytes, the newest export back does not reference the Data path, and no packet does — otherwise it keeps the file and says why. An export back from before 1.8 (no list) vouches for nothing: nothing is deleted. |
+| **A client that cannot reach the art says so.** | `packets.json` carries `artBase` + `artProbe`; at load the GM's sync HEADs the probe, and so does each player's browser. A yellow toast once per load: *start.py is not answering at … — start it (start.bat) and keep it open whenever Foundry is*; for a player: *ask the GM*; and when the packets point at `127.0.0.1` but the client is elsewhere: *tick "reachable from other machines" in start.py*. |
+
+What this costs: **start.py must run whenever Foundry is open** (the GM's
+`start.bat`), and for players on other machines it must be exposed on an
+address they reach (the launcher's *reachable from other machines* tick picks
+the Tailscale address, else the LAN one). The old behaviour is one flag away:
+`start.py --art-base copy` / `sheets-suite.py --art-copy` copies the art into
+Data again and the packets go back to Data paths.
 
 ## 1.7.1 — the spoils arrive, the export says what was applied, the Foundry-only GM is told
 

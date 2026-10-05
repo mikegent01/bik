@@ -21,6 +21,10 @@
  *            items and effects are synced, so re-importing never duplicates.
  *            Images are HEAD-checked against the server and reported (or
  *            swapped for a placeholder on request). Dry run available.
+ *            1.8: the packets name repo art by URL on the archive's own
+ *            server (start.py) — placed tokens follow a moved prototype
+ *            token, the export back lists every image the world uses, and a
+ *            client that cannot reach the server is told at load.
  *            Updates are DIFFS (v1.4): an actor or item identical to the
  *            import is not written at all; dnd5e's activities map and the
  *            flags get real deletions; item identifiers the system would
@@ -53,7 +57,7 @@
 
 export const MODULE_ID = "waluipedia-mass-import";
 /** Must match module.json — Sync compares the two to catch a world still running old code. */
-export const MODULE_VERSION = "1.7.1";
+export const MODULE_VERSION = "1.8.0";
 export const FORMAT = "waluipedia-actors/1";
 export const RAW_BASE = "https://raw.githubusercontent.com/mikegent01/bik/gh-pages/";
 /** The repo's ready-made import-all files (the Import dialog lists them). */
@@ -1095,7 +1099,7 @@ export async function importPayload(raw, options = {}) {
   const o = { ...DEFAULTS, ...options };
   const Actor = G().Actor;
   const { entries, meta, folderStyles } = normalizeImport(raw);
-  const report = { created: [], updated: [], replaced: [], skipped: [], failed: [], kept: [], foldersCreated: [], foldersStyled: [], foldersMerged: [], foldersPruned: [], missingImages: [], repaired: [], notes: [], swaps: [], embeddedRepaired: 0, reloadNeeded: 0, unchanged: 0, dryRun: o.dryRun, meta };
+  const report = { created: [], updated: [], replaced: [], skipped: [], failed: [], kept: [], foldersCreated: [], foldersStyled: [], foldersMerged: [], foldersPruned: [], missingImages: [], repaired: [], notes: [], swaps: [], embeddedRepaired: 0, reloadNeeded: 0, unchanged: 0, tokensRelinked: 0, dryRun: o.dryRun, meta };
   const packetExportMs = Date.parse(meta?.exportedAt ?? "") || null;
   const folderCache = new Map();
   const prefix = splitPath(o.rootFolder);
@@ -1173,7 +1177,15 @@ export async function importPayload(raw, options = {}) {
         // dry run computes the very same difference, so it can say "nothing"
         const update = docDiff(existing.toObject ? existing.toObject() : existing, want);
         if ((known || path.length) && !sameFolder(existing, folderId)) update.folder = folderId;
+        const textureBefore = existing.prototypeToken?.texture?.src ?? null;
         if (Object.keys(update).length && !o.dryRun) await existing.update(update);
+        // 1.8: the prototype token's art moved (a Data path → the archive's URL):
+        // placed tokens copied the old path when they were dropped — move them too
+        const textureAfter = update.prototypeToken?.texture?.src;
+        if (typeof textureAfter === "string" && textureBefore && textureAfter !== textureBefore) {
+          try { report.tokensRelinked += await relinkPlacedTokens(existing, textureBefore, textureAfter, { dryRun: o.dryRun }); }
+          catch (err) { console.warn(`[${MODULE_ID}] placed tokens of ${label}:`, err); }
+        }
         const items_ = await syncEmbedded(existing, "items", "Item", items, o.replaceEmbedded, { dryRun: o.dryRun });
         const effects_ = await syncEmbedded(existing, "effects", "ActiveEffect", effects, o.replaceEmbedded, { dryRun: o.dryRun });
         const fields = leafPaths(update);
@@ -1224,6 +1236,7 @@ export function summarize(report) {
   if (report.foldersPruned?.length) parts.push(`${report.foldersPruned.length} empty folders removed`);
   if (report.repaired?.length) parts.push(`${report.repaired.reduce((n, r) => n + r.repairs.length, 0)} identifiers repaired`);
   if (report.embeddedRepaired) parts.push(`${report.embeddedRepaired} broken items repaired`);
+  if (report.tokensRelinked) parts.push(`${report.tokensRelinked} placed token${report.tokensRelinked === 1 ? "" : "s"} re-pointed`);
   if (report.swaps?.length) parts.push(`${report.swaps.length} swap${report.swaps.length === 1 ? "" : "s"} waiting`);
   if (report.notes?.length) parts.push(`${report.notes.length} note${report.notes.length === 1 ? "" : "s"}`);
   if (report.missingImages.length) parts.push(`${report.missingImages.length} missing images`);
@@ -1938,7 +1951,7 @@ export async function syncFromWaluipedia(overrides = {}) {
   const stamp = syncStamp(info, loaded.raw, used.source);
   let lastStamp = null;
   try { lastStamp = g.game.settings.get(MODULE_ID, SYNC_STAMP_SETTING) || null; } catch (err) { lastStamp = null; }
-  if (trigger === "auto") await noticeUnreadExport(info, used);
+  if (trigger === "auto") { await noticeUnreadExport(info, used); try { await noticeArtServer(info); } catch (err) { /* cosmetic */ } }
   if (trigger === "auto" && lastStamp === stamp) {
     console.log(`[${MODULE_ID}] automatic sync: packet unchanged since the last sync (${stamp}) — nothing to do`);
     return { skipped: true, stamp };
@@ -2096,6 +2109,91 @@ async function noticeUnreadExport(info, used) {
   return gap;
 }
 
+/* ---------------------------------------------- art on the archive's server */
+// 1.8: the packets name portraits, tokens and item icons by URL on the
+// archive's own server (start.py; the suite's --art-base) instead of copies
+// in Data. Three things follow: placed tokens that copied the old Data path
+// are re-pointed when their actor's prototype token moves; the export back
+// lists every image the world still uses (so the suite can prove a Data copy
+// is unneeded before it deletes it); and a client that cannot reach the
+// server is told so once per load.
+
+/** Placed tokens of `actor` (every scene) still showing `oldSrc` → `newSrc`. Returns how many. */
+export async function relinkPlacedTokens(actor, oldSrc, newSrc, { dryRun = false } = {}) {
+  const g = G();
+  const scenes = g.game?.scenes?.contents ?? [...(g.game?.scenes?.values?.() ?? [])];
+  const actorId = actor?.id ?? actor?._id;
+  let n = 0;
+  for (const scene of scenes) {
+    const tokens = scene?.tokens?.contents ?? [...(scene?.tokens?.values?.() ?? [])];
+    const rows = tokens.filter((t) => (t?.actorId ?? t?.actor?.id) === actorId && t?.texture?.src === oldSrc).map((t) => ({ _id: t.id ?? t._id, "texture.src": newSrc }));
+    if (!rows.length) continue;
+    if (!dryRun) await scene.updateEmbeddedDocuments("Token", rows);
+    n += rows.length;
+  }
+  return n;
+}
+
+const IMG_ATTR = /\b(?:src|href)=["']([^"']+\.(?:png|webp|jpe?g|gif|svg|avif))["']/gi;
+
+/** Every image path the world uses, beyond the actors themselves: scene backgrounds and foregrounds, placed tokens, tiles, journal pages (image pages and <img> in text), world items, macros. Sorted, unique. */
+export function imagesInUse() {
+  const g = G();
+  const out = new Set();
+  const add = (p) => { if (typeof p === "string" && p && !p.startsWith("data:")) out.add(p); };
+  const list = (coll) => coll?.contents ?? [...(coll?.values?.() ?? [])];
+  for (const scene of list(g.game?.scenes)) {
+    add(scene.background?.src); add(scene.foreground?.src ?? scene.foreground); add(scene.thumb);
+    for (const t of list(scene.tokens)) add(t.texture?.src);
+    for (const t of list(scene.tiles)) add(t.texture?.src);
+  }
+  for (const j of list(g.game?.journal)) for (const page of list(j.pages)) {
+    add(page.src);
+    const text = page.text?.content ?? page.text?.markdown ?? "";
+    if (typeof text === "string") for (const m of text.matchAll(IMG_ATTR)) add(m[1]);
+  }
+  for (const it of list(g.game?.items)) add(it.img);
+  for (const m of list(g.game?.macros)) add(m.img);
+  for (const a of list(g.game?.actors)) {
+    add(a.img); add(a.prototypeToken?.texture?.src);
+    for (const it of list(a.items)) add(it.img);
+  }
+  return [...out].sort();
+}
+
+let artNoticed = false;
+/**
+ * packets.json names `artBase` (and `artProbe`) when the packets carry art
+ * URLs. HEAD the probe; when it fails, say so — once per load — with the
+ * fix: the GM's start.py must run (and, for a player, be exposed on an
+ * address they can reach). Returns {base, ok} or null when art is not by URL.
+ */
+export async function noticeArtServer(info = null) {
+  const g = G();
+  let i = info;
+  if (!i?.artBase) {
+    try { i = await fetchJson(syncCandidates(syncSettings())[0].info); } catch (err) { i = null; }
+  }
+  const base = i?.artBase;
+  if (!base) return null;
+  const probe = i.artProbe || base;
+  let ok = false;
+  try { const res = await g.fetch(probe, { method: "HEAD", cache: "no-store", mode: "cors" }); ok = !!res?.ok; } catch (err) { ok = false; }
+  if (ok) { artNoticed = false; return { base, ok }; }
+  const here = String(g.location?.hostname ?? "127.0.0.1").toLowerCase();
+  const local = /^(127\.0\.0\.1|localhost|::1|\[::1\])$/.test(here);
+  const loopbackBase = /^https?:\/\/(127\.0\.0\.1|localhost|\[::1\])(:|\/)/i.test(base);
+  const isGM = !!g.game?.user?.isGM;
+  let why;
+  if (loopbackBase && !local) why = `the packets point at ${base}, which is the GM's machine only — on the archive side tick "reachable from other machines" in start.py (or pass --art-base http://<tailnet-or-LAN-host>:<port>/) and let the suite republish`;
+  else if (isGM) why = `start.py is not answering at ${base} — start it (start.bat) and keep it open whenever Foundry is; the sheets' portraits, tokens and item icons from the archive are blank until then`;
+  else why = `the archive's server is not answering at ${base} — ask the GM to start start.py; portraits and tokens from the archive are blank until then`;
+  if (!artNoticed) notify("warn", `Waluipedia art: ${why}`);
+  artNoticed = true;
+  console.warn(`[${MODULE_ID}] art server ${base}: ${why}`);
+  return { base, ok: false, why };
+}
+
 /* ------------------------------------------------- the world flows back */
 
 let exportTimer = null;
@@ -2120,6 +2218,7 @@ export async function exportBack({ reason = "manual" } = {}) {
     const payload = await exportAllActors({ download: false });
     payload.exportedBy = `${MODULE_ID} ${MODULE_VERSION} (${reason})`;
     payload.lastSync = lastSyncFacts();
+    try { payload.imagesInUse = imagesInUse(); } catch (err) { payload.imagesInUse = []; console.warn(`[${MODULE_ID}] images in use:`, err); }
     const written = await writeDataFiles([{ path, text: JSON.stringify(payload, null, 2) }]);
     exportState.lastAt = payload.exportedAt; exportState.lastPath = written[0] ?? path; exportState.pending = false;
     try { await g.game.settings.set(MODULE_ID, EXPORT_STAMP_SETTING, payload.exportedAt); } catch (err) { /* tests */ }
@@ -2240,6 +2339,7 @@ export const api = {
   lastSyncFacts, unreadExport,
   embeddedSources, isCachedSpell, singletonNotes, planEmbedded, leafPaths, swapSingleton, swapsHtml, syncPending, changedRows,
   exportBack, scheduleExportBack, exportBackPath, SINGLETON_TYPES,
+  relinkPlacedTokens, imagesInUse, noticeArtServer,
   loadManifest, isManifest, isSheetIndex, SYNC_DEFAULTS, SYNC_SCOPE_LABEL, MODULE_VERSION,
 };
 
@@ -2310,6 +2410,9 @@ export async function onReady() {
       github = await checkGitHubVersion(syncSettings().branch);
       if (github.ahead) notify("info", `Waluipedia Mass Import ${github.github} is on GitHub (${github.branch}); this install runs ${MODULE_VERSION} — the suite with --git-sync (or git pull) installs it, then Setup → Launch World`);
     } catch (err) { github = null; }
+  } else if (g.game?.user) {
+    // a player's browser must reach the art server too — the GM's sync cannot test that for them
+    try { await noticeArtServer(); } catch (err) { /* cosmetic */ }
   }
   return autoSync({ github });
 }

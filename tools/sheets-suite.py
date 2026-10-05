@@ -35,8 +35,15 @@ One pass, in order (each step is skipped when there is nothing to do):
             packets.json under Data/npc/waluipedia/<world>/ (the module's
             Sync button reads them from there, no URL needed), the Mass
             Import module itself under Data/modules/ (so Foundry runs the
-            version in this checkout), and the repo-held portraits the sheets
-            reference (foundry-bridge.py install-images). Then it asks the
+            version in this checkout). The art the sheets reference is NOT
+            copied: the packets name it by URL on the archive's own server
+            (--art-base, default http://127.0.0.1:<port>/ — start.py passes
+            the tailnet / LAN address when it is exposed), one file for the
+            website and every Foundry client; the copies older passes made
+            under Data/portraits and Data/assets/images are removed once the
+            world no longer points at them and the server serves the same
+            bytes (foundry-bridge.py prune-images; --art-copy keeps the old
+            copying behaviour instead). Then it asks the
             running Foundry server (Config/options.json's port, default
             30000, or --foundry-url) which module version IT serves, and says
             plainly whether the Data folder written to is the one Foundry
@@ -480,7 +487,7 @@ def packets_digest(packet_files):
     return h.hexdigest()
 
 
-def packets_info(world, port, packet_files, published_at, digest=None):
+def packets_info(world, port, packet_files, published_at, digest=None, art_base=None):
     """What <Data>/npc/waluipedia/<world>/packets.json says: stamps the module
     shows in its summary, and the other places the same packets can be found
     (the launcher, and GitHub where `everything` is manifest + cast + era
@@ -494,6 +501,11 @@ def packets_info(world, port, packet_files, published_at, digest=None):
         "publishedBy": "tools/sheets-suite.py",
         "digest": digest or packets_digest(packet_files),
         "packets": {k: os.path.basename(v) for k, v in packet_files.items()},
+        # 1.8: the packets' portraits, tokens and item icons are URLs under
+        # artBase (start.py's server). The module HEADs artProbe at load and
+        # says so when the server is not answering.
+        "artBase": art_base or None,
+        "artProbe": (art_base.rstrip("/") + "/favicon.ico") if art_base else None,
         "launcher": {"everything": u["everything"], "players": u["players"], "sheets": u["sheets"]},
         "github": {"manifest": f"{RAW_BASE}Reputation-Matrix2/actors/worlds/{world}/manifest.json",
                    "cast": f"{RAW_BASE}Reputation-Matrix2/actors/cast/import.json",
@@ -525,10 +537,13 @@ def read_json_quiet(path):
         return None
 
 
-def step_publish(world, write, port, foundry_data, how, install=True, images=True, foundry_url=None):
+def step_publish(world, write, port, foundry_data, how, install=True, images=True, foundry_url=None, art_base=None):
     """Put the packets where Foundry can see them without a URL — the Data
-    folder — keep the Mass Import module there current, and copy the repo-held
-    art the sheets reference. Nothing here touches the repo."""
+    folder — keep the Mass Import module there current, and see to the art:
+    with `art_base` the packets point at the archive's server and the Data
+    copies older passes made are pruned once nothing needs them; without it
+    (--art-copy) the repo-held art the sheets reference is copied into Data.
+    Nothing here touches the repo."""
     if not foundry_data:
         say(f"  publish  : Foundry Data folder {how} — Sync in Foundry falls back to the launcher URL, then GitHub"
             "  (point at it with --foundry-data or WALUIPEDIA_FOUNDRY_DATA)")
@@ -556,7 +571,7 @@ def step_publish(world, write, port, foundry_data, how, install=True, images=Tru
     # the stamp moves only when a packet's bytes do, so the module's automatic
     # Sync runs once per real change rather than once per suite pass
     stamp = previous.get("publishedAt") if previous.get("digest") == digest and previous.get("publishedAt") else time.strftime("%Y-%m-%dT%H:%M:%S%z")
-    info = packets_info(world, port, present, stamp, digest)
+    info = packets_info(world, port, present, stamp, digest, art_base)
     if info != previous:
         tmp = info_path + ".tmp"
         with open(tmp, "w", encoding="utf-8") as fh:
@@ -583,7 +598,13 @@ def step_publish(world, write, port, foundry_data, how, install=True, images=Tru
             state, served = probe_served_module(base_url)
             for line in served_module_verdict(state, served, repo_version, foundry_data, base_url):
                 say(line)
-    if images:
+    if images and art_base:
+        export_file = os.path.join(export_back_dir(foundry_data, world), f"{world}-all-actors.json")
+        argv = [TOOLS["bridge"], "prune-images", "--foundry-data", foundry_data, "--art-base", art_base, "--write"]
+        argv += ["--export", export_file] if os.path.exists(export_file) else []
+        argv += [a for pk in present.values() if pk.endswith("import.json") for a in ("--packet", os.path.relpath(pk, ROOT))]
+        ok = run(argv, "art", check=False)[0] and ok
+    elif images:
         dirs = packet_sources(world)
         ok = run([TOOLS["bridge"], "install-images"] + [os.path.relpath(d, ROOT) for d in dirs] + ["--foundry-data", foundry_data], "images", check=False)[0] and ok
     return ok
@@ -603,16 +624,17 @@ def packet_sources(world):
     return [d for d in dirs if os.path.isdir(d)]
 
 
-def step_combine(world, write):
+def step_combine(world, write, art_base=None):
     base = os.path.join(WORLDS, world)
     players = os.path.join(base, "Players")
     whole, pl = packet_paths(world)
     ok = True
     if write:
         sources = [os.path.relpath(d, ROOT) for d in packet_sources(world)]
-        ok = run([TOOLS["bridge"], "combine"] + sources + ["--out", os.path.relpath(whole, ROOT), "--world", world], "combine")[0] and ok
+        art = ["--art-base", art_base] if art_base else []
+        ok = run([TOOLS["bridge"], "combine"] + sources + ["--out", os.path.relpath(whole, ROOT), "--world", world] + art, "combine")[0] and ok
         if os.path.isdir(players):
-            ok = run([TOOLS["bridge"], "combine", os.path.relpath(players, ROOT), "--out", os.path.relpath(pl, ROOT), "--world", world], "combine")[0] and ok
+            ok = run([TOOLS["bridge"], "combine", os.path.relpath(players, ROOT), "--out", os.path.relpath(pl, ROOT), "--world", world] + art, "combine")[0] and ok
     else:
         say("  combine  : (skipped under --check; packets are build artefacts)")
     return ok
@@ -733,10 +755,27 @@ def git_commit_and_push(world, stamp=None, push=True):
     return True, True, f"git: committed and pushed {len(changed)} file(s) to {st['upstream']}"
 
 
+def art_base_for(port, explicit=None, environ=None):
+    """Where the packets say the art lives: --art-base, else WALUIPEDIA_ART_BASE,
+    else this machine's loopback on the site's port. "" / "copy" = no URLs
+    (the pre-1.8 copying behaviour)."""
+    env = os.environ if environ is None else environ
+    raw = explicit if explicit is not None else env.get("WALUIPEDIA_ART_BASE")
+    if raw is None:
+        return f"http://127.0.0.1:{port}/"
+    raw = str(raw).strip()
+    if raw.lower() in ("", "copy", "none", "off"):
+        return None
+    if not raw.lower().startswith(("http://", "https://")):
+        raw = "http://" + raw
+    return raw.rstrip("/") + "/"
+
+
 def one_pass(world, write, port, downloads=None, foundry=None, git_sync=False):
-    """foundry: {"data": explicit path or None, "install": bool, "images": bool, "publish": bool}
+    """foundry: {"data": explicit path or None, "install": bool, "images": bool, "publish": bool,
+    "art_base": URL the packets reference repo art under (None = copy it into Data)}
     git_sync: pull (fast-forward) before, commit + push the suite's own files after."""
-    f = {"data": None, "install": True, "images": True, "publish": True, **(foundry or {})}
+    f = {"data": None, "install": True, "images": True, "publish": True, "art_base": art_base_for(port), **(foundry or {})}
     t0 = time.time()
     say(f"sheets-suite: {'pass' if write else 'check'} for world {world!r} — {time.strftime('%H:%M:%S')}")
     mirror = os.path.relpath(os.path.join(WORLDS, world), ROOT)
@@ -759,9 +798,9 @@ def one_pass(world, write, port, downloads=None, foundry=None, git_sync=False):
     ok = run([TOOLS["organize"], "--world", world, "--quiet"] + ([] if write else ["--check"]), "organize")[0] and ok
     ok = run([TOOLS["bridge"], "check", mirror], "check")[0] and ok
     ok = run([TOOLS["build"]] + ([] if write else ["--check"]), "build")[0] and ok
-    ok = step_combine(world, write) and ok
+    ok = step_combine(world, write, f["art_base"]) and ok
     if f["publish"]:
-        ok = step_publish(world, write, port, data_dir, how, install=f["install"], images=f["images"], foundry_url=f.get("url")) and ok
+        ok = step_publish(world, write, port, data_dir, how, install=f["install"], images=f["images"], foundry_url=f.get("url"), art_base=f["art_base"]) and ok
     ok = run([TOOLS["check_sheets"]], "verify")[0] and ok
     ok = run([TOOLS["promote"], "--check"], "verify")[0] and ok
     if git_sync and write:
@@ -775,6 +814,9 @@ def one_pass(world, write, port, downloads=None, foundry=None, git_sync=False):
         say(f"  foundry  : the console's first module line must read '[{MODULE_ID}] <version> ready' — from 1.6 a newer install runs after a plain F5; an older world needs Return to Setup -> Launch World, then Ctrl+F5 once")
         say(f"  packet   : {u['everything']}  (everything: world + cast + eras; Mass import → URL if you ever need it by hand)")
         say(f"  packet   : {u['players']}  (the Players folder only)")
+        if f["art_base"]:
+            say(f"  art      : the packets name portraits, tokens and item icons by URL under {f['art_base']} — start.py must be running whenever Foundry is open"
+                + ("; that address is this machine only: tick 'reachable from other machines' in start.py (or --art-base http://<tailnet-or-LAN-host>:<port>/) for players elsewhere" if "127.0.0.1" in f["art_base"] or "localhost" in f["art_base"] else ""))
         if export_dirs:
             say(f"  back     : the module exports the world to {os.path.join(export_dirs[0], f'{world}-all-actors.json')} after changes — this pass picks it up (--watch: by itself)")
     return ok
@@ -853,7 +895,10 @@ def main(argv=None):
                     help="the running Foundry server, asked which module version it serves (default: WALUIPEDIA_FOUNDRY_URL, else http://127.0.0.1:<port in Config/options.json or 30000>)")
     ap.add_argument("--no-publish", action="store_true", help="do not copy the packets / module / art into Foundry's Data folder")
     ap.add_argument("--no-module-install", action="store_true", help="publish the packets but leave Data/modules alone")
-    ap.add_argument("--no-images", action="store_true", help="publish without copying the repo's portraits into Data")
+    ap.add_argument("--no-images", action="store_true", help="publish without touching the art in Data (no pruning, no copying)")
+    ap.add_argument("--art-base", default=None, metavar="URL",
+                    help="the packets reference repo art by URL under this base — the archive's own server (default http://127.0.0.1:<port>/, or WALUIPEDIA_ART_BASE; start.py passes the tailnet / LAN address when exposed); 'copy' = copy the art into Data instead, the pre-1.8 way")
+    ap.add_argument("--art-copy", action="store_true", help="same as --art-base copy")
     ap.add_argument("--git-sync", action="store_true",
                     help="two-way with GitHub: pull (fast-forward) before a pass, commit + push the suite's own files (mirror, cast, sheets.json, root export) after; under --watch also poll GitHub every --git-interval seconds")
     ap.add_argument("--git-interval", type=float, default=300.0, help="seconds between GitHub polls under --watch --git-sync (default 300)")
@@ -862,7 +907,8 @@ def main(argv=None):
     downloads = args.downloads if args.downloads is not None else None
     if args.downloads == "":
         downloads = ""
-    foundry = {"data": args.foundry_data, "url": args.foundry_url, "publish": not args.no_publish, "install": not args.no_module_install, "images": not args.no_images}
+    foundry = {"data": args.foundry_data, "url": args.foundry_url, "publish": not args.no_publish, "install": not args.no_module_install, "images": not args.no_images,
+               "art_base": None if args.art_copy else art_base_for(args.port, args.art_base)}
     if args.check:
         return 0 if one_pass(args.world, False, args.port, downloads, foundry) else 1
     if args.watch:
