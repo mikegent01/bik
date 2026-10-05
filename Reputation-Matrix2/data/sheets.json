@@ -1323,7 +1323,7 @@
       "party": false,
       "partyWhy": "",
       "group": "Kremling Krew & the Black Sugar Pirates",
-      "portrait": "https://i0.wp.com/sourcegaming.info/wp-content/uploads/2019/10/Character-Chronicle-Captain-Syrup-Wario.jpg",
+      "portrait": "portraits/captain_syrup.png",
       "ledger": {
         "level": 2,
         "powerLevel": 3
@@ -1397,7 +1397,7 @@
       "party": false,
       "partyWhy": "",
       "group": "Peach Loyalists",
-      "portrait": "https://media.wired.com/photos/593231f92a990b06268a91a5/master/w_1600%2Cc_limit/captaintoad_toadette.jpg",
+      "portrait": "portraits/captain_toadette_v2.png",
       "ledger": {
         "level": 3,
         "powerLevel": 7
@@ -1715,7 +1715,7 @@
       "party": false,
       "partyWhy": "",
       "group": "Liberated Toads",
-      "portrait": "portraits/creek.jpg",
+      "portrait": "portraits/creek_medic.png",
       "ledger": {
         "level": 1,
         "powerLevel": 2

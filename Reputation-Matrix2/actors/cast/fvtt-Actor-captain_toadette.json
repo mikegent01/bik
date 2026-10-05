@@ -2,7 +2,7 @@
   "_id": "aol3F1ArzLzuKbNA",
   "name": "Captain Toadette",
   "type": "character",
-  "img": "icons/svg/mystery-man.svg",
+  "img": "portraits/captain_toadette_v2.png",
   "system": {
     "currency": {
       "pp": 0,
@@ -560,7 +560,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "icons/svg/mystery-man.svg",
+      "src": "portraits/captain_toadette_v2.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",

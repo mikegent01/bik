@@ -5664,7 +5664,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "portraits/smoking_j.jpg",
+          "src": "portraits/player/fullbody/smoking_j.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -42841,7 +42841,7 @@
       "_id": "Nnbd7luvQ2cOl1fo",
       "name": "Captain Syrup",
       "type": "character",
-      "img": "icons/svg/mystery-man.svg",
+      "img": "portraits/captain_syrup.png",
       "system": {
         "currency": {
           "pp": 0,
@@ -43395,7 +43395,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "icons/svg/mystery-man.svg",
+          "src": "portraits/player/fullbody/captain_syrup.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -54648,7 +54648,7 @@
       "_id": "fVH1Bdvw7XV2jBj1",
       "name": "Creek",
       "type": "npc",
-      "img": "portraits/creek.jpg",
+      "img": "portraits/creek_medic.png",
       "system": {
         "abilities": {
           "str": {
@@ -55170,7 +55170,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "portraits/creek.jpg",
+          "src": "portraits/creek_medic.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -90705,7 +90705,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "portraits/speaker_rivers.jpg",
+          "src": "portraits/speaker_rivers_sprite.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -127983,7 +127983,7 @@
       "_id": "aol3F1ArzLzuKbNA",
       "name": "Captain Toadette",
       "type": "character",
-      "img": "icons/svg/mystery-man.svg",
+      "img": "portraits/captain_toadette_v2.png",
       "system": {
         "currency": {
           "pp": 0,
@@ -128541,7 +128541,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "icons/svg/mystery-man.svg",
+          "src": "portraits/captain_toadette_v2.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",

@@ -101,6 +101,10 @@ Add a row when a character gains established art; update a row only when the
 | **eager** | Young Toad: white cap with red spots, **tattered olive-green tunic**, pale gloves, sandals; short sword nearby. Grove state: concussed — bandaged lump, dizzy stars, idle crooked smile. | `portraits/eager.png`, `portraits/player/event-states/eager-grove-concussed.png` |
 | **dan_the_toad** | Toad paladin: **red cap with white spots**, chainmail hauberk, leather straps, permanent scowl; longsword and javelin. Grove state: barrier wall out **first**, javelin mid-throw **second**. | `portraits/dan.png`, `portraits/player/event-states/dan-grove-vanguard.png` |
 | **archie_miser** | Heavyset older human wizard: black hooded cloak over battered dark armour; scorched hem; battered spellbook with **crossed-out words and hurried circles**. Grove state: drained, one blazing bush, spider eyes in the smoke. | `portraits/archie.jpg`, `portraits/player/event-states/archie-grove-spent.png` |
+| **captain_toadette** | Toad commander: **pink mushroom cap with a gold star**, red bandana tied under it, scowl, ragged brown field jacket and shorts over a striped shirt, heavy boots, a long-hafted **pick** carried like a standard. | `portraits/captain_toadette_v2.png` |
+| **captain_syrup** | Human pirate queen: long **curly auburn-red hair** under a **purple bandana** (tails trailing), **gold sun-shaped earrings**, **pink-magenta wrap top** knotted at the waist, **skull belt buckle**, bare muscular arms with leather wrist-wraps, torn dark trousers, boots, curved **scimitar**. **Not** purple-haired, **not** in a coat or corset. | `portraits/player/fullbody/captain_syrup.png` (the plate that set the look), `portraits/captain_syrup.png` |
+| **smoking_j** | **Frog-faced** toad (amphibian features, not a Toad face): pale grey mushroom cap with **darker grey spots**, yellow-green skin, stern brow; dark brown leather jacket with shoulder plating, diagonal strap and belt, dark trousers, short boots; **coiled rope whip** at the hip. | `portraits/smoking_j.jpg`, `portraits/player/fullbody/smoking_j.png` |
+| **usk** | Young **bald** human monk with **milky-white blind eyes**; plain cream-beige gi with a wide cloth belt, loose trousers, sandals; **both fists wrapped in bloodstained bandages**. | `portraits/usk.jpg`, `portraits/player/fullbody/usk.png` |
 
 Style families, for matching new work to the shelf it joins:
 
@@ -113,6 +117,40 @@ Style families, for matching new work to the shelf it joins:
 
 New states should join the subject's own family, not introduce a fourth
 style for an established character.
+
+## 4b. Full-body plates (tokens)
+
+The table places characters on the map; a token needs the whole figure. The
+2026-10-05 audit (`docs/run-reports/2026-10-05-portrait-audit.md`,
+`tools/portrait-audit.py`) set these rules:
+
+* A **full-body plate** is `portraits/player/fullbody/<id>.png` +
+  `fullBody` on the article (+ `fullBodyCaption`). Whole figure, feet in
+  frame, plain field, no scenery, **no text**. Generated from the lead as the
+  reference so the face and wardrobe match; the subject's own style family.
+* **One plate per character** at ≥1024 px for anyone the table places
+  (party, companions, named opponents). A shared grid is for background
+  NPCs only and never finer than **3×3 at 2048 px** (~680 px a cell — a 9×9
+  cuts to ~113–227 px, below what a token survives).
+* A `fullBody` is a plate of its own, never a copy of the lead: it also
+  rotates as the second lead-rotator frame, so a copy shows twice. If the
+  lead already is the full figure on a plain field, leave `fullBody` unset —
+  the builder uses the lead for the token anyway.
+* The sheet builder puts `fullBody` on the token texture of a **generated**
+  sheet (`token_of()`); a **live** player sheet keeps the GM's art, and the
+  plate reaches the table through the character page's *Foundry token sheet*
+  panel.
+* **No event plate as a character lead** (six Studio-Cut / Belly-of-the-Beast
+  scenes were), and **no label text inside a portrait**: the lead is a
+  picture of the character, the caption says who.
+* Leads at **≥1024 px**. The 188×188 batch of 2026-09 is a tile, not a
+  source; re-render before cutting anything from it.
+* **Look on the shelf before generating.** `tools/portrait-audit.py
+  --orphans` lists every file under `portraits/` that no record points at;
+  the 2026-10-05 pass found finished plates for Captain Syrup, Captain
+  Toadette, Creek and Speaker Rivers there while their articles showed a
+  hotlink or an event scene. A file that is not referenced does not exist
+  to the site — wire it or delete it.
 
 ## 5. The note that ships with the art
 

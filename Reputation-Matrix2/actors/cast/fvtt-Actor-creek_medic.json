@@ -2,7 +2,7 @@
   "_id": "fVH1Bdvw7XV2jBj1",
   "name": "Creek",
   "type": "npc",
-  "img": "portraits/creek.jpg",
+  "img": "portraits/creek_medic.png",
   "system": {
     "abilities": {
       "str": {
@@ -524,7 +524,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "portraits/creek.jpg",
+      "src": "portraits/creek_medic.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",

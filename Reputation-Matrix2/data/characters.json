@@ -956,7 +956,8 @@
       "princess_peach",
       "fawful_forces"
     ],
-    "image": "https://media.wired.com/photos/593231f92a990b06268a91a5/master/w_1600%2Cc_limit/captaintoad_toadette.jpg",
+    "image": "portraits/captain_toadette_v2.png",
+    "imageCaption": "Lead plate — established look: Toad commander in a pink mushroom cap with a gold star and a red bandana tied under it, scowling, ragged brown field jacket and shorts over a striped shirt, heavy boots, a long-hafted pick carried like a standard. Full figure on a plain field; the archive's own plate, found on disk unreferenced while the article pointed at a hotlinked screenshot.",
     "faiths": [
       {
         "id": "star_spirits",
@@ -2346,14 +2347,19 @@
       "disaster_inc",
       "raventree_manor"
     ],
-    "image": "portraits/smoking_j.jpg"
+    "image": "portraits/smoking_j.jpg",
+    "fullBody": "portraits/player/fullbody/smoking_j.png",
+    "fullBodyCaption": "Full-body plate — the frog-faced toad in his grey-spotted cap, leather jacket and bandolier, whip coiled at the hip; the same figure as the lead, head to boots on a plain field."
   },
   {
     "id": "captain_syrup",
     "name": "Captain Syrup",
     "title": "The Pirate Queen of Rogueport",
     "race": "Human",
-    "image": "https://i0.wp.com/sourcegaming.info/wp-content/uploads/2019/10/Character-Chronicle-Captain-Syrup-Wario.jpg",
+    "image": "portraits/captain_syrup.png",
+    "imageCaption": "Lead plate — established look: long curly auburn-red hair under a purple bandana, gold sun earrings, pink wrap top, skull belt buckle, leather wrist-wraps, scimitar; her own quarterdeck at Rogueport Bay behind her. Painted from the full-body plate below, which sat on disk unreferenced while the article pointed at a hotlinked screenshot.",
+    "fullBody": "portraits/player/fullbody/captain_syrup.png",
+    "fullBodyCaption": "Full-body plate — the same pirate queen head to boots on a plain field: red curls, purple bandana, pink wrap, skull buckle, torn dark trousers, scimitar raised. The token the table uses.",
     "status": "Active — Shelling everything in sight at Rogueport Bay",
     "affiliation": "Black Sugar Pirates",
     "summary": "Captain Syrup is the undisputed Pirate Queen of the seas, leader of the Black Sugar Pirates, and one of the few people whose greed might actually rival Wario's. She is currently engaged in a massive naval war in Rogueport Bay against the Iron Legion and the Mushroom Regency. Waluigi has a professional rivalry with Syrup. She thinks she's the best thief in the world. Waluigi *knows* he is.",
@@ -2590,7 +2596,9 @@
       "onyx_hand",
       "disaster_inc"
     ],
-    "image": "portraits/usk.jpg"
+    "image": "portraits/usk.jpg",
+    "fullBody": "portraits/player/fullbody/usk.png",
+    "fullBodyCaption": "Full-body plate — the blind monk in his cream gi, bandaged bloody fists up, sandals; the same figure as the lead, head to feet on a plain field."
   },
   {
     "id": "roger",
@@ -5067,7 +5075,9 @@
         "note": "Rivers walked out of the Midlands Diet at 09:00 on the 21st of Highsun over the Iron Mandate. Maat's balance is the only frame in which that act reads as duty rather than desertion, and Rivers has been quietly citing it since."
       }
     ],
-    "image": "portraits/speaker_rivers.jpg"
+    "image": "portraits/speaker_rivers.jpg",
+    "fullBody": "portraits/speaker_rivers_sprite.png",
+    "fullBodyCaption": "Full-body plate — the Speaker as a small green-capped Toad in a dark cape and green tunic, hand raised mid-speech; the token the table uses (the lead is the Diet podium scene with its caption baked in)."
   },
   {
     "id": "creek_medic",
@@ -5105,7 +5115,8 @@
         "note": "Creek learned the Holy Light's healing rites in a hospital before the barrels, which means he learned them as procedure with a prayer attached. He stabilised Dan after Dan lost an arm. He has not said which half of the training did it."
       }
     ],
-    "image": "portraits/creek.jpg"
+    "image": "portraits/creek_medic.png",
+    "imageCaption": "Lead plate — established look: red-spotted Toad in a white medic's coat with a red cross, round spectacles, clipboard in one hand and a green flask in the other. Full figure on a plain field; replaces a forest-stream scene that had no toad in it (the plate had sat on disk unreferenced)."
   },
   {
     "id": "robinson",

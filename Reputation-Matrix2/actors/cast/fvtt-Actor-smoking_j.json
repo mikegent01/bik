@@ -524,7 +524,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "portraits/smoking_j.jpg",
+      "src": "portraits/player/fullbody/smoking_j.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",

@@ -586,3 +586,121 @@ back.
   with, on purpose.
 - The export back needs a GM client open for two quiet minutes after the
   last change; closing Foundry at once leaves the export for the next load.
+
+## 12. Addendum — testing it: the Feyward spoils, the filing step, a new NPC, a Foundry-only GM (2026-10-05)
+
+**Asked.** Put the items the party picked up in the Feyward on their sheets;
+make sheet changes a step of filing an event; make sure a new NPC in an
+event flows to a sheet and to Foundry without breaking anything; say what
+happens when the GM never runs `start.py` and only runs Foundry; audit the
+portraits (§ separate report) and add the Liberated Toads.
+
+### What was found
+
+The archive already had a registry of what characters hold —
+`Reputation-Matrix2/data/inventory.json`, the Inventory tiles on the site —
+and the only sheet-side path was a hand-written dated changes file
+(`changes/2026-10-04-grove-spoils.json`). Nineteen registry holdings were on
+no sheet at all, Hjumpik's OC Soul Ring and Morel's key among them; the
+Feyward sessions had added five more objects nobody had registered. Six
+others were already on the GM's sheets under his own names (Pepper Spray,
+Dagger, the Dinner Party Revolver, the Mirror in custody, the Trowel, the
+'Wally' kit) — a tool that did not know that would have doubled them.
+
+### What was done
+
+1. **Feyward spoils registered** (`inventory.json`): the Raventree Signet
+   Ring and the Book of Revised History (dark rooms and balcony planning),
+   the Woodfellow library card (the revel crisis), the wolf-pelt onesie
+   (I can't afford not to care) → Hjumpik; the Colour Division handcuffs
+   → Waluigi. Not registered on purpose: the Book of Many Things (not
+   kept), the heir's map (stayed on the table), Red's key, the papers
+   (returned to Saedia), the Umbral Signet. `foundry.aliases` on the five
+   items the GM keeps under other names.
+2. **`tools/spoils-to-changes.py`** — the registry's holdings minus what the
+   table's export already carries → the generated
+   `changes/spoils-midlands.json`. Presence is judged against the **export**
+   (`manifest.source`), never against the mirror the tool itself wrote, so
+   the file is stable across passes; a renamed item keeps its
+   `flags.waluipedia.inventoryItem`; an item the GM deletes after a packet
+   was applied goes under `declined` and is not offered again (the module's
+   export back now says which packet was applied — `lastSync.applied`,
+   1.7.1). Type from the registry words (`foundry.type` to override; a
+   weapon without a `foundry.system` is filed as described loot and
+   reported), icon from a keyword table checked against the image library,
+   description from summary + features + obtained + status + Waluigi's
+   line. First run: **14 items on 7 sheets** — Hjumpik ×7, Bowser ×2, Eager,
+   Markop, Remi, Toad Lee, Waluigi — 6 matched by alias, 7 hidden slots
+   left private.
+3. **Filing process Step 4b** (`docs/SESSION_FILING_PROCESS.md`): walk the
+   beat list for *found / pocketed / kept*; one `items` entry + one
+   `inventories[<article id>]` row; what not to register; aliases; then
+   nothing — the suite's `spoils` step (before `changes`) writes the file,
+   applies it, the packet carries it, the Sync asks. `--check` in
+   `check-all`.
+4. **A new NPC in an event** — proven with a throwaway *Test Fairy* article
+   (no image, Feywild affiliation): `build-character-sheets.py` → an npc
+   sheet (CR 0, a club and an *As Filed* feature, `mystery-man.svg`, folder
+   *Rakasha & the Feywild* read off the affiliation) → `sheets.json` row
+   with an empty portrait → packet 330 → the Sync's row read **new**.
+   Nothing broke; `check-sheets` passed; the article's removal took it out
+   again on the next build. Written into `docs/SHEETS_SYSTEM.md`.
+5. **The Foundry-only GM.** Into Foundry nothing is lost: the Sync falls
+   back from Data to the launcher to GitHub, still asks, still keeps actors
+   the table changed after the packet was built. Out of Foundry the world
+   keeps exporting itself, but nothing reads it — the mirror, the ledger
+   pins, the spoils check all stop at the last export the archive saw. From
+   **module 1.7.1** the module notices at world load (`syncLastApplied`
+   against the packet's `exportedAt`): an export back unread for more than
+   a day is a yellow toast naming what to run; younger ones a console line.
+   Documented in `docs/SHEETS_SYSTEM.md` and the module README.
+6. **Liberated Toads** — the Command page had a full-body cut for all 75
+   roster toads and 54 had no article: `tools/file-roster-toads.py` files
+   them as micro-articles from the roster (nothing beyond the roster line,
+   `needsReview`), the builder gives each a sheet (`sheetRole` from the
+   bloc + weapon table; rifle and sling added as weapons) with the roster
+   cut on the token, the packet grows to 383 actors in a *Liberated Toads*
+   folder. Four roster spellings map to existing toads (Somkin J = Smoking
+   J, Dewdrop, Ironspore, Metpetal).
+7. **Portraits** — `docs/run-reports/2026-10-05-portrait-audit.md`: every
+   lead classified; a shelf of 339 unreferenced files found under
+   `portraits/`, and finished plates from it wired for Captain Syrup
+   (token; a lead painted from it), Captain Toadette (the last hotlink
+   gone), Creek (no longer a river) and Speaker Rivers (token); Smoking J
+   and Usk full-body plates made; the builder now puts `fullBody` on the
+   token of a generated sheet; the 9×9 grid idea answered with the
+   arithmetic (one plate per placed character, 3×3 at most for background
+   NPCs).
+
+### Numbers after the run
+
+`check-all` green but for the pre-existing grove check; spoils tests 20,
+sheets suite 139, bridge 58, module 215 (230 with the real packet — 232
+created, 148 updated, 3 replaced), studio 44, sheets page 76; `check-sheets`
+242 sheets / 210 generated / 18 public; the generated spoils file current
+under `--check`.
+
+### What the GM does now
+
+1. Pull; `start.py` with *Character sheets* (and *Two-way with GitHub*)
+   ticked. The pass prints `spoils : 14 item(s) to add on 7 sheet(s)…` and
+   publishes the packet.
+2. In Foundry, F5 → `[waluipedia-mass-import] 1.7.1 ready` → the Sync
+   question lists `Hjumpik Deldkur — + The Raventree Signet Ring, The Book
+   of Revised History, …` and 54 **new** rows under *Liberated Toads*. Apply,
+   or *Not now*.
+3. Delete at the table whatever is wrong; the next export back marks it
+   declined and the archive stops offering it.
+4. When the next event is filed: Step 4b — register what was kept, run the
+   suite, done.
+
+### Not done
+
+- Items are added, never removed by the archive: a `status` of *consumed* in
+  the registry does not take the item off the sheet (the table owns
+  consumption).
+- Only `data/inventory.json` holdings travel; equipment the article prose
+  mentions without a registry line stays prose.
+- The 45 small leads, the seven scene leads and the four non-portraits are
+  listed, not re-rendered; ~320 orphaned files under `portraits/` are listed,
+  not triaged.

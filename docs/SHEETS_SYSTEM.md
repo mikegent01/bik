@@ -136,7 +136,29 @@ enforces `cr ≤ level` on every file.
 rogue, caster, priest, healer, scholar, noble, civilian, student, brute,
 monster, spirit, beast, hero — and the archetype sets the ability spread,
 saves, skills, hit dice and the shape of the action block. `ROLE_OVERRIDES`
-pins the ones the words get wrong.
+pins the ones the words get wrong; an article may also name its own with
+`sheetRole` (data, not a code table — the roster micro-articles below do,
+because two sentences of roster prose are not enough words to classify
+from).
+
+**Portrait and token.** The actor `img` is the article's `image` (a local
+file; a hotlink or nothing → `icons/svg/mystery-man.svg`). The prototype
+token's texture is the article's **`fullBody`** plate when it has one
+(`token_of()`), else the same portrait — a token is the whole figure on the
+map, a bust is the article's picture. Live player sheets keep the GM's art
+either way (`docs/IMAGE_GUIDELINES.md` §4b, the 2026-10-05 portrait audit).
+
+**Roster micro-articles.** `tools/file-roster-toads.py` files every
+Liberated Toad on the Command page roster
+(`data/liberated-toads/toadslist-data.js`) that has no article — one
+micro-article per roster line (number, bloc and tier, weapon, cap, seen in
+the field, the CORE_DETAIL lore where the page has it), `needsReview` +
+`microArticleFlag`, the roster's full-body cut as `image` and `fullBody`,
+`sheetRole` from the bloc + weapon table, `generatedBy` so a re-run refreshes
+only what it wrote. Four roster spellings map to existing articles
+(ALIASES); the unnamed #69 is filed as *Unidentified Spore*. 54 toads became
+sheets in the *Liberated Toads* folder on 2026-10-05; `--check` runs in
+`check-all`.
 
 **Weapons and features from the words.** Weapons match on whole-word
 regexes (a *lance* is not a *glance*, a *pike* is not a *spike*); features
@@ -246,7 +268,7 @@ sheet (the intake PC promoted into the world), with the 955 BF self beside it.
 1. file the article in characters.json (Step 3 of the filing process)
 2. python3 tools/build-character-sheets.py          # writes the sheet + index
 3. python3 tools/build-character-sheets.py --list   # read the role / weapon / CR line
-   — wrong archetype? add to ROLE_OVERRIDES; main cast? write a BESPOKE entry
+   — wrong archetype? set `sheetRole` on the article (or ROLE_OVERRIDES); main cast? write a BESPOKE entry
 4. python3 tools/check-sheets.py                    # quotes, CR ≤ level, wiring
 ```
 
