@@ -398,3 +398,191 @@ not read — is not excluded by the log; the suite now checks it, below.)
   allows; the wrong-folder case is reported by the suite, not fixed by it.
 - The 18 *missing images* are the GM's bare file names and the
   `house-divided` wildcard tokens (§8) — unchanged.
+
+## 11. Addendum — 1.6.0 ran; every line of its console, and Hjumpik's XP (same day, the last one)
+
+### What the fourth run said
+
+The first line was the right one at last — `mass-import-core.js?v=… 1.6.0
+ready` — and the result was `0 created, 329 updated, 31 coloured, 18 empty
+folders removed, 4 broken items repaired, 3 notes, 14 missing images (5
+unchanged)`. Line by line:
+
+| Console | Cause | Fix (module 1.7.0 unless said) |
+| --- | --- | --- |
+| `TypeError: Cannot read properties of undefined (reading '_source')` from `updateEmbeddedDocuments`, then `Only a single Species can be added to a character`, then **Eager's Toad species, his Catastrophe Scout background and Feyward Dan's Toad species gone** — reported as "repaired" | Foundry v14 cannot `updateEmbeddedDocuments` an item it holds as invalid (`items.get(id)` is undefined, so the backend reads `_source` of nothing). The 1.5/1.6 fallback was delete + recreate; dnd5e's `Race._preCreate` / `Background._preCreate` refuse a second singleton when a stand-in (the Grung race, the Slave background the packet also carries) is already on the sheet — the delete had happened, the create was refused, the item was lost | `repairInvalid` goes **through the parent** like dnd5e's own migration (`actor.update({items:[{_id,…}]}, {render:false})`). If that still throws: a singleton with a stand-in on the sheet is **left alone** and the summary offers a one-click **swap** (*Use Toad — Eager Variant instead of Grung*); a singleton alone is recreated under a fresh id before the broken one is removed; other types keep delete + recreate under the same id. The client may keep the id in `invalidDocumentIds` until reload — the summary then says *repaired in the database — reload (F5)* instead of retrying. The two species and the background come back from the packet (it has them) on the next Apply |
+| `Waluipedia Mass Import 1.5.0 is installed but this world still runs 1.6.0` | `checkModuleVersion` only knew "disk ≠ running" and printed the stale-cache sentence for the opposite case (`module.json` 1.5.0 on the server, code 1.6.0 — the manifest the suite wrote had not been re-read) | `versionVerdict`: disk **ahead** → *installed but this world still runs … — Setup → Launch World*; disk **behind** → *the install is half-updated, or Foundry reads another Data folder — run the suite once more*; manifest loaded older than the code → a console note only |
+| 10 × `GET …/icons/…webp 404` (`projectile-ice-blue`, `shield-barrier-ice-blue`, `barrier-ice-crystal-wall-blue`, `strike-body-collision-red`, `intimidation-impersonate` ×2, `shield-barrier-glowing-gold`, `skull-humanoid-crown-white-red`, `helm-barbute-leather-grey`, `turtle-shell-green`, `wagon-wheel`) | Core icons renamed or dropped between Foundry versions; the items (Midbus, Fawful, the Hammer Bro, the Koopa Troopa, Archie's Watcher's Eye) still point at the old names | `actors/folders.json` → `iconFixes`: the organizer renames item / actor / token art by the table, only to paths present in `tools/item sheet examples/image paths.txt` (the GM's library); 11 item icons renamed in the mirror, the packet carries them, the export brings them back, the rule becomes a no-op (`b8b0aae`) |
+| 4 more *missing images*: `1709761629520545.jpg`, `ofmfwui4eg0jvc28-….webp`, `npc/shadowtoad.png`, `modules/house-divided/…/*.webp` | Bare file names the GM uploaded somewhere the server does not serve from `/`, and wildcard token paths that cannot be HEAD-checked | Left alone, listed. Point them at files that exist in Foundry (or drop the images) and the next export carries the fix back |
+| `Item validation errors` / `Actor validation errors` blocks at load | Printed by Foundry for the invalid embedded documents above, once per load | Gone once those items are repaired or swapped; nothing to do in the module |
+| `329 updated` | `report.updated` counted every matched actor, written or not; the writes were 148, all overlay: `flags.waluipedia-sheets.tags/color` 148, `organized` 139, `folderPath` + `folder` 137, `ledger` 8, `system.details.xp` 5, items 2 | `N changed (M unchanged)` counts actors a write went to; each changed row explains itself (`XP 16712 → 25342`, `HP 31 → 30`, `+ The Electric Sphere [loot]`, `− Dagger [weapon]`, `moved to Players`, `fields: …` for anything else). The second pass over the GM's world is `0 changed (329 unchanged)` in the test over his export |
+| nothing in the console — the packet was applied without a question | By design in 1.5/1.6 (the automatic sync wrote whatever the packet said) — dangerous after a session, as the GM said | **Ask first.** Every sync is a dry run against the live world first; identical → silent, stamp remembered; differences → the summary is the question (*Apply / Not now / Skip this packet*). **The table wins:** an actor whose `_stats.modifiedTime` in the world is newer than the packet's copy is **kept**, its diff shown under *Kept — the world is newer than the packet*, no write, no question — until the export flows back and the packet catches up |
+
+### What was done
+
+| Piece | Commit | Detail |
+| --- | --- | --- |
+| Module 1.7.0 | `c13a3bb` | the table above; plus **export back** — the active GM's client writes the whole world to `<Data>/npc/waluipedia/<world>/export/<world>-all-actors.json` 120 quiet seconds after the last change to any world actor / item / effect (settings *Export back*, *Export delay*); `checkGitHubVersion` says when the branch has a newer module than the one running. Tests 210 (222 over the GM's export + the real packet); zip 11 files |
+| Suite — the other direction | `c13a3bb` | `find_exports` reads the module's export-back folder like Downloads (newest stamp wins); `--git-sync`: `git pull --ff-only` before a pass when clean and behind (the suite's own earlier commits are rebased with `--autostash`; anything else uncommitted refuses the pull and says so), after a successful pass `git add` of the suite's own paths only (`actors/worlds/<world>`, `actors/cast`, `data/sheets.json`, the root export) → `sheets-suite: <world> mirror from export <stamp> — N file(s)` → `git push` to the tracked branch; `--watch` polls GitHub every `--git-interval` (300 s) and runs a pass when it pulled something. `start.py`: *Two-way with GitHub* tick / `--git-sync`. Suite tests 135 (a throwaway origin with two clones) |
+| Icons | `b8b0aae` | `iconFixes` (above); organizer tests 61 |
+| Docs | this commit | module README 1.7 section, `SHEETS_SYSTEM.md`, this addendum |
+
+So the loop is now: **GitHub → suite (pull) → packet → Foundry asks → Apply → the table plays → export back (2 min) → suite splits, rebuilds, commits, pushes → GitHub.** The module updates itself through the same loop: the pull brings the new `mass_import/`, the pass installs it into `Data/modules/`, the 1.6 loader runs it after a plain F5; when GitHub is ahead of the install the module says so at `ready` and in the summary.
+
+### Hjumpik's XP, award by award
+
+The question was whether he really has 25,342 XP and has been under-levelled.
+The ledger behind `XP_SUMMARY` is the standalone page's `PLAYERS` table
+(`Reputation-Matrix2/app/pages/standalone/xp.html`); his entry there:
+
+| # | XP | cat | kind | date | title |
+| --- | ---: | --- | --- | --- | --- |
+| 1 | 200 | discovery | prior | Prior Ledger | Passive Intel — Shadeward Manor |
+| 2 | 400 | survival | prior | Prior Ledger | Ol Burley Eviction — Kiting Operation |
+| 3 | 250 | social | prior | Prior Ledger | Wario Blackmail — Asset Recovery |
+| 4 | 500 | discovery | prior | Prior Ledger | Rakshasa Lore — The Midnight Gate |
+| 5 | 350 | social | prior | Prior Ledger | Pond Mediation — Hag vs. Mermaid |
+| 6 | 600 | discovery | prior | Prior Ledger | Underwater Chest — Orange Teleportation Crystal |
+| 7 | 1200 | combat | prior | Prior Ledger | Spider Grove Battle — The Maze Walker Fights |
+| 8 | 800 | combat | prior | Prior Ledger | Mazebound Skirmish — Singing Predators |
+| 9 | 600 | combat | prior | Prior Ledger | Shadowfell Encounters — Fighting Without Daylight |
+| 10 | 500 | combat | prior | Prior Ledger | Vigilance Defense — Airship Combat |
+| 11 | 1500 | exploration | prior | Prior Ledger | The Maze of Time — Navigating Temporal Corridors |
+| 12 | 900 | exploration | prior | Prior Ledger | Shadowfell Pathfinding — Tracking in the Grey |
+| 13 | 700 | exploration | prior | Prior Ledger | Shadow Estate Grounds — Mapping the Unknown |
+| 14 | 500 | exploration | prior | Prior Ledger | Deep Mirror Transit — Impossible Geometry |
+| 15 | 1200 | survival | prior | Prior Ledger | Dimensional Transit Survival — The Fracture |
+| 16 | 800 | survival | prior | Prior Ledger | Extended Shadowfell Endurance — Weeks in Grey |
+| 17 | 500 | survival | prior | Prior Ledger | Resource Management — Living Off Dead Land |
+| 18 | 1000 | discovery | prior | Prior Ledger | Temporal Anomaly Documentation |
+| 19 | 600 | discovery | prior | Prior Ledger | Shadow Estate Lore — Corvinarus History |
+| 20 | 400 | discovery | prior | Prior Ledger | Planar Boundary Analysis |
+| 21 | 700 | social | prior | Prior Ledger | Party Coordination — The Quiet Anchor |
+| 22 | 400 | social | prior | Prior Ledger | Shadowfell Negotiations |
+| 23 | 800 | stealth | prior | Prior Ledger | Reconnaissance Operations |
+| 24 | 500 | stealth | prior | Prior Ledger | Shadow Estate Infiltration |
+| 25 | 700 | loyalty | prior | Prior Ledger | Party Bonds — Standing With Disaster Inc. |
+| 26 | 400 | loyalty | prior | Prior Ledger | Archie's Artifacts — Preserving a Friend's Legacy |
+| 27 | 250 | combat | prior | Prior Ledger | Brawl Stabilization |
+| 28 | 200 | social | prior | Prior Ledger | Negotiation and Confrontation |
+| 29 | 200 | stealth | prior | Prior Ledger | Document Recovery |
+| 30 | 230 | chaos | meta | Dossier | Dossier Filed — Hjumpik Deldkur |
+| 31 | 320 | exploration | event | 2-26 Efferd, 1040 BF | Event — The Ravencreek Transition — Shadows, Steam, and the God Toad's Wrath |
+| 32 | 360 | combat | event | 1 Efferd, 1040 BF | Event — Dragon Mountain — The Night Everything Started |
+| 33 | 480 | stealth | event | ~17 Harvestside, 1040 BF (relative timing unstable) | Event — The Feyward Revel and the Book of Many Things |
+| 34 | 430 | stealth | event | ~18 Harvestside, 1040 BF (relative timing unstable) | Event — The Feyward Revel Crisis: Poison, Plants, and Frozen Diplomacy |
+| 35 | 220 | survival | event | ~19 Harvestide, 1040 BF (Feyward time — unreliable as always | Event — The Dark Rooms and the Balcony Plan |
+| 36 | 450 | stealth | event | 8–10 Harvestside, 1040 BF | Event — The Hag of Ferngrove Manor |
+| 37 | 360 | combat | event | 24th Highsun through 29th Highsun, looping to 5th-8th Harves | Event — The Overgrown Manor Campaign |
+| 38 | 390 | survival | event | 19 Harvestside, 1040 BF — 5:00 AM | Event — The Lounge Incident and the Paper War |
+| 39 | 310 | social | dupe | 21st-29th Highsun through 5th-8th Harvestide, 1040 BF (Tempo | Location/Campaign — The Overgrown Manor Campaign |
+| 40 | 190 | discovery | battle | 19 Harvestide, 1040 BF — 05:00 | Battle Record — The Lounge Brawl |
+| 41 | 380 | combat | battle | Faystyl 24, Year 722 | Battle Record — The Solarium Detonation |
+| 42 | 190 | discovery | battle | Faystyl 24, Year 722 | Battle Record — The Duel of Thistle |
+| 43 | 330 | combat | battle | Faystyl 24, Year 722 | Battle Record — The Rescue of Steely |
+| 44 | 330 | combat | battle | Day 18-19, 1040 BF | Battle Record — The Siege of Raventree |
+| 45 | 150 | discovery | battle | Day 30, 1040 BF | Battle Record — The Behir Ambush |
+| 46 | 330 | combat | battle | Day 30, 1040 BF | Battle Record — The Thunderdome Incident |
+| 47 | 330 | combat | battle | Day 30, 1040 BF (Evening) | Battle Record — The First Night at Raventree Manor |
+| 48 | 330 | combat | battle | 1-2 Harvestide, 1040 BF | Battle Record — The Petrification of Remi |
+| 49 | 150 | discovery | battle | Unknown — Feywild temporal displacement | Battle Record — The Orange Alignment |
+| 50 | 150 | discovery | battle | Highsun 21, 1040 BF | Battle Record — Battle of the Mirror Room |
+| 51 | 420 | combat | battle | Faystyl 24, Year 722 | Battle Record — The Escape from the Hag's Hut |
+| 52 | 70 | loyalty | meta | Collection | Collection Membership — Core Disaster Inc. Members |
+| 53 | 220 | exploration | dupe | 1 Efferd, 1040 BF | Campaign Origin — Dragon Mountain, Day One |
+| 54 | 180 | combat | dupe | 2–26 Efferd, 1040 BF | Early Campaign — Ravencreek to Swiftsoul |
+| 55 | 360 | exploration | event | 23 Harvestide, 1040 BF — Feyward Vine / Morel / Steely Sessi | Event — Toad Lee’s Missing Time, Morel’s Key, and Steely’s Last Warning |
+
+Sums: **Prior Ledger 17,650** (29 undated entries, 70 %) · session events
+3,370 (9) · battle records 3,280 (12) · campaign-label duplicates 710 (3: the
+Dragon Mountain, Ravencreek and Overgrown Manor sessions awarded a second time
+under another label) · meta 300 (*Dossier filed*, *Collection membership*) =
+**25,310**. Three figures for the same ledger live in the repo and none is the
+entry sum: the standalone header says **25,022**, `index.html`'s `XP_SUMMARY`
+says **25,342** with `entryCount` 56 (one entry more than the table). Every
+one of them is Level 7 (23,000–33,999), so the drift does not change the
+answer, but it is bookkeeping drift and is left for the GM — the filing rules
+forbid touching the ledger from a run.
+
+Findings:
+
+1. **The ledger reconciles.** 55 entries, every one named, the sum is what
+   it says; the 26 dated ones (9 session events, 12 battle records, 3
+   campaign labels, 2 meta) all point at records the archive has, with
+   Hjumpik among the participants — the 9 event rows are the same nine
+   `XP_EVENT_AWARDS` rows `index.html` renders.
+2. **70 % of it is the Prior Ledger block** — 29 undated, round-number
+   entries (200–1,500) written up after the fact for the Shadowfell / Shadow
+   Estate / Vigilance / Maze of Time era. None of them carries an event id or
+   a date. By theme they sit in arcs the archive has him in (47 records name
+   him), but six have no filed counterpart by name at all: *The Maze of Time*
+   1,500, *Temporal Anomaly Documentation* 1,000, *Party Coordination — The
+   Quiet Anchor* 700, *Party Bonds* 700, *Underwater Chest — Orange
+   Teleportation Crystal* 600, *Wario Blackmail — Asset Recovery* 250 =
+   4,750. The rest (*Spider Grove Battle*, *Vigilance Defense*, *Shadow
+   Estate Infiltration*, *The Fracture*, *Ol Burley Eviction*, *Pond
+   Mediation*, …) name things the archive has, without saying which session.
+3. **He is not inflated relative to the party.** The same recipe built every
+   core member's ledger: Markop 73 % prior (36,219), Remi 71 % (31,158),
+   Bowser 69 % (35,592), Archie 56 % (22,680), Hjumpik 70 %. His dated XP
+   (6,650 clean) is the lowest of the five, consistent with fewer filed
+   sessions (55 entries against 61–73). The Foundry sheets of the others follow
+   their ledgers (Markop 37,249 Paladin 8, Remi 23,000 Artificer 7, Archie
+   20,000 Wizard 6, Waluigi 11,911, Eager 4,860, Toad Lee 5,790 — the last
+   three are exact ledger values of 12 Sept, when the GM pinned them).
+4. **The sheet is the outlier, not the ledger.** Hjumpik's sheet reads 16,712
+   XP, Fighter 6 (Samurai), last touched 12 Sept 02:40 — the same night as
+   Toad Lee and Waluigi — and 16,712 is no ledger value in the repo's history.
+   Under the campaign's own convention (ledger authoritative, the rule that
+   levelled Markop and Remi) he has been Level 7 since the ledger passed
+   23,000: running the dated entries in order with the Prior Ledger in front,
+   the crossing is the **Lounge Incident / Lounge Brawl, 19 Harvestide 1040
+   BF** (22,380 → 23,180); the Amnesia-vines session, the Orange Alignment and
+   the four 722-clock battles came after — about nine sessions at Level 6
+   that the ledger paid as 7.
+5. **The soft spots, if the GM wants the ledger strict:** the 710 of
+   campaign-label duplicates and the 300 of meta awards. Without them he is at
+   24,332 — still Level 7 by 1,332. Striking the six Prior Ledger entries with
+   no filed counterpart too (4,750) leaves 19,582 — Level 6, 3,418 short.
+   That is the only reading on which the sheet is right, and it would re-open
+   every core member's level the same way (Markop's and Remi's blocks are
+   built alike).
+6. **Pending, not in any ledger** (filed on the events as previews, per the
+   process): 2,060 XP from the four Feyward 722-clock sessions — *The Guard
+   With No Name* 320, *The Battalion of Six* 580, *The Reclamation of the
+   Library* 540, *I Can't Afford Not to Care* 620. Confirmed, he is at 27,402
+   (or 27,370 off the entry sum): Level 7, 6,598 to Level 8.
+
+What the sync does with it: the packet puts the ledger's 25,342 on the sheet
+(`XP 16712 → 25342`) and shows the **⬆ Level up at the table** banner; the
+class stays Fighter 6, nothing is converted, no question is asked for it; the
+player takes level 7 in dnd5e's own level-up, and the next export carries it
+back.
+
+### What the GM does now
+
+1. Pull, run `start.py` with *Two-way with GitHub* ticked (or
+   `python3 tools/sheets-suite.py --watch --git-sync`). Read its `git :` and
+   `foundry :` lines.
+2. In Foundry, F5. The console opens with `[waluipedia-mass-import] 1.7.0
+   ready`; a few seconds later the question: *Sync — N changed: apply?* with
+   the full diff. Read the *Kept* section if there is one (what the table
+   changed since the export), the *Notes*, then **Apply**.
+3. Eager's and Dan's sheets: the summary offers *Use Toad — Eager Variant
+   instead of Grung* (and the Catastrophe Scout background) — one click each,
+   or leave the Grung if that is what the table wants.
+4. Fix or drop the four bare / wildcard images in Foundry when convenient.
+5. Decide Hjumpik: Level 7 under the ledger (take it at the table); or tell
+   me which reading of the Prior Ledger block to apply, and the ledger, the
+   sheet and the packet move together.
+
+### Not done
+
+- The ledger drift (25,022 / 25,310 / 25,342) and the campaign-label
+  duplicates are reported, not corrected — the filing rules say the ledger is
+  the GM's to change.
+- `--git-sync` commits only the suite's own paths; a hand edit elsewhere in
+  the checkout is left uncommitted and blocks the pull until it is dealt
+  with, on purpose.
+- The export back needs a GM client open for two quiet minutes after the
+  last change; closing Foundry at once leaves the export for the next load.

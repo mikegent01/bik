@@ -201,7 +201,12 @@ the era packets) and fold a sub-folder below it into its parent (one ooze
 sits straight under *Bestiary*) and a top-level group below it into
 **`fallback`** (*Elsewhere*). Players, Bestiary itself, the era roots and
 Elsewhere never fold. A creature of a blank or custom type sits straight
-under *Bestiary* too — no *Other* drawer.
+under *Bestiary* too — no *Other* drawer. **`iconFixes`** maps core icon
+paths the GM's Foundry no longer has (renamed between versions; the Sync
+summary lists them as missing images) to ones it does: the organizer
+rewrites item, actor and token art by the table, only when the replacement
+is in `tools/item sheet examples/image paths.txt`, and reports each rename
+(`item:Body Slam icon … -> … [iconFixes]`).
 
 ```bash
 python3 tools/organize-actors.py                 # file the midlands mirror (what the suite runs)
@@ -243,6 +248,18 @@ same id when the type changed, and shows a summary: replaced / changed / new
 / unchanged, per actor the XP change, class line, items gained or lost,
 folder moves, a *Level up at the table* banner when the ledger is ahead of
 the sheet, and where it looked. Shift-click for the review table first.
+
+From module 1.7 the Sync **asks first** (a dry run against the live world;
+identical → silent; differences → *Apply / Not now / Skip this packet*),
+**keeps** any actor the table changed after the packet's export (listed
+under *Kept — the world is newer than the packet*), and **exports the world
+back** into `npc/waluipedia/<world>/export/<world>-all-actors.json` two
+quiet minutes after the last change — the suite reads that folder like
+Downloads. With `--git-sync` (start.py: *Two-way with GitHub*) the suite
+pulls before a pass and commits + pushes the mirror, the cast, `sheets.json`
+and the root export after it, polling GitHub every `--git-interval` seconds
+under `--watch`; the module updates itself through that pull. Dead core icon
+paths are renamed by the scheme's `iconFixes` (see the organizer).
 
 Under `--watch` a pass that blows up is reported like a failed step and the
 watcher stays up for the next export. On Windows a piped stdout is cp1252,
@@ -396,6 +413,13 @@ Inc. background is the intended one, flip the flag — and tell the DM the
 details pointers disagree, because the live sheet shows Slave.**
 
 ## Known remaining 404s (not fixable here)
+
+Ten core icons that Foundry v14 no longer ships (`icons/magic/water/
+projectile-ice-blue.webp` and the like, on Midbus, Fawful, the Hammer Bro,
+the Koopa Troopa and Archie's *Watcher's Eye*) are **fixed** by the
+scheme's `iconFixes` table in `folders.json` — the organizer renames them to
+icons the GM's library has, the packet carries the new paths and the export
+brings them back. What remains:
 
 Markop's sheet references two assets that exist in no install:
 `1709761629520545.jpg` (previously on Hjumpik's retired export) and an

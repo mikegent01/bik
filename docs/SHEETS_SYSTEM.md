@@ -345,6 +345,42 @@ Sync quiet: updates are diffs (an unchanged actor is not written), the
 players' broken item identifiers are repaired before import, and the
 deprecated progress bar is gone — see the module README's *1.4* table.
 
+**Both ways, with a question first** (module 1.7, `--git-sync`). The loop
+closes: *GitHub → suite (pull) → packet → Foundry asks → Apply → the table
+plays → export back → suite → GitHub.*
+
+* **Sync asks.** Every sync — the automatic one at world load or the button
+  — is computed as a dry run against the live world first. Nothing pending:
+  silent, the packet's stamp remembered. Differences: the summary opens as
+  the question, *Apply / Not now / Skip this packet*. An actor whose world
+  `_stats.modifiedTime` is newer than the packet's copy is **kept** (listed
+  under *Kept — the world is newer than the packet*, no write, no question)
+  — a session's edits are never overwritten by a packet built before them;
+  once the export flows back and the packet is rebuilt, the stamps agree.
+* **Export back.** The active GM's client writes the whole world to
+  `<Data>/npc/waluipedia/<world>/export/<world>-all-actors.json` two quiet
+  minutes after the last change to any actor, item or effect (settings
+  *Export back*, *Export delay*). The suite reads that folder like
+  Downloads — newest stamp wins — so the mirror, the player sheets at ledger
+  XP, `data/sheets.json` and the next packet follow the table by themselves.
+* **GitHub.** `tools/sheets-suite.py --git-sync` (start.py: *Two-way with
+  GitHub*) pulls fast-forward before a pass when the checkout is clean and
+  behind (a hand edit outside the suite's files blocks the pull and says so),
+  commits what the pass wrote — `actors/worlds/<world>`, `actors/cast`,
+  `data/sheets.json`, the root export — as `sheets-suite: <world> mirror from
+  export <stamp> — N file(s)`, pushes to the tracked branch, and under
+  `--watch` polls GitHub every `--git-interval` seconds (300). The module
+  updates itself through the same pull: the pass installs the new
+  `mass_import/` into `Data/modules/`, the 1.6 loader runs it after a plain
+  F5, and the module says at `ready` when GitHub is ahead of the install.
+* **Levels stay the table's.** The packet carries the ledger XP; the class
+  level is never converted. *⬆ Level up at the table* is a banner, not a
+  write; the player levels in dnd5e, the export carries it back.
+* **Dead icons.** `actors/folders.json` → `iconFixes` renames core icon paths
+  the GM's Foundry no longer has (checked against
+  `tools/item sheet examples/image paths.txt`); the organizer applies it, the
+  import carries it, the export confirms it.
+
 ## Decisions
 
 - **Visibility is a build output, not an authored flag.** The rule is
