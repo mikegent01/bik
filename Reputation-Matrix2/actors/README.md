@@ -137,7 +137,15 @@ python3 tools/sheets-suite.py --check    # read-only; what tools/check-all.py ru
 A pass: **intake** (`Players.json` newer than its originals → the intake
 chain), **split** (an export newer than the mirror's `manifest.json` — the
 repo-root copy or the newest `<world>-all-actors*.json` in Downloads, copied
-into the root — → `split --prune`), **promote** (below), **changes** (every
+into the root — → `split --prune`), **promote** (below), **spoils**
+(`tools/spoils-to-changes.py`: every object `data/inventory.json` says a
+party character holds and the table's export does not carry →
+[`changes/spoils-<world>.json`](changes/), generated — filing an event's loot
+is one registry line, see `docs/SESSION_FILING_PROCESS.md` Step 4b; items
+already on the sheet under another name are matched by alias / possessive /
+the `flags.waluipedia.inventoryItem` flag and never doubled; what the table
+removed after a packet was applied is listed under `declined` and not
+offered again), **changes** (every
 [`changes/*.json`](changes/) whose `appliesTo.exportedAtOrBefore` still
 covers the mirror's export → `apply --write`; a later export already carries
 the table's version of those items), **organize** (below: every actor into

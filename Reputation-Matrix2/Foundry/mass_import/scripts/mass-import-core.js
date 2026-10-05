@@ -53,7 +53,7 @@
 
 export const MODULE_ID = "waluipedia-mass-import";
 /** Must match module.json — Sync compares the two to catch a world still running old code. */
-export const MODULE_VERSION = "1.7.0";
+export const MODULE_VERSION = "1.7.1";
 export const FORMAT = "waluipedia-actors/1";
 export const RAW_BASE = "https://raw.githubusercontent.com/mikegent01/bik/gh-pages/";
 /** The repo's ready-made import-all files (the Import dialog lists them). */
@@ -1569,6 +1569,7 @@ export const SYNC_DEFAULTS = {
 };
 const SYNC_SETTING_KEYS = { world: "syncWorld", packetDir: "syncPacketDir", launcher: "syncLauncher", branch: "syncBranch", review: "syncReview", auto: "syncAuto", mergeFolders: "syncMergeFolders", pruneFolders: "syncPruneFolders", confirm: "syncConfirm", exportBack: "syncExportBack", exportDelay: "syncExportDelay" };
 const EXPORT_STAMP_SETTING = "syncLastExport";
+const SYNC_APPLIED_SETTING = "syncLastApplied";  // JSON: {stamp, at, exportedAt} of the last packet actually written
 const SYNC_STAMP_SETTING = "syncLastStamp";
 /** Everything one sync carries — there is no scope to choose. */
 export const SYNC_SCOPE_LABEL = "everything: the world mirror, the generated cast, the 955 BF court";
@@ -1937,6 +1938,7 @@ export async function syncFromWaluipedia(overrides = {}) {
   const stamp = syncStamp(info, loaded.raw, used.source);
   let lastStamp = null;
   try { lastStamp = g.game.settings.get(MODULE_ID, SYNC_STAMP_SETTING) || null; } catch (err) { lastStamp = null; }
+  if (trigger === "auto") await noticeUnreadExport(info, used);
   if (trigger === "auto" && lastStamp === stamp) {
     console.log(`[${MODULE_ID}] automatic sync: packet unchanged since the last sync (${stamp}) — nothing to do`);
     return { skipped: true, stamp };
@@ -1999,6 +2001,11 @@ export async function syncFromWaluipedia(overrides = {}) {
   report.changes = syncChanges(entries, before, after, report);
   report.sync = syncMeta({ github: overrides.github ?? null });
   if (!report.dryRun && !s.review) await remember();
+  if (!report.dryRun) {
+    // what the export back will say was applied — tools/spoils-to-changes.py reads it to tell "the table removed
+    // this item after seeing it" from "the packet never got there"
+    try { await g.game.settings.set(MODULE_ID, SYNC_APPLIED_SETTING, JSON.stringify({ stamp, at: new Date().toISOString(), exportedAt: exportedAt ?? null })); } catch (err) { /* tests */ }
+  }
   announce(report);
   if (!report.dryRun) await postSyncChat(report);
   const quiet = trigger === "auto" && !asks && !report.failed.length && !report.created.length && !report.replaced.length && !report.notes.length
@@ -2046,6 +2053,49 @@ async function askToApply(preview, pending) {
   return "later";
 }
 
+/** What the world last took from a packet, for the export back: {applied: {stamp, at, exportedAt} | null, seen: stamp | null}. */
+export function lastSyncFacts() {
+  const g = G();
+  let applied = null, seen = null;
+  try { const raw = g.game?.settings?.get(MODULE_ID, SYNC_APPLIED_SETTING); applied = raw ? JSON.parse(raw) : null; } catch (err) { applied = null; }
+  try { seen = g.game?.settings?.get(MODULE_ID, SYNC_STAMP_SETTING) || null; } catch (err) { seen = null; }
+  return { applied, seen };
+}
+
+/**
+ * Pure: has the archive read what the table did? `exportStamp` is this world's
+ * last export back; `readStamp` is the export the packet in front of us was
+ * built from (packets.json / manifest.json `exportedAt` — what the suite split
+ * last). Null when there is nothing to say; otherwise {exportedAt, readAt,
+ * ageMs, overdue} — overdue once the unread export is older than `graceMs`
+ * (a day: the suite's --watch reads within minutes, a GM who never runs it
+ * hears about it at the next session, not mid-session).
+ */
+export function unreadExport(exportStamp, readStamp, { now = Date.now(), graceMs = 86400000 } = {}) {
+  const ex = Date.parse(exportStamp ?? "") || null;
+  if (!ex) return null;
+  const rd = Date.parse(readStamp ?? "") || null;
+  if (rd && rd >= ex) return null;
+  const ageMs = Math.max(0, now - ex);
+  return { exportedAt: exportStamp, readAt: readStamp ?? null, ageMs, overdue: ageMs > graceMs };
+}
+
+/** The Foundry-only GM: the world exported itself back, nothing on the archive side has read it — say so, once per load. */
+async function noticeUnreadExport(info, used) {
+  const g = G();
+  let exportStamp = null;
+  try { exportStamp = g.game.settings.get(MODULE_ID, EXPORT_STAMP_SETTING) || null; } catch (err) { exportStamp = null; }
+  const gap = unreadExport(exportStamp, info?.exportedAt ?? null);
+  if (!gap) return null;
+  const s = syncSettings();
+  const where = exportBackPath(s.packetDir, g.game?.world?.id ?? s.world);
+  const days = Math.floor(gap.ageMs / 86400000);
+  const line = `the archive has not read this world's export back from ${gap.exportedAt}${gap.readAt ? ` (the packet here was built from the export of ${gap.readAt})` : " (no packet of this world has been built from it)"} — it waits in ${where}; run start.py or tools/sheets-suite.py so the sheets, the ledger and the record learn what the table did`;
+  console.log(`[${MODULE_ID}] ${line}`);
+  if (gap.overdue) notify("warn", `Sync: ${days ? `${days} day(s)` : "a while"} of table changes unread by Waluipedia — run start.py (or tools/sheets-suite.py) on the archive side`);
+  return gap;
+}
+
 /* ------------------------------------------------- the world flows back */
 
 let exportTimer = null;
@@ -2069,6 +2119,7 @@ export async function exportBack({ reason = "manual" } = {}) {
   try {
     const payload = await exportAllActors({ download: false });
     payload.exportedBy = `${MODULE_ID} ${MODULE_VERSION} (${reason})`;
+    payload.lastSync = lastSyncFacts();
     const written = await writeDataFiles([{ path, text: JSON.stringify(payload, null, 2) }]);
     exportState.lastAt = payload.exportedAt; exportState.lastPath = written[0] ?? path; exportState.pending = false;
     try { await g.game.settings.set(MODULE_ID, EXPORT_STAMP_SETTING, payload.exportedAt); } catch (err) { /* tests */ }
@@ -2186,6 +2237,7 @@ export const api = {
   buildPlan, applyPlanEdits, planHtml, normalizeImport, summarize,
   syncFromWaluipedia, autoSync, syncCandidates, syncSettings, syncChanges, syncSummaryHtml, snapshotWorld, actorFacts,
   mergePackets, syncStamp, checkModuleVersion, checkGitHubVersion, versionVerdict, compareVersions, tidyFolders, duplicateFolderGroups, emptyFolderIds, folderKey,
+  lastSyncFacts, unreadExport,
   embeddedSources, isCachedSpell, singletonNotes, planEmbedded, leafPaths, swapSingleton, swapsHtml, syncPending, changedRows,
   exportBack, scheduleExportBack, exportBackPath, SINGLETON_TYPES,
   loadManifest, isManifest, isSheetIndex, SYNC_DEFAULTS, SYNC_SCOPE_LABEL, MODULE_VERSION,
@@ -2217,6 +2269,7 @@ export function onInit() {
     reg("syncExportDelay", "Sync: quiet seconds before that export", "How long after the last actor change the export runs (default 120).", { type: Number, default: SYNC_DEFAULTS.exportDelay, range: { min: 10, max: 3600, step: 10 } });
     g.game.settings.register(MODULE_ID, SYNC_STAMP_SETTING, { scope: "world", config: false, type: String, default: "" });
     g.game.settings.register(MODULE_ID, EXPORT_STAMP_SETTING, { scope: "world", config: false, type: String, default: "" });
+    g.game.settings.register(MODULE_ID, SYNC_APPLIED_SETTING, { scope: "world", config: false, type: String, default: "" });
     g.game.settings.register(MODULE_ID, "showTags", { name: "Tag chips in the Actors sidebar", hint: "Show the Waluipedia tags (website group, pc/npc, role, creature type) next to each actor's name.", scope: "client", config: true, type: Boolean, default: true });
   } catch (err) { console.warn(`[${MODULE_ID}] settings`, err); }
 }

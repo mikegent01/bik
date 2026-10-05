@@ -29135,6 +29135,58 @@
         "exportSource": null,
         "compendiumSource": null
       }
+    },
+    {
+      "_id": "zC0y0B9ZzYLcWwNX",
+      "name": "Oracle’s Deck",
+      "type": "loot",
+      "img": "icons/sundries/gaming/playing-cards-brown.webp",
+      "system": {
+        "description": {
+          "value": "<p>A prophetic deck linked to Mystic Morel and Remi. Useful, dangerous, and probably smiling at everyone behind the card backs.</p><ul><li>Prophetic card imagery tied to real events.</li><li>Useful for foreshadowing, warning, and making everyone nervous.</li><li>Likely connected to Morel’s habit of mixing help with theft.</li></ul><p><em>Obtained:</em> Given to Remi by Mystic Morel under circumstances Waluigi classifies as gift, burden, and suspicious homework.</p><p><em>On the record:</em> associated / high narrative value.</p><blockquote>A prophecy deck is just a problem that learned card stock. — W.</blockquote><p><em>Waluipedia inventory <code>oracle_deck</code>, held by Remi Akamatsu . Mechanics as the table rules them; the archive records custody.</em></p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia inventory — Rare Artifact",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "identifier": "oracles-deck",
+        "quantity": 1,
+        "weight": {
+          "value": 1,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "properties": [],
+        "rarity": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "effects": [],
+      "flags": {
+        "waluipedia": {
+          "inventoryItem": "oracle_deck",
+          "holder": "remi_akamatsu_full_backstory",
+          "event": null,
+          "filedOn": "2026-10-05",
+          "note": "associated / high narrative value"
+        }
+      },
+      "folder": null,
+      "ownership": {
+        "default": 0
+      }
     }
   ],
   "effects": [

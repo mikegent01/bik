@@ -16,6 +16,9 @@ One pass, in order (each step is skipped when there is nothing to do):
   promote   ``promote-player-sheets.py``: player characters carry character
             sheets, never NPC statblocks, and every player sheet's XP is the
             ledger's.
+  spoils    ``spoils-to-changes.py``: what data/inventory.json says the party
+            holds and the exported sheets lack → actors/changes/spoils-<world>.json
+            (generated; the loot step of filing an event is one registry line).
   changes   every ``actors/changes/*.json`` whose ``appliesTo`` still covers
             the mirror's export (spoils of war, injuries) → ``apply --write``.
   check     ``foundry-bridge.py check`` on the mirror (never writes).
@@ -72,6 +75,7 @@ RM = os.path.join(ROOT, "Reputation-Matrix2")
 ACTORS = os.path.join(RM, "actors")
 WORLDS = os.path.join(ACTORS, "worlds")
 CHANGES_DIR = os.path.join(ACTORS, "changes")
+INVENTORY_JSON = os.path.join(RM, "data", "inventory.json")
 PLAYERS_JSON = os.path.join(ROOT, "Players.json")
 DEFAULT_WORLD = "midlands"
 DEFAULT_PORT = 8765
@@ -110,6 +114,7 @@ TOOLS = {
     "split_players": "tools/split-players.py",
     "rebuild_actors": "tools/rebuild-actors.py",
     "organize": "tools/organize-actors.py",
+    "spoils": "tools/spoils-to-changes.py",
 }
 
 
@@ -269,6 +274,12 @@ def changes_for(world):
                 continue  # a later export already carries the table's version of these changes
         out.append(p)
     return out
+
+
+def step_spoils(world, write):
+    """The registry's holdings as a generated changes file (a check in check mode)."""
+    argv = [TOOLS["spoils"], "--world", world, "--quiet"] + ([] if write else ["--check"])
+    return run(argv, "spoils")[0]
 
 
 def step_changes(world, write):
@@ -658,10 +669,10 @@ def git_state(fetch=True):
 
 
 def git_sync_paths(world):
-    """What the suite itself writes and may commit: the mirror, the generated cast, the site index, the root export."""
+    """What the suite itself writes and may commit: the mirror, the generated cast, the site index, the root export, the generated spoils file."""
     return [os.path.relpath(p, ROOT).replace(os.sep, "/") for p in (
         os.path.join(WORLDS, world), os.path.join(ACTORS, "cast"), os.path.join(ROOT, "data", "sheets.json"),
-        os.path.join(ROOT, f"{world}-all-actors.json"))]
+        os.path.join(ROOT, f"{world}-all-actors.json"), os.path.join(ACTORS, "changes", f"spoils-{world}.json"))]
 
 
 def git_pull(world=None):
@@ -742,6 +753,7 @@ def one_pass(world, write, port, downloads=None, foundry=None, git_sync=False):
         return False
     if write:
         ok = run([TOOLS["promote"]], "promote")[0] and ok
+    ok = step_spoils(world, write) and ok
     ok = step_changes(world, write) and ok
     # folders + tags the way the website organizes its cast (actors/folders.json)
     ok = run([TOOLS["organize"], "--world", world, "--quiet"] + ([] if write else ["--check"]), "organize")[0] and ok
@@ -772,6 +784,7 @@ def one_pass(world, write, port, downloads=None, foundry=None, git_sync=False):
 
 def watch_inputs(world, downloads=None, extra_dirs=()):
     paths = [p for p, _ in find_exports(world, downloads, extra_dirs)] + glob.glob(os.path.join(CHANGES_DIR, "*.json"))
+    paths.append(INVENTORY_JSON)  # a filed spoil is a line in the registry — that re-runs the pass too
     if os.path.exists(PLAYERS_JSON):
         paths.append(PLAYERS_JSON)
     out = {}
@@ -830,7 +843,7 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0], formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--world", default=DEFAULT_WORLD, help=f"world id (default {DEFAULT_WORLD})")
     ap.add_argument("--port", type=int, default=DEFAULT_PORT, help=f"the local site's port, for the URLs it prints (default {DEFAULT_PORT})")
-    ap.add_argument("--watch", action="store_true", help="keep running; re-run the pass when an export, Players.json or a changes file changes")
+    ap.add_argument("--watch", action="store_true", help="keep running; re-run the pass when an export, Players.json, data/inventory.json or a changes file changes")
     ap.add_argument("--interval", type=float, default=2.0, help="seconds between polls in --watch (default 2)")
     ap.add_argument("--check", action="store_true", help="verify only; write nothing")
     ap.add_argument("--downloads", default=None, help="folder to scan for fresh exports (default ~/Downloads; '' = none)")

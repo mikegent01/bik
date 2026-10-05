@@ -688,6 +688,32 @@ check('pickDataPath opens a folder picker and writes the choice into the url box
   const direct = await mod.syncFromWaluipedia({ options: { checkImages: false } });
   check('v1.7: with "check first" off the button applies at once (no question) — the automatic sync still asks', direct?.sync?.trigger === 'button' && asked.length === 0 && game.actors.get('Wa1aaaaaaaaaaaaa').toObject().system.attributes.hp.max === 30, JSON.stringify([direct?.sync?.trigger, asked.length]));
   settings.set('waluipedia-mass-import.syncConfirm', true);
+  // v1.7.1: the world remembers which packet it last APPLIED (not merely saw) and the export back says so —
+  // tools/spoils-to-changes.py tells "the table removed this item after seeing it" from "the packet never arrived" by it
+  const appliedRaw = settings.get('waluipedia-mass-import.syncLastApplied');
+  const applied = appliedRaw ? JSON.parse(appliedRaw) : null;
+  check('v1.7.1: an apply records {stamp, at, exportedAt} in syncLastApplied; lastSyncFacts() reads it back with the last stamp seen', applied?.stamp === direct.sync.stamp && /^\d{4}-\d{2}-\d{2}T/.test(applied.at) && mod.lastSyncFacts().applied?.stamp === direct.sync.stamp && mod.lastSyncFacts().seen === settings.get('waluipedia-mass-import.syncLastStamp'), JSON.stringify([applied, mod.lastSyncFacts()]));
+  const day = 86400000, t0 = Date.parse('2026-10-10T12:00:00Z');
+  check('v1.7.1: unreadExport is pure — nothing without an export, nothing once the archive read it, a gap inside a day is not overdue, older is', mod.unreadExport(null, '2026-10-04T17:21:43.770Z') === null && mod.unreadExport('2026-10-04T17:21:43.770Z', '2026-10-04T17:21:43.770Z') === null && mod.unreadExport('2026-10-04T17:00:00Z', '2026-10-04T17:21:43.770Z') === null && mod.unreadExport('2026-10-10T06:00:00Z', '2026-10-04T17:21:43.770Z', { now: t0 }).overdue === false && mod.unreadExport('2026-10-08T06:00:00Z', '2026-10-04T17:21:43.770Z', { now: t0 }).overdue === true && mod.unreadExport('2026-10-08T06:00:00Z', null, { now: t0 }).ageMs === t0 - Date.parse('2026-10-08T06:00:00Z'), JSON.stringify(mod.unreadExport('2026-10-08T06:00:00Z', '2026-10-04T17:21:43.770Z', { now: t0 })));
+  // the Foundry-only GM: the world exported itself back long ago, the packet in Data was built from an older export — a warning at load, once
+  const prevExportedAt = packetsJson.exportedAt;
+  packetsJson.exportedAt = '2020-01-01T00:00:00Z';
+  settings.set('waluipedia-mass-import.syncLastExport', '2020-02-01T00:00:00Z');
+  const unreadWarned = []; const prevWarnU = ui.notifications.warn; ui.notifications.warn = (m) => unreadWarned.push(m);
+  settings.set('waluipedia-mass-import.syncAuto', true);
+  const unreadRun = await mod.autoSync({ delay: 0 });
+  check('v1.7.1: at load, an export back the archive never read (newer than the export the packet was built from, older than a day) is said out loud — run start.py / the suite — and the sync itself still runs', unreadWarned.length === 1 && /unread by Waluipedia/.test(unreadWarned[0]) && /start\.py/.test(unreadWarned[0]) && unreadRun?.skipped === true, JSON.stringify([unreadWarned, unreadRun?.skipped]));
+  unreadWarned.length = 0;
+  settings.set('waluipedia-mass-import.syncLastExport', '2019-12-01T00:00:00Z');
+  await mod.autoSync({ delay: 0 });
+  check('v1.7.1: …and nothing when the archive has read it (the packet was built from an export at least as new as the last export back)', unreadWarned.length === 0, JSON.stringify(unreadWarned));
+  ui.notifications.warn = prevWarnU; packetsJson.exportedAt = prevExportedAt; settings.set('waluipedia-mass-import.syncLastExport', '');
+  // the export back carries what was applied, so the suite's manifest (and the spoils tool) can read it
+  const backed = await mod.exportBack({ reason: 'test' });
+  const backedText = backed ? [...dataTree.entries()].find(([k]) => k === backed.path)?.[1] : null;
+  const backedJson = backedText ? JSON.parse(typeof backedText === 'string' ? backedText : backedText.text ?? '{}') : null;
+  check('v1.7.1: the export back names the last packet applied (lastSync.applied.stamp) beside exportedBy', !!backed && backedJson?.lastSync?.applied?.stamp === direct.sync.stamp && /waluipedia-mass-import 1\.7\.1 \(test\)/.test(backedJson?.exportedBy ?? ''), JSON.stringify([backed, backedJson?.lastSync, backedJson?.exportedBy]));
+  settings.set('waluipedia-mass-import.syncAuto', false);
   settings.set('waluipedia-mass-import.syncAuto', false);
   check('automatic sync respects the setting (off → nothing)', (await mod.autoSync({ delay: 0 })) === null);
   game.user.isGM = false;
@@ -1013,8 +1039,22 @@ if (process.env.WMI_EXPORT) {
     for (const a of real.actors) { const doc = new Actor(a); game.actors.set(doc.id, doc); }
     const invalidBefore = game.actors.contents.reduce((n, a) => n + a.items.invalidDocumentIds.size, 0);
     check('real world: the export holds invalid embedded documents (the ones that made two actors FAIL)', invalidBefore === 7, String(invalidBefore));
+    // the spoils: what data/inventory.json says the party holds (tools/spoils-to-changes.py → actors/changes/spoils-<world>.json)
+    // reaches the table as "changed" rows that name the items, and after the import the items are on the sheets, flagged
+    const spoilEntries = mod.normalizeImport(packet).entries;
+    const spoilBefore = mod.snapshotWorld(game.actors.contents);
+    const spoilDry = await mod.importPayload(packet, { checkImages: false, progress: false, dryRun: true });
+    const spoilRows = mod.syncChanges(spoilEntries, spoilBefore, spoilBefore, spoilDry);
+    const hjRow = spoilRows.find((r) => r.id === 'Qir5aDX8bkL5lt1c');
+    const hjPlan = (hjRow?.embedded ?? []).concat(hjRow?.notes ?? []).join(' | ');
+    check('real packet: the Feyward spoils are "changed" rows before anything is written — Hjumpik gains the ring, the key, the book', !!hjRow && hjRow.status !== 'unchanged' && /OC Soul Ring/.test(hjPlan) && /Morel/.test(hjPlan) && /Revised History/.test(hjPlan), `${hjRow?.status}: ${hjPlan.slice(0, 300)}`);
     const r4 = await mod.importPayload(packet, { checkImages: false, progress: false });
     const moved = r4.updated.filter((u) => u.changed).length;
+    const hjLive = game.actors.contents.find((a) => a.id === 'Qir5aDX8bkL5lt1c');
+    const spoilsOn = (a) => (a ? a.items.contents.map((i) => i.toObject()).filter((i) => i.flags?.waluipedia?.inventoryItem) : []);
+    const hjSpoils = spoilsOn(hjLive).map((i) => i.flags.waluipedia.inventoryItem).sort();
+    check('real packet: after the import Hjumpik carries the seven registry items, each flagged with its inventory id', hjSpoils.length === 7 && hjSpoils.includes('oc_soul_ring') && hjSpoils.includes('raventree_signet_ring') && hjSpoils.includes('woodfellow_library_card'), hjSpoils.join(', '));
+    check('real packet: Waluigi has the Colour Division handcuffs, Toad Lee his diary pages', spoilsOn(game.actors.contents.find((a) => a.id === 'BmWNDwbxPQHU3Bbn')).some((i) => i.flags.waluipedia.inventoryItem === 'colour_division_handcuffs') && spoilsOn(game.actors.contents.find((a) => a.id === 'mEqlzuZoafEdiApl')).some((i) => i.flags.waluipedia.inventoryItem === 'toad_lee_diary_pages'));
     const coloured = game.folders.contents.filter((f) => f.color).length;
     check(`real packet: imports over the real world without failures (${r4.created.length} created, ${r4.updated.length} updated, ${r4.replaced.length} replaced)`, r4.failed.length === 0, JSON.stringify(r4.failed.slice(0, 3)));
     const eagerLive = game.actors.contents.find((a) => a.name === 'Eager');

@@ -283,19 +283,44 @@ sheet and nothing else:
    `xpAwards` reach the sheets without anyone typing numbers. Green T is the
    listed exemption (the GM runs him at Tea Merchant 6 / Bard 6, 100000 XP).
 
-Spoils of war travel as dated changes files in
+Spoils of war travel as changes files in
 `Reputation-Matrix2/actors/changes/` (`addItems` by id, scoped with
 `appliesTo.exportedAtOrBefore` to the export they were written against, so a
 later export — which already carries the table's version — is not
-re-touched). The Grove file adds Eager's *Electric Sphere* (trinket, flagged
-to `tech_grove_electric_sphere`, mechanics unestablished) and Feyward Dan's
-*Injury: Sprained Thumb* (row 59, one week, flagged to the Permanent Injury
-Table).
+re-touched). Two kinds:
+
+- **Generated — the registry's.** Filing an event registers what was kept
+  in `Reputation-Matrix2/data/inventory.json` (Step 4b of the filing
+  process: one `items` entry, one `inventories[<article id>]` row).
+  `tools/spoils-to-changes.py` — run by the suite before the changes step —
+  writes `changes/spoils-<world>.json` from the holdings the table's export
+  lacks: type off the registry words (key/book/card → loot, ring/cloak →
+  equipment, potion → consumable, kit → tool; `foundry: {type, subtype,
+  img, system}` to override), icon off a keyword table (always in the image
+  library), description from summary + features + obtained + status +
+  Waluigi's line, `flags.waluipedia.inventoryItem` so the next export says
+  the table has it. A sheet item under another name is matched by alias,
+  possessive, leading *The*, trailing `(…)` or the flag and never doubled.
+  An item the GM deleted after the packet was applied (the export back
+  carries `lastSync.applied`, module 1.7.1) goes under `declined` and is not
+  offered again until the row is removed. The first run (2026-10-05) put the
+  Feyward spoils on the sheets — Hjumpik's OC Soul Ring, Raventree Signet
+  Ring, Morel's key, Steely's fragments, the Book of Revised History, the
+  Woodfellow library card and the wolf-pelt onesie; Waluigi's Colour
+  Division handcuffs; Toad Lee's diary pages; Remi's Oracle's Deck; Markop's
+  Black Crystal; Eager's Tea Book; Bowser's wand and badge — and found six
+  already there under the GM's names (Pepper Spray, Dagger, the Dinner
+  Party Revolver, the Mirror in custody, the Trowel, the 'Wally' kit).
+- **Hand-written — dated.** For what the registry does not model: the Grove
+  file adds Eager's *Electric Sphere* (trinket, flagged to
+  `tech_grove_electric_sphere`, mechanics unestablished) and Feyward Dan's
+  *Injury: Sprained Thumb* (row 59, one week, flagged to the Permanent
+  Injury Table).
 
 `tools/sheets-suite.py` runs the whole loop — intake, split, promote,
-changes, organize, check, build, combine, publish, verify — once, under `--watch`
+spoils, changes, organize, check, build, combine, publish, verify — once, under `--watch`
 (what `start.py`'s **Character sheets** tick starts; it re-runs when an
-export, `Players.json` or a changes file changes) or as `--check`
+export, `Players.json`, `data/inventory.json` or a changes file changes) or as `--check`
 (read-only, run by `tools/check-all.py`). The packets it combines
 (`worlds/<world>/import.json`, `worlds/<world>/players-import.json`) are
 git-ignored and served by `start.py` with `Access-Control-Allow-Origin: *`
@@ -380,6 +405,39 @@ plays → export back → suite → GitHub.*
   the GM's Foundry no longer has (checked against
   `tools/item sheet examples/image paths.txt`); the organizer applies it, the
   import carries it, the export confirms it.
+
+**When the GM only ever runs Foundry** (never `start.py`, never the suite).
+Half the loop still works and the other half says so:
+
+* *Into Foundry* — nothing is lost. With no packet in `Data` the module's
+  Sync falls back to the launcher, then to **GitHub** (the branch's
+  `manifest.json` + cast + era packets, merged in the client). It still runs
+  as a dry run first and asks *Apply / Not now / Skip*; actors the table
+  changed after the packet was built are **kept** (`_stats.modifiedTime`
+  newer than the packet copy), so a packet from last week cannot roll back
+  last night's session. What the GitHub packet lacks is only what the table
+  did since the archive last read an export — which is the other half.
+* *Out of Foundry* — the world still exports itself back into
+  `Data/npc/waluipedia/<world>/export/` two quiet minutes after a change,
+  but nothing reads it: the mirror, the player sheets, the spoils check and
+  the ledger pins all stop at the last export the archive saw. From module
+  1.7.1 the module notices: at world load it compares its last export back
+  with the export the packet in front of it was built from (`exportedAt` in
+  `packets.json` / `manifest.json`). An unread export older than a day is
+  a yellow toast — *N day(s) of table changes unread by Waluipedia — run
+  start.py (or tools/sheets-suite.py) on the archive side* — younger ones a
+  console line. Running `start.py` once with **Character sheets** ticked
+  reads the waiting export, rebuilds the packet and (with *Two-way with
+  GitHub*) commits it; the next Sync then has only the archive's real
+  changes to ask about.
+* *A new NPC the archive filed meanwhile* arrives the same way: the article
+  in `characters.json` → `build-character-sheets.py` → a cast sheet (CR 0
+  with a club and an *As Filed* feature when the article says nothing
+  more, `icons/svg/mystery-man.svg` until a portrait exists, the folder read
+  off the affiliation) → the packet → a **new** row in the Sync question.
+  Verified 2026-10-05 with a throwaway *Test Fairy* article: 157 sheets
+  built, the packet grew to 330, the row read `new · Rakasha & the Feywild`
+  and the article's removal took it out again on the next build.
 
 ## Decisions
 

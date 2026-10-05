@@ -225,6 +225,16 @@ check("the pass organizes after promote + changes and before check / build / com
       suite.TOOLS.get("organize") == "tools/organize-actors.py"
       and 0 < one_pass_src.find('TOOLS["promote"]]') < one_pass_src.find("step_changes(") < one_pass_src.find('TOOLS["organize"]') < one_pass_src.find('"check", mirror') < one_pass_src.find('TOOLS["build"]') < one_pass_src.find("step_combine("))
 check("--check runs the organizer read-only", '["--check"]' in one_pass_src.split('TOOLS["organize"]')[1].split("\n")[0])
+# ---- the spoils step: the registry's holdings become a generated changes file before the changes step applies it ----
+check("the pass generates the spoils file after promote and before the changes step (so the same pass applies it)",
+      suite.TOOLS.get("spoils") == "tools/spoils-to-changes.py"
+      and 0 < one_pass_src.find('TOOLS["promote"]]') < one_pass_src.find("step_spoils(") < one_pass_src.find("step_changes("))
+check("--check runs the spoils tool read-only (the generated file must already be current)", '"--check"' in suite_src[suite_src.find("def step_spoils("):suite_src.find("def step_changes(")])
+check("a filed spoil (data/inventory.json) is a watch input — the registry line alone re-runs the pass", suite.INVENTORY_JSON in suite.watch_inputs("midlands", downloads=os.devnull))
+check("the generated spoils file is scoped to the current export and carries the registry flag on every item",
+      (lambda d: d.get("appliesTo", {}).get("world") == "midlands" and d["appliesTo"]["exportedAtOrBefore"] == json.load(open(ROOT / "Reputation-Matrix2/actors/worlds/midlands/manifest.json", encoding="utf-8"))["exportedAt"]
+       and all(it.get("flags", {}).get("waluipedia", {}).get("inventoryItem") for c in d["changes"] for it in c.get("addItems", [])))
+      (json.load(open(ROOT / "Reputation-Matrix2/actors/changes/spoils-midlands.json", encoding="utf-8"))))
 check("the scheme the organizer and combine read is committed", (ROOT / "Reputation-Matrix2/actors/folders.json").exists())
 
 # ---- Windows: a piped stdout is cp1252 there, and cp1252 cannot spell "→" ----
@@ -410,8 +420,8 @@ with tempfile.TemporaryDirectory() as tmp:
     try:
         st = suite.git_state()
         check("git_state: branch, upstream, clean, in step", st["ok"] and st["branch"] == "main" and st["upstream"] == "origin/main" and st["dirty"] == [] and st["behind"] == 0 and st["ahead"] == 0, str(st))
-        check("git_sync_paths names only what the suite writes (mirror, cast, sheets.json, root export)",
-              suite.git_sync_paths("midlands") == ["Reputation-Matrix2/actors/worlds/midlands", "Reputation-Matrix2/actors/cast", "data/sheets.json", "midlands-all-actors.json"])
+        check("git_sync_paths names only what the suite writes (mirror, cast, sheets.json, root export, generated spoils file)",
+              suite.git_sync_paths("midlands") == ["Reputation-Matrix2/actors/worlds/midlands", "Reputation-Matrix2/actors/cast", "data/sheets.json", "midlands-all-actors.json", "Reputation-Matrix2/actors/changes/spoils-midlands.json"])
         pulled, msg = suite.git_pull("midlands")
         check("git_pull: nothing to pull says so and does nothing", pulled is False and "current with origin/main" in msg, msg)
         # GitHub moved (clone a pushes a module bump): the suite fast-forwards

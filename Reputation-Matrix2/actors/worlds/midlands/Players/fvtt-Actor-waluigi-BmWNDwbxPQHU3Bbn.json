@@ -8037,6 +8037,86 @@
       },
       "folder": null,
       "sort": 0
+    },
+    {
+      "_id": "JeWjn3slniGyXEtH",
+      "name": "Colour Division Handcuffs",
+      "type": "equipment",
+      "img": "icons/sundries/survival/cuffs-hand.webp",
+      "system": {
+        "description": {
+          "value": "<p>A pair of Iron Legion handcuffs put on Waluigi by the Colour Division on the upper landing of the Overgrown Manor when he and Toad Lee were taken as leverage against Hjumpik’s overdue Aegis Magi contract (2 Aethel, 922 BF, Feyward clock). Waluigi slipped them immediately and stood there wearing them anyway, because there is no theatre in an empty cuff.</p><ul><li>Cuffs rather than mage cages — Hjumpik’s condition, accepted without argument, which worried Waluigi more than a refusal would have.</li><li>Slipped at once; worn by choice for the theatre of it.</li><li>Still on Waluigi’s wrists, open, at the end of the session; the Division has not noticed.</li></ul><p><em>Obtained:</em> Produced by Red after Hjumpik put a hand on his warhammer and said ‘No cages. They’re not animals. Just hold them.’ The Division agreed without argument.</p><p><em>On the record:</em> slipped at once; worn by choice.</p><blockquote>I slipped the handcuffs immediately and stood there wearing them anyway, because there is no theatre in an empty cuff. — W.</blockquote><p><em>Waluipedia inventory <code>colour_division_handcuffs</code>, held by Waluigi — filed from <code>feyward_i_cant_afford_not_to_care</code>. Mechanics as the table rules them; the archive records custody.</em></p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia inventory — Iron Legion Issue",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "identifier": "colour-division-handcuffs",
+        "quantity": 1,
+        "weight": {
+          "value": 6,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "properties": [],
+        "attunement": "",
+        "attuned": false,
+        "equipped": false,
+        "rarity": "",
+        "cover": null,
+        "crewed": false,
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "armor": {
+          "value": null,
+          "dex": null
+        },
+        "hp": {
+          "value": 0,
+          "max": 0,
+          "dt": null,
+          "conditions": ""
+        },
+        "speed": {
+          "value": null,
+          "conditions": "",
+          "units": "ft"
+        },
+        "strength": null,
+        "proficient": null,
+        "type": {
+          "value": "trinket",
+          "baseItem": ""
+        },
+        "activities": {}
+      },
+      "effects": [],
+      "flags": {
+        "waluipedia": {
+          "inventoryItem": "colour_division_handcuffs",
+          "holder": "waluigi",
+          "event": "feyward_i_cant_afford_not_to_care",
+          "filedOn": "2026-10-05",
+          "note": "slipped at once; worn by choice"
+        }
+      },
+      "folder": null,
+      "ownership": {
+        "default": 0
+      }
     }
   ],
   "effects": [],

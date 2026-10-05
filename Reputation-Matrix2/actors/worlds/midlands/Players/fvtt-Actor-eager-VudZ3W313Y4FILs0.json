@@ -12139,6 +12139,58 @@
         "default": 0
       },
       "_id": "d5A0eVW8QiwtM10Y"
+    },
+    {
+      "_id": "U3SZCBHFHYTKmk3R",
+      "name": "Tea Leaf Syndicate Tea Book",
+      "type": "loot",
+      "img": "icons/sundries/books/book-embossed-bound-brown.webp",
+      "system": {
+        "description": {
+          "value": "<p>A refined criminal tea text found/read in Tymnas’s cottage. Eager learned nothing from it. Waluigi learned that tea people remain insufferably specific.</p><ul><li>Contains Tea Leaf Syndicate philosophy and recipes.</li><li>May contain specialized preparations not found in polite markets.</li><li>Teaches refinement, crime, and leaf arrogance.</li></ul><p><em>Obtained:</em> Found/read in Tymnas’s cottage during the cookie siege rest period.</p><p><em>On the record:</em> read; learned nothing.</p><blockquote>Tea people made hot leaf water into doctrine. Waluigi is annoyed and impressed. — W.</blockquote><p><em>Waluipedia inventory <code>tea_syndicate_book</code>, held by Eager — filed from <code>shadow_estate_spotlight_cookie_cottage</code>. Mechanics as the table rules them; the archive records custody.</em></p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia inventory — Uncommon",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "identifier": "tea-leaf-syndicate-tea-book",
+        "quantity": 1,
+        "weight": {
+          "value": 1,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "properties": [],
+        "rarity": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "effects": [],
+      "flags": {
+        "waluipedia": {
+          "inventoryItem": "tea_syndicate_book",
+          "holder": "eager",
+          "event": "shadow_estate_spotlight_cookie_cottage",
+          "filedOn": "2026-10-05",
+          "note": "read; learned nothing"
+        }
+      },
+      "folder": null,
+      "ownership": {
+        "default": 0
+      }
     }
   ],
   "effects": [

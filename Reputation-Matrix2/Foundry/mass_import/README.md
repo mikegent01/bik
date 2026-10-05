@@ -10,8 +10,18 @@ existing ones updated in place (same `_id`), every image path checked, and a
 report. Together with `tools/foundry-bridge.py` this turns "add characters to
 the game" into a loop of *export → edit in the repo → import*.
 
-Module id: `waluipedia-mass-import`, version 1.7. Core v12–v14, any game
+Module id: `waluipedia-mass-import`, version 1.7.1. Core v12–v14, any game
 system (built and tested against dnd5e 5.x on core v14).
+
+## 1.7.1 — the spoils arrive, the export says what was applied, the Foundry-only GM is told
+
+Three small things, all on the record's side of the loop:
+
+| Now | How |
+| --- | --- |
+| **The record's loot reaches the sheet.** | Filing an event now registers what was picked up in `Reputation-Matrix2/data/inventory.json`; `tools/spoils-to-changes.py` turns the holdings the exported sheets lack into `actors/changes/spoils-<world>.json`, the suite applies it, the packet carries the items, and the Sync shows them as changed rows — `Hjumpik Deldkur — + Mystic Morel's Feyward Key, Steely's Rusted Fragments, The OC Soul Ring, The Raventree Signet Ring, …` — and asks first, as always. Each item carries `flags.waluipedia.inventoryItem`, so the next export tells the tool the table has it. |
+| **The export back says what was applied.** | After a real apply the world remembers `{stamp, at, exportedAt}` of that packet (`syncLastApplied`), and every export back carries it as `lastSync.applied` next to `exportedBy`. The suite keeps it in `manifest.json`; the spoils tool uses it to tell *the table removed this item after seeing it* (declined — not offered again) from *the packet never got there* (offered again). |
+| **A GM who only ever runs Foundry hears about it.** | The module works without the suite: the packet comes from GitHub, Sync asks first, the table's newer actors are kept. What breaks silently is the other direction — the world exports itself back into `Data/npc/waluipedia/<world>/export/`, and nothing reads it. At world load the module compares its last export back with the export the packet in front of it was built from (`packets.json` / `manifest.json` `exportedAt`); an unread export older than a day is a yellow toast once per load: *N day(s) of table changes unread by Waluipedia — run start.py (or tools/sheets-suite.py) on the archive side*; younger ones are a console line. Nothing is lost meanwhile — the export waits where it was written. |
 
 ## 1.7 — ask first, keep what the table changed, flow back, update itself
 

@@ -11681,6 +11681,58 @@
         "default": 0,
         "7BMT1Aux3QVtq027": 3
       }
+    },
+    {
+      "_id": "YRBYUJS7sy1VitxS",
+      "name": "Toad Lee’s Aurelian Diary Pages",
+      "type": "loot",
+      "img": "icons/sundries/documents/document-bound-white-tan.webp",
+      "system": {
+        "description": {
+          "value": "<p>Pages and notes from Lady Aurelian’s diary, preserved by Toad Lee because someone in the Feywild group had to read the plot.</p><ul><li>Explains Grafting lore.</li><li>Connects Iron Legion observation to Corvinarus blood magic.</li><li>Proof that reading is a combat skill.</li></ul><p><em>On the record:</em> carried notes.</p><blockquote>Toad Lee fell out a window, yes. He also read the important thing. Both facts can coexist. — W.</blockquote><p><em>Waluipedia inventory <code>toad_lee_diary_pages</code>, held by Toad Lee. Mechanics as the table rules them; the archive records custody.</em></p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia inventory — Rare Lore Evidence",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "identifier": "toad-lees-aurelian-diary-pages",
+        "quantity": 1,
+        "weight": {
+          "value": 1,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "properties": [],
+        "rarity": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "effects": [],
+      "flags": {
+        "waluipedia": {
+          "inventoryItem": "toad_lee_diary_pages",
+          "holder": "toad_lee",
+          "event": null,
+          "filedOn": "2026-10-05",
+          "note": "carried notes"
+        }
+      },
+      "folder": null,
+      "ownership": {
+        "default": 0
+      }
     }
   ],
   "effects": [

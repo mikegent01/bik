@@ -54,7 +54,12 @@
         "Markop used the Trowel of Retrieving to smash a stuck window and create an escape route."
       ],
       "waluigi": "A tool that retrieves also retrieves the party from bad architecture. Waluigi approves of promotion by impact.",
-      "description": "Waluigi is filing the Trowel of Retrieving as magic tool, not because every object deserves a museum label, but because this one keeps touching decisions that later become everybody's problem. Most magic items try to look mystical. This one looks like it has work to do, which makes it more honest than half the nobles in the Shadow Estate. Its practical value is simple enough to state and difficult enough to respect: it retrieves, digs, manipulates, and when necessary converts windows into exits by applied Markop logic. The listed rarity, Uncommon / Highly Useful, should be read as a warning about narrative weight rather than market price. Wario would price it incorrectly on purpose; Waluigi is pricing the consequences. The item history matters too. Tymnas’s tool network has always been suspiciously useful, and Markop using this trowel to smash a stuck window during the spotlight chase proved that gardening implements can become escape infrastructure. In this archive, an object is never only an object once it changes who runs, who lies, who survives, or who gets blamed. Current handling guidance: remember that tools have politics in the Shadow Estate. A useful tool from a useful groundskeeper is never just hardware. If the party ignores that guidance, Waluigi will not be surprised, but Waluigi will be annoyed in advance."
+      "description": "Waluigi is filing the Trowel of Retrieving as magic tool, not because every object deserves a museum label, but because this one keeps touching decisions that later become everybody's problem. Most magic items try to look mystical. This one looks like it has work to do, which makes it more honest than half the nobles in the Shadow Estate. Its practical value is simple enough to state and difficult enough to respect: it retrieves, digs, manipulates, and when necessary converts windows into exits by applied Markop logic. The listed rarity, Uncommon / Highly Useful, should be read as a warning about narrative weight rather than market price. Wario would price it incorrectly on purpose; Waluigi is pricing the consequences. The item history matters too. Tymnas’s tool network has always been suspiciously useful, and Markop using this trowel to smash a stuck window during the spotlight chase proved that gardening implements can become escape infrastructure. In this archive, an object is never only an object once it changes who runs, who lies, who survives, or who gets blamed. Current handling guidance: remember that tools have politics in the Shadow Estate. A useful tool from a useful groundskeeper is never just hardware. If the party ignores that guidance, Waluigi will not be surprised, but Waluigi will be annoyed in advance.",
+      "foundry": {
+        "aliases": [
+          "Trowel of Returning"
+        ]
+      }
     },
     "oracle_deck": {
       "name": "Oracle’s Deck",
@@ -163,7 +168,12 @@
         "Markop later confiscated or redirected the moral disaster."
       ],
       "waluigi": "Some weapons wound the room before the bullet leaves.",
-      "description": "Waluigi is filing Green T’s Revolver as firearm / social problem, not because every object deserves a museum label, but because this one keeps touching decisions that later become everybody's problem. Some weapons enter a scene by firing. This one enters a scene by making everyone morally worse before the trigger is pulled. Its practical value is simple enough to state and difficult enough to respect: it provides quiet lethal leverage and a terrible teaching tool in Green T’s hands. The listed rarity, Rare in This Context, should be read as a warning about narrative weight rather than market price. Wario would price it incorrectly on purpose; Waluigi is pricing the consequences. The item history matters too. It became central during Remi’s tanuki crisis, where trigger discipline, mercy, mentorship, and trauma all crowded around one gun. In this archive, an object is never only an object once it changes who runs, who lies, who survives, or who gets blamed. Current handling guidance: if Green T hands someone this weapon, ask what lesson he is teaching and whether the lesson should be illegal. If the party ignores that guidance, Waluigi will not be surprised, but Waluigi will be annoyed in advance."
+      "description": "Waluigi is filing Green T’s Revolver as firearm / social problem, not because every object deserves a museum label, but because this one keeps touching decisions that later become everybody's problem. Some weapons enter a scene by firing. This one enters a scene by making everyone morally worse before the trigger is pulled. Its practical value is simple enough to state and difficult enough to respect: it provides quiet lethal leverage and a terrible teaching tool in Green T’s hands. The listed rarity, Rare in This Context, should be read as a warning about narrative weight rather than market price. Wario would price it incorrectly on purpose; Waluigi is pricing the consequences. The item history matters too. It became central during Remi’s tanuki crisis, where trigger discipline, mercy, mentorship, and trauma all crowded around one gun. In this archive, an object is never only an object once it changes who runs, who lies, who survives, or who gets blamed. Current handling guidance: if Green T hands someone this weapon, ask what lesson he is teaching and whether the lesson should be illegal. If the party ignores that guidance, Waluigi will not be surprised, but Waluigi will be annoyed in advance.",
+      "foundry": {
+        "aliases": [
+          "The Dinner Party Revolver"
+        ]
+      }
     },
     "simple_dagger": {
       "name": "Simple Dagger",
@@ -189,7 +199,12 @@
         "It missed and documented the death of the plan."
       ],
       "waluigi": "Not every item needs to be legendary. Some are punctuation.",
-      "description": "Waluigi is filing the Simple Dagger as weapon, not because every object deserves a museum label, but because this one keeps touching decisions that later become everybody's problem. Waluigi respects common objects that become historically funny. This dagger is one of them. Its practical value is simple enough to state and difficult enough to respect: it can cut, threaten, or be thrown with embarrassing results. The listed rarity, Common, should be read as a warning about narrative weight rather than market price. Wario would price it incorrectly on purpose; Waluigi is pricing the consequences. The item history matters too. Eager threw it during the hellhound flank plan; it missed, struck the floor, and memorialized the collapse of a perfectly reasonable tactic. In this archive, an object is never only an object once it changes who runs, who lies, who survives, or who gets blamed. Current handling guidance: do not confuse common with irrelevant. Sometimes the sound of failure is metal on stone. If the party ignores that guidance, Waluigi will not be surprised, but Waluigi will be annoyed in advance."
+      "description": "Waluigi is filing the Simple Dagger as weapon, not because every object deserves a museum label, but because this one keeps touching decisions that later become everybody's problem. Waluigi respects common objects that become historically funny. This dagger is one of them. Its practical value is simple enough to state and difficult enough to respect: it can cut, threaten, or be thrown with embarrassing results. The listed rarity, Common, should be read as a warning about narrative weight rather than market price. Wario would price it incorrectly on purpose; Waluigi is pricing the consequences. The item history matters too. Eager threw it during the hellhound flank plan; it missed, struck the floor, and memorialized the collapse of a perfectly reasonable tactic. In this archive, an object is never only an object once it changes who runs, who lies, who survives, or who gets blamed. Current handling guidance: do not confuse common with irrelevant. Sometimes the sound of failure is metal on stone. If the party ignores that guidance, Waluigi will not be surprised, but Waluigi will be annoyed in advance.",
+      "foundry": {
+        "aliases": [
+          "Dagger"
+        ]
+      }
     },
     "tea_syndicate_book": {
       "name": "Tea Leaf Syndicate Tea Book",
@@ -792,7 +807,12 @@
         "Kept in Lyranth’s workshop."
       ],
       "waluigi": "Art should not require a rescue party.",
-      "description": "Waluigi is filing the Lyranth’s Sculptor Chisels as art tools / petrification adjunct, not because every object deserves a museum label, but because this one keeps touching decisions that later become everybody's problem. It is a minor object only until the archive proves otherwise, and Waluigi has lived long enough to distrust minor objects. Its practical value is simple enough to state and difficult enough to respect: it gives its holder a concrete prop in a world where props become leverage, evidence, or debts. The listed rarity, Horrifying Artisan Set, should be read as a warning about narrative weight rather than market price. Wario would price it incorrectly on purpose; Waluigi is pricing the consequences. The item history matters too. The current public record places it with lyranth, with related files still developing. In this archive, an object is never only an object once it changes who runs, who lies, who survives, or who gets blamed. Current handling guidance: file it carefully and do not assume Wario has not already appraised it. If the party ignores that guidance, Waluigi will not be surprised, but Waluigi will be annoyed in advance."
+      "description": "Waluigi is filing the Lyranth’s Sculptor Chisels as art tools / petrification adjunct, not because every object deserves a museum label, but because this one keeps touching decisions that later become everybody's problem. It is a minor object only until the archive proves otherwise, and Waluigi has lived long enough to distrust minor objects. Its practical value is simple enough to state and difficult enough to respect: it gives its holder a concrete prop in a world where props become leverage, evidence, or debts. The listed rarity, Horrifying Artisan Set, should be read as a warning about narrative weight rather than market price. Wario would price it incorrectly on purpose; Waluigi is pricing the consequences. The item history matters too. The current public record places it with lyranth, with related files still developing. In this archive, an object is never only an object once it changes who runs, who lies, who survives, or who gets blamed. Current handling guidance: file it carefully and do not assume Wario has not already appraised it. If the party ignores that guidance, Waluigi will not be surprised, but Waluigi will be annoyed in advance.",
+      "foundry": {
+        "aliases": [
+          "Lyranth's Chisel"
+        ]
+      }
     },
     "toadburt_entropy_ring": {
       "name": "Toadburt’s Entropy Ring",
@@ -978,7 +998,184 @@
         "Offered publicly in the heir’s war room: ‘I can put on a fake mustache. Or a nose.’ Answered by Hjumpik: ‘You’re in the same outfit. You’re not fooling anyone.’"
       ],
       "waluigi": "The mustache grew back. The legend never had to. WAH.",
-      "description": "Waluigi is filing the disguise kit as proof of concept, and the concept is that Waluigi is an actor of considerable range betrayed by his surroundings. The kit itself is flawless: a forged identification card that would pass a checkpoint, spirit gum of professional tack, noses arranged in ascending order of believability. Its failure record is not the kit’s fault. Waluigi in another outfit is Wally, scout of the 4th Recon Division, master of the crate-lid school of surveillance. Waluigi in the SAME outfit is Waluigi with a nose on, which fools nobody, which Hjumpik stated aloud in a war room, in front of noses. The pouch remains in pristine condition. Given the right war, the right checkpoint, and the right hat, the kit will rise again. One of the kit's [[prop:prop_ebot_passport|forged travel documents]] survives in the archive — issued at Mount Ebot, photographed as nobody in particular, never once presented to a checkpoint. Handling guidance: do not laugh at the kit. The kit has done things. If the party ignores this guidance, Waluigi will not be surprised, but Waluigi will make a note of it on a fake mustache application form."
+      "description": "Waluigi is filing the disguise kit as proof of concept, and the concept is that Waluigi is an actor of considerable range betrayed by his surroundings. The kit itself is flawless: a forged identification card that would pass a checkpoint, spirit gum of professional tack, noses arranged in ascending order of believability. Its failure record is not the kit’s fault. Waluigi in another outfit is Wally, scout of the 4th Recon Division, master of the crate-lid school of surveillance. Waluigi in the SAME outfit is Waluigi with a nose on, which fools nobody, which Hjumpik stated aloud in a war room, in front of noses. The pouch remains in pristine condition. Given the right war, the right checkpoint, and the right hat, the kit will rise again. One of the kit's [[prop:prop_ebot_passport|forged travel documents]] survives in the archive — issued at Mount Ebot, photographed as nobody in particular, never once presented to a checkpoint. Handling guidance: do not laugh at the kit. The kit has done things. If the party ignores this guidance, Waluigi will not be surprised, but Waluigi will make a note of it on a fake mustache application form.",
+      "foundry": {
+        "aliases": [
+          "Identity Kit: 'Wally'"
+        ]
+      }
+    },
+    "raventree_signet_ring": {
+      "name": "The Raventree Signet Ring",
+      "type": "Manor Key / Connection Artifact",
+      "rarity": "Major Artifact",
+      "icon": "💍",
+      "visibility": "known",
+      "summary": "A signet ring found in the grass on a table in Lady Aurelian’s dark bedroom and recognised by Hjumpik on sight. It can create and destroy connections between the fractured manors: it can speed the ritual of opening the portal, or sever the link entirely. In Hjumpik’s pocket since ~19 Harvestide, 1040 BF (Feyward time).",
+      "relatedArticles": [
+        "feyward_dark_rooms_and_balcony_planning",
+        "hjumpik",
+        "lady_aurelian"
+      ],
+      "accent": "#1b1530",
+      "color": "#d8b45a",
+      "obtained": "Hjumpik bumped into a table in the dark, squished something that smelled strong, reached into the grass and found the ring under it.",
+      "features": [
+        "Creates or destroys connections between the manors — a key that can lock and unlock doors, install new ones and take old ones off their frames.",
+        "Can accelerate the portal-opening ritual, or sever the connection outright.",
+        "The Book of Revised History, found the same hour, warns the manors must not be combined while a star shard is in play; the ring can honour that warning or ignore it.",
+        "Not the OC Soul Ring — that one came off the false Lady’s finger four nights later and is a different object."
+      ],
+      "history": [
+        "Found on a table in Lady Aurelian’s overgrown bedroom, ~19 Harvestide, 1040 BF.",
+        "Recognised by Hjumpik immediately; Waluigi records that his reading of its functions was correct.",
+        "Carried in Hjumpik’s pocket since, shown to nobody — including the Colour Division, who were bought ten minutes with it unseen."
+      ],
+      "waluigi": "The ring does not have an opinion about which function is correct. The question is not what the ring can do. The question is who gets to decide what the ring does.",
+      "description": "Waluigi is filing the Raventree Signet Ring as a manor key and not as jewellery, because a key that can also remove the door belongs in the custody column and not the treasure column. It was found where chaos left it, or where Aurelian arranged for it to be found, or where the house put it; Waluigi holds all three theories and likes none of them. Its two functions — merge and sever — are the two ends of the Feyward crisis, and the decision about which one to use is now the single most important decision in the party’s hands. The hands are Hjumpik’s. He has not hjumped to it.",
+      "foundry": {
+        "type": "equipment",
+        "subtype": "trinket",
+        "img": "icons/equipment/finger/ring-band-engraved-lines-gold.webp",
+        "weight": 0
+      }
+    },
+    "book_of_revised_history": {
+      "name": "The Book of Revised History",
+      "type": "Book / Historical Intelligence",
+      "rarity": "Unique Document",
+      "icon": "📕",
+      "visibility": "known",
+      "summary": "A book Hjumpik picked out of the vegetation by the couch in Aurelian’s rooms and pocketed like a receipt from a shop. It records Raventree Manor in the 980s BF as a thriving academic centre where Toads, orcs and lightning professors exchanged ideas freely, a proto-Liberated Toads movement there ‘enlightened’ by the Iron Legion and then the Mages Guild, and a warning that the manors must not be combined while a star shard is in play.",
+      "relatedArticles": [
+        "feyward_dark_rooms_and_balcony_planning",
+        "hjumpik",
+        "waluigi"
+      ],
+      "accent": "#2a1a12",
+      "color": "#c9803a",
+      "obtained": "Resting on or near the couch, partly buried in leaves, not destroyed; Hjumpik identified it, examined it, handed it to Waluigi to read, and put it in his pocket.",
+      "features": [
+        "Raventree in the 980s BF was a school, not a horror: Toads, orcs and lightning professors in free exchange.",
+        "A proto-Liberated Toads movement at Raventree was ‘enlightened’ — suppressed — by the Iron Legion and then the Mages Guild, sixty years before Order 120.",
+        "The manors must NOT be combined while a star shard is in play; the Oracle’s plan requires exactly that.",
+        "Hjumpik’s level of engagement on reading it: background lore. Waluigi’s: among the most important intelligence of the Feyward campaign."
+      ],
+      "history": [
+        "Found in the vegetation of Lady Aurelian’s rooms, ~19 Harvestide, 1040 BF.",
+        "Read in full by Waluigi, who reproduced the passages in the session record.",
+        "Carried by Hjumpik since."
+      ],
+      "waluigi": "My colleagues have a persistent, infuriating habit of finding historically critical documents and treating them like grocery lists.",
+      "description": "Waluigi is filing the Book of Revised History as historical intelligence because it is the only document in the archive that puts the Legion–Guild axis sixty years before the current crisis, at the same manor, crushing the same kind of movement. The vocabulary changes. The boot does not. The book also carries the one warning that bears directly on the Raventree Signet Ring found minutes later: do not combine the manors. The two objects live in the same pocket, which is either poetry or a filing error.",
+      "foundry": {
+        "type": "loot",
+        "img": "icons/sundries/books/book-embossed-bound-brown.webp",
+        "weight": 3
+      }
+    },
+    "woodfellow_library_card": {
+      "name": "Woodfellow Library Card",
+      "type": "Library Card / Access Token",
+      "rarity": "Rare Credential",
+      "icon": "🪪",
+      "visibility": "known",
+      "summary": "A card to Woodfellow’s library in the Feyward manor, given to Hjumpik by the goblin patron Artameer Fellow during the Revel crisis (~18 Harvestide, 1040 BF). Woodfellow issues cards only to people he assesses as genuinely knowledgeable; the return policy is one week, or the borrower becomes a book.",
+      "relatedArticles": [
+        "the_feyward_revel_crisis_poison_plants_and_frozen_diplomacy",
+        "the_feyward_revel_and_the_book_of_many_things",
+        "hjumpik",
+        "wario"
+      ],
+      "accent": "#17261a",
+      "color": "#8fd19e",
+      "obtained": "Given to Hjumpik in the library after he found ‘Concerning the Nature and Sustenance of Revels Eternal’; Artameer Fellow is the patron whose previous card Wario stole to check out the Feyward Book of Many Things.",
+      "features": [
+        "Access to Woodfellow’s library and its rare fey texts.",
+        "One week to return a book, or the borrower becomes a book. Woodfellow is equanimous about this.",
+        "Issued on an assessment of knowledge — a credential with actual standards, which Waluigi notes was not extended to Waluigi."
+      ],
+      "history": [
+        "Artameer’s earlier card was stolen by Wario and used to check out, sell and gut the Feyward Book of Many Things.",
+        "Hjumpik received his own card from Artameer Fellow in the Revel crisis session.",
+        "Carried by Hjumpik since; not yet used to borrow anything on the record."
+      ],
+      "waluigi": "The transformation-as-late-fee system is the most effective library enforcement mechanism Waluigi has encountered in any documented plane.",
+      "description": "Waluigi is filing the library card as a credential rather than a trinket because in the Feyward a credential is a contract with a tree, and this particular tree turns late borrowers into shelving. The card is the party’s legitimate route back into the Woodfellow stacks, which matters now that the Book of Revised History has told us what the stacks might know. It was issued to Hjumpik on the strength of his knowledge. Waluigi has made his position on that assessment clear elsewhere and will not repeat it here more than once.",
+      "foundry": {
+        "type": "loot",
+        "img": "icons/sundries/misc/admission-ticket-blue.webp",
+        "weight": 0
+      }
+    },
+    "colour_division_handcuffs": {
+      "name": "Colour Division Handcuffs",
+      "type": "Restraint / Worn by Choice",
+      "rarity": "Iron Legion Issue",
+      "icon": "⛓️",
+      "visibility": "known",
+      "summary": "A pair of Iron Legion handcuffs put on Waluigi by the Colour Division on the upper landing of the Overgrown Manor when he and Toad Lee were taken as leverage against Hjumpik’s overdue Aegis Magi contract (2 Aethel, 922 BF, Feyward clock). Waluigi slipped them immediately and stood there wearing them anyway, because there is no theatre in an empty cuff.",
+      "relatedArticles": [
+        "feyward_i_cant_afford_not_to_care",
+        "waluigi",
+        "red_the_kitchen_commander",
+        "color_division_black",
+        "hjumpik"
+      ],
+      "accent": "#1a1a1f",
+      "color": "#b0b4bd",
+      "obtained": "Produced by Red after Hjumpik put a hand on his warhammer and said ‘No cages. They’re not animals. Just hold them.’ The Division agreed without argument.",
+      "features": [
+        "Cuffs rather than mage cages — Hjumpik’s condition, accepted without argument, which worried Waluigi more than a refusal would have.",
+        "Slipped at once; worn by choice for the theatre of it.",
+        "Still on Waluigi’s wrists, open, at the end of the session; the Division has not noticed."
+      ],
+      "history": [
+        "Put on Waluigi and Toad Lee on the upper landing as leverage.",
+        "Out of them before anybody noticed; not mentioned to the Division.",
+        "Kept on, as a prop, through the stair-door standoff."
+      ],
+      "waluigi": "I slipped the handcuffs immediately and stood there wearing them anyway, because there is no theatre in an empty cuff.",
+      "description": "Waluigi is filing the handcuffs because the archive files custody, and for one evening the custody was Waluigi’s. They are Legion issue, competent, and open. They stay on the record as the only piece of Colour Division property the party currently holds, and on Waluigi’s wrists as the only piece of Colour Division property the Division currently believes it holds. Both facts are useful. Neither has been mentioned to Red.",
+      "foundry": {
+        "type": "equipment",
+        "subtype": "trinket",
+        "img": "icons/sundries/survival/cuffs-hand.webp",
+        "weight": 6
+      }
+    },
+    "hjumpik_wolf_pelt_onesie": {
+      "name": "Hjumpik’s Wolf-Pelt Onesie",
+      "type": "Clothing / Signature Garment",
+      "rarity": "Common (Dwarven)",
+      "icon": "🐺",
+      "visibility": "known",
+      "summary": "The wolf-pelt onesie Hjumpik has worn for three Feyward sessions. The Colour Division identified him by it from a doorway — not by description, sigil or writ — and his defence that all dwarves use wolf pelt did not land.",
+      "relatedArticles": [
+        "feyward_i_cant_afford_not_to_care",
+        "hjumpik"
+      ],
+      "accent": "#2b2118",
+      "color": "#a98b6a",
+      "obtained": "Worn. The record does not say where it came from; it says who recognised it.",
+      "features": [
+        "Signature garment: ‘Hey — you ARE Hjumpik. You have the signature wolf-pelt onesie on.’",
+        "Warm, which matters in a manor that keeps rearranging its weather.",
+        "Evidence, as of 2 Aethel, 922 BF (Feyward clock). Waluigi had never once thought of it as evidence."
+      ],
+      "history": [
+        "Worn through the Feyward sessions since at least the dark rooms.",
+        "Used by the Colour Division to identify Hjumpik through a half-open door.",
+        "Still on him."
+      ],
+      "waluigi": "Four special forces operatives crossed a planar boundary into a house full of carnivorous architecture to collect one contractor, and the identification was made on a garment.",
+      "description": "Waluigi is filing the onesie as a garment and as a liability, in that order. It is not armour — Hjumpik’s chain mail is a separate line — and it is not disguise, since its entire documented effect is the opposite. It is what he wears, and what the Legion now looks for. The archive recommends nothing. The archive notes that it has never seen the dwarf without it.",
+      "foundry": {
+        "type": "equipment",
+        "subtype": "clothing",
+        "img": "icons/commodities/leather/fur-pelt-brown.webp",
+        "weight": 4
+      }
     }
   },
   "inventories": {
@@ -1106,6 +1303,11 @@
       {
         "itemId": "waluigi_disguise_kit_wally",
         "status": "offered publicly once (mustache declined); kit intact",
+        "known": true
+      },
+      {
+        "itemId": "colour_division_handcuffs",
+        "status": "slipped at once; worn by choice",
         "known": true
       }
     ],
@@ -1263,6 +1465,26 @@
       {
         "itemId": "oc_soul_ring",
         "status": "party custody — not for sale, appraisal, smashing, or wearing",
+        "known": true
+      },
+      {
+        "itemId": "raventree_signet_ring",
+        "status": "in Hjumpik’s pocket — merge or sever, undecided",
+        "known": true
+      },
+      {
+        "itemId": "book_of_revised_history",
+        "status": "pocketed like a receipt; read in full by Waluigi",
+        "known": true
+      },
+      {
+        "itemId": "woodfellow_library_card",
+        "status": "received from Artameer Fellow; nothing borrowed on it yet",
+        "known": true
+      },
+      {
+        "itemId": "hjumpik_wolf_pelt_onesie",
+        "status": "worn — and now the thing the Legion looks for",
         "known": true
       }
     ]

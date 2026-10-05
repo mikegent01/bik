@@ -450,6 +450,8 @@ def split(export_path, out_dir, flat=False, prune=False):
         "system": meta.get("system"),
         "systemVersion": meta.get("systemVersion"),
         "coreVersion": meta.get("coreVersion"),
+        "exportedBy": meta.get("exportedBy"),
+        "lastSync": meta.get("lastSync"),  # module 1.7.1: {applied: {stamp, at, exportedAt}, seen} — what the table took from a packet
         "source": os.path.relpath(os.path.abspath(export_path), ROOT).replace(os.sep, "/"),
         "actorCount": len(written),
         "folders": sorted({p for p in paths if p}),

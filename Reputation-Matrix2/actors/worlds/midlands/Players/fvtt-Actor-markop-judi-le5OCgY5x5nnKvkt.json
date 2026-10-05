@@ -24964,6 +24964,58 @@
         "default": 0,
         "7BMT1Aux3QVtq027": 3
       }
+    },
+    {
+      "_id": "XRYQzhsj8nGDWMti",
+      "name": "Black Crystal",
+      "type": "loot",
+      "img": "icons/commodities/gems/gem-faceted-round-black.webp",
+      "system": {
+        "description": {
+          "value": "<p>One of the portal-relevant artifacts needed for Shadow Estate escape work. Enemy forces know it matters but misidentified Eager as carrier. Current public-known carrier: Markop.</p><ul><li>Portal-artifact key tied to Shadow Estate escape logic.</li><li>Enemy forces understand its importance but misidentified Eager as carrier.</li><li>Carrier secrecy matters; public holder is Markop, not the person Lyranth accused.</li></ul><p><em>Obtained:</em> Recovered during the Shadow Estate servant-corridor artifact chain after Vostolas, Rattles, Mystic Morel, and the Watermelon made the situation impossible to summarize politely.</p><p><em>On the record:</em> carried / public-known after pursuit logic.</p><blockquote>This is not loot. This is an exit wearing a mineral costume. Treat it like the house wants it back, because the house very much does. — W.</blockquote><p><em>Waluipedia inventory <code>black_crystal</code>, held by Markop — filed from <code>shadow_estate_spotlight_cookie_cottage</code>, <code>shadow_estate_session_Harvestside_14_full</code>. Mechanics as the table rules them; the archive records custody.</em></p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia inventory — Major Artifact",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "identifier": "black-crystal",
+        "quantity": 1,
+        "weight": {
+          "value": 1,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "properties": [],
+        "rarity": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "effects": [],
+      "flags": {
+        "waluipedia": {
+          "inventoryItem": "black_crystal",
+          "holder": "markop",
+          "event": "shadow_estate_spotlight_cookie_cottage",
+          "filedOn": "2026-10-05",
+          "note": "carried / public-known after pursuit logic"
+        }
+      },
+      "folder": null,
+      "ownership": {
+        "default": 0
+      }
     }
   ],
   "effects": [

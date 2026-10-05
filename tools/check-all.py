@@ -130,6 +130,11 @@ def main() -> int:
         ("actors organized like the website", [py, "tools/organize-actors.py", "--check", "--quiet"], ROOT),
         ("organize actors", [py, "tools/tests/test-organize-actors.py"], ROOT),
         ("character sheet suite", [py, "tools/tests/test-sheets-suite.py"], ROOT),
+        # Spoils: every object data/inventory.json says a party character holds
+        # is on the Foundry sheet (generated changes/spoils-<world>.json is
+        # current, aliases never double an item, declined items stay declined).
+        ("spoils to changes", [py, "tools/spoils-to-changes.py", "--check", "--quiet"], ROOT),
+        ("spoils to changes tests", [py, "tools/tests/test-spoils-to-changes.py"], ROOT),
         # Judgement in the Grove: the event, its battle, and the front-page
         # wiring (latestUpdate/featured/Current fronts/SITE_UPDATES) all come
         # out of one generator, because the previous session was filed and

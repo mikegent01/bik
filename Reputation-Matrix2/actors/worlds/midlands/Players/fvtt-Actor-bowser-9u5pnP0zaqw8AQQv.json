@@ -12172,6 +12172,110 @@
       "folder": null,
       "sort": 0,
       "_id": "8RFsspKC3bE5OKUV"
+    },
+    {
+      "_id": "kmqLJuIrEf2KPqwc",
+      "name": "Necromancer’s Wand",
+      "type": "loot",
+      "img": "icons/weapons/wands/wand-gem-purple.webp",
+      "system": {
+        "description": {
+          "value": "<p>Dropped by Vivian and picked up by Bowser with the curiosity of a toddler browsing a death-magic gift shop. Waluigi suspects the wand was more confused by Bowser than Bowser was by the wand.</p><ul><li>Death-aspected focus.</li><li>Cold to the touch.</li><li>Potentially corruptive, though Bowser may be spiritually too blunt to read the instructions.</li></ul><p><em>Obtained:</em> Dropped by Vivian during the corridor ambush and picked up by Bowser.</p><p><em>On the record:</em> picked up during Vivian corridor ambush.</p><blockquote>Can a wand corrupt someone who does not understand corruption is on the menu? Field research continues. — W.</blockquote><p><em>Waluipedia inventory <code>necromancer_wand</code>, held by Bowser — filed from <code>vivian_corvinarus_corridor_fight</code>. Mechanics as the table rules them; the archive records custody.</em></p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia inventory — Rare / Dangerous",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "identifier": "necromancers-wand",
+        "quantity": 1,
+        "weight": {
+          "value": 1,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "properties": [],
+        "rarity": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "effects": [],
+      "flags": {
+        "waluipedia": {
+          "inventoryItem": "necromancer_wand",
+          "holder": "bowser",
+          "event": "vivian_corvinarus_corridor_fight",
+          "filedOn": "2026-10-05",
+          "note": "picked up during Vivian corridor ambush"
+        }
+      },
+      "folder": null,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "mQDwoViJGhCP0L1M",
+      "name": "Bowser Badge #447",
+      "type": "loot",
+      "img": "icons/commodities/treasure/medal-brass-red.webp",
+      "system": {
+        "description": {
+          "value": "<p>A Bowser Badge linked to the fractured Shadow Estate / Dan / Bowser chain. Badges should not have this much plot weight. This one does.</p><ul><li>Identity token / numbered badge.</li><li>Evidence object linking Bowser symbolism to unexpected locations.</li><li>Emotionally inflammatory if removed from skin, apparently.</li></ul><p><em>Obtained:</em> Connected to the Dan/Bowser/Shadow Estate chain and discovered in crisis context.</p><p><em>On the record:</em> identity/evidence token.</p><blockquote>A numbered Bowser badge should not be able to ruin this many lives. Yet here we are. — W.</blockquote><p><em>Waluipedia inventory <code>bowser_badge_447</code>, held by Bowser — filed from <code>the_grove_of_woe_incident</code>. Mechanics as the table rules them; the archive records custody.</em></p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia inventory — Specific Evidence",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "identifier": "bowser-badge-447",
+        "quantity": 1,
+        "weight": {
+          "value": 1,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "properties": [],
+        "rarity": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "effects": [],
+      "flags": {
+        "waluipedia": {
+          "inventoryItem": "bowser_badge_447",
+          "holder": "bowser",
+          "event": "the_grove_of_woe_incident",
+          "filedOn": "2026-10-05",
+          "note": "identity/evidence token"
+        }
+      },
+      "folder": null,
+      "ownership": {
+        "default": 0
+      }
     }
   ],
   "effects": [
