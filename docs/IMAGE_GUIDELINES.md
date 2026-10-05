@@ -155,7 +155,13 @@ The table places characters on the map; a token needs the whole figure. The
   a plain field); `pixel` keeps the Bone-Line sprites as pixel art (figure
   kept, burnt-in name dropped, whole-pixel upscale); `apply` wires
   `fullBody`; `check` guards. Portraits are never replaced by this — the
-  plate is a second file.
+  plate is a second file. For a generator that draws grids, `plan --grid 3 3`
+  writes one prompt per sheet (same key colour across a sheet, cells in
+  reading order, the reference image per cell) and `cut --grid-sheet`
+  finds the cells by their gutters, keys and plates them. Measured: the
+  same nine figures come out ~950 px from single renders and ~275 px from
+  a 3×3 at 1024 — a grid is for background NPCs, and worth it only from a
+  generator that returns 2048 px or more.
 * **Look on the shelf before generating.** `tools/portrait-audit.py
   --orphans` lists every file under `portraits/` that no record points at;
   the 2026-10-05 pass found finished plates for Captain Syrup, Captain

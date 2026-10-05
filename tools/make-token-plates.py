@@ -6,8 +6,14 @@ stay what they are (the article's picture); the plate is a second file,
 `portraits/player/fullbody/<id>.png`, wired as `fullBody` on the article, and
 the sheet builder puts it on the prototype token (`token_of()`).
 
-The batch is a pipeline, not a grid (a 9x9 cuts to ~200 px a figure, below
-what a token survives):
+The batch is a pipeline; a grid is one way to feed it. One figure per render
+is the quality path (the lead as reference keeps the likeness, ~1024 px a
+figure); an RxC sheet trades that for count (a 3x3 at 1024 px is ~340 px a
+figure and the generator must keep ten likenesses straight at once) — right
+for background NPCs and the roster toads, wrong for the party. The tool here
+renders one subject per image, so `plan --grid` exists for a generator that
+does not: it writes one prompt per sheet, and `cut --grid-sheet` slices and
+keys what comes back.
 
   plan    which sheet characters are READY / CUT (a flat field to key) /
           GENERATE (needs a render), in table-use order, and a manifest of
@@ -25,6 +31,8 @@ what a token survives):
   sheet   a contact sheet of plates for the eyeball pass.
 
   python3 tools/make-token-plates.py plan [--manifest /tmp/plates/manifest.json] [--tier 1]
+  python3 tools/make-token-plates.py plan --grid 3 3 --manifest grids.json   # one prompt per 3x3 sheet, for a generator that draws grids
+  python3 tools/make-token-plates.py cut  --grid-sheet grid-01.png --rows 3 --cols 3 --ids a b c d e f g h i   # slice + key a rendered sheet
   python3 tools/make-token-plates.py cut  --id waluigi --src /tmp/plates/raw/waluigi.png [--key magenta|green|auto]
   python3 tools/make-token-plates.py cut  --flat                 # key every opaque plate whose field is flat
   python3 tools/make-token-plates.py cut  --raw-dir ~/renders    # every <id>.png rendered elsewhere from the manifest
@@ -283,6 +291,8 @@ def cmd_plan(a):
     print(f"{'id':<36} {'tier':>4} {'uses':>4} {'status':<10} {'size':<10} candidate")
     for r in todo:
         print(f"{r['id']:<36} {r['tier']:>4} {r['uses']:>4} {r['status']:<10} {'%dx%d' % r['size']:<10} {r['candidate']}")
+    if a.grid:
+        return plan_grid(a, todo, by_id)
     manifest = []
     for r in todo:
         if r["status"] in ("GENERATE", "SMALL") or a.ids:     # named ids are rendered whatever their status
@@ -306,11 +316,113 @@ def cmd_plan(a):
     return 0
 
 
+def plan_grid(a, todo, by_id):
+    """One prompt per RxC sheet: the same key colour across a sheet, cells in reading order, references listed."""
+    rows, cols = a.grid
+    per = rows * cols
+    todo = [r for r in todo if r["status"] in ("GENERATE", "SMALL") or a.ids]
+    buckets = {"magenta": [], "green": []}
+    for r in todo:
+        buckets[key_for(by_id[r["id"]])].append(r)
+    sheets = []
+    for key, lst in buckets.items():
+        for i in range(0, len(lst), per):
+            chunk = lst[i:i + per]
+            colour = "bright magenta (#FF00FF)" if key == "magenta" else "bright green (#00FF00)"
+            cells = []
+            refs = []
+            for n, r in enumerate(chunk, 1):
+                art = by_id[r["id"]]
+                look = look_of(art)
+                who = art.get("name", r["id"]) + (f", {art['title']}" if art.get("title") else "") + (f" ({art['race']})" if art.get("race") else "")
+                cells.append(f"Cell {n}: {who}" + (f" — {look}" if look else "") + ".")
+                ref = "" if r["id"] in NO_REFERENCE else ((art.get("fullBody") or "") if (art.get("fullBody") or "").startswith("portraits/player/fullbody/") else (art.get("image") or ""))
+                refs.append(os.path.join("Reputation-Matrix2", ref).replace("\\", "/") if ref and not ref.startswith("http") else None)
+            prompt = (f"A character token sheet: {len(chunk)} separate full-body figures arranged in a {rows} by {cols} grid of equal cells, "
+                      f"read left to right then top to bottom, one figure per cell, each figure whole from the top of the head to the soles of the feet, "
+                      f"standing in a relaxed neutral pose facing the viewer, centred in its cell with empty space around it, no figure touching another or the cell edge. "
+                      f"Plain solid flat {colour} background everywhere including the gutters between cells; no floor, no cast shadows, no scenery, no text, no labels, no borders, no watermark. "
+                      f"Each figure matches the numbered reference image for that cell — same face, colours and wardrobe — and all share one painterly fantasy illustration style. "
+                      + " ".join(cells))
+            sheets.append(dict(sheet=f"grid-{len(sheets) + 1:02d}", rows=rows, cols=cols, key=key, ids=[r["id"] for r in chunk],
+                               references=refs, prompt=prompt, out=[f"{PLATES}/{r['id']}.png" for r in chunk]))
+    print(f"grid plan: {len(todo)} figures on {len(sheets)} sheet(s) of {rows}x{cols}" + (f" -> {a.manifest}" if a.manifest else ""))
+    for sh in sheets:
+        print(f"  {sh['sheet']}  {sh['key']:<7} {', '.join(sh['ids'])}")
+    if a.manifest:
+        os.makedirs(os.path.dirname(os.path.abspath(a.manifest)), exist_ok=True)
+        json.dump(sheets, open(a.manifest, "w", encoding="utf-8"), indent=1, ensure_ascii=False)
+    return 0
+
+
+def _bands(occupied, min_gap):
+    """[(start, end)] runs of occupied indices, merged across gaps shorter than min_gap."""
+    np = _np()
+    idx = np.where(occupied)[0]
+    if not len(idx):
+        return []
+    bands, start, prev = [], idx[0], idx[0]
+    for i in idx[1:]:
+        if i - prev > min_gap:
+            bands.append((int(start), int(prev))); start = i
+        prev = i
+    bands.append((int(start), int(prev)))
+    return bands
+
+
+def cut_grid(sheet_path, rows, cols, ids, key="auto"):
+    """Key a rendered RxC sheet, find the cells by their empty gutters (equal cells if the gutters are not clean), one plate per id."""
+    from PIL import Image
+    np = _np()
+    tmp = sheet_path + ".keyed.png"
+    facts = cut(sheet_path, tmp, key)          # the whole sheet keyed, trimmed and squared — fine for finding figures
+    im = Image.open(tmp).convert("RGBA")
+    os.remove(tmp)
+    a = np.asarray(im)[:, :, 3] > 8
+    h, w = a.shape
+    row_bands = _bands(a.any(axis=1), max(4, h // 60))
+    boxes = []
+    if len(row_bands) == rows:
+        for (y0, y1) in row_bands:
+            col_bands = _bands(a[y0:y1 + 1].any(axis=0), max(4, w // 60))
+            if len(col_bands) != cols:
+                boxes = []; break
+            boxes += [(x0, y0, x1 + 1, y1 + 1) for (x0, x1) in col_bands]
+    if not boxes:   # figures touch or the gutters are dirty: equal cells
+        cw, ch = w / cols, h / rows
+        boxes = [(int(c * cw), int(r * ch), int((c + 1) * cw), int((r + 1) * ch)) for r in range(rows) for c in range(cols)]
+        print(f"  grid: gutters not clean on {os.path.basename(sheet_path)} — equal cells")
+    out = []
+    for cid, box in zip(ids, boxes):
+        cell = im.crop(box)
+        bbox = cell.split()[3].point(lambda v: 255 if v > 8 else 0).getbbox()
+        if not bbox:
+            print(f"  grid: {cid} cell is empty"); continue
+        cell = cell.crop(bbox)
+        cw, ch = cell.size
+        side = int(max(cw, ch) * (1 + 2 * MARGIN))
+        canvas = Image.new("RGBA", (side, side), (0, 0, 0, 0))
+        canvas.paste(cell, ((side - cw) // 2, (side - ch) // 2))
+        if side > OUT_PX:
+            canvas = canvas.resize((OUT_PX, OUT_PX), Image.LANCZOS)
+        dst = os.path.join(RM, PLATES, cid + ".png")
+        os.makedirs(os.path.dirname(dst), exist_ok=True)
+        canvas.save(dst, optimize=True)
+        out.append((cid, canvas.size[0], (cw, ch)))
+        print(f"  grid: {cid:<32} figure {cw}x{ch} -> {canvas.size[0]}px" + ("  <-- small" if max(cw, ch) < MIN_PX else ""))
+    return out
+
+
 # ----------------------------------------------------------------- cut ----
 def cmd_cut(a):
     arts, by_sheet = load()
     by_id = {x["id"]: x for x in arts}
     jobs = []
+    if a.grid_sheet:
+        if not (a.rows and a.cols and a.ids):
+            raise SystemExit("cut: --grid-sheet needs --rows, --cols and --ids in reading order")
+        cut_grid(a.grid_sheet, a.rows, a.cols, a.ids, a.key)
+        return 0
     if a.flat:
         for r in statuses(arts, by_sheet):
             if r["status"] == "CUT" and (not a.ids or r["id"] in set(a.ids)):
@@ -517,7 +629,9 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     sub = ap.add_subparsers(dest="cmd", required=True)
     p = sub.add_parser("plan"); p.add_argument("--manifest"); p.add_argument("--tier", type=int); p.add_argument("--ids", nargs="*")
+    p.add_argument("--grid", nargs=2, type=int, metavar=("ROWS", "COLS"))
     p = sub.add_parser("cut"); p.add_argument("--id"); p.add_argument("--src"); p.add_argument("--key", default="auto"); p.add_argument("--flat", action="store_true"); p.add_argument("--raw-dir"); p.add_argument("--ids", nargs="*")
+    p.add_argument("--grid-sheet"); p.add_argument("--rows", type=int); p.add_argument("--cols", type=int)
     p = sub.add_parser("apply"); p.add_argument("--date")
     p = sub.add_parser("check"); p.add_argument("--check", action="store_true")
     p = sub.add_parser("pixel"); p.add_argument("--ids", nargs="*")
