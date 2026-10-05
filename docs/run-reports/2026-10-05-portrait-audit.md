@@ -249,3 +249,46 @@ healed plates and cut with the fixed keyer. Two more keyer rules came out
 of that: the key matches its own hue in shadow (generators shade the field
 next to the figure to a dark magenta / green — Luigi's hose loop), and a
 render that already fits 1024 is not resampled.
+
+**Same day, later still — the right model, and a GUI.** The GM's generator
+is not Qwen-Image-Edit but **Qwen-Image-2.1** running inside Comfy Desktop
+(`qwen_image_2.1_int8_convrot` + `qwen3vl_8b_int8_convrot` in the shared
+model library; each Desktop instance is a ComfyUI server on `127.0.0.1`,
+8188 by default), and the ask was to drive it from Python directly, with
+a GUI that previews, a cropping view and background removal. Read against
+the ComfyUI source (Comfy-Org/ComfyUI `comfy_extras/nodes_qwen.py`,
+`comfy_api/latest/_io.py`) and the three Comfy-Org 2.1 templates: the 2.1
+encoder takes the prompt, the negative and up to sixteen reference images
+on one node (`images.image_1` in the API JSON — the Autogrow key format),
+hands the sampler an empty latent sized to the first reference, and the
+4-channel VAE returns **real alpha** when the prompt asks for a transparent
+PNG (the background-removal template's whole prompt is "Remove the
+background, and output a PNG image"). So the "direct Python" answer is: the
+graph is built in code and sent over the local HTTP that Comfy Desktop
+already exposes — the int8 convrot weights only load through ComfyUI's own
+loaders, there is no diffusers path, Comfy Desktop has to be open. `render`
+now picks the engine from the server's nodes (2.1 first, v1 edit as the
+fallback), probes 8188 / 8000 / 8189 / 8190, prepares a portrait 832×1216 reference
+canvas (2.1 renders at the reference's size), addresses it as `<image1>`,
+asks for the alpha, and `cut` only trims and squares a render that came
+back with real alpha and a clear border — the chroma keyer is the fallback.
+
+The GUI is `tools/token-plate-studio.py` + `token-plate-studio.html`
+(button *Token plates* in `start.py`): a local page, not a Tk window — the
+image work is Pillow in the Python process, the browser displays and
+collects clicks, and it tests headlessly. Roster with filters | Reference /
+Render (drag-crop) / Plate (checker, dark, white, key ground) | prompt,
+seed, steps, resolution, model filenames read from the server; Generate,
+Re-roll, Remove background (the model's own pass), Plate (auto / alpha /
+magenta / green / flat, tolerance sliders, heal), Accept (= plate +
+`apply`), Reject, Skip, Run queue (auto-accepts what passes QC). Proven
+against the fake ComfyUI (`tools/tests/test-token-plate-studio.py`, 38
+checks: connect, roster, generate → job → plate → accept, crop, forced
+key, image routes with the path check, reject, remove-background, queue,
+stop) and a jsdom drive of the page's buttons; not against a real GPU —
+the first real render is the GM's. The honest caveats: the "Transparent
+background" prompt is what the Comfy-Org template relies on, and whether
+2.1 obeys it on a given character is a per-render fact the QC catches
+(a render with no alpha falls back to the key colour canvas it was given);
+the resolution the 1024 budget gives a 832×1216 canvas is 832×1248, so a
+figure comes out ~1100 px and the plate is 1024 as before.

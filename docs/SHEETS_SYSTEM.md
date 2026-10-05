@@ -149,9 +149,13 @@ map, a bust is the article's picture. Live player sheets keep the GM's art
 either way (`docs/IMAGE_GUIDELINES.md` §4b, the 2026-10-05 portrait audit).
 
 Transparent plates for the token come from `tools/make-token-plates.py`
-(`plan` → render on the key colour → `cut` → `apply`; `check` in your hand;
-`render` does the whole loop against a local ComfyUI; `heal` repairs plates
-an older keyer speckled; `docs/IMAGE_GUIDELINES.md` §4b).
+(`plan` → render → `cut` → `apply`; `check` in your hand; `render` does the
+whole loop against the ComfyUI inside Comfy Desktop — Qwen-Image-2.1 draws
+the alpha itself, the chroma key is the fallback; `heal` repairs plates an
+older keyer speckled) and, with eyes on every one, from the Token Plate
+Studio (`tools/token-plate-studio.py`, the *Token plates* button in
+`start.py`: preview, crop, background removal, accept = plate + `apply`);
+`docs/IMAGE_GUIDELINES.md` §4b.
 
 **Roster micro-articles.** `tools/file-roster-toads.py` files every
 Liberated Toad on the Command page roster

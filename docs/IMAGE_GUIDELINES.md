@@ -162,27 +162,66 @@ The table places characters on the map; a token needs the whole figure. The
   same nine figures come out ~950 px from single renders and ~275 px from
   a 3×3 at 1024 — a grid is for background NPCs, and worth it only from a
   generator that returns 2048 px or more.
-* **Hands-off with a local ComfyUI** — `render`. With ComfyUI running
-  (Qwen-Image-Edit loaded; default `http://127.0.0.1:8188`, or `--url` /
-  `COMFY_URL`), `python tools\make-token-plates.py render` walks every sheet
-  character still without a plate in table-use order: the reference is
-  padded onto a canvas of its key colour (a bust sits in the top of the
-  canvas with empty key colour below, so the edit has room to draw the
-  rest), the edit instruction + reference go to the server, the result is
-  cut, QC'd (keyed field, clear border, nothing touching the frame, figure
-  at least 45 % of the frame tall), retried with a new seed when it fails,
-  applied, next. A plate on disk is skipped, so the run resumes; Ctrl-C
-  between characters is safe; rejected attempts stay in
+* **Hands-off with the local ComfyUI** — `render`. Comfy Desktop runs
+  each ComfyUI instance as a local server (`127.0.0.1:8188` by default,
+  the legacy desktop app used `8000`; the tool probes 8188, 8000, 8189,
+  8190, `--url` / `COMFY_URL` pin one). `python
+  tools\make-token-plates.py render` walks every sheet character still
+  without a plate in table-use order: the reference is padded onto a
+  canvas of its key colour (a bust sits in the top of the canvas with
+  empty key colour below, so the edit has room to draw the rest), the
+  instruction + reference go to the server, the result is cut, QC'd
+  (clear field, clear border, nothing touching the frame, figure at least
+  45 % of the frame tall), retried with a new seed when it fails, applied,
+  next. A plate on disk is skipped, so the run resumes; Ctrl-C between
+  characters is safe; rejected attempts stay in
   `<raw-dir>/<id>.rejected-N.png` and `render-log.json` says what happened
-  to every id. The builtin graph is the stock Qwen-Image-Edit workflow
-  (`--lora Qwen-Image-Lightning-4steps-V1.0.safetensors` for the 4-step
-  LoRA); for anything else export your own from ComfyUI (Dev mode → *Save
-  (API Format)*) and pass `--workflow file.json` — the tool fills the
-  sampler's positive and negative prompts, the seed, every LoadImage and
-  the SaveImage prefix and leaves the rest alone. Ids with no local
-  reference (a hotlinked lead, nothing at all) are logged "skipped" for a
-  hand render. Start with `--tier 2 --limit 20` and `sheet` the result
-  before letting it run through the rest.
+  to every id. Ids with no local reference (a hotlinked lead, nothing at
+  all) are logged "skipped" for a hand render. Start with `--tier 2
+  --limit 20` and `sheet` the result before letting it run through the
+  rest.
+* **The graph is built in Python, not exported.** The tool asks the
+  server which Qwen edit node it has and picks the engine: **Qwen-Image-2.1**
+  (`TextEncodeQwenImage21`, ComfyUI ≥ 0.37 — the int8 "convrot" files in
+  Comfy Desktop's shared models folder) or, failing that, Qwen-Image-Edit
+  v1 (`--model` forces one). The 2.1 graph is the Comfy-Org template
+  without the UI: UNETLoader → QwenImage21Cache → KSampler (25 steps,
+  cfg 1, euler/simple) with the reference wired into the encoder's
+  `images.image_1`, the empty latent sized to that reference, VAEDecode →
+  SaveImage. Three things follow from how 2.1 works: the prompt addresses
+  the reference as `<image1>`; the output canvas is the reference canvas
+  (so a standing figure gets a portrait 832×1216 one, `--resolution`
+  = pixel budget, 1024 ≈ 1 MP, multiples of 32); and the model **draws its
+  own alpha** — the prompt ends "Transparent background: output a PNG
+  image with an alpha channel", `cut` sees real alpha with a clear border
+  and only trims and squares, the chroma keyer is the fallback (`--opaque`
+  asks for the key colour instead). Any other graph: export from ComfyUI
+  (Dev mode → *Save (API Format)*) and pass `--workflow file.json` — the
+  tool fills the sampler's positive and negative prompts (`negative_prompt`
+  on a 2.1 encoder), the seed, every LoadImage and the SaveImage prefix.
+  The int8 / nvfp4 weights only load through ComfyUI's own loaders, so
+  Comfy Desktop has to be open; there is no diffusers path.
+* **With eyes on it: the Token Plate Studio** — `python
+  tools\token-plate-studio.py` (or the *Token plates* button in
+  `start.py`) opens a local page at `http://127.0.0.1:8766`: the roster on
+  the left (tier / to-do / plated / no-reference filters), three panes —
+  Reference (the lead, or the prepared canvas the model actually sees) |
+  Render (drag a rectangle to crop) | Plate (over a checkerboard, dark,
+  white or the key colour) — the prompt (editable, `Default prompt` brings
+  the generator's back), seed / steps / resolution / "ask for alpha", the
+  diffusion / text-encoder / VAE filenames read from the server's own model
+  folders, and the buttons: **Generate**, **Re-roll** (new seed),
+  **Remove background** (a second pass through the model with Qwen's own
+  "Remove the background, and output a PNG image"), **Plate** (cut-out
+  mode auto / alpha / magenta / green / flat field, hard and soft
+  tolerance sliders, heal), **Accept** (copies the preview to
+  `portraits/player/fullbody/<id>.png` and runs `apply` — exactly what the
+  batch does), **Reject** (kept as `<id>.rejected-N.png`), **Skip**, and
+  **Run queue** (the batch in the background: auto-accepts what passes QC,
+  leaves the rest in the list). `Connect` / `Start Comfy` handle Comfy
+  Desktop. Every render is kept as `<raw-dir>/<id>-<seed>.png`; nothing in
+  the repo changes until Accept; run the sheets suite afterwards so the
+  plates reach the prototype tokens.
 * **Keyer facts** (2026-10-05): the chroma distance is int32 — the int16
   version overflowed on dark purples / blues / reds and punched holes
   through 27 plates; `heal` restores those (exact where the plate still

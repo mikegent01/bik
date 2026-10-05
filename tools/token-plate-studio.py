@@ -2,7 +2,7 @@
 """Token Plate Studio — a local GUI over make-token-plates.py and the ComfyUI inside Comfy Desktop.
 
     python tools\\token-plate-studio.py                       # opens http://127.0.0.1:8766 in your browser
-    python tools\\token-plate-studio.py --url http://127.0.0.1:8000 --raw-dir ..\\token-renders --no-browser
+    python tools\\token-plate-studio.py --url http://127.0.0.1:8188 --raw-dir ..\\token-renders --no-browser
 
 What it is: the render loop of `make-token-plates.py render`, one character at a time, with eyes on it.
 Three panes — Reference (what the model is shown) | Render (drag a rectangle to crop) | Plate (what gets wired),
@@ -10,7 +10,8 @@ over a checkerboard, a dark ground or the key colour. Buttons: Generate, Re-roll
 pass through the model with Qwen's own instruction), Key (the chroma / flat-field fallback with tolerance
 sliders and the heal pass), Accept (plate + `apply`, exactly what the batch does), Reject, Skip, Run queue.
 
-How it talks to the model: Comfy Desktop runs a ComfyUI server on 127.0.0.1:8000. The studio builds the
+How it talks to the model: Comfy Desktop runs each ComfyUI instance as a local server (127.0.0.1:8188 by
+default; the legacy desktop app used 8000 — the studio probes both, --url / COMFY_URL pin one). The studio builds the
 Qwen-Image-2.1 graph in Python (no workflow JSON to export), uploads the prepared reference, queues, waits,
 downloads — the same `Comfy` client and `Renderer` the batch command uses. The int8 "convrot" weights only load
 through ComfyUI's own loaders, so Comfy Desktop has to be open; the studio can launch it for you (Windows).
@@ -35,7 +36,10 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 HERE = os.path.dirname(os.path.abspath(__file__))
 HTML = os.path.join(HERE, "token-plate-studio.html")
 MODES = ("auto", "alpha", "magenta", "green", "flat")
-COMFY_DESKTOP_EXE = (os.path.join(os.environ.get("LOCALAPPDATA", ""), "Programs", "@comfyorgcomfyui-electron", "ComfyUI.exe"),)
+_LOCAL = os.environ.get("LOCALAPPDATA", "")
+COMFY_DESKTOP_EXE = (os.path.join(_LOCAL, "Programs", "Comfy Desktop", "Comfy Desktop.exe"),            # Comfy Desktop (the instance manager)
+                     os.path.join(_LOCAL, "Programs", "@comfyorgcomfyui-electron", "ComfyUI.exe"),      # the legacy desktop app
+                     os.path.join(_LOCAL, "Programs", "ComfyUI", "ComfyUI.exe"))
 
 
 def load_plates():
@@ -104,7 +108,7 @@ class Studio:
                     return {"started": True, "exe": exe}
                 except OSError as exc:
                     return {"started": False, "error": str(exc)}
-        return {"started": False, "error": "Comfy Desktop not found at %s — open it by hand, then Connect" % COMFY_DESKTOP_EXE[0]}
+        return {"started": False, "error": "Comfy Desktop not found (looked for %s) — open it by hand, launch your instance, then Connect" % COMFY_DESKTOP_EXE[0]}
 
     # ---------------------------------------------------------------- roster ----
     def rows(self, refresh=False):
@@ -472,7 +476,7 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description="Token Plate Studio — preview, crop, key and accept token plates rendered by the local ComfyUI")
     ap.add_argument("--host", default="127.0.0.1")
     ap.add_argument("--port", type=int, default=8766)
-    ap.add_argument("--url", default=None, help="ComfyUI server (default: COMFY_URL, else probe 127.0.0.1:8000 then :8188)")
+    ap.add_argument("--url", default=None, help="ComfyUI server (default: COMFY_URL, else probe 127.0.0.1 ports 8188, 8000, 8189, 8190)")
     ap.add_argument("--raw-dir", default=None, help="where renders, rejects and previews go (default <repo>/../token-renders)")
     ap.add_argument("--no-browser", action="store_true")
     a = ap.parse_args(argv)
