@@ -1,12 +1,12 @@
 {
-  "name": "Palace Guard at Attention",
+  "name": "Castle Chambermaid",
   "type": "npc",
-  "_id": "SWf5Nc5afoNXl6dI",
-  "img": "npc/guard-attention-b.png",
+  "_id": "4ySsVWpa8rE1UEsI",
+  "img": "npc/court-chambermaid.png",
   "system": {
     "abilities": {
       "str": {
-        "value": 13,
+        "value": 8,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -29,7 +29,7 @@
         }
       },
       "dex": {
-        "value": 10,
+        "value": 11,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -75,29 +75,6 @@
         }
       },
       "int": {
-        "value": 10,
-        "proficient": 0,
-        "bonuses": {
-          "check": "",
-          "save": ""
-        },
-        "max": null,
-        "check": {
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "save": {
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        }
-      },
-      "wis": {
         "value": 11,
         "proficient": 0,
         "bonuses": {
@@ -120,8 +97,31 @@
           }
         }
       },
+      "wis": {
+        "value": 13,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
       "cha": {
-        "value": 10,
+        "value": 11,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -146,14 +146,14 @@
     },
     "attributes": {
       "ac": {
-        "flat": 13,
+        "flat": 10,
         "calc": "natural",
         "formula": ""
       },
       "hp": {
-        "value": 9,
-        "max": 9,
-        "formula": "2d6 + 2",
+        "value": 4,
+        "max": 4,
+        "formula": "1d6 + 1",
         "temp": null,
         "tempmax": null
       },
@@ -225,14 +225,14 @@
       }
     },
     "details": {
-      "alignment": "Lawful Good",
+      "alignment": "Neutral Good",
       "type": {
         "value": "humanoid",
         "subtype": "toad"
       },
-      "cr": 0.125,
+      "cr": 0,
       "biography": {
-        "value": "<p><em>Era sheet: Highsun 1, 955 BF, Peach's Castle.</em> Art and stats describe this figure on the night of the Day Of (events.json <code>highsun_1_955_bf_the_day_of</code>), not the present day of the campaign (1040 BF).</p><p><strong>Palace Guard — Ceremonial post.</strong> Royal-blue tabard with gold trim and the pink mushroom-crown crest, white gloves, brown belt, silver pauldrons and a silver kettle-helm brim ring over the red-spot cap. The livery is reconstructed from the archive, not an official reference.</p><p>Unarmed, at attention along the hall — the guards a visiting warlord walks straight past. They grab rather than strike.</p><p>Within the month after the Day Of, guard witnesses were <q>already dying</q> (<code>first_month_incidents</code>). Any guard who sees too much tonight has a short life expectancy on the record.</p><p><em>Alternate tokens:</em> <code>portraits/peachs-castle-955/guard-attention-b.png</code>.</p>",
+        "value": "<p><em>Era sheet: Highsun 1, 955 BF, Peach's Castle.</em> Art and stats describe this figure on the night of the Day Of (events.json <code>highsun_1_955_bf_the_day_of</code>), not the present day of the campaign (1040 BF).</p><p>Pink-spotted cap, apron, candle and a ring of household keys. Non-combatant. She has turned down the Royal Suite tonight, walked past Luigi on the door, and may have heard something in the chimney.</p>",
         "public": ""
       },
       "ideal": "",
@@ -361,7 +361,7 @@
         }
       },
       "ins": {
-        "value": 0,
+        "value": 1,
         "ability": "wis",
         "roll": {
           "min": null,
@@ -491,7 +491,7 @@
         }
       },
       "ste": {
-        "value": 0,
+        "value": 1,
         "ability": "dex",
         "roll": {
           "min": null,
@@ -574,14 +574,14 @@
     }
   },
   "prototypeToken": {
-    "name": "Palace Guard at Attention",
+    "name": "Castle Chambermaid",
     "displayName": 0,
     "actorLink": false,
     "width": 1,
     "height": 1,
     "depth": 1,
     "texture": {
-      "src": "npc/guard-attention-b.png",
+      "src": "npc/court-chambermaid.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -808,13 +808,13 @@
   },
   "items": [
     {
-      "_id": "Z1vQ1Ug1fH0rQsU2",
-      "name": "Unarmed Strike",
+      "_id": "KFbMSe6LbD1JKPGR",
+      "name": "Candlestick",
       "type": "weapon",
-      "img": "icons/skills/melee/unarmed-punch-fist.webp",
+      "img": "icons/sundries/lights/candle-unlit-white.webp",
       "system": {
         "description": {
-          "value": "<p>White-gloved and surprisingly firm.</p>",
+          "value": "<p>Improvised.</p>",
           "chat": ""
         },
         "source": {
@@ -894,7 +894,7 @@
         },
         "properties": [],
         "type": {
-          "value": "simpleM",
+          "value": "improv",
           "baseItem": ""
         },
         "container": null,
@@ -1086,8 +1086,8 @@
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1791077258421,
-        "modifiedTime": 1791077258421,
+        "createdTime": 1791077014406,
+        "modifiedTime": 1791077014406,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -1099,13 +1099,13 @@
       }
     },
     {
-      "_id": "6c9XG7Id8hDilKF7",
-      "name": "Seize",
+      "_id": "HDo3DuXirWstF6bD",
+      "name": "Back Stairs",
       "type": "feat",
-      "img": "icons/magic/control/debuff-chains-purple.webp",
+      "img": "icons/skills/movement/figure-running-gray.webp",
       "system": {
         "description": {
-          "value": "<p>Instead of damage, a hit with its Unarmed Strike grapples the target (escape DC 11). Two ceremonial guards grappling the same creature give it disadvantage on the escape check.</p>",
+          "value": "<p>She knows the servants' passages. Advantage on Dexterity (Stealth) checks inside the castle, and she can lead up to five creatures through the back stairs between any two floors without crossing a guarded hall.</p>",
           "chat": ""
         },
         "type": {
@@ -1144,8 +1144,8 @@
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1791077258421,
-        "modifiedTime": 1791077258421,
+        "createdTime": 1791077014406,
+        "modifiedTime": 1791077014406,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -1157,13 +1157,13 @@
       }
     },
     {
-      "_id": "qA5zOiAOecS5Kpmo",
-      "name": "Parade Discipline",
+      "_id": "01Hl9NPy3gezgAF9",
+      "name": "Household Keys",
       "type": "feat",
-      "img": "icons/skills/social/wave-halt-stop.webp",
+      "img": "icons/sundries/misc/key-steel.webp",
       "system": {
         "description": {
-          "value": "<p>Advantage on saving throws against being frightened while within 10 feet of another palace guard.</p>",
+          "value": "<p>Linen rooms, servants' stairs, guest wing. Not the Royal Suite, not the vault.</p>",
           "chat": ""
         },
         "type": {
@@ -1202,8 +1202,8 @@
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1791077258421,
-        "modifiedTime": 1791077258421,
+        "createdTime": 1791077014406,
+        "modifiedTime": 1791077014406,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -1220,8 +1220,7 @@
   "sort": 0,
   "ownership": {
     "default": 0,
-    "7BMT1Aux3QVtq027": 3,
-    "p6LsOjpmBsnR9V8p": 3
+    "7BMT1Aux3QVtq027": 3
   },
   "flags": {
     "5e-npc-combat-automation": {
@@ -1230,31 +1229,34 @@
           "disciplined"
         ],
         "reasons": [
-          "Keyword \"guard\" in name/biography → disciplined"
+          "No inference signals — fallback pool pick for \"humanoid\": disciplined"
         ],
-        "confidence": 0.3333333333333333,
+        "confidence": 0,
         "version": 3,
-        "timestamp": 1791077266500,
+        "timestamp": 1791077016167,
         "manuallyOverridden": false
       }
     },
     "waluipedia-mass-import": {
       "folderPath": [
-        "Mushroom Regency & Kingdom"
+        "Peach's Castle 955 BF",
+        "The Court"
       ]
     },
     "waluipedia-sheets": {
       "tags": [
-        "Mushroom Regency & Kingdom",
+        "Peach's Castle 955 BF",
         "npc",
-        "humanoid"
+        "humanoid",
+        "955 BF"
       ],
-      "color": "#4169E1",
+      "color": "#B8860B",
       "organized": {
         "path": [
-          "Mushroom Regency & Kingdom"
+          "Peach's Castle 955 BF",
+          "The Court"
         ],
-        "basis": "name-rule",
+        "basis": "era",
         "from": []
       }
     }
@@ -1263,8 +1265,8 @@
     "coreVersion": "14.367",
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
-    "createdTime": 1791077258421,
-    "modifiedTime": 1791077608383,
+    "createdTime": 1791077014406,
+    "modifiedTime": 1791077040353,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "compendiumSource": null,
     "duplicateSource": null,

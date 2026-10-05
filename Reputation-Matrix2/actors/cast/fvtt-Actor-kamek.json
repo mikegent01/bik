@@ -976,7 +976,6 @@
   "flags": {
     "waluipedia-mass-import": {
       "folderPath": [
-        "Waluipedia Cast",
         "Koopa Troop"
       ],
       "source": "tools/build-character-sheets.py"

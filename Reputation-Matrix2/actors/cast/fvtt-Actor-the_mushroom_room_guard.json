@@ -796,7 +796,6 @@
   "flags": {
     "waluipedia-mass-import": {
       "folderPath": [
-        "Waluipedia Cast",
         "Rakasha & the Feywild"
       ],
       "source": "tools/build-character-sheets.py"

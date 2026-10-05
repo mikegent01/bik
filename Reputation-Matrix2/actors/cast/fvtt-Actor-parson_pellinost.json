@@ -833,7 +833,6 @@
   "flags": {
     "waluipedia-mass-import": {
       "folderPath": [
-        "Waluipedia Cast",
         "Mages' Guild"
       ],
       "source": "tools/build-character-sheets.py"

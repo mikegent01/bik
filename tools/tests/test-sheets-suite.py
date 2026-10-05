@@ -86,6 +86,22 @@ check("the spoils file sets no XP (the ledger pin owns that)", not any("set" in 
 check("packets are git-ignored build artefacts",
       "Reputation-Matrix2/actors/worlds/*/import.json" in (ROOT / ".gitignore").read_text(encoding="utf-8")
       and "Reputation-Matrix2/actors/worlds/*/players-import.json" in (ROOT / ".gitignore").read_text(encoding="utf-8"))
+check("one import carries everything: the world mirror, the generated cast and the era packets the scheme names, in that precedence",
+      [os.path.relpath(d, suite.ACTORS).replace(os.sep, "/") for d in suite.packet_sources("midlands")] == ["worlds/midlands", "cast", "peachs-castle-955"])
+everything = read(ROOT / "Reputation-Matrix2/actors/worlds/midlands/import.json")
+names = {(a["name"].lower(), a["type"]) for a in everything["actors"]}
+n_mirror = read(ROOT / "Reputation-Matrix2/actors/worlds/midlands/manifest.json")["actorCount"]
+n_cast = read(ROOT / "Reputation-Matrix2/actors/cast/import.json")["actorCount"]
+n_era = read(ROOT / "Reputation-Matrix2/actors/peachs-castle-955/import.json")["actorCount"]
+omitted = everything.get("omitted") or []
+check("…the built packet holds the live world + cast + 955 BF court; an era copy the world already has (same name + type) is left out and listed",
+      everything["actorCount"] == n_mirror + n_cast + n_era - len(omitted) and len(omitted) >= 10 and ("koopatrol", "npc") in names and ("bowser (955 bf)", "character") in names
+      and all(o["keptFrom"] == "Reputation-Matrix2/actors/worlds/midlands" and o["file"].startswith("Reputation-Matrix2/actors/peachs-castle-955/") for o in omitted)
+      and len({(o["name"].lower(), o["type"]) for o in omitted} & names) == len(omitted), str(omitted)[:200])
+check("…every folder in it is coloured (groups, Bestiary types, Players, the era) and none is a one-actor sub-folder",
+      all(f.get("color") for f in everything["folders"])
+      and not [f["name"] for f in everything["folders"] if len(f["path"]) > 1 and sum(1 for a in everything["actors"] if a["flags"]["waluipedia-mass-import"]["folderPath"] == f["path"]) < 2],
+      str([f["name"] for f in everything["folders"] if not f.get("color")]))
 
 # ---- the promoted sheets --------------------------------------------------
 mirror = ROOT / "Reputation-Matrix2/actors/worlds/midlands"
@@ -258,6 +274,9 @@ with tempfile.TemporaryDirectory() as tmp:
                      (os.path.join("..", "cast", "import.json"), {"format": "waluipedia-actors/1", "exportedFrom": "waluipedia", "actors": []})):
         with open(os.path.join(fworlds, rel), "w", encoding="utf-8") as fh:
             json.dump(doc, fh)
+    os.makedirs(os.path.join(data, "npc", "waluipedia", "cast"), exist_ok=True)
+    with open(os.path.join(data, "npc", "waluipedia", "cast", "packets.json"), "w", encoding="utf-8") as fh:
+        fh.write("{}")
     saved = (suite.ROOT, suite.ACTORS, suite.WORLDS, suite.say)
     said = []
     suite.ROOT, suite.ACTORS, suite.WORLDS, suite.say = froot, os.path.dirname(fworlds), fworlds, said.append
@@ -274,18 +293,32 @@ with tempfile.TemporaryDirectory() as tmp:
         suite.ROOT, suite.ACTORS, suite.WORLDS, suite.say = saved
     dest = os.path.join(data, "npc", "waluipedia", world)
     check("step_publish copies players-import.json, import.json and manifest.json into <Data>/npc/waluipedia/<world>/", ok1 and all(os.path.exists(os.path.join(dest, f)) for f in ("players-import.json", "import.json", "manifest.json", "packets.json")), " | ".join(first))
-    check("…and tells the GM where Sync reads", any("Sync reads npc/waluipedia/testworld/players-import.json" in t for t in first) and any("players-import.json, import.json, manifest.json, cast/import.json" in t for t in first), " | ".join(first))
+    check("…and tells the GM where Sync reads (the one import.json)", any("Sync reads npc/waluipedia/testworld/import.json" in t for t in first) and any("import.json, players-import.json, manifest.json" in t for t in first), " | ".join(first))
     info = read(os.path.join(dest, "packets.json"))
-    check("packets.json: stamps + every other place the same packet lives (launcher URLs, GitHub manifest)", info["format"] == "waluipedia-packets/1" and info["world"] == world and info["exportedAt"] == "2026-10-04T17:21:43.770Z" and info["publishedBy"] == "tools/sheets-suite.py"
-          and info["packets"] == {"players": "players-import.json", "world": "import.json", "manifest": "manifest.json"}
+    check("packets.json: stamps + digest + every other place the same packets live (launcher URLs; GitHub manifest + cast + era for the module to merge)",
+          info["format"] == "waluipedia-packets/2" and info["world"] == world and info["exportedAt"] == "2026-10-04T17:21:43.770Z" and info["publishedBy"] == "tools/sheets-suite.py"
+          and info["packets"] == {"everything": "import.json", "players": "players-import.json", "manifest": "manifest.json"} and len(info["digest"]) == 40
+          and info["launcher"]["everything"] == f"http://127.0.0.1:8765/Reputation-Matrix2/actors/worlds/{world}/import.json"
           and info["launcher"]["players"] == f"http://127.0.0.1:8765/Reputation-Matrix2/actors/worlds/{world}/players-import.json"
-          and info["launcher"]["world"] == f"http://127.0.0.1:8765/Reputation-Matrix2/actors/worlds/{world}/import.json"
-          and info["github"]["manifest"] == f"https://raw.githubusercontent.com/mikegent01/bik/gh-pages/Reputation-Matrix2/actors/worlds/{world}/manifest.json", json.dumps(info))
+          and info["github"]["manifest"] == f"https://raw.githubusercontent.com/mikegent01/bik/gh-pages/Reputation-Matrix2/actors/worlds/{world}/manifest.json"
+          and info["github"]["cast"] == "https://raw.githubusercontent.com/mikegent01/bik/gh-pages/Reputation-Matrix2/actors/cast/import.json"
+          and info["github"]["era"] == "https://raw.githubusercontent.com/mikegent01/bik/gh-pages/Reputation-Matrix2/actors/peachs-castle-955/import.json", json.dumps(info))
     check("packets.json uses forward slashes whatever the OS", "\\" not in json.dumps(info))
-    cast_info_path = os.path.join(data, "npc", "waluipedia", "cast", "packets.json")
-    check("the cast packet is published next to it (Sync's `cast` scope works offline)", os.path.exists(os.path.join(data, "npc", "waluipedia", "cast", "import.json")) and os.path.exists(cast_info_path)
-          and read(cast_info_path)["github"]["cast"] == "https://raw.githubusercontent.com/mikegent01/bik/gh-pages/Reputation-Matrix2/actors/cast/import.json")
-    check("a second pass with the same packets copies nothing and says so", ok2 and any("packets unchanged" in t for t in second), " | ".join(second))
+    check("no separate cast packet dir any more (the cast rides in import.json); a stale one from an older suite is removed",
+          not os.path.exists(os.path.join(data, "npc", "waluipedia", "cast")) and any("removed the old cast/ packet dir" in t for t in first), " | ".join(first))
+    check("a second pass with the same packets copies nothing, says so, and keeps publishedAt (the module syncs once per real change)",
+          ok2 and any("packets unchanged" in t for t in second) and read(os.path.join(dest, "packets.json"))["publishedAt"] == info["publishedAt"], " | ".join(second))
+    with open(os.path.join(fworlds, world, "import.json"), "w", encoding="utf-8") as fh:
+        json.dump({"format": "waluipedia-actors/1", "exportedFrom": world, "actors": [actor, dict(actor, _id="Eb1aaaaaaaaaaaaa", name="Dan")]}, fh)
+    time.sleep(1.1)
+    suite.ROOT, suite.ACTORS, suite.WORLDS, suite.say = froot, os.path.dirname(fworlds), fworlds, said.append
+    try:
+        ok5 = suite.step_publish(world, True, 8765, data, "--foundry-data", install=False, images=False)
+        third = list(said); said.clear()
+    finally:
+        suite.ROOT, suite.ACTORS, suite.WORLDS, suite.say = saved
+    info3 = read(os.path.join(dest, "packets.json"))
+    check("a changed packet moves the digest and publishedAt", ok5 and info3["digest"] != info["digest"] and info3["publishedAt"] != info["publishedAt"] and any("import.json" in t for t in third), " | ".join(third))
     check("under --check the publish step only reports what it would copy", ok3 and any("would copy" in t for t in checked) and not any("->" in t and "unchanged" in t for t in checked), " | ".join(checked))
     check("with no Data folder the step explains the fallbacks (launcher URL, then GitHub) and passes", ok4 and any("falls back to the launcher URL, then GitHub" in t and "--foundry-data" in t for t in nowhere), " | ".join(nowhere))
     check("step_publish never writes the repo", not os.path.exists(os.path.join(fworlds, world, "packets.json")))

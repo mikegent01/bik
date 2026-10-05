@@ -14,6 +14,10 @@ that, never the actor files:
                               re-filed (the party's sheets stay where the GM
                               keeps them); a party *character* found elsewhere
                               is filed here
+  <era> / …                   an actor with the same name and type as one in an
+                              era packet the scheme's `eras` name (Peach's
+                              Castle 955 BF) is that era's copy: it takes the
+                              packet's folder (the court, the incursion)
   <website group>             every actor the sheet index (data/sheets.json)
                               maps to a character article: Disaster Inc.,
                               Liberated Toads, Iron Legion, Shadow Estate &
@@ -29,7 +33,15 @@ that, never the actor files:
   <website group> (GM folder) an actor already in a GM folder named like a
                               website group (the GM's own "Iron Legion") stays
   Bestiary / <Creature type>  everything else: generic statblocks by dnd5e
-                              creature type (Humanoid, Fey, Undead, Plant, …)
+                              creature type (Humanoid, Fey, Undead, Plant, …);
+                              a blank or custom type sits straight under Bestiary
+
+Folders worth having: the scheme's `minimum` (2) is counted across everything
+the import carries — this mirror, the generated cast (from the index) and the
+era packets — and a sub-folder below it is folded into its parent (one ooze
+goes straight under Bestiary), a top-level group below it into `fallback`
+(Elsewhere). tools/build-character-sheets.py applies the same rule to the
+cast, so the two agree on the tree.
 
 Each actor is filed ONCE: the placement is recorded in
 flags["waluipedia-sheets"].organized = {path, basis, from}. On later passes an
@@ -61,7 +73,7 @@ RM = os.path.join(ROOT, "Reputation-Matrix2")
 WORLDS = os.path.join(RM, "actors", "worlds")
 DEFAULT_INDEX = os.path.join(RM, "data", "sheets.json")
 SHEETS_FLAG = "waluipedia-sheets"
-BASIS_RANK = {"keep": 6, "website": 5, "name-rule": 4, "folder-rule": 3, "gm-group": 2, "bestiary": 1}
+BASIS_RANK = {"keep": 7, "era": 6, "website": 5, "name-rule": 4, "folder-rule": 3, "gm-group": 2, "bestiary": 1}
 CREATURE_TYPES = {"aberration", "beast", "celestial", "construct", "dragon", "elemental", "fey", "fiend", "giant",
                   "humanoid", "monstrosity", "ooze", "plant", "undead"}
 
@@ -101,6 +113,39 @@ def load_index(path=DEFAULT_INDEX):
     return out
 
 
+def load_index_raw(path=DEFAULT_INDEX):
+    try:
+        with open(path, encoding="utf-8") as fh:
+            return json.load(fh)
+    except (OSError, ValueError):
+        return {}
+
+
+def era_label_folders(scheme):
+    """{"955 BF": "Peach's Castle 955 BF"} — era label -> era folder."""
+    return {e.get("era"): e["folder"] for e in BRIDGE.era_folders(scheme).values() if e.get("era")}
+
+
+def cast_population(scheme, index_path=DEFAULT_INDEX):
+    """[path] for every generated sheet and era version the website index lists —
+    what tools/build-character-sheets.py puts in the cast packet (group
+    folders; era versions in the era folder)."""
+    by_label = era_label_folders(scheme)
+    paths = []
+    for e in load_index_raw(index_path).get("sheets") or []:
+        if e.get("source") == "generated":
+            paths.append([e.get("group") or "Elsewhere"])
+        for v in e.get("versions") or []:
+            folder = by_label.get(v.get("era"))
+            paths.append([folder] if folder else [e.get("group") or "Elsewhere", str(v.get("era") or "era")])
+    return paths
+
+
+def load_eras(scheme):
+    """{(name lower, type): {"path", "folder", "era", "file"}} — the era packets' actors."""
+    return BRIDGE.era_actors(scheme)
+
+
 def creature_type(doc):
     """dnd5e creature type as a folder name: Humanoid, Fey, … ; Other when blank."""
     det = ((doc.get("system") or {}).get("details") or {})
@@ -123,7 +168,7 @@ def current_path(doc, rel_parts):
 
 # ------------------------------------------------------------- the rules
 
-def classify(doc, rel_parts, scheme, index, basename=""):
+def classify(doc, rel_parts, scheme, index, basename="", eras=None):
     """-> (target path, basis, facts) — facts feed the tags."""
     players = (scheme.get("players") or {}).get("folder", "Players")
     bestiary = (scheme.get("bestiary") or {}).get("folder", "Bestiary")
@@ -135,11 +180,15 @@ def classify(doc, rel_parts, scheme, index, basename=""):
     ctype = creature_type(doc)
     hit = index.get(basename) if basename else None
     facts = {"kind": kind, "type": ctype, "role": (hit or {}).get("role"), "character": (hit or {}).get("id"),
-             "party": bool((hit or {}).get("party")), "group": None, "from": cur[0] if cur else None}
+             "party": bool((hit or {}).get("party")), "group": None, "from": cur[0] if cur else None, "era": None}
 
     if cur and cur[0] in keep:
         facts["group"] = (hit or {}).get("group") if hit else None
         return cur, "keep", facts
+    era = (eras or {}).get((name.strip().lower(), doc.get("type")))
+    if era:
+        facts["era"] = era.get("era")
+        return list(era["path"]), "era", facts
     if hit:
         facts["group"] = hit["group"]
         if hit["party"] and kind == "pc":
@@ -158,7 +207,9 @@ def classify(doc, rel_parts, scheme, index, basename=""):
     if cur and cur[0] in groups:
         facts["group"] = cur[0]
         return cur[:1], "gm-group", facts
-    return [bestiary, ctype], "bestiary", facts
+    # a creature of a rare or blank type sits straight under Bestiary (no
+    # one-creature sub-folders, no "Other" drawer)
+    return ([bestiary, ctype] if ctype != "Other" else [bestiary]), "bestiary", facts
 
 
 def tags_for(target, basis, facts, scheme):
@@ -174,6 +225,8 @@ def tags_for(target, basis, facts, scheme):
         tags.append(facts["type"].lower())
     if facts.get("party") and facts["kind"] == "npc":
         tags.append("party")
+    if facts.get("era"):
+        tags.append(str(facts["era"]))
     came_from = facts.get("from")
     if came_from and target and came_from != target[0] and came_from not in tags:
         tags.append(came_from)
@@ -196,14 +249,28 @@ def color_for(target, facts, scheme):
 
 # -------------------------------------------------------------- the pass
 
-def plan(world_dir, scheme, index, force=False):
+def plan(world_dir, scheme, index, force=False, index_path=DEFAULT_INDEX):
     """[{file, doc, path_now, target, basis, tags, color, move, reason}] for every actor file."""
-    rows = []
+    eras = load_eras(scheme)
+    seeds = []
     for path, rel_parts in BRIDGE.actor_files([world_dir]):
         doc = BRIDGE.load_actor_file(path)
         if doc is None:
             continue
-        target, basis, facts = classify(doc, rel_parts, scheme, index, basename=os.path.basename(path))
+        target, basis, facts = classify(doc, rel_parts, scheme, index, basename=os.path.basename(path), eras=eras)
+        seeds.append((path, rel_parts, doc, target, basis, facts))
+    # folders worth having: count what the whole import will carry (this
+    # mirror, the generated cast, the era packets) and fold the small ones
+    mirror_keys = {(str(d.get("name") or "").strip().lower(), d.get("type")) for _, _, d, *_ in seeds}
+    population = {f"m{i}": t for i, (_, _, _, t, _, _) in enumerate(seeds)}
+    population.update({f"c{i}": p for i, p in enumerate(cast_population(scheme, index_path))})
+    population.update({f"e{i}": v["path"] for i, (k, v) in enumerate(eras.items()) if k not in mirror_keys})
+    folded = BRIDGE.fold_singletons(population, scheme)
+    rows = []
+    for i, (path, rel_parts, doc, target, basis, facts) in enumerate(seeds):
+        if basis != "keep" and folded.get(f"m{i}") != target:
+            facts["folded_from"] = target
+            target = folded[f"m{i}"]
         now = current_path(doc, rel_parts)
         org = ((doc.get("flags") or {}).get(SHEETS_FLAG) or {}).get("organized")
         org_path = [str(p) for p in org["path"]] if isinstance(org, dict) and isinstance(org.get("path"), list) else None
@@ -219,6 +286,8 @@ def plan(world_dir, scheme, index, force=False):
                 move, reason = True, "--force (the GM had moved it)"
             else:
                 reason = "left where the GM moved it"
+            if move and facts.get("folded_from"):
+                reason += f" (too few for {' / '.join(facts['folded_from'])})"
         final = target if (move or basis == "keep") else now
         # the folder the actor came from, remembered across passes (the tag
         # must not change once the move has happened)
@@ -245,7 +314,10 @@ def desired_flags(row):
     if row["basis"] != "keep":
         if row["move"] or not isinstance(row.get("organized"), dict):
             prev = row["organized"] if isinstance(row.get("organized"), dict) else None
-            came_from = row["now"] if row["move"] else (prev or {}).get("from")
+            if prev and isinstance(prev.get("from"), list):
+                came_from = prev["from"]  # the folder the GM had it in, kept across re-filings
+            else:
+                came_from = row["now"] if row["move"] else (prev or {}).get("from")
             sheets["organized"] = {"path": list(row["target"]), "basis": row["basis"],
                                    "from": list(came_from) if isinstance(came_from, list) else came_from}
     return flags
@@ -342,7 +414,7 @@ def main(argv=None):
         print(f"organize: FAIL — no folder scheme at {args.scheme}", file=sys.stderr)
         return 1
     index = load_index(args.index)
-    rows = plan(world_dir, scheme, index, force=args.force)
+    rows = plan(world_dir, scheme, index, force=args.force, index_path=args.index)
     changed, moved, lines = apply(world_dir, rows, write=not args.check)
     manifest_changed = refresh_manifest(world_dir, write=not args.check)
     if not args.quiet:

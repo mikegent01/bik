@@ -1,9 +1,16 @@
 {
-  "folder": "OWq9j30lFHJQBqKI",
-  "name": "The Tree of Woe",
+  "name": "Joseph Lee",
   "type": "npc",
-  "img": "modules/house-divided/assets/creatures/tokens-topdown/tree-of-woe.webp",
+  "_id": "i81gKchy0m427tAl",
+  "img": "npc/younglee.png",
   "system": {
+    "currency": {
+      "pp": 0,
+      "gp": 0,
+      "ep": 0,
+      "sp": 0,
+      "cp": 0
+    },
     "abilities": {
       "str": {
         "value": 10,
@@ -144,441 +151,6 @@
         }
       }
     },
-    "attributes": {
-      "ac": {
-        "flat": 19,
-        "calc": "natural",
-        "formula": ""
-      },
-      "hp": {
-        "value": 100,
-        "max": 100,
-        "temp": null,
-        "tempmax": 0,
-        "formula": ""
-      },
-      "init": {
-        "ability": "",
-        "bonus": "0",
-        "roll": {
-          "min": null,
-          "max": null,
-          "mode": 0
-        }
-      },
-      "movement": {
-        "burrow": "0",
-        "climb": "0",
-        "fly": "0",
-        "swim": "0",
-        "walk": "0",
-        "units": "ft",
-        "hover": false,
-        "ignoredDifficultTerrain": []
-      },
-      "attunement": {
-        "max": 3
-      },
-      "senses": {
-        "units": "ft",
-        "special": "",
-        "ranges": {
-          "darkvision": 0,
-          "blindsight": 0,
-          "tremorsense": 0,
-          "truesight": 0
-        }
-      },
-      "spellcasting": "int",
-      "exhaustion": 0,
-      "spell": {
-        "level": 0
-      },
-      "concentration": {
-        "ability": "",
-        "roll": {
-          "min": null,
-          "max": null,
-          "mode": 0
-        },
-        "bonuses": {
-          "save": ""
-        },
-        "limit": 1
-      },
-      "loyalty": {
-        "value": null
-      },
-      "hd": {
-        "spent": 0
-      },
-      "death": {
-        "roll": {
-          "min": null,
-          "max": null,
-          "mode": 0
-        },
-        "success": 0,
-        "failure": 0,
-        "bonuses": {
-          "save": ""
-        }
-      },
-      "price": {
-        "value": null,
-        "denomination": "gp"
-      }
-    },
-    "details": {
-      "biography": {
-        "value": "",
-        "public": ""
-      },
-      "alignment": "",
-      "race": null,
-      "type": {
-        "value": "",
-        "subtype": "",
-        "swarm": "",
-        "custom": ""
-      },
-      "cr": 1,
-      "habitat": {
-        "custom": "",
-        "value": []
-      },
-      "ideal": "",
-      "bond": "",
-      "flaw": "",
-      "treasure": {
-        "value": []
-      }
-    },
-    "traits": {
-      "size": "grg",
-      "di": {
-        "value": [
-          "cold",
-          "necrotic",
-          "poison",
-          "psychic"
-        ],
-        "bypasses": [],
-        "custom": ""
-      },
-      "dr": {
-        "value": [],
-        "bypasses": [],
-        "custom": ""
-      },
-      "dv": {
-        "value": [
-          "fire"
-        ],
-        "bypasses": [],
-        "custom": ""
-      },
-      "ci": {
-        "value": [],
-        "custom": ""
-      },
-      "languages": {
-        "value": [],
-        "custom": "",
-        "communication": {}
-      },
-      "dm": {
-        "amount": {},
-        "bypasses": []
-      },
-      "important": false
-    },
-    "currency": {
-      "pp": 0,
-      "gp": 0,
-      "ep": 0,
-      "sp": 0,
-      "cp": 0
-    },
-    "skills": {
-      "acr": {
-        "value": 0,
-        "ability": "dex",
-        "bonuses": {
-          "check": "",
-          "passive": ""
-        },
-        "roll": {
-          "min": null,
-          "max": null,
-          "mode": 0
-        }
-      },
-      "ani": {
-        "value": 0,
-        "ability": "wis",
-        "bonuses": {
-          "check": "",
-          "passive": ""
-        },
-        "roll": {
-          "min": null,
-          "max": null,
-          "mode": 0
-        }
-      },
-      "arc": {
-        "value": 0,
-        "ability": "int",
-        "bonuses": {
-          "check": "",
-          "passive": ""
-        },
-        "roll": {
-          "min": null,
-          "max": null,
-          "mode": 0
-        }
-      },
-      "ath": {
-        "value": 0,
-        "ability": "str",
-        "bonuses": {
-          "check": "",
-          "passive": ""
-        },
-        "roll": {
-          "min": null,
-          "max": null,
-          "mode": 0
-        }
-      },
-      "dec": {
-        "value": 0,
-        "ability": "cha",
-        "bonuses": {
-          "check": "",
-          "passive": ""
-        },
-        "roll": {
-          "min": null,
-          "max": null,
-          "mode": 0
-        }
-      },
-      "his": {
-        "value": 0,
-        "ability": "int",
-        "bonuses": {
-          "check": "",
-          "passive": ""
-        },
-        "roll": {
-          "min": null,
-          "max": null,
-          "mode": 0
-        }
-      },
-      "ins": {
-        "value": 0,
-        "ability": "wis",
-        "bonuses": {
-          "check": "",
-          "passive": ""
-        },
-        "roll": {
-          "min": null,
-          "max": null,
-          "mode": 0
-        }
-      },
-      "itm": {
-        "value": 0,
-        "ability": "cha",
-        "bonuses": {
-          "check": "",
-          "passive": ""
-        },
-        "roll": {
-          "min": null,
-          "max": null,
-          "mode": 0
-        }
-      },
-      "inv": {
-        "value": 0,
-        "ability": "int",
-        "bonuses": {
-          "check": "",
-          "passive": ""
-        },
-        "roll": {
-          "min": null,
-          "max": null,
-          "mode": 0
-        }
-      },
-      "med": {
-        "value": 0,
-        "ability": "wis",
-        "bonuses": {
-          "check": "",
-          "passive": ""
-        },
-        "roll": {
-          "min": null,
-          "max": null,
-          "mode": 0
-        }
-      },
-      "nat": {
-        "value": 0,
-        "ability": "int",
-        "bonuses": {
-          "check": "",
-          "passive": ""
-        },
-        "roll": {
-          "min": null,
-          "max": null,
-          "mode": 0
-        }
-      },
-      "prc": {
-        "value": 0,
-        "ability": "wis",
-        "bonuses": {
-          "check": "",
-          "passive": ""
-        },
-        "roll": {
-          "min": null,
-          "max": null,
-          "mode": 0
-        }
-      },
-      "prf": {
-        "value": 0,
-        "ability": "cha",
-        "bonuses": {
-          "check": "",
-          "passive": ""
-        },
-        "roll": {
-          "min": null,
-          "max": null,
-          "mode": 0
-        }
-      },
-      "per": {
-        "value": 0,
-        "ability": "cha",
-        "bonuses": {
-          "check": "",
-          "passive": ""
-        },
-        "roll": {
-          "min": null,
-          "max": null,
-          "mode": 0
-        }
-      },
-      "rel": {
-        "value": 0,
-        "ability": "int",
-        "bonuses": {
-          "check": "",
-          "passive": ""
-        },
-        "roll": {
-          "min": null,
-          "max": null,
-          "mode": 0
-        }
-      },
-      "slt": {
-        "value": 0,
-        "ability": "dex",
-        "bonuses": {
-          "check": "",
-          "passive": ""
-        },
-        "roll": {
-          "min": null,
-          "max": null,
-          "mode": 0
-        }
-      },
-      "ste": {
-        "value": 0,
-        "ability": "dex",
-        "bonuses": {
-          "check": "",
-          "passive": ""
-        },
-        "roll": {
-          "min": null,
-          "max": null,
-          "mode": 0
-        }
-      },
-      "sur": {
-        "value": 0,
-        "ability": "wis",
-        "bonuses": {
-          "check": "",
-          "passive": ""
-        },
-        "roll": {
-          "min": null,
-          "max": null,
-          "mode": 0
-        }
-      }
-    },
-    "tools": {},
-    "spells": {
-      "spell1": {
-        "value": 0,
-        "override": null
-      },
-      "spell2": {
-        "value": 0,
-        "override": null
-      },
-      "spell3": {
-        "value": 0,
-        "override": null
-      },
-      "spell4": {
-        "value": 0,
-        "override": null
-      },
-      "spell5": {
-        "value": 0,
-        "override": null
-      },
-      "spell6": {
-        "value": 0,
-        "override": null
-      },
-      "spell7": {
-        "value": 0,
-        "override": null
-      },
-      "spell8": {
-        "value": 0,
-        "override": null
-      },
-      "spell9": {
-        "value": 0,
-        "override": null
-      },
-      "pact": {
-        "value": 0,
-        "override": null
-      }
-    },
     "bonuses": {
       "mwak": {
         "attack": "",
@@ -605,6 +177,373 @@
         "dc": ""
       }
     },
+    "skills": {
+      "acr": {
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ani": {
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "arc": {
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ath": {
+        "ability": "str",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "dec": {
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "his": {
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ins": {
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "itm": {
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "inv": {
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "med": {
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "nat": {
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "prc": {
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "prf": {
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "per": {
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "rel": {
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "slt": {
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ste": {
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "sur": {
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      }
+    },
+    "tools": {},
+    "spells": {
+      "spell1": {
+        "value": 0
+      },
+      "spell2": {
+        "value": 0
+      },
+      "spell3": {
+        "value": 0
+      },
+      "spell4": {
+        "value": 0
+      },
+      "spell5": {
+        "value": 0
+      },
+      "spell6": {
+        "value": 0
+      },
+      "spell7": {
+        "value": 0
+      },
+      "spell8": {
+        "value": 0
+      },
+      "spell9": {
+        "value": 0
+      },
+      "pact": {
+        "value": 0
+      }
+    },
+    "attributes": {
+      "ac": {
+        "calc": "default",
+        "flat": null
+      },
+      "init": {
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonus": ""
+      },
+      "movement": {
+        "units": null,
+        "hover": false,
+        "ignoredDifficultTerrain": []
+      },
+      "attunement": {
+        "max": 3
+      },
+      "senses": {
+        "ranges": {
+          "blindsight": null,
+          "darkvision": null,
+          "tremorsense": null,
+          "truesight": null
+        },
+        "units": null,
+        "special": ""
+      },
+      "spellcasting": "",
+      "exhaustion": 0,
+      "concentration": {
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "save": ""
+        },
+        "limit": 1
+      },
+      "loyalty": {},
+      "hd": {
+        "spent": 0
+      },
+      "hp": {
+        "max": 10,
+        "temp": null,
+        "tempmax": null,
+        "value": 10,
+        "formula": "",
+        "dt": null
+      },
+      "death": {
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "success": 0,
+        "failure": 0,
+        "bonuses": {
+          "save": ""
+        }
+      },
+      "price": {
+        "value": null,
+        "denomination": "gp"
+      },
+      "spell": {
+        "level": 0
+      }
+    },
+    "details": {
+      "biography": {
+        "value": "",
+        "public": ""
+      },
+      "alignment": "",
+      "ideal": "",
+      "bond": "",
+      "flaw": "",
+      "race": null,
+      "type": {},
+      "habitat": {
+        "value": [],
+        "custom": ""
+      },
+      "cr": 1,
+      "treasure": {
+        "value": []
+      }
+    },
     "resources": {
       "legact": {
         "max": 0,
@@ -616,37 +555,69 @@
       },
       "lair": {
         "value": false,
-        "initiative": 0,
+        "initiative": null,
         "inside": false
       }
     },
     "source": {
-      "rules": "2014",
-      "custom": "A House Divided",
-      "revision": 1
+      "revision": 1,
+      "rules": "2024"
+    },
+    "traits": {
+      "size": "med",
+      "di": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dr": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dv": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dm": {
+        "amount": {},
+        "bypasses": []
+      },
+      "ci": {
+        "value": [],
+        "custom": ""
+      },
+      "languages": {
+        "value": [],
+        "custom": "",
+        "communication": {}
+      },
+      "important": false
     }
   },
   "prototypeToken": {
-    "name": "The Tree of Woe",
-    "displayName": 20,
+    "name": "Non-Player Character",
+    "displayName": 0,
     "actorLink": false,
+    "width": 1,
+    "height": 1,
+    "depth": 1,
     "texture": {
-      "src": "modules/house-divided/assets/creatures/tokens-topdown/invisible-stalker.webp",
-      "scaleX": 1,
-      "scaleY": 1,
-      "tint": "#ffffff",
+      "src": "npc/younglee.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
+      "scaleX": 1,
+      "scaleY": 1,
+      "tint": "#ffffff",
       "alphaThreshold": 0.75
     },
-    "width": 4,
-    "height": 4,
     "lockRotation": false,
     "rotation": 0,
     "alpha": 1,
     "disposition": -1,
-    "displayBars": 20,
+    "displayBars": 0,
     "bar1": {
       "attribute": "attributes.hp"
     },
@@ -654,6 +625,8 @@
       "attribute": null
     },
     "light": {
+      "negative": false,
+      "priority": 0,
       "alpha": 0.5,
       "angle": 360,
       "bright": 0,
@@ -674,9 +647,7 @@
       "darkness": {
         "min": 0,
         "max": 1
-      },
-      "negative": false,
-      "priority": 0
+      }
     },
     "sight": {
       "enabled": false,
@@ -690,10 +661,6 @@
       "contrast": 0
     },
     "detectionModes": {},
-    "flags": {},
-    "randomImg": false,
-    "appendNumber": false,
-    "prependAdjective": false,
     "occludable": {
       "radius": 0
     },
@@ -716,52 +683,66 @@
       "disposition": false
     },
     "movementAction": null,
-    "depth": 4
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": false,
+    "prependAdjective": false
   },
   "items": [],
   "effects": [],
+  "folder": null,
   "sort": 0,
+  "ownership": {
+    "default": 0,
+    "7BMT1Aux3QVtq027": 3
+  },
   "flags": {
+    "scene-packer": {
+      "hash": "7f9037932501407360d1e82988b43dc89c0841bb"
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "coward"
+        ],
+        "reasons": [
+          "No inference signals — fallback pool pick for \"humanoid\": coward"
+        ],
+        "confidence": 0,
+        "version": 3,
+        "timestamp": 1791077506255,
+        "manuallyOverridden": false
+      }
+    },
     "waluipedia-mass-import": {
       "folderPath": [
-        "Bestiary",
-        "Other"
+        "Bestiary"
       ]
     },
     "waluipedia-sheets": {
       "tags": [
         "Bestiary",
-        "npc",
-        "A House Divided"
+        "npc"
       ],
       "color": "#8B7355",
       "organized": {
         "path": [
-          "Bestiary",
-          "Other"
+          "Bestiary"
         ],
         "basis": "bestiary",
-        "from": [
-          "A House Divided",
-          "Creatures of the Shadeward Manor"
-        ]
+        "from": []
       }
     }
   },
   "_stats": {
-    "compendiumSource": null,
-    "duplicateSource": null,
-    "exportSource": null,
-    "coreVersion": "14.365",
+    "coreVersion": "14.367",
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
-    "createdTime": 1788231129704,
-    "modifiedTime": 1788231129756,
-    "lastModifiedBy": "7BMT1Aux3QVtq027"
-  },
-  "_id": "IqZjrAdSvJdC6qfO",
-  "ownership": {
-    "default": 0,
-    "7BMT1Aux3QVtq027": 3
+    "createdTime": 1791077506206,
+    "modifiedTime": 1791077536894,
+    "lastModifiedBy": "7BMT1Aux3QVtq027",
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
   }
 }

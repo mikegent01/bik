@@ -875,7 +875,6 @@
   "flags": {
     "waluipedia-mass-import": {
       "folderPath": [
-        "Waluipedia Cast",
         "Peach Loyalists"
       ],
       "source": "tools/build-character-sheets.py"

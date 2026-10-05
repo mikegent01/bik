@@ -1,12 +1,12 @@
 {
-  "name": "Toadsworth the Elder, Royal Chamberlain (955 BF)",
+  "name": "Palace Guard Sergeant",
   "type": "npc",
-  "_id": "oHLrMdbccIJx6YgS",
-  "img": "npc/toadsworth-elder-cutout.png",
+  "_id": "ZtxEXSyJ3xNBh0eC",
+  "img": "npc/guard-sergeant.png",
   "system": {
     "abilities": {
       "str": {
-        "value": 8,
+        "value": 14,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -29,7 +29,7 @@
         }
       },
       "dex": {
-        "value": 10,
+        "value": 14,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -52,7 +52,7 @@
         }
       },
       "con": {
-        "value": 12,
+        "value": 14,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -75,7 +75,7 @@
         }
       },
       "int": {
-        "value": 16,
+        "value": 11,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -98,8 +98,8 @@
         }
       },
       "wis": {
-        "value": 17,
-        "proficient": 1,
+        "value": 13,
+        "proficient": 0,
         "bonuses": {
           "check": "",
           "save": ""
@@ -121,7 +121,7 @@
         }
       },
       "cha": {
-        "value": 14,
+        "value": 13,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -146,14 +146,14 @@
     },
     "attributes": {
       "ac": {
-        "flat": 11,
+        "flat": 15,
         "calc": "natural",
         "formula": ""
       },
       "hp": {
-        "value": 27,
-        "max": 27,
-        "formula": "6d6 + 6",
+        "value": 22,
+        "max": 22,
+        "formula": "4d6 + 8",
         "temp": null,
         "tempmax": null
       },
@@ -225,14 +225,14 @@
       }
     },
     "details": {
-      "alignment": "Lawful Neutral",
+      "alignment": "Lawful Good",
       "type": {
         "value": "humanoid",
         "subtype": "toad"
       },
       "cr": 1,
       "biography": {
-        "value": "<p><em>Era sheet: Highsun 1, 955 BF, Peach's Castle.</em> Art and stats describe this figure on the night of the Day Of (events.json <code>highsun_1_955_bf_the_day_of</code>), not the present day of the campaign (1040 BF).</p><p>Royal Chamberlain for more than thirty years. Beige spotted cap, spectacles, white moustache, charcoal cloak with brooch over a purple waistcoat and bow tie; cane and pocket watch. Level 4 in the XP ledger (<code>toadsworth_sr</code>), so CR 1 — he wins rooms, not fights.</p><p>After the Day Of he becomes Acting Regent; he dies around 1020 BF and his journals are disputed. The archive titles him <em>The Chamberlain Who May Have Betrayed Everything</em>. This sheet does not answer that: whether tonight he is a loyal old servant, a frightened one, or part of the arrangement is the GM's call, and both readings fit the stats. His son, Chancellor Toadsworth, is a different character.</p>",
+        "value": "<p><em>Era sheet: Highsun 1, 955 BF, Peach's Castle.</em> Art and stats describe this figure on the night of the Day Of (events.json <code>highsun_1_955_bf_the_day_of</code>), not the present day of the campaign (1040 BF).</p><p><strong>Palace Guard — Sergeant.</strong> Royal-blue tabard with gold trim and the pink mushroom-crown crest, white gloves, brown belt, silver pauldrons and a silver kettle-helm brim ring over the red-spot cap. The livery is reconstructed from the archive, not an official reference.</p><p>Red sash, short sword, the voice of the watch. Sergeants run the rota that decides which guard is standing where on the Day Of — a detail the disputed journals never agree on.</p><p>Within the month after the Day Of, guard witnesses were <q>already dying</q> (<code>first_month_incidents</code>). Any guard who sees too much tonight has a short life expectancy on the record.</p>",
         "public": ""
       },
       "ideal": "",
@@ -322,7 +322,7 @@
         }
       },
       "ath": {
-        "value": 0,
+        "value": 1,
         "ability": "str",
         "roll": {
           "min": null,
@@ -348,7 +348,7 @@
         }
       },
       "his": {
-        "value": 2,
+        "value": 0,
         "ability": "int",
         "roll": {
           "min": null,
@@ -361,7 +361,7 @@
         }
       },
       "ins": {
-        "value": 1,
+        "value": 0,
         "ability": "wis",
         "roll": {
           "min": null,
@@ -374,7 +374,7 @@
         }
       },
       "itm": {
-        "value": 0,
+        "value": 1,
         "ability": "cha",
         "roll": {
           "min": null,
@@ -387,7 +387,7 @@
         }
       },
       "inv": {
-        "value": 1,
+        "value": 0,
         "ability": "int",
         "roll": {
           "min": null,
@@ -452,7 +452,7 @@
         }
       },
       "per": {
-        "value": 1,
+        "value": 0,
         "ability": "cha",
         "roll": {
           "min": null,
@@ -574,14 +574,14 @@
     }
   },
   "prototypeToken": {
-    "name": "Toadsworth the Elder, Royal Chamberlain (955 BF)",
+    "name": "Palace Guard Sergeant",
     "displayName": 0,
     "actorLink": false,
     "width": 1,
     "height": 1,
     "depth": 1,
     "texture": {
-      "src": "npc/toadsworth-elder-cutout.png",
+      "src": "npc/guard-sergeant.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -808,13 +808,13 @@
   },
   "items": [
     {
-      "_id": "duy5e66CYtGjMwhV",
-      "name": "Walking Cane",
+      "_id": "kHot3dpi40nwhxAz",
+      "name": "Shortsword",
       "type": "weapon",
-      "img": "icons/weapons/clubs/club-simple-barbed.webp",
+      "img": "icons/weapons/swords/shortsword-guard-brass.webp",
       "system": {
         "description": {
-          "value": "<p>Ebony, silver-headed, used mostly for pointing at people.</p>",
+          "value": "<p>Standard issue.</p>",
           "chat": ""
         },
         "source": {
@@ -867,10 +867,10 @@
           },
           "base": {
             "number": 1,
-            "denomination": 4,
+            "denomination": 6,
             "bonus": "",
             "types": [
-              "bludgeoning"
+              "piercing"
             ],
             "custom": {
               "enabled": false,
@@ -893,10 +893,11 @@
           "conditions": ""
         },
         "properties": [
+          "fin",
           "lgt"
         ],
         "type": {
-          "value": "simpleM",
+          "value": "martialM",
           "baseItem": ""
         },
         "container": null,
@@ -1088,8 +1089,8 @@
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1791076869430,
-        "modifiedTime": 1791076869430,
+        "createdTime": 1791076767747,
+        "modifiedTime": 1791076767747,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -1101,13 +1102,13 @@
       }
     },
     {
-      "_id": "P4XCxcBC1jL5hzFq",
-      "name": "Keys to Every Door",
+      "_id": "ajDPz2bQMDaTB7W1",
+      "name": "Multiattack",
       "type": "feat",
-      "img": "icons/sundries/misc/key-steel.webp",
+      "img": "icons/skills/melee/strike-slashes-orange.webp",
       "system": {
         "description": {
-          "value": "<p>The chamberlain's ring opens every ordinary lock in Peach's Castle — state rooms, the Royal Suite corridor, the servants' stairs, the chimney hatches — but not the royal vault, which answers to the Princess alone. He knows which doors stick and which creak.</p>",
+          "value": "<p>The sergeant makes two Shortsword attacks.</p>",
           "chat": ""
         },
         "type": {
@@ -1146,8 +1147,8 @@
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1791076869430,
-        "modifiedTime": 1791076869430,
+        "createdTime": 1791076767747,
+        "modifiedTime": 1791076767747,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -1159,13 +1160,13 @@
       }
     },
     {
-      "_id": "MbENomOn2ENoLUJd",
-      "name": "Steady Counsel",
+      "_id": "xLLetFZBGdpIzftM",
+      "name": "Bark Orders (Bonus Action)",
       "type": "feat",
-      "img": "icons/skills/social/diplomacy-handshake.webp",
+      "img": "icons/magic/sonic/scream-wail-shout-teal.webp",
       "system": {
         "description": {
-          "value": "<p>He can take the Help action as a bonus action, and when he helps an ally with an Intelligence, Wisdom or Charisma check the ally also adds +2 to the roll.</p>",
+          "value": "<p>One palace guard within 30 feet that can hear the sergeant uses its reaction to move up to its speed without provoking opportunity attacks, or to take the Dodge action.</p>",
           "chat": ""
         },
         "type": {
@@ -1204,71 +1205,8 @@
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1791076869430,
-        "modifiedTime": 1791076869430,
-        "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
-      },
-      "folder": null,
-      "ownership": {
-        "default": 0
-      }
-    },
-    {
-      "_id": "PzcQznDUlQJizeqO",
-      "name": "Thirty Years of Authority (Action, 1/Day)",
-      "type": "feat",
-      "img": "icons/skills/social/wave-halt-stop.webp",
-      "system": {
-        "description": {
-          "value": "<p>Every palace guard and household member within 60 feet that can hear him may immediately use a reaction to move up to half its speed, and each has advantage on its next attack roll or saving throw before the start of his next turn. Guards do what the Chamberlain says, which is exactly the problem if the Chamberlain is compromised.</p>",
-          "chat": ""
-        },
-        "type": {
-          "value": "monster",
-          "subtype": ""
-        },
-        "uses": {
-          "spent": 0,
-          "max": "1",
-          "recovery": [
-            {
-              "period": "day",
-              "type": "recoverAll"
-            }
-          ]
-        },
-        "activities": {},
-        "source": {
-          "custom": "Waluipedia campaign",
-          "book": "",
-          "page": "",
-          "license": "",
-          "revision": 1,
-          "rules": "2024"
-        },
-        "advancement": {},
-        "identifier": "",
-        "crewed": false,
-        "enchant": {},
-        "prerequisites": {
-          "items": [],
-          "repeatable": false
-        },
-        "properties": [],
-        "requirements": ""
-      },
-      "effects": [],
-      "flags": {},
-      "sort": 400000,
-      "_stats": {
-        "coreVersion": "14.367",
-        "systemId": "dnd5e",
-        "systemVersion": "5.3.3",
-        "createdTime": 1791076869430,
-        "modifiedTime": 1791076869430,
+        "createdTime": 1791076767747,
+        "modifiedTime": 1791076767747,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -1291,34 +1229,37 @@
     "5e-npc-combat-automation": {
       "aiProfile": {
         "archetypes": [
-          "tactician"
+          "disciplined"
         ],
         "reasons": [
-          "INT 16 ≥ 16 → tactician overlay"
+          "Keyword \"guard\" in name/biography → disciplined"
         ],
         "confidence": 0.3333333333333333,
         "version": 3,
-        "timestamp": 1791076869726,
+        "timestamp": 1791076768045,
         "manuallyOverridden": false
       }
     },
     "waluipedia-mass-import": {
       "folderPath": [
-        "Mushroom Regency & Kingdom"
+        "Peach's Castle 955 BF",
+        "The Court"
       ]
     },
     "waluipedia-sheets": {
       "tags": [
-        "Mushroom Regency & Kingdom",
+        "Peach's Castle 955 BF",
         "npc",
-        "humanoid"
+        "humanoid",
+        "955 BF"
       ],
-      "color": "#4169E1",
+      "color": "#B8860B",
       "organized": {
         "path": [
-          "Mushroom Regency & Kingdom"
+          "Peach's Castle 955 BF",
+          "The Court"
         ],
-        "basis": "website",
+        "basis": "era",
         "from": []
       }
     }
@@ -1327,8 +1268,8 @@
     "coreVersion": "14.367",
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
-    "createdTime": 1791076869430,
-    "modifiedTime": 1791076913104,
+    "createdTime": 1791076767747,
+    "modifiedTime": 1791076837357,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "compendiumSource": null,
     "duplicateSource": null,

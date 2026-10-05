@@ -1256,7 +1256,6 @@
   "flags": {
     "waluipedia-mass-import": {
       "folderPath": [
-        "Waluipedia Cast",
         "Disaster Inc."
       ],
       "source": "tools/build-character-sheets.py"

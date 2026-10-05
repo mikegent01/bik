@@ -52,7 +52,10 @@ SHEETS_JSON = os.path.join(DATA, "sheets.json")
 SELF = "tools/build-character-sheets.py"
 MODULE_ID = "waluipedia-mass-import"
 SHEETS_FLAG = "waluipedia-sheets"
-FOLDER_ROOT = "Waluipedia Cast"
+# Generated sheets file straight into their website group folder (Koopa Troop,
+# Iron Legion, …) beside the live world's actors — no "Waluipedia Cast" root;
+# the `generated` tag tells them apart. Era versions go to the era folder the
+# scheme (actors/folders.json `eras`) gives their era label.
 PLACEHOLDER = "icons/svg/mystery-man.svg"
 
 
@@ -1384,6 +1387,45 @@ def group_color(group):
     return color.upper() if isinstance(color, str) else None
 
 
+def era_folder_of(label):
+    """'955 BF' -> "Peach's Castle 955 BF" (the scheme's era folder), else None."""
+    for name, e in BRIDGE.era_folders(FOLDER_SCHEME).items():
+        if e.get("era") == label:
+            return name
+    return None
+
+
+def era_color(folder):
+    color = (BRIDGE.era_folders(FOLDER_SCHEME).get(folder) or {}).get("color")
+    return color.upper() if isinstance(color, str) else None
+
+
+def fold_cast_folders(generated):
+    """Apply the scheme's `minimum` to the generated sheets: count every folder
+    across what the import carries — the world mirrors, the cast and the era
+    packets' own actors — and move a generated sheet whose folder is too small
+    to its parent / Elsewhere (tools/organize-actors.py does the same for the
+    mirror, so the two agree)."""
+    population = {}
+    mirror = BRIDGE.world_population()
+    mirror_keys = {key for key, _ in mirror}
+    for i, (_, path) in enumerate(mirror):
+        population[f"m{i}"] = path
+    for i, (key, e) in enumerate(BRIDGE.era_actors(FOLDER_SCHEME).items()):
+        if key not in mirror_keys:
+            population[f"e{i}"] = e["path"]
+    for slug, doc in generated:
+        population[f"c:{slug}"] = list(doc["flags"][MODULE_ID]["folderPath"])
+    folded = BRIDGE.fold_singletons(population, FOLDER_SCHEME)
+    moved = 0
+    for slug, doc in generated:
+        path = folded.get(f"c:{slug}")
+        if path is not None and path != doc["flags"][MODULE_ID]["folderPath"]:
+            doc["flags"][MODULE_ID]["folderPath"] = list(path)
+            moved += 1
+    return moved
+
+
 def group_of(c, party):
     if party:
         return "Disaster Inc."
@@ -1551,7 +1593,7 @@ def npc_doc(*, slug, c, name, img, size, sc, saves, trained, ac, hp, hp_formula,
         "folder": None,
         "ownership": {"default": 0},
         "flags": {
-            MODULE_ID: {"folderPath": [FOLDER_ROOT, group], "source": SELF},
+            MODULE_ID: {"folderPath": [group], "source": SELF},
             SHEETS_FLAG: {"characterId": c["id"], "generated": True, "bespoke": bool(bespoke), "role": role,
                           "ledger": {"level": level, "powerLevel": power}, "evidence": evidence,
                           "tags": sheet_tags(group, "npc", role, type_value, ("generated",)), "color": group_color(group)},
@@ -1642,7 +1684,7 @@ def pc_doc(*, slug, c, name, img, size, sc, saves, trained, ac, hp, hp_formula, 
         "folder": None,
         "ownership": {"default": 0},
         "flags": {
-            MODULE_ID: {"folderPath": [FOLDER_ROOT, group], "source": SELF},
+            MODULE_ID: {"folderPath": [group], "source": SELF},
             SHEETS_FLAG: {"characterId": c["id"], "generated": True, "bespoke": True, "role": role,
                           "ledger": {"level": level, "powerLevel": power}, "evidence": evidence,
                           "tags": sheet_tags(group, "pc", role, None, ("generated",)), "color": group_color(group),
@@ -1836,9 +1878,15 @@ def build_generated(c, xp, party, group, era=None):
                      bio=bio, items=items, di=di, dr=dr, dr_bypass=dr_bypass, ci=ci, disposition=disposition,
                      group=group, evidence=evidence, role=role, level=level, power=power, build=build, pc_lvl=pc_lvl)
         if era:
+            era_folder = era_folder_of(era["era"])
             doc["flags"][SHEETS_FLAG]["era"] = {k: era[k] for k in ("version", "era", "label", "when")}
-            doc["flags"][SHEETS_FLAG]["tags"] = sheet_tags(group, "pc", role, None, ("generated", era["era"]))
-            doc["flags"][MODULE_ID]["folderPath"] = [FOLDER_ROOT, group, era["era"]]
+            if era_folder:
+                doc["flags"][SHEETS_FLAG]["tags"] = sheet_tags(era_folder, "pc", role, None, ("generated", era["era"], group))
+                doc["flags"][SHEETS_FLAG]["color"] = era_color(era_folder) or group_color(group)
+                doc["flags"][MODULE_ID]["folderPath"] = [era_folder]
+            else:
+                doc["flags"][SHEETS_FLAG]["tags"] = sheet_tags(group, "pc", role, None, ("generated", era["era"]))
+                doc["flags"][MODULE_ID]["folderPath"] = [group, era["era"]]
         return doc
     bio = biography(c, level, power, cr, role, evidence, bool(spec))
     doc = npc_doc(slug=cid, c=c, name=c.get("name") or cid, img=img, size=size, sc=sc, saves=saves, trained=trained,
@@ -2032,6 +2080,7 @@ def build_all():
     ids = [d["_id"] for _, d in generated]
     if len(ids) != len(set(ids)):
         raise SystemExit("actor _id collision")
+    fold_cast_folders(generated)
     party_ids = [e["id"] for e in entries if e["party"]]
     index = {
         "meta": {
@@ -2041,7 +2090,7 @@ def build_all():
                      "the rest show only while Settings → Developer → debug mode is on. CR never exceeds the XP ledger level; "
                      "the hand-authored main cast are player-character sheets at the ledger level."),
             "visibility": {"public": "party", "debug": "all"},
-            "folderRoot": FOLDER_ROOT,
+            "folderScheme": "actors/folders.json",
             "castImport": "actors/cast/import.json",
             "counts": {"characters": len(characters), "sheets": len(entries),
                        "generated": len(generated) - sum(len(e["versions"]) for e in entries),

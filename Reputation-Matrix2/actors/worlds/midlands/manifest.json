@@ -8,17 +8,11 @@
   "source": "midlands-all-actors.json",
   "actorCount": 151,
   "folders": [
-    "Bestiary / Aberration",
+    "Bestiary",
     "Bestiary / Beast",
-    "Bestiary / Construct",
-    "Bestiary / Dragon",
-    "Bestiary / Elemental",
     "Bestiary / Fey",
-    "Bestiary / Fiend",
     "Bestiary / Humanoid",
     "Bestiary / Monstrosity",
-    "Bestiary / Ooze",
-    "Bestiary / Other",
     "Bestiary / Plant",
     "Bestiary / Undead",
     "Disaster Inc.",
@@ -26,9 +20,10 @@
     "Fawful's Furious Freaks",
     "Iron Legion",
     "Koopa Troop",
-    "Mages' Guild",
     "Mushroom Regency & Kingdom",
     "Overgrown Manor",
+    "Peach's Castle 955 BF / Bowser's Incursion",
+    "Peach's Castle 955 BF / The Court",
     "Players",
     "Shadow Estate & House Corvinarus"
   ],
@@ -87,12 +82,6 @@
   "note": "",
   "actors": [
     {
-      "name": "Eyes that Bite",
-      "type": "npc",
-      "_id": "QS7mzeYI7mCB0Shv",
-      "file": "Bestiary/Aberration/fvtt-Actor-eyes-that-bite-QS7mzeYI7mCB0Shv.json"
-    },
-    {
       "name": "Black Bear",
       "type": "npc",
       "_id": "C04YpnHjyu4oh0X8",
@@ -139,24 +128,6 @@
       "type": "npc",
       "_id": "dXFPHhTbg87ClkKq",
       "file": "Bestiary/Beast/fvtt-Actor-swarm-of-spiders-dXFPHhTbg87ClkKq.json"
-    },
-    {
-      "name": "Coat of Constricting",
-      "type": "npc",
-      "_id": "aOQF8AJSw2yZbSfy",
-      "file": "Bestiary/Construct/fvtt-Actor-coat-of-constricting-aOQF8AJSw2yZbSfy.json"
-    },
-    {
-      "name": "Adult Copper Dragon",
-      "type": "npc",
-      "_id": "hzlJebzFO8JUcXKR",
-      "file": "Bestiary/Dragon/fvtt-Actor-adult-copper-dragon-hzlJebzFO8JUcXKR.json"
-    },
-    {
-      "name": "Dust Mephit",
-      "type": "npc",
-      "_id": "lCsJHgu1ARA9Ztz1",
-      "file": "Bestiary/Elemental/fvtt-Actor-dust-mephit-lCsJHgu1ARA9Ztz1.json"
     },
     {
       "name": "Centaur",
@@ -291,12 +262,6 @@
       "file": "Bestiary/Fey/fvtt-Actor-the-ravenous-host-cuIbliWBwzc9UegA.json"
     },
     {
-      "name": "Archivist Imp",
-      "type": "npc",
-      "_id": "bJgZOZ5iHgDCFTtx",
-      "file": "Bestiary/Fiend/fvtt-Actor-archivist-imp-bJgZOZ5iHgDCFTtx.json"
-    },
-    {
       "name": "Bandit",
       "type": "npc",
       "_id": "2pZO6gQ1ykHCb0ug",
@@ -391,48 +356,6 @@
       "type": "npc",
       "_id": "sAlVajLX9CxaRp5R",
       "file": "Bestiary/Monstrosity/fvtt-Actor-shard-stalker-reflection-sAlVajLX9CxaRp5R.json"
-    },
-    {
-      "name": "Voluminous Ochre Jelly",
-      "type": "npc",
-      "_id": "xVo7PZHPMz3JGB12",
-      "file": "Bestiary/Ooze/fvtt-Actor-voluminous-ochre-jelly-xVo7PZHPMz3JGB12.json"
-    },
-    {
-      "name": "Arcane Eye",
-      "type": "npc",
-      "_id": "IcDQ0xxkj5FtaNIc",
-      "file": "Bestiary/Other/fvtt-Actor-arcane-eye-IcDQ0xxkj5FtaNIc.json"
-    },
-    {
-      "name": "Conjured Animals",
-      "type": "npc",
-      "_id": "phbSpectralAnima",
-      "file": "Bestiary/Other/fvtt-Actor-conjured-animals-phbSpectralAnima.json"
-    },
-    {
-      "name": "Joseph Lee",
-      "type": "npc",
-      "_id": "i81gKchy0m427tAl",
-      "file": "Bestiary/Other/fvtt-Actor-joseph-lee-i81gKchy0m427tAl.json"
-    },
-    {
-      "name": "Non-Player Character",
-      "type": "npc",
-      "_id": "8W7RJohiHMoHxORK",
-      "file": "Bestiary/Other/fvtt-Actor-non-player-character-8W7RJohiHMoHxORK.json"
-    },
-    {
-      "name": "Ruined Manor",
-      "type": "npc",
-      "_id": "dIXHXuGTzaAhFKxl",
-      "file": "Bestiary/Other/fvtt-Actor-ruined-manor-dIXHXuGTzaAhFKxl.json"
-    },
-    {
-      "name": "The Tree of Woe",
-      "type": "npc",
-      "_id": "IqZjrAdSvJdC6qfO",
-      "file": "Bestiary/Other/fvtt-Actor-the-tree-of-woe-IqZjrAdSvJdC6qfO.json"
     },
     {
       "name": "Awakened Shrub",
@@ -567,6 +490,78 @@
       "file": "Bestiary/Undead/fvtt-Actor-wretched-hound-RPXEkB8NdH3jBPiK.json"
     },
     {
+      "name": "Adult Copper Dragon",
+      "type": "npc",
+      "_id": "hzlJebzFO8JUcXKR",
+      "file": "Bestiary/fvtt-Actor-adult-copper-dragon-hzlJebzFO8JUcXKR.json"
+    },
+    {
+      "name": "Arcane Eye",
+      "type": "npc",
+      "_id": "IcDQ0xxkj5FtaNIc",
+      "file": "Bestiary/fvtt-Actor-arcane-eye-IcDQ0xxkj5FtaNIc.json"
+    },
+    {
+      "name": "Archivist Imp",
+      "type": "npc",
+      "_id": "bJgZOZ5iHgDCFTtx",
+      "file": "Bestiary/fvtt-Actor-archivist-imp-bJgZOZ5iHgDCFTtx.json"
+    },
+    {
+      "name": "Coat of Constricting",
+      "type": "npc",
+      "_id": "aOQF8AJSw2yZbSfy",
+      "file": "Bestiary/fvtt-Actor-coat-of-constricting-aOQF8AJSw2yZbSfy.json"
+    },
+    {
+      "name": "Conjured Animals",
+      "type": "npc",
+      "_id": "phbSpectralAnima",
+      "file": "Bestiary/fvtt-Actor-conjured-animals-phbSpectralAnima.json"
+    },
+    {
+      "name": "Dust Mephit",
+      "type": "npc",
+      "_id": "lCsJHgu1ARA9Ztz1",
+      "file": "Bestiary/fvtt-Actor-dust-mephit-lCsJHgu1ARA9Ztz1.json"
+    },
+    {
+      "name": "Eyes that Bite",
+      "type": "npc",
+      "_id": "QS7mzeYI7mCB0Shv",
+      "file": "Bestiary/fvtt-Actor-eyes-that-bite-QS7mzeYI7mCB0Shv.json"
+    },
+    {
+      "name": "Joseph Lee",
+      "type": "npc",
+      "_id": "i81gKchy0m427tAl",
+      "file": "Bestiary/fvtt-Actor-joseph-lee-i81gKchy0m427tAl.json"
+    },
+    {
+      "name": "Non-Player Character",
+      "type": "npc",
+      "_id": "8W7RJohiHMoHxORK",
+      "file": "Bestiary/fvtt-Actor-non-player-character-8W7RJohiHMoHxORK.json"
+    },
+    {
+      "name": "Ruined Manor",
+      "type": "npc",
+      "_id": "dIXHXuGTzaAhFKxl",
+      "file": "Bestiary/fvtt-Actor-ruined-manor-dIXHXuGTzaAhFKxl.json"
+    },
+    {
+      "name": "The Tree of Woe",
+      "type": "npc",
+      "_id": "IqZjrAdSvJdC6qfO",
+      "file": "Bestiary/fvtt-Actor-the-tree-of-woe-IqZjrAdSvJdC6qfO.json"
+    },
+    {
+      "name": "Voluminous Ochre Jelly",
+      "type": "npc",
+      "_id": "xVo7PZHPMz3JGB12",
+      "file": "Bestiary/fvtt-Actor-voluminous-ochre-jelly-xVo7PZHPMz3JGB12.json"
+    },
+    {
       "name": "Steel Defender",
       "type": "npc",
       "_id": "Q8InPZPmhqhpOY7g",
@@ -675,28 +670,10 @@
       "file": "Koopa Troop/fvtt-Actor-koopa-troopa-standard-infantry-RUZIZZynYJgE58vw.json"
     },
     {
-      "name": "Koopatrol",
-      "type": "npc",
-      "_id": "22hYWvbxZwLuebUn",
-      "file": "Koopa Troop/fvtt-Actor-koopatrol-22hYWvbxZwLuebUn.json"
-    },
-    {
       "name": "Magikoopa (Battle Mage)",
       "type": "npc",
       "_id": "7VmH5xlrVjB1simi",
       "file": "Koopa Troop/fvtt-Actor-magikoopa-battle-mage-7VmH5xlrVjB1simi.json"
-    },
-    {
-      "name": "Mages' Guild Adept (Hooded)",
-      "type": "npc",
-      "_id": "KzGh4fOS5MyySgSM",
-      "file": "Mages' Guild/fvtt-Actor-mages-guild-adept-hooded-KzGh4fOS5MyySgSM.json"
-    },
-    {
-      "name": "Castle Chambermaid",
-      "type": "npc",
-      "_id": "4ySsVWpa8rE1UEsI",
-      "file": "Mushroom Regency & Kingdom/fvtt-Actor-castle-chambermaid-4ySsVWpa8rE1UEsI.json"
     },
     {
       "name": "Luigi",
@@ -709,54 +686,6 @@
       "type": "npc",
       "_id": "2CLH4XZlYcwHVXJf",
       "file": "Mushroom Regency & Kingdom/fvtt-Actor-mario-2CLH4XZlYcwHVXJf.json"
-    },
-    {
-      "name": "Palace Guard at Attention",
-      "type": "npc",
-      "_id": "SWf5Nc5afoNXl6dI",
-      "file": "Mushroom Regency & Kingdom/fvtt-Actor-palace-guard-at-attention-SWf5Nc5afoNXl6dI.json"
-    },
-    {
-      "name": "Palace Guard Recruit",
-      "type": "npc",
-      "_id": "5blPuqwzSrGEGl6E",
-      "file": "Mushroom Regency & Kingdom/fvtt-Actor-palace-guard-recruit-5blPuqwzSrGEGl6E.json"
-    },
-    {
-      "name": "Palace Guard Sergeant",
-      "type": "npc",
-      "_id": "ZtxEXSyJ3xNBh0eC",
-      "file": "Mushroom Regency & Kingdom/fvtt-Actor-palace-guard-sergeant-ZtxEXSyJ3xNBh0eC.json"
-    },
-    {
-      "name": "Palace Heavy Guard",
-      "type": "npc",
-      "_id": "lQkHGvpXoOdbB0KR",
-      "file": "Mushroom Regency & Kingdom/fvtt-Actor-palace-heavy-guard-lQkHGvpXoOdbB0KR.json"
-    },
-    {
-      "name": "Palace Night Watch",
-      "type": "npc",
-      "_id": "9UInBdI0DUPwALMM",
-      "file": "Mushroom Regency & Kingdom/fvtt-Actor-palace-night-watch-9UInBdI0DUPwALMM.json"
-    },
-    {
-      "name": "Palace Veteran Guard",
-      "type": "npc",
-      "_id": "rmbpc4QjNQwF6PpK",
-      "file": "Mushroom Regency & Kingdom/fvtt-Actor-palace-veteran-guard-rmbpc4QjNQwF6PpK.json"
-    },
-    {
-      "name": "Princess Peach (955 BF)",
-      "type": "npc",
-      "_id": "nqeVTVa1etXKR2J4",
-      "file": "Mushroom Regency & Kingdom/fvtt-Actor-princess-peach-955-bf-nqeVTVa1etXKR2J4.json"
-    },
-    {
-      "name": "Toadsworth the Elder, Royal Chamberlain (955 BF)",
-      "type": "npc",
-      "_id": "oHLrMdbccIJx6YgS",
-      "file": "Mushroom Regency & Kingdom/fvtt-Actor-toadsworth-the-elder-royal-chamberlain-955-bf-oHLrMdbccIJx6YgS.json"
     },
     {
       "name": "Chirneros",
@@ -847,6 +776,72 @@
       "type": "npc",
       "_id": "wjOpEZuULYW3cYR1",
       "file": "Overgrown Manor/fvtt-Actor-woodfellow-wjOpEZuULYW3cYR1.json"
+    },
+    {
+      "name": "Koopatrol",
+      "type": "npc",
+      "_id": "22hYWvbxZwLuebUn",
+      "file": "Peach's Castle 955 BF/Bowser's Incursion/fvtt-Actor-koopatrol-22hYWvbxZwLuebUn.json"
+    },
+    {
+      "name": "Castle Chambermaid",
+      "type": "npc",
+      "_id": "4ySsVWpa8rE1UEsI",
+      "file": "Peach's Castle 955 BF/The Court/fvtt-Actor-castle-chambermaid-4ySsVWpa8rE1UEsI.json"
+    },
+    {
+      "name": "Mages' Guild Adept (Hooded)",
+      "type": "npc",
+      "_id": "KzGh4fOS5MyySgSM",
+      "file": "Peach's Castle 955 BF/The Court/fvtt-Actor-mages-guild-adept-hooded-KzGh4fOS5MyySgSM.json"
+    },
+    {
+      "name": "Palace Guard at Attention",
+      "type": "npc",
+      "_id": "SWf5Nc5afoNXl6dI",
+      "file": "Peach's Castle 955 BF/The Court/fvtt-Actor-palace-guard-at-attention-SWf5Nc5afoNXl6dI.json"
+    },
+    {
+      "name": "Palace Guard Recruit",
+      "type": "npc",
+      "_id": "5blPuqwzSrGEGl6E",
+      "file": "Peach's Castle 955 BF/The Court/fvtt-Actor-palace-guard-recruit-5blPuqwzSrGEGl6E.json"
+    },
+    {
+      "name": "Palace Guard Sergeant",
+      "type": "npc",
+      "_id": "ZtxEXSyJ3xNBh0eC",
+      "file": "Peach's Castle 955 BF/The Court/fvtt-Actor-palace-guard-sergeant-ZtxEXSyJ3xNBh0eC.json"
+    },
+    {
+      "name": "Palace Heavy Guard",
+      "type": "npc",
+      "_id": "lQkHGvpXoOdbB0KR",
+      "file": "Peach's Castle 955 BF/The Court/fvtt-Actor-palace-heavy-guard-lQkHGvpXoOdbB0KR.json"
+    },
+    {
+      "name": "Palace Night Watch",
+      "type": "npc",
+      "_id": "9UInBdI0DUPwALMM",
+      "file": "Peach's Castle 955 BF/The Court/fvtt-Actor-palace-night-watch-9UInBdI0DUPwALMM.json"
+    },
+    {
+      "name": "Palace Veteran Guard",
+      "type": "npc",
+      "_id": "rmbpc4QjNQwF6PpK",
+      "file": "Peach's Castle 955 BF/The Court/fvtt-Actor-palace-veteran-guard-rmbpc4QjNQwF6PpK.json"
+    },
+    {
+      "name": "Princess Peach (955 BF)",
+      "type": "npc",
+      "_id": "nqeVTVa1etXKR2J4",
+      "file": "Peach's Castle 955 BF/The Court/fvtt-Actor-princess-peach-955-bf-nqeVTVa1etXKR2J4.json"
+    },
+    {
+      "name": "Toadsworth the Elder, Royal Chamberlain (955 BF)",
+      "type": "npc",
+      "_id": "oHLrMdbccIJx6YgS",
+      "file": "Peach's Castle 955 BF/The Court/fvtt-Actor-toadsworth-the-elder-royal-chamberlain-955-bf-oHLrMdbccIJx6YgS.json"
     },
     {
       "name": "Archie Miser",

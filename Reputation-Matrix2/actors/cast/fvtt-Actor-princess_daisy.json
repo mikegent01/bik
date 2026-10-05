@@ -1017,7 +1017,6 @@
   "flags": {
     "waluipedia-mass-import": {
       "folderPath": [
-        "Waluipedia Cast",
         "Mushroom Regency & Kingdom"
       ],
       "source": "tools/build-character-sheets.py"

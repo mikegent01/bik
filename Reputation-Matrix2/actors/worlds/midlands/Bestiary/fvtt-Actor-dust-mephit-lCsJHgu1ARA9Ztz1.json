@@ -2097,8 +2097,7 @@
     },
     "waluipedia-mass-import": {
       "folderPath": [
-        "Bestiary",
-        "Elemental"
+        "Bestiary"
       ]
     },
     "waluipedia-sheets": {
@@ -2107,11 +2106,10 @@
         "npc",
         "elemental"
       ],
-      "color": "#20B2AA",
+      "color": "#8B7355",
       "organized": {
         "path": [
-          "Bestiary",
-          "Elemental"
+          "Bestiary"
         ],
         "basis": "bestiary",
         "from": []

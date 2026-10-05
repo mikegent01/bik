@@ -1381,9 +1381,7 @@
   "flags": {
     "waluipedia-mass-import": {
       "folderPath": [
-        "Waluipedia Cast",
-        "Disaster Inc.",
-        "955 BF"
+        "Peach's Castle 955 BF"
       ],
       "source": "tools/build-character-sheets.py"
     },
@@ -1439,13 +1437,14 @@
         }
       ],
       "tags": [
-        "Disaster Inc.",
+        "Peach's Castle 955 BF",
         "pc",
         "boss",
         "generated",
-        "955 BF"
+        "955 BF",
+        "Disaster Inc."
       ],
-      "color": "#D4A017",
+      "color": "#B8860B",
       "pc": {
         "level": 8,
         "class": "Fighter",

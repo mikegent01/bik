@@ -1748,8 +1748,7 @@
     "core": {},
     "waluipedia-mass-import": {
       "folderPath": [
-        "Bestiary",
-        "Fiend"
+        "Bestiary"
       ]
     },
     "waluipedia-sheets": {
@@ -1759,11 +1758,10 @@
         "fiend",
         "A House Divided"
       ],
-      "color": "#8B0000",
+      "color": "#8B7355",
       "organized": {
         "path": [
-          "Bestiary",
-          "Fiend"
+          "Bestiary"
         ],
         "basis": "bestiary",
         "from": [

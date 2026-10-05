@@ -1,12 +1,12 @@
 {
-  "name": "Koopatrol",
+  "name": "Palace Night Watch",
   "type": "npc",
-  "_id": "22hYWvbxZwLuebUn",
-  "img": "npc/foe-koopatrol.png",
+  "_id": "9UInBdI0DUPwALMM",
+  "img": "npc/guard-nightwatch-lantern.png",
   "system": {
     "abilities": {
       "str": {
-        "value": 17,
+        "value": 12,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -29,7 +29,7 @@
         }
       },
       "dex": {
-        "value": 10,
+        "value": 14,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -52,8 +52,8 @@
         }
       },
       "con": {
-        "value": 15,
-        "proficient": 1,
+        "value": 12,
+        "proficient": 0,
         "bonuses": {
           "check": "",
           "save": ""
@@ -98,7 +98,7 @@
         }
       },
       "wis": {
-        "value": 11,
+        "value": 14,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -146,14 +146,14 @@
     },
     "attributes": {
       "ac": {
-        "flat": 18,
+        "flat": 13,
         "calc": "natural",
         "formula": ""
       },
       "hp": {
-        "value": 52,
-        "max": 52,
-        "formula": "8d8 + 16",
+        "value": 13,
+        "max": 13,
+        "formula": "3d6 + 3",
         "temp": null,
         "tempmax": null
       },
@@ -225,14 +225,14 @@
       }
     },
     "details": {
-      "alignment": "Lawful Neutral",
+      "alignment": "Lawful Good",
       "type": {
         "value": "humanoid",
-        "subtype": "koopa"
+        "subtype": "toad"
       },
-      "cr": 3,
+      "cr": 0.5,
       "biography": {
-        "value": "<p><em>Era sheet: Highsun 1, 955 BF, Peach's Castle.</em> Art and stats describe this figure on the night of the Day Of (events.json <code>highsun_1_955_bf_the_day_of</code>), not the present day of the campaign (1040 BF).</p><p><strong>Scene kit — The Interloper at the Council.</strong> Bowser and his force burst in on a crucial palace meeting. This is a GM scene kit, not a filed event; nothing on this sheet changes the canon record of what happened that night.</p><p>Elite Koopa in full dark-steel plate, spiked helm, spiked pauldrons, spiked shell, black halberd. The ones who walk in behind Bowser and stand at the doors so nobody leaves the meeting early.</p>",
+        "value": "<p><em>Era sheet: Highsun 1, 955 BF, Peach's Castle.</em> Art and stats describe this figure on the night of the Day Of (events.json <code>highsun_1_955_bf_the_day_of</code>), not the present day of the campaign (1040 BF).</p><p><strong>Palace Guard — Night watch.</strong> Royal-blue tabard with gold trim and the pink mushroom-crown crest, white gloves, brown belt, silver pauldrons and a silver kettle-helm brim ring over the red-spot cap. The livery is reconstructed from the archive, not an official reference.</p><p>Cloak, lantern on a pole, short sword. The night watch walks the corridors between posts — including the corridor Bowser gets dragged across.</p><p>Within the month after the Day Of, guard witnesses were <q>already dying</q> (<code>first_month_incidents</code>). Any guard who sees too much tonight has a short life expectancy on the record.</p>",
         "public": ""
       },
       "ideal": "",
@@ -248,7 +248,7 @@
       }
     },
     "traits": {
-      "size": "med",
+      "size": "sm",
       "languages": {
         "value": [
           "common"
@@ -322,7 +322,7 @@
         }
       },
       "ath": {
-        "value": 1,
+        "value": 0,
         "ability": "str",
         "roll": {
           "min": null,
@@ -374,7 +374,7 @@
         }
       },
       "itm": {
-        "value": 1,
+        "value": 0,
         "ability": "cha",
         "roll": {
           "min": null,
@@ -387,7 +387,7 @@
         }
       },
       "inv": {
-        "value": 0,
+        "value": 1,
         "ability": "int",
         "roll": {
           "min": null,
@@ -426,7 +426,7 @@
         }
       },
       "prc": {
-        "value": 0,
+        "value": 1,
         "ability": "wis",
         "roll": {
           "min": null,
@@ -491,7 +491,7 @@
         }
       },
       "ste": {
-        "value": 0,
+        "value": 1,
         "ability": "dex",
         "roll": {
           "min": null,
@@ -574,14 +574,14 @@
     }
   },
   "prototypeToken": {
-    "name": "Koopatrol",
+    "name": "Palace Night Watch",
     "displayName": 0,
     "actorLink": false,
     "width": 1,
     "height": 1,
     "depth": 1,
     "texture": {
-      "src": "npc/foe-koopatrol.png",
+      "src": "npc/guard-nightwatch-lantern.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -593,7 +593,7 @@
     "lockRotation": false,
     "rotation": 0,
     "alpha": 1,
-    "disposition": -1,
+    "disposition": 1,
     "displayBars": 0,
     "bar1": {
       "attribute": "attributes.hp"
@@ -662,144 +662,42 @@
     "movementAction": null,
     "flags": {
       "monks-tokenbar": {
-        "include": [
-          "default",
-          "default"
-        ]
+        "include": "default"
       },
       "levels-3d-preview": {
-        "model3d": [
-          "",
-          ""
-        ],
-        "imageTexture": [
-          "",
-          ""
-        ],
-        "material": [
-          "none",
-          "none"
-        ],
-        "color": [
-          "#ffffff",
-          "#ffffff"
-        ],
-        "scale": [
-          1,
-          1
-        ],
-        "auraRange": [
-          0,
-          0
-        ],
-        "auraColor": [
-          "#ffffff",
-          "#ffffff"
-        ],
-        "ParticleType": [
-          "none",
-          "none"
-        ],
-        "ParticlePosition": [
-          "surface",
-          "surface"
-        ],
-        "enableParticleHidden": [
-          false,
-          false
-        ],
-        "ParticleIntensity": [
-          1,
-          1
-        ],
-        "ParticleSprite": [
-          "modules/levels-3d-preview/assets/particles/emberssmall.png",
-          "modules/levels-3d-preview/assets/particles/emberssmall.png"
-        ],
-        "ParticleRadius": [
-          0,
-          0
-        ],
-        "ParticleScale": [
-          1,
-          1
-        ],
-        "ParticleColor": [
-          "#ffffff",
-          "#ffffff"
-        ],
-        "ParticleColor2": [
-          "#ffffff",
-          "#ffffff"
-        ],
-        "baseColor": [
-          "",
-          ""
-        ],
-        "disableBase": [
-          false,
-          false
-        ],
-        "removeBase": [
-          true,
-          true
-        ],
-        "solidBaseMode": [
-          "default",
-          "default"
-        ],
-        "stem": [
-          false,
-          false
-        ],
-        "enableAnim": [
-          true,
-          true
-        ],
-        "animIndex": [
-          0,
-          0
-        ],
-        "animSpeed": [
-          1,
-          1
-        ],
-        "flatTokenStyle": [
-          "default",
-          "default"
-        ],
-        "forceFlyingMode": [
-          false,
-          false
-        ],
-        "autoCenter": [
-          false,
-          false
-        ],
-        "rotationX": [
-          0,
-          0
-        ],
-        "rotationY": [
-          0,
-          0
-        ],
-        "rotationZ": [
-          0,
-          0
-        ],
-        "offsetX": [
-          0,
-          0
-        ],
-        "offsetY": [
-          0,
-          0
-        ],
-        "offsetZ": [
-          0,
-          0
-        ]
+        "model3d": "",
+        "imageTexture": "",
+        "material": "none",
+        "color": "#ffffff",
+        "scale": 1,
+        "auraRange": 0,
+        "auraColor": "#ffffff",
+        "ParticleType": "none",
+        "ParticlePosition": "surface",
+        "enableParticleHidden": false,
+        "ParticleIntensity": 1,
+        "ParticleSprite": "modules/levels-3d-preview/assets/particles/emberssmall.png",
+        "ParticleRadius": 0,
+        "ParticleScale": 1,
+        "ParticleColor": "#ffffff",
+        "ParticleColor2": "#ffffff",
+        "baseColor": "",
+        "disableBase": false,
+        "removeBase": true,
+        "solidBaseMode": "default",
+        "stem": false,
+        "enableAnim": true,
+        "animIndex": 0,
+        "animSpeed": 1,
+        "flatTokenStyle": "default",
+        "forceFlyingMode": false,
+        "autoCenter": false,
+        "rotationX": 0,
+        "rotationY": 0,
+        "rotationZ": 0,
+        "offsetX": 0,
+        "offsetY": 0,
+        "offsetZ": 0
       }
     },
     "randomImg": false,
@@ -808,13 +706,13 @@
   },
   "items": [
     {
-      "_id": "40eBQAk3Mc64fkYq",
-      "name": "Halberd",
+      "_id": "jh8D8rPGq2V5e6lP",
+      "name": "Shortsword",
       "type": "weapon",
-      "img": "icons/weapons/polearms/halberd-crescent-steel.webp",
+      "img": "icons/weapons/swords/shortsword-guard-brass.webp",
       "system": {
         "description": {
-          "value": "<p>Reach. Heavy, two-handed.</p>",
+          "value": "<p>Standard issue.</p>",
           "chat": ""
         },
         "source": {
@@ -842,7 +740,7 @@
           "value": null,
           "long": null,
           "units": "ft",
-          "reach": 10
+          "reach": null
         },
         "uses": {
           "spent": 0,
@@ -867,10 +765,10 @@
           },
           "base": {
             "number": 1,
-            "denomination": 10,
+            "denomination": 6,
             "bonus": "",
             "types": [
-              "slashing"
+              "piercing"
             ],
             "custom": {
               "enabled": false,
@@ -893,9 +791,8 @@
           "conditions": ""
         },
         "properties": [
-          "hvy",
-          "rch",
-          "two"
+          "fin",
+          "lgt"
         ],
         "type": {
           "value": "martialM",
@@ -1090,8 +987,8 @@
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1791079335588,
-        "modifiedTime": 1791079335588,
+        "createdTime": 1791076647691,
+        "modifiedTime": 1791076647691,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -1103,13 +1000,13 @@
       }
     },
     {
-      "_id": "ZCeMIMzH2KL3xdoN",
-      "name": "Multiattack",
+      "_id": "ODr4oRRTIKZnFP8s",
+      "name": "Hooded Lantern",
       "type": "feat",
-      "img": "icons/skills/melee/strike-slashes-orange.webp",
+      "img": "icons/sundries/lights/lantern-iron-yellow.webp",
       "system": {
         "description": {
-          "value": "<p>The Koopatrol makes two Halberd attacks.</p>",
+          "value": "<p>Bright light in a 30-foot radius and dim light for a further 30 feet. Hooding or unhooding it is a bonus action.</p>",
           "chat": ""
         },
         "type": {
@@ -1148,8 +1045,8 @@
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1791079335588,
-        "modifiedTime": 1791079335588,
+        "createdTime": 1791076647691,
+        "modifiedTime": 1791076647691,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -1161,13 +1058,13 @@
       }
     },
     {
-      "_id": "F6lHI9egbksmBjDb",
-      "name": "Spiked Carapace",
+      "_id": "K4RoPDgfpUWpjZix",
+      "name": "Rounds Memory",
       "type": "feat",
-      "img": "icons/skills/wounds/injury-pain-body-orange.webp",
+      "img": "icons/magic/perception/eye-ringed-glow-angry-small-red.webp",
       "system": {
         "description": {
-          "value": "<p>A creature that grapples the Koopatrol or hits it with an unarmed strike takes 1d6 piercing damage.</p>",
+          "value": "<p>Knows every patrol route and every door that should be shut. Advantage on checks to notice something out of place in the castle at night.</p>",
           "chat": ""
         },
         "type": {
@@ -1206,8 +1103,8 @@
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1791079335588,
-        "modifiedTime": 1791079335588,
+        "createdTime": 1791076647691,
+        "modifiedTime": 1791076647691,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -1219,13 +1116,13 @@
       }
     },
     {
-      "_id": "hNJBKECT3WQqZZ3H",
-      "name": "Vanguard",
+      "_id": "7WHN6uyIS9djUO2u",
+      "name": "Raise the Hue and Cry (Action)",
       "type": "feat",
-      "img": "icons/skills/melee/shield-block-gray-orange.webp",
+      "img": "icons/magic/sonic/bell-alarm-red-purple.webp",
       "system": {
         "description": {
-          "value": "<p>The Koopatrol moves through the spaces of allied Troop units freely, and allies directly behind it have half cover against ranged attacks.</p>",
+          "value": "<p>The watch shouts and swings the lantern: every palace guard within 300 feet is alerted, cannot be surprised for the next minute, and converges on the watch's position (GM's call on how fast).</p>",
           "chat": ""
         },
         "type": {
@@ -1264,8 +1161,8 @@
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1791079335588,
-        "modifiedTime": 1791079335588,
+        "createdTime": 1791076647691,
+        "modifiedTime": 1791076647691,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -1291,31 +1188,34 @@
           "disciplined"
         ],
         "reasons": [
-          "Keyword \"elite\" in name/biography → disciplined"
+          "Keyword \"guard\" in name/biography → disciplined"
         ],
         "confidence": 0.3333333333333333,
         "version": 3,
-        "timestamp": 1791079340866,
+        "timestamp": 1791076650960,
         "manuallyOverridden": false
       }
     },
     "waluipedia-mass-import": {
       "folderPath": [
-        "Koopa Troop"
+        "Peach's Castle 955 BF",
+        "The Court"
       ]
     },
     "waluipedia-sheets": {
       "tags": [
-        "Koopa Troop",
+        "Peach's Castle 955 BF",
         "npc",
-        "humanoid"
+        "humanoid",
+        "955 BF"
       ],
-      "color": "#006400",
+      "color": "#B8860B",
       "organized": {
         "path": [
-          "Koopa Troop"
+          "Peach's Castle 955 BF",
+          "The Court"
         ],
-        "basis": "name-rule",
+        "basis": "era",
         "from": []
       }
     }
@@ -1324,8 +1224,8 @@
     "coreVersion": "14.367",
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
-    "createdTime": 1791079335588,
-    "modifiedTime": 1791079366114,
+    "createdTime": 1791076647691,
+    "modifiedTime": 1791076732218,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "compendiumSource": null,
     "duplicateSource": null,

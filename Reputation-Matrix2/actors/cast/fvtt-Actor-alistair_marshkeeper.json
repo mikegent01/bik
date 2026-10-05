@@ -833,7 +833,6 @@
   "flags": {
     "waluipedia-mass-import": {
       "folderPath": [
-        "Waluipedia Cast",
         "Dark Shores"
       ],
       "source": "tools/build-character-sheets.py"

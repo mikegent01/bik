@@ -1026,7 +1026,6 @@
   "flags": {
     "waluipedia-mass-import": {
       "folderPath": [
-        "Waluipedia Cast",
         "Dreamland"
       ],
       "source": "tools/build-character-sheets.py"

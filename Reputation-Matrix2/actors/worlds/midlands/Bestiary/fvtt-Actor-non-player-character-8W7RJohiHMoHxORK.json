@@ -715,8 +715,7 @@
     },
     "waluipedia-mass-import": {
       "folderPath": [
-        "Bestiary",
-        "Other"
+        "Bestiary"
       ]
     },
     "waluipedia-sheets": {
@@ -727,8 +726,7 @@
       "color": "#8B7355",
       "organized": {
         "path": [
-          "Bestiary",
-          "Other"
+          "Bestiary"
         ],
         "basis": "bestiary",
         "from": []

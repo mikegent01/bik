@@ -1415,9 +1415,7 @@
   "flags": {
     "waluipedia-mass-import": {
       "folderPath": [
-        "Waluipedia Cast",
-        "Mushroom Regency & Kingdom",
-        "955 BF"
+        "Peach's Castle 955 BF"
       ],
       "source": "tools/build-character-sheets.py"
     },
@@ -1478,13 +1476,14 @@
         }
       ],
       "tags": [
-        "Mushroom Regency & Kingdom",
+        "Peach's Castle 955 BF",
         "pc",
         "hero",
         "generated",
-        "955 BF"
+        "955 BF",
+        "Mushroom Regency & Kingdom"
       ],
-      "color": "#4169E1",
+      "color": "#B8860B",
       "pc": {
         "level": 5,
         "class": "Monk",

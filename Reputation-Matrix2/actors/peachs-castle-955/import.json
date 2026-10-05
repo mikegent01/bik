@@ -6,7 +6,20 @@
   "actorCount": 30,
   "folderCount": 3,
   "unresolvedFolderActors": 0,
-  "folderStyles": {},
+  "folderStyles": {
+    "Peach's Castle 955 BF": {
+      "color": "#B8860B",
+      "description": "Peach's court and Bowser's incursion as they stood in 955 BF — the past selves (actors/peachs-castle-955) and the generated 955 BF versions of the cast."
+    },
+    "Peach's Castle 955 BF / Bowser's Incursion": {
+      "color": "#B8860B",
+      "description": null
+    },
+    "Peach's Castle 955 BF / The Court": {
+      "color": "#B8860B",
+      "description": null
+    }
+  },
   "folders": [
     {
       "_id": "zkElJXf3QQJTv7xv",
@@ -15,8 +28,8 @@
       "folder": null,
       "sorting": "a",
       "sort": 0,
-      "color": null,
-      "description": null,
+      "color": "#B8860B",
+      "description": "Peach's court and Bowser's incursion as they stood in 955 BF — the past selves (actors/peachs-castle-955) and the generated 955 BF versions of the cast.",
       "path": [
         "Peach's Castle 955 BF"
       ]
@@ -28,7 +41,7 @@
       "folder": "zkElJXf3QQJTv7xv",
       "sorting": "a",
       "sort": 0,
-      "color": null,
+      "color": "#B8860B",
       "description": null,
       "path": [
         "Peach's Castle 955 BF",
@@ -42,7 +55,7 @@
       "folder": "zkElJXf3QQJTv7xv",
       "sorting": "a",
       "sort": 0,
-      "color": null,
+      "color": "#B8860B",
       "description": null,
       "path": [
         "Peach's Castle 955 BF",

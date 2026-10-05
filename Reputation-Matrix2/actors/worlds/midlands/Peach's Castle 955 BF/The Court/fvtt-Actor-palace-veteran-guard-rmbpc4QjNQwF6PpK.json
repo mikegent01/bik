@@ -1,12 +1,12 @@
 {
-  "name": "Palace Night Watch",
+  "name": "Palace Veteran Guard",
   "type": "npc",
-  "_id": "9UInBdI0DUPwALMM",
-  "img": "npc/guard-nightwatch-lantern.png",
+  "_id": "rmbpc4QjNQwF6PpK",
+  "img": "npc/guard-veteran-mace.png",
   "system": {
     "abilities": {
       "str": {
-        "value": 12,
+        "value": 15,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -52,7 +52,7 @@
         }
       },
       "con": {
-        "value": 12,
+        "value": 14,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -98,7 +98,7 @@
         }
       },
       "wis": {
-        "value": 14,
+        "value": 13,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -121,7 +121,7 @@
         }
       },
       "cha": {
-        "value": 10,
+        "value": 11,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -146,14 +146,14 @@
     },
     "attributes": {
       "ac": {
-        "flat": 13,
+        "flat": 16,
         "calc": "natural",
         "formula": ""
       },
       "hp": {
-        "value": 13,
-        "max": 13,
-        "formula": "3d6 + 3",
+        "value": 33,
+        "max": 33,
+        "formula": "6d6 + 12",
         "temp": null,
         "tempmax": null
       },
@@ -230,9 +230,9 @@
         "value": "humanoid",
         "subtype": "toad"
       },
-      "cr": 0.5,
+      "cr": 2,
       "biography": {
-        "value": "<p><em>Era sheet: Highsun 1, 955 BF, Peach's Castle.</em> Art and stats describe this figure on the night of the Day Of (events.json <code>highsun_1_955_bf_the_day_of</code>), not the present day of the campaign (1040 BF).</p><p><strong>Palace Guard — Night watch.</strong> Royal-blue tabard with gold trim and the pink mushroom-crown crest, white gloves, brown belt, silver pauldrons and a silver kettle-helm brim ring over the red-spot cap. The livery is reconstructed from the archive, not an official reference.</p><p>Cloak, lantern on a pole, short sword. The night watch walks the corridors between posts — including the corridor Bowser gets dragged across.</p><p>Within the month after the Day Of, guard witnesses were <q>already dying</q> (<code>first_month_incidents</code>). Any guard who sees too much tonight has a short life expectancy on the record.</p>",
+        "value": "<p><em>Era sheet: Highsun 1, 955 BF, Peach's Castle.</em> Art and stats describe this figure on the night of the Day Of (events.json <code>highsun_1_955_bf_the_day_of</code>), not the present day of the campaign (1040 BF).</p><p><strong>Palace Guard — Veteran (mace and buckler).</strong> Royal-blue tabard with gold trim and the pink mushroom-crown crest, white gloves, brown belt, silver pauldrons and a silver kettle-helm brim ring over the red-spot cap. The livery is reconstructed from the archive, not an official reference.</p><p>Scarred, scowling, mace and buckler. The guard who has already seen one coup attempt and is not impressed by a second.</p><p>Within the month after the Day Of, guard witnesses were <q>already dying</q> (<code>first_month_incidents</code>). Any guard who sees too much tonight has a short life expectancy on the record.</p>",
         "public": ""
       },
       "ideal": "",
@@ -322,7 +322,7 @@
         }
       },
       "ath": {
-        "value": 0,
+        "value": 1,
         "ability": "str",
         "roll": {
           "min": null,
@@ -374,7 +374,7 @@
         }
       },
       "itm": {
-        "value": 0,
+        "value": 1,
         "ability": "cha",
         "roll": {
           "min": null,
@@ -387,7 +387,7 @@
         }
       },
       "inv": {
-        "value": 1,
+        "value": 0,
         "ability": "int",
         "roll": {
           "min": null,
@@ -491,7 +491,7 @@
         }
       },
       "ste": {
-        "value": 1,
+        "value": 0,
         "ability": "dex",
         "roll": {
           "min": null,
@@ -574,14 +574,14 @@
     }
   },
   "prototypeToken": {
-    "name": "Palace Night Watch",
+    "name": "Palace Veteran Guard",
     "displayName": 0,
     "actorLink": false,
     "width": 1,
     "height": 1,
     "depth": 1,
     "texture": {
-      "src": "npc/guard-nightwatch-lantern.png",
+      "src": "npc/guard-veteran-mace.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -662,42 +662,144 @@
     "movementAction": null,
     "flags": {
       "monks-tokenbar": {
-        "include": "default"
+        "include": [
+          "default",
+          "default"
+        ]
       },
       "levels-3d-preview": {
-        "model3d": "",
-        "imageTexture": "",
-        "material": "none",
-        "color": "#ffffff",
-        "scale": 1,
-        "auraRange": 0,
-        "auraColor": "#ffffff",
-        "ParticleType": "none",
-        "ParticlePosition": "surface",
-        "enableParticleHidden": false,
-        "ParticleIntensity": 1,
-        "ParticleSprite": "modules/levels-3d-preview/assets/particles/emberssmall.png",
-        "ParticleRadius": 0,
-        "ParticleScale": 1,
-        "ParticleColor": "#ffffff",
-        "ParticleColor2": "#ffffff",
-        "baseColor": "",
-        "disableBase": false,
-        "removeBase": true,
-        "solidBaseMode": "default",
-        "stem": false,
-        "enableAnim": true,
-        "animIndex": 0,
-        "animSpeed": 1,
-        "flatTokenStyle": "default",
-        "forceFlyingMode": false,
-        "autoCenter": false,
-        "rotationX": 0,
-        "rotationY": 0,
-        "rotationZ": 0,
-        "offsetX": 0,
-        "offsetY": 0,
-        "offsetZ": 0
+        "model3d": [
+          "",
+          ""
+        ],
+        "imageTexture": [
+          "",
+          ""
+        ],
+        "material": [
+          "none",
+          "none"
+        ],
+        "color": [
+          "#ffffff",
+          "#ffffff"
+        ],
+        "scale": [
+          1,
+          1
+        ],
+        "auraRange": [
+          0,
+          0
+        ],
+        "auraColor": [
+          "#ffffff",
+          "#ffffff"
+        ],
+        "ParticleType": [
+          "none",
+          "none"
+        ],
+        "ParticlePosition": [
+          "surface",
+          "surface"
+        ],
+        "enableParticleHidden": [
+          false,
+          false
+        ],
+        "ParticleIntensity": [
+          1,
+          1
+        ],
+        "ParticleSprite": [
+          "modules/levels-3d-preview/assets/particles/emberssmall.png",
+          "modules/levels-3d-preview/assets/particles/emberssmall.png"
+        ],
+        "ParticleRadius": [
+          0,
+          0
+        ],
+        "ParticleScale": [
+          1,
+          1
+        ],
+        "ParticleColor": [
+          "#ffffff",
+          "#ffffff"
+        ],
+        "ParticleColor2": [
+          "#ffffff",
+          "#ffffff"
+        ],
+        "baseColor": [
+          "",
+          ""
+        ],
+        "disableBase": [
+          false,
+          false
+        ],
+        "removeBase": [
+          true,
+          true
+        ],
+        "solidBaseMode": [
+          "default",
+          "default"
+        ],
+        "stem": [
+          false,
+          false
+        ],
+        "enableAnim": [
+          true,
+          true
+        ],
+        "animIndex": [
+          0,
+          0
+        ],
+        "animSpeed": [
+          1,
+          1
+        ],
+        "flatTokenStyle": [
+          "default",
+          "default"
+        ],
+        "forceFlyingMode": [
+          false,
+          false
+        ],
+        "autoCenter": [
+          false,
+          false
+        ],
+        "rotationX": [
+          0,
+          0
+        ],
+        "rotationY": [
+          0,
+          0
+        ],
+        "rotationZ": [
+          0,
+          0
+        ],
+        "offsetX": [
+          0,
+          0
+        ],
+        "offsetY": [
+          0,
+          0
+        ],
+        "offsetZ": [
+          0,
+          0
+        ]
       }
     },
     "randomImg": false,
@@ -706,13 +808,13 @@
   },
   "items": [
     {
-      "_id": "jh8D8rPGq2V5e6lP",
-      "name": "Shortsword",
+      "_id": "AM3ikXqZMccMEMIr",
+      "name": "Mace",
       "type": "weapon",
-      "img": "icons/weapons/swords/shortsword-guard-brass.webp",
+      "img": "icons/weapons/maces/mace-round-steel.webp",
       "system": {
         "description": {
-          "value": "<p>Standard issue.</p>",
+          "value": "<p>Flanged steel.</p>",
           "chat": ""
         },
         "source": {
@@ -768,7 +870,7 @@
             "denomination": 6,
             "bonus": "",
             "types": [
-              "piercing"
+              "bludgeoning"
             ],
             "custom": {
               "enabled": false,
@@ -790,12 +892,9 @@
           "dt": null,
           "conditions": ""
         },
-        "properties": [
-          "fin",
-          "lgt"
-        ],
+        "properties": [],
         "type": {
-          "value": "martialM",
+          "value": "simpleM",
           "baseItem": ""
         },
         "container": null,
@@ -987,8 +1086,8 @@
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1791076647691,
-        "modifiedTime": 1791076647691,
+        "createdTime": 1791076944060,
+        "modifiedTime": 1791076944060,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -1000,13 +1099,13 @@
       }
     },
     {
-      "_id": "ODr4oRRTIKZnFP8s",
-      "name": "Hooded Lantern",
+      "_id": "jpRrl8NW92WCcllG",
+      "name": "Multiattack",
       "type": "feat",
-      "img": "icons/sundries/lights/lantern-iron-yellow.webp",
+      "img": "icons/skills/melee/strike-slashes-orange.webp",
       "system": {
         "description": {
-          "value": "<p>Bright light in a 30-foot radius and dim light for a further 30 feet. Hooding or unhooding it is a bonus action.</p>",
+          "value": "<p>The veteran makes two Mace attacks.</p>",
           "chat": ""
         },
         "type": {
@@ -1045,8 +1144,8 @@
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1791076647691,
-        "modifiedTime": 1791076647691,
+        "createdTime": 1791076944060,
+        "modifiedTime": 1791076944060,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -1058,13 +1157,13 @@
       }
     },
     {
-      "_id": "K4RoPDgfpUWpjZix",
-      "name": "Rounds Memory",
+      "_id": "RiVN2cji7kqDI1ts",
+      "name": "Buckler Parry (Reaction)",
       "type": "feat",
-      "img": "icons/magic/perception/eye-ringed-glow-angry-small-red.webp",
+      "img": "icons/equipment/shield/round-wooden-boss-steel-brown.webp",
       "system": {
         "description": {
-          "value": "<p>Knows every patrol route and every door that should be shut. Advantage on checks to notice something out of place in the castle at night.</p>",
+          "value": "<p>When hit by a melee attack it can see, the veteran adds 2 to its AC against that attack.</p>",
           "chat": ""
         },
         "type": {
@@ -1103,8 +1202,8 @@
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1791076647691,
-        "modifiedTime": 1791076647691,
+        "createdTime": 1791076944060,
+        "modifiedTime": 1791076944060,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -1116,13 +1215,13 @@
       }
     },
     {
-      "_id": "7WHN6uyIS9djUO2u",
-      "name": "Raise the Hue and Cry (Action)",
+      "_id": "uF7hIu3SZLXAZR85",
+      "name": "Seen It Before",
       "type": "feat",
-      "img": "icons/magic/sonic/bell-alarm-red-purple.webp",
+      "img": "icons/skills/social/intimidation-impressing.webp",
       "system": {
         "description": {
-          "value": "<p>The watch shouts and swings the lantern: every palace guard within 300 feet is alerted, cannot be surprised for the next minute, and converges on the watch's position (GM's call on how fast).</p>",
+          "value": "<p>Advantage on saving throws against being frightened, and it is never surprised by a Koopa.</p>",
           "chat": ""
         },
         "type": {
@@ -1161,8 +1260,8 @@
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1791076647691,
-        "modifiedTime": 1791076647691,
+        "createdTime": 1791076944060,
+        "modifiedTime": 1791076944060,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -1188,31 +1287,34 @@
           "disciplined"
         ],
         "reasons": [
-          "Keyword \"guard\" in name/biography → disciplined"
+          "Keyword \"veteran\" in name/biography → disciplined"
         ],
         "confidence": 0.3333333333333333,
         "version": 3,
-        "timestamp": 1791076650960,
+        "timestamp": 1791076944356,
         "manuallyOverridden": false
       }
     },
     "waluipedia-mass-import": {
       "folderPath": [
-        "Mushroom Regency & Kingdom"
+        "Peach's Castle 955 BF",
+        "The Court"
       ]
     },
     "waluipedia-sheets": {
       "tags": [
-        "Mushroom Regency & Kingdom",
+        "Peach's Castle 955 BF",
         "npc",
-        "humanoid"
+        "humanoid",
+        "955 BF"
       ],
-      "color": "#4169E1",
+      "color": "#B8860B",
       "organized": {
         "path": [
-          "Mushroom Regency & Kingdom"
+          "Peach's Castle 955 BF",
+          "The Court"
         ],
-        "basis": "name-rule",
+        "basis": "era",
         "from": []
       }
     }
@@ -1221,8 +1323,8 @@
     "coreVersion": "14.367",
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
-    "createdTime": 1791076647691,
-    "modifiedTime": 1791076732218,
+    "createdTime": 1791076944060,
+    "modifiedTime": 1791076973671,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "compendiumSource": null,
     "duplicateSource": null,

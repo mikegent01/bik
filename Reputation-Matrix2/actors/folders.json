@@ -1,6 +1,8 @@
 {
   "format": "waluipedia-folders/1",
-  "note": "How the Actors sidebar mirrors the website. tools/organize-actors.py files every actor of the world mirror by these rules (Players for the party, one folder per website group for every character the site knows, Bestiary / <creature type> for generic statblocks), writes the tags, and tools/foundry-bridge.py combine paints the folders. Colours come from data/factionColors.json where the site has one. Edit this file, never the actor files; `keep` lists folder trees the organizer never touches. `nameRules` route statblocks by name (Goomba → Koopa Troop); `folderRules` route the rest of a GM folder tree by path prefix (the manor adventure's named characters → Overgrown Manor); generic creatures fall through to Bestiary / <type>.",
+  "note": "How the Actors sidebar mirrors the website. tools/organize-actors.py files every actor of the world mirror by these rules (Players for the party, one folder per website group for every character the site knows, Bestiary / <creature type> for generic statblocks), writes the tags, and tools/foundry-bridge.py combine paints the folders. Colours come from data/factionColors.json where the site has one. Edit this file, never the actor files; `keep` lists folder trees the organizer never touches. `nameRules` route statblocks by name (Goomba → Koopa Troop); `folderRules` route the rest of a GM folder tree by path prefix (the manor adventure's named characters → Overgrown Manor); generic creatures fall through to Bestiary / <type>. `eras` name the packets of past selves (actors/<dir>): a mirror actor with the same name and type as one of theirs is that era's copy and goes into the era's folder tree, and the generated era versions go there too. `minimum` is the smallest folder worth having: a sub-folder with fewer actors (counted across the world mirror, the generated cast and the era packets together) is folded into its parent, a top-level group with fewer into `fallback`. Players, Bestiary itself, the era roots and the fallback never fold.",
+  "minimum": 2,
+  "fallback": "Elsewhere",
   "players": {
     "folder": "Players",
     "color": "#D4A017",
@@ -122,6 +124,14 @@
       "color": "#6C757D",
       "faction": "unaligned",
       "description": "Characters the site files under no faction."
+    }
+  },
+  "eras": {
+    "peachs-castle-955": {
+      "folder": "Peach's Castle 955 BF",
+      "era": "955 BF",
+      "color": "#B8860B",
+      "description": "Peach's court and Bowser's incursion as they stood in 955 BF — the past selves (actors/peachs-castle-955) and the generated 955 BF versions of the cast."
     }
   },
   "nameRules": {

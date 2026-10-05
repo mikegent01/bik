@@ -1,7 +1,8 @@
 {
-  "name": "Arcane Eye",
+  "_id": "phbSpectralAnima",
+  "name": "Conjured Animals",
   "type": "npc",
-  "img": "icons/magic/perception/eye-slit-pink.webp",
+  "img": "icons/svg/mystery-man.svg",
   "system": {
     "currency": {
       "pp": 0,
@@ -477,7 +478,7 @@
         "units": null,
         "special": "",
         "ranges": {
-          "darkvision": 30,
+          "darkvision": null,
           "blindsight": null,
           "tremorsense": null,
           "truesight": null
@@ -507,8 +508,8 @@
       "hp": {
         "value": 1,
         "max": 1,
-        "temp": 0,
-        "tempmax": 0,
+        "temp": null,
+        "tempmax": null,
         "formula": "1"
       },
       "death": {
@@ -534,7 +535,7 @@
     },
     "details": {
       "biography": {
-        "value": "<p>@Embed[Compendium.dnd5e.spells24.Item.phbsplArcaneEye0 caption=false]</p>",
+        "value": "<p>@Embed[Compendium.dnd5e.spells24.Item.phbsplConjureAni caption=false]</p>",
         "public": ""
       },
       "alignment": "",
@@ -546,7 +547,7 @@
         "value": "custom",
         "subtype": "",
         "swarm": "",
-        "custom": "Invulnerable Eye"
+        "custom": "Nature Spirit"
       },
       "cr": null,
       "habitat": {
@@ -573,7 +574,7 @@
       }
     },
     "traits": {
-      "size": "tiny",
+      "size": "lg",
       "di": {
         "bypasses": [],
         "value": [],
@@ -612,21 +613,21 @@
     }
   },
   "prototypeToken": {
-    "name": "Arcane Eye",
+    "name": "Conjured Animals",
     "displayName": 20,
     "actorLink": false,
     "appendNumber": false,
     "prependAdjective": false,
-    "width": 0.5,
-    "height": 0.5,
+    "width": 2,
+    "height": 2,
     "texture": {
-      "src": "icons/svg/eye.svg",
+      "src": "icons/svg/mystery-man.svg",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
       "scaleX": 1,
       "scaleY": 1,
-      "tint": "#9128d7",
+      "tint": "#ffffff",
       "alphaThreshold": 0.75
     },
     "lockRotation": false,
@@ -666,14 +667,14 @@
       }
     },
     "sight": {
-      "enabled": true,
-      "range": 30,
+      "enabled": false,
+      "range": 0,
       "angle": 360,
-      "visionMode": "darkvision",
+      "visionMode": "basic",
       "color": null,
-      "attenuation": 0,
+      "attenuation": 0.1,
       "brightness": 0,
-      "saturation": -1,
+      "saturation": 0,
       "contrast": 0
     },
     "detectionModes": {},
@@ -686,10 +687,10 @@
         "ring": null,
         "background": null
       },
-      "effects": 0,
+      "effects": 1,
       "subject": {
         "scale": 1,
-        "texture": "icons/svg/eye.svg"
+        "texture": null
       }
     },
     "flags": {
@@ -707,14 +708,14 @@
       "disposition": false
     },
     "movementAction": null,
-    "depth": 0.5
+    "depth": 2
   },
   "items": [
     {
-      "name": "Move",
+      "name": "Pack Damage",
       "system": {
         "description": {
-          "value": "<p>As a Bonus Action, you can move the eye up to 30 feet in any direction. A solid barrier blocks the eye's movement, but the eye can pass through an opening as small as 1 inch in diameter.</p>",
+          "value": "<p>Whenever the pack moves within 10 feet of a creature you can see and whenever a creature you can see enters a space within 10 feet of the pack or ends its turn there, you can force that creature to make a Dexterity saving throw. On a failed save, the creature takes 3d10 Slashing damage. A creature makes this save only once per turn.</p>",
           "chat": ""
         },
         "source": {
@@ -743,11 +744,11 @@
         "activities": {
           "dnd5eactivity000": {
             "_id": "dnd5eactivity000",
-            "type": "utility",
+            "type": "save",
             "activation": {
-              "type": "bonus",
+              "type": "",
               "value": null,
-              "condition": "Bonus Action used by summoner",
+              "condition": "visible creature moves or ends its turn within 10 feet of the pack",
               "override": false
             },
             "consumption": {
@@ -770,7 +771,7 @@
             },
             "effects": [],
             "range": {
-              "value": "30",
+              "value": "10",
               "units": "ft",
               "special": "",
               "override": false
@@ -788,18 +789,44 @@
               },
               "affects": {
                 "count": "1",
-                "type": "space",
+                "type": "creature",
                 "choice": false,
                 "special": ""
               },
               "prompt": true,
               "override": false
             },
-            "roll": {
-              "formula": "",
-              "name": "",
-              "prompt": false,
-              "visible": false
+            "damage": {
+              "onSave": "none",
+              "parts": [
+                {
+                  "custom": {
+                    "enabled": false,
+                    "formula": ""
+                  },
+                  "number": 3,
+                  "denomination": 10,
+                  "bonus": "",
+                  "types": [
+                    "slashing"
+                  ],
+                  "scaling": {
+                    "number": 1
+                  }
+                }
+              ],
+              "critical": {
+                "allow": false
+              }
+            },
+            "save": {
+              "ability": [
+                "dex"
+              ],
+              "dc": {
+                "calculation": "spellcasting",
+                "formula": ""
+              }
             },
             "uses": {
               "spent": 0,
@@ -890,18 +917,19 @@
               "animationSpeed": 5,
               "animationIntensity": 5
             },
-            "otherActivityAsParentType": true
+            "otherActivityAsParentType": true,
+            "friendlySave": "default"
           }
         },
         "enchant": {},
-        "identifier": "move",
+        "identifier": "pack-damage",
         "advancement": {},
         "cover": null,
         "crewed": false
       },
-      "_id": "phbaoiWizard0000",
+      "_id": "phbcftPackDamage",
       "type": "feat",
-      "img": "icons/magic/movement/trail-streak-pink.webp",
+      "img": "icons/creatures/claws/claw-talons-yellow-red.webp",
       "effects": [],
       "folder": null,
       "sort": 0,
@@ -921,85 +949,37 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "createdTime": 1789785100541,
-        "modifiedTime": 1789785100541
+        "createdTime": 1789184402703,
+        "modifiedTime": 1789184402703
       },
       "ownership": {
         "default": 0
       }
     }
   ],
-  "effects": [
-    {
-      "name": "Invisible",
-      "_id": "dnd5einvisible00",
-      "img": "systems/dnd5e/icons/svg/statuses/invisible.svg",
-      "statuses": [
-        "invisible"
-      ],
-      "description": "@Embed[Compendium.dnd5e.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.3UU5GCTVeRDbZy9u inline]",
-      "type": "base",
-      "system": {
-        "changes": []
-      },
-      "disabled": false,
-      "duration": {
-        "value": null,
-        "units": "seconds",
-        "expiry": null,
-        "expired": false
-      },
-      "origin": null,
-      "tint": "#ffffff",
-      "transfer": false,
-      "sort": 0,
-      "flags": {},
-      "_stats": {
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null,
-        "coreVersion": "14.367",
-        "systemId": "dnd5e",
-        "systemVersion": "5.3.3",
-        "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "createdTime": 1789785100541,
-        "modifiedTime": 1789785100541
-      },
-      "showIcon": 2,
-      "start": {
-        "combat": null,
-        "round": 0,
-        "time": 0,
-        "turn": 0,
-        "combatant": null,
-        "initiative": null
-      },
-      "folder": null
-    }
-  ],
-  "folder": "9mmdDqYZFLIJBacj",
+  "effects": [],
+  "folder": null,
   "flags": {
     "dnd5e": {
-      "showTokenPortrait": false
+      "isAutoImported": true
     },
     "5e-npc-combat-automation": {
       "aiProfile": {
         "archetypes": [
-          "brute"
+          "skirmisher"
         ],
         "reasons": [
-          "No inference signals — fallback pool pick for \"custom\": brute"
+          "No inference signals — fallback pool pick for \"custom\": skirmisher"
         ],
         "confidence": 0,
         "version": 3,
-        "timestamp": 1789785433017,
+        "timestamp": 1789916421109,
         "manuallyOverridden": false
       }
     },
     "waluipedia-mass-import": {
       "folderPath": [
-        "Bestiary",
-        "Other"
+        "Bestiary"
       ]
     },
     "waluipedia-sheets": {
@@ -1010,8 +990,7 @@
       "color": "#8B7355",
       "organized": {
         "path": [
-          "Bestiary",
-          "Other"
+          "Bestiary"
         ],
         "basis": "bestiary",
         "from": []
@@ -1024,15 +1003,14 @@
     "coreVersion": "14.367",
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
-    "createdTime": 1789785100541,
-    "modifiedTime": 1789785433022,
+    "createdTime": 1789184402703,
+    "modifiedTime": 1789916514378,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
-    "compendiumSource": "Compendium.dnd5e.actors24.Actor.phbsplArcaneEye0"
+    "compendiumSource": "Compendium.dnd5e.actors24.Actor.phbSpectralAnima"
   },
   "ownership": {
     "default": 0,
     "7BMT1Aux3QVtq027": 3
   },
-  "_id": "IcDQ0xxkj5FtaNIc",
-  "sort": 0
+  "sort": 600000
 }

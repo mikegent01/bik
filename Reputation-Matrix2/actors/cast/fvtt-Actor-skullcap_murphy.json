@@ -791,7 +791,6 @@
   "flags": {
     "waluipedia-mass-import": {
       "folderPath": [
-        "Waluipedia Cast",
         "The Underground"
       ],
       "source": "tools/build-character-sheets.py"

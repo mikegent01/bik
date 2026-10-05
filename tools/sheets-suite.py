@@ -20,10 +20,12 @@ One pass, in order (each step is skipped when there is nothing to do):
             the mirror's export (spoils of war, injuries) → ``apply --write``.
   check     ``foundry-bridge.py check`` on the mirror (never writes).
   build     ``build-character-sheets.py`` → data/sheets.json + the cast packet.
-  combine   actors/worlds/<world>/import.json (the whole world) and
-            players-import.json (the Players folder only) — the packets the
-            Mass Import module fetches off the local server. Both are
-            git-ignored build artefacts.
+  combine   actors/worlds/<world>/import.json — ONE packet with everything:
+            the world mirror, the generated cast and the era packets
+            (actors/peachs-castle-955), an actor the world already has by
+            name and type left out of the later sources — plus
+            players-import.json (the Players folder only, for a quick
+            player-sheet refresh). Both are git-ignored build artefacts.
   publish   into Foundry's own Data folder when it can be found (--foundry-data,
             WALUIPEDIA_FOUNDRY_DATA, FOUNDRY_VTT_DATA_PATH, or the OS default
             such as %LOCALAPPDATA%\FoundryVTT\Data): the packets + manifest +
@@ -49,6 +51,7 @@ from __future__ import annotations
 
 import argparse
 import glob
+import hashlib
 import json
 import os
 import platform
@@ -363,53 +366,63 @@ def published_dir(foundry_data, world):
     return os.path.join(foundry_data, *PACKET_DIR.split("/"), world)
 
 
-def packets_info(world, port, packet_files, published_at):
+def packets_digest(packet_files):
+    """One hash over the packets' bytes — the module syncs again only when this
+    changes, not every time the suite passes."""
+    h = hashlib.sha1()
+    for key in sorted(packet_files):
+        h.update(key.encode("utf-8"))
+        try:
+            with open(packet_files[key], "rb") as fh:
+                h.update(fh.read())
+        except OSError:
+            pass
+    return h.hexdigest()
+
+
+def packets_info(world, port, packet_files, published_at, digest=None):
     """What <Data>/npc/waluipedia/<world>/packets.json says: stamps the module
-    shows in its summary, and the other places the same packet can be found."""
+    shows in its summary, and the other places the same packets can be found
+    (the launcher, and GitHub where `everything` is manifest + cast + era
+    packets the module merges itself)."""
     u = urls(world, port)
     return {
-        "format": "waluipedia-packets/1",
+        "format": "waluipedia-packets/2",
         "world": world,
         "exportedAt": mirror_stamp(world),
         "publishedAt": published_at,
         "publishedBy": "tools/sheets-suite.py",
+        "digest": digest or packets_digest(packet_files),
         "packets": {k: os.path.basename(v) for k, v in packet_files.items()},
-        "launcher": {"players": u["players"], "world": u["world"], "sheets": u["sheets"]},
-        "github": {"manifest": f"{RAW_BASE}Reputation-Matrix2/actors/worlds/{world}/manifest.json"},
+        "launcher": {"everything": u["everything"], "players": u["players"], "sheets": u["sheets"]},
+        "github": {"manifest": f"{RAW_BASE}Reputation-Matrix2/actors/worlds/{world}/manifest.json",
+                   "cast": f"{RAW_BASE}Reputation-Matrix2/actors/cast/import.json",
+                   "era": f"{RAW_BASE}Reputation-Matrix2/actors/peachs-castle-955/import.json"},
     }
 
 
-def publish_cast(foundry_data, port, write, stamp):
-    """The committed cast packet (actors/cast/import.json) goes next to the
-    world packets so Sync's `cast` scope works offline too. Returns the list of
-    files copied (empty when current or when the packet is missing)."""
-    src = os.path.join(ACTORS, "cast", "import.json")
-    if not os.path.exists(src):
-        return []
-    dest = os.path.join(foundry_data, *PACKET_DIR.split("/"), "cast")
-    dst = os.path.join(dest, "import.json")
-    if not write:
-        return [] if same_file(src, dst) else ["cast/import.json"]
-    os.makedirs(dest, exist_ok=True)
-    copied = []
-    if not same_file(src, dst):
-        shutil.copy2(src, dst)
-        copied.append("cast/import.json")
-    info = {
-        "format": "waluipedia-packets/1",
-        "world": "cast",
-        "publishedAt": stamp,
-        "publishedBy": "tools/sheets-suite.py",
-        "packets": {"cast": "import.json"},
-        "launcher": {"cast": f"http://127.0.0.1:{port}/Reputation-Matrix2/actors/cast/import.json"},
-        "github": {"cast": f"{RAW_BASE}Reputation-Matrix2/actors/cast/import.json"},
-    }
-    tmp = os.path.join(dest, "packets.json.tmp")
-    with open(tmp, "w", encoding="utf-8") as fh:
-        json.dump(info, fh, indent=2, ensure_ascii=False)
-        fh.write("\n")
-    os.replace(tmp, os.path.join(dest, "packets.json"))
-    return copied
+def remove_legacy_cast_dir(foundry_data):
+    """Suites before module 1.5 published a separate cast packet under
+    npc/waluipedia/cast/; the cast now rides in the world's import.json. Remove
+    the old dir when it holds nothing but what the suite put there."""
+    legacy = os.path.join(foundry_data, *PACKET_DIR.split("/"), "cast")
+    if not os.path.isdir(legacy):
+        return False
+    try:
+        if set(os.listdir(legacy)) - {"import.json", "packets.json"}:
+            return False
+        shutil.rmtree(legacy)
+        return True
+    except OSError:
+        return False
+
+
+def read_json_quiet(path):
+    try:
+        with open(path, encoding="utf-8") as fh:
+            return json.load(fh)
+    except (OSError, ValueError):
+        return None
 
 
 def step_publish(world, write, port, foundry_data, how, install=True, images=True):
@@ -422,7 +435,7 @@ def step_publish(world, write, port, foundry_data, how, install=True, images=Tru
         return True
     whole, pl = packet_paths(world)
     dest = published_dir(foundry_data, world)
-    packet_files = {"players": pl, "world": whole, "manifest": os.path.join(WORLDS, world, "manifest.json")}
+    packet_files = {"everything": whole, "players": pl, "manifest": os.path.join(WORLDS, world, "manifest.json")}
     present = {k: v for k, v in packet_files.items() if os.path.exists(v)}
     if not write:
         before, repo_version, changed = install_module(foundry_data, False)
@@ -437,16 +450,23 @@ def step_publish(world, write, port, foundry_data, how, install=True, images=Tru
         if not same_file(src, dst):
             shutil.copy2(src, dst)
             copied.append(os.path.basename(src))
-    stamp = time.strftime("%Y-%m-%dT%H:%M:%S%z")
     info_path = os.path.join(dest, "packets.json")
-    tmp = info_path + ".tmp"
-    with open(tmp, "w", encoding="utf-8") as fh:
-        json.dump(packets_info(world, port, present, stamp), fh, indent=2, ensure_ascii=False)
-        fh.write("\n")
-    os.replace(tmp, info_path)
+    digest = packets_digest(present)
+    previous = read_json_quiet(info_path) or {}
+    # the stamp moves only when a packet's bytes do, so the module's automatic
+    # Sync runs once per real change rather than once per suite pass
+    stamp = previous.get("publishedAt") if previous.get("digest") == digest and previous.get("publishedAt") else time.strftime("%Y-%m-%dT%H:%M:%S%z")
+    info = packets_info(world, port, present, stamp, digest)
+    if info != previous:
+        tmp = info_path + ".tmp"
+        with open(tmp, "w", encoding="utf-8") as fh:
+            json.dump(info, fh, indent=2, ensure_ascii=False)
+            fh.write("\n")
+        os.replace(tmp, info_path)
     rel_dest = os.path.relpath(dest, foundry_data).replace(os.sep, "/")
-    copied += publish_cast(foundry_data, port, True, stamp)
-    say(f"  publish  : {foundry_data} ({how}) — {', '.join(copied) if copied else 'packets unchanged'} -> {rel_dest}/  (Sync reads {rel_dest}/players-import.json)")
+    if remove_legacy_cast_dir(foundry_data):
+        copied.append("(removed the old cast/ packet dir)")
+    say(f"  publish  : {foundry_data} ({how}) — {', '.join(copied) if copied else 'packets unchanged'} -> {rel_dest}/  (Sync reads {rel_dest}/import.json)")
     if install:
         try:
             before, repo_version, changed = install_module(foundry_data, True)
@@ -460,7 +480,7 @@ def step_publish(world, write, port, foundry_data, how, install=True, images=Tru
             else:
                 say(f"  module   : {MODULE_ID} {repo_version} is current")
     if images:
-        dirs = [d for d in (os.path.join(WORLDS, world), os.path.join(ACTORS, "cast"), os.path.join(ACTORS, "peachs-castle-955")) if os.path.isdir(d)]
+        dirs = packet_sources(world)
         ok = run([TOOLS["bridge"], "install-images"] + [os.path.relpath(d, ROOT) for d in dirs] + ["--foundry-data", foundry_data], "images", check=False)[0] and ok
     return ok
 
@@ -470,13 +490,23 @@ def packet_paths(world):
     return os.path.join(base, "import.json"), os.path.join(base, "players-import.json")
 
 
+def packet_sources(world):
+    """The trees one import carries, in precedence order: the world mirror,
+    the generated cast, the era packets the folder scheme names."""
+    dirs = [os.path.join(WORLDS, world), os.path.join(ACTORS, "cast")]
+    scheme = read_json_quiet(os.path.join(ACTORS, "folders.json")) or {}
+    dirs += [os.path.join(ACTORS, d) for d in (scheme.get("eras") or {})]
+    return [d for d in dirs if os.path.isdir(d)]
+
+
 def step_combine(world, write):
     base = os.path.join(WORLDS, world)
     players = os.path.join(base, "Players")
     whole, pl = packet_paths(world)
     ok = True
     if write:
-        ok = run([TOOLS["bridge"], "combine", os.path.relpath(base, ROOT), "--out", os.path.relpath(whole, ROOT), "--world", world], "combine")[0] and ok
+        sources = [os.path.relpath(d, ROOT) for d in packet_sources(world)]
+        ok = run([TOOLS["bridge"], "combine"] + sources + ["--out", os.path.relpath(whole, ROOT), "--world", world], "combine")[0] and ok
         if os.path.isdir(players):
             ok = run([TOOLS["bridge"], "combine", os.path.relpath(players, ROOT), "--out", os.path.relpath(pl, ROOT), "--world", world], "combine")[0] and ok
     else:
@@ -489,8 +519,8 @@ def urls(world, port):
     base = f"http://127.0.0.1:{port}/"
     return {
         "sheets": base + "#/sheets",
+        "everything": base + os.path.relpath(whole, ROOT).replace(os.sep, "/"),
         "players": base + os.path.relpath(pl, ROOT).replace(os.sep, "/"),
-        "world": base + os.path.relpath(whole, ROOT).replace(os.sep, "/"),
     }
 
 
@@ -523,9 +553,10 @@ def one_pass(world, write, port, downloads=None, foundry=None):
     say(f"  {'done' if ok else 'FAILED'}     : {time.time() - t0:.1f}s")
     if write:
         say(f"  sheets   : {u['sheets']}")
-        say(f"  foundry  : Actors sidebar -> Sync (one click: finds the packet in Data, else {u['players']}, else GitHub; folders, changes, summary)")
-        say(f"  packet   : {u['players']}  (Mass import → URL: the Players folder)")
-        say(f"  packet   : {u['world']}  (the whole world)")
+        say(f"  foundry  : Sync runs by itself when the world loads (or Actors sidebar -> Sync): everything, from Data, else {u['everything']}, else GitHub")
+        say(f"  foundry  : after a module update: Setup -> relaunch the world -> Ctrl+F5, or the old module code keeps running")
+        say(f"  packet   : {u['everything']}  (everything: world + cast + eras; Mass import → URL if you ever need it by hand)")
+        say(f"  packet   : {u['players']}  (the Players folder only)")
     return ok
 
 

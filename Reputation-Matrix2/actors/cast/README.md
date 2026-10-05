@@ -12,8 +12,8 @@ Do not hand-edit a file in this directory — change the article, a
 | File | What |
 |---|---|
 | `fvtt-Actor-<character id>.json` | one actor, id `sid("cast", <id>)` — templated: `type:"npc"`, unlinked token; hand-authored: `type:"character"`, linked token, class / species / background items |
-| `eras/fvtt-Actor-<character id>--<version>.json` | a **past self** of a character (`mario--955-bf`, `luigi--955-bf`, `bowser--955-bf`): a player-character sheet for a session set in that year, folders *Waluipedia Cast / <group> / 955 BF*, served at `#/sheets/<id>/<version>` |
-| `import.json` | all of the above combined by `tools/foundry-bridge.py combine` (the bridge walks `eras/`), folders *Waluipedia Cast / <group>* |
+| `eras/fvtt-Actor-<character id>--<version>.json` | a **past self** of a character (`mario--955-bf`, `luigi--955-bf`, `bowser--955-bf`): a player-character sheet for a session set in that year, filed in the era folder *Peach's Castle 955 BF* (`actors/folders.json` `eras`), served at `#/sheets/<id>/<version>` |
+| `import.json` | all of the above combined by `tools/foundry-bridge.py combine` (the bridge walks `eras/`), folders *<website group>* — the same folders the live world's actors are filed into, so a generated Koopa sits beside the GM's Koopas (the `generated` tag tells them apart); a group too small for a folder of its own (`folders.json` `minimum`) goes to *Elsewhere* |
 
 Import the packet with the [Mass Import module](../../Foundry/mass_import/README.md)
 (upload `import.json`, or *Import by URL* with

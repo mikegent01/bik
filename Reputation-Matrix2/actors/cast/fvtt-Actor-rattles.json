@@ -793,7 +793,6 @@
   "flags": {
     "waluipedia-mass-import": {
       "folderPath": [
-        "Waluipedia Cast",
         "Shadow Estate & House Corvinarus"
       ],
       "source": "tools/build-character-sheets.py"

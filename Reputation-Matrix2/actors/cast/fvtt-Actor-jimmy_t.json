@@ -793,7 +793,6 @@
   "flags": {
     "waluipedia-mass-import": {
       "folderPath": [
-        "Waluipedia Cast",
         "Wario's Enterprise & WarioWare"
       ],
       "source": "tools/build-character-sheets.py"

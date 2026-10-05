@@ -1180,7 +1180,6 @@
   "flags": {
     "waluipedia-mass-import": {
       "folderPath": [
-        "Waluipedia Cast",
         "Kremling Krew & the Black Sugar Pirates"
       ],
       "source": "tools/build-character-sheets.py"

@@ -1,8 +1,7 @@
 {
-  "name": "Joseph Lee",
+  "name": "Arcane Eye",
   "type": "npc",
-  "_id": "i81gKchy0m427tAl",
-  "img": "npc/younglee.png",
+  "img": "icons/magic/perception/eye-slit-pink.webp",
   "system": {
     "currency": {
       "pp": 0,
@@ -13,7 +12,7 @@
     },
     "abilities": {
       "str": {
-        "value": 10,
+        "value": 0,
         "proficient": 0,
         "max": null,
         "bonuses": {
@@ -36,7 +35,7 @@
         }
       },
       "dex": {
-        "value": 10,
+        "value": 0,
         "proficient": 0,
         "max": null,
         "bonuses": {
@@ -59,7 +58,7 @@
         }
       },
       "con": {
-        "value": 10,
+        "value": 0,
         "proficient": 0,
         "max": null,
         "bonuses": {
@@ -82,7 +81,7 @@
         }
       },
       "int": {
-        "value": 10,
+        "value": 0,
         "proficient": 0,
         "max": null,
         "bonuses": {
@@ -105,7 +104,7 @@
         }
       },
       "wis": {
-        "value": 10,
+        "value": 0,
         "proficient": 0,
         "max": null,
         "bonuses": {
@@ -128,7 +127,7 @@
         }
       },
       "cha": {
-        "value": 10,
+        "value": 0,
         "proficient": 0,
         "max": null,
         "bonuses": {
@@ -416,41 +415,47 @@
     "tools": {},
     "spells": {
       "spell1": {
-        "value": 0
+        "value": 0,
+        "override": null
       },
       "spell2": {
-        "value": 0
+        "value": 0,
+        "override": null
       },
       "spell3": {
-        "value": 0
+        "value": 0,
+        "override": null
       },
       "spell4": {
-        "value": 0
+        "value": 0,
+        "override": null
       },
       "spell5": {
-        "value": 0
+        "value": 0,
+        "override": null
       },
       "spell6": {
-        "value": 0
+        "value": 0,
+        "override": null
       },
       "spell7": {
-        "value": 0
+        "value": 0,
+        "override": null
       },
       "spell8": {
-        "value": 0
+        "value": 0,
+        "override": null
       },
       "spell9": {
-        "value": 0
+        "value": 0,
+        "override": null
       },
       "pact": {
-        "value": 0
+        "value": 0,
+        "override": null
       }
     },
     "attributes": {
-      "ac": {
-        "calc": "default",
-        "flat": null
-      },
       "init": {
         "ability": "",
         "roll": {
@@ -469,16 +474,16 @@
         "max": 3
       },
       "senses": {
+        "units": null,
+        "special": "",
         "ranges": {
+          "darkvision": 30,
           "blindsight": null,
-          "darkvision": null,
           "tremorsense": null,
           "truesight": null
-        },
-        "units": null,
-        "special": ""
+        }
       },
-      "spellcasting": "",
+      "spellcasting": "int",
       "exhaustion": 0,
       "concentration": {
         "ability": "",
@@ -492,17 +497,19 @@
         },
         "limit": 1
       },
-      "loyalty": {},
+      "ac": {
+        "flat": 0,
+        "calc": "flat"
+      },
       "hd": {
         "spent": 0
       },
       "hp": {
-        "max": 10,
-        "temp": null,
-        "tempmax": null,
-        "value": 10,
-        "formula": "",
-        "dt": null
+        "value": 1,
+        "max": 1,
+        "temp": 0,
+        "tempmax": 0,
+        "formula": "1"
       },
       "death": {
         "roll": {
@@ -516,17 +523,18 @@
           "save": ""
         }
       },
+      "spell": {
+        "level": 0
+      },
+      "loyalty": {},
       "price": {
         "value": null,
         "denomination": "gp"
-      },
-      "spell": {
-        "level": 0
       }
     },
     "details": {
       "biography": {
-        "value": "",
+        "value": "<p>@Embed[Compendium.dnd5e.spells24.Item.phbsplArcaneEye0 caption=false]</p>",
         "public": ""
       },
       "alignment": "",
@@ -534,12 +542,17 @@
       "bond": "",
       "flaw": "",
       "race": null,
-      "type": {},
-      "habitat": {
-        "value": [],
-        "custom": ""
+      "type": {
+        "value": "custom",
+        "subtype": "",
+        "swarm": "",
+        "custom": "Invulnerable Eye"
       },
-      "cr": 1,
+      "cr": null,
+      "habitat": {
+        "custom": "",
+        "value": []
+      },
       "treasure": {
         "value": []
       }
@@ -559,26 +572,22 @@
         "inside": false
       }
     },
-    "source": {
-      "revision": 1,
-      "rules": "2024"
-    },
     "traits": {
-      "size": "med",
+      "size": "tiny",
       "di": {
+        "bypasses": [],
         "value": [],
-        "custom": "",
-        "bypasses": []
+        "custom": ""
       },
       "dr": {
+        "bypasses": [],
         "value": [],
-        "custom": "",
-        "bypasses": []
+        "custom": ""
       },
       "dv": {
+        "bypasses": [],
         "value": [],
-        "custom": "",
-        "bypasses": []
+        "custom": ""
       },
       "dm": {
         "amount": {},
@@ -594,30 +603,37 @@
         "communication": {}
       },
       "important": false
+    },
+    "source": {
+      "rules": "2024",
+      "license": "CC-BY-4.0",
+      "book": "",
+      "revision": 1
     }
   },
   "prototypeToken": {
-    "name": "Non-Player Character",
-    "displayName": 0,
+    "name": "Arcane Eye",
+    "displayName": 20,
     "actorLink": false,
-    "width": 1,
-    "height": 1,
-    "depth": 1,
+    "appendNumber": false,
+    "prependAdjective": false,
+    "width": 0.5,
+    "height": 0.5,
     "texture": {
-      "src": "npc/younglee.png",
+      "src": "icons/svg/eye.svg",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
       "scaleX": 1,
       "scaleY": 1,
-      "tint": "#ffffff",
+      "tint": "#9128d7",
       "alphaThreshold": 0.75
     },
     "lockRotation": false,
     "rotation": 0,
     "alpha": 1,
-    "disposition": -1,
-    "displayBars": 0,
+    "disposition": -2,
+    "displayBars": 20,
     "bar1": {
       "attribute": "attributes.hp"
     },
@@ -650,14 +666,14 @@
       }
     },
     "sight": {
-      "enabled": false,
-      "range": 0,
+      "enabled": true,
+      "range": 30,
       "angle": 360,
-      "visionMode": "basic",
+      "visionMode": "darkvision",
       "color": null,
-      "attenuation": 0.1,
+      "attenuation": 0,
       "brightness": 0,
-      "saturation": 0,
+      "saturation": -1,
       "contrast": 0
     },
     "detectionModes": {},
@@ -670,12 +686,20 @@
         "ring": null,
         "background": null
       },
-      "effects": 1,
+      "effects": 0,
       "subject": {
         "scale": 1,
-        "texture": null
+        "texture": "icons/svg/eye.svg"
       }
     },
+    "flags": {
+      "dnd5e": {
+        "tokenRing": {
+          "effects": 1
+        }
+      }
+    },
+    "randomImg": false,
     "turnMarker": {
       "mode": 1,
       "animation": null,
@@ -683,41 +707,298 @@
       "disposition": false
     },
     "movementAction": null,
-    "flags": {},
-    "randomImg": false,
-    "appendNumber": false,
-    "prependAdjective": false
+    "depth": 0.5
   },
-  "items": [],
-  "effects": [],
-  "folder": null,
-  "sort": 0,
-  "ownership": {
-    "default": 0,
-    "7BMT1Aux3QVtq027": 3
-  },
+  "items": [
+    {
+      "name": "Move",
+      "system": {
+        "description": {
+          "value": "<p>As a Bonus Action, you can move the eye up to 30 feet in any direction. A solid barrier blocks the eye's movement, but the eye can pass through an opening as small as 1 inch in diameter.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "rules": "2024",
+          "book": "",
+          "license": "CC-BY-4.0",
+          "revision": 1
+        },
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "prerequisites": {
+          "level": null,
+          "repeatable": false,
+          "items": []
+        },
+        "properties": [],
+        "requirements": "",
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "bonus",
+              "value": null,
+              "condition": "Bonus Action used by summoner",
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false,
+              "concentration": false
+            },
+            "effects": [],
+            "range": {
+              "value": "30",
+              "units": "ft",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "1",
+                "type": "space",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": [],
+              "max": ""
+            },
+            "sort": 0,
+            "name": "",
+            "img": "",
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true
+          }
+        },
+        "enchant": {},
+        "identifier": "move",
+        "advancement": {},
+        "cover": null,
+        "crewed": false
+      },
+      "_id": "phbaoiWizard0000",
+      "type": "feat",
+      "img": "icons/magic/movement/trail-streak-pink.webp",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {
+        "dnd5e": {
+          "riders": {
+            "activity": [],
+            "effect": []
+          }
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1789785100541,
+        "modifiedTime": 1789785100541
+      },
+      "ownership": {
+        "default": 0
+      }
+    }
+  ],
+  "effects": [
+    {
+      "name": "Invisible",
+      "_id": "dnd5einvisible00",
+      "img": "systems/dnd5e/icons/svg/statuses/invisible.svg",
+      "statuses": [
+        "invisible"
+      ],
+      "description": "@Embed[Compendium.dnd5e.rules.JournalEntry.w7eitkpD7QQTB6j0.JournalEntryPage.3UU5GCTVeRDbZy9u inline]",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "disabled": false,
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "origin": null,
+      "tint": "#ffffff",
+      "transfer": false,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1789785100541,
+        "modifiedTime": 1789785100541
+      },
+      "showIcon": 2,
+      "start": {
+        "combat": null,
+        "round": 0,
+        "time": 0,
+        "turn": 0,
+        "combatant": null,
+        "initiative": null
+      },
+      "folder": null
+    }
+  ],
+  "folder": "9mmdDqYZFLIJBacj",
   "flags": {
-    "scene-packer": {
-      "hash": "7f9037932501407360d1e82988b43dc89c0841bb"
+    "dnd5e": {
+      "showTokenPortrait": false
     },
     "5e-npc-combat-automation": {
       "aiProfile": {
         "archetypes": [
-          "coward"
+          "brute"
         ],
         "reasons": [
-          "No inference signals — fallback pool pick for \"humanoid\": coward"
+          "No inference signals — fallback pool pick for \"custom\": brute"
         ],
         "confidence": 0,
         "version": 3,
-        "timestamp": 1791077506255,
+        "timestamp": 1789785433017,
         "manuallyOverridden": false
       }
     },
     "waluipedia-mass-import": {
       "folderPath": [
-        "Bestiary",
-        "Other"
+        "Bestiary"
       ]
     },
     "waluipedia-sheets": {
@@ -728,8 +1009,7 @@
       "color": "#8B7355",
       "organized": {
         "path": [
-          "Bestiary",
-          "Other"
+          "Bestiary"
         ],
         "basis": "bestiary",
         "from": []
@@ -737,14 +1017,20 @@
     }
   },
   "_stats": {
+    "duplicateSource": null,
+    "exportSource": null,
     "coreVersion": "14.367",
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
-    "createdTime": 1791077506206,
-    "modifiedTime": 1791077536894,
+    "createdTime": 1789785100541,
+    "modifiedTime": 1789785433022,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
-    "compendiumSource": null,
-    "duplicateSource": null,
-    "exportSource": null
-  }
+    "compendiumSource": "Compendium.dnd5e.actors24.Actor.phbsplArcaneEye0"
+  },
+  "ownership": {
+    "default": 0,
+    "7BMT1Aux3QVtq027": 3
+  },
+  "_id": "IcDQ0xxkj5FtaNIc",
+  "sort": 0
 }

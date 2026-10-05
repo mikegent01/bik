@@ -142,14 +142,15 @@ def load_folder_scheme(path=DEFAULT_FOLDER_SCHEME):
 def folder_styles(scheme, paths):
     """{"A / B": {"color", "description"}} for every folder chain in `paths`
     (lists of names) the scheme has a colour for: Players, Bestiary and its
-    creature types, the website groups (top level or under any one parent,
-    e.g. "Waluipedia Cast / Iron Legion")."""
+    creature types, the era folders and everything under them, the website
+    groups (top level or under any one parent, e.g. "Imports / Iron Legion")."""
     if not scheme:
         return {}
     players = scheme.get("players") or {}
     bestiary = scheme.get("bestiary") or {}
     groups = scheme.get("groups") or {}
     types = bestiary.get("types") or {}
+    eras = {e.get("folder"): e for e in (scheme.get("eras") or {}).values() if isinstance(e, dict) and e.get("folder")}
     styles = {}
     for path in paths:
         for i in range(len(path or [])):
@@ -163,6 +164,9 @@ def folder_styles(scheme, paths):
                 style = players
             elif name == bestiary.get("folder") and len(chain) == 1:
                 style = bestiary
+            elif chain[0] in eras:
+                era = eras[chain[0]]
+                style = era if len(chain) == 1 else {"color": era.get("color")}
             elif len(chain) == 2 and chain[0] == bestiary.get("folder"):
                 color = types.get(name.lower())
                 style = {"color": color} if color else None
@@ -171,6 +175,105 @@ def folder_styles(scheme, paths):
             if style and (style.get("color") or style.get("description")):
                 styles[key] = {"color": style.get("color"), "description": style.get("description")}
     return styles
+
+
+def era_folders(scheme):
+    """{era folder name: {"dir", "era", "color", ...}} from the scheme's `eras`."""
+    out = {}
+    for d, e in ((scheme or {}).get("eras") or {}).items():
+        if isinstance(e, dict) and e.get("folder"):
+            out[e["folder"]] = dict(e, dir=d)
+    return out
+
+
+def folder_path_of(doc, rel_parts=()):
+    """The folder an actor file stands for: its folderPath flag, else the
+    directory it sits in (relative to the tree root)."""
+    flag = (doc.get("flags") or {}).get(MODULE_ID, {}).get("folderPath")
+    if isinstance(flag, list):
+        return [str(p) for p in flag]
+    return list(rel_parts)
+
+
+def era_actors(scheme, actors_dir=None):
+    """{(name lower, type): {"path", "folder", "era", "dir", "file"}} for every
+    actor of the era packets the scheme's `eras` name (actors/<dir>/). Their
+    folder paths always start with the era folder."""
+    actors_dir = actors_dir or os.path.join(RM, "actors")
+    out = {}
+    for d, e in era_folders(scheme).items():
+        base = os.path.join(actors_dir, e["dir"])
+        if not os.path.isdir(base):
+            continue
+        for p, rel_parts in actor_files([base]):
+            doc = load_actor_file(p)
+            if doc is None:
+                continue
+            path = folder_path_of(doc, rel_parts)
+            if not path or path[0] != d:
+                path = [d] + list(path)
+            key = (str(doc.get("name") or "").strip().lower(), doc.get("type"))
+            out.setdefault(key, {"path": path, "folder": d, "era": e.get("era"), "dir": e["dir"], "file": p})
+    return out
+
+
+def world_population(actors_dir=None):
+    """[(name lower, type), path] for every actor of every world mirror
+    (actors/worlds/*) — what the mirrors put in Foundry."""
+    actors_dir = actors_dir or os.path.join(RM, "actors")
+    base = os.path.join(actors_dir, "worlds")
+    out = []
+    if not os.path.isdir(base):
+        return out
+    for d in sorted(os.listdir(base)):
+        wd = os.path.join(base, d)
+        if not os.path.isdir(wd):
+            continue
+        for p, rel_parts in actor_files([wd]):
+            doc = load_actor_file(p)
+            if doc is None:
+                continue
+            out.append(((str(doc.get("name") or "").strip().lower(), doc.get("type")), folder_path_of(doc, rel_parts)))
+    return out
+
+
+def fold_singletons(targets, scheme):
+    """Pure. targets: {key: [folder names]} for EVERY actor the packet will carry
+    (world mirror + generated cast + era packets). Returns {key: path} with the
+    scheme's `minimum` applied: a sub-folder holding fewer actors than that is
+    folded into its parent (Bestiary / Ooze with one ooze -> Bestiary), a
+    top-level folder holding fewer into `fallback` (Elsewhere). Never folded:
+    Players (and the `keep` list), Bestiary itself, the era roots, the
+    fallback, and the root. Repeats until stable."""
+    minimum = int((scheme or {}).get("minimum") or 1)
+    out = {k: list(v or []) for k, v in targets.items()}
+    if minimum <= 1:
+        return out
+    players = ((scheme or {}).get("players") or {}).get("folder", "Players")
+    bestiary = ((scheme or {}).get("bestiary") or {}).get("folder", "Bestiary")
+    fallback = (scheme or {}).get("fallback") or "Elsewhere"
+    exempt_roots = {players, bestiary, fallback, *(scheme or {}).get("keep", []), *era_folders(scheme)}
+    for _ in range(8):
+        # a folder's population is everything at or below it: a parent whose
+        # actors all sit in sub-folders is a container, not a lone actor
+        counts = {}
+        for path in out.values():
+            for i in range(1, len(path) + 1):
+                counts[tuple(path[:i])] = counts.get(tuple(path[:i]), 0) + 1
+        changed = False
+        for key, path in out.items():
+            n = counts.get(tuple(path), 0)
+            if not path or n >= minimum:
+                continue
+            if len(path) >= 2:
+                out[key] = path[:-1]
+                changed = True
+            elif path[0] not in exempt_roots:
+                out[key] = [fallback]
+                changed = True
+        if not changed:
+            break
+    return out
 
 
 def dir_name(folder_name):
@@ -375,28 +478,54 @@ def split(export_path, out_dir, flat=False, prune=False):
 
 # ------------------------------------------------------------------ combine
 
-def combine(dirs, folder_prefix=None, world=None, ignore_dirs=False, scheme=None):
+def combine(dirs, folder_prefix=None, world=None, ignore_dirs=False, scheme=None, dedupe=None):
+    """Actor files -> one import payload. With several dirs the first one wins
+    a name + type clash (dedupe, default on for 2+ dirs): the live world keeps
+    its copy of a 955 BF guard, the era packet's copy is left out and listed
+    under `omitted`. Duplicates *within* one dir are kept (two different
+    "Guard" statblocks are two actors)."""
     prefix = [p.strip() for p in str(folder_prefix or "").split("/") if p.strip()]
     scheme = load_folder_scheme() if scheme is None else scheme
-    rows = []
-    for path, rel_parts in actor_files(dirs):
-        doc = load_actor_file(path)
-        if doc is None:
-            continue
-        flag = (doc.get("flags") or {}).get(MODULE_ID, {}).get("folderPath")
-        if isinstance(flag, list):
-            fpath = [str(p) for p in flag]
-        elif ignore_dirs or not rel_parts:
-            # no flag and not inside a sub-directory: the actor's folder is
-            # unknown — keep its folder id and let the module leave it alone
-            fpath = None if doc.get("folder") else []
-        else:
-            fpath = list(rel_parts)
-        if fpath is not None:
-            fpath = prefix + fpath
-        rows.append((fpath, doc.get("name", ""), doc.get("_id") or "", doc, path))
+    dedupe = (len(dirs) > 1) if dedupe is None else bool(dedupe)
+    rows, omitted = [], []
+    seen_names = {}
+    for base_index, base in enumerate(dirs):
+        for path, rel_parts in actor_files([base]):
+            doc = load_actor_file(path)
+            if doc is None:
+                continue
+            key = (str(doc.get("name") or "").strip().lower(), doc.get("type"))
+            if dedupe:
+                first = seen_names.get(key)
+                if first is not None and first != base_index:
+                    omitted.append({"name": doc.get("name"), "type": doc.get("type"), "_id": doc.get("_id"),
+                                    "file": os.path.relpath(path, ROOT).replace(os.sep, "/"),
+                                    "keptFrom": os.path.relpath(os.path.abspath(dirs[first]), ROOT).replace(os.sep, "/")})
+                    continue
+                seen_names.setdefault(key, base_index)
+            rows.append(_combine_row(doc, rel_parts, path, prefix, ignore_dirs))
     rows.sort(key=lambda r: (r[0] is None, r[0] or [], r[1], r[2]))
+    return _combine_payload(rows, scheme, world, omitted)
 
+
+def _combine_row(doc, rel_parts, path, prefix, ignore_dirs):
+    """(folder path or None, name, id, doc, file) — the folder comes from the
+    folderPath flag, else from the directory the file sits in."""
+    flag = (doc.get("flags") or {}).get(MODULE_ID, {}).get("folderPath")
+    if isinstance(flag, list):
+        fpath = [str(p) for p in flag]
+    elif ignore_dirs or not rel_parts:
+        # no flag and not inside a sub-directory: the actor's folder is
+        # unknown — keep its folder id and let the module leave it alone
+        fpath = None if doc.get("folder") else []
+    else:
+        fpath = list(rel_parts)
+    if fpath is not None:
+        fpath = prefix + fpath
+    return (fpath, doc.get("name", ""), doc.get("_id") or "", doc, path)
+
+
+def _combine_payload(rows, scheme, world, omitted):
     folders, folder_ids = [], {}
     styles = folder_styles(scheme, [r[0] for r in rows if r[0]])
     for fpath, *_ in rows:
@@ -438,6 +567,8 @@ def combine(dirs, folder_prefix=None, world=None, ignore_dirs=False, scheme=None
         "folders": folders,
         "actors": actors,
     }
+    if omitted:
+        payload["omitted"] = omitted
     return payload, dupes
 
 
@@ -794,6 +925,7 @@ def main(argv=None):
     p.add_argument("--folder", default=None, help="prefix every folderPath, e.g. \"Imports / Session 42\"")
     p.add_argument("--world", default=None, help="exportedFrom value")
     p.add_argument("--ignore-dirs", action="store_true", help="only use the folderPath flag, never the directory path")
+    p.add_argument("--keep-duplicates", action="store_true", help="with several dirs: keep every actor even when a later dir repeats a name + type of an earlier one")
     p.add_argument("--check", action="store_true", help="verify --out is current; write nothing")
 
     p = sub.add_parser("link-images", help="connect actors to repo art; report unless --write")
@@ -837,7 +969,8 @@ def main(argv=None):
         return 0
 
     if args.cmd == "combine":
-        payload, dupes = combine(args.dirs, folder_prefix=args.folder, world=args.world, ignore_dirs=args.ignore_dirs)
+        payload, dupes = combine(args.dirs, folder_prefix=args.folder, world=args.world, ignore_dirs=args.ignore_dirs,
+                                 dedupe=False if args.keep_duplicates else None)
         for aid, first, second in dupes:
             print(f"  WARNING duplicate _id {aid}: {os.path.relpath(first, ROOT)} and {os.path.relpath(second, ROOT)}", file=sys.stderr)
         text = render(payload)
@@ -853,7 +986,9 @@ def main(argv=None):
             return 0
         write_text(args.out, text)
         print(f"combine: {payload['actorCount']} actors, {payload['folderCount']} folders"
-              f" ({sum(1 for f in payload['folders'] if f.get('color'))} coloured) -> {args.out}")
+              f" ({sum(1 for f in payload['folders'] if f.get('color'))} coloured)"
+              + (f", {len(payload['omitted'])} left out (same name + type as an earlier source)" if payload.get("omitted") else "")
+              + f" -> {args.out}")
         return 1 if dupes else 0
 
     if args.cmd == "link-images":

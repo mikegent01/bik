@@ -19,6 +19,9 @@ spec.loader.exec_module(fb)
 FAILS, OKS = [], []
 
 
+REAL_ACTORS = os.path.join(ROOT, "Reputation-Matrix2", "actors")
+
+
 def check(label, cond, extra=""):
     (OKS if cond else FAILS).append(label + (f" — {extra}" if extra and not cond else ""))
 
@@ -166,6 +169,48 @@ with tempfile.TemporaryDirectory() as tmp:
         json.dump(actor("Remi copy", "A1aaaaaaaaaaaaaa"), fh)
     _, dupes = fb.combine([out, dup_dir])
     check("combine warns on duplicate _id across inputs", len(dupes) == 1 and dupes[0][0] == "A1aaaaaaaaaaaaaa")
+
+    # ---- several sources: the first wins a name + type clash --------------
+    era_dir = os.path.join(tmp, "era")
+    os.makedirs(era_dir)
+    with open(os.path.join(era_dir, "guard.json"), "w", encoding="utf-8") as fh:
+        json.dump(dict(actor("Palace Guard", "E1aaaaaaaaaaaaaa"), flags={"waluipedia-mass-import": {"folderPath": ["Peach's Castle 955 BF", "The Court"]}}), fh)
+    with open(os.path.join(era_dir, "guard2.json"), "w", encoding="utf-8") as fh:
+        json.dump(dict(actor("Palace Guard", "E2aaaaaaaaaaaaaa"), flags={"waluipedia-mass-import": {"folderPath": ["Peach's Castle 955 BF", "The Court"]}}), fh)
+    with open(os.path.join(era_dir, "peach.json"), "w", encoding="utf-8") as fh:
+        json.dump(dict(actor("Princess Peach (955 BF)", "E3aaaaaaaaaaaaaa"), flags={"waluipedia-mass-import": {"folderPath": ["Peach's Castle 955 BF", "The Court"]}}), fh)
+    world_dir = os.path.join(tmp, "world2")
+    os.makedirs(os.path.join(world_dir, "Guards"))
+    with open(os.path.join(world_dir, "Guards", "guard.json"), "w", encoding="utf-8") as fh:
+        json.dump(actor("palace guard", "W1aaaaaaaaaaaaaa"), fh)
+    merged, _ = fb.combine([world_dir, era_dir], world="w2")
+    kept = sorted(a["_id"] for a in merged["actors"])
+    check("combine (several dirs): the world's Palace Guard wins over the era packet's by name + type, case-insensitively; the era's Peach comes along",
+          kept == ["E3aaaaaaaaaaaaaa", "W1aaaaaaaaaaaaaa"] and [o["_id"] for o in merged["omitted"]] == ["E1aaaaaaaaaaaaaa", "E2aaaaaaaaaaaaaa"]
+          and merged["omitted"][0]["keptFrom"].endswith("world2"), str(merged.get("omitted")))
+    alone, _ = fb.combine([era_dir], world="era")
+    check("combine (one dir): two statblocks with one name are two actors — dedupe only runs across sources", alone["actorCount"] == 3 and "omitted" not in alone)
+    kept_all, _ = fb.combine([world_dir, era_dir], world="w2", dedupe=False)
+    check("combine --keep-duplicates keeps every actor", kept_all["actorCount"] == 4)
+    styles = fb.folder_styles(fb.load_folder_scheme(), [["Peach's Castle 955 BF", "The Court"], ["Peach's Castle 955 BF"]])
+    check("folder_styles: an era folder and its children take the era colour; the description sits on the root only",
+          styles["Peach's Castle 955 BF"]["color"] == "#B8860B" and styles["Peach's Castle 955 BF"]["description"]
+          and styles["Peach's Castle 955 BF / The Court"]["color"] == "#B8860B" and not styles["Peach's Castle 955 BF / The Court"]["description"], str(styles))
+    scheme = {"minimum": 2, "fallback": "Elsewhere", "players": {"folder": "Players"}, "bestiary": {"folder": "Bestiary"}, "keep": ["Players"],
+              "eras": {"x": {"folder": "Era"}}}
+    pop = {"a": ["Bestiary", "Ooze"], "b": ["Bestiary", "Fey"], "c": ["Bestiary", "Fey"], "d": ["Lonely"], "e": ["Players"], "f": ["Era", "Court"],
+           "g": ["Era"], "h": ["Big", "Deep", "Deeper"], "i": ["Big", "Deep", "Deeper"], "j": ["Big", "Other"], "k": []}
+    folded = fb.fold_singletons(pop, scheme)
+    check("fold_singletons: a lone sub-folder folds into its parent, a lone top-level folder into the fallback; Players, Bestiary, era roots, the root never fold",
+          folded == {"a": ["Bestiary"], "b": ["Bestiary", "Fey"], "c": ["Bestiary", "Fey"], "d": ["Elsewhere"], "e": ["Players"], "f": ["Era"], "g": ["Era"],
+                     "h": ["Big", "Deep", "Deeper"], "i": ["Big", "Deep", "Deeper"], "j": ["Big"], "k": []}, str(folded))
+    check("fold_singletons: a lone Elsewhere or Bestiary stays; minimum 1 is a no-op; inputs are not mutated",
+          fb.fold_singletons({"a": ["Elsewhere"], "b": ["Bestiary"]}, scheme) == {"a": ["Elsewhere"], "b": ["Bestiary"]}
+          and fb.fold_singletons(pop, dict(scheme, minimum=1)) == pop and pop["a"] == ["Bestiary", "Ooze"])
+    check("era_actors / world_population read the repo's trees: every 955 BF actor keyed by name + type under the era folder, the midlands mirror by its flags",
+          all(v["path"][0] == "Peach's Castle 955 BF" and v["era"] == "955 BF" for v in fb.era_actors(fb.load_folder_scheme(), REAL_ACTORS).values())
+          and ("koopatrol", "npc") in fb.era_actors(fb.load_folder_scheme(), REAL_ACTORS) and len(fb.world_population(REAL_ACTORS)) >= 151
+          and all(isinstance(path, list) for _, path in fb.world_population(REAL_ACTORS)))
 
     # ---- link-images --------------------------------------------------------
     report = fb.link_images([out], write=False, portraits_dir=os.path.join(rm, "portraits"),

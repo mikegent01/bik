@@ -1058,7 +1058,6 @@
   "flags": {
     "waluipedia-mass-import": {
       "folderPath": [
-        "Waluipedia Cast",
         "Nintendo Mania Studio"
       ],
       "source": "tools/build-character-sheets.py"

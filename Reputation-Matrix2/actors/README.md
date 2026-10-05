@@ -186,7 +186,22 @@ the name in the Actors sidebar, tinted with the colour; `combine` writes the
 folder colours and descriptions into the packet (`folders[].color`,
 `folderStyles`) and the module paints new and colourless folders with them
 (a folder the GM coloured himself keeps its colour). The cast packet's
-`Waluipedia Cast / ⟨group⟩` folders are coloured the same way.
+group folders are the same folders, coloured the same way.
+
+Two more rules keep the tree worth looking at. **`eras`** names the packets
+of past selves (`peachs-castle-955` → folder *Peach's Castle 955 BF*, era
+label *955 BF*, its own colour): a mirror actor with the same name and type
+as one of theirs — the Koopatrol, the palace guards, Peach and Toadsworth of
+955 BF — is that era's copy and is filed into the era's folders (*The
+Court*, *Bowser's Incursion*) instead of its group; the generated era
+versions (*Bowser (955 BF)* …) go there too. **`minimum`** (2) is the
+smallest folder worth having: the organizer and the builder count every
+folder across everything one import carries (the mirror, the generated cast,
+the era packets) and fold a sub-folder below it into its parent (one ooze
+sits straight under *Bestiary*) and a top-level group below it into
+**`fallback`** (*Elsewhere*). Players, Bestiary itself, the era roots and
+Elsewhere never fold. A creature of a blank or custom type sits straight
+under *Bestiary* too — no *Other* drawer.
 
 ```bash
 python3 tools/organize-actors.py                 # file the midlands mirror (what the suite runs)
@@ -273,10 +288,12 @@ writes the bridge `apply` file that points actors at the linked art. Tested by
 `tools/tests/test-foundry-studio.py`; the module README has the walkthrough.
 
 The rest of the cast — every character article without a real export —
-lives in [`cast/`](cast/README.md): 152 sheets generated from the articles
-by `tools/build-character-sheets.py` — 118 NPC stat blocks and 34
-player-character sheets for the hand-authored main cast — with their own `import.json`
-(folders *Waluipedia Cast / <group>*). The site renders all of these at
+lives in [`cast/`](cast/README.md): 156 sheets generated from the articles
+by `tools/build-character-sheets.py` — NPC stat blocks and player-character
+sheets for the hand-authored main cast — with their own `import.json`
+(filed straight into the website group folders, tagged `generated`; the
+sheets suite merges them into the world's `import.json` so one Sync brings
+everything). The site renders all of these at
 `#/sheets`; only Disaster Inc. sheets are public there, the rest need debug
 mode — see [`docs/SHEETS_SYSTEM.md`](../../docs/SHEETS_SYSTEM.md).
 

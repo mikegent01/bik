@@ -1078,7 +1078,6 @@
   "flags": {
     "waluipedia-mass-import": {
       "folderPath": [
-        "Waluipedia Cast",
         "Elsewhere"
       ],
       "source": "tools/build-character-sheets.py"

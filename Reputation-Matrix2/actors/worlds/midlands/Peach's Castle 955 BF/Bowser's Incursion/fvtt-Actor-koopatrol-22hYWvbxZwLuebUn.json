@@ -1,12 +1,12 @@
 {
-  "name": "Castle Chambermaid",
+  "name": "Koopatrol",
   "type": "npc",
-  "_id": "4ySsVWpa8rE1UEsI",
-  "img": "npc/court-chambermaid.png",
+  "_id": "22hYWvbxZwLuebUn",
+  "img": "npc/foe-koopatrol.png",
   "system": {
     "abilities": {
       "str": {
-        "value": 8,
+        "value": 17,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -29,7 +29,7 @@
         }
       },
       "dex": {
-        "value": 11,
+        "value": 10,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -52,8 +52,8 @@
         }
       },
       "con": {
-        "value": 12,
-        "proficient": 0,
+        "value": 15,
+        "proficient": 1,
         "bonuses": {
           "check": "",
           "save": ""
@@ -75,7 +75,7 @@
         }
       },
       "int": {
-        "value": 11,
+        "value": 10,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -98,7 +98,7 @@
         }
       },
       "wis": {
-        "value": 13,
+        "value": 11,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -121,7 +121,7 @@
         }
       },
       "cha": {
-        "value": 11,
+        "value": 10,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -146,14 +146,14 @@
     },
     "attributes": {
       "ac": {
-        "flat": 10,
+        "flat": 18,
         "calc": "natural",
         "formula": ""
       },
       "hp": {
-        "value": 4,
-        "max": 4,
-        "formula": "1d6 + 1",
+        "value": 52,
+        "max": 52,
+        "formula": "8d8 + 16",
         "temp": null,
         "tempmax": null
       },
@@ -225,14 +225,14 @@
       }
     },
     "details": {
-      "alignment": "Neutral Good",
+      "alignment": "Lawful Neutral",
       "type": {
         "value": "humanoid",
-        "subtype": "toad"
+        "subtype": "koopa"
       },
-      "cr": 0,
+      "cr": 3,
       "biography": {
-        "value": "<p><em>Era sheet: Highsun 1, 955 BF, Peach's Castle.</em> Art and stats describe this figure on the night of the Day Of (events.json <code>highsun_1_955_bf_the_day_of</code>), not the present day of the campaign (1040 BF).</p><p>Pink-spotted cap, apron, candle and a ring of household keys. Non-combatant. She has turned down the Royal Suite tonight, walked past Luigi on the door, and may have heard something in the chimney.</p>",
+        "value": "<p><em>Era sheet: Highsun 1, 955 BF, Peach's Castle.</em> Art and stats describe this figure on the night of the Day Of (events.json <code>highsun_1_955_bf_the_day_of</code>), not the present day of the campaign (1040 BF).</p><p><strong>Scene kit — The Interloper at the Council.</strong> Bowser and his force burst in on a crucial palace meeting. This is a GM scene kit, not a filed event; nothing on this sheet changes the canon record of what happened that night.</p><p>Elite Koopa in full dark-steel plate, spiked helm, spiked pauldrons, spiked shell, black halberd. The ones who walk in behind Bowser and stand at the doors so nobody leaves the meeting early.</p>",
         "public": ""
       },
       "ideal": "",
@@ -248,7 +248,7 @@
       }
     },
     "traits": {
-      "size": "sm",
+      "size": "med",
       "languages": {
         "value": [
           "common"
@@ -322,7 +322,7 @@
         }
       },
       "ath": {
-        "value": 0,
+        "value": 1,
         "ability": "str",
         "roll": {
           "min": null,
@@ -361,7 +361,7 @@
         }
       },
       "ins": {
-        "value": 1,
+        "value": 0,
         "ability": "wis",
         "roll": {
           "min": null,
@@ -374,7 +374,7 @@
         }
       },
       "itm": {
-        "value": 0,
+        "value": 1,
         "ability": "cha",
         "roll": {
           "min": null,
@@ -426,7 +426,7 @@
         }
       },
       "prc": {
-        "value": 1,
+        "value": 0,
         "ability": "wis",
         "roll": {
           "min": null,
@@ -491,7 +491,7 @@
         }
       },
       "ste": {
-        "value": 1,
+        "value": 0,
         "ability": "dex",
         "roll": {
           "min": null,
@@ -574,14 +574,14 @@
     }
   },
   "prototypeToken": {
-    "name": "Castle Chambermaid",
+    "name": "Koopatrol",
     "displayName": 0,
     "actorLink": false,
     "width": 1,
     "height": 1,
     "depth": 1,
     "texture": {
-      "src": "npc/court-chambermaid.png",
+      "src": "npc/foe-koopatrol.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -593,7 +593,7 @@
     "lockRotation": false,
     "rotation": 0,
     "alpha": 1,
-    "disposition": 1,
+    "disposition": -1,
     "displayBars": 0,
     "bar1": {
       "attribute": "attributes.hp"
@@ -808,13 +808,13 @@
   },
   "items": [
     {
-      "_id": "KFbMSe6LbD1JKPGR",
-      "name": "Candlestick",
+      "_id": "40eBQAk3Mc64fkYq",
+      "name": "Halberd",
       "type": "weapon",
-      "img": "icons/sundries/lights/candle-unlit-white.webp",
+      "img": "icons/weapons/polearms/halberd-crescent-steel.webp",
       "system": {
         "description": {
-          "value": "<p>Improvised.</p>",
+          "value": "<p>Reach. Heavy, two-handed.</p>",
           "chat": ""
         },
         "source": {
@@ -842,7 +842,7 @@
           "value": null,
           "long": null,
           "units": "ft",
-          "reach": null
+          "reach": 10
         },
         "uses": {
           "spent": 0,
@@ -867,10 +867,10 @@
           },
           "base": {
             "number": 1,
-            "denomination": 4,
+            "denomination": 10,
             "bonus": "",
             "types": [
-              "bludgeoning"
+              "slashing"
             ],
             "custom": {
               "enabled": false,
@@ -892,9 +892,13 @@
           "dt": null,
           "conditions": ""
         },
-        "properties": [],
+        "properties": [
+          "hvy",
+          "rch",
+          "two"
+        ],
         "type": {
-          "value": "improv",
+          "value": "martialM",
           "baseItem": ""
         },
         "container": null,
@@ -1086,8 +1090,8 @@
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1791077014406,
-        "modifiedTime": 1791077014406,
+        "createdTime": 1791079335588,
+        "modifiedTime": 1791079335588,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -1099,13 +1103,13 @@
       }
     },
     {
-      "_id": "HDo3DuXirWstF6bD",
-      "name": "Back Stairs",
+      "_id": "ZCeMIMzH2KL3xdoN",
+      "name": "Multiattack",
       "type": "feat",
-      "img": "icons/skills/movement/figure-running-gray.webp",
+      "img": "icons/skills/melee/strike-slashes-orange.webp",
       "system": {
         "description": {
-          "value": "<p>She knows the servants' passages. Advantage on Dexterity (Stealth) checks inside the castle, and she can lead up to five creatures through the back stairs between any two floors without crossing a guarded hall.</p>",
+          "value": "<p>The Koopatrol makes two Halberd attacks.</p>",
           "chat": ""
         },
         "type": {
@@ -1144,8 +1148,8 @@
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1791077014406,
-        "modifiedTime": 1791077014406,
+        "createdTime": 1791079335588,
+        "modifiedTime": 1791079335588,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -1157,13 +1161,13 @@
       }
     },
     {
-      "_id": "01Hl9NPy3gezgAF9",
-      "name": "Household Keys",
+      "_id": "F6lHI9egbksmBjDb",
+      "name": "Spiked Carapace",
       "type": "feat",
-      "img": "icons/sundries/misc/key-steel.webp",
+      "img": "icons/skills/wounds/injury-pain-body-orange.webp",
       "system": {
         "description": {
-          "value": "<p>Linen rooms, servants' stairs, guest wing. Not the Royal Suite, not the vault.</p>",
+          "value": "<p>A creature that grapples the Koopatrol or hits it with an unarmed strike takes 1d6 piercing damage.</p>",
           "chat": ""
         },
         "type": {
@@ -1202,8 +1206,66 @@
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1791077014406,
-        "modifiedTime": 1791077014406,
+        "createdTime": 1791079335588,
+        "modifiedTime": 1791079335588,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "hNJBKECT3WQqZZ3H",
+      "name": "Vanguard",
+      "type": "feat",
+      "img": "icons/skills/melee/shield-block-gray-orange.webp",
+      "system": {
+        "description": {
+          "value": "<p>The Koopatrol moves through the spaces of allied Troop units freely, and allies directly behind it have half cover against ranged attacks.</p>",
+          "chat": ""
+        },
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "uses": {
+          "spent": 0,
+          "max": "",
+          "recovery": []
+        },
+        "activities": {},
+        "source": {
+          "custom": "Waluipedia campaign",
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "advancement": {},
+        "identifier": "",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": ""
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 400000,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791079335588,
+        "modifiedTime": 1791079335588,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -1229,31 +1291,34 @@
           "disciplined"
         ],
         "reasons": [
-          "No inference signals — fallback pool pick for \"humanoid\": disciplined"
+          "Keyword \"elite\" in name/biography → disciplined"
         ],
-        "confidence": 0,
+        "confidence": 0.3333333333333333,
         "version": 3,
-        "timestamp": 1791077016167,
+        "timestamp": 1791079340866,
         "manuallyOverridden": false
       }
     },
     "waluipedia-mass-import": {
       "folderPath": [
-        "Mushroom Regency & Kingdom"
+        "Peach's Castle 955 BF",
+        "Bowser's Incursion"
       ]
     },
     "waluipedia-sheets": {
       "tags": [
-        "Mushroom Regency & Kingdom",
+        "Peach's Castle 955 BF",
         "npc",
-        "humanoid"
+        "humanoid",
+        "955 BF"
       ],
-      "color": "#4169E1",
+      "color": "#B8860B",
       "organized": {
         "path": [
-          "Mushroom Regency & Kingdom"
+          "Peach's Castle 955 BF",
+          "Bowser's Incursion"
         ],
-        "basis": "name-rule",
+        "basis": "era",
         "from": []
       }
     }
@@ -1262,8 +1327,8 @@
     "coreVersion": "14.367",
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
-    "createdTime": 1791077014406,
-    "modifiedTime": 1791077040353,
+    "createdTime": 1791079335588,
+    "modifiedTime": 1791079366114,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "compendiumSource": null,
     "duplicateSource": null,

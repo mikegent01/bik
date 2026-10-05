@@ -212,9 +212,28 @@ def main():
             problems.append(f"import.json carries {n} actors, the index says {generated} generated + {eras} era versions")
         if (meta.get("counts") or {}).get("eras") != eras:
             problems.append(f"meta.counts.eras {(meta.get('counts') or {}).get('eras')} != {eras} versions indexed")
+        # every cast actor files into a folder the scheme knows: a website
+        # group, an era folder, the fallback — never a root of its own
+        scheme_path = os.path.join(RM, meta.get("folderScheme") or "actors/folders.json")
+        try:
+            with open(scheme_path, encoding="utf-8") as fh:
+                scheme = json.load(fh)
+        except (OSError, ValueError):
+            scheme = {}
+            problems.append(f"folder scheme {scheme_path} unreadable")
+        allowed = set(scheme.get("groups") or {}) | {scheme.get("fallback") or "Elsewhere", (scheme.get("players") or {}).get("folder", "Players")}
+        allowed |= {e.get("folder") for e in (scheme.get("eras") or {}).values() if isinstance(e, dict)}
+        strays = sorted({str((((a.get("flags") or {}).get("waluipedia-mass-import") or {}).get("folderPath") or ["?"])[0])
+                         for a in pk.get("actors") or []} - allowed)
+        if strays:
+            problems.append(f"import.json files cast actors under folders the scheme does not know: {strays[:5]}")
+        if any(len(((a.get("flags") or {}).get("waluipedia-mass-import") or {}).get("folderPath") or []) > 2 for a in pk.get("actors") or []):
+            problems.append("import.json nests a cast actor deeper than group / era")
         folders = pk.get("folders") or []
-        if not any(f.get("name") == meta.get("folderRoot") for f in folders):
-            problems.append("import.json has no root folder for the cast")
+        small = [f["name"] for f in folders if f.get("path") and len(f["path"]) > 1
+                 and sum(1 for a in pk.get("actors") or [] if (((a.get("flags") or {}).get("waluipedia-mass-import") or {}).get("folderPath") or []) == f["path"]) < int(scheme.get("minimum") or 1)]
+        if small:
+            problems.append(f"import.json keeps sub-folders below the scheme minimum: {small[:5]}")
 
     # wiring
     with open(INDEX_HTML, encoding="utf-8") as fh:

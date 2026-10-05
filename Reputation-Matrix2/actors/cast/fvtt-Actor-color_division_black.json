@@ -796,7 +796,6 @@
   "flags": {
     "waluipedia-mass-import": {
       "folderPath": [
-        "Waluipedia Cast",
         "Iron Legion"
       ],
       "source": "tools/build-character-sheets.py"

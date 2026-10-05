@@ -836,7 +836,6 @@
   "flags": {
     "waluipedia-mass-import": {
       "folderPath": [
-        "Waluipedia Cast",
         "Snowdin Bone-Line"
       ],
       "source": "tools/build-character-sheets.py"

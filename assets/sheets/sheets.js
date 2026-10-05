@@ -410,7 +410,7 @@
       ${groups.length ? groups.map(gname => `<section class="cs-group"><h2>${esc(gname)} <small>${list.filter(e => e.group === gname).length}</small></h2><div class="cs-grid">${list.filter(e => e.group === gname).map(card).join('')}</div></section>`).join('') : '<p class="cs-empty">Nothing matches.</p>'}
       <section class="cs-foot">
         <h2>Importing into Foundry</h2>
-        <p>Every sheet is a plain dnd5e actor file. Open one and use <b>Foundry JSON</b> to download it, or feed the <b>Mass Import</b> module (<code>waluipedia-mass-import</code>) the raw URL shown on the sheet page. The whole generated cast is one packet: <code>Reputation-Matrix2/${esc(m.castImport || 'actors/cast/import.json')}</code>, foldered under <b>${esc(m.folderRoot || 'Waluipedia Cast')}</b>.</p>
+        <p>Every sheet is a plain dnd5e actor file. Open one and use <b>Foundry JSON</b> to download it, or feed the <b>Mass Import</b> module (<code>waluipedia-mass-import</code>) the raw URL shown on the sheet page. The whole generated cast is one packet: <code>Reputation-Matrix2/${esc(m.castImport || 'actors/cast/import.json')}</code>, filed straight into the website group folders (tagged <b>generated</b>); the module's Sync brings it in together with the live world and the 955 BF court.</p>
         ${dbg && skipped().length ? `<p class="cs-note"><b>Not statted on purpose:</b> ${skipped().map(s => `${esc(s.name || s.id)} — ${esc(s.reason)}`).join('; ')}.</p>` : ''}
       </section>
     </div>`;

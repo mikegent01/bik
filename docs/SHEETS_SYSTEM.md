@@ -43,8 +43,10 @@ on 2026-10-04 and `tools/check-sheets.py` fails when the committed counts go
 stale.) Every one of the 188 is a dnd5e actor file that imports through the
 [Mass Import module](../Reputation-Matrix2/Foundry/mass_import/README.md), and
 the 156 generated ones plus the past selves ship together as
-`actors/cast/import.json` (folders: *Waluipedia Cast / <group>*, past selves
-under *<group> / 955 BF*).
+`actors/cast/import.json` (folders: the website groups themselves, past
+selves in the era folder *Peach's Castle 955 BF*) — and the sheets suite
+merges that packet with the world mirror and the 955 BF packet into the one
+`actors/worlds/<world>/import.json` the Mass Import module syncs.
 
 ## The visibility rule
 
@@ -86,7 +88,7 @@ appear and disappear with it. What debug mode changes:
 
 ```
 meta      generator, note, visibility {public:'party', debug:'all'},
-          folderRoot, castImport, counts {characters, sheets, generated,
+          folderScheme, castImport, counts {characters, sheets, generated,
           existing, party, skipped}, party[]
 sheets[]  id, name, title, sheetName, source, file, alternates[],
           party, partyWhy, group, portrait, ledger {level, powerLevel},
@@ -197,8 +199,9 @@ can carry — one entry per version with `version`, `era`, `label`, `when`
 `BESPOKE` entry and its own `pc=` tuple. `build_eras()` builds each through
 `build_generated(…, era=…)`: a player-character sheet named *Name (955 BF)*,
 id `sid("cast", "<id>--<version>")`, file
-`actors/cast/eras/fvtt-Actor-<id>--<version>.json`, folder *Waluipedia Cast /
-<group> / <era>*, flag `waluipedia-sheets.era {version, era, label, when}`.
+`actors/cast/eras/fvtt-Actor-<id>--<version>.json`, folder *Peach's Castle
+955 BF* (the scheme's era folder for the label; *<group> / <era>* when the
+scheme has none), flag `waluipedia-sheets.era {version, era, label, when}`.
 Rules: **an era level never exceeds the ledger level** (the builder and the
 checker both refuse it — a past self cannot hold more experience than the
 present one; a prime shows in the kit), every feature quotes the article,

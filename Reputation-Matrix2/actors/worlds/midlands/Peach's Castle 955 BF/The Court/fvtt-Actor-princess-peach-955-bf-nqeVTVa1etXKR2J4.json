@@ -1,12 +1,12 @@
 {
-  "name": "Palace Veteran Guard",
+  "name": "Princess Peach (955 BF)",
   "type": "npc",
-  "_id": "rmbpc4QjNQwF6PpK",
-  "img": "npc/guard-veteran-mace.png",
+  "_id": "nqeVTVa1etXKR2J4",
+  "img": "npc/peach-cutout.png",
   "system": {
     "abilities": {
       "str": {
-        "value": 15,
+        "value": 9,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -52,7 +52,7 @@
         }
       },
       "con": {
-        "value": 14,
+        "value": 11,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -75,7 +75,7 @@
         }
       },
       "int": {
-        "value": 10,
+        "value": 14,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -98,8 +98,8 @@
         }
       },
       "wis": {
-        "value": 13,
-        "proficient": 0,
+        "value": 15,
+        "proficient": 1,
         "bonuses": {
           "check": "",
           "save": ""
@@ -121,8 +121,8 @@
         }
       },
       "cha": {
-        "value": 11,
-        "proficient": 0,
+        "value": 20,
+        "proficient": 1,
         "bonuses": {
           "check": "",
           "save": ""
@@ -146,19 +146,19 @@
     },
     "attributes": {
       "ac": {
-        "flat": 16,
+        "flat": 13,
         "calc": "natural",
         "formula": ""
       },
       "hp": {
-        "value": 33,
-        "max": 33,
-        "formula": "6d6 + 12",
+        "value": 45,
+        "max": 45,
+        "formula": "10d8",
         "temp": null,
         "tempmax": null
       },
       "movement": {
-        "walk": "25",
+        "walk": "30",
         "units": "ft",
         "hover": false,
         "burrow": "0",
@@ -228,11 +228,11 @@
       "alignment": "Lawful Good",
       "type": {
         "value": "humanoid",
-        "subtype": "toad"
+        "subtype": "human"
       },
       "cr": 2,
       "biography": {
-        "value": "<p><em>Era sheet: Highsun 1, 955 BF, Peach's Castle.</em> Art and stats describe this figure on the night of the Day Of (events.json <code>highsun_1_955_bf_the_day_of</code>), not the present day of the campaign (1040 BF).</p><p><strong>Palace Guard — Veteran (mace and buckler).</strong> Royal-blue tabard with gold trim and the pink mushroom-crown crest, white gloves, brown belt, silver pauldrons and a silver kettle-helm brim ring over the red-spot cap. The livery is reconstructed from the archive, not an official reference.</p><p>Scarred, scowling, mace and buckler. The guard who has already seen one coup attempt and is not impressed by a second.</p><p>Within the month after the Day Of, guard witnesses were <q>already dying</q> (<code>first_month_incidents</code>). Any guard who sees too much tonight has a short life expectancy on the record.</p>",
+        "value": "<p><em>Era sheet: Highsun 1, 955 BF, Peach's Castle.</em> Art and stats describe this figure on the night of the Day Of (events.json <code>highsun_1_955_bf_the_day_of</code>), not the present day of the campaign (1040 BF).</p><p>The reigning monarch of the Mushroom Kingdom, alive and holding court. Pink gown, golden crown, white gloves, sapphire brooch, parasol. The XP ledger (<code>data/abilityPoints.json</code>) carries her at level 4, so this sheet sits at CR 2: a sovereign, not a duelist.</p><p>On this night Luigi stands guard at the Royal Suite under her own orders, Fawful is already in the chimney, and Mayor Thornpaw is conferring with two hooded Mages' Guild mages. The present-day record lists her as <em>Deceased — assassinated under circumstances that remain disputed</em> (characters.json <code>princess_peach</code>). Use this sheet for flashback and council scenes only; the present-day portrait <code>portraits/princess_peach.jpg</code> is a different artefact.</p>",
         "public": ""
       },
       "ideal": "",
@@ -248,7 +248,7 @@
       }
     },
     "traits": {
-      "size": "sm",
+      "size": "med",
       "languages": {
         "value": [
           "common"
@@ -322,7 +322,7 @@
         }
       },
       "ath": {
-        "value": 1,
+        "value": 0,
         "ability": "str",
         "roll": {
           "min": null,
@@ -348,7 +348,7 @@
         }
       },
       "his": {
-        "value": 0,
+        "value": 1,
         "ability": "int",
         "roll": {
           "min": null,
@@ -361,7 +361,7 @@
         }
       },
       "ins": {
-        "value": 0,
+        "value": 1,
         "ability": "wis",
         "roll": {
           "min": null,
@@ -374,7 +374,7 @@
         }
       },
       "itm": {
-        "value": 1,
+        "value": 0,
         "ability": "cha",
         "roll": {
           "min": null,
@@ -400,7 +400,7 @@
         }
       },
       "med": {
-        "value": 0,
+        "value": 1,
         "ability": "wis",
         "roll": {
           "min": null,
@@ -426,7 +426,7 @@
         }
       },
       "prc": {
-        "value": 1,
+        "value": 0,
         "ability": "wis",
         "roll": {
           "min": null,
@@ -439,7 +439,7 @@
         }
       },
       "prf": {
-        "value": 0,
+        "value": 1,
         "ability": "cha",
         "roll": {
           "min": null,
@@ -452,7 +452,7 @@
         }
       },
       "per": {
-        "value": 0,
+        "value": 2,
         "ability": "cha",
         "roll": {
           "min": null,
@@ -574,14 +574,14 @@
     }
   },
   "prototypeToken": {
-    "name": "Palace Veteran Guard",
+    "name": "Princess Peach (955 BF)",
     "displayName": 0,
     "actorLink": false,
     "width": 1,
     "height": 1,
     "depth": 1,
     "texture": {
-      "src": "npc/guard-veteran-mace.png",
+      "src": "npc/peach-cutout.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -808,13 +808,13 @@
   },
   "items": [
     {
-      "_id": "AM3ikXqZMccMEMIr",
-      "name": "Mace",
+      "_id": "AELAUQ9ZUcaK6QY8",
+      "name": "Parasol",
       "type": "weapon",
-      "img": "icons/weapons/maces/mace-round-steel.webp",
+      "img": "icons/weapons/clubs/club-simple-barbed.webp",
       "system": {
         "description": {
-          "value": "<p>Flanged steel.</p>",
+          "value": "<p>A lace parasol with a steel rib. Finesse; she fights like someone who was taught fencing as a courtesy and took it seriously.</p>",
           "chat": ""
         },
         "source": {
@@ -892,7 +892,9 @@
           "dt": null,
           "conditions": ""
         },
-        "properties": [],
+        "properties": [
+          "fin"
+        ],
         "type": {
           "value": "simpleM",
           "baseItem": ""
@@ -966,7 +968,7 @@
               "recovery": []
             },
             "attack": {
-              "ability": "str",
+              "ability": "dex",
               "bonus": "",
               "critical": {
                 "threshold": null
@@ -1086,8 +1088,8 @@
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1791076944060,
-        "modifiedTime": 1791076944060,
+        "createdTime": 1791077187606,
+        "modifiedTime": 1791077187606,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -1099,13 +1101,13 @@
       }
     },
     {
-      "_id": "jpRrl8NW92WCcllG",
-      "name": "Multiattack",
+      "_id": "WXd5uti4NCN8vhxn",
+      "name": "Royal Presence",
       "type": "feat",
-      "img": "icons/skills/melee/strike-slashes-orange.webp",
+      "img": "icons/skills/social/diplomacy-handshake.webp",
       "system": {
         "description": {
-          "value": "<p>The veteran makes two Mace attacks.</p>",
+          "value": "<p>Allies within 30 feet who can see the Princess have advantage on saving throws against being frightened. A hostile creature that can see her must succeed on a DC 15 Wisdom saving throw the first time it tries to attack her on its turn; on a failure it chooses a different target or loses the attack. Creatures immune to being charmed and anyone who has already damaged her are unaffected.</p>",
           "chat": ""
         },
         "type": {
@@ -1144,8 +1146,8 @@
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1791076944060,
-        "modifiedTime": 1791076944060,
+        "createdTime": 1791077187606,
+        "modifiedTime": 1791077187606,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -1157,13 +1159,13 @@
       }
     },
     {
-      "_id": "RiVN2cji7kqDI1ts",
-      "name": "Buckler Parry (Reaction)",
+      "_id": "02s58ZZLs6AlM3Mt",
+      "name": "Rally the Guard (Bonus Action, 3/Day)",
       "type": "feat",
-      "img": "icons/equipment/shield/round-wooden-boss-steel-brown.webp",
+      "img": "icons/skills/social/wave-halt-stop.webp",
       "system": {
         "description": {
-          "value": "<p>When hit by a melee attack it can see, the veteran adds 2 to its AC against that attack.</p>",
+          "value": "<p>One allied palace guard within 60 feet that can hear her uses its reaction to move up to its speed without provoking opportunity attacks or to make one weapon attack.</p>",
           "chat": ""
         },
         "type": {
@@ -1172,8 +1174,13 @@
         },
         "uses": {
           "spent": 0,
-          "max": "",
-          "recovery": []
+          "max": "3",
+          "recovery": [
+            {
+              "period": "day",
+              "type": "recoverAll"
+            }
+          ]
         },
         "activities": {},
         "source": {
@@ -1202,8 +1209,8 @@
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1791076944060,
-        "modifiedTime": 1791076944060,
+        "createdTime": 1791077187606,
+        "modifiedTime": 1791077187606,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -1215,13 +1222,13 @@
       }
     },
     {
-      "_id": "uF7hIu3SZLXAZR85",
-      "name": "Seen It Before",
+      "_id": "YyqmuhUt7E0UDaoK",
+      "name": "Parasol Glide",
       "type": "feat",
-      "img": "icons/skills/social/intimidation-impressing.webp",
+      "img": "icons/magic/air/wind-tornado-wall-blue.webp",
       "system": {
         "description": {
-          "value": "<p>Advantage on saving throws against being frightened, and it is never surprised by a Koopa.</p>",
+          "value": "<p>While holding the parasol she takes no falling damage, descends at 60 feet per round and can move 2 feet horizontally for every foot she falls. Balconies are exits.</p>",
           "chat": ""
         },
         "type": {
@@ -1260,8 +1267,66 @@
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1791076944060,
-        "modifiedTime": 1791076944060,
+        "createdTime": 1791077187606,
+        "modifiedTime": 1791077187606,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "kVJZKUxwu2SXVx3Y",
+      "name": "The Vault Opens for Her",
+      "type": "feat",
+      "img": "icons/sundries/misc/key-steel.webp",
+      "system": {
+        "description": {
+          "value": "<p>The royal vault answers to the Princess herself — which is why Fawful's prize tonight is a lock of her hair. Only she (or something that carries her) can open it. No mechanical benefit; a plot fact.</p>",
+          "chat": ""
+        },
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "uses": {
+          "spent": 0,
+          "max": "",
+          "recovery": []
+        },
+        "activities": {},
+        "source": {
+          "custom": "Waluipedia campaign",
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "advancement": {},
+        "identifier": "",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": ""
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 500000,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791077187606,
+        "modifiedTime": 1791077187606,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -1287,31 +1352,34 @@
           "disciplined"
         ],
         "reasons": [
-          "Keyword \"veteran\" in name/biography → disciplined"
+          "Keyword \"guard\" in name/biography → disciplined"
         ],
         "confidence": 0.3333333333333333,
         "version": 3,
-        "timestamp": 1791076944356,
+        "timestamp": 1791077191600,
         "manuallyOverridden": false
       }
     },
     "waluipedia-mass-import": {
       "folderPath": [
-        "Mushroom Regency & Kingdom"
+        "Peach's Castle 955 BF",
+        "The Court"
       ]
     },
     "waluipedia-sheets": {
       "tags": [
-        "Mushroom Regency & Kingdom",
+        "Peach's Castle 955 BF",
         "npc",
-        "humanoid"
+        "humanoid",
+        "955 BF"
       ],
-      "color": "#4169E1",
+      "color": "#B8860B",
       "organized": {
         "path": [
-          "Mushroom Regency & Kingdom"
+          "Peach's Castle 955 BF",
+          "The Court"
         ],
-        "basis": "name-rule",
+        "basis": "era",
         "from": []
       }
     }
@@ -1320,8 +1388,8 @@
     "coreVersion": "14.367",
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
-    "createdTime": 1791076944060,
-    "modifiedTime": 1791076973671,
+    "createdTime": 1791077187606,
+    "modifiedTime": 1791077216119,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "compendiumSource": null,
     "duplicateSource": null,

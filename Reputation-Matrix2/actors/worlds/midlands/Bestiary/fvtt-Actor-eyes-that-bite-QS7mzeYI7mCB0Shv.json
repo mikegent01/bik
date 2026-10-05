@@ -33,8 +33,7 @@
     },
     "waluipedia-mass-import": {
       "folderPath": [
-        "Bestiary",
-        "Aberration"
+        "Bestiary"
       ]
     },
     "waluipedia-sheets": {
@@ -44,11 +43,10 @@
         "aberration",
         "Creatures"
       ],
-      "color": "#5D3FD3",
+      "color": "#8B7355",
       "organized": {
         "path": [
-          "Bestiary",
-          "Aberration"
+          "Bestiary"
         ],
         "basis": "bestiary",
         "from": [
