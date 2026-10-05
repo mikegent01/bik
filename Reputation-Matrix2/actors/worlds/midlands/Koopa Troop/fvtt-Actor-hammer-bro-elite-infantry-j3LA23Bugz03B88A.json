@@ -750,7 +750,7 @@
     {
       "name": "Hammer Bro Helmet",
       "type": "equipment",
-      "img": "icons/equipment/head/helm-barbute-leather-grey.webp",
+      "img": "icons/equipment/head/helm-barbute-leather.webp",
       "system": {
         "description": {
           "value": "<p>A reinforced helmet that distinguishes Hammer Bros from standard Troopas and provides protection against the overhead attacks that are the primary threat to koopa infantry. The helmet is earned through performance and maintained through continued excellence—losing or damaging a helmet without adequate justification results in demotion that carries social stigma among koopa military culture.</p><p>The helmet provides +1 AC (already calculated in the Hammer Bro's statistics) and grants immunity to the critical hit bonus damage from attacks originating above—the specific vulnerability that defines standard koopa infantry is partially mitigated for the elite who earned the right to wear head protection.</p>",

@@ -1,6 +1,6 @@
 {
   "format": "waluipedia-folders/1",
-  "note": "How the Actors sidebar mirrors the website. tools/organize-actors.py files every actor of the world mirror by these rules (Players for the party, one folder per website group for every character the site knows, Bestiary / <creature type> for generic statblocks), writes the tags, and tools/foundry-bridge.py combine paints the folders. Colours come from data/factionColors.json where the site has one. Edit this file, never the actor files; `keep` lists folder trees the organizer never touches. `nameRules` route statblocks by name (Goomba → Koopa Troop); `folderRules` route the rest of a GM folder tree by path prefix (the manor adventure's named characters → Overgrown Manor); generic creatures fall through to Bestiary / <type>. `eras` name the packets of past selves (actors/<dir>): a mirror actor with the same name and type as one of theirs is that era's copy and goes into the era's folder tree, and the generated era versions go there too. `minimum` is the smallest folder worth having: a sub-folder with fewer actors (counted across the world mirror, the generated cast and the era packets together) is folded into its parent, a top-level group with fewer into `fallback`. Players, Bestiary itself, the era roots and the fallback never fold.",
+  "note": "How the Actors sidebar mirrors the website. tools/organize-actors.py files every actor of the world mirror by these rules (Players for the party, one folder per website group for every character the site knows, Bestiary / <creature type> for generic statblocks), writes the tags, and tools/foundry-bridge.py combine paints the folders. Colours come from data/factionColors.json where the site has one. Edit this file, never the actor files; `keep` lists folder trees the organizer never touches. `nameRules` route statblocks by name (Goomba → Koopa Troop); `folderRules` route the rest of a GM folder tree by path prefix (the manor adventure's named characters → Overgrown Manor); generic creatures fall through to Bestiary / <type>. `eras` name the packets of past selves (actors/<dir>): a mirror actor with the same name and type as one of theirs is that era's copy and goes into the era's folder tree, and the generated era versions go there too. `iconFixes` map icon paths that no longer exist in the GM's Foundry (core icons renamed between versions; the Mass Import summary lists them as missing images) to ones that do — the organizer rewrites item art by this table, only when the replacement is in tools/item sheet examples/image paths.txt. `minimum` is the smallest folder worth having: a sub-folder with fewer actors (counted across the world mirror, the generated cast and the era packets together) is folded into its parent, a top-level group with fewer into `fallback`. Players, Bestiary itself, the era roots and the fallback never fold.",
   "minimum": 2,
   "fallback": "Elsewhere",
   "players": {
@@ -181,5 +181,17 @@
   },
   "keep": [
     "Players"
-  ]
+  ],
+  "iconFixes": {
+    "icons/environment/settlement/wagon-wheel.webp": "icons/equipment/head/helm-armored-tech-heavy.webp",
+    "icons/skills/melee/strike-body-collision-red.webp": "icons/skills/melee/shield-block-bash-blue.webp",
+    "icons/magic/water/projectile-ice-blue.webp": "icons/magic/water/beam-ice-impact.webp",
+    "icons/magic/defensive/shield-barrier-ice-blue.webp": "icons/magic/water/barrier-ice-shield.webp",
+    "icons/magic/water/barrier-ice-crystal-wall-blue.webp": "icons/magic/water/barrier-ice-crystal-wall-faceted-blue.webp",
+    "icons/skills/social/intimidation-impersonate.webp": "icons/skills/social/intimidation-impressing.webp",
+    "icons/magic/defensive/shield-barrier-glowing-gold.webp": "icons/magic/defensive/shield-barrier-deflect-gold.webp",
+    "icons/magic/death/skull-humanoid-crown-white-red.webp": "icons/magic/death/projectile-skull-fire-orange-red.webp",
+    "icons/equipment/head/helm-barbute-leather-grey.webp": "icons/equipment/head/helm-barbute-leather.webp",
+    "icons/creatures/reptiles/turtle-shell-green.webp": "icons/creatures/reptiles/turtle-shell-glowing-green.webp"
+  }
 }

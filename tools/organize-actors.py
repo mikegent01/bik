@@ -56,6 +56,13 @@ Bestiary), pc/npc, the role the site knows, the creature type, and the GM
 folder the actor came from (e.g. "A House Divided"). `color` is the folder's
 colour, so the chips match the folder.
 
+Icons: the scheme's `iconFixes` map core icon paths that no longer exist in
+the GM's Foundry (renamed between versions — the Mass Import summary lists
+them as missing images) to ones that do; item, actor and token art is rewritten
+by that table, only when the replacement is in the image library
+(tools/item sheet examples/image paths.txt). The import carries the new paths
+into the world, the export brings them back, and the rule is then a no-op.
+
 Files move with their actors (the mirror's directories mirror the folders)
 and manifest.json is updated. Deterministic: a second run changes nothing.
 """
@@ -249,9 +256,46 @@ def color_for(target, facts, scheme):
 
 # -------------------------------------------------------------- the pass
 
-def plan(world_dir, scheme, index, force=False, index_path=DEFAULT_INDEX):
-    """[{file, doc, path_now, target, basis, tags, color, move, reason}] for every actor file."""
+def icon_fixes(doc, scheme, lib):
+    """[(where, old, new)] — art on this actor the scheme's `iconFixes` rename, when the new path is in the library
+    (an empty library — no image paths.txt — trusts the table)."""
+    table = scheme.get("iconFixes") or {}
+    if not table:
+        return []
+    out = []
+
+    def fix(where, path):
+        new = table.get(path) if isinstance(path, str) else None
+        if new and (not lib or new in lib) and new != path:
+            out.append((where, path, new))
+
+    fix("img", doc.get("img"))
+    fix("token", ((doc.get("prototypeToken") or {}).get("texture") or {}).get("src"))
+    for it in doc.get("items") or []:
+        if isinstance(it, dict):
+            fix(f"item:{it.get('name')}", it.get("img"))
+    return out
+
+
+def apply_icon_fixes(doc, fixes):
+    """The same renames on a copy of the document."""
+    out = copy.deepcopy(doc)
+    by = {(w, o): n for w, o, n in fixes}
+    if ("img", out.get("img")) in by:
+        out["img"] = by[("img", out["img"])]
+    tex = ((out.get("prototypeToken") or {}).get("texture") or {})
+    if ("token", tex.get("src")) in by:
+        tex["src"] = by[("token", tex["src"])]
+    for it in out.get("items") or []:
+        if isinstance(it, dict) and (f"item:{it.get('name')}", it.get("img")) in by:
+            it["img"] = by[(f"item:{it.get('name')}", it["img"])]
+    return out
+
+
+def plan(world_dir, scheme, index, force=False, index_path=DEFAULT_INDEX, image_lib=None):
+    """[{file, doc, path_now, target, basis, tags, color, move, reason, icons}] for every actor file."""
     eras = load_eras(scheme)
+    lib = BRIDGE.load_image_lib(BRIDGE.DEFAULT_IMAGE_LIB if image_lib is None else image_lib) if scheme.get("iconFixes") else set()
     seeds = []
     for path, rel_parts in BRIDGE.actor_files([world_dir]):
         doc = BRIDGE.load_actor_file(path)
@@ -296,7 +340,7 @@ def plan(world_dir, scheme, index, force=False, index_path=DEFAULT_INDEX):
         rows.append({
             "file": path, "doc": doc, "now": now, "target": final, "basis": basis, "facts": facts,
             "tags": tags_for(final, basis, facts, scheme), "color": color_for(final, facts, scheme),
-            "move": move, "reason": reason, "organized": org,
+            "move": move, "reason": reason, "organized": org, "icons": icon_fixes(doc, scheme, lib),
         })
     return rows
 
@@ -338,7 +382,8 @@ def apply(world_dir, rows, write):
         dest = target_file(world_dir, row)
         same_flags = new_flags == (doc.get("flags") or {})
         same_place = os.path.abspath(dest) == os.path.abspath(row["file"])
-        if same_flags and same_place:
+        icons = row.get("icons") or []
+        if same_flags and same_place and not icons:
             continue
         rel = os.path.relpath(row["file"], ROOT).replace(os.sep, "/")
         if not same_place:
@@ -346,9 +391,11 @@ def apply(world_dir, rows, write):
             moved.append((row["file"], dest))
         elif not same_flags:
             lines.append(f"{doc.get('name')}: tags {row['tags']}" + (f" colour {row['color']}" if row["color"] else ""))
+        for where, old, new in icons:
+            lines.append(f"{doc.get('name')}: {where} icon {old} -> {new}  [iconFixes]")
         changed.append(rel)
         if write:
-            out = copy.deepcopy(doc)
+            out = apply_icon_fixes(doc, icons) if icons else copy.deepcopy(doc)
             out["flags"] = new_flags
             BRIDGE.write_text(dest, BRIDGE.render(out))
             if not same_place:
@@ -422,9 +469,11 @@ def main(argv=None):
             print("  " + ln)
     counts = {k: len(v) for k, v in sorted(summary(rows).items())}
     held = sum(1 for r in rows if r["reason"] == "left where the GM moved it")
+    icons = sum(len(r.get("icons") or []) for r in rows)
     verb = "would change" if args.check else "changed"
     print(f"organize: {len(rows)} actors in {len(counts)} folders; {len(moved)} moved, {len(changed)} file(s) {verb}"
           + (f", {held} left where the GM moved them" if held else "")
+          + (f", {icons} dead icon path(s) {'to rename' if args.check else 'renamed'}" if icons else "")
           + (", manifest updated" if manifest_changed and not args.check else ""))
     if not args.quiet:
         print("  " + " · ".join(f"{k} {v}" for k, v in counts.items()))

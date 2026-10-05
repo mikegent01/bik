@@ -101,6 +101,25 @@ check("scheme: groups that name a faction take the site's factionColors.json col
       all(scheme["groups"][g]["color"].lower() == colors[scheme["groups"][g]["faction"]].lower()
           for g in scheme["groups"] if scheme["groups"][g].get("faction") in colors and g not in ("Disaster Inc.",)))
 
+# ---- iconFixes: dead core icon paths renamed by the scheme, only to art the GM's Foundry has
+_lib = org.BRIDGE.load_image_lib(org.BRIDGE.DEFAULT_IMAGE_LIB)
+check("scheme: iconFixes name 10 dead icon paths; every replacement is in image paths.txt and no key is",
+      len(scheme.get("iconFixes") or {}) == 10 and all(v in _lib for v in scheme["iconFixes"].values()) and not any(k in _lib for k in scheme["iconFixes"]))
+_doc = {"name": "Midbus", "type": "npc", "img": "icons/skills/social/intimidation-impersonate.webp",
+        "prototypeToken": {"texture": {"src": "icons/creatures/reptiles/turtle-shell-green.webp"}},
+        "items": [{"name": "Body Slam", "type": "weapon", "img": "icons/skills/melee/strike-body-collision-red.webp"},
+                  {"name": "Kept", "type": "feat", "img": "icons/magic/water/beam-ice-impact.webp"}]}
+_fixes = org.icon_fixes(_doc, scheme, _lib)
+check("icon_fixes lists the actor's art, the token's and each item's dead path with its replacement, nothing else",
+      sorted(w for w, _, _ in _fixes) == ["img", "item:Body Slam", "token"] and all(n in _lib for _, _, n in _fixes), str(_fixes))
+_fixed = org.apply_icon_fixes(_doc, _fixes)
+check("apply_icon_fixes renames on a copy; a second pass finds nothing",
+      _fixed["img"] == "icons/skills/social/intimidation-impressing.webp" and _fixed["prototypeToken"]["texture"]["src"] == "icons/creatures/reptiles/turtle-shell-glowing-green.webp"
+      and _fixed["items"][0]["img"] == "icons/skills/melee/shield-block-bash-blue.webp" and _fixed["items"][1]["img"] == "icons/magic/water/beam-ice-impact.webp"
+      and _doc["img"].endswith("impersonate.webp") and org.icon_fixes(_fixed, scheme, _lib) == [])
+check("a replacement the library lacks is not applied (the table never points at art the GM does not have)",
+      org.icon_fixes(_doc, dict(scheme, iconFixes={"icons/skills/melee/strike-body-collision-red.webp": "icons/nowhere/none.webp"}), _lib) == [])
+
 with tempfile.TemporaryDirectory() as tmp:
     base = Path(tmp)
     worlds = base / "worlds"

@@ -496,7 +496,7 @@
     {
       "name": "Koopa Shell (Natural Armor)",
       "type": "equipment",
-      "img": "icons/creatures/reptiles/turtle-shell-green.webp",
+      "img": "icons/creatures/reptiles/turtle-shell-glowing-green.webp",
       "system": {
         "description": {
           "value": "<p>Every koopa is born with a shell, and every koopa's shell tells the story of their life. Standard Troopa shells are green, smooth, and maintained according to Troop regulations that specify acceptable polish levels, damage repair protocols, and the specific angle at which rank insignia should be painted. A well-maintained shell is a source of pride. A damaged shell is a source of shame. A lost shell is a tragedy that most koopas would rather not discuss.</p><p>The shell provides AC 15 (natural armor) and allows the signature koopa defensive maneuver: withdrawal. As an action, a Koopa Troopa can withdraw fully into its shell, becoming a small, hard object with AC 18 and resistance to all damage except psychic. While withdrawn, the koopa cannot take actions, bonus actions, or reactions, and its speed is 0. Emerging from the shell requires a bonus action on a subsequent turn.</p><p>A withdrawn koopa can also be kicked, thrown, or otherwise used as a projectile by creatures strong enough to lift it. This is considered extremely rude in koopa culture and extremely effective in combat, dealing 2d6 bludgeoning damage to whatever the shell hits and 1d6 bludgeoning damage to the koopa inside.</p>",
