@@ -137,6 +137,8 @@ def main() -> int:
         # Every Liberated Toad on the Command page roster has an article (and
         # so a sheet + token); the roster is the source, the filer is idempotent.
         ("roster toads filed", [py, "tools/file-roster-toads.py", "--check", "--quiet"], ROOT),
+        ("duplicate images", [py, "tools/dedupe-images.py", "--check", "--quiet"], ROOT),
+        ("duplicate images tests", [py, "tools/tests/test-dedupe-images.py"], ROOT),
         ("spoils to changes tests", [py, "tools/tests/test-spoils-to-changes.py"], ROOT),
         # Judgement in the Grove: the event, its battle, and the front-page
         # wiring (latestUpdate/featured/Current fronts/SITE_UPDATES) all come

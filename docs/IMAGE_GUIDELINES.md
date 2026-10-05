@@ -58,6 +58,21 @@ Keep genuinely good retired art by moving it to `imageAlternates` — only if
 it still depicts the subject. Art of the *wrong subject* is not an alternate;
 it is a bug with a file name, and deleting it is the fix.
 
+**One file per image.** A copy of the same bytes under a second name
+(`toriel.jpg` / `toriel_v2.jpg` / `lady_toriel.jpg`, the same still in
+`assets/` and `Reputation-Matrix2/assets/`) is not an alternate either.
+`python3 tools/dedupe-images.py` lists exact duplicates (SHA-256) under the
+image roots with the references each copy has; `--write` keeps the copy most
+records use, rewrites the other references to it the way they were written
+(RM-relative stays RM-relative), deletes the spares, and tells you to rebuild
+the generated files (`tools/build-chatroom.py`, `tools/sheets-suite.py`).
+Never deleted: the liberated toads' roster art, and a `.png` whose stem is an
+id the site may look up as `portraits/<id>.png` (two such files with the same
+bytes both stay — `oracle.png` / `the_oracle.png`, `purple_t.png` /
+`skull_cap_murphy.png`). `tools/check-all.py` runs `--check`, so a new
+duplicate fails the build until it is collapsed. Different bytes — a crop, a
+re-render, a re-encode — are a different image and are left alone.
+
 ## 3. Canon rules for generated art
 
 1. **The record wins.** When art and filing disagree, fix the art, never the
@@ -101,7 +116,7 @@ Add a row when a character gains established art; update a row only when the
 | **eager** | Young Toad: white cap with red spots, **tattered olive-green tunic**, pale gloves, sandals; short sword nearby. Grove state: concussed — bandaged lump, dizzy stars, idle crooked smile. | `portraits/eager.png`, `portraits/player/event-states/eager-grove-concussed.png` |
 | **dan_the_toad** | Toad paladin: **red cap with white spots**, chainmail hauberk, leather straps, permanent scowl; longsword and javelin. Grove state: barrier wall out **first**, javelin mid-throw **second**. | `portraits/dan.png`, `portraits/player/event-states/dan-grove-vanguard.png` |
 | **archie_miser** | Heavyset older human wizard: black hooded cloak over battered dark armour; scorched hem; battered spellbook with **crossed-out words and hurried circles**. Grove state: drained, one blazing bush, spider eyes in the smoke. | `portraits/archie.jpg`, `portraits/player/event-states/archie-grove-spent.png` |
-| **captain_toadette** | Toad commander: **pink mushroom cap with a gold star**, red bandana tied under it, scowl, ragged brown field jacket and shorts over a striped shirt, heavy boots, a long-hafted **pick** carried like a standard. | `portraits/captain_toadette_v2.png` |
+| **captain_toadette** | Toad commander: **pink mushroom cap with a gold star**, red bandana tied under it, scowl, ragged brown field jacket and shorts over a striped shirt, heavy boots, a long-hafted **pick** carried like a standard. | `portraits/captain_toadette.png` |
 | **captain_syrup** | Human pirate queen: long **curly auburn-red hair** under a **purple bandana** (tails trailing), **gold sun-shaped earrings**, **pink-magenta wrap top** knotted at the waist, **skull belt buckle**, bare muscular arms with leather wrist-wraps, torn dark trousers, boots, curved **scimitar**. **Not** purple-haired, **not** in a coat or corset. | `portraits/player/fullbody/captain_syrup.png` (the plate that set the look), `portraits/captain_syrup.png` |
 | **smoking_j** | **Frog-faced** toad (amphibian features, not a Toad face): pale grey mushroom cap with **darker grey spots**, yellow-green skin, stern brow; dark brown leather jacket with shoulder plating, diagonal strap and belt, dark trousers, short boots; **coiled rope whip** at the hip. | `portraits/smoking_j.jpg`, `portraits/player/fullbody/smoking_j.png` |
 | **usk** | Young **bald** human monk with **milky-white blind eyes**; plain cream-beige gi with a wide cloth belt, loose trousers, sandals; **both fists wrapped in bloodstained bandages**. | `portraits/usk.jpg`, `portraits/player/fullbody/usk.png` |

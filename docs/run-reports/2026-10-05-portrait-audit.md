@@ -103,7 +103,7 @@ J and all 54 roster toads picked theirs up on this build).
   for `portraits/…` paths and lists what nothing points at — **339 files**
   (sprite-sheet poses excluded). Among them, finished full-body plates of
   characters whose articles were showing something worse:
-  - **Captain Toadette** — `portraits/captain_toadette_v2.png` (pink star
+  - **Captain Toadette** — `portraits/captain_toadette.png` (pink star
     cap, red bandana, field jacket, pick), full figure on a plain field.
     Now her lead; **the last hotlink is gone**.
   - **Creek** (`creek_medic`) — `portraits/creek_medic.png`, a Toad medic
@@ -336,4 +336,29 @@ What it costs: `start.py` must run whenever Foundry is open (the module says
 so when it is not), and players on other machines need the exposed address.
 Tests: `test-foundry-bridge.py` 71, `test-sheets-suite.py` 142,
 `test-mass-import-module.mjs` 226.
+
+### Addendum — repo duplicates collapsed (`tools/dedupe-images.py`)
+
+Exact duplicates under `Reputation-Matrix2/portraits`, `Reputation-Matrix2/assets`,
+`Reputation-Matrix2/images` and the root `assets/`: 34 groups of identical
+bytes, 36 spare files, 18.7 MB. Deleted 32 (17.9 MB) — the `_v2` / `_scene`
+twins (`big_t_v2.jpg`, `bones_scene.png`, `bryan_v2.png`,
+`captain_toadette_v2.png`, `chai_v2.png`, `chief_thornpaw_v2.png`,
+`dewdrop_v2.png`, `earl_grey_axe.png`, `embercap_v2.png`,
+`evil_toad_god_v2.png`, `green_t_v2.png`, `lario_v2.png`, `mystivil_v3.png`,
+`roger_scene.png`, `ryan_v2.png`, `speaker_l_v2.png`, `the_mole_v2.png`,
+`the_oracle_v2.png`, `wallys_toad_v2.png`), the second names for the same
+bytes (`lady_toriel.jpg` + `toriel_v2.jpg` → `toriel.jpg`;
+`laundry_toad_insider.jpg` → `zip_line_rigger.jpg`; `silver_flame_cleric.jpg`
+→ `noki_healer.jpg`; `mole_driver,png.jpg` → `mole_driver.jpg`), and the root
+`assets/` copies of five hub icons and three 1035 scene stills whose live
+copies are the archive's own (`HUB_ART` resolves under `Reputation-Matrix2/`).
+Four references repointed: `characters.json` (Captain Toadette's `image`),
+`data/characters/characters-1.js` (Lady Toriel's portrait), and two mentions
+in the docs; the cast packet and `sheets.json` rebuilt from them. Kept on
+purpose: `oracle.png` / `the_oracle.png` and `purple_t.png` /
+`skull_cap_murphy.png` (both names are ids the site looks up dynamically) and
+the two roster twins (`scene_shift_1/2.png` = `toad_03_rodger` /
+`toad_06_bones`; the roster art is never modified). `tools/check-all.py` now
+runs `dedupe-images.py --check` (13-check test beside it).
 

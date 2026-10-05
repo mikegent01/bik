@@ -209,7 +209,7 @@ export const CHARACTERS = {
     lady_toriel: {
         name: "Lady Toriel",
         role: "Representative of Lockerwood",
-        portrait: "portraits/lady_toriel.jpg",
+        portrait: "portraits/toriel.jpg",
         description: "A kind-hearted and motherly goat-like woman who represents the independent province of Lockerwood. Despite her gentle demeanor, she is a shrewd diplomat."
     },
 
