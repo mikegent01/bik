@@ -17,7 +17,7 @@ const check = (label, cond, extra = '') => (cond ? ok : fail).push(label + (extr
 // ---------------------------------------------------------------- manifest
 const manifest = JSON.parse(fs.readFileSync(path.join(MOD_DIR, 'module.json'), 'utf8'));
 check('module id is stable', manifest.id === 'waluipedia-mass-import', manifest.id);
-check('version 1.4 (diff updates + identifier repair + folder colours + tags, on top of Data folders, review table, replace on type change, one-click Sync)', /^1\.([4-9]|\d{2,})/.test(manifest.version) && /diffs/.test(manifest.description) && /chips/.test(manifest.description) && /Data/.test(manifest.description) && /same id/.test(manifest.description) && /[Ss]ync/.test(manifest.description), manifest.version);
+check('version 1.5 (automatic everything-sync + folder tidy + invalid-document repair, on top of diff updates, identifier repair, folder colours, tags, Data folders, review table, replace on type change)', /^1\.([5-9]|\d{2,})/.test(manifest.version) && /diffs/.test(manifest.description) && /chips/.test(manifest.description) && /Data/.test(manifest.description) && /same id/.test(manifest.description) && /by itself/.test(manifest.description) && /merges duplicate folders/.test(manifest.description) && /could not validate/.test(manifest.description), manifest.version);
 check('manifest loads the script and stylesheet', manifest.esmodules?.includes('scripts/mass-import.js') && manifest.styles?.includes('styles/mass-import.css'));
 check('every manifest file exists', [...manifest.esmodules, ...manifest.styles].every((f) => fs.existsSync(path.join(MOD_DIR, f))));
 check('compatibility spans v12..v14', Number(manifest.compatibility.minimum) <= 12 && Number(manifest.compatibility.verified) >= 14);
@@ -59,6 +59,13 @@ class Folder {
     return f;
   }
   async update(data) { const { folder, ...rest } = data; Object.assign(this, rest); if (folder !== undefined) this.parentId = folder; return this; }
+  async delete(opts = {}) {
+    // Foundry: without deleteContents / deleteSubfolders the contents move to the parent
+    for (const a of game.actors.contents) if (a.folderId === this.id) a.folderId = this.parentId;
+    for (const f of game.folders.contents) if (f.parentId === this.id) f.parentId = this.parentId;
+    game.folders.delete(this.id);
+    return this;
+  }
 }
 // Foundry's update semantics: partial, recursive merge; "-=key": null deletes.
 function applyUpdate(target, changes) {
@@ -71,19 +78,27 @@ function applyUpdate(target, changes) {
   return target;
 }
 class Item {
-  constructor(data) { this._data = structuredClone(data); this.id = data._id; this.name = data.name; }
+  constructor(data) { this._data = structuredClone(data); this.id = data._id; this.name = data.name; this.type = data.type; }
   get flags() { return this._data.flags ?? {}; }
   toObject() { return structuredClone(this._data); }
 }
+// dnd5e's IdentifierField: an item whose identifier fails this never reaches the collection (Foundry keeps it as an invalid document)
+const validItem = (d) => !(typeof d?.system?.identifier === 'string' && d.system.identifier && !/^[a-z0-9_-]+$/i.test(d.system.identifier));
+const singletonTypes = new Set(['race', 'background']);
+const refusedSingletons = [];
 class Actor {
   constructor(data) {
     this._data = structuredClone(data);
     this.id = data._id; this.name = data.name; this.type = data.type; this.flags = structuredClone(data.flags ?? {});
-    this.items = new Coll((data.items ?? []).map((i) => [i._id, new Item(i)]));
+    this._source = { items: structuredClone(data.items ?? []), effects: structuredClone(data.effects ?? []) };
+    this.items = new Coll((data.items ?? []).filter(validItem).map((i) => [i._id, new Item(i)]));
+    this.items.invalidDocumentIds = new Set((data.items ?? []).filter((i) => !validItem(i)).map((i) => i._id));
+    this.items.getInvalid = (id) => { const src = this._source.items.find((i) => i._id === id); return src ? { _source: structuredClone(src) } : undefined; };
     this.effects = new Coll((data.effects ?? []).map((e) => [e._id, e]));
     this.folderId = data.folder ?? null;
     this.updates = 0;
   }
+  get itemTypes() { const by = {}; for (const i of this.items.contents) (by[i.type] ??= []).push(i); return by; }
   get folder() { return this.folderId ? game.folders.get(this.folderId) : null; }
   get img() { return this._data.img; }
   get ownership() { return this._data.ownership; }
@@ -109,15 +124,40 @@ class Actor {
     return this;
   }
   async createEmbeddedDocuments(type, arr, opts = {}) {
+    (this.embeddedCreates ??= []).push({ type, arr: structuredClone(arr), opts });
+    const made = [];
     for (const d of arr) {
       const id = (opts.keepId && d._id) ? d._id : newId();
-      if (type === 'Item') this.items.set(id, new Item({ ...d, _id: id })); else this.effects.set(id, { ...d, _id: id });
+      if (type === 'Item') {
+        // Foundry: an id already in the collection — valid or invalid — is a hard error
+        if (opts.keepId && d._id && (this.items.has(d._id) || this.items.invalidDocumentIds.has(d._id))) throw new Error(`The _id [${d._id}] already exists within the parent collection: Actor [${this.id}] items`);
+        // dnd5e: a second species / background on a character is refused in _preCreate (an error notification, no document)
+        if (this.type === 'character' && singletonTypes.has(d.type) && this.items.contents.some((i) => i.type === d.type)) { refusedSingletons.push(`${this.name}: ${d.name}`); continue; }
+        const item = new Item({ ...d, _id: id });
+        this._source.items.push(item.toObject());
+        if (validItem(d)) this.items.set(id, item); else this.items.invalidDocumentIds.add(id);
+        made.push(item);
+      } else { const e = { ...d, _id: id }; this.effects.set(id, e); made.push(e); }
     }
+    return made;
   }
   async updateEmbeddedDocuments(type, arr, opts = {}) {
     (this.embeddedUpdates ??= []).push({ type, arr: structuredClone(arr), opts });
     for (const d of arr) {
-      if (type === 'Item') { const it = this.items.get(d._id); if (!it) throw new Error(`Item ${d._id} does not exist!`); applyUpdate(it._data, d); it.name = it._data.name; }
+      if (type === 'Item') {
+        const it = this.items.get(d._id);
+        if (it) { applyUpdate(it._data, d); it.name = it._data.name; const src = this._source.items.find((i) => i._id === d._id); if (src) applyUpdate(src, d); continue; }
+        // an invalid document can be updated (Foundry fetches it with {invalid: true}); once valid it joins the collection
+        if (this.items.invalidDocumentIds.has(d._id)) {
+          const src = this._source.items.find((i) => i._id === d._id);
+          applyUpdate(src, d);
+          if (!validItem(src)) throw new Error(`Item [${d._id}] validation errors: system.identifier`);
+          this.items.invalidDocumentIds.delete(d._id);
+          this.items.set(d._id, new Item(src));
+          continue;
+        }
+        throw new Error(`Item ${d._id} does not exist!`);
+      }
       else { const e = this.effects.get(d._id); if (!e) throw new Error(`ActiveEffect ${d._id} does not exist!`); applyUpdate(e, d); }
     }
   }
@@ -125,8 +165,10 @@ class Actor {
     (this.embeddedDeletes ??= []).push({ type, ids: [...ids] });
     for (const id of ids) {
       const coll = type === 'Item' ? this.items : this.effects;
+      if (type === 'Item' && this.items.invalidDocumentIds.has(id)) { this.items.invalidDocumentIds.delete(id); this._source.items = this._source.items.filter((i) => i._id !== id); continue; }
       if (!coll.has(id)) throw new Error(`${type} ${id} does not exist!`);
       coll.delete(id);
+      if (type === 'Item') this._source.items = this._source.items.filter((i) => i._id !== id);
     }
   }
 }
@@ -134,7 +176,7 @@ const game = {
   world: { id: 'test-world' }, system: { id: 'dnd5e', version: '5.3.3' }, version: '13.346',
   user: { isGM: true },
   actors: new Coll(), folders: new Coll(), modules,
-  settings: { register: (scope, key, cfg) => settings.set(`${scope}.${key}`, cfg.default), get: (scope, key) => settings.get(`${scope}.${key}`) },
+  settings: { register: (scope, key, cfg) => settings.set(`${scope}.${key}`, cfg.default), get: (scope, key) => settings.get(`${scope}.${key}`), set: async (scope, key, v) => settings.set(`${scope}.${key}`, v) },
 };
 globalThis.game = game;
 globalThis.Actor = Actor;
@@ -156,7 +198,9 @@ const mod = await import(pathToFileURL(path.join(MOD_DIR, 'scripts/mass-import.j
 check('module registers init/ready/renderActorDirectory hooks', ['init', 'ready', 'renderActorDirectory'].every((h) => hooks[h]?.length));
 globalThis.Hooks.call('init');
 check('init registers the defaultSource world setting', settings.has('waluipedia-mass-import.defaultSource'));
-check('init registers the sync settings with the documented defaults', settings.get('waluipedia-mass-import.syncWorld') === 'midlands' && settings.get('waluipedia-mass-import.syncScope') === 'players' && settings.get('waluipedia-mass-import.syncPacketDir') === 'npc/waluipedia' && settings.get('waluipedia-mass-import.syncLauncher') === 'http://127.0.0.1:8765/' && settings.get('waluipedia-mass-import.syncBranch') === 'gh-pages' && settings.get('waluipedia-mass-import.syncReview') === false);
+check('init registers the sync settings with the documented defaults — automatic on, no scope, folder tidy on, a hidden last-stamp', settings.get('waluipedia-mass-import.syncWorld') === 'midlands' && !settings.has('waluipedia-mass-import.syncScope') && settings.get('waluipedia-mass-import.syncAuto') === true && settings.get('waluipedia-mass-import.syncMergeFolders') === true && settings.get('waluipedia-mass-import.syncPruneFolders') === true && settings.get('waluipedia-mass-import.syncPacketDir') === 'npc/waluipedia' && settings.get('waluipedia-mass-import.syncLauncher') === 'http://127.0.0.1:8765/' && settings.get('waluipedia-mass-import.syncBranch') === 'gh-pages' && settings.get('waluipedia-mass-import.syncReview') === false && settings.get('waluipedia-mass-import.syncLastStamp') === '');
+check('MODULE_VERSION in the script matches module.json (Sync compares the two to catch a world running old code)', mod.MODULE_VERSION === manifest.version, `${mod.MODULE_VERSION} vs ${manifest.version}`);
+settings.set('waluipedia-mass-import.syncAuto', false); // the automatic sync is exercised on its own below, not mid-test
 globalThis.Hooks.call('ready');
 check('ready exposes the api on the module', modules.get('waluipedia-mass-import').api?.importPayload === mod.importPayload);
 
@@ -476,20 +520,19 @@ check('pickDataPath opens a folder picker and writes the choice into the url box
 {
   const sheetIndex = JSON.parse(fs.readFileSync(path.resolve('Reputation-Matrix2/data/sheets.json'), 'utf8'));
   let msg = ''; try { mod.normalizeImport(sheetIndex); } catch (e) { msg = e.message; }
-  check('the site\'s sheets.json is refused with a message that names Sync and the right file', /sheet index/.test(msg) && /Sync/.test(msg) && /players-import\.json/.test(msg), msg);
+  check('the site\'s sheets.json is refused with a message that names Sync and the right file', /sheet index/.test(msg) && /Sync/.test(msg) && /<world>\/import\.json/.test(msg), msg);
   check('isSheetIndex / isManifest tell the two apart from packets', mod.isSheetIndex(sheetIndex) && !mod.isManifest(sheetIndex) && mod.isManifest({ actors: [{ name: 'X', type: 'npc', _id: 'A', file: 'Players/x.json' }] }) && !mod.isManifest({ actors: [{ name: 'X', type: 'npc', _id: 'A', system: {} }] }));
   let mmsg = ''; try { mod.normalizeImport({ format: 'waluipedia-actors/1', actors: [{ name: 'X', type: 'npc', _id: 'A', file: 'Players/x.json' }] }); } catch (e) { mmsg = e.message; }
   check('a manifest uploaded as a file explains itself instead of importing empty actors', /manifest/.test(mmsg) && /next to it/.test(mmsg), mmsg);
 
-  const cands = mod.syncCandidates({ world: 'midlands', scope: 'players', packetDir: 'npc/waluipedia', launcher: 'http://127.0.0.1:8765', branch: 'gh-pages' });
-  check('sync looks in Data, then the launcher, then GitHub — in that order', cands.map((c) => c.source).join() === 'data,launcher,github'
-    && cands[0].url === 'npc/waluipedia/midlands/players-import.json' && cands[0].info === 'npc/waluipedia/midlands/packets.json'
-    && cands[1].url === 'http://127.0.0.1:8765/Reputation-Matrix2/actors/worlds/midlands/players-import.json'
-    && cands[2].url === 'https://raw.githubusercontent.com/mikegent01/bik/gh-pages/Reputation-Matrix2/actors/worlds/midlands/manifest.json' && cands[2].manifest === true && cands[2].folder === 'Players', JSON.stringify(cands));
-  const wc = mod.syncCandidates({ scope: 'world' });
-  check('scope=world takes the whole import.json and the whole manifest', wc[0].url === 'npc/waluipedia/midlands/import.json' && wc[2].folder === null);
-  const cc = mod.syncCandidates({ scope: 'cast', branch: 'main' });
-  check('scope=cast takes the committed cast packet (branch honoured)', cc[0].url === 'npc/waluipedia/cast/import.json' && cc[2].url === 'https://raw.githubusercontent.com/mikegent01/bik/main/Reputation-Matrix2/actors/cast/import.json' && !cc[2].manifest);
+  const cands = mod.syncCandidates({ world: 'midlands', packetDir: 'npc/waluipedia', launcher: 'http://127.0.0.1:8765', branch: 'gh-pages' });
+  check('sync looks in Data, then the launcher, then GitHub — in that order, always for everything (the one import.json; on GitHub the manifest + cast + era packets)', cands.map((c) => c.source).join() === 'data,launcher,github'
+    && cands[0].url === 'npc/waluipedia/midlands/import.json' && cands[0].info === 'npc/waluipedia/midlands/packets.json'
+    && cands[1].url === 'http://127.0.0.1:8765/Reputation-Matrix2/actors/worlds/midlands/import.json'
+    && cands[2].url === 'https://raw.githubusercontent.com/mikegent01/bik/gh-pages/Reputation-Matrix2/actors/worlds/midlands/manifest.json' && cands[2].manifest === true
+    && cands[2].extras.map((x) => x.label).join() === 'cast,era' && cands[2].extras[1].url.endsWith('/peachs-castle-955/import.json') && !('scope' in mod.SYNC_DEFAULTS), JSON.stringify(cands));
+  const cc = mod.syncCandidates({ branch: 'main' });
+  check('the branch is honoured on every GitHub URL', cc[2].url.includes('/bik/main/') && cc[2].extras.every((x) => x.url.includes('/bik/main/')));
 
   // a fake world: Bowser as the GM's NPC statblock in Players/, Eager already a character, Waluigi untouched
   game.actors.clear(); game.folders.clear();
@@ -516,7 +559,7 @@ check('pickDataPath opens a folder picker and writes the choice into the url box
       system: { details: { xp: { value: 25342 } }, attributes: { hp: { max: 60 } } },
       items: [{ _id: 'Ih1aaaaaaaaaaaaa', name: 'Fighter', type: 'class', system: { levels: 6 } }] },
   ] };
-  const packetsJson = { format: 'waluipedia-packets/1', world: 'midlands', exportedAt: '2026-10-04T17:21:43.770Z', publishedAt: '2026-10-04T18:00:00+0000' };
+  const packetsJson = { format: 'waluipedia-packets/2', world: 'midlands', exportedAt: '2026-10-04T17:21:43.770Z', publishedAt: '2026-10-04T18:00:00+0000', digest: 'd1gest000000000000000000000000000000001', packets: { everything: 'import.json', players: 'players-import.json', manifest: 'manifest.json' } };
 
   // Data has nothing, the launcher is down, GitHub has the manifest + files
   const ghBase = 'https://raw.githubusercontent.com/mikegent01/bik/gh-pages/Reputation-Matrix2/actors/worlds/midlands/';
@@ -524,15 +567,23 @@ check('pickDataPath opens a folder picker and writes the choice into the url box
     actors: [...packet.actors.map((a) => ({ name: a.name, type: a.type, _id: a._id, file: `Players/fvtt-Actor-${a.name.toLowerCase().replace(/[^a-z]+/g, '-')}-${a._id}.json` })),
       { name: 'Aemenor Evenflight', type: 'npc', _id: 'Ae1aaaaaaaaaaaaa', file: 'A House Divided/Characters of the Ruined Manor/fvtt-Actor-aemenor.json' }] }]]);
   for (const a of packet.actors) ghFiles.set(`${ghBase}Players/fvtt-Actor-${a.name.toLowerCase().replace(/[^a-z]+/g, '-')}-${a._id}.json`, { ...a, flags: { 'waluipedia-sheets': a.flags['waluipedia-sheets'] } });
+  ghFiles.set(`${ghBase}A House Divided/Characters of the Ruined Manor/fvtt-Actor-aemenor.json`, { _id: 'Ae1aaaaaaaaaaaaa', name: 'Aemenor Evenflight', type: 'npc', img: 'icons/svg/mystery-man.svg', system: {}, flags: {}, items: [] });
+  // the committed cast packet: a generated Koopa and a generated Bowser the world already has by name + type (left out)
+  ghFiles.set('https://raw.githubusercontent.com/mikegent01/bik/gh-pages/Reputation-Matrix2/actors/cast/import.json', { format: 'waluipedia-actors/1', exportedFrom: 'waluipedia-cast', folderStyles: { 'Koopa Troop': { color: '#006400' } }, actors: [
+    { _id: 'Ca1aaaaaaaaaaaaa', name: 'Koopa Commander', type: 'npc', img: 'icons/svg/mystery-man.svg', system: {}, flags: { 'waluipedia-mass-import': { folderPath: ['Koopa Troop'] }, 'waluipedia-sheets': { tags: ['Koopa Troop', 'npc', 'generated'] } }, items: [] },
+    { _id: 'Cb1aaaaaaaaaaaaa', name: 'Bowser', type: 'character', img: 'icons/svg/mystery-man.svg', system: {}, flags: { 'waluipedia-mass-import': { folderPath: ['Koopa Troop'] } }, items: [] },
+  ] });
   const prevFetch = globalThis.fetch;
   const log = [];
   let dataHas = false;
+  let onDiskVersion = mod.MODULE_VERSION;
   globalThis.fetch = async (url, init = {}) => {
     const key = decodeURI(url);
     log.push(key);
     if ((init.method ?? 'GET') === 'HEAD') return prevFetch(url, init);
-    if (key === 'npc/waluipedia/midlands/players-import.json' && dataHas) return { ok: true, status: 200, json: async () => structuredClone(packet) };
-    if (key === 'npc/waluipedia/midlands/packets.json' && dataHas) return { ok: true, status: 200, json: async () => packetsJson };
+    if (key === 'npc/waluipedia/midlands/import.json' && dataHas) return { ok: true, status: 200, json: async () => structuredClone(packet) };
+    if (key === 'npc/waluipedia/midlands/packets.json' && dataHas) return { ok: true, status: 200, json: async () => structuredClone(packetsJson) };
+    if (key.startsWith('modules/waluipedia-mass-import/module.json')) return { ok: true, status: 200, json: async () => ({ version: onDiskVersion }) };
     if (key.startsWith('http://127.0.0.1:8765/')) throw new TypeError('Failed to fetch');
     if (ghFiles.has(key)) return { ok: true, status: 200, json: async () => structuredClone(ghFiles.get(key)) };
     return { ok: false, status: 404 };
@@ -542,8 +593,10 @@ check('pickDataPath opens a folder picker and writes the choice into the url box
 
   const r = await mod.syncFromWaluipedia({ options: { checkImages: false } });
   check('sync falls through Data and the launcher to GitHub', r && r.sync.used.source === 'github' && r.sync.attempts.map((a) => `${a.source}:${a.ok}`).join() === 'data:false,launcher:false,github:true', JSON.stringify(r?.sync?.attempts));
-  check('the GitHub route fetches only the Players files the manifest lists', r.files.length === 4 && r.files.every((f) => f.startsWith('Players/')) && !log.some((u) => u.includes('aemenor')));
-  check('…and imports them into the Players folder (no root dump)', game.actors.contents.every((a) => a.folder?.name === 'Players') && game.folders.size === 1, game.actors.contents.map((a) => `${a.name}:${a.folder?.name}`).join());
+  check('the GitHub route fetches every file the manifest lists, then the cast and era packets, and merges them (the era packet 404s → ignored, not fatal)', r.files.length === 5 && log.some((u) => u.includes('aemenor')) && r.sync.merged?.map((m) => `${m.label}:${m.actors}/${m.omitted}`).join() === 'world:5/0,cast:1/1' && r.ignored.some((i) => i.path.endsWith('peachs-castle-955/import.json')), JSON.stringify([r.files, r.sync.merged, r.ignored]));
+  check('…and imports them into their folders (players in Players, the manor NPC in its directory, the generated Koopa in a coloured Koopa Troop; the cast\'s Bowser left out for the world\'s)', ['Bowser', 'Eager', 'Waluigi', 'Hjumpik Deldkur'].every((n) => game.actors.contents.find((a) => a.name === n)?.folder?.name === 'Players')
+    && game.actors.contents.find((a) => a.name === 'Aemenor Evenflight')?.folder?.name === 'Characters of the Ruined Manor' && game.actors.contents.find((a) => a.name === 'Koopa Commander')?.folder?.color === '#006400'
+    && game.actors.contents.filter((a) => a.name === 'Bowser').length === 1 && game.actors.get('Bo1aaaaaaaaaaaaa'), game.actors.contents.map((a) => `${a.name}:${a.folder?.name}`).join());
   check('Bowser: NPC statblock replaced by the character sheet under the same id, ownership kept', r.replaced.length === 1 && game.actors.get('Bo1aaaaaaaaaaaaa').type === 'character' && game.actors.get('Bo1aaaaaaaaaaaaa').ownership.P1aaaaaaaaaaaaaa === 3);
   const rows = Object.fromEntries(r.changes.map((c) => [c.name, c]));
   check('summary row: Bowser replaced — type, XP, class line', rows.Bowser.status === 'replaced' && rows.Bowser.notes.includes('npc → character') && rows.Bowser.notes.includes('XP — → 35,292') && rows.Bowser.notes.includes('Fighter 8'), JSON.stringify(rows.Bowser));
@@ -551,21 +604,59 @@ check('pickDataPath opens a folder picker and writes the choice into the url box
   check('summary row: Waluigi unchanged', rows.Waluigi.status === 'unchanged' && rows.Waluigi.notes.length === 0, JSON.stringify(rows.Waluigi));
   check('summary row: Hjumpik new, with the level-up the ledger allows (a hint, not a change)', rows['Hjumpik Deldkur'].status === 'new' && rows['Hjumpik Deldkur'].levelUp === 'ledger level 7 — level up (sheet is level 6)' && !rows['Hjumpik Deldkur'].notes.some((n) => n.startsWith('ledger')), JSON.stringify(rows['Hjumpik Deldkur']));
   const sh = mod.syncSummaryHtml(r);
-  check('summary HTML: counts, level-up banner, the source, where it looked', sh.includes('1 created, 2 updated, 1 replaced') && sh.includes('Level up at the table') && sh.includes('Hjumpik Deldkur') && sh.includes('GitHub (gh-pages)') && sh.includes('export 2026-10-04T17:21:43.770Z') && sh.includes('✘ Foundry Data folder') && sh.includes('✔ GitHub'));
+  check('summary HTML: counts, level-up banner, the source, what each packet contributed, the module version, where it looked', sh.includes('3 created, 2 updated, 1 replaced') && sh.includes('Level up at the table') && sh.includes('Hjumpik Deldkur') && sh.includes('GitHub (gh-pages)') && sh.includes('export 2026-10-04T17:21:43.770Z') && sh.includes('✘ Foundry Data folder') && sh.includes('✔ GitHub') && sh.includes('cast 1 (1 already in an earlier part)') && sh.includes(`module ${mod.MODULE_VERSION}`) && !sh.includes('wmi-stale'), sh.slice(0, 400));
+  check('the sync remembers the packet it synced (world setting)', settings.get('waluipedia-mass-import.syncLastStamp') === r.sync.stamp && r.sync.stamp.startsWith('github:'));
   check('the summary is whispered to the GMs as a chat message', chats.length === 1 && chats[0].whisper.join() === 'GMaaaaaaaaaaaaaa' && chats[0].content.includes('Replaced'));
 
   // second click: Data now has the packet (the suite ran) — nothing changes, Data wins, the stamps show
   dataHas = true; log.length = 0;
   const r2 = await mod.syncFromWaluipedia({ options: { checkImages: false } });
-  check('with the packet published, Sync reads the Data folder first and never touches the network', r2.sync.used.source === 'data' && !log.some((u) => u.startsWith('http')) && r2.sync.info?.publishedAt === '2026-10-04T18:00:00+0000');
-  check('a second sync of the same packet changes nothing and says so (the ledger hint stays)', r2.changes.every((c) => c.status === 'unchanged') && r2.replaced.length === 0 && r2.created.length === 0 && game.actors.size === 4 && r2.changes.find((c) => c.name === 'Hjumpik Deldkur').levelUp !== null, JSON.stringify(r2.changes.map((c) => [c.name, c.status, c.notes])));
+  check('with the packet published, Sync reads the Data folder first and never touches the network (the module.json version check is same-origin)', r2.sync.used.source === 'data' && !log.some((u) => u.startsWith('http')) && r2.sync.info?.publishedAt === '2026-10-04T18:00:00+0000' && r2.sync.stamp === `data:${packetsJson.digest}`, JSON.stringify(log.filter((u) => u.startsWith('http'))));
+  check('a second sync of the same actors changes nothing and says so (the ledger hint stays)', r2.changes.every((c) => c.status === 'unchanged') && r2.replaced.length === 0 && r2.created.length === 0 && game.actors.size === 6 && r2.changes.find((c) => c.name === 'Hjumpik Deldkur').levelUp !== null, JSON.stringify(r2.changes.map((c) => [c.name, c.status, c.notes])));
   check('dry run syncs report without writing or chatting', (await mod.syncFromWaluipedia({ options: { checkImages: false, dryRun: true } })).dryRun === true && chats.length === 2);
+
+  // the automatic sync (world load): once per published packet
+  settings.set('waluipedia-mass-import.syncAuto', true);
+  const dialogs = [];
+  const prevDialog = globalThis.Dialog;
+  const auto1 = await mod.autoSync({ delay: 0 });
+  check('automatic sync of a packet already synced does nothing (same digest) and opens nothing', auto1?.skipped === true && auto1.stamp === `data:${packetsJson.digest}`, JSON.stringify(auto1));
+  packetsJson.digest = 'd1gest000000000000000000000000000000002';
+  const auto2 = await mod.autoSync({ delay: 0 });
+  check('a newly published packet (new digest) is synced on load, marked automatic, and remembered', auto2?.sync?.trigger === 'auto' && auto2.sync.stamp.endsWith('0002') && settings.get('waluipedia-mass-import.syncLastStamp') === auto2.sync.stamp, JSON.stringify(auto2?.sync?.stamp));
+  settings.set('waluipedia-mass-import.syncAuto', false);
+  check('automatic sync respects the setting (off → nothing)', (await mod.autoSync({ delay: 0 })) === null);
+  game.user.isGM = false;
+  settings.set('waluipedia-mass-import.syncAuto', true);
+  check('…and never runs for a player', (await mod.autoSync({ delay: 0 })) === null);
+  game.user.isGM = true; settings.set('waluipedia-mass-import.syncAuto', false);
+  globalThis.Dialog = prevDialog;
+
+  // stale code: the suite installed a newer module while this world still runs the old one
+  onDiskVersion = '9.9.9';
+  const warned = [];
+  const prevWarn = ui.notifications.warn;
+  ui.notifications.warn = (m) => warned.push(m);
+  const stale = await mod.syncFromWaluipedia({ options: { checkImages: false } });
+  ui.notifications.warn = prevWarn;
+  check('a newer module.json on disk than the running code is called out (notification + summary banner: Setup → relaunch, Ctrl+F5)', stale.sync.version.stale === true && stale.sync.version.onDisk === '9.9.9' && warned.some((m) => /relaunch/.test(m) && /9\.9\.9/.test(m)) && mod.syncSummaryHtml(stale).includes('wmi-stale') && /relaunch the world/.test(mod.syncSummaryHtml(stale)), JSON.stringify(warned));
+  onDiskVersion = mod.MODULE_VERSION;
+  check('checkModuleVersion is quiet when they match', (await mod.checkModuleVersion()).stale === false);
 
   // nothing anywhere: a help dialog, no exception, nothing changed
   dataHas = false; ghFiles.clear();
   const none = await mod.syncFromWaluipedia({ options: { checkImages: false } });
-  check('with no packet anywhere Sync returns null, changes nothing and names every place it looked', none === null && game.actors.size === 4);
-  check('syncHelpHtml tells the GM what to run', /start\.py/.test(mod.syncHelpHtml([{ label: 'Foundry Data folder', url: 'x', error: 'HTTP 404' }], mod.syncSettings())) && /--foundry-data/.test(mod.syncHelpHtml([], mod.syncSettings())));
+  check('with no packet anywhere Sync returns null, changes nothing and names every place it looked', none === null && game.actors.size === 6);
+  check('…and an automatic sync with no packet is silent (null, no dialog)', (await mod.syncFromWaluipedia({ trigger: 'auto', options: { checkImages: false } })) === null);
+  check('syncHelpHtml tells the GM what to run', /start\.py/.test(mod.syncHelpHtml([{ label: 'Foundry Data folder', url: 'x', error: 'HTTP 404' }], mod.syncSettings())) && /--foundry-data/.test(mod.syncHelpHtml([], mod.syncSettings())) && /import\.json/.test(mod.syncHelpHtml([], mod.syncSettings())));
+
+  // pure helpers of the merge
+  const merged = mod.mergePackets([
+    { label: 'world', raw: { actors: [{ _id: 'X1', name: 'Guard', type: 'npc' }, { _id: 'X2', name: 'Guard', type: 'npc' }], folders: [{ _id: 'F', name: 'A', path: ['A'], color: '#111111' }] } },
+    { label: 'cast', raw: { actors: [{ _id: 'Y1', name: 'guard', type: 'npc' }, { _id: 'X1', name: 'Other', type: 'npc' }, { _id: 'Y2', name: 'Mage', type: 'npc' }], folderStyles: { A: { color: '#222222' }, B: { color: '#333333' } } } },
+  ]);
+  check('mergePackets: the first packet wins by _id and by name + type (case-insensitive); two same-named actors within one packet both stay; folder styles union with the first winning', merged.actors.map((a) => a._id).join() === 'X1,X2,Y2' && merged.merged.map((m) => `${m.label}:${m.actors}/${m.omitted}`).join() === 'world:2/0,cast:1/2' && merged.folderStyles.A.color === '#111111' && merged.folderStyles.B.color === '#333333' && merged.actorCount === 3, JSON.stringify(merged.merged));
+  check('syncStamp: the suite digest, else publishedAt, else the payload shape', mod.syncStamp({ digest: 'abc' }, {}, 'data') === 'data:abc' && mod.syncStamp({ publishedAt: 'p' }, {}, 'data') === 'data:p' && /^launcher:2026:2:\d+$/.test(mod.syncStamp(null, { exportedAt: '2026', actors: [{}, {}] }, 'launcher')));
   globalThis.fetch = prevFetch;
   delete globalThis.ChatMessage;
   game.actors.clear(); game.folders.clear();
@@ -592,7 +683,7 @@ check('pickDataPath opens a folder picker and writes the choice into the url box
   const live = game.actors.get(mage._id);
   check('v1.4: a new folder is created in the colour the packet carries', game.folders.contents.find((f) => f.name === 'Mages')?.color === '#8a2be2' && first.foldersStyled.length === 1);
   const second = await mod.importPayload(packet, { checkImages: false, progress: false });
-  check('v1.4: re-importing the same actor writes nothing (no actor update, no embedded calls)', live.updates === 0 && !live.embeddedUpdates && !live.embeddedDeletes && second.unchanged === 1 && second.updated[0].changed === false && second.updated[0].items.unchanged === 3, JSON.stringify(second.updated[0]));
+  check('v1.4: re-importing the same actor writes nothing (no actor update, no embedded calls; the cached spell is not even compared)', live.updates === 0 && !live.embeddedUpdates && !live.embeddedDeletes && second.unchanged === 1 && second.updated[0].changed === false && second.updated[0].items.unchanged === 2, JSON.stringify(second.updated[0]));
   check('v1.4: summarize says so', /\(1 unchanged\)/.test(mod.summarize(second)), mod.summarize(second));
   // HP changed on the actor, the sword's quantity changed, the feat's activity changed
   const edited = structuredClone(packet);
@@ -602,16 +693,20 @@ check('pickDataPath opens a folder picker and writes the choice into the url box
   const third = await mod.importPayload(edited, { checkImages: false, progress: false });
   check('v1.4: the actor update is the diff alone', live.updates === 1 && JSON.stringify(live.lastUpdate) === '{"system":{"attributes":{"hp":{"value":7}}}}' && live.lastUpdateOptions === undefined, JSON.stringify(live.lastUpdate));
   const calls = live.embeddedUpdates ?? [];
-  check('v1.4: plain item changes go in one batch, an activity change in a call of its own', calls.length === 2 && calls[0].arr.length === 1 && calls[0].arr[0]._id === sword._id && JSON.stringify(calls[0].arr[0].system) === '{"quantity":2}' && calls[1].arr.length === 1 && calls[1].arr[0]._id === castFeat._id && calls[1].arr[0].system.activities.ACT1aaaaaaaaaaaa.spell.uuid === 'Compendium.x.z' && third.updated[0].items.updated === 2 && third.updated[0].items.unchanged === 1, JSON.stringify(calls));
+  check('v1.4: plain item changes go in one batch, an activity change in a call of its own', calls.length === 2 && calls[0].arr.length === 1 && calls[0].arr[0]._id === sword._id && JSON.stringify(calls[0].arr[0].system) === '{"quantity":2}' && calls[1].arr.length === 1 && calls[1].arr[0]._id === castFeat._id && calls[1].arr[0].system.activities.ACT1aaaaaaaaaaaa.spell.uuid === 'Compendium.x.z' && third.updated[0].items.updated === 2 && third.updated[0].items.unchanged === 0, JSON.stringify(calls));
   // the Cast feat goes away: its cached spell is dnd5e's to delete, not ours
   const pruned = structuredClone(packet);
   pruned.actors[0].items = [sword];
   const fourth = await mod.importPayload(pruned, { checkImages: false, progress: false });
   check('v1.4: deleting a Cast item leaves its cached spell to the system (no double delete)', fourth.failed.length === 0 && live.embeddedDeletes.at(-1).ids.join() === castFeat._id && fourth.updated[0].items.deleted === 1, JSON.stringify(live.embeddedDeletes));
-  // a cached spell whose owner stays is deleted normally
+  // v1.5: cached spells are dnd5e's, full stop — never deleted, created or updated by the sync, whatever the packet says
   live.items.set(spellbook._id, new Item(spellbook));
-  const fifth = await mod.importPayload(pruned, { checkImages: false, progress: false });
-  check('v1.4: an orphaned cached spell is still removed', fifth.failed.length === 0 && !live.items.has(spellbook._id) && fifth.updated[0].items.deleted === 1);
+  live.embeddedDeletes = []; live.embeddedCreates = [];
+  const stale = structuredClone(packet);
+  stale.actors[0].items = [sword, { ...spellbook, _id: 'S9aaaaaaaaaaaaaa', name: 'Fire Bolt (older copy)' }];
+  const fifth = await mod.importPayload(stale, { checkImages: false, progress: false });
+  check('v1.5: a cached spell in the world is left alone even when the packet lacks it, and a cached spell in the packet is never created (dnd5e makes its own)', fifth.failed.length === 0 && live.items.has(spellbook._id) && !live.items.has('S9aaaaaaaaaaaaaa') && live.embeddedDeletes.length === 0 && live.embeddedCreates.length === 0 && fifth.updated[0].items.deleted === 0 && fifth.updated[0].items.created === 0 && fifth.updated[0].changed === false, JSON.stringify([live.embeddedDeletes, live.embeddedCreates]));
+  check('isCachedSpell', mod.isCachedSpell(spellbook) && !mod.isCachedSpell(sword) && !mod.isCachedSpell({ flags: { dnd5e: { cachedFor: '' } } }));
 
   // identifiers
   const eager = { _id: 'E1aaaaaaaaaaaaaa', name: 'Eager', type: 'character', img: 'icons/svg/mystery-man.svg', system: {}, flags: {}, items: [
@@ -689,6 +784,92 @@ check('pickDataPath opens a folder picker and writes the choice into the url box
   check('v1.4: folderCounts groups the summary rows by folder', JSON.stringify(mod.folderCounts([{ folder: 'B' }, { folder: 'A' }, { folder: 'B' }, { folder: '' }])) === '[["A",1],["B",2],["root",1]]');
 }
 
+// ------------------------------------------------------------- v1.5
+// The GM's second sync: "Item X does not exist!" ×N, "Only a single Species
+// can be added to a Player Character", "The _id [...] already exists within
+// the parent collection" and two FAILED actors — plus empty duplicate folders
+// from the first import. Here the same world shape, repaired.
+{
+  game.actors.clear(); game.folders.clear(); refusedSingletons.length = 0;
+  // Eager as the world holds her: the Toad species and the background the
+  // players made are INVALID (em dash / dot in the identifier) — not in
+  // items, only in the source — and valid stand-ins sit beside them.
+  const worldEager = { _id: 'VudZ3W313Y4FILs0', name: 'Eager', type: 'character', img: 'icons/svg/mystery-man.svg', system: { details: { race: 'd5c6b4b8da1e46c8' } }, flags: {}, items: [
+    { _id: 'd5c6b4b8da1e46c8', name: 'Toad — Eager Variant', type: 'race', img: 'icons/svg/item-bag.svg', system: { identifier: 'toad-—-eager-variant', movement: { walk: 30 } } },
+    { _id: '5f606a64c6bb43f3', name: 'Disaster Inc. Catastrophe Scout', type: 'background', img: 'icons/svg/item-bag.svg', system: { identifier: 'disaster-inc.-catastrophe-scout' } },
+    { _id: '218ad632c6e149d9', name: 'Fighting Style — Archery', type: 'feat', img: 'icons/svg/item-bag.svg', system: { identifier: 'fighting-style-—-archery' } },
+    { _id: 'sctSWwZ7EHsxJlwW', name: 'Grung', type: 'race', img: 'icons/svg/item-bag.svg', system: { identifier: 'grung' } },
+    { _id: 'fN1FAHmzHWPx6Ky5', name: 'Slave', type: 'background', img: 'icons/svg/item-bag.svg', system: { identifier: 'slave' } },
+    { _id: 'C1aaaaaaaaaaaaaa', name: 'Fighter', type: 'class', img: 'icons/svg/item-bag.svg', system: { identifier: 'fighter', levels: 4 } },
+  ] };
+  const eagerLive = await Actor.create(worldEager, { keepId: true });
+  check('the fake holds the broken items the way Foundry does: out of the collection, in the source, listed as invalid', eagerLive.items.size === 3 && [...eagerLive.items.invalidDocumentIds].join() === 'd5c6b4b8da1e46c8,5f606a64c6bb43f3,218ad632c6e149d9');
+  const srcs = mod.embeddedSources(eagerLive, 'items');
+  check('embeddedSources sees all six — the invalid ones flagged, with their source data', srcs.size === 6 && srcs.get('d5c6b4b8da1e46c8').invalid === true && srcs.get('d5c6b4b8da1e46c8').obj.name === 'Toad — Eager Variant' && srcs.get('sctSWwZ7EHsxJlwW').invalid === false);
+  // the suite's packet: the same actor, identifiers repaired by the bridge, plus a spoil
+  const packetEager = structuredClone(worldEager);
+  packetEager.items[0].system.identifier = 'toad-eager-variant';
+  packetEager.items[1].system.identifier = 'disaster-inc-catastrophe-scout';
+  packetEager.items[2].system.identifier = 'fighting-style-archery';
+  packetEager.items.push({ _id: 'Sp1aaaaaaaaaaaaa', name: 'The Electric Sphere', type: 'loot', img: 'icons/svg/item-bag.svg', system: {} });
+  packetEager.flags = { 'waluipedia-mass-import': { folderPath: ['Players'] } };
+  const fixed = await mod.importPayload({ actors: [packetEager] }, { checkImages: false, progress: false });
+  const u = fixed.updated[0];
+  check('v1.5: the actor no longer FAILS — the invalid species, background and feat are repaired through updates (no create, no "_id already exists")', fixed.failed.length === 0 && u.items.repaired === 3 && u.items.created === 1 && eagerLive.items.size === 7 && eagerLive.items.invalidDocumentIds.size === 0 && eagerLive.items.get('d5c6b4b8da1e46c8').toObject().system.identifier === 'toad-eager-variant' && !eagerLive.embeddedCreates.some((c) => c.arr.some((d) => d._id === 'd5c6b4b8da1e46c8')), JSON.stringify([fixed.failed, u.items]));
+  check('v1.5: no singleton refusal was provoked (the species went in as an update, not a creation)', refusedSingletons.length === 0, refusedSingletons.join('; '));
+  check('v1.5: the GM gets a note — two species, two backgrounds, keep one — instead of a failure', fixed.notes.length === 2 && fixed.notes.every((n) => n.actor === 'Eager [character]') && fixed.notes.some((n) => /2 species items — /.test(n.note) && /Toad — Eager Variant/.test(n.note) && /Grung/.test(n.note)) && fixed.notes.some((n) => /2 background items/.test(n.note)) && /3 broken items repaired, 2 notes/.test(mod.summarize(fixed)) && mod.syncSummaryHtml({ ...fixed, changes: [], sync: {} }).includes('Notes for the GM (2)'), JSON.stringify(fixed.notes) + ' ' + mod.summarize(fixed));
+  const again = await mod.importPayload({ actors: [packetEager] }, { checkImages: false, progress: false });
+  check('v1.5: the next sync of the same packet writes nothing (and the notes persist until the GM acts)', again.unchanged === 1 && again.updated[0].items.repaired === 0 && again.embeddedRepaired === 0 && again.notes.length === 2);
+  check('singletonNotes is pure', mod.singletonNotes({ type: 'character', items: [{ type: 'race', name: 'A' }, { type: 'race', name: 'B' }] }).length === 1 && mod.singletonNotes({ type: 'npc', items: [{ type: 'race', name: 'A' }, { type: 'race', name: 'B' }] }).length === 0 && mod.singletonNotes({ type: 'character', items: [{ type: 'race', name: 'A' }] }).length === 0);
+
+  // a packet that brings a NEW species while the sheet already has one: dnd5e refuses it — a note, not a FAILED actor
+  const dan = await Actor.create({ _id: 'IlzuThuR8upTtqtF', name: 'Feyward Dan', type: 'character', img: 'icons/svg/mystery-man.svg', system: {}, flags: {}, items: [
+    { _id: 'sCxUWoCkQo9o7KeU', name: 'Grung', type: 'race', img: 'icons/svg/item-bag.svg', system: { identifier: 'grung' } }] }, { keepId: true });
+  const danPacket = { _id: 'IlzuThuR8upTtqtF', name: 'Feyward Dan', type: 'character', img: 'icons/svg/mystery-man.svg', system: {}, flags: {}, items: [
+    { _id: 'sCxUWoCkQo9o7KeU', name: 'Grung', type: 'race', img: 'icons/svg/item-bag.svg', system: { identifier: 'grung' } },
+    { _id: '4b8eb918a8d24833', name: 'Toad — Feyward Variant', type: 'race', img: 'icons/svg/item-bag.svg', system: { identifier: 'toad-feyward-variant' } },
+    { _id: 'e6cbf8b57a504da9', name: 'Wild Surge — Unstable Aura', type: 'feat', img: 'icons/svg/item-bag.svg', system: { identifier: 'wild-surge-unstable-aura' } }] };
+  const danRep = await mod.importPayload({ actors: [danPacket] }, { checkImages: false, progress: false });
+  check('v1.5: a creation the system refuses is reported as a note on the actor, the rest of the batch still lands, nothing FAILED', danRep.failed.length === 0 && dan.items.has('e6cbf8b57a504da9') && !dan.items.has('4b8eb918a8d24833') && danRep.updated[0].items.refused.join() === 'Toad — Feyward Variant [race]' && danRep.notes.some((n) => n.actor === 'Feyward Dan [character]' && /refused/.test(n.note)), JSON.stringify([danRep.failed, danRep.notes, danRep.updated[0].items]));
+
+  // an invalid document that cannot be updated into shape is replaced under its id
+  const stubborn = await Actor.create({ _id: 'St1aaaaaaaaaaaaa', name: 'Stubborn', type: 'npc', img: 'icons/svg/mystery-man.svg', system: {}, flags: {}, items: [
+    { _id: 'Bad1aaaaaaaaaaaa', name: 'Odd Thing', type: 'feat', img: 'icons/svg/item-bag.svg', system: { identifier: 'odd—thing' } }] }, { keepId: true });
+  const realUpdate = stubborn.updateEmbeddedDocuments.bind(stubborn);
+  stubborn.updateEmbeddedDocuments = async (type, arr, opts) => { if (arr.some((d) => d._id === 'Bad1aaaaaaaaaaaa')) throw new Error('Item [Bad1aaaaaaaaaaaa] validation errors'); return realUpdate(type, arr, opts); };
+  const stubbornRep = await mod.importPayload({ actors: [{ _id: 'St1aaaaaaaaaaaaa', name: 'Stubborn', type: 'npc', img: 'icons/svg/mystery-man.svg', system: {}, flags: {}, items: [
+    { _id: 'Bad1aaaaaaaaaaaa', name: 'Odd Thing', type: 'feat', img: 'icons/svg/item-bag.svg', system: { identifier: 'odd-thing' } }] }] }, { checkImages: false, progress: false });
+  check('v1.5: when the update is refused the broken document is deleted and created again under its own id', stubbornRep.failed.length === 0 && stubborn.items.get('Bad1aaaaaaaaaaaa')?.toObject().system.identifier === 'odd-thing' && stubborn.items.invalidDocumentIds.size === 0 && stubbornRep.updated[0].items.repaired === 1, JSON.stringify([stubbornRep.failed, stubbornRep.updated[0].items]));
+
+  // ---- folders: case-insensitive matching, duplicate merge, empty prune
+  game.actors.clear(); game.folders.clear();
+  const kt1 = await Folder.create({ name: 'Koopa Troop', type: 'Actor', folder: null, color: '#006400' });
+  const kt2 = await Folder.create({ name: 'Koopa Troop', type: 'Actor', folder: null });
+  const kt3 = await Folder.create({ name: 'koopa troop ', type: 'Actor', folder: null });
+  const sub = await Folder.create({ name: 'Elites', type: 'Actor', folder: kt2.id });
+  const housed = await Folder.create({ name: 'A House Divided', type: 'Actor', folder: null });
+  const housedSub = await Folder.create({ name: 'Characters of the Ruined Manor', type: 'Actor', folder: housed.id });
+  const important = await Folder.create({ name: 'Important', type: 'Actor', folder: null });
+  await Actor.create({ _id: 'K1aaaaaaaaaaaaaa', name: 'Goomba', type: 'npc', folder: kt1.id, system: {}, flags: {}, items: [] }, { keepId: true });
+  await Actor.create({ _id: 'K2aaaaaaaaaaaaaa', name: 'Koopatrol', type: 'npc', folder: kt2.id, system: {}, flags: {}, items: [] }, { keepId: true });
+  await Actor.create({ _id: 'K3aaaaaaaaaaaaaa', name: 'Elite', type: 'npc', folder: sub.id, system: {}, flags: {}, items: [] }, { keepId: true });
+  await Actor.create({ _id: 'K4aaaaaaaaaaaaaa', name: 'Paratroopa', type: 'npc', folder: null, system: {}, flags: {}, items: [] }, { keepId: true });
+  const rep = await mod.importPayload({ actors: [{ _id: 'K4aaaaaaaaaaaaaa', name: 'Paratroopa', type: 'npc', system: {}, flags: { 'waluipedia-mass-import': { folderPath: ['KOOPA TROOP'] } }, items: [] }] }, { checkImages: false, progress: false });
+  check('v1.5: ensureFolderPath matches trimmed and case-insensitively and, among duplicates, picks the folder with the most below it — no fourth Koopa Troop', rep.foldersCreated.length === 0 && game.folders.contents.filter((f) => mod.folderKey(f.name) === 'koopa troop').length === 3 && game.actors.get('K4aaaaaaaaaaaaaa').folderId === kt2.id, JSON.stringify(rep.foldersCreated));
+  const rows = game.folders.contents.map((f) => ({ id: f.id, name: f.name, parent: f.parentId }));
+  const groups = mod.duplicateFolderGroups(rows, { [kt1.id]: 1, [kt2.id]: 3 });
+  check('duplicateFolderGroups: same parent + same key → one group, the fuller folder kept, the untidy-named empty one last', groups.length === 1 && groups[0].keep.id === kt2.id && groups[0].others.map((o) => o.id).join() === `${kt1.id},${kt3.id}`, JSON.stringify(groups));
+  check('…on a tie the cleanly named folder wins', mod.duplicateFolderGroups([{ id: 'a', name: ' Players', parent: null }, { id: 'b', name: 'Players', parent: null }], {})[0].keep.id === 'b');
+  check('emptyFolderIds: leaves first, then the parents they empty; occupied folders and their ancestors stay', mod.emptyFolderIds(rows, new Set([kt1.id, kt2.id, sub.id])).join() === [kt3.id, housedSub.id, important.id, housed.id].join(), JSON.stringify(mod.emptyFolderIds(rows, new Set([kt1.id, kt2.id, sub.id]))));
+  const dry = await mod.tidyFolders({ dryRun: true });
+  check('tidyFolders dry run only lists', dry.foldersMerged.length === 2 && dry.foldersPruned.length === 3 && game.folders.size === 7, JSON.stringify(dry));
+  const tidy = await mod.tidyFolders({});
+  check('tidyFolders: the duplicate Koopa Troops are merged into the fuller one (actors + sub-folder moved, colour carried over), the GM\'s empty import folders are gone', tidy.foldersMerged.length === 2 && tidy.foldersPruned.length === 3 && game.folders.size === 2 && game.folders.get(kt2.id) && !game.folders.get(kt1.id) && !game.folders.get(kt3.id) && game.folders.get(kt2.id).color === '#006400'
+    && game.actors.get('K1aaaaaaaaaaaaaa').folderId === kt2.id && game.folders.get(sub.id).parentId === kt2.id && !game.folders.get(housed.id) && !game.folders.get(important.id), JSON.stringify([tidy, game.folders.contents.map((f) => f.name)]));
+  check('…merge and prune can be switched off separately', JSON.stringify(await mod.tidyFolders({ merge: false, prune: false })) === '{"foldersMerged":[],"foldersPruned":[]}');
+  check('summarize counts the folder work', /2 duplicate folders merged, 3 empty folders removed/.test(mod.summarize({ created: [], updated: [], skipped: [], failed: [], foldersCreated: [], missingImages: [], ...tidy })));
+}
+
 // ------------------------------------------- optional: a real world export
 // WMI_EXPORT=/path/to/<world>-all-actors.json node tools/tests/test-mass-import-module.mjs
 if (process.env.WMI_EXPORT) {
@@ -708,6 +889,13 @@ if (process.env.WMI_EXPORT) {
   // WMI_PACKET=Reputation-Matrix2/actors/worlds/midlands/import.json — the suite's organized packet on top of the GM's world
   if (process.env.WMI_PACKET) {
     const packet = JSON.parse(fs.readFileSync(process.env.WMI_PACKET, 'utf8'));
+    // seed the world the way Foundry holds it — straight from the export, broken identifiers and all
+    // (an import through the module would have repaired them on the way in)
+    game.actors.clear(); game.folders.clear();
+    for (const f of real.folders ?? []) { const doc = new Folder({ ...f }); game.folders.set(doc.id, doc); }
+    for (const a of real.actors) { const doc = new Actor(a); game.actors.set(doc.id, doc); }
+    const invalidBefore = game.actors.contents.reduce((n, a) => n + a.items.invalidDocumentIds.size, 0);
+    check('real world: the export holds invalid embedded documents (the ones that made two actors FAIL)', invalidBefore === 7, String(invalidBefore));
     const r4 = await mod.importPayload(packet, { checkImages: false, progress: false });
     const moved = r4.updated.filter((u) => u.changed).length;
     const coloured = game.folders.contents.filter((f) => f.color).length;
@@ -716,9 +904,14 @@ if (process.env.WMI_EXPORT) {
     const badLeft = eagerLive ? eagerLive.items.contents.map((i) => i.toObject().system?.identifier).filter((v) => typeof v === 'string' && v && !/^[a-z0-9_-]+$/i.test(v)) : ['no Eager'];
     check('real packet: the identifiers the players broke are valid in the world afterwards (the suite repaired the packet; the diff update carried them over)', badLeft.length === 0 && r4.repaired.length === 0, badLeft.join());
     check('real packet: the website folders exist and are coloured', coloured >= 20 && game.folders.contents.some((f) => f.name === 'Bestiary' && f.color) && game.folders.contents.some((f) => f.name === 'Koopa Troop' && f.color === '#006400'), `${coloured} coloured`);
+    check('real packet: the seven broken embedded documents (Eager ×5, Feyward Dan ×2) are repaired in place and the GM is told about the stand-ins', r4.embeddedRepaired === 7 && r4.notes.some((n) => n.actor.startsWith('Eager') && /species/.test(n.note)) && r4.notes.some((n) => n.actor.startsWith('Feyward Dan') && /species/.test(n.note)) && game.actors.contents.every((a) => a.items.invalidDocumentIds.size === 0), `${r4.embeddedRepaired} repaired; ${JSON.stringify(r4.notes)}`);
     const r5 = await mod.importPayload(packet, { checkImages: false, progress: false });
     check('real packet: a second import of the same packet changes nothing', r5.unchanged === r5.updated.length && r5.created.length === 0 && r5.failed.length === 0, mod.summarize(r5));
-    console.log(`real packet: ${r4.created.length} created, ${moved} changed, ${r4.replaced.length} replaced, ${r4.foldersCreated.length} folders, ${coloured} coloured, ${mod.summarize(r5)}`);
+    const tidy = await mod.tidyFolders({});
+    const occupiedNow = new Set(game.actors.contents.map((a) => a.folderId).filter(Boolean));
+    const emptyLeft = game.folders.contents.filter((f) => !occupiedNow.has(f.id) && !game.folders.contents.some((g) => g.parentId === f.id));
+    check(`real packet: the folders the first import left behind are tidied away (${tidy.foldersMerged.length} merged, ${tidy.foldersPruned.length} removed) and no empty folder remains`, tidy.foldersPruned.length >= 10 && emptyLeft.length === 0 && game.actors.size === n + r4.created.length, emptyLeft.map((f) => f.name).join(', '));
+    console.log(`real packet: ${r4.created.length} created, ${moved} changed, ${r4.replaced.length} replaced, ${r4.foldersCreated.length} folders, ${coloured} coloured, ${r4.embeddedRepaired} repaired, ${r4.notes.length} notes; tidy: ${tidy.foldersMerged.length} merged, ${tidy.foldersPruned.length} removed → ${game.folders.size} folders; ${mod.summarize(r5)}`);
   }
 }
 

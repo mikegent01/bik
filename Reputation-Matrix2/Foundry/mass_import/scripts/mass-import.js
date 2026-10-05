@@ -26,13 +26,21 @@
  *            Folders take the colour the packet carries; actors tagged by the
  *            suite (flags["waluipedia-sheets"].tags) show chips in the sidebar.
  *
- *   Sync     ONE CLICK: find the newest Waluipedia packet — in the Foundry Data
+ *   Sync     EVERYTHING, BY ITSELF (v1.5): when the world loads (and on the
+ *            button) find the newest Waluipedia packet — in the Foundry Data
  *            folder (where tools/sheets-suite.py publishes it), else on the
  *            start.py launcher, else on GitHub (the committed world manifest
- *            and its actor files) — import it into its folders, apply what
- *            changed (player characters replacing their NPC statblocks, XP at
- *            the ledger, spoils of war), and show a summary: what each actor
- *            gained, who has a level-up waiting, where it looked. Shift-click
+ *            and its actor files + the cast and era packets, merged here) —
+ *            and import the lot: the live world mirror, the generated cast,
+ *            the 955 BF court, into their coloured folders. No scope, no file
+ *            picker. Afterwards duplicate folders are merged and empty ones
+ *            removed, and a summary shows what each actor gained, who has a
+ *            level-up waiting, where it looked. A packet already synced (same
+ *            digest) is not synced again on load. Embedded documents Foundry
+ *            could not validate (a broken item identifier) are repaired
+ *            through an update instead of failing the actor; dnd5e's cached
+ *            spells are left to dnd5e; a document the system refuses (a second
+ *            species on a character) is a note, not a failure. Shift-click
  *            reviews first.
  *
  * Buttons appear in the Actors sidebar header for the GM; the same functions
@@ -42,11 +50,13 @@
  */
 
 export const MODULE_ID = "waluipedia-mass-import";
+/** Must match module.json — Sync compares the two to catch a world still running old code. */
+export const MODULE_VERSION = "1.5.0";
 export const FORMAT = "waluipedia-actors/1";
 export const RAW_BASE = "https://raw.githubusercontent.com/mikegent01/bik/gh-pages/";
 /** The repo's ready-made import-all files (the Import dialog lists them). */
 export const KNOWN_PACKETS = [
-  { id: "cast", label: "Waluipedia Cast — every generated character sheet (152, plus the 955 BF past selves)", path: "Reputation-Matrix2/actors/cast/import.json" },
+  { id: "cast", label: "Waluipedia cast — every generated character sheet (156, plus the 955 BF past selves), filed into the website group folders", path: "Reputation-Matrix2/actors/cast/import.json" },
   { id: "peachs-castle-955", label: "Peach's Castle 955 BF — the court + Bowser's incursion (30)", path: "Reputation-Matrix2/actors/peachs-castle-955/import.json" },
 ];
 export const packetUrl = (p) => RAW_BASE + p.path;
@@ -271,7 +281,7 @@ export const isManifest = (raw) => !!(raw && typeof raw === "object" && Array.is
 
 export function normalizeImport(raw) {
   let meta = {}, folders = [], actors = [];
-  if (isSheetIndex(raw)) throw new Error("This is Waluipedia's sheet index (data/sheets.json), not an actor packet — nothing in it can be imported. Click Sync instead, or import players-import.json (Data: npc/waluipedia/<world>/players-import.json · launcher: http://127.0.0.1:8765/Reputation-Matrix2/actors/worlds/<world>/players-import.json)");
+  if (isSheetIndex(raw)) throw new Error("This is Waluipedia's sheet index (data/sheets.json), not an actor packet — nothing in it can be imported. Click Sync instead (it finds everything by itself), or import import.json (Data: npc/waluipedia/<world>/import.json · launcher: http://127.0.0.1:8765/Reputation-Matrix2/actors/worlds/<world>/import.json)");
   if (isManifest(raw)) throw new Error("This is a world manifest (manifest.json): the actor files sit next to it. Give its URL or Data path and they are fetched for you — a manifest uploaded on its own cannot be");
   if (Array.isArray(raw)) actors = raw;
   else if (raw && Array.isArray(raw.actors)) {
@@ -684,6 +694,10 @@ async function checkImages(data, fix, report, label) {
  * `styles` ({"A / B": {color, description}}) a new folder is born in its
  * colour and an existing folder that has none is painted (`restyle`).
  */
+/** Folder names compare trimmed and case-insensitively ("Koopa troop " is "Koopa Troop"). */
+export const folderKey = (name) => String(name ?? "").trim().replace(/\s+/g, " ").toLowerCase();
+const parentIdOf = (f) => (f?.folder?.id ?? f?.folder?._id ?? (typeof f?.folder === "string" ? f.folder : null) ?? null);
+
 export async function ensureFolderPath(path, { cache, dryRun, report, styles = null, restyle = true }) {
   const game = G().game, Folder = G().Folder;
   let parentId = null;
@@ -693,8 +707,10 @@ export async function ensureFolderPath(path, { cache, dryRun, report, styles = n
     const name = path[i];
     const style = styles?.[key] ?? null;
     const all = game.folders.contents ?? [...game.folders.values()];
-    const existing = all.find((f) => f.type === "Actor" && f.name === name
-      && ((f.folder?.id ?? f.folder?._id ?? f.folder ?? null) === parentId));
+    const matches = all.filter((f) => f.type === "Actor" && folderKey(f.name) === folderKey(name) && parentIdOf(f) === parentId);
+    // several folders of one name (an earlier import's duplicates): the one
+    // holding the most actors is the real one; tidyFolders merges the rest
+    const existing = matches.length > 1 ? matches.map((f) => [f, countIn(f)]).sort((a, b) => b[1] - a[1])[0][0] : matches[0];
     let id;
     if (existing) {
       id = existing.id ?? existing._id;
@@ -718,6 +734,24 @@ export async function ensureFolderPath(path, { cache, dryRun, report, styles = n
     parentId = id;
   }
   return parentId;
+}
+
+/** {folderId: actors in the folder or anywhere below it} for every Actor folder. */
+function subtreeCounts() {
+  const game = G().game;
+  const folders = game.folders?.contents ?? [...(game.folders?.values?.() ?? [])];
+  const parent = new Map(folders.map((f) => [f.id ?? f._id, parentIdOf(f)]));
+  const counts = {};
+  const actors = game.actors?.contents ?? [...(game.actors?.values?.() ?? [])];
+  for (const a of actors) {
+    let id = a.folder?.id ?? a.folder?._id ?? a.folder ?? null;
+    for (let depth = 0; id && depth < 64; depth++) { counts[id] = (counts[id] ?? 0) + 1; id = parent.get(id) ?? null; }
+  }
+  return counts;
+}
+
+function countIn(folder) {
+  return subtreeCounts()[folder.id ?? folder._id] ?? 0;
 }
 
 function sameFolder(actor, folderId) {
@@ -745,50 +779,119 @@ function findExisting(data, folderId, o, batchIds = new Set()) {
   return candidates.find((a) => sameFolder(a, folderId)) ?? candidates[0];
 }
 
-/** The item a dnd5e cached spell belongs to (flags.dnd5e.cachedFor = ".Item.<id>.Activity.<id>"). */
-const cachedSpellOwner = (obj) => {
-  const cf = obj?.flags?.dnd5e?.cachedFor;
-  const m = typeof cf === "string" ? cf.match(/\.Item\.([A-Za-z0-9]{16})\.Activity\./) : null;
-  return m ? m[1] : null;
-};
+/** A cached copy dnd5e keeps of a Cast activity's spell (flags.dnd5e.cachedFor = ".Item.<id>.Activity.<id>"). */
+export const isCachedSpell = (obj) => typeof obj?.flags?.dnd5e?.cachedFor === "string" && obj.flags.dnd5e.cachedFor.length > 0;
+
+/**
+ * An actor's embedded documents as plain objects, by id — INCLUDING the ones
+ * Foundry could not validate (a race whose identifier has an em dash): those
+ * are not in the collection's contents, only in the actor's source and the
+ * collection's invalidDocumentIds. {id: {obj, invalid}}.
+ */
+export function embeddedSources(actor, collection) {
+  const coll = actor[collection];
+  const out = new Map();
+  const docs = coll?.contents ?? [...(coll?.values?.() ?? [])];
+  for (const d of docs) out.set(d.id ?? d._id, { obj: d.toObject ? d.toObject() : clone(d), invalid: false });
+  const invalid = coll?.invalidDocumentIds;
+  if (invalid && typeof invalid[Symbol.iterator] === "function") {
+    const source = Array.isArray(actor._source?.[collection]) ? actor._source[collection] : [];
+    for (const id of invalid) {
+      if (out.has(id)) continue;
+      let src = source.find((d) => d?._id === id) ?? null;
+      if (!src) { try { const bad = coll.getInvalid?.(id, { strict: false }); src = bad?._source ?? (bad?.toObject ? bad.toObject() : null); } catch (err) { src = null; } }
+      out.set(id, { obj: src ? clone(src) : { _id: id }, invalid: true });
+    }
+  }
+  return out;
+}
+
+const itemLabel = (d) => `${d?.name ?? "?"} [${d?.type ?? "?"}]`;
 
 /**
  * Bring an actor's embedded collection to what the import has: delete what it
  * lacks (with `replace`), update only documents that differ — and only the
  * fields that differ (docDiff) — then create the rest with their ids.
- *  - Cached spells of a Cast item that is itself being deleted are left to
- *    dnd5e: Item5e#_onDelete removes them (without awaiting), and deleting
- *    them here as well is the "Item X does not exist!" race.
+ *  - dnd5e's cached spells (flags.dnd5e.cachedFor) are NEVER written: the
+ *    system creates, replaces and deletes them itself whenever their Cast item
+ *    changes, concurrently with us — touching them is the "Item X does not
+ *    exist!" storm and the "_id already exists" failure. Both sides of the
+ *    diff ignore them.
+ *  - A document Foundry holds as INVALID (it never reached the collection, so
+ *    v1.4 tried to create it again and hit "_id already exists") is repaired
+ *    through an UPDATE of the differing fields — the system's singleton rule
+ *    (one species, one background per character) only guards creation. If
+ *    the update is refused it is deleted and created again under its id.
+ *  - A creation the system refuses (that singleton rule, with a stand-in
+ *    species already on the sheet) is a `refused` note on the stats, not a
+ *    failure of the whole actor.
  *  - An item whose activities change is updated in a call of its own: dnd5e
  *    keeps the cached-spell ids it must remove on the shared batch options,
  *    so two such items in one call would trip over each other.
  */
 async function syncEmbedded(actor, collection, docName, incoming, replace) {
   const coll = actor[collection];
-  const docs = coll?.contents ?? [...(coll?.values?.() ?? [])];
-  const existing = new Map(docs.map((d) => [d.id ?? d._id, d.toObject ? d.toObject() : clone(d)]));
-  const incomingIds = new Set(incoming.filter((d) => d._id).map((d) => d._id));
-  const stats = { deleted: 0, updated: 0, created: 0, unchanged: 0 };
-  const going = new Set(replace ? [...existing.keys()].filter((id) => !incomingIds.has(id)) : []);
-  const toDelete = [...going].filter((id) => { const owner = cachedSpellOwner(existing.get(id)); return !(owner && going.has(owner)); });
-  const batch = [], solo = [];
-  for (const d of incoming) {
+  const existing = embeddedSources(actor, collection);
+  for (const [id, e] of [...existing]) if (isCachedSpell(e.obj)) existing.delete(id);
+  const wanted = (incoming ?? []).filter((d) => d && !isCachedSpell(d));
+  const incomingIds = new Set(wanted.filter((d) => d._id).map((d) => d._id));
+  const stats = { deleted: 0, updated: 0, created: 0, unchanged: 0, repaired: 0, refused: [] };
+  const toDelete = replace ? [...existing.keys()].filter((id) => !incomingIds.has(id)) : [];
+  const batch = [], solo = [], invalid = [];
+  for (const d of wanted) {
     if (!d._id || !existing.has(d._id)) continue;
-    const diff = docDiff(existing.get(d._id), d);
+    const cur = existing.get(d._id);
+    const diff = docDiff(cur.obj, d);
     if (!Object.keys(diff).length) { stats.unchanged++; continue; }
+    if (cur.invalid) { invalid.push({ data: d, update: { _id: d._id, ...diff } }); continue; }
     (isPlain(diff.system) && "activities" in diff.system ? solo : batch).push({ _id: d._id, ...diff });
   }
-  const toCreate = incoming.filter((d) => !d._id || !existing.has(d._id));
+  const toCreate = wanted.filter((d) => !d._id || !existing.has(d._id));
   if (toDelete.length) {
-    const live = toDelete.filter((id) => (typeof coll?.has === "function" ? coll.has(id) : true));
+    const live = toDelete.filter((id) => !existing.get(id)?.invalid && (typeof coll?.has === "function" ? coll.has(id) : true));
     if (live.length) await actor.deleteEmbeddedDocuments(docName, live);
     stats.deleted = live.length;
+    for (const id of toDelete.filter((bad) => existing.get(bad)?.invalid)) {
+      try { await actor.deleteEmbeddedDocuments(docName, [id]); stats.deleted++; }
+      catch (err) { console.warn(`[${MODULE_ID}] ${actor.name}: invalid ${docName} ${id} could not be deleted:`, err); }
+    }
   }
   if (batch.length) await actor.updateEmbeddedDocuments(docName, batch);
   for (const one of solo) await actor.updateEmbeddedDocuments(docName, [one]);
   stats.updated = batch.length + solo.length;
-  if (toCreate.length) { await actor.createEmbeddedDocuments(docName, toCreate, { keepId: true }); stats.created = toCreate.length; }
+  for (const { data, update } of invalid) {
+    // repair: the update carries what the packet fixed (the identifier); if
+    // the document is beyond updating, replace it under its own id
+    try { await actor.updateEmbeddedDocuments(docName, [update]); stats.repaired++; stats.updated++; continue; }
+    catch (err) { console.warn(`[${MODULE_ID}] ${actor.name}: ${itemLabel(data)} could not be updated in place (${err?.message ?? err}); replacing it`); }
+    try { await actor.deleteEmbeddedDocuments(docName, [data._id]); } catch (err) { console.warn(`[${MODULE_ID}] ${actor.name}: delete ${itemLabel(data)}:`, err); }
+    const made = await actor.createEmbeddedDocuments(docName, [data], { keepId: true });
+    if (Array.isArray(made) && made.length === 0) stats.refused.push(itemLabel(data));
+    else { stats.repaired++; stats.created++; }
+  }
+  if (toCreate.length) {
+    const made = await actor.createEmbeddedDocuments(docName, toCreate, { keepId: true });
+    const got = Array.isArray(made) ? made.length : toCreate.length;
+    stats.created += got;
+    if (Array.isArray(made) && got < toCreate.length) {
+      const ids = new Set(made.map((m) => m?.id ?? m?._id).filter(Boolean));
+      for (const d of toCreate) if (!(d._id && ids.has(d._id)) && !made.some((m) => m?.name === d.name && m?.type === d.type)) stats.refused.push(itemLabel(d));
+    }
+  }
   return stats;
+}
+
+/**
+ * Pure: a character carrying two of a kind dnd5e means to be unique (the
+ * players' broken Toad species next to the Grung stand-in they added while it
+ * was invalid) — a note for the GM, who decides which one goes.
+ */
+export function singletonNotes(actorObj) {
+  if (actorObj?.type !== "character") return [];
+  const by = {};
+  for (const it of actorObj.items ?? []) if (it?.type === "race" || it?.type === "background") (by[it.type] ??= []).push(it.name);
+  return Object.entries(by).filter(([, names]) => names.length > 1)
+    .map(([type, names]) => `${names.length} ${type === "race" ? "species" : "background"} items — ${names.join(" / ")} — keep one, delete the stand-in`);
 }
 
 function mergeFlags(existingFlags, incomingFlags) {
@@ -846,7 +949,7 @@ export async function importPayload(raw, options = {}) {
   const o = { ...DEFAULTS, ...options };
   const Actor = G().Actor;
   const { entries, meta, folderStyles } = normalizeImport(raw);
-  const report = { created: [], updated: [], replaced: [], skipped: [], failed: [], foldersCreated: [], foldersStyled: [], missingImages: [], repaired: [], unchanged: 0, dryRun: o.dryRun, meta };
+  const report = { created: [], updated: [], replaced: [], skipped: [], failed: [], foldersCreated: [], foldersStyled: [], foldersMerged: [], foldersPruned: [], missingImages: [], repaired: [], notes: [], embeddedRepaired: 0, unchanged: 0, dryRun: o.dryRun, meta };
   const folderCache = new Map();
   const prefix = splitPath(o.rootFolder);
   const batchIds = new Set(entries.map((e) => e.data?._id).filter(Boolean));
@@ -909,6 +1012,9 @@ export async function importPayload(raw, options = {}) {
           const effects_ = await syncEmbedded(existing, "effects", "ActiveEffect", effects, o.replaceEmbedded);
           const changed = Object.keys(update).length > 0 || [items_, effects_].some((s) => s.deleted || s.updated || s.created);
           if (!changed) report.unchanged++;
+          report.embeddedRepaired += items_.repaired + effects_.repaired;
+          for (const what of [...items_.refused, ...effects_.refused]) report.notes.push({ actor: label, note: `${what} not added — the system refused it (only one of its kind per character; a stand-in is already on the sheet)` });
+          for (const note of singletonNotes(existing.toObject ? existing.toObject() : existing)) report.notes.push({ actor: label, note });
           report.updated.push({ actor: label, id: existing.id ?? existing._id, folder: folderLabel, items: items_, effects: effects_, changed });
         } else report.updated.push({ actor: label, id: existing.id ?? existing._id, folder: folderLabel });
       } else {
@@ -942,7 +1048,11 @@ export function summarize(report) {
   if (report.failed.length) parts.push(`${report.failed.length} FAILED`);
   if (report.foldersCreated.length) parts.push(`${report.foldersCreated.length} folders`);
   if (report.foldersStyled?.length) parts.push(`${report.foldersStyled.length} coloured`);
+  if (report.foldersMerged?.length) parts.push(`${report.foldersMerged.length} duplicate folders merged`);
+  if (report.foldersPruned?.length) parts.push(`${report.foldersPruned.length} empty folders removed`);
   if (report.repaired?.length) parts.push(`${report.repaired.reduce((n, r) => n + r.repairs.length, 0)} identifiers repaired`);
+  if (report.embeddedRepaired) parts.push(`${report.embeddedRepaired} broken items repaired`);
+  if (report.notes?.length) parts.push(`${report.notes.length} note${report.notes.length === 1 ? "" : "s"}`);
   if (report.missingImages.length) parts.push(`${report.missingImages.length} missing images`);
   let text = parts.join(", ");
   if (report.unchanged) text += ` (${report.unchanged} unchanged)`;
@@ -1159,22 +1269,130 @@ async function showReport(report) {
   return showHtml(report.dryRun ? "Mass import — dry run" : "Mass import — report", reportHtml(report));
 }
 
+/* --------------------------------------------------------- folder tidy */
+
+/**
+ * Pure. rows: [{id, name, parent}] (Actor folders). Groups of folders that
+ * share a parent and a name (trimmed, case-insensitive) — what an earlier
+ * import left behind. In each group the folder with the most actors below it
+ * (`counts`: {id: n}) is kept — ties to a cleanly named one, then the first;
+ * the others are merged into it.
+ */
+export function duplicateFolderGroups(rows, counts = {}) {
+  const groups = new Map();
+  for (const r of rows) {
+    const key = `${r.parent ?? ""}\u0000${folderKey(r.name)}`;
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(r);
+  }
+  const out = [];
+  for (const list of groups.values()) {
+    if (list.length < 2) continue;
+    const clean = (r) => (String(r.name ?? "") === String(r.name ?? "").trim().replace(/\s+/g, " ") ? 0 : 1);
+    const sorted = [...list].sort((a, b) => (counts[b.id] ?? 0) - (counts[a.id] ?? 0) || clean(a) - clean(b));
+    out.push({ keep: sorted[0], others: sorted.slice(1) });
+  }
+  return out;
+}
+
+/**
+ * Pure. Folders with no actors and no sub-folders, children before parents
+ * (deleting the leaf can empty its parent), as ids. rows as above; occupied:
+ * the set of folder ids that hold at least one actor.
+ */
+export function emptyFolderIds(rows, occupied) {
+  const alive = new Map(rows.map((r) => [r.id, r]));
+  const used = new Set(occupied);
+  const out = [];
+  for (let pass = 0; pass < 64; pass++) {
+    const parents = new Set([...alive.values()].map((r) => r.parent).filter(Boolean));
+    const empties = [...alive.values()].filter((r) => !used.has(r.id) && !parents.has(r.id));
+    if (!empties.length) break;
+    for (const r of empties) { out.push(r.id); alive.delete(r.id); }
+  }
+  return out;
+}
+
+function folderRows() {
+  const game = G().game;
+  const folders = (game.folders?.contents ?? [...(game.folders?.values?.() ?? [])]).filter((f) => f.type === "Actor");
+  return folders.map((f) => ({ id: f.id ?? f._id, name: f.name, parent: parentIdOf(f), doc: f }));
+}
+
+function actorFolderIds() {
+  const game = G().game;
+  const actors = game.actors?.contents ?? [...(game.actors?.values?.() ?? [])];
+  return actors.map((a) => [a, a.folder?.id ?? a.folder?._id ?? a.folder ?? null]);
+}
+
+/**
+ * After an import: merge duplicate Actor folders (same parent, same name) into
+ * the fuller one — actors and sub-folders move over, the kept folder takes a
+ * colour it lacks — and delete every Actor folder left with nothing in it.
+ * Fills report.foldersMerged / foldersPruned. Does nothing on a dry run
+ * beyond listing what it would do.
+ */
+export async function tidyFolders({ merge = true, prune = true, dryRun = false, report = null } = {}) {
+  const out = report ?? { foldersMerged: [], foldersPruned: [] };
+  out.foldersMerged ??= []; out.foldersPruned ??= [];
+  const mergedAway = new Set();
+  if (merge) {
+    const rows = folderRows();
+    const counts = subtreeCounts();
+    for (const { keep, others } of duplicateFolderGroups(rows, counts)) {
+      for (const other of others) {
+        const label = `${pathLabel(other.doc)} → kept the fuller one`;
+        out.foldersMerged.push(label);
+        mergedAway.add(other.id);
+        if (dryRun) continue;
+        try {
+          for (const [a, fid] of actorFolderIds()) if (fid === other.id) await a.update({ folder: keep.id });
+          for (const r of folderRows()) if (r.parent === other.id) await r.doc.update({ folder: keep.id });
+          const keepColor = keep.doc.color?.css ?? (typeof keep.doc.color === "string" ? keep.doc.color : null);
+          const otherColor = other.doc.color?.css ?? (typeof other.doc.color === "string" ? other.doc.color : null);
+          if (!keepColor && otherColor) await keep.doc.update({ color: otherColor });
+          await other.doc.delete({ deleteSubfolders: false, deleteContents: false });
+        } catch (err) { console.warn(`[${MODULE_ID}] merge folder ${other.name}:`, err); }
+      }
+    }
+  }
+  if (prune) {
+    const rows = folderRows();
+    const occupied = new Set(actorFolderIds().map(([, fid]) => fid).filter(Boolean));
+    const byId = new Map(rows.map((r) => [r.id, r]));
+    for (const id of emptyFolderIds(rows, occupied)) {
+      const r = byId.get(id);
+      if (!r || mergedAway.has(id)) continue; // (dry run) already listed under merges
+      out.foldersPruned.push(pathLabel(r.doc));
+      if (dryRun) continue;
+      try { await r.doc.delete({ deleteSubfolders: false, deleteContents: false }); }
+      catch (err) { console.warn(`[${MODULE_ID}] remove empty folder ${r.name}:`, err); }
+    }
+  }
+  return out;
+}
+
+function pathLabel(folder) {
+  const parts = folderPathOf(folder && typeof folder === "object" ? folder : null);
+  return parts?.length ? parts.join(" / ") : String(folder?.name ?? "?");
+}
+
 /* ------------------------------------------------------------------ sync */
 
 export const SYNC_DEFAULTS = {
   world: "midlands",
-  scope: "players",             // players | world | cast
   packetDir: "npc/waluipedia",  // inside Data: where tools/sheets-suite.py publishes the packets
   launcher: "http://127.0.0.1:8765/",
   branch: "gh-pages",
   review: false,
+  auto: true,                   // sync by itself when the world loads (once per published packet)
+  mergeFolders: true,           // merge duplicate Actor folders after a sync
+  pruneFolders: true,           // remove empty Actor folders after a sync
 };
-export const SYNC_SCOPES = {
-  players: "the player characters (the Players folder)",
-  world: "the whole world mirror",
-  cast: "the generated Waluipedia cast",
-};
-const SYNC_SETTING_KEYS = { world: "syncWorld", scope: "syncScope", packetDir: "syncPacketDir", launcher: "syncLauncher", branch: "syncBranch", review: "syncReview" };
+const SYNC_SETTING_KEYS = { world: "syncWorld", packetDir: "syncPacketDir", launcher: "syncLauncher", branch: "syncBranch", review: "syncReview", auto: "syncAuto", mergeFolders: "syncMergeFolders", pruneFolders: "syncPruneFolders" };
+const SYNC_STAMP_SETTING = "syncLastStamp";
+/** Everything one sync carries — there is no scope to choose. */
+export const SYNC_SCOPE_LABEL = "everything: the world mirror, the generated cast, the 955 BF court";
 
 function syncSetting(key) {
   try {
@@ -1191,34 +1409,96 @@ export function syncSettings(overrides = {}) {
 }
 
 /**
- * Pure: where a packet can be, in the order Sync tries them.
+ * Pure: where the packet can be, in the order Sync tries them.
  *   data      the Foundry Data folder — fetched same-origin, no URL to type;
- *             tools/sheets-suite.py puts it there every pass
- *   launcher  the start.py static server on this machine
- *   github    the committed world manifest + its actor files (the combined
- *             packets are build artefacts and are not committed); for the
- *             cast, the committed packet itself
+ *             tools/sheets-suite.py puts import.json (everything) there every
+ *             pass, with packets.json beside it (stamps, digest)
+ *   launcher  the start.py static server on this machine — the same file
+ *   github    the committed world manifest + its actor files, plus the
+ *             committed cast and era packets, merged here (the combined
+ *             import.json is a build artefact and is not committed)
  */
 export function syncCandidates(s = {}) {
   const o = { ...SYNC_DEFAULTS, ...s };
   const dir = trimSlashes(o.packetDir || SYNC_DEFAULTS.packetDir);
   const launcher = String(o.launcher || SYNC_DEFAULTS.launcher).trim().replace(/\/+$/, "") + "/";
   const raw = `https://raw.githubusercontent.com/mikegent01/bik/${o.branch || SYNC_DEFAULTS.branch}/`;
-  if (o.scope === "cast") {
-    const rel = "Reputation-Matrix2/actors/cast/import.json";
-    return [
-      { source: "data", label: "Foundry Data folder", url: `${dir}/cast/import.json`, info: `${dir}/cast/packets.json` },
-      { source: "launcher", label: "start.py launcher", url: launcher + rel },
-      { source: "github", label: `GitHub (${o.branch})`, url: raw + rel },
-    ];
-  }
-  const file = o.scope === "world" ? "import.json" : "players-import.json";
   const rel = `Reputation-Matrix2/actors/worlds/${o.world}/`;
   return [
-    { source: "data", label: "Foundry Data folder", url: `${dir}/${o.world}/${file}`, info: `${dir}/${o.world}/packets.json` },
-    { source: "launcher", label: "start.py launcher", url: `${launcher}${rel}${file}`, info: `${launcher}${rel}manifest.json` },
-    { source: "github", label: `GitHub (${o.branch})`, url: `${raw}${rel}manifest.json`, manifest: true, folder: o.scope === "world" ? null : "Players" },
+    { source: "data", label: "Foundry Data folder", url: `${dir}/${o.world}/import.json`, info: `${dir}/${o.world}/packets.json` },
+    { source: "launcher", label: "start.py launcher", url: `${launcher}${rel}import.json`, info: `${launcher}${rel}manifest.json` },
+    { source: "github", label: `GitHub (${o.branch})`, url: `${raw}${rel}manifest.json`, manifest: true,
+      extras: [{ label: "cast", url: `${raw}Reputation-Matrix2/actors/cast/import.json` }, { label: "era", url: `${raw}Reputation-Matrix2/actors/peachs-castle-955/import.json` }] },
   ];
+}
+
+const nameKey = (a) => `${String(a?.name ?? "").trim().toLowerCase()}\u0000${a?.type ?? ""}`;
+
+/**
+ * Pure: several packets → one, the way tools/foundry-bridge.py combine does
+ * it: the first packet wins an actor the next ones repeat by _id or by name +
+ * type (the live world's Koopatrol over the era packet's), folders and folder
+ * styles are unioned. `merged` lists what each packet contributed.
+ */
+export function mergePackets(packets) {
+  const list = packets.filter((p) => p?.raw);
+  if (!list.length) throw new Error("nothing to merge");
+  const out = { format: FORMAT, exportedFrom: list[0].raw.exportedFrom ?? null, exportedAt: list[0].raw.exportedAt ?? null, actors: [], folders: [], folderStyles: {}, merged: [] };
+  const seenIds = new Set(), seenKeys = new Set(), seenFolders = new Set();
+  for (const p of list) {
+    const { entries, folders, folderStyles } = normalizeImport(p.raw);
+    let took = 0, left = 0;
+    const mine = new Set(); // two "Guard" statblocks within ONE packet are two actors
+    for (const e of entries) {
+      const a = e.data;
+      const id = a._id ?? null;
+      if ((id && seenIds.has(id)) || seenKeys.has(nameKey(a))) { left++; continue; }
+      if (id) seenIds.add(id);
+      mine.add(nameKey(a));
+      out.actors.push(a);
+      took++;
+    }
+    for (const k of mine) seenKeys.add(k);
+    for (const f of folders) {
+      const key = Array.isArray(f?.path) ? f.path.join(" / ") : (f?._id ?? "");
+      if (!key || seenFolders.has(key)) continue;
+      seenFolders.add(key);
+      out.folders.push(f);
+    }
+    for (const [k, v] of Object.entries(folderStyles)) if (!(k in out.folderStyles)) out.folderStyles[k] = v;
+    out.merged.push({ label: p.label ?? "?", actors: took, omitted: left });
+  }
+  out.actorCount = out.actors.length;
+  return out;
+}
+
+/** Pure: what identifies a published packet — the suite's digest, else its stamps, else the payload's own shape. */
+export function syncStamp(info, raw, source = "") {
+  if (info?.digest) return `${source}:${info.digest}`;
+  if (info?.publishedAt) return `${source}:${info.publishedAt}`;
+  const n = raw?.actorCount ?? raw?.actors?.length ?? 0;
+  let size = 0;
+  try { size = JSON.stringify(raw ?? null).length; } catch (err) { size = 0; }
+  return `${source}:${raw?.exportedAt ?? "?"}:${n}:${size}`;
+}
+
+/**
+ * The module files on disk vs the code this world is running: Foundry loads
+ * a module's scripts once per world launch, so after tools/sheets-suite.py
+ * installs a newer version the GM must Setup → relaunch the world (and
+ * Ctrl+F5). Returns {running, onDisk, stale}.
+ */
+export async function checkModuleVersion() {
+  const out = { running: MODULE_VERSION, onDisk: null, stale: false };
+  try {
+    const res = await G().fetch(`modules/${MODULE_ID}/module.json?t=${Date.now()}`, { cache: "no-store" });
+    if (res?.ok) {
+      const json = await res.json();
+      out.onDisk = json?.version ?? null;
+      out.stale = !!(out.onDisk && out.onDisk !== MODULE_VERSION);
+    }
+  } catch (err) { /* offline packaging, tests — not a problem */ }
+  return out;
 }
 
 /** Pure: the facts the summary compares, from a plain actor object. */
@@ -1300,17 +1580,22 @@ export function syncSummaryHtml(report) {
   const stamps = [s.exportedAt ? `export ${escapeHtml(s.exportedAt)}` : null, s.info?.publishedAt ? `published ${escapeHtml(s.info.publishedAt)}` : null].filter(Boolean).join(" · ");
   const levelUps = rows.filter((r) => r.levelUp);
   const replaced = by("replaced"), changed = by("updated"), fresh = by("new"), same = by("unchanged");
+  const merged = (s.merged ?? []).map((m) => `${escapeHtml(m.label)} ${m.actors}${m.omitted ? ` (${m.omitted} already in an earlier part)` : ""}`).join(" · ");
+  const version = s.version ?? null;
+  const notes = report.notes ?? [];
   return `<div class="wmi-report wmi-sync">
-    <p><strong>${escapeHtml(summarize(report))}</strong><br><small>${escapeHtml(SYNC_SCOPES[s.scope] ?? s.scope ?? "")} · from ${escapeHtml(s.used?.label ?? "?")}${stamps ? ` · ${stamps}` : ""}</small></p>
+    ${version?.stale ? `<p class="wmi-stale">⚠ This world is still running module <b>${escapeHtml(version.running)}</b> while <b>${escapeHtml(version.onDisk)}</b> is installed. <b>Setup → relaunch the world</b> (then Ctrl+F5) to run the new code.</p>` : ""}
+    <p><strong>${escapeHtml(summarize(report))}</strong><br><small>${escapeHtml(SYNC_SCOPE_LABEL)} · from ${escapeHtml(s.used?.label ?? "?")}${stamps ? ` · ${stamps}` : ""}${merged ? ` · ${merged}` : ""} · module ${escapeHtml(version?.running ?? MODULE_VERSION)}${s.trigger === "auto" ? " · automatic" : ""}</small></p>
     ${levelUps.length ? `<p class="wmi-levelup">⬆ Level up at the table: ${levelUps.map((r) => `<b>${escapeHtml(r.name)}</b> (${escapeHtml(r.levelUp)})`).join(", ")}</p>` : ""}
     <details ${replaced.length ? "open" : ""}><summary>Replaced — NPC statblock → character sheet, same id (${replaced.length})</summary>${li(replaced, row)}</details>
     <details ${changed.length ? "open" : ""}><summary>Changed (${changed.length})</summary>${li(changed, row)}</details>
     <details ${fresh.length ? "open" : ""}><summary>New (${fresh.length})</summary>${li(fresh, row)}</details>
     <details><summary>Unchanged (${same.length})</summary>${li(same, (r) => `<li>${escapeHtml(r.name)}</li>`)}</details>
     <details ${report.failed.length ? "open" : ""}><summary>Failed (${report.failed.length})</summary>${li(report.failed, (r) => `<li>${escapeHtml(r.actor)} — ${escapeHtml(r.error)}</li>`)}</details>
+    <details ${notes.length ? "open" : ""}><summary>Notes for the GM (${notes.length})</summary>${li(notes, (n) => `<li><b>${escapeHtml(n.actor)}</b> — ${escapeHtml(n.note)}</li>`)}</details>
     ${repairedHtml(report)}
     <details ${report.missingImages.length ? "open" : ""}><summary>Missing images (${report.missingImages.length})</summary>${li(report.missingImages, (r) => `<li>${escapeHtml(r.actor)} · ${escapeHtml(r.where)} · <code>${escapeHtml(r.path)}</code></li>`)}<p class="notes">Paths the server answered 404 for. Bare file names and <code>modules/…</code> paths come from someone else's Data folder; set the portrait on the sheet or tick <i>fix missing images</i> in Mass import.</p></details>
-    <details><summary>Folders (${folderCounts(rows).length}${report.foldersCreated.length ? `, ${report.foldersCreated.length} new` : ""}${report.foldersStyled?.length ? `, ${report.foldersStyled.length} coloured` : ""})</summary><ul>${folderCounts(rows).map(([f, n]) => `<li>${escapeHtml(f)} <small>${n}</small>${report.foldersCreated.includes(f) ? " <small>(new)</small>" : ""}</li>`).join("")}</ul></details>
+    <details><summary>Folders (${folderCounts(rows).length}${report.foldersCreated.length ? `, ${report.foldersCreated.length} new` : ""}${report.foldersStyled?.length ? `, ${report.foldersStyled.length} coloured` : ""}${report.foldersMerged?.length ? `, ${report.foldersMerged.length} merged` : ""}${report.foldersPruned?.length ? `, ${report.foldersPruned.length} empty removed` : ""})</summary><ul>${folderCounts(rows).map(([f, n]) => `<li>${escapeHtml(f)} <small>${n}</small>${report.foldersCreated.includes(f) ? " <small>(new)</small>" : ""}</li>`).join("")}</ul>${report.foldersMerged?.length ? `<p class="notes">Merged duplicates: ${report.foldersMerged.map(escapeHtml).join("; ")}</p>` : ""}${report.foldersPruned?.length ? `<p class="notes">Removed empty folders: ${report.foldersPruned.map(escapeHtml).join("; ")}</p>` : ""}</details>
     <details><summary>Where it looked</summary><ul>${tried}</ul></details>
   </div>`;
 }
@@ -1318,9 +1603,9 @@ export function syncSummaryHtml(report) {
 export function syncHelpHtml(attempts, s = {}) {
   const tried = attempts.map((a) => `<li>✘ ${escapeHtml(a.label)} <code>${escapeHtml(a.url)}</code> — ${escapeHtml(a.error ?? "")}</li>`).join("");
   return `<div class="wmi-report wmi-sync">
-    <p><strong>No packet found for ${escapeHtml(SYNC_SCOPES[s.scope] ?? s.scope ?? "")}</strong> (world <code>${escapeHtml(s.world ?? "")}</code>). Nothing was changed.</p>
+    <p><strong>No Waluipedia packet found</strong> (world <code>${escapeHtml(s.world ?? "")}</code>). Nothing was changed.</p>
     <ul>${tried}</ul>
-    <p class="notes">Fixes, in order: <b>run <code>start.py</code></b> with <i>Character sheets</i> ticked — it publishes the packet into your Foundry Data folder (<code>${escapeHtml(s.packetDir ?? "")}/${escapeHtml(s.world ?? "")}/</code>) and serves it at the launcher URL; if Foundry's Data lives somewhere unusual, start it with <code>--foundry-data &lt;path&gt;</code> or set <code>WALUIPEDIA_FOUNDRY_DATA</code>; the GitHub source only has what is merged into <code>${escapeHtml(s.branch ?? "")}</code>. Settings: <i>Configure Settings → Waluipedia Mass Import</i>.</p>
+    <p class="notes">Fixes, in order: <b>run <code>start.py</code></b> with <i>Character sheets</i> ticked — it publishes the packet into your Foundry Data folder (<code>${escapeHtml(s.packetDir ?? "")}/${escapeHtml(s.world ?? "")}/import.json</code>) and serves it at the launcher URL; if Foundry's Data lives somewhere unusual, start it with <code>--foundry-data &lt;path&gt;</code> or set <code>WALUIPEDIA_FOUNDRY_DATA</code>; the GitHub source only has what is merged into <code>${escapeHtml(s.branch ?? "")}</code>. Settings: <i>Configure Settings → Waluipedia Mass Import</i>.</p>
   </div>`;
 }
 
@@ -1335,31 +1620,65 @@ async function postSyncChat(report) {
 }
 
 /**
- * ONE CLICK. Find the packet (Data → launcher → GitHub), import it into its
- * folders, apply what changed, show the summary (and whisper it to the GMs so
- * it stays in the chat log). overrides: any SYNC_DEFAULTS key, plus
- * `options` for importPayload (dryRun, checkImages, ...).
+ * Load one candidate: the packet itself, or (GitHub) the world manifest + the
+ * cast and era packets merged. Returns {raw, files, ignored, exportedAt, merged}.
+ */
+async function loadCandidate(c) {
+  if (!c.manifest) {
+    const l = await loadSourceDetailed({ url: c.url });
+    normalizeImport(l.raw);
+    return { ...l, merged: null };
+  }
+  const world = await loadManifest(c.url, { folder: null });
+  const parts = [{ label: "world", raw: world.raw }];
+  const ignored = [...(world.ignored ?? [])];
+  for (const x of c.extras ?? []) {
+    try { parts.push({ label: x.label, raw: await fetchJson(x.url) }); }
+    catch (err) { ignored.push({ path: x.url, reason: err?.message ?? String(err) }); }
+  }
+  const raw = mergePackets(parts);
+  return { raw, files: world.files, ignored, exportedAt: world.exportedAt ?? null, kind: "github", merged: raw.merged };
+}
+
+/**
+ * EVERYTHING, one call. Find the packet (Data → launcher → GitHub), import it
+ * into its folders, tidy the folders, show the summary (and whisper it to the
+ * GMs so it stays in the chat log). overrides: any SYNC_DEFAULTS key, plus
+ * `options` for importPayload (dryRun, checkImages, ...) and `trigger`
+ * ("button" | "auto" | "macro"): an automatic sync of a packet already synced
+ * (same digest) does nothing and says so only in the console.
  */
 export async function syncFromWaluipedia(overrides = {}) {
   const g = G();
   const s = syncSettings(overrides);
+  const trigger = overrides.trigger ?? "button";
   const attempts = [];
   let loaded = null, used = null;
   for (const c of syncCandidates(s)) {
     try {
-      const l = c.manifest ? await loadManifest(c.url, { folder: c.folder }) : await loadSourceDetailed({ url: c.url, manifestFolder: c.folder ?? null });
-      normalizeImport(l.raw);
+      const l = await loadCandidate(c);
       loaded = l; used = c; attempts.push({ ...c, ok: true });
       break;
     } catch (err) { attempts.push({ ...c, ok: false, error: err?.message ?? String(err) }); }
   }
   if (!used) {
+    if (trigger === "auto") { console.log(`[${MODULE_ID}] automatic sync: no packet found`, attempts); return null; }
     notify("error", "Sync: no Waluipedia packet found — nothing changed (see the dialog)");
     await showHtml("Sync — nothing to import", syncHelpHtml(attempts, s), 620);
     return null;
   }
   let info = null;
-  if (used.info) { try { info = await fetchJson(used.info); } catch (err) { info = null; } }
+  if (used.info && !used.manifest) { try { info = await fetchJson(used.info); } catch (err) { info = null; } }
+  if (info && isManifest(info)) info = { exportedAt: info.exportedAt ?? null };
+  const stamp = syncStamp(info, loaded.raw, used.source);
+  let lastStamp = null;
+  try { lastStamp = g.game.settings.get(MODULE_ID, SYNC_STAMP_SETTING) || null; } catch (err) { lastStamp = null; }
+  if (trigger === "auto" && lastStamp === stamp) {
+    console.log(`[${MODULE_ID}] automatic sync: packet unchanged since the last sync (${stamp}) — nothing to do`);
+    return { skipped: true, stamp };
+  }
+  const version = await checkModuleVersion();
+  if (version.stale) notify("warn", `Waluipedia Mass Import ${version.onDisk} is installed but this world still runs ${version.running} — Setup → relaunch the world (then Ctrl+F5)`);
   const exportedAt = info?.exportedAt ?? loaded.exportedAt ?? loaded.raw?.exportedAt ?? null;
   const worldActors = () => g.game?.actors?.contents ?? [...(g.game?.actors?.values?.() ?? [])];
   let raw = loaded.raw;
@@ -1375,16 +1694,36 @@ export async function syncFromWaluipedia(overrides = {}) {
   let report;
   try { report = await importPayload(raw, options); }
   catch (err) { notify("error", `Sync: ${err.message}`); console.error(`[${MODULE_ID}]`, err); return null; }
+  try { await tidyFolders({ merge: s.mergeFolders !== false, prune: s.pruneFolders !== false, dryRun: !!options.dryRun, report }); }
+  catch (err) { console.warn(`[${MODULE_ID}] folder tidy:`, err); }
   const after = snapshotWorld(worldActors());
   report.source = used.url;
   report.files = loaded.files;
   report.ignored = loaded.ignored;
   report.changes = syncChanges(normalizeImport(raw).entries, before, after, report);
-  report.sync = { used, attempts, info, exportedAt, scope: s.scope, world: s.world };
+  report.sync = { used, attempts, info, exportedAt, world: s.world, trigger, stamp, merged: loaded.merged ?? raw.merged ?? null, version };
+  if (!report.dryRun && !s.review) { try { await g.game.settings.set(MODULE_ID, SYNC_STAMP_SETTING, stamp); } catch (err) { /* no settings in tests */ } }
   announce(report);
   if (!report.dryRun) await postSyncChat(report);
-  await showHtml(report.dryRun ? "Sync — dry run" : "Sync — summary", syncSummaryHtml(report), 660);
+  const quiet = trigger === "auto" && !report.failed.length && !report.created.length && !report.replaced.length && !report.notes.length
+    && report.updated.every((u) => u.changed === false) && !report.foldersMerged.length && !report.foldersPruned.length;
+  if (!quiet) await showHtml(report.dryRun ? "Sync — dry run" : "Sync — summary", syncSummaryHtml(report), 660);
   return report;
+}
+
+/** The `ready` hook's part: a GM's world syncs itself once per published packet (setting syncAuto). */
+export async function autoSync({ delay = 2500 } = {}) {
+  const g = G();
+  if (!g.game?.user?.isGM) return null;
+  // two GMs logged in: only the active one (Foundry's pick) syncs — the stamp is a world setting
+  const activeGM = g.game.users?.activeGM;
+  if (activeGM && activeGM.id !== g.game.user.id) return null;
+  let on = true;
+  try { on = g.game.settings.get(MODULE_ID, SYNC_SETTING_KEYS.auto) !== false; } catch (err) { on = true; }
+  if (!on) return null;
+  if (delay) await new Promise((resolve) => setTimeout(resolve, delay));
+  try { return await syncFromWaluipedia({ trigger: "auto" }); }
+  catch (err) { console.warn(`[${MODULE_ID}] automatic sync:`, err); return null; }
 }
 
 /* ----------------------------------------------------------------- hooks */
@@ -1394,7 +1733,7 @@ export function injectButtons(root) {
   const header = root.querySelector(".header-actions, .action-buttons, .directory-header");
   if (!header || header.querySelector(".wmi-buttons")) return false;
   header.insertAdjacentHTML("beforeend", `<div class="wmi-buttons">
-      <button type="button" class="wmi-sync" title="One click: find the newest Waluipedia packet (your Foundry Data folder → the start.py launcher → GitHub), import it into its folders, apply the changes, show a summary. Shift-click to review the list first."><i class="fas fa-sync-alt"></i> Sync</button>
+      <button type="button" class="wmi-sync" title="Everything, one click: find the newest Waluipedia packet (your Foundry Data folder → the start.py launcher → GitHub), import the world mirror + the generated cast + the 955 BF court into their coloured folders, merge duplicate folders, remove empty ones, show a summary. Runs by itself when the world loads. Shift-click to review the list first."><i class="fas fa-sync-alt"></i> Sync</button>
       <button type="button" class="wmi-import" title="Import many actors — a JSON, a repo packet, a URL, or a Data directory (subfolders → folders); review table first; existing actors updated in place"><i class="fas fa-file-import"></i> Mass import</button>
       <button type="button" class="wmi-export" title="Export every actor with its folder path — one JSON download, or a tree inside your Data folder"><i class="fas fa-file-export"></i> Mass export</button>
     </div>`);
@@ -1445,8 +1784,10 @@ export const api = {
   importPayload, importFile, importFromUrl, importFromDataPath, openImportDialog,
   loadSource, loadSourceDetailed, loadDataPath, assembleDirectory, walkData, browseData, pickDataPath,
   buildPlan, applyPlanEdits, planHtml, normalizeImport, summarize,
-  syncFromWaluipedia, syncCandidates, syncSettings, syncChanges, syncSummaryHtml, snapshotWorld, actorFacts,
-  loadManifest, isManifest, isSheetIndex, SYNC_DEFAULTS, SYNC_SCOPES,
+  syncFromWaluipedia, autoSync, syncCandidates, syncSettings, syncChanges, syncSummaryHtml, snapshotWorld, actorFacts,
+  mergePackets, syncStamp, checkModuleVersion, tidyFolders, duplicateFolderGroups, emptyFolderIds, folderKey,
+  embeddedSources, isCachedSpell, singletonNotes,
+  loadManifest, isManifest, isSheetIndex, SYNC_DEFAULTS, SYNC_SCOPE_LABEL, MODULE_VERSION,
 };
 
 export function register() {
@@ -1460,12 +1801,15 @@ export function register() {
         scope: "world", config: true, type: String, default: "",
       });
       const reg = (key, name, hint, extra) => g.game.settings.register(MODULE_ID, key, { name, hint, scope: "world", config: true, ...extra });
+      reg("syncAuto", "Sync: automatic", "Sync everything by itself when the world loads — once per published packet (a packet already synced is skipped). Off: only the Sync button.", { type: Boolean, default: SYNC_DEFAULTS.auto });
       reg("syncWorld", "Sync: world id", "The world the Waluipedia mirror is split from (actors/worlds/<world>/).", { type: String, default: SYNC_DEFAULTS.world });
-      reg("syncScope", "Sync: what to import", "players = the Players folder only (the default; never touches your NPC edits) · world = the whole mirror · cast = the generated Waluipedia cast.", { type: String, default: SYNC_DEFAULTS.scope, choices: { players: "Player characters (Players folder)", world: "Whole world mirror", cast: "Generated Waluipedia cast" } });
-      reg("syncPacketDir", "Sync: packet folder inside Data", "Where tools/sheets-suite.py publishes the packets (default npc/waluipedia — Sync looks here first, no URL needed).", { type: String, default: SYNC_DEFAULTS.packetDir });
+      reg("syncPacketDir", "Sync: packet folder inside Data", "Where tools/sheets-suite.py publishes the packet (default npc/waluipedia — Sync looks here first, no URL needed).", { type: String, default: SYNC_DEFAULTS.packetDir });
       reg("syncLauncher", "Sync: launcher URL", "The start.py static server — tried when the Data folder has no packet.", { type: String, default: SYNC_DEFAULTS.launcher });
-      reg("syncBranch", "Sync: GitHub branch", "Last resort: the committed world manifest and actor files on this branch of mikegent01/bik.", { type: String, default: SYNC_DEFAULTS.branch });
+      reg("syncBranch", "Sync: GitHub branch", "Last resort: the committed world manifest and actor files, the cast and the era packets on this branch of mikegent01/bik, merged here.", { type: String, default: SYNC_DEFAULTS.branch });
+      reg("syncMergeFolders", "Sync: merge duplicate folders", "After a sync, two Actor folders with one name under one parent (what an earlier import left) become one — the fuller one.", { type: Boolean, default: SYNC_DEFAULTS.mergeFolders });
+      reg("syncPruneFolders", "Sync: remove empty folders", "After a sync, Actor folders holding no actor and no sub-folder are deleted.", { type: Boolean, default: SYNC_DEFAULTS.pruneFolders });
       reg("syncReview", "Sync: review first", "Show the review table before every sync (shift-click the button does it once).", { type: Boolean, default: SYNC_DEFAULTS.review });
+      g.game.settings.register(MODULE_ID, SYNC_STAMP_SETTING, { scope: "world", config: false, type: String, default: "" });
       g.game.settings.register(MODULE_ID, "showTags", { name: "Tag chips in the Actors sidebar", hint: "Show the Waluipedia tags (website group, pc/npc, role, creature type) next to each actor's name.", scope: "client", config: true, type: Boolean, default: true });
     } catch (err) { console.warn(`[${MODULE_ID}] settings`, err); }
   });
@@ -1473,7 +1817,8 @@ export function register() {
     const mod = g.game?.modules?.get?.(MODULE_ID);
     if (mod) mod.api = api;
     g[MODULE_ID.replace(/-/g, "_")] = api;
-    console.log(`[${MODULE_ID}] ready — game.modules.get("${MODULE_ID}").api`);
+    console.log(`[${MODULE_ID}] ${MODULE_VERSION} ready — game.modules.get("${MODULE_ID}").api`);
+    autoSync();
   });
   g.Hooks.on("renderActorDirectory", (app, html) => {
     const root = (typeof g.HTMLElement === "function" && html instanceof g.HTMLElement) ? html : (html?.[0] ?? html);

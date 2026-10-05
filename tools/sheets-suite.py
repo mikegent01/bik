@@ -475,7 +475,7 @@ def step_publish(world, write, port, foundry_data, how, install=True, images=Tru
             ok = False
         else:
             if changed:
-                say(f"  module   : {MODULE_ID} {before or 'absent'} -> {repo_version} installed under modules/ ({len(changed)} file(s)) — reload Foundry (F5)"
+                say(f"  module   : {MODULE_ID} {before or 'absent'} -> {repo_version} installed under modules/ ({len(changed)} file(s)) — Setup -> relaunch the world, then Ctrl+F5"
                     + ("; enable it under Game Settings -> Manage Modules" if not before else ""))
             else:
                 say(f"  module   : {MODULE_ID} {repo_version} is current")

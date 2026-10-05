@@ -34,11 +34,15 @@ python3 tools/foundry-bridge.py install-images Reputation-Matrix2/actors/worlds/
 
 `import.json` for a whole world is a 15 MB build artifact — regenerate it,
 don't commit it (the 955 packet commits its small one because it is served
-to Foundry straight from GitHub). `tools/sheets-suite.py` builds it, and a
-`players-import.json` of the Players folder alone, on every pass; both are
-git-ignored and served by `start.py` at
-`http://127.0.0.1:8765/Reputation-Matrix2/actors/worlds/<world>/…` for
-**Mass import → URL**.
+to Foundry straight from GitHub). `tools/sheets-suite.py` builds it on every
+pass as **the one packet the module syncs**: the mirror, then the generated
+cast (`actors/cast/import.json`), then the 955 BF court
+(`actors/peachs-castle-955/import.json`) — a name already in the world is
+not brought in twice (`omitted[]`) — plus a `players-import.json` of the
+Players folder alone for hand-offs. Both are git-ignored, published into
+`<Foundry Data>/npc/waluipedia/<world>/` and served by `start.py` at
+`http://127.0.0.1:8765/Reputation-Matrix2/actors/worlds/<world>/…`; the
+module (1.5) picks the packet up by itself when the world loads.
 
 `link-images` only rewrites **placeholder** images and **missing** repo paths
 (`portraits/…` the repo does not have). Paths it cannot see — `npc/…`,

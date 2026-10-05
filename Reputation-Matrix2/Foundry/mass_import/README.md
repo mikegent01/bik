@@ -10,8 +10,25 @@ existing ones updated in place (same `_id`), every image path checked, and a
 report. Together with `tools/foundry-bridge.py` this turns "add characters to
 the game" into a loop of *export → edit in the repo → import*.
 
-Module id: `waluipedia-mass-import`, version 1.4. Core v12–v14, any game
+Module id: `waluipedia-mass-import`, version 1.5. Core v12–v14, any game
 system (built and tested against dnd5e 5.x on core v14).
+
+## 1.5 — one packet, by itself, no FAILED actors, no leftover folders
+
+The second Sync printed `0 created, 149 updated, 2 FAILED, 22 folders` with a
+console full of `Item "X" does not exist!`, `Only a single Species can be
+added to a Player Character.` and `The _id [...] already exists within the
+parent collection`. 1.5 answers it the same way 1.4 answered the first one:
+
+| What you saw | Why | Now |
+| --- | --- | --- |
+| **Which packet?** `players` / `world` / `cast`, three files, 955 BF separate | Scopes. | **Gone.** There is **one packet** — `npc/waluipedia/<world>/import.json`, written by the suite from the world mirror → the generated cast → the 955 BF court (329 actors, 32 coloured folders for *midlands*; a name that is in the world already is not brought in a second time). Sync has nothing to choose and no file to pick; the GitHub fallback fetches the manifest, the cast and the court and merges them the same way. |
+| You have to click | — | **Sync runs by itself when the world loads** (GMs only, setting *Sync by itself*), a few seconds after `ready`, and only when the published packet changed since the last run — otherwise it does nothing and says nothing. The button and the macro still work; the summary opens when something was created, changed, repaired, noted or tidied. |
+| `2 FAILED` — Eager (`VudZ3W313Y4FILs0`), Feyward Dan (`IlzuThuR8upTtqtF`): `The _id [218ad632c6e149d9] already exists within the parent collection` | Their world copies hold **invalid embedded documents** — the home-made Toad species, a background, a feat, two pieces of clothing whose identifiers dnd5e refuses. Foundry keeps those out of `actor.items` (they only exist in the source and `invalidDocumentIds`), so the diff never saw them, tried to *create* the repaired copies under the same ids, and the server threw. | The sync reads the **source**, invalid documents included, and **repairs an invalid document with an update** (which dnd5e accepts); if that is refused too it is deleted and created again under its own id. Reported as *n broken items repaired*. |
+| `Only a single Species can be added to a Player Character.` / `… Background …` | Creating a species while the sheet already has one (the Grung / Slave stand-ins the players dropped in while the Toad was broken) is refused by dnd5e — silently, the create resolves without the document. | Repairs go through updates, so this no longer happens for the broken Toads. When a packet really does bring a *second* species/background the refusal is a **note for the GM** (`Notes for the GM` in the summary), never a failure. The summary also lists sheets that end up with two species or two backgrounds — *keep one, delete the stand-in* — until you do. |
+| `Item "VfJl4waJI38BhqP4" does not exist!` × many | The cached copies of Cast-activity spells (`flags.dnd5e.cachedFor`). dnd5e deletes and recreates them whenever a Cast item is touched; the sync was still comparing them and sometimes writing them while the system did the same. | **Cached spells are never written** — excluded on both sides of the diff; an item whose activities change is still updated in a call of its own. |
+| Empty folders, a folder with one creature | 1.3 made its own `Players`, `Koopa Troop`… beside yours; after 1.4 moved the actors into the website layout the old ones stayed behind, empty. | **Folder tidy after every sync**: folders with the same name under the same parent (trimmed, case-insensitive) are **merged** into the fuller one (colour carried over), then **empty folders are removed** bottom-up. Settings *Merge duplicate folders* / *Remove empty folders*. Folders with a single creature are not made in the first place — the organizer files singletons under *Elsewhere* and only opens *Bestiary / ⟨type⟩* for two or more. |
+| 1.4 installed, yet the second sync behaved like 1.3 | Foundry loads module code at world launch; the suite's install lands on disk while the world is open. | The summary names the **running** module version and the one **on disk**; when they differ it says so in orange: *Setup → relaunch the world (then Ctrl+F5)*. |
 
 ## 1.4 — clean syncs, folders like the website, tags
 
@@ -31,43 +48,53 @@ The Sync summary gained **Repaired identifiers** and a **Folders** section
 (folder → how many of the synced actors live there, which are new, which were
 coloured).
 
-## Sync — one click (v1.3)
+## Sync — everything, by itself (v1.5; one click since v1.3)
 
-**Actors sidebar → Sync.** No file to pick, no URL to paste. The module looks
-for the newest Waluipedia packet in three places, in this order, and uses the
-first that answers:
+**It runs on its own.** When a GM loads the world the module waits a few
+seconds, looks for the published packet and, if it is not the one it synced
+last time, imports it and opens the summary. Same packet as last time:
+nothing happens, nothing is printed. **Actors sidebar → Sync** does the same
+thing right now (Shift-click = review table first). No file to pick, no URL
+to paste, no scope to choose: one packet carries **everything** — the world
+mirror, the generated cast, the 955 BF court — in the website's coloured
+folders. It looks in three places, in this order, and uses the first that
+answers:
 
 | # | Where | What it reads | When it is there |
 | --- | --- | --- | --- |
-| 1 | **your Foundry Data folder** — `npc/waluipedia/<world>/players-import.json` (+ `packets.json` for the stamps) | the packet the suite published | after `start.py` / `tools/sheets-suite.py` ran on this machine (it finds the Data folder itself — `--foundry-data` overrides) |
-| 2 | **the launcher** — `http://127.0.0.1:8765/Reputation-Matrix2/actors/worlds/<world>/players-import.json` | the same packet straight from the checkout | while `start.py` is running |
-| 3 | **GitHub** — `raw.githubusercontent.com/mikegent01/bik/<branch>/…/worlds/<world>/manifest.json`, then each `Players/*.json` it lists | the committed sheets | always, once the branch is merged (packets themselves are not committed; the manifest + per-actor files are) |
+| 1 | **your Foundry Data folder** — `npc/waluipedia/<world>/import.json` (+ `packets.json` for the digest) | the one packet the suite published | after `start.py` / `tools/sheets-suite.py` ran on this machine (it finds the Data folder itself — `--foundry-data` overrides) |
+| 2 | **the launcher** — `http://127.0.0.1:8765/Reputation-Matrix2/actors/worlds/<world>/import.json` | the same packet straight from the checkout | while `start.py` is running |
+| 3 | **GitHub** — `raw.githubusercontent.com/mikegent01/bik/<branch>/…/worlds/<world>/manifest.json` + the actor files it lists, `…/actors/cast/import.json`, `…/actors/peachs-castle-955/import.json`, merged in that order (first by `_id`, then by name + type) | the committed sheets | always, once the branch is merged (the packet itself is not committed; the manifest + per-actor files and the cast/court packets are) |
 
-Then it does what Mass import does — folders rebuilt from the packet's
-`folderPath`, missing actors created, existing ones updated in place by id,
-an NPC statblock **replaced by the character sheet under the same id** when
-the type changed (ownership kept) — and ends with a **summary**: replaced /
-changed / new / unchanged, per actor the XP change, the class line, items
-gained (`+ The Electric Sphere`) or lost, folder moves, a **⬆ Level up at the
-table** banner when the ledger is ahead of the sheet, and *where it looked*.
-The same summary is whispered to the GMs in chat (one message per sync;
-not on dry runs).
+Then it does what Mass import does — folders from the packet's `folderPath`
+(an existing folder with the same name under the same parent is reused,
+case-insensitively), missing actors created, existing ones updated in place
+by id as **diffs**, invalid embedded documents **repaired**, an NPC statblock
+**replaced by the character sheet under the same id** when the type changed
+(ownership kept) — then **tidies the folders** (duplicates merged, empty ones
+removed) and ends with a **summary**: replaced / changed / new / unchanged,
+per actor the XP change, the class line, items gained (`+ The Electric
+Sphere`) or lost, folder moves, a **⬆ Level up at the table** banner when the
+ledger is ahead of the sheet, *Notes for the GM*, the folders touched, the
+module version running vs on disk, and *where it looked*. The same summary is
+whispered to the GMs in chat (one message per sync; not on dry runs).
 
-* **Shift-click Sync** to get the review table first.
-* **Scopes** (Module Settings → *Sync: what*): `players` (default — the
-  `Players/` folder: the 12 player-character sheets at ledger levels),
-  `world` (every actor of the world export), `cast` (the committed Waluipedia
-  Cast packet — 152 generated sheets).
-* Settings: world (`midlands`), packet dir in Data (`npc/waluipedia`), launcher
-  URL, GitHub branch (`gh-pages`), review-first.
-* If nothing answers, Sync changes nothing and shows the three URLs it tried
+* **Settings** (Module Settings): *Sync by itself* (on), world (`midlands`),
+  packet dir in Data (`npc/waluipedia`), launcher URL, GitHub branch
+  (`gh-pages`), *Merge duplicate folders* (on), *Remove empty folders* (on),
+  review-first (off).
+* If nothing answers, Sync changes nothing and shows the URLs it tried
   with the error for each and what to run (`start.py`, or
-  `python3 tools/sheets-suite.py --foundry-data "<Data>"`).
+  `python3 tools/sheets-suite.py --foundry-data "<Data>"`); when it ran by
+  itself it stays silent.
 * Wrong file in **Mass import** (the site's `data/sheets.json`, or a
-  `manifest.json`) is now refused with a message that names the right file
+  `manifest.json`) is refused with a message that names the right file
   instead of an uncaught error.
-* Macro: `macros/sync-from-waluipedia.js` (`SCOPE` at the top); API:
-  `game.modules.get("waluipedia-mass-import").api.syncFromWaluipedia({ scope, world, review, options })`.
+* After the suite installs a new module version: **Setup → relaunch the
+  world, then Ctrl+F5** — the summary tells you when the code running is
+  older than the code on disk.
+* Macro: `macros/sync-from-waluipedia.js` (`REVIEW` at the top); API:
+  `game.modules.get("waluipedia-mass-import").api.syncFromWaluipedia({ world, review, options })`.
 
 ## Where the import-all files are
 
@@ -106,7 +133,7 @@ In the **Actors** sidebar header, next to "Create Actor":
 
 | Button | What it does |
 | --- | --- |
-| **Sync** | One click: find the newest packet (Data folder → launcher → GitHub), import into folders, apply changes, summary. Shift-click = review table first. See *Sync — one click* above. |
+| **Sync** | Runs by itself when the world loads; the button does it now: find the published packet (Data folder → launcher → GitHub), import everything into coloured folders, repair, tidy folders, summary. Shift-click = review table first. See *Sync — everything, by itself* above. |
 | **Mass export** | Dialog: optional folder subtree, optional type filter (character/npc/vehicle/group), and a **destination**: *Download one JSON* (`<world>-all-actors.json`) or *Write into the Foundry Data folder* — a tree under `npc/waluipedia/<world>/` with one file per actor in subfolders mirroring your Actors sidebar, plus `import.json` with everything. |
 | **Mass import** | Dialog: source = **JSON file** from disk, a **repo packet** from the dropdown, a **URL** (GitHub raw works — CORS is open there), or **a path inside your Foundry Data folder** — either one `.json` or **a directory** (📁 button browses; every `.json` under it is read, **subfolders are detected** and become the Actors folders). Then the **review table**. Options below. Prints a report afterwards and logs the full result object to the console. |
 
@@ -273,6 +300,16 @@ token at the linked art.
 
 ## API
 
+New in 1.5: `autoSync({ delay })`, `mergePackets(list)`, `syncStamp(info, raw)`,
+`checkModuleVersion()`, `tidyFolders({ merge, prune, dryRun, report })`,
+`duplicateFolderGroups(rows, counts)`, `emptyFolderIds(rows, occupied)`,
+`folderKey(name)`, `embeddedSources(actor, collection)`, `isCachedSpell(doc)`,
+`singletonNotes(actorData)`, `SYNC_SCOPE_LABEL`, `MODULE_VERSION`; report
+fields `foldersMerged`, `foldersPruned`, `notes[{actor, note}]`,
+`embeddedRepaired`, per-actor `items.repaired` / `items.refused`;
+`report.sync` gains `trigger`, `stamp`, `merged`, `version`. `SYNC_SCOPES` and the
+`scope` option are gone.
+
 New in 1.4: `docDiff(before, after)`, `deepEqual`, `repairIdentifiers(actorData)`,
 `slugifyIdentifier(text)`, `tagsOf(actor)`, `decorateDirectory(root, actors)`,
 `folderCounts(rows)`; `importPayload` options `colorFolders`, `repairIdentifiers`;
@@ -289,7 +326,9 @@ await api.importFromDataPath("npc/waluipedia/cast", { folderMode: "dirs", ...opt
 await api.importPayload(jsonObject, options);           // the workhorse
 api.openImportDialog({ url: "npc/waluipedia/cast" });     // pre-filled dialog (review table included)
 api.KNOWN_PACKETS;                                        // the repo packets the dropdown lists
-await api.syncFromWaluipedia({ scope: "players", review: false, options: { dryRun: false } });  // v1.3 one click; returns the report (+ report.changes, report.sync) or null
+await api.syncFromWaluipedia({ review: false, options: { dryRun: false } });  // everything (v1.5); returns the report (+ report.changes, report.sync) or null
+await api.autoSync({ delay: 0 });                         // what the ready hook does: sync only if the published packet changed
+await api.tidyFolders({ dryRun: true });                  // { foldersMerged, foldersPruned } — what a tidy would do
 api.syncCandidates(api.syncSettings());                   // pure: the three places Sync will look, in order
 await api.loadManifest(url, { folder: "Players" });       // a manifest.json + the actor files it lists → a payload
 // pure helpers, unit-tested: api.assembleDirectory(files, {base, folderMode}), api.buildPlan(raw, {actors, rootFolder}),
@@ -297,7 +336,7 @@ await api.loadManifest(url, { folder: "Players" });       // a manifest.json + t
 ```
 
 The result object: `{ created, updated, skipped, failed, foldersCreated, missingImages, dryRun, meta, source, files, ignored }`
-— plus, from Sync, `changes` (one row per actor: `status`, `notes[]`, `levelUp`, `folder`) and `sync` (`used`, `attempts`, `info`, `exportedAt`, `scope`, `world`).
+— plus, from Sync, `changes` (one row per actor: `status`, `notes[]`, `levelUp`, `folder`) and `sync` (`used`, `attempts`, `info`, `exportedAt`, `world`, `trigger`, `stamp`, `merged`, `version`).
 
 Macros (ready to paste into a script macro) live in `macros/`:
 `export-all-actors.js` (works even without the module — falls back to inline

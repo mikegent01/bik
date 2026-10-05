@@ -273,3 +273,60 @@ field.
   folder it was in only if that folder is named like a website group;
   otherwise it is Bestiary / Humanoid until a name rule or an article says
   otherwise — add a line to `folders.json` and rerun.
+
+
+## 9. Addendum — one packet, by itself, nothing FAILED (same day, later again)
+
+### What the second Sync said
+
+`0 created, 149 updated, 2 FAILED, 22 folders, 18 missing images`, and the
+console: `Item "VfJl4waJI38BhqP4" does not exist!` (and two more ids, many
+times over), `Only a single Species can be added to a Player Character.`,
+`Only a single Background …`, `The _id [218ad632c6e149d9] already exists
+within the parent collection: Actor [VudZ3W313Y4FILs0] items`, the same for
+`e6cbf8b57a504da9` on `IlzuThuR8upTtqtF`. The GM's ask: *one that imports
+everything by itself — no file selection, folder colours set, the bugs
+ironed out, empty and one-creature folders gone, the toads and the past
+stuff too, not several jsons at a time.*
+
+| Symptom | Cause | Fix |
+| --- | --- | --- |
+| 2 FAILED (Eager, Feyward Dan) — `_id already exists` | Foundry keeps dnd5e-invalid embedded documents (the home-made Toad species, a background, a feat, two garments with bad identifiers) *out of* `actor.items`; they live only in `_source` / `invalidDocumentIds`. The diff did not see them, tried to create the repaired copies under the same ids, the server refused | the module reads the source, invalid documents included, and repairs them with **updates** (dnd5e has no singleton check on the update path); if the update is refused: delete, then create under the same id. Per actor `items.repaired`; `embeddedRepaired` overall. Against the real export + real packet: **7 repaired, 0 failed** |
+| `Only a single Species / Background …` | creating a species while the sheet already holds the Grung / Slave stand-ins → dnd5e's `_preCreate` returns false (the create resolves without the document, a notification fires) | repairs are updates, so it stops; a genuinely refused create becomes a **note** (`report.notes`) and the summary lists sheets with two species / two backgrounds — *keep one, delete the stand-in*. Never a failure |
+| `Item "X" does not exist!` × many | cached Cast-activity spells (`flags.dnd5e.cachedFor`): dnd5e deletes and recreates them while the sync was comparing (and sometimes writing) them | cached spells are excluded from both sides of the diff, never written; items whose activities change are still updated one call at a time |
+| three packets, a scope setting, a file to pick | — | **one packet**: `combine` over mirror → cast → 955 court, dedupe by name + type (first wins, `omitted[]`), 329 actors / 32 coloured folders; `packets.json` v2 with a digest; the module's GitHub fallback merges manifest + cast + court the same way (`mergePackets`). `SYNC_SCOPES` and the scope setting are gone |
+| you had to click | — | `autoSync()` from the `ready` hook (GM, setting *Sync by itself*): runs when the published packet's stamp differs from the last one synced, otherwise silent; the summary opens only when something changed / failed / was noted / tidied |
+| 11 empty folders, folders with one creature | 1.3 created its own folders beside the GM's; 1.4 moved the actors out of the old ones | `folderKey` matching (trimmed, case-insensitive, fullest duplicate reused) + `tidyFolders` after every sync: same-parent duplicates merged into the fuller one (colour carried), empty folders removed bottom-up (settings to switch either off). The organizer already folds singletons into *Elsewhere* (`259a44c`) |
+| the second sync behaved like 1.3 | module code loads at world launch; the suite installs while the world is open | `checkModuleVersion()` — the summary shows running vs on-disk versions and, when they differ, *Setup → relaunch the world (then Ctrl+F5)* in orange |
+
+### What was done
+
+| Piece | Commit | Detail |
+| --- | --- | --- |
+| Scheme / organizer / bridge / builder / suite | `259a44c` | `folders.json` minimum 2, fallback *Elsewhere*, eras block; cast and era actors file into the world's own folders; `fold_singletons`; `combine(dirs…)` with `omitted`; the suite writes **one** `import.json` (mirror → cast → eras), `packets.json` v2 (`everything` / `players` / `manifest`, digest, GitHub `manifest` + `cast` + `era`), removes the old `cast/` packet dir. Bridge 58, organize 57, suite 112 |
+| Module 1.5.0 | this commit | `embeddedSources` / `syncEmbedded` repair path, `singletonNotes`, cached spells excluded, `mergePackets`, `syncStamp`, `autoSync`, `checkModuleVersion`, `tidyFolders` (+ `duplicateFolderGroups`, `emptyFolderIds`, `subtreeCounts`), `folderKey` matching in `ensureFolderPath`, settings `syncAuto` / `syncMergeFolders` / `syncPruneFolders` / `syncLastStamp` (scope dropped), summary sections *Notes for the GM*, *Folders tidied*, *module x.y.z (on disk a.b.c)*; macro `REVIEW` flag; zip rebuilt. Tests 179 / 188 (`WMI_EXPORT`) / 191 (`WMI_PACKET`: the real world seeded straight from the export — 7 invalid documents in — 178 created, 148 changed, 3 replaced (the promotions), 7 repaired, 3 notes, 0 failed, 11 empty GM folders removed, 32 folders left, second import unchanged) |
+| Docs | this commit | module README 1.5 table + Sync section, `actors/worlds/README.md`, this addendum |
+
+### What the GM does now
+
+1. Run `start.py` (or `python3 tools/sheets-suite.py`) once — the suite
+   builds the one packet, publishes it and installs module **1.5.0**.
+2. In Foundry: **Setup → relaunch the world**, then **Ctrl+F5**. Sync runs
+   by itself a few seconds after the world loads (or click **Sync**).
+   Expect `178 created, ~148 changed, 3 replaced, 7 broken items repaired,
+   3 notes`, folders coloured, *Folders tidied: 11 removed*, no red lines.
+   A second load does nothing (same packet).
+3. Eager and Feyward Dan: the Toad species / background / feats are repaired
+   in place; the Grung and Slave stand-ins are still on the sheets and the
+   summary says so — delete them by hand once the Toads look right.
+4. Markop's and Salam's bare-file-name portraits are still the GM's to fix
+   (set the sheet image to a path under Data).
+
+### Not done
+
+- The GM's own folder that happens to hold one actor is left alone — the
+  tidy only merges duplicates and removes *empty* folders; the organizer's
+  *Elsewhere* rule applies to what the packet files, not to folders the GM
+  made.
+- A refused singleton create (two species in a packet for one sheet) stays a
+  note; the module does not pick which one to keep.

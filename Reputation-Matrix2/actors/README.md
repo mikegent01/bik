@@ -219,7 +219,7 @@ a URL was pasted — and the wrong URL (`data/sheets.json`, the site's sheet
 | --- | --- | --- |
 | `players-import.json`, `import.json`, `manifest.json`, `packets.json` (stamps + the other places the same packet lives) | `npc/waluipedia/<world>/` | the module's **Sync** button reads this first — same origin, no URL, no CORS |
 | `cast/import.json` (+ `packets.json`) | `npc/waluipedia/cast/` | Sync's `cast` scope offline |
-| the Mass Import module, kept identical to `Reputation-Matrix2/Foundry/mass_import/` | `modules/waluipedia-mass-import/` | the published zip on gh-pages lags until the branch merges; this is always the version in the checkout — reload Foundry (F5) when the pass says so, enable it once under *Manage Modules* |
+| the Mass Import module, kept identical to `Reputation-Matrix2/Foundry/mass_import/` | `modules/waluipedia-mass-import/` | the published zip on gh-pages lags until the branch merges; this is always the version in the checkout — when the pass says a new version landed: Setup → relaunch the world, then Ctrl+F5 (a plain F5 keeps the old module code); enable it once under *Manage Modules* |
 | every image the sheets reference (`portraits/*`, `assets/images/**`, …) that lives in the repo | `portraits/`, `assets/…` (same relative paths) | Foundry serves `img` paths from Data; a path that is not there is a broken token. Copies, not symlinks (symlinks need admin / developer mode on Windows). dnd5e/core icon paths are left alone |
 
 The Data folder is **found automatically**: `--foundry-data DIR` (also
