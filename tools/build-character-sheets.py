@@ -74,6 +74,8 @@ sid, feat, attack, scores_, I = P955.sid, P955.feat, P955.attack, P955.scores, d
 I.update({
     "heal": "icons/magic/life/heart-cross-strong-green.webp",
     "pistol": "icons/weapons/guns/gun-pistol-flintlock.webp",
+    "sling": "icons/weapons/slings/slingshot-wood.webp",
+    "rifle": "icons/weapons/guns/rifle-brown.webp",
     "axe": "icons/weapons/axes/axe-battle-black.webp",
     "bow": "icons/weapons/bows/shortbow-recurve.webp",
     "greatsword": "icons/weapons/swords/greatsword-crossguard-steel.webp",
@@ -389,6 +391,8 @@ DEFAULT_CR = {"hero": 3, "boss": 3, "officer": 2, "soldier": 0.5, "rogue": 1, "c
 def classify(c):
     if c["id"] in ROLE_OVERRIDES:
         return ROLE_OVERRIDES[c["id"]]
+    if c.get("sheetRole") in ROLES:  # the article names its own archetype (roster micro-articles do)
+        return c["sheetRole"]
     aff = (c.get("affiliation") or "").lower()
     if "classroom 2-b" in aff and "advisor" not in aff:
         return "student"
@@ -492,9 +496,12 @@ WEAPONS = {
     "crossbow": ("crossbow", 8, "piercing", "ranged", dict(wtype="simpleR", props=["amm", "lod", "two"], rng=(80, 320), ability="dex")),
     "bow": ("bow", 6, "piercing", "ranged", dict(wtype="simpleR", props=["amm", "two"], rng=(80, 320), ability="dex")),
     "pistol": ("pistol", 10, "piercing", "ranged", dict(wtype="martialR", props=["amm", "lod"], rng=(30, 90), ability="dex")),
+    "rifle": ("rifle", 12, "piercing", "ranged", dict(wtype="martialR", props=["amm", "lod", "two"], rng=(40, 120), ability="dex")),
+    "sling": ("sling", 4, "bludgeoning", "ranged", dict(wtype="simpleR", props=["amm"], rng=(30, 120), ability="dex")),
     "cannon": ("cannon", 10, "bludgeoning", "ranged", dict(wtype="martialR", props=["amm", "lod", "two"], rng=(60, 240), ability="dex")),
 }
 WEAPON_WORDS = [
+    ("rifle", ["rifle", "musket", "sniper rifle", "long gun"]), ("sling", ["slingshot", "sling shot", "sling"]),
     ("pistol", ["pistol", "revolver", "handgun"]), ("cannon", ["cannon"]), ("crossbow", ["crossbow"]),
     ("bow", ["longbow", "shortbow", "bow", "arrow"]), ("greatsword", ["greatsword", "two-handed sword", "claymore"]),
     ("halberd", ["halberd", "pike", "polearm", "glaive"]), ("trident", ["trident"]), ("whip", ["whip"]),
@@ -1445,6 +1452,16 @@ def portrait_of(c):
     return PLACEHOLDER, False
 
 
+def token_of(c, img):
+    """The token texture: the article's full-body plate (`fullBody`, head to
+    feet on a plain field — what a token on the map should be) when it exists,
+    else the portrait the actor already carries."""
+    fb = (c.get("fullBody") or "").replace("\\", "/")
+    if fb and not fb.startswith("http") and os.path.exists(os.path.join(RM, fb)):
+        return fb
+    return img
+
+
 def site_portrait(c):
     """The portrait the SITE can show for the index: the article's own image
     when it is a local file that exists or an external URL; never a Foundry
@@ -1582,7 +1599,7 @@ def npc_doc(*, slug, c, name, img, size, sc, saves, trained, ac, hp, hp_formula,
             "name": name, "displayName": 0, "actorLink": False,
             "width": 2 if size in ("lg",) else (3 if size == "huge" else 1),
             "height": 2 if size in ("lg",) else (3 if size == "huge" else 1),
-            "texture": {"src": img, "anchorX": 0.5, "anchorY": 0.5, "fit": "contain", "scaleX": 1, "scaleY": 1,
+            "texture": {"src": token_of(c, img), "anchorX": 0.5, "anchorY": 0.5, "fit": "contain", "scaleX": 1, "scaleY": 1,
                         "tint": "#ffffff", "alphaThreshold": 0.75},
             "lockRotation": False, "rotation": 0, "alpha": 1,
             "disposition": disposition, "displayBars": 0,
@@ -1673,7 +1690,7 @@ def pc_doc(*, slug, c, name, img, size, sc, saves, trained, ac, hp, hp_formula, 
             "name": name, "displayName": 0, "actorLink": True,
             "width": 2 if size in ("lg",) else (3 if size == "huge" else 1),
             "height": 2 if size in ("lg",) else (3 if size == "huge" else 1),
-            "texture": {"src": img, "anchorX": 0.5, "anchorY": 0.5, "fit": "contain", "scaleX": 1, "scaleY": 1,
+            "texture": {"src": token_of(c, img), "anchorX": 0.5, "anchorY": 0.5, "fit": "contain", "scaleX": 1, "scaleY": 1,
                         "tint": "#ffffff", "alphaThreshold": 0.75},
             "lockRotation": False, "rotation": 0, "alpha": 1,
             "disposition": disposition, "displayBars": 0,

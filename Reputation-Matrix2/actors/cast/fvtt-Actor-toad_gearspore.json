@@ -1,12 +1,12 @@
 {
-  "_id": "Xawj9OaM4hgYukct",
-  "name": "Rattles",
+  "_id": "vZdJqRZ6mieFSsgB",
+  "name": "Gearspore",
   "type": "npc",
-  "img": "portraits/rattles.jpg",
+  "img": "assets/images/toads/roster/toad_47_gearspore.png",
   "system": {
     "abilities": {
       "str": {
-        "value": 10,
+        "value": 9,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -29,7 +29,7 @@
         }
       },
       "dex": {
-        "value": 10,
+        "value": 13,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -52,7 +52,7 @@
         }
       },
       "con": {
-        "value": 10,
+        "value": 12,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -75,8 +75,8 @@
         }
       },
       "int": {
-        "value": 10,
-        "proficient": 0,
+        "value": 16,
+        "proficient": 1,
         "bonuses": {
           "check": "",
           "save": ""
@@ -98,8 +98,8 @@
         }
       },
       "wis": {
-        "value": 10,
-        "proficient": 0,
+        "value": 13,
+        "proficient": 1,
         "bonuses": {
           "check": "",
           "save": ""
@@ -121,7 +121,7 @@
         }
       },
       "cha": {
-        "value": 10,
+        "value": 12,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -146,19 +146,19 @@
     },
     "attributes": {
       "ac": {
-        "flat": 11,
+        "flat": 12,
         "calc": "natural",
         "formula": ""
       },
       "hp": {
-        "value": 13,
-        "max": 13,
-        "formula": "3d8",
+        "value": 36,
+        "max": 36,
+        "formula": "8d6 + 8",
         "temp": null,
         "tempmax": null
       },
       "movement": {
-        "walk": "30",
+        "walk": "25",
         "units": "ft",
         "hover": false,
         "burrow": "0",
@@ -170,7 +170,7 @@
       "senses": {
         "units": "ft",
         "ranges": {
-          "darkvision": 60
+          "darkvision": 0
         },
         "special": ""
       },
@@ -220,17 +220,17 @@
     "details": {
       "alignment": "Neutral",
       "type": {
-        "value": "monstrosity",
-        "subtype": "Bone-Line kin"
+        "value": "humanoid",
+        "subtype": "Toad"
       },
-      "cr": 0.5,
+      "cr": 2,
       "biography": {
-        "value": "<p><em>Waluipedia cast sheet — Rattles.</em> Built by <code>tools/build-character-sheets.py</code>, generated from the article's own words. XP ledger: level 3, power rating 5 → CR 1/2 as a civilian. Numbers are a GM-ready reading of the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p><p><strong>The Skeleton Who Wants His Old Body Back</strong> — Shadow Estate escape party / recruited local ally</p><p>Status: Active — guarding Tymnas's cottage; used his own backbone to brace a window during lockdown</p><p>Rattles is a skeleton recruited from a servant closet who wants to turn back time and regain his original flesh-and-bones body, not a replacement. He speaks with deeply skeleton-appropriate timing, joined the party during the Shadow Estate servant corridor sequence, and survived the rooftop escape by grabbing onto Remi during Feather Fall.</p><h3>Evidence</h3><ul><li><strong>Club</strong> — “The Skeleton Who Wants His Old Body Back”</li><li><strong>Hard to Kill</strong> — “He speaks with deeply skeleton-appropriate timing, joined the party during the Shadow Estate servant corridor sequence, and survived the rooftop escape by grabbing onto Remi during Feather Fall.”</li></ul><p>Article: <code>#/article/rattles</code> (characters). Site sheet: <code>#/sheets/rattles</code>.</p>",
+        "value": "<p><em>Waluipedia cast sheet — Gearspore.</em> Built by <code>tools/build-character-sheets.py</code>, generated from the article's own words. no XP ledger entry; archetype default → CR 2 as a spellcaster. Numbers are a GM-ready reading of the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p><p><strong>High Command — spinning gears</strong> — Liberated Toads — High Command</p><p>Status: Listed — Liberated Toads roster #47, not yet seen in the field</p><p>Gearspore is roster entry #47 of the Liberated Toads: High Command (Tier 3 — Leaders). The roster lists Spinning Gears for a weapon; cap colour stone; listed, not yet seen in the field. That is the whole record, and Waluigi files the whole record: a face on the roster beats a rumour in a barrel. WAH.</p><h3>Evidence</h3><ul><li><strong>Staff</strong> — “High Command — spinning gears”</li><li><strong>Grasping Growth</strong> — “Gearspore is roster entry #47 of the Liberated Toads: High Command (Tier 3 — Leaders).”</li><li><strong>Spellcasting</strong> — “High Command — spinning gears”</li></ul><p>Article: <code>#/article/toad_gearspore</code> (characters). Site sheet: <code>#/sheets/toad_gearspore</code>.</p>",
         "public": ""
       }
     },
     "traits": {
-      "size": "med",
+      "size": "sm",
       "languages": {
         "value": [
           "common"
@@ -292,7 +292,7 @@
         }
       },
       "arc": {
-        "value": 0,
+        "value": 1,
         "ability": "int",
         "roll": {
           "min": null,
@@ -331,7 +331,7 @@
         }
       },
       "his": {
-        "value": 0,
+        "value": 1,
         "ability": "int",
         "roll": {
           "min": null,
@@ -344,7 +344,7 @@
         }
       },
       "ins": {
-        "value": 0,
+        "value": 1,
         "ability": "wis",
         "roll": {
           "min": null,
@@ -518,13 +518,13 @@
     "resources": {}
   },
   "prototypeToken": {
-    "name": "Rattles",
+    "name": "Gearspore",
     "displayName": 0,
     "actorLink": false,
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "portraits/player/fullbody/rattles.png",
+      "src": "assets/images/toads/roster/toad_47_gearspore.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -547,13 +547,13 @@
   },
   "items": [
     {
-      "_id": "GAKjm86seiGybwJT",
-      "name": "Club",
+      "_id": "6MAFtqazM4OIttyL",
+      "name": "Staff",
       "type": "weapon",
-      "img": "icons/weapons/clubs/club-simple-barbed.webp",
+      "img": "icons/weapons/staves/staff-ornate-purple.webp",
       "system": {
         "description": {
-          "value": "<p>Club; melee weapon attack.</p>",
+          "value": "<p>Staff; melee weapon attack.</p>",
           "chat": ""
         },
         "source": {
@@ -590,10 +590,12 @@
         },
         "damage": {
           "versatile": {
-            "number": null,
-            "denomination": null,
+            "number": 1,
+            "denomination": 8,
             "bonus": "",
-            "types": [],
+            "types": [
+              "bludgeoning"
+            ],
             "custom": {
               "enabled": false,
               "formula": ""
@@ -606,7 +608,7 @@
           },
           "base": {
             "number": 1,
-            "denomination": 4,
+            "denomination": 6,
             "bonus": "",
             "types": [
               "bludgeoning"
@@ -632,7 +634,7 @@
           "conditions": ""
         },
         "properties": [
-          "lgt"
+          "ver"
         ],
         "type": {
           "value": "simpleM",
@@ -745,13 +747,13 @@
       }
     },
     {
-      "_id": "jkh7g0Ahj63EnyWr",
-      "name": "Hard to Kill",
+      "_id": "MoJ6D89om0vavKKv",
+      "name": "Grasping Growth",
       "type": "feat",
-      "img": "icons/skills/wounds/injury-pain-body-orange.webp",
+      "img": "icons/magic/nature/vines-thorned-curled-glow-teal-purple.webp",
       "system": {
         "description": {
-          "value": "<p>When reduced to 0 hit points but not killed outright, it drops to 1 hit point instead. Once per long rest.</p>",
+          "value": "<p>Ranged spell attack (+5 to hit), range 30 feet: 1d6 bludgeoning damage and the target is grappled (escape DC 13).</p>",
           "chat": ""
         },
         "type": {
@@ -783,6 +785,46 @@
       "ownership": {
         "default": 0
       }
+    },
+    {
+      "_id": "Vj41LT20dDlK5hle",
+      "name": "Guild Spellcasting",
+      "type": "feat",
+      "img": "icons/magic/water/orb-ice-web.webp",
+      "system": {
+        "description": {
+          "value": "<p>Spellcasting ability Intelligence (spell save DC 13, +5 to hit with spell attacks). At will: <em>light, mage hand, prestidigitation, fire bolt</em>. 1st level (4 slots): <em>magic missile, shield, sleep</em>. 2nd level (2 slots): <em>misty step, hold person</em>.</p>",
+          "chat": ""
+        },
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "activation": {},
+        "duration": {},
+        "target": {},
+        "range": {},
+        "uses": {
+          "spent": 0,
+          "max": "",
+          "recovery": []
+        },
+        "activities": {},
+        "source": {
+          "custom": "Waluipedia campaign",
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      }
     }
   ],
   "effects": [],
@@ -793,39 +835,44 @@
   "flags": {
     "waluipedia-mass-import": {
       "folderPath": [
-        "Shadow Estate & House Corvinarus"
+        "Liberated Toads"
       ],
       "source": "tools/build-character-sheets.py"
     },
     "waluipedia-sheets": {
-      "characterId": "rattles",
+      "characterId": "toad_gearspore",
       "generated": true,
       "bespoke": false,
-      "role": "civilian",
+      "role": "caster",
       "ledger": {
-        "level": 3,
-        "powerLevel": 5
+        "level": null,
+        "powerLevel": null
       },
       "evidence": [
         {
-          "feature": "Club",
-          "quote": "The Skeleton Who Wants His Old Body Back",
+          "feature": "Staff",
+          "quote": "High Command — spinning gears",
           "source": "title"
         },
         {
-          "feature": "Hard to Kill",
-          "quote": "He speaks with deeply skeleton-appropriate timing, joined the party during the Shadow Estate servant corridor sequence, and survived the rooftop escape by grabbing onto Remi during Feather Fall.",
+          "feature": "Grasping Growth",
+          "quote": "Gearspore is roster entry #47 of the Liberated Toads: High Command (Tier 3 — Leaders).",
           "source": "article"
+        },
+        {
+          "feature": "Spellcasting",
+          "quote": "High Command — spinning gears",
+          "source": "title"
         }
       ],
       "tags": [
-        "Shadow Estate & House Corvinarus",
+        "Liberated Toads",
         "npc",
-        "civilian",
-        "monstrosity",
+        "caster",
+        "humanoid",
         "generated"
       ],
-      "color": "#8B0000"
+      "color": "#87CEEB"
     }
   },
   "_stats": {

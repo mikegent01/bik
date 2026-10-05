@@ -134,6 +134,9 @@ def main() -> int:
         # is on the Foundry sheet (generated changes/spoils-<world>.json is
         # current, aliases never double an item, declined items stay declined).
         ("spoils to changes", [py, "tools/spoils-to-changes.py", "--check", "--quiet"], ROOT),
+        # Every Liberated Toad on the Command page roster has an article (and
+        # so a sheet + token); the roster is the source, the filer is idempotent.
+        ("roster toads filed", [py, "tools/file-roster-toads.py", "--check", "--quiet"], ROOT),
         ("spoils to changes tests", [py, "tools/tests/test-spoils-to-changes.py"], ROOT),
         # Judgement in the Grove: the event, its battle, and the front-page
         # wiring (latestUpdate/featured/Current fronts/SITE_UPDATES) all come

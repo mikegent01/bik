@@ -1,13 +1,13 @@
 {
-  "_id": "Xawj9OaM4hgYukct",
-  "name": "Rattles",
+  "_id": "q2VmDdERZ9yDcp9l",
+  "name": "Toad ie Foxx",
   "type": "npc",
-  "img": "portraits/rattles.jpg",
+  "img": "assets/images/toads/roster/toad_73_toad_ie_foxx.png",
   "system": {
     "abilities": {
       "str": {
-        "value": 10,
-        "proficient": 0,
+        "value": 15,
+        "proficient": 1,
         "bonuses": {
           "check": "",
           "save": ""
@@ -29,7 +29,7 @@
         }
       },
       "dex": {
-        "value": 10,
+        "value": 12,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -52,8 +52,8 @@
         }
       },
       "con": {
-        "value": 10,
-        "proficient": 0,
+        "value": 14,
+        "proficient": 1,
         "bonuses": {
           "check": "",
           "save": ""
@@ -98,7 +98,7 @@
         }
       },
       "wis": {
-        "value": 10,
+        "value": 11,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -146,19 +146,19 @@
     },
     "attributes": {
       "ac": {
-        "flat": 11,
+        "flat": 14,
         "calc": "natural",
         "formula": ""
       },
       "hp": {
-        "value": 13,
-        "max": 13,
-        "formula": "3d8",
+        "value": 22,
+        "max": 22,
+        "formula": "4d6 + 8",
         "temp": null,
         "tempmax": null
       },
       "movement": {
-        "walk": "30",
+        "walk": "25",
         "units": "ft",
         "hover": false,
         "burrow": "0",
@@ -170,7 +170,7 @@
       "senses": {
         "units": "ft",
         "ranges": {
-          "darkvision": 60
+          "darkvision": 0
         },
         "special": ""
       },
@@ -220,17 +220,17 @@
     "details": {
       "alignment": "Neutral",
       "type": {
-        "value": "monstrosity",
-        "subtype": "Bone-Line kin"
+        "value": "humanoid",
+        "subtype": "Toad"
       },
       "cr": 0.5,
       "biography": {
-        "value": "<p><em>Waluipedia cast sheet — Rattles.</em> Built by <code>tools/build-character-sheets.py</code>, generated from the article's own words. XP ledger: level 3, power rating 5 → CR 1/2 as a civilian. Numbers are a GM-ready reading of the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p><p><strong>The Skeleton Who Wants His Old Body Back</strong> — Shadow Estate escape party / recruited local ally</p><p>Status: Active — guarding Tymnas's cottage; used his own backbone to brace a window during lockdown</p><p>Rattles is a skeleton recruited from a servant closet who wants to turn back time and regain his original flesh-and-bones body, not a replacement. He speaks with deeply skeleton-appropriate timing, joined the party during the Shadow Estate servant corridor sequence, and survived the rooftop escape by grabbing onto Remi during Feather Fall.</p><h3>Evidence</h3><ul><li><strong>Club</strong> — “The Skeleton Who Wants His Old Body Back”</li><li><strong>Hard to Kill</strong> — “He speaks with deeply skeleton-appropriate timing, joined the party during the Shadow Estate servant corridor sequence, and survived the rooftop escape by grabbing onto Remi during Feather Fall.”</li></ul><p>Article: <code>#/article/rattles</code> (characters). Site sheet: <code>#/sheets/rattles</code>.</p>",
+        "value": "<p><em>Waluipedia cast sheet — Toad ie Foxx.</em> Built by <code>tools/build-character-sheets.py</code>, generated from the article's own words. no XP ledger entry; archetype default → CR 1/2 as a soldier. Numbers are a GM-ready reading of the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p><p><strong>Speaker River Follower — fox tail</strong> — Liberated Toads — Speaker River Follower</p><p>Status: Listed — Liberated Toads roster #73, not yet seen in the field</p><p>Toad ie Foxx is roster entry #73 of the Liberated Toads: Speaker River Follower (Tier 6 — Armed Group). Toad ie Foxx fights with a tail swung like a club; cap colour forest; listed, not yet seen in the field. That is the whole record, and Waluigi files the whole record: a face on the roster beats a rumour in a barrel. WAH.</p><h3>Evidence</h3><ul><li><strong>Club</strong> — “Toad ie Foxx fights with a tail swung like a club; cap colour forest; listed, not yet seen in the field.”</li><li><strong>As Filed</strong> — “Speaker River Follower — fox tail”</li></ul><p>Article: <code>#/article/toad_ie_foxx</code> (characters). Site sheet: <code>#/sheets/toad_ie_foxx</code>.</p>",
         "public": ""
       }
     },
     "traits": {
-      "size": "med",
+      "size": "sm",
       "languages": {
         "value": [
           "common"
@@ -305,7 +305,7 @@
         }
       },
       "ath": {
-        "value": 0,
+        "value": 1,
         "ability": "str",
         "roll": {
           "min": null,
@@ -409,7 +409,7 @@
         }
       },
       "prc": {
-        "value": 0,
+        "value": 1,
         "ability": "wis",
         "roll": {
           "min": null,
@@ -518,13 +518,13 @@
     "resources": {}
   },
   "prototypeToken": {
-    "name": "Rattles",
+    "name": "Toad ie Foxx",
     "displayName": 0,
     "actorLink": false,
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "portraits/player/fullbody/rattles.png",
+      "src": "assets/images/toads/roster/toad_73_toad_ie_foxx.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -547,13 +547,13 @@
   },
   "items": [
     {
-      "_id": "GAKjm86seiGybwJT",
+      "_id": "CLIb4ZtNLLpuOMRn",
       "name": "Club",
       "type": "weapon",
       "img": "icons/weapons/clubs/club-simple-barbed.webp",
       "system": {
         "description": {
-          "value": "<p>Club; melee weapon attack.</p>",
+          "value": "<p>Club; melee weapon attack.</p><p><em>Record:</em> “Toad ie Foxx fights with a tail swung like a club; cap colour forest; listed, not yet seen in the field.”</p>",
           "chat": ""
         },
         "source": {
@@ -745,13 +745,13 @@
       }
     },
     {
-      "_id": "jkh7g0Ahj63EnyWr",
-      "name": "Hard to Kill",
+      "_id": "E70ZGMckfeJYL07m",
+      "name": "As Filed",
       "type": "feat",
-      "img": "icons/skills/wounds/injury-pain-body-orange.webp",
+      "img": "icons/sundries/scrolls/scroll-bound-white-tan.webp",
       "system": {
         "description": {
-          "value": "<p>When reduced to 0 hit points but not killed outright, it drops to 1 hit point instead. Once per long rest.</p>",
+          "value": "<p>The archive records Toad ie Foxx as Speaker River Follower — fox tail; nothing in the article describes a fighting trick, so this sheet carries none. Treat the numbers as a baseline.</p>",
           "chat": ""
         },
         "type": {
@@ -793,39 +793,39 @@
   "flags": {
     "waluipedia-mass-import": {
       "folderPath": [
-        "Shadow Estate & House Corvinarus"
+        "Liberated Toads"
       ],
       "source": "tools/build-character-sheets.py"
     },
     "waluipedia-sheets": {
-      "characterId": "rattles",
+      "characterId": "toad_ie_foxx",
       "generated": true,
       "bespoke": false,
-      "role": "civilian",
+      "role": "soldier",
       "ledger": {
-        "level": 3,
-        "powerLevel": 5
+        "level": null,
+        "powerLevel": null
       },
       "evidence": [
         {
           "feature": "Club",
-          "quote": "The Skeleton Who Wants His Old Body Back",
-          "source": "title"
+          "quote": "Toad ie Foxx fights with a tail swung like a club; cap colour forest; listed, not yet seen in the field.",
+          "source": "article"
         },
         {
-          "feature": "Hard to Kill",
-          "quote": "He speaks with deeply skeleton-appropriate timing, joined the party during the Shadow Estate servant corridor sequence, and survived the rooftop escape by grabbing onto Remi during Feather Fall.",
-          "source": "article"
+          "feature": "As Filed",
+          "quote": "Speaker River Follower — fox tail",
+          "source": "title"
         }
       ],
       "tags": [
-        "Shadow Estate & House Corvinarus",
+        "Liberated Toads",
         "npc",
-        "civilian",
-        "monstrosity",
+        "soldier",
+        "humanoid",
         "generated"
       ],
-      "color": "#8B0000"
+      "color": "#87CEEB"
     }
   },
   "_stats": {

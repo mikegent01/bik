@@ -72,7 +72,7 @@ def run(*argv, stdin=None):
     return p.returncode, p.stdout + p.stderr
 
 
-LOOSE = ["Axie.png", "bearr.png", "bio.png", "bluet.png", "Bluey.png", "bonesclean.webp", "brom.webp",
+LOOSE = ["Axie the Axolotl.png", "bearr.png", "bio.png", "bluet.png", "Bramblewick.png", "bonesclean.webp", "brom.webp",
          "cfleadtoad.png", "chest.png", "court-chambermaid.png", "court-mage-a.png", "crazy.png", "cree.png",
          "danm.png", "dfas.webp", "dog.png", "boom.webp", "BrickBlock_-_2D_art.webp",
          "3f9a2c1d7b8e4f60-removebg-preview.png", "a1b2c3d4e5f60718-removebg-preview.webp"]
@@ -138,23 +138,24 @@ with tempfile.TemporaryDirectory() as tmp:
           and L.entries["dan"]["character"] == "dan" and L.entries["court_mage_a--955-bf"]["version"] == "955-bf"
           and L.entries["court_herald--955-bf"]["notes"] == "ceremonial herald" and L.entries["court_herald--955-bf"]["character"] is None)
     check("s skips (remembered), d deletes to _trash", "chest.png" in L.data["skipped"] and os.path.isfile(os.path.join(lib, "_trash", "dog.png")) and not os.path.exists(os.path.join(lib, "dog.png")))
-    check("an answers file is the whole conversation: the other files stay loose", os.path.isfile(os.path.join(lib, "Bluey.png")) and os.path.isfile(os.path.join(lib, "cree.png")) and "cree" not in L.entries)
+    check("an answers file is the whole conversation: the other files stay loose", os.path.isfile(os.path.join(lib, "Bramblewick.png")) and os.path.isfile(os.path.join(lib, "cree.png")) and "cree" not in L.entries)
     rc, out = run("sort", lib, "--auto")
     L = S.Library(lib)
     check("--auto takes only the confident suggestions (cree → Creek 89%) and leaves the rest loose",
-          rc == 0 and "creek" in L.entries and L.entries["creek"]["character"] == "creek_medic" and os.path.isfile(os.path.join(lib, "Bluey.png"))
+          rc == 0 and "creek" in L.entries and L.entries["creek"]["character"] == "creek_medic" and os.path.isfile(os.path.join(lib, "Bramblewick.png"))
           and os.path.isfile(os.path.join(lib, "cfleadtoad.png")) and os.path.isfile(os.path.join(lib, "court-chambermaid.png")) and "auto: no confident match" in out)
 
     print("\n# sort by prompts (stdin)")
-    # the loose files come alphabetically: Axie.png is first — name typed, kind default, faction typed, no version; then q on Bluey.png
+    # the loose files come alphabetically: "Axie the Axolotl.png" is first (Axie 75% — a hint, not confident) — name typed, kind default, faction typed, no version; then q on the next
+    # (Axie / Bluey / Bearr used to be the fixture names until the Liberated Toads roster gave them articles — the studio now files those by itself)
     rc, out = run("sort", lib, stdin="Axie the Axolotl\n\nkoopa_troop\n\nq\n")
     check("prompted answers file the first loose file and q stops the run", rc == 0 and os.path.isfile(os.path.join(lib, "portraits", "koopa_troop", "axie_the_axolotl.png")) and "stopped early" in out, out[-300:])
     check("the prompt shows the suggestions and the key help", "looks like" in out and "Enter = accept" in out)
     rc, out = run("sort", lib, stdin="")
-    check("a closed stdin stops instead of filing everything by default", rc == 0 and "stopped early" in out and os.path.isfile(os.path.join(lib, "Bluey.png")))
-    # Bluey.png: name typed, audio refused for a .png then tokens accepted, faction default, no version; then quit
-    rc, out = run("sort", lib, stdin="Bluey\naudio\ntokens\n\n\nq\n")
-    check("a kind that does not fit the extension is refused and asked again", rc == 0 and ".png is not a audio file" in out and os.path.isfile(os.path.join(lib, "tokens", "unaffiliated", "bluey.png")))
+    check("a closed stdin stops instead of filing everything by default", rc == 0 and "stopped early" in out and os.path.isfile(os.path.join(lib, "Bramblewick.png")))
+    # Bramblewick.png: name typed, audio refused for a .png then tokens accepted, faction default, no version; then quit
+    rc, out = run("sort", lib, stdin="Bramblewick\naudio\ntokens\n\n\nq\n")
+    check("a kind that does not fit the extension is refused and asked again", rc == 0 and ".png is not a audio file" in out and os.path.isfile(os.path.join(lib, "tokens", "unaffiliated", "bramblewick.png")))
     rc, out = run("sort", lib, stdin="\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
     L = S.Library(lib)
     check("Enter on a hash-named cut-out files nothing (no name, left loose)", rc == 0 and "no name given" in out and os.path.isfile(os.path.join(lib, "a1b2c3d4e5f60718-removebg-preview.webp")) and not any(k.startswith("a1b2") for k in L.entries))

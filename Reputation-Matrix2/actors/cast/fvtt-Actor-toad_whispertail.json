@@ -1,13 +1,13 @@
 {
-  "_id": "Xawj9OaM4hgYukct",
-  "name": "Rattles",
+  "_id": "XLp2lcSQD2Ov0BnU",
+  "name": "Whispertail",
   "type": "npc",
-  "img": "portraits/rattles.jpg",
+  "img": "assets/images/toads/roster/toad_54_whispertail.png",
   "system": {
     "abilities": {
       "str": {
-        "value": 10,
-        "proficient": 0,
+        "value": 15,
+        "proficient": 1,
         "bonuses": {
           "check": "",
           "save": ""
@@ -29,7 +29,7 @@
         }
       },
       "dex": {
-        "value": 10,
+        "value": 13,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -52,7 +52,7 @@
         }
       },
       "con": {
-        "value": 10,
+        "value": 14,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -75,7 +75,7 @@
         }
       },
       "int": {
-        "value": 10,
+        "value": 12,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -98,8 +98,8 @@
         }
       },
       "wis": {
-        "value": 10,
-        "proficient": 0,
+        "value": 13,
+        "proficient": 1,
         "bonuses": {
           "check": "",
           "save": ""
@@ -121,7 +121,7 @@
         }
       },
       "cha": {
-        "value": 10,
+        "value": 14,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -146,19 +146,19 @@
     },
     "attributes": {
       "ac": {
-        "flat": 11,
+        "flat": 14,
         "calc": "natural",
         "formula": ""
       },
       "hp": {
-        "value": 13,
-        "max": 13,
-        "formula": "3d8",
+        "value": 49,
+        "max": 49,
+        "formula": "9d6 + 18",
         "temp": null,
         "tempmax": null
       },
       "movement": {
-        "walk": "30",
+        "walk": "25",
         "units": "ft",
         "hover": false,
         "burrow": "0",
@@ -170,7 +170,7 @@
       "senses": {
         "units": "ft",
         "ranges": {
-          "darkvision": 60
+          "darkvision": 0
         },
         "special": ""
       },
@@ -220,17 +220,17 @@
     "details": {
       "alignment": "Neutral",
       "type": {
-        "value": "monstrosity",
-        "subtype": "Bone-Line kin"
+        "value": "humanoid",
+        "subtype": "Toad"
       },
-      "cr": 0.5,
+      "cr": 2,
       "biography": {
-        "value": "<p><em>Waluipedia cast sheet — Rattles.</em> Built by <code>tools/build-character-sheets.py</code>, generated from the article's own words. XP ledger: level 3, power rating 5 → CR 1/2 as a civilian. Numbers are a GM-ready reading of the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p><p><strong>The Skeleton Who Wants His Old Body Back</strong> — Shadow Estate escape party / recruited local ally</p><p>Status: Active — guarding Tymnas's cottage; used his own backbone to brace a window during lockdown</p><p>Rattles is a skeleton recruited from a servant closet who wants to turn back time and regain his original flesh-and-bones body, not a replacement. He speaks with deeply skeleton-appropriate timing, joined the party during the Shadow Estate servant corridor sequence, and survived the rooftop escape by grabbing onto Remi during Feather Fall.</p><h3>Evidence</h3><ul><li><strong>Club</strong> — “The Skeleton Who Wants His Old Body Back”</li><li><strong>Hard to Kill</strong> — “He speaks with deeply skeleton-appropriate timing, joined the party during the Shadow Estate servant corridor sequence, and survived the rooftop escape by grabbing onto Remi during Feather Fall.”</li></ul><p>Article: <code>#/article/rattles</code> (characters). Site sheet: <code>#/sheets/rattles</code>.</p>",
+        "value": "<p><em>Waluipedia cast sheet — Whispertail.</em> Built by <code>tools/build-character-sheets.py</code>, generated from the article's own words. no XP ledger entry; archetype default → CR 2 as a officer. Numbers are a GM-ready reading of the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p><p><strong>Deputies — spiky tail</strong> — Liberated Toads — Deputies</p><p>Status: Listed — Liberated Toads roster #54, not yet seen in the field</p><p>Whispertail is roster entry #54 of the Liberated Toads: Deputies (Tier 4 — High Command (army leadership)). Whispertail fights with a tail swung like a club; cap colour taupe; listed, not yet seen in the field. That is the whole record, and Waluigi files the whole record: a face on the roster beats a rumour in a barrel. WAH.</p><h3>Evidence</h3><ul><li><strong>Club</strong> — “Whispertail fights with a tail swung like a club; cap colour taupe; listed, not yet seen in the field.”</li><li><strong>Leadership</strong> — “Whispertail is roster entry #54 of the Liberated Toads: Deputies (Tier 4 — High Command (army leadership)).”</li></ul><p>Article: <code>#/article/toad_whispertail</code> (characters). Site sheet: <code>#/sheets/toad_whispertail</code>.</p>",
         "public": ""
       }
     },
     "traits": {
-      "size": "med",
+      "size": "sm",
       "languages": {
         "value": [
           "common"
@@ -305,7 +305,7 @@
         }
       },
       "ath": {
-        "value": 0,
+        "value": 1,
         "ability": "str",
         "roll": {
           "min": null,
@@ -357,7 +357,7 @@
         }
       },
       "itm": {
-        "value": 0,
+        "value": 1,
         "ability": "cha",
         "roll": {
           "min": null,
@@ -409,7 +409,7 @@
         }
       },
       "prc": {
-        "value": 0,
+        "value": 1,
         "ability": "wis",
         "roll": {
           "min": null,
@@ -435,7 +435,7 @@
         }
       },
       "per": {
-        "value": 0,
+        "value": 1,
         "ability": "cha",
         "roll": {
           "min": null,
@@ -518,13 +518,13 @@
     "resources": {}
   },
   "prototypeToken": {
-    "name": "Rattles",
+    "name": "Whispertail",
     "displayName": 0,
     "actorLink": false,
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "portraits/player/fullbody/rattles.png",
+      "src": "assets/images/toads/roster/toad_54_whispertail.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -547,13 +547,13 @@
   },
   "items": [
     {
-      "_id": "GAKjm86seiGybwJT",
+      "_id": "2SIFUgYrkIXPYS4p",
       "name": "Club",
       "type": "weapon",
       "img": "icons/weapons/clubs/club-simple-barbed.webp",
       "system": {
         "description": {
-          "value": "<p>Club; melee weapon attack.</p>",
+          "value": "<p>Club; melee weapon attack.</p><p><em>Record:</em> “Whispertail fights with a tail swung like a club; cap colour taupe; listed, not yet seen in the field.”</p>",
           "chat": ""
         },
         "source": {
@@ -745,13 +745,13 @@
       }
     },
     {
-      "_id": "jkh7g0Ahj63EnyWr",
-      "name": "Hard to Kill",
+      "_id": "EsuepDQRedmLfge0",
+      "name": "Leadership",
       "type": "feat",
-      "img": "icons/skills/wounds/injury-pain-body-orange.webp",
+      "img": "icons/sundries/flags/banner-flag-blue.webp",
       "system": {
         "description": {
-          "value": "<p>When reduced to 0 hit points but not killed outright, it drops to 1 hit point instead. Once per long rest.</p>",
+          "value": "<p>For 1 minute, allies within 30 feet that can hear it add a d4 to attack rolls and saving throws. Once per short rest.</p>",
           "chat": ""
         },
         "type": {
@@ -764,8 +764,13 @@
         "range": {},
         "uses": {
           "spent": 0,
-          "max": "",
-          "recovery": []
+          "max": "1",
+          "recovery": [
+            {
+              "period": "sr",
+              "type": "recoverAll"
+            }
+          ]
         },
         "activities": {},
         "source": {
@@ -793,39 +798,39 @@
   "flags": {
     "waluipedia-mass-import": {
       "folderPath": [
-        "Shadow Estate & House Corvinarus"
+        "Liberated Toads"
       ],
       "source": "tools/build-character-sheets.py"
     },
     "waluipedia-sheets": {
-      "characterId": "rattles",
+      "characterId": "toad_whispertail",
       "generated": true,
       "bespoke": false,
-      "role": "civilian",
+      "role": "officer",
       "ledger": {
-        "level": 3,
-        "powerLevel": 5
+        "level": null,
+        "powerLevel": null
       },
       "evidence": [
         {
           "feature": "Club",
-          "quote": "The Skeleton Who Wants His Old Body Back",
-          "source": "title"
+          "quote": "Whispertail fights with a tail swung like a club; cap colour taupe; listed, not yet seen in the field.",
+          "source": "article"
         },
         {
-          "feature": "Hard to Kill",
-          "quote": "He speaks with deeply skeleton-appropriate timing, joined the party during the Shadow Estate servant corridor sequence, and survived the rooftop escape by grabbing onto Remi during Feather Fall.",
+          "feature": "Leadership",
+          "quote": "Whispertail is roster entry #54 of the Liberated Toads: Deputies (Tier 4 — High Command (army leadership)).",
           "source": "article"
         }
       ],
       "tags": [
-        "Shadow Estate & House Corvinarus",
+        "Liberated Toads",
         "npc",
-        "civilian",
-        "monstrosity",
+        "officer",
+        "humanoid",
         "generated"
       ],
-      "color": "#8B0000"
+      "color": "#87CEEB"
     }
   },
   "_stats": {

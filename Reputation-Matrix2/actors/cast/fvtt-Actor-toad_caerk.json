@@ -1,8 +1,8 @@
 {
-  "_id": "Xawj9OaM4hgYukct",
-  "name": "Rattles",
+  "_id": "HNDnUmZYH36plbAa",
+  "name": "Caerk",
   "type": "npc",
-  "img": "portraits/rattles.jpg",
+  "img": "assets/images/toads/roster/toad_71_caerk.png",
   "system": {
     "abilities": {
       "str": {
@@ -146,19 +146,19 @@
     },
     "attributes": {
       "ac": {
-        "flat": 11,
+        "flat": 10,
         "calc": "natural",
         "formula": ""
       },
       "hp": {
-        "value": 13,
-        "max": 13,
-        "formula": "3d8",
+        "value": 3,
+        "max": 3,
+        "formula": "1d6",
         "temp": null,
         "tempmax": null
       },
       "movement": {
-        "walk": "30",
+        "walk": "25",
         "units": "ft",
         "hover": false,
         "burrow": "0",
@@ -170,7 +170,7 @@
       "senses": {
         "units": "ft",
         "ranges": {
-          "darkvision": 60
+          "darkvision": 0
         },
         "special": ""
       },
@@ -220,17 +220,17 @@
     "details": {
       "alignment": "Neutral",
       "type": {
-        "value": "monstrosity",
-        "subtype": "Bone-Line kin"
+        "value": "humanoid",
+        "subtype": "Toad"
       },
-      "cr": 0.5,
+      "cr": 0,
       "biography": {
-        "value": "<p><em>Waluipedia cast sheet — Rattles.</em> Built by <code>tools/build-character-sheets.py</code>, generated from the article's own words. XP ledger: level 3, power rating 5 → CR 1/2 as a civilian. Numbers are a GM-ready reading of the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p><p><strong>The Skeleton Who Wants His Old Body Back</strong> — Shadow Estate escape party / recruited local ally</p><p>Status: Active — guarding Tymnas's cottage; used his own backbone to brace a window during lockdown</p><p>Rattles is a skeleton recruited from a servant closet who wants to turn back time and regain his original flesh-and-bones body, not a replacement. He speaks with deeply skeleton-appropriate timing, joined the party during the Shadow Estate servant corridor sequence, and survived the rooftop escape by grabbing onto Remi during Feather Fall.</p><h3>Evidence</h3><ul><li><strong>Club</strong> — “The Skeleton Who Wants His Old Body Back”</li><li><strong>Hard to Kill</strong> — “He speaks with deeply skeleton-appropriate timing, joined the party during the Shadow Estate servant corridor sequence, and survived the rooftop escape by grabbing onto Remi during Feather Fall.”</li></ul><p>Article: <code>#/article/rattles</code> (characters). Site sheet: <code>#/sheets/rattles</code>.</p>",
+        "value": "<p><em>Waluipedia cast sheet — Caerk.</em> Built by <code>tools/build-character-sheets.py</code>, generated from the article's own words. no XP ledger entry; archetype default → CR 0 as a civilian. Numbers are a GM-ready reading of the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p><p><strong>Speaker L Followers — baking tools</strong> — Liberated Toads — Speaker L Followers</p><p>Status: Listed — Liberated Toads roster #71, not yet seen in the field</p><p>Caerk is roster entry #71 of the Liberated Toads: Speaker L Followers (Tier 6 — Armed Group). The roster lists Baking tools for a weapon; cap colour white; listed, not yet seen in the field. That is the whole record, and Waluigi files the whole record: a face on the roster beats a rumour in a barrel. WAH.</p><h3>Evidence</h3><ul><li><strong>Club</strong> — “Speaker L Followers — baking tools”</li><li><strong>As Filed</strong> — “Speaker L Followers — baking tools”</li></ul><p>Article: <code>#/article/toad_caerk</code> (characters). Site sheet: <code>#/sheets/toad_caerk</code>.</p>",
         "public": ""
       }
     },
     "traits": {
-      "size": "med",
+      "size": "sm",
       "languages": {
         "value": [
           "common"
@@ -518,13 +518,13 @@
     "resources": {}
   },
   "prototypeToken": {
-    "name": "Rattles",
+    "name": "Caerk",
     "displayName": 0,
     "actorLink": false,
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "portraits/player/fullbody/rattles.png",
+      "src": "assets/images/toads/roster/toad_71_caerk.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -547,7 +547,7 @@
   },
   "items": [
     {
-      "_id": "GAKjm86seiGybwJT",
+      "_id": "POMNTKFPFx7HecGT",
       "name": "Club",
       "type": "weapon",
       "img": "icons/weapons/clubs/club-simple-barbed.webp",
@@ -745,13 +745,13 @@
       }
     },
     {
-      "_id": "jkh7g0Ahj63EnyWr",
-      "name": "Hard to Kill",
+      "_id": "w2EDLhXEbmq7Lxi8",
+      "name": "As Filed",
       "type": "feat",
-      "img": "icons/skills/wounds/injury-pain-body-orange.webp",
+      "img": "icons/sundries/scrolls/scroll-bound-white-tan.webp",
       "system": {
         "description": {
-          "value": "<p>When reduced to 0 hit points but not killed outright, it drops to 1 hit point instead. Once per long rest.</p>",
+          "value": "<p>The archive records Caerk as Speaker L Followers — baking tools; nothing in the article describes a fighting trick, so this sheet carries none. Treat the numbers as a baseline.</p>",
           "chat": ""
         },
         "type": {
@@ -793,39 +793,39 @@
   "flags": {
     "waluipedia-mass-import": {
       "folderPath": [
-        "Shadow Estate & House Corvinarus"
+        "Liberated Toads"
       ],
       "source": "tools/build-character-sheets.py"
     },
     "waluipedia-sheets": {
-      "characterId": "rattles",
+      "characterId": "toad_caerk",
       "generated": true,
       "bespoke": false,
       "role": "civilian",
       "ledger": {
-        "level": 3,
-        "powerLevel": 5
+        "level": null,
+        "powerLevel": null
       },
       "evidence": [
         {
           "feature": "Club",
-          "quote": "The Skeleton Who Wants His Old Body Back",
+          "quote": "Speaker L Followers — baking tools",
           "source": "title"
         },
         {
-          "feature": "Hard to Kill",
-          "quote": "He speaks with deeply skeleton-appropriate timing, joined the party during the Shadow Estate servant corridor sequence, and survived the rooftop escape by grabbing onto Remi during Feather Fall.",
-          "source": "article"
+          "feature": "As Filed",
+          "quote": "Speaker L Followers — baking tools",
+          "source": "title"
         }
       ],
       "tags": [
-        "Shadow Estate & House Corvinarus",
+        "Liberated Toads",
         "npc",
         "civilian",
-        "monstrosity",
+        "humanoid",
         "generated"
       ],
-      "color": "#8B0000"
+      "color": "#87CEEB"
     }
   },
   "_stats": {

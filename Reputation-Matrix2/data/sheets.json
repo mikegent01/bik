@@ -9,9 +9,9 @@
     "folderScheme": "actors/folders.json",
     "castImport": "actors/cast/import.json",
     "counts": {
-      "characters": 194,
-      "sheets": 188,
-      "generated": 156,
+      "characters": 248,
+      "sheets": 242,
+      "generated": 210,
       "eras": 3,
       "existing": 32,
       "party": 18,
@@ -9434,6 +9434,938 @@
       "versions": []
     },
     {
+      "id": "toad_4331_t",
+      "name": "4331 T",
+      "title": "Speaker River Follower — calculator",
+      "sheetName": "4331 T",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_4331_t.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_75_4331_t.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "civilian",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Club",
+          "quote": "Speaker River Follower — calculator",
+          "source": "title"
+        },
+        {
+          "feature": "As Filed",
+          "quote": "Speaker River Follower — calculator",
+          "source": "title"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 10,
+        "dex": 10,
+        "con": 10,
+        "int": 10,
+        "wis": 10,
+        "cha": 10
+      },
+      "hp": 3,
+      "speed": "25",
+      "size": "sm",
+      "items": 2,
+      "ac": 10,
+      "cr": 0,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_anne_ari_t",
+      "name": "Anne Ari T",
+      "title": "Speaker L Followers — bug  jar",
+      "sheetName": "Anne Ari T",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_anne_ari_t.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_74_anne_ari_t.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "civilian",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Club",
+          "quote": "Speaker L Followers — bug  jar",
+          "source": "title"
+        },
+        {
+          "feature": "As Filed",
+          "quote": "Speaker L Followers — bug  jar",
+          "source": "title"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 10,
+        "dex": 10,
+        "con": 10,
+        "int": 10,
+        "wis": 10,
+        "cha": 10
+      },
+      "hp": 3,
+      "speed": "25",
+      "size": "sm",
+      "items": 2,
+      "ac": 10,
+      "cr": 0,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_axie",
+      "name": "Axie",
+      "title": "Pond Patrol — long axe",
+      "sheetName": "Axie",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_axie.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_18_axie.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "soldier",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Axe",
+          "quote": "Pond Patrol — long axe",
+          "source": "article"
+        },
+        {
+          "feature": "As Filed",
+          "quote": "Pond Patrol — long axe",
+          "source": "title"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 15,
+        "dex": 12,
+        "con": 14,
+        "int": 10,
+        "wis": 11,
+        "cha": 10
+      },
+      "hp": 22,
+      "speed": "25",
+      "size": "sm",
+      "items": 2,
+      "ac": 14,
+      "cr": 0.5,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_barie",
+      "name": "Barie",
+      "title": "Speaker River Follower — bite",
+      "sheetName": "Barie",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_barie.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_70_barie.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "soldier",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Bite",
+          "quote": "Speaker River Follower — bite",
+          "source": "article"
+        },
+        {
+          "feature": "As Filed",
+          "quote": "Speaker River Follower — bite",
+          "source": "title"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 15,
+        "dex": 12,
+        "con": 14,
+        "int": 10,
+        "wis": 11,
+        "cha": 10
+      },
+      "hp": 22,
+      "speed": "25",
+      "size": "sm",
+      "items": 2,
+      "ac": 14,
+      "cr": 0.5,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_bearr",
+      "name": "Bearr",
+      "title": "Pond Patrol — spear",
+      "sheetName": "Bearr",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_bearr.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_15_bearr.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "soldier",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Spear",
+          "quote": "Pond Patrol — spear",
+          "source": "article"
+        },
+        {
+          "feature": "As Filed",
+          "quote": "Pond Patrol — spear",
+          "source": "title"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 15,
+        "dex": 12,
+        "con": 14,
+        "int": 10,
+        "wis": 11,
+        "cha": 10
+      },
+      "hp": 22,
+      "speed": "25",
+      "size": "sm",
+      "items": 2,
+      "ac": 14,
+      "cr": 0.5,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_bion",
+      "name": "Bion",
+      "title": "Pond Patrol — two axes",
+      "sheetName": "Bion",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_bion.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_17_bion.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "soldier",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Axe",
+          "quote": "Pond Patrol — two axes",
+          "source": "article"
+        },
+        {
+          "feature": "As Filed",
+          "quote": "Pond Patrol — two axes",
+          "source": "title"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 15,
+        "dex": 12,
+        "con": 14,
+        "int": 10,
+        "wis": 11,
+        "cha": 10
+      },
+      "hp": 22,
+      "speed": "25",
+      "size": "sm",
+      "items": 2,
+      "ac": 14,
+      "cr": 0.5,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_bluey",
+      "name": "Bluey",
+      "title": "Pond Patrol — sling shot",
+      "sheetName": "Bluey",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_bluey.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_27_bluey.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "soldier",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Sling",
+          "quote": "Bluey fights with a slingshot; cap colour blue; seen in the field.",
+          "source": "article"
+        },
+        {
+          "feature": "As Filed",
+          "quote": "Pond Patrol — sling shot",
+          "source": "title"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 15,
+        "dex": 12,
+        "con": 14,
+        "int": 10,
+        "wis": 11,
+        "cha": 10
+      },
+      "hp": 22,
+      "speed": "25",
+      "size": "sm",
+      "items": 2,
+      "ac": 14,
+      "cr": 0.5,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_caerk",
+      "name": "Caerk",
+      "title": "Speaker L Followers — baking tools",
+      "sheetName": "Caerk",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_caerk.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_71_caerk.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "civilian",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Club",
+          "quote": "Speaker L Followers — baking tools",
+          "source": "title"
+        },
+        {
+          "feature": "As Filed",
+          "quote": "Speaker L Followers — baking tools",
+          "source": "title"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 10,
+        "dex": 10,
+        "con": 10,
+        "int": 10,
+        "wis": 10,
+        "cha": 10
+      },
+      "hp": 3,
+      "speed": "25",
+      "size": "sm",
+      "items": 2,
+      "ac": 10,
+      "cr": 0,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_crai_yellow",
+      "name": "Crai Yellow",
+      "title": "Lillypads — lightning",
+      "sheetName": "Crai Yellow",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_crai_yellow.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_59_crai_yellow.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "caster",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Staff",
+          "quote": "Lillypads — lightning",
+          "source": "title"
+        },
+        {
+          "feature": "Spellcasting",
+          "quote": "Lillypads — lightning",
+          "source": "title"
+        },
+        {
+          "feature": "As Filed",
+          "quote": "Lillypads — lightning",
+          "source": "title"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 9,
+        "dex": 13,
+        "con": 12,
+        "int": 16,
+        "wis": 13,
+        "cha": 12
+      },
+      "hp": 36,
+      "speed": "25",
+      "size": "sm",
+      "items": 3,
+      "ac": 12,
+      "cr": 2,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_freaza",
+      "name": "Freaza",
+      "title": "Pond Patrol — scoped pistol",
+      "sheetName": "Freaza",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_freaza.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_19_freaza.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "soldier",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Pistol",
+          "quote": "Pond Patrol — scoped pistol",
+          "source": "article"
+        },
+        {
+          "feature": "As Filed",
+          "quote": "Pond Patrol — scoped pistol",
+          "source": "title"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 15,
+        "dex": 12,
+        "con": 14,
+        "int": 10,
+        "wis": 11,
+        "cha": 10
+      },
+      "hp": 22,
+      "speed": "25",
+      "size": "sm",
+      "items": 2,
+      "ac": 14,
+      "cr": 0.5,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_gearspore",
+      "name": "Gearspore",
+      "title": "High Command — spinning gears",
+      "sheetName": "Gearspore",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_gearspore.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_47_gearspore.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "caster",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Staff",
+          "quote": "High Command — spinning gears",
+          "source": "title"
+        },
+        {
+          "feature": "Grasping Growth",
+          "quote": "Gearspore is roster entry #47 of the Liberated Toads: High Command (Tier 3 — Leaders).",
+          "source": "article"
+        },
+        {
+          "feature": "Spellcasting",
+          "quote": "High Command — spinning gears",
+          "source": "title"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 9,
+        "dex": 13,
+        "con": 12,
+        "int": 16,
+        "wis": 13,
+        "cha": 12
+      },
+      "hp": 36,
+      "speed": "25",
+      "size": "sm",
+      "items": 3,
+      "ac": 12,
+      "cr": 2,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_gentlepad",
+      "name": "Gentlepad",
+      "title": "Medics United — long healing tounge",
+      "sheetName": "Gentlepad",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_gentlepad.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_52_gentlepad.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "healer",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Dagger",
+          "quote": "Medics United — long healing tounge",
+          "source": "title"
+        },
+        {
+          "feature": "Field Medicine",
+          "quote": "Medics United — long healing tounge",
+          "source": "article"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 9,
+        "dex": 12,
+        "con": 12,
+        "int": 14,
+        "wis": 15,
+        "cha": 12
+      },
+      "hp": 9,
+      "speed": "25",
+      "size": "sm",
+      "items": 2,
+      "ac": 11,
+      "cr": 0.25,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_hammerling",
+      "name": "Hammerling",
+      "title": "Overseers — hammer",
+      "sheetName": "Hammerling",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_hammerling.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_48_hammerling.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "officer",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Hammer",
+          "quote": "Overseers — hammer",
+          "source": "article"
+        },
+        {
+          "feature": "Leadership",
+          "quote": "Hammerling is roster entry #48 of the Liberated Toads: Overseers (Tier 3 — Leaders).",
+          "source": "article"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 15,
+        "dex": 13,
+        "con": 14,
+        "int": 12,
+        "wis": 13,
+        "cha": 14
+      },
+      "hp": 49,
+      "speed": "25",
+      "size": "sm",
+      "items": 2,
+      "ac": 14,
+      "cr": 2,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_hustion_gold",
+      "name": "Hustion Gold",
+      "title": "Lillypads — midas touch",
+      "sheetName": "Hustion Gold",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_hustion_gold.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_64_hustion_gold.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "caster",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Staff",
+          "quote": "Lillypads — midas touch",
+          "source": "title"
+        },
+        {
+          "feature": "Spellcasting",
+          "quote": "Lillypads — midas touch",
+          "source": "title"
+        },
+        {
+          "feature": "As Filed",
+          "quote": "Lillypads — midas touch",
+          "source": "title"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 9,
+        "dex": 13,
+        "con": 12,
+        "int": 16,
+        "wis": 13,
+        "cha": 12
+      },
+      "hp": 36,
+      "speed": "25",
+      "size": "sm",
+      "items": 3,
+      "ac": 12,
+      "cr": 2,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_ie_foxx",
+      "name": "Toad ie Foxx",
+      "title": "Speaker River Follower — fox tail",
+      "sheetName": "Toad ie Foxx",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_ie_foxx.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_73_toad_ie_foxx.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "soldier",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Club",
+          "quote": "Toad ie Foxx fights with a tail swung like a club; cap colour forest; listed, not yet seen in the field.",
+          "source": "article"
+        },
+        {
+          "feature": "As Filed",
+          "quote": "Speaker River Follower — fox tail",
+          "source": "title"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 15,
+        "dex": 12,
+        "con": 14,
+        "int": 10,
+        "wis": 11,
+        "cha": 10
+      },
+      "hp": 22,
+      "speed": "25",
+      "size": "sm",
+      "items": 2,
+      "ac": 14,
+      "cr": 0.5,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_inkspot",
+      "name": "Inkspot",
+      "title": "High Command — ink/ squid",
+      "sheetName": "Inkspot",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_inkspot.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_45_inkspot.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "caster",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Staff",
+          "quote": "High Command — ink/ squid",
+          "source": "title"
+        },
+        {
+          "feature": "Spellcasting",
+          "quote": "High Command — ink/ squid",
+          "source": "title"
+        },
+        {
+          "feature": "As Filed",
+          "quote": "High Command — ink/ squid",
+          "source": "title"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 9,
+        "dex": 13,
+        "con": 12,
+        "int": 16,
+        "wis": 13,
+        "cha": 12
+      },
+      "hp": 36,
+      "speed": "25",
+      "size": "sm",
+      "items": 3,
+      "ac": 12,
+      "cr": 2,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_kila_t",
+      "name": "Kila T",
+      "title": "Speaker L Followers — knifes",
+      "sheetName": "Kila T",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_kila_t.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_67_kila_t.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "rogue",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Dagger",
+          "quote": "Speaker L Followers — knifes",
+          "source": "article"
+        },
+        {
+          "feature": "As Filed",
+          "quote": "Speaker L Followers — knifes",
+          "source": "title"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 10,
+        "dex": 16,
+        "con": 12,
+        "int": 13,
+        "wis": 13,
+        "cha": 12
+      },
+      "hp": 27,
+      "speed": "25",
+      "size": "sm",
+      "items": 2,
+      "ac": 14,
+      "cr": 1,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_kit_t",
+      "name": "Kit T",
+      "title": "Medics United — breath/healing breath",
+      "sheetName": "Kit T",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_kit_t.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_42_kit_t.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "healer",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Dagger",
+          "quote": "Medics United — breath/healing breath",
+          "source": "title"
+        },
+        {
+          "feature": "Field Medicine",
+          "quote": "Medics United — breath/healing breath",
+          "source": "article"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 9,
+        "dex": 12,
+        "con": 12,
+        "int": 14,
+        "wis": 15,
+        "cha": 12
+      },
+      "hp": 9,
+      "speed": "25",
+      "size": "sm",
+      "items": 2,
+      "ac": 11,
+      "cr": 0.25,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_kyo",
+      "name": "Kyo",
+      "title": "Pond Patrol — fishing spear",
+      "sheetName": "Kyo",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_kyo.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_21_kyo.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "soldier",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Spear",
+          "quote": "Pond Patrol — fishing spear",
+          "source": "article"
+        },
+        {
+          "feature": "As Filed",
+          "quote": "Pond Patrol — fishing spear",
+          "source": "title"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 15,
+        "dex": 12,
+        "con": 14,
+        "int": 10,
+        "wis": 11,
+        "cha": 10
+      },
+      "hp": 22,
+      "speed": "25",
+      "size": "sm",
+      "items": 2,
+      "ac": 14,
+      "cr": 0.5,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
       "id": "toad_lee",
       "name": "Toad Lee",
       "title": "The Defenestrated Diplomat",
@@ -9475,6 +10407,1726 @@
         "Warden 4"
       ],
       "species": "Bullywug",
+      "versions": []
+    },
+    {
+      "id": "toad_lilystalker",
+      "name": "Lilystalker",
+      "title": "Pond Patrol — scoped sniper",
+      "sheetName": "Lilystalker",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_lilystalker.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_44_lilystalker.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "soldier",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Rifle",
+          "quote": "Lilystalker fights with a scoped sniper rifle; cap colour forest; listed, not yet seen in the field.",
+          "source": "article"
+        },
+        {
+          "feature": "As Filed",
+          "quote": "Pond Patrol — scoped sniper",
+          "source": "title"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 15,
+        "dex": 12,
+        "con": 14,
+        "int": 10,
+        "wis": 11,
+        "cha": 10
+      },
+      "hp": 22,
+      "speed": "25",
+      "size": "sm",
+      "items": 2,
+      "ac": 14,
+      "cr": 0.5,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_lualu_green",
+      "name": "Lualu Green",
+      "title": "Lillypads — grass overgrowth",
+      "sheetName": "Lualu Green",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_lualu_green.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_60_lualu_green.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "caster",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Staff",
+          "quote": "Lillypads — grass overgrowth",
+          "source": "title"
+        },
+        {
+          "feature": "Grasping Growth",
+          "quote": "Lillypads — grass overgrowth",
+          "source": "article"
+        },
+        {
+          "feature": "Spellcasting",
+          "quote": "Lillypads — grass overgrowth",
+          "source": "title"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 9,
+        "dex": 13,
+        "con": 12,
+        "int": 16,
+        "wis": 13,
+        "cha": 12
+      },
+      "hp": 36,
+      "speed": "25",
+      "size": "sm",
+      "items": 3,
+      "ac": 12,
+      "cr": 2,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_lucky_t",
+      "name": "Lucky T",
+      "title": "Pond Patrol — sword and shield",
+      "sheetName": "Lucky T",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_lucky_t.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_11_lucky_t.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "soldier",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Sabre",
+          "quote": "Pond Patrol — sword and shield",
+          "source": "article"
+        },
+        {
+          "feature": "Iron Discipline",
+          "quote": "Pond Patrol — sword and shield",
+          "source": "article"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 15,
+        "dex": 12,
+        "con": 14,
+        "int": 10,
+        "wis": 11,
+        "cha": 10
+      },
+      "hp": 22,
+      "speed": "25",
+      "size": "sm",
+      "items": 2,
+      "ac": 14,
+      "cr": 0.5,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_mechal",
+      "name": "Mechal",
+      "title": "Pond Patrol — huge improvised rock sword",
+      "sheetName": "Mechal",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_mechal.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_26_mechal.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "soldier",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Sabre",
+          "quote": "Pond Patrol — huge improvised rock sword",
+          "source": "article"
+        },
+        {
+          "feature": "As Filed",
+          "quote": "Pond Patrol — huge improvised rock sword",
+          "source": "title"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 15,
+        "dex": 12,
+        "con": 14,
+        "int": 10,
+        "wis": 11,
+        "cha": 10
+      },
+      "hp": 22,
+      "speed": "25",
+      "size": "sm",
+      "items": 2,
+      "ac": 14,
+      "cr": 0.5,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_naners",
+      "name": "Naners",
+      "title": "Pond Patrol — crossbow",
+      "sheetName": "Naners",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_naners.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_22_naners.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "soldier",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Crossbow",
+          "quote": "Pond Patrol — crossbow",
+          "source": "article"
+        },
+        {
+          "feature": "As Filed",
+          "quote": "Pond Patrol — crossbow",
+          "source": "title"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 15,
+        "dex": 12,
+        "con": 14,
+        "int": 10,
+        "wis": 11,
+        "cha": 10
+      },
+      "hp": 22,
+      "speed": "25",
+      "size": "sm",
+      "items": 2,
+      "ac": 14,
+      "cr": 0.5,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_nat",
+      "name": "Nat",
+      "title": "Speaker L Followers — bug spray",
+      "sheetName": "Nat",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_nat.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_72_nat.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "civilian",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Club",
+          "quote": "Speaker L Followers — bug spray",
+          "source": "title"
+        },
+        {
+          "feature": "As Filed",
+          "quote": "Speaker L Followers — bug spray",
+          "source": "title"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 10,
+        "dex": 10,
+        "con": 10,
+        "int": 10,
+        "wis": 10,
+        "cha": 10
+      },
+      "hp": 3,
+      "speed": "25",
+      "size": "sm",
+      "items": 2,
+      "ac": 10,
+      "cr": 0,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_necro",
+      "name": "Necro",
+      "title": "Student Union — necromancy",
+      "sheetName": "Necro",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_necro.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_39_necro.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "caster",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Staff",
+          "quote": "Student Union — necromancy",
+          "source": "title"
+        },
+        {
+          "feature": "Guild Spellcasting",
+          "quote": "The Class of T — one student per school of magic.",
+          "source": "article"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 9,
+        "dex": 13,
+        "con": 12,
+        "int": 16,
+        "wis": 13,
+        "cha": 12
+      },
+      "hp": 36,
+      "speed": "25",
+      "size": "sm",
+      "items": 2,
+      "ac": 12,
+      "cr": 2,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_oiqie",
+      "name": "Oiqie",
+      "title": "Pond Patrol — ball and chain",
+      "sheetName": "Oiqie",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_oiqie.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_23_oiqie.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "soldier",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Mace",
+          "quote": "Oiqie fights with a ball and chain — a flail; cap colour purple; seen in the field.",
+          "source": "article"
+        },
+        {
+          "feature": "As Filed",
+          "quote": "Pond Patrol — ball and chain",
+          "source": "title"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 15,
+        "dex": 12,
+        "con": 14,
+        "int": 10,
+        "wis": 11,
+        "cha": 10
+      },
+      "hp": 22,
+      "speed": "25",
+      "size": "sm",
+      "items": 2,
+      "ac": 14,
+      "cr": 0.5,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_oliver_p",
+      "name": "Oliver P",
+      "title": "Lillypads — pink gas",
+      "sheetName": "Oliver P",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_oliver_p.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_62_oliver_p.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "caster",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Staff",
+          "quote": "Lillypads — pink gas",
+          "source": "title"
+        },
+        {
+          "feature": "Spellcasting",
+          "quote": "Lillypads — pink gas",
+          "source": "title"
+        },
+        {
+          "feature": "As Filed",
+          "quote": "Lillypads — pink gas",
+          "source": "title"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 9,
+        "dex": 13,
+        "con": 12,
+        "int": 16,
+        "wis": 13,
+        "cha": 12
+      },
+      "hp": 36,
+      "speed": "25",
+      "size": "sm",
+      "items": 3,
+      "ac": 12,
+      "cr": 2,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_perot",
+      "name": "Perot",
+      "title": "Speaker L Followers — crossbow",
+      "sheetName": "Perot",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_perot.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_07_perot.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "soldier",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Crossbow",
+          "quote": "Speaker L Followers — crossbow",
+          "source": "article"
+        },
+        {
+          "feature": "As Filed",
+          "quote": "Speaker L Followers — crossbow",
+          "source": "title"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 15,
+        "dex": 12,
+        "con": 14,
+        "int": 10,
+        "wis": 11,
+        "cha": 10
+      },
+      "hp": 22,
+      "speed": "25",
+      "size": "sm",
+      "items": 2,
+      "ac": 14,
+      "cr": 0.5,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_poe_white",
+      "name": "Poe White",
+      "title": "Lillypads — brightness",
+      "sheetName": "Poe White",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_poe_white.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_63_poe_white.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "caster",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Staff",
+          "quote": "Lillypads — brightness",
+          "source": "title"
+        },
+        {
+          "feature": "Spellcasting",
+          "quote": "Lillypads — brightness",
+          "source": "title"
+        },
+        {
+          "feature": "As Filed",
+          "quote": "Lillypads — brightness",
+          "source": "title"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 9,
+        "dex": 13,
+        "con": 12,
+        "int": 16,
+        "wis": 13,
+        "cha": 12
+      },
+      "hp": 36,
+      "speed": "25",
+      "size": "sm",
+      "items": 3,
+      "ac": 12,
+      "cr": 2,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_pondscum",
+      "name": "Pondscum",
+      "title": "High Command — rifle ranged weapon",
+      "sheetName": "Pondscum",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_pondscum.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_43_pondscum.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "officer",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Rifle",
+          "quote": "High Command — rifle ranged weapon",
+          "source": "article"
+        },
+        {
+          "feature": "Leadership",
+          "quote": "High Command — rifle ranged weapon",
+          "source": "article"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 15,
+        "dex": 13,
+        "con": 14,
+        "int": 12,
+        "wis": 13,
+        "cha": 14
+      },
+      "hp": 49,
+      "speed": "25",
+      "size": "sm",
+      "items": 2,
+      "ac": 14,
+      "cr": 2,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_quillback",
+      "name": "Quillback",
+      "title": "High Command — feathers",
+      "sheetName": "Quillback",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_quillback.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_46_quillback.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "caster",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Staff",
+          "quote": "High Command — feathers",
+          "source": "title"
+        },
+        {
+          "feature": "Spellcasting",
+          "quote": "High Command — feathers",
+          "source": "title"
+        },
+        {
+          "feature": "As Filed",
+          "quote": "High Command — feathers",
+          "source": "title"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 9,
+        "dex": 13,
+        "con": 12,
+        "int": 16,
+        "wis": 13,
+        "cha": 12
+      },
+      "hp": 36,
+      "speed": "25",
+      "size": "sm",
+      "items": 3,
+      "ac": 12,
+      "cr": 2,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_ratie",
+      "name": "Ratie",
+      "title": "Speaker River Follower — bricks",
+      "sheetName": "Ratie",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_ratie.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_41_ratie.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "civilian",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Club",
+          "quote": "Speaker River Follower — bricks",
+          "source": "title"
+        },
+        {
+          "feature": "As Filed",
+          "quote": "Speaker River Follower — bricks",
+          "source": "title"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 10,
+        "dex": 10,
+        "con": 10,
+        "int": 10,
+        "wis": 10,
+        "cha": 10
+      },
+      "hp": 3,
+      "speed": "25",
+      "size": "sm",
+      "items": 2,
+      "ac": 10,
+      "cr": 0,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_rawra",
+      "name": "Rawra",
+      "title": "Pond Patrol — ship anchor",
+      "sheetName": "Rawra",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_rawra.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_24_rawra.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "soldier",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Maul",
+          "quote": "Rawra fights with a ship's anchor swung like a maul; cap colour blue; seen in the field.",
+          "source": "article"
+        },
+        {
+          "feature": "As Filed",
+          "quote": "Pond Patrol — ship anchor",
+          "source": "title"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 15,
+        "dex": 12,
+        "con": 14,
+        "int": 10,
+        "wis": 11,
+        "cha": 10
+      },
+      "hp": 22,
+      "speed": "25",
+      "size": "sm",
+      "items": 2,
+      "ac": 14,
+      "cr": 0.5,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_rchie_iser",
+      "name": "Rchie Iser",
+      "title": "Speaker L Followers — eye beams",
+      "sheetName": "Rchie Iser",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_rchie_iser.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_66_rchie_iser.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "caster",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Staff",
+          "quote": "Speaker L Followers — eye beams",
+          "source": "title"
+        },
+        {
+          "feature": "Spellcasting",
+          "quote": "Speaker L Followers — eye beams",
+          "source": "title"
+        },
+        {
+          "feature": "As Filed",
+          "quote": "Speaker L Followers — eye beams",
+          "source": "title"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 9,
+        "dex": 13,
+        "con": 12,
+        "int": 16,
+        "wis": 13,
+        "cha": 12
+      },
+      "hp": 36,
+      "speed": "25",
+      "size": "sm",
+      "items": 3,
+      "ac": 12,
+      "cr": 2,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_regan",
+      "name": "Regan",
+      "title": "Pond Patrol — winged spear",
+      "sheetName": "Regan",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_regan.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_25_regan.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "soldier",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Spear",
+          "quote": "Pond Patrol — winged spear",
+          "source": "article"
+        },
+        {
+          "feature": "As Filed",
+          "quote": "Pond Patrol — winged spear",
+          "source": "title"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 15,
+        "dex": 12,
+        "con": 14,
+        "int": 10,
+        "wis": 11,
+        "cha": 10
+      },
+      "hp": 22,
+      "speed": "25",
+      "size": "sm",
+      "items": 2,
+      "ac": 14,
+      "cr": 0.5,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_sally_silver",
+      "name": "Sally Silver",
+      "title": "Lillypads — lead weapons",
+      "sheetName": "Sally Silver",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_sally_silver.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_65_sally_silver.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "caster",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Staff",
+          "quote": "Lillypads — lead weapons",
+          "source": "title"
+        },
+        {
+          "feature": "Spellcasting",
+          "quote": "Lillypads — lead weapons",
+          "source": "title"
+        },
+        {
+          "feature": "As Filed",
+          "quote": "Lillypads — lead weapons",
+          "source": "title"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 9,
+        "dex": 13,
+        "con": 12,
+        "int": 16,
+        "wis": 13,
+        "cha": 12
+      },
+      "hp": 36,
+      "speed": "25",
+      "size": "sm",
+      "items": 3,
+      "ac": 12,
+      "cr": 2,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_shadowleap",
+      "name": "Shadowleap",
+      "title": "Speaker River Follower — smoke grenade",
+      "sheetName": "Shadowleap",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_shadowleap.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_53_shadowleap.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "rogue",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Dagger",
+          "quote": "Speaker River Follower — smoke grenade",
+          "source": "title"
+        },
+        {
+          "feature": "As Filed",
+          "quote": "Speaker River Follower — smoke grenade",
+          "source": "title"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 10,
+        "dex": 16,
+        "con": 12,
+        "int": 13,
+        "wis": 13,
+        "cha": 12
+      },
+      "hp": 27,
+      "speed": "25",
+      "size": "sm",
+      "items": 2,
+      "ac": 14,
+      "cr": 1,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_shieldback",
+      "name": "Shieldback",
+      "title": "Speaker L Followers — riot shield",
+      "sheetName": "Shieldback",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_shieldback.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_50_shieldback.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "soldier",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Club",
+          "quote": "Shieldback fights with a riot shield and a baton; cap colour steel; listed, not yet seen in the field.",
+          "source": "article"
+        },
+        {
+          "feature": "Iron Discipline",
+          "quote": "Speaker L Followers — riot shield",
+          "source": "article"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 15,
+        "dex": 12,
+        "con": 14,
+        "int": 10,
+        "wis": 11,
+        "cha": 10
+      },
+      "hp": 22,
+      "speed": "25",
+      "size": "sm",
+      "items": 2,
+      "ac": 14,
+      "cr": 0.5,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_slinat",
+      "name": "Slinat",
+      "title": "Pond Patrol — yo-yo slingshot",
+      "sheetName": "Slinat",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_slinat.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_28_slinat.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "soldier",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Sling",
+          "quote": "Pond Patrol — yo-yo slingshot",
+          "source": "article"
+        },
+        {
+          "feature": "As Filed",
+          "quote": "Pond Patrol — yo-yo slingshot",
+          "source": "title"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 15,
+        "dex": 12,
+        "con": 14,
+        "int": 10,
+        "wis": 11,
+        "cha": 10
+      },
+      "hp": 22,
+      "speed": "25",
+      "size": "sm",
+      "items": 2,
+      "ac": 14,
+      "cr": 0.5,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_soothing_moss",
+      "name": "Soothing Moss",
+      "title": "Deputies — aroma",
+      "sheetName": "Soothing Moss",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_soothing_moss.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_51_soothing_moss.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "healer",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Dagger",
+          "quote": "Deputies — aroma",
+          "source": "title"
+        },
+        {
+          "feature": "As Filed",
+          "quote": "Deputies — aroma",
+          "source": "title"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 9,
+        "dex": 12,
+        "con": 12,
+        "int": 14,
+        "wis": 15,
+        "cha": 12
+      },
+      "hp": 9,
+      "speed": "25",
+      "size": "sm",
+      "items": 2,
+      "ac": 11,
+      "cr": 0.25,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_spearwort",
+      "name": "Spearwort",
+      "title": "Overseers — vines/ pointy vine spears",
+      "sheetName": "Spearwort",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_spearwort.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_49_spearwort.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "officer",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Spear",
+          "quote": "Overseers — vines/ pointy vine spears",
+          "source": "article"
+        },
+        {
+          "feature": "Leadership",
+          "quote": "Spearwort is roster entry #49 of the Liberated Toads: Overseers (Tier 3 — Leaders).",
+          "source": "article"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 15,
+        "dex": 13,
+        "con": 14,
+        "int": 12,
+        "wis": 13,
+        "cha": 14
+      },
+      "hp": 49,
+      "speed": "25",
+      "size": "sm",
+      "items": 2,
+      "ac": 14,
+      "cr": 2,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_speki",
+      "name": "Speki",
+      "title": "Spore 5 — spore sight",
+      "sheetName": "Speki",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_speki.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_57_speki.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "monster",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Claws",
+          "quote": "Spore 5 — spore sight",
+          "source": "title"
+        },
+        {
+          "feature": "Grasping Growth",
+          "quote": "Spore 5 — spore sight",
+          "source": "article"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 16,
+        "dex": 14,
+        "con": 15,
+        "int": 8,
+        "wis": 12,
+        "cha": 9
+      },
+      "hp": 55,
+      "speed": "25",
+      "size": "sm",
+      "items": 2,
+      "ac": 13,
+      "cr": 2,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_spik",
+      "name": "Spik",
+      "title": "Spore 5 — spore touch",
+      "sheetName": "Spik",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_spik.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_56_spik.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "monster",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Claws",
+          "quote": "Spore 5 — spore touch",
+          "source": "title"
+        },
+        {
+          "feature": "Grasping Growth",
+          "quote": "Spore 5 — spore touch",
+          "source": "article"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 16,
+        "dex": 14,
+        "con": 15,
+        "int": 8,
+        "wis": 12,
+        "cha": 9
+      },
+      "hp": 55,
+      "speed": "25",
+      "size": "sm",
+      "items": 2,
+      "ac": 13,
+      "cr": 2,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_spoky",
+      "name": "Spoky",
+      "title": "Pond Patrol — rock stick",
+      "sheetName": "Spoky",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_spoky.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_16_spoky.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "soldier",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Club",
+          "quote": "Spoky fights with a rock on a stick — a club; cap colour purple; seen in the field.",
+          "source": "article"
+        },
+        {
+          "feature": "As Filed",
+          "quote": "Pond Patrol — rock stick",
+          "source": "title"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 15,
+        "dex": 12,
+        "con": 14,
+        "int": 10,
+        "wis": 11,
+        "cha": 10
+      },
+      "hp": 22,
+      "speed": "25",
+      "size": "sm",
+      "items": 2,
+      "ac": 14,
+      "cr": 0.5,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_spoolo",
+      "name": "Spoolo",
+      "title": "Spore 5 — spore hearing",
+      "sheetName": "Spoolo",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_spoolo.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_58_spoolo.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "monster",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Claws",
+          "quote": "Spore 5 — spore hearing",
+          "source": "title"
+        },
+        {
+          "feature": "Grasping Growth",
+          "quote": "Spore 5 — spore hearing",
+          "source": "article"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 16,
+        "dex": 14,
+        "con": 15,
+        "int": 8,
+        "wis": 12,
+        "cha": 9
+      },
+      "hp": 55,
+      "speed": "25",
+      "size": "sm",
+      "items": 2,
+      "ac": 13,
+      "cr": 2,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_spork",
+      "name": "Spork",
+      "title": "Spore 5 — spore breath",
+      "sheetName": "Spork",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_spork.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_55_spork.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "monster",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Claws",
+          "quote": "Spore 5 — spore breath",
+          "source": "title"
+        },
+        {
+          "feature": "Grasping Growth",
+          "quote": "Spore 5 — spore breath",
+          "source": "article"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 16,
+        "dex": 14,
+        "con": 15,
+        "int": 8,
+        "wis": 12,
+        "cha": 9
+      },
+      "hp": 55,
+      "speed": "25",
+      "size": "sm",
+      "items": 2,
+      "ac": 13,
+      "cr": 2,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_swig",
+      "name": "Swig",
+      "title": "Pond Patrol — yo-yo ship anchor",
+      "sheetName": "Swig",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_swig.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_29_swig.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "soldier",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Maul",
+          "quote": "Swig fights with a ship's anchor swung like a maul; cap colour blue; seen in the field.",
+          "source": "article"
+        },
+        {
+          "feature": "As Filed",
+          "quote": "Pond Patrol — yo-yo ship anchor",
+          "source": "title"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 15,
+        "dex": 12,
+        "con": 14,
+        "int": 10,
+        "wis": 11,
+        "cha": 10
+      },
+      "hp": 22,
+      "speed": "25",
+      "size": "sm",
+      "items": 2,
+      "ac": 14,
+      "cr": 0.5,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_tally",
+      "name": "Tally",
+      "title": "Student Union — transmutation",
+      "sheetName": "Tally",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_tally.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_40_tally.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "caster",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Staff",
+          "quote": "Student Union — transmutation",
+          "source": "title"
+        },
+        {
+          "feature": "Guild Spellcasting",
+          "quote": "The Class of T — one student per school of magic.",
+          "source": "article"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 9,
+        "dex": 13,
+        "con": 12,
+        "int": 16,
+        "wis": 13,
+        "cha": 12
+      },
+      "hp": 36,
+      "speed": "25",
+      "size": "sm",
+      "items": 2,
+      "ac": 12,
+      "cr": 2,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_transparen_t",
+      "name": "Transparen T",
+      "title": "Student Union — illusion",
+      "sheetName": "Transparen T",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_transparen_t.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_38_transparen_t.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "caster",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Staff",
+          "quote": "Student Union — illusion",
+          "source": "title"
+        },
+        {
+          "feature": "Guild Spellcasting",
+          "quote": "The Class of T — one student per school of magic.",
+          "source": "article"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 9,
+        "dex": 13,
+        "con": 12,
+        "int": 16,
+        "wis": 13,
+        "cha": 12
+      },
+      "hp": 36,
+      "speed": "25",
+      "size": "sm",
+      "items": 2,
+      "ac": 12,
+      "cr": 2,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_unidentified_spore_69",
+      "name": "Unidentified Spore (#69)",
+      "title": "Spore 5 — unidentified",
+      "sheetName": "Unidentified Spore (#69)",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_unidentified_spore_69.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_69_unknown.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "monster",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Claws",
+          "quote": "Spore 5 — unidentified",
+          "source": "title"
+        },
+        {
+          "feature": "Grasping Growth",
+          "quote": "Spore 5 — unidentified",
+          "source": "article"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 16,
+        "dex": 14,
+        "con": 15,
+        "int": 8,
+        "wis": 12,
+        "cha": 9
+      },
+      "hp": 55,
+      "speed": "25",
+      "size": "sm",
+      "items": 2,
+      "ac": 13,
+      "cr": 2,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_wavey",
+      "name": "Wavey",
+      "title": "Speaker L Followers — can control water",
+      "sheetName": "Wavey",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_wavey.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_68_wavey.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "caster",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Staff",
+          "quote": "Speaker L Followers — can control water",
+          "source": "title"
+        },
+        {
+          "feature": "Spellcasting",
+          "quote": "Speaker L Followers — can control water",
+          "source": "title"
+        },
+        {
+          "feature": "As Filed",
+          "quote": "Speaker L Followers — can control water",
+          "source": "title"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 9,
+        "dex": 13,
+        "con": 12,
+        "int": 16,
+        "wis": 13,
+        "cha": 12
+      },
+      "hp": 36,
+      "speed": "25",
+      "size": "sm",
+      "items": 3,
+      "ac": 12,
+      "cr": 2,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_whispertail",
+      "name": "Whispertail",
+      "title": "Deputies — spiky tail",
+      "sheetName": "Whispertail",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_whispertail.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_54_whispertail.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "officer",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Club",
+          "quote": "Whispertail fights with a tail swung like a club; cap colour taupe; listed, not yet seen in the field.",
+          "source": "article"
+        },
+        {
+          "feature": "Leadership",
+          "quote": "Whispertail is roster entry #54 of the Liberated Toads: Deputies (Tier 4 — High Command (army leadership)).",
+          "source": "article"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 15,
+        "dex": 13,
+        "con": 14,
+        "int": 12,
+        "wis": 13,
+        "cha": 14
+      },
+      "hp": 49,
+      "speed": "25",
+      "size": "sm",
+      "items": 2,
+      "ac": 14,
+      "cr": 2,
+      "type": "humanoid (Toad)",
+      "versions": []
+    },
+    {
+      "id": "toad_zahue_t_black",
+      "name": "Zahue T Black",
+      "title": "Lillypads — darkness",
+      "sheetName": "Zahue T Black",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-toad_zahue_t_black.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Liberated Toads",
+      "portrait": "assets/images/toads/roster/toad_61_zahue_t_black.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "caster",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Staff",
+          "quote": "Lillypads — darkness",
+          "source": "title"
+        },
+        {
+          "feature": "Spellcasting",
+          "quote": "Lillypads — darkness",
+          "source": "title"
+        },
+        {
+          "feature": "As Filed",
+          "quote": "Lillypads — darkness",
+          "source": "title"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 9,
+        "dex": 13,
+        "con": 12,
+        "int": 16,
+        "wis": 13,
+        "cha": 12
+      },
+      "hp": 36,
+      "speed": "25",
+      "size": "sm",
+      "items": 3,
+      "ac": 12,
+      "cr": 2,
+      "type": "humanoid (Toad)",
       "versions": []
     },
     {
