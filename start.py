@@ -299,12 +299,14 @@ def launch_workflow(port: int, host: str, lm_url: str = "", say=print):
     return proc
 
 
-def launch_sheets_suite(site_port: int, say=print, foundry_data: str = ""):
+def launch_sheets_suite(site_port: int, say=print, foundry_data: str = "", git_sync: bool = False):
     """Run tools/sheets-suite.py --watch as a child, its lines going to `say`.
     `foundry_data` (blank = let the suite find it) is the Foundry Data folder
     the suite publishes packets, the module and the art into — what the Sync
-    button in Foundry reads first. Returns the Popen (or None when it cannot
-    start)."""
+    button in Foundry reads first. `git_sync` adds --git-sync: pull before a
+    pass, commit + push the mirror / sheets after, poll GitHub while idle (the
+    module and the tools update themselves). Returns the Popen (or None when
+    it cannot start)."""
     if not SHEETS_SCRIPT.is_file():
         say("  sheets : %s is missing — the sheets page still serves the committed data/sheets.json" % SHEETS_SCRIPT)
         return None
@@ -317,7 +319,7 @@ def launch_sheets_suite(site_port: int, say=print, foundry_data: str = ""):
     try:
         proc = subprocess.Popen(
             [sys.executable, str(SHEETS_SCRIPT), "--watch", "--port", str(site_port)]
-            + (["--foundry-data", foundry_data] if foundry_data else []), cwd=str(ROOT), env=env,
+            + (["--foundry-data", foundry_data] if foundry_data else []) + (["--git-sync"] if git_sync else []), cwd=str(ROOT), env=env,
             stdout=subprocess.PIPE, stderr=subprocess.STDOUT, encoding="utf-8", errors="replace", bufsize=1,
         )
     except Exception as exc:
@@ -331,7 +333,7 @@ def launch_sheets_suite(site_port: int, say=print, foundry_data: str = ""):
         except Exception:
             pass
     threading.Thread(target=pump, daemon=True).start()
-    say("  sheets : character-sheet suite watching for exports (tools/sheets-suite.py --watch); sheets at http://localhost:%d/%s" % (site_port, SHEETS_ROUTE))
+    say("  sheets : character-sheet suite watching for exports (tools/sheets-suite.py --watch%s); sheets at http://localhost:%d/%s" % (" --git-sync" if git_sync else "", site_port, SHEETS_ROUTE))
     return proc
 
 
@@ -354,7 +356,7 @@ def stop_process(proc, say=print) -> None:
 PREF_DEFAULTS = {
     "site": True, "workflow": True, "sheets": True, "tts": False, "browser": True,
     "port": DEFAULT_PORT, "workflow_port": WORKFLOW_PORT, "expose": False,
-    "lm_url": "", "open": "home", "route": "", "foundry_data": "",
+    "lm_url": "", "open": "home", "route": "", "foundry_data": "", "git_sync": False,
 }
 
 
@@ -426,6 +428,8 @@ def run_gui(args) -> int:
         prefs["sheets"] = True
     if args.foundry_data:
         prefs["foundry_data"] = args.foundry_data
+    if args.git_sync:
+        prefs["git_sync"] = True
     if args.route:
         prefs["open"], prefs["route"] = "route", args.route
     elif args.page and args.page != "index.html":
@@ -458,6 +462,7 @@ def run_gui(args) -> int:
     v_wport = tk.StringVar(value=str(prefs["workflow_port"]))
     v_lm = tk.StringVar(value=prefs["lm_url"])
     v_fd = tk.StringVar(value=prefs.get("foundry_data", ""))
+    v_git = tk.BooleanVar(value=bool(prefs.get("git_sync", False)))
     v_open = tk.StringVar(value=prefs["open"])
     v_route = tk.StringVar(value=prefs["route"])
 
@@ -490,6 +495,9 @@ def run_gui(args) -> int:
     row = ttk.Frame(box); row.pack(fill="x", padx=8, pady=3)
     ttk.Label(row, text="Foundry Data folder (blank = find it; packets, the module and the art are published there for the Sync button)").pack(side="left", padx=(24, 4))
     ttk.Entry(row, textvariable=v_fd, width=34).pack(side="left")
+
+    row = ttk.Frame(box); row.pack(fill="x", padx=8, pady=3)
+    ttk.Checkbutton(row, text="Two-way with GitHub — pull before a pass, commit + push the mirror and the sheets after, poll GitHub while idle (the module and the tools update themselves)", variable=v_git).pack(side="left", padx=(24, 0))
 
     bat = next((b for b in tts_bat_candidates() if b.is_file()), None)
     row = ttk.Frame(box); row.pack(fill="x", padx=8, pady=3)
@@ -538,7 +546,7 @@ def run_gui(args) -> int:
             "tts": bool(v_tts.get()), "browser": bool(v_browser.get()), "expose": bool(v_expose.get()),
             "port": num(v_port, DEFAULT_PORT), "workflow_port": num(v_wport, WORKFLOW_PORT),
             "lm_url": v_lm.get().strip(), "open": v_open.get(), "route": v_route.get().strip(),
-            "foundry_data": v_fd.get().strip().strip('"'),
+            "foundry_data": v_fd.get().strip().strip('"'), "git_sync": bool(v_git.get()),
         }
 
     def site_url(page: str = "", route: str = "") -> str:
@@ -570,7 +578,7 @@ def run_gui(args) -> int:
         if p["workflow"]:
             state["workflow"] = launch_workflow(p["workflow_port"], host, p["lm_url"], say)
         if p["sheets"]:
-            state["sheets"] = launch_sheets_suite(state["port"], say, p.get("foundry_data", ""))
+            state["sheets"] = launch_sheets_suite(state["port"], say, p.get("foundry_data", ""), bool(p.get("git_sync", False)))
         if p["tts"]:
             launch_tts_studio(say)
         ts_ip = tailscale_ipv4()
@@ -716,6 +724,10 @@ def main() -> int:
                              "the default; the flag only overrides a remembered 'off' tick")
     sheets.add_argument("--no-sheets", action="store_true",
                         help="do not run the character-sheet suite")
+    parser.add_argument("--git-sync", action="store_true",
+                        help="two-way with GitHub: the sheets suite pulls before a pass, commits and pushes the "
+                             "world mirror / sheets after, and polls GitHub while idle so the Mass Import module "
+                             "and the tools update themselves (needs a clean checkout with push rights)")
     parser.add_argument("--foundry-data", default="", metavar="DIR",
                         help="your Foundry VTT Data folder (…/FoundryVTT/Data); the suite publishes the packets, "
                              "the Mass Import module and the art there so Sync in Foundry needs no URL. "
@@ -756,7 +768,7 @@ def main() -> int:
         workflow = launch_workflow(args.workflow_port, args.host)
     sheets_suite = None
     if not args.no_sheets:
-        sheets_suite = launch_sheets_suite(port, foundry_data=args.foundry_data)
+        sheets_suite = launch_sheets_suite(port, foundry_data=args.foundry_data, git_sync=bool(args.git_sync))
     if not args.no_tts:
         launch_tts_studio()
     print_tailnet_tip(port, args.host)

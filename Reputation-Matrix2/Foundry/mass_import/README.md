@@ -10,8 +10,35 @@ existing ones updated in place (same `_id`), every image path checked, and a
 report. Together with `tools/foundry-bridge.py` this turns "add characters to
 the game" into a loop of *export → edit in the repo → import*.
 
-Module id: `waluipedia-mass-import`, version 1.6. Core v12–v14, any game
+Module id: `waluipedia-mass-import`, version 1.7. Core v12–v14, any game
 system (built and tested against dnd5e 5.x on core v14).
+
+## 1.7 — ask first, keep what the table changed, flow back, update itself
+
+The first run of 1.6 code did what 1.5 was meant to do — and the console
+showed what was still wrong: `0 created, 329 updated`, four "repaired" items
+that were in fact **deleted** (Eager's Toad species and Catastrophe Scout
+background, Dan's Toad species — `Cannot read properties of undefined
+(reading '_source')`, then `Only a single Species can be added`), a warning
+that read *1.5.0 is installed but still runs 1.6.0*, and a packet that would
+have been applied over a session's changes without a word.
+
+| Now | How |
+| --- | --- |
+| **Sync asks before it writes.** | Every sync — automatic at world load or the Sync button — is first run as a **dry run** against the live world (nothing written; the diff is the exact one the import would send). Nothing pending → `the world already matches the packet — nothing to do`, the packet's stamp is remembered, and the automatic sync stays silent until the packet changes. Something pending → the summary opens as a question, **Apply** / **Not now** / **Skip this packet**: *Not now* asks again next load, *Skip* is quiet until the next packet, *Apply* runs the real import. Setting *Ask before applying* (on). |
+| **The table wins.** | An actor whose `_stats.modifiedTime` in the world is **newer than its copy in the packet** (Foundry stamps every write; the packet carries the export's stamps, else its `exportedAt`) is **kept**: its differences are listed under *Kept — the world is newer than the packet*, nothing is written, no question is raised for it. After the session's export flows back (below) and the suite rebuilds the packet, the stamps agree and the packet applies again. Option `preferNewer` (on). |
+| **Changed means changed.** | `N changed (M unchanged)`: an actor counts as changed only when a write went out; the 329 of the 1.6 run were 148 overlay writes (tags, colours, folder paths, the ledger block, five XP values, two item repairs) — the second pass over the same world now reports `0 changed (329 unchanged)`. Every changed row says why (`XP 6500 → 14000`, `HP 31 → 30`, `+ The Electric Sphere [loot]`, `− Dagger [weapon]`, `moved to Players`, and `fields: …` only for what those lines do not explain). |
+| **Invalid items are repaired, never lost.** | A broken embedded item (`items.get(id)` undefined, `invalidDocumentIds`) is repaired the way dnd5e's own migration does it — **through the parent**: `actor.update({items:[{_id, …}]})`. When that still throws, a species or background (dnd5e singletons) is **never deleted** unless its replacement is guaranteed: with a stand-in already on the sheet the item is left alone and the summary offers a one-click **swap** (`Use Toad — Eager Variant instead of Grung`); alone, it is recreated under a fresh id first and the broken one removed after. Other item types keep the delete + recreate under the same id. If Foundry's in-memory copy still lists the id as invalid after the database write, the summary says *repaired in the database — reload (F5)* instead of trying again. |
+| **The world flows back.** | The active GM's client exports the whole world — same file as *Mass export* — to `<Data>/npc/waluipedia/<world>/export/<world>-all-actors.json` two minutes after the last change to any world actor, item or effect (setting *Export back*, on; *Export delay*, 120 s). `tools/sheets-suite.py --watch` reads that folder like Downloads: newer export → split into the world mirror, player sheets rebuilt at ledger XP, `data/sheets.json`, a new packet published — and the next Sync has nothing to do. |
+| **GitHub, both ways.** | `tools/sheets-suite.py --git-sync` (start.py: *Two-way with GitHub*): before a pass `git pull --ff-only` when the checkout is clean and behind (a refused pull says why — uncommitted changes outside the suite's own files are never clobbered; the suite's own earlier commits are rebased); after a pass the suite commits what it wrote (`Reputation-Matrix2/actors/worlds/<world>`, `actors/cast`, `data/sheets.json`, the root `<world>-all-actors.json`) as `sheets-suite: <world> mirror from export <stamp> — N file(s)` and pushes to the tracked branch; under `--watch` GitHub is polled every `--git-interval` seconds (300) and a pass runs when something was pulled. A push that fails is reported and retried next pass; nothing in it is fatal. |
+| **The module updates itself.** | The pull brings the new module into the checkout, the pass installs it into `Data/modules/`, and the 1.6 loader runs it after a plain F5. At `ready` the module also asks GitHub for the branch's `module.json` (`raw.githubusercontent` answers cross-origin): when GitHub is ahead a blue toast and a line in the summary say so (*GitHub (gh-pages) has module 1.8.0; this install runs 1.7.0 — the suite with --git-sync installs it*). |
+| **The version words are right.** | `versionVerdict`: *1.7.0 is installed but this world still runs 1.6.0 — Setup → Launch World* only when the disk is **ahead** of the code; when the disk is **behind** (what the 1.6 run saw: `module.json` 1.5.0, code 1.6.0) it says the install is half-updated or Foundry reads another Data folder, and names the suite; a manifest loaded older than the code is a console note. |
+
+Not changed on purpose: a level-up is **never** applied by the sync — the
+ledger's XP goes onto the sheet (`XP 14000 → 23000`), the summary shows the
+**⬆ Level up at the table** banner, and the character's level, hit dice,
+features and spell slots stay for dnd5e's own level-up at the table; the
+next export carries the new level back.
 
 ## 1.6 — the world was running 1.2.0 the whole time
 
@@ -112,7 +139,8 @@ whispered to the GMs in chat (one message per sync; not on dry runs).
 * **Settings** (Module Settings): *Sync by itself* (on), world (`midlands`),
   packet dir in Data (`npc/waluipedia`), launcher URL, GitHub branch
   (`gh-pages`), *Merge duplicate folders* (on), *Remove empty folders* (on),
-  review-first (off).
+  review-first (off), *Ask before applying* (on, 1.7), *Export back* (on,
+  1.7) with its delay (120 s).
 * If nothing answers, Sync changes nothing and shows the URLs it tried
   with the error for each and what to run (`start.py`, or
   `python3 tools/sheets-suite.py --foundry-data "<Data>"`); when it ran by

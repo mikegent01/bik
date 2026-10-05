@@ -72,6 +72,19 @@ with tempfile.TemporaryDirectory() as tmp:
     with open(bare, "w", encoding="utf-8") as fh:
         json.dump([{"name": "x", "type": "npc"}], fh)
     check("an export without exportedAt falls back to its mtime as an ISO stamp", suite.export_stamp(bare).endswith("Z") and suite.export_stamp(bare)[:4].isdigit())
+    # v1.7: the module's export-back inside Foundry's Data is a source too (newest stamp wins)
+    data = os.path.join(tmp, "Data")
+    back = suite.export_back_dir(data, "midlands")
+    check("export_back_dir is <Data>/npc/waluipedia/<world>/export (what the module writes to); None without a Data folder",
+          back == os.path.join(data, "npc", "waluipedia", "midlands", "export") and suite.export_back_dir(None, "midlands") is None)
+    os.makedirs(back)
+    with open(os.path.join(back, "midlands-all-actors.json"), "w", encoding="utf-8") as fh:
+        json.dump({"format": "waluipedia-actors/1", "exportedFrom": "midlands", "exportedAt": "2026-10-06T09:00:00.000Z", "exportedBy": "waluipedia-mass-import 1.7.0 (update Actor)", "actors": []}, fh)
+    found2 = suite.find_exports("midlands", downloads=tmp, extra_dirs=[back])
+    check("find_exports with the export-back folder: the module's newer export comes first, Downloads after, a missing folder is ignored",
+          found2 and found2[0][0] == os.path.join(back, "midlands-all-actors.json") and found2[0][1] == "2026-10-06T09:00:00.000Z"
+          and [os.path.basename(p) for p, _ in found2[1:] if p.startswith(tmp) and "export" not in p] == ["midlands-all-actors (1).json", "midlands-all-actors.json"]
+          and suite.find_exports("midlands", downloads=tmp, extra_dirs=[os.path.join(tmp, "nope")]) == found)
 check("a newer export is stale against the mirror; the same stamp is not; no manifest is always stale",
       suite.export_is_newer("2026-10-04T17:21:43.770Z", "2026-10-04T17:21:43.769Z")
       and not suite.export_is_newer("2026-10-04T17:21:43.770Z", "2026-10-04T17:21:43.770Z")
@@ -198,6 +211,10 @@ check("start.py shows a status light and an Open-the-sheets button", '("sheets",
 check("start.py serves with CORS so Foundry can fetch the packets", 'Access-Control-Allow-Origin' in start)
 helptext = subprocess.run([PY, str(ROOT / "start.py"), "--help"], cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
 check("start.py --help documents --sheets / --no-sheets", helptext.returncode == 0 and "--no-sheets" in helptext.stdout and "--sheets" in helptext.stdout)
+check("start.py has a remembered 'two-way with GitHub' tick and --git-sync that reach the suite as --git-sync",
+      '"git_sync": False' in start and 'v_git' in start and '(["--git-sync"] if git_sync else [])' in start and "--git-sync" in helptext.stdout)
+suitehelp = subprocess.run([PY, str(ROOT / "tools/sheets-suite.py"), "--help"], cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+check("sheets-suite --help documents --git-sync / --git-interval", suitehelp.returncode == 0 and "--git-sync" in suitehelp.stdout and "--git-interval" in suitehelp.stdout)
 readme = (ROOT / "README.md").read_text(encoding="utf-8")
 check("README names the suite under start.py", "sheets-suite.py" in readme)
 
@@ -371,6 +388,66 @@ except UnicodeDecodeError:
 check("the check pass is green and UTF-8 even when the terminal is cp1252", cp.returncode == 0 and "done" in cp_text and "—" in cp_text and "UnicodeEncodeError" not in cp_text, cp.stdout[-400:].decode("utf-8", "replace"))
 pro = subprocess.run([PY, str(ROOT / "tools/promote-player-sheets.py"), "--check"], cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
 check("tools/promote-player-sheets.py --check passes and flags Hjumpik's pending level-up", pro.returncode == 0 and "Hjumpik" in pro.stdout and "level up in Foundry" in pro.stdout, pro.stdout[-400:])
+
+# ---- v1.7: the git leg (a throwaway origin + two clones; the suite's helpers pointed at one of them)
+with tempfile.TemporaryDirectory() as tmp:
+    env = dict(os.environ, GIT_AUTHOR_NAME="t", GIT_AUTHOR_EMAIL="t@x", GIT_COMMITTER_NAME="t", GIT_COMMITTER_EMAIL="t@x", GIT_CONFIG_GLOBAL=os.devnull, GIT_CONFIG_NOSYSTEM="1")
+    def g(cwd, *args):
+        return subprocess.run(["git"] + list(args), cwd=cwd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, env=env)
+    origin = os.path.join(tmp, "origin.git"); a = os.path.join(tmp, "a"); b = os.path.join(tmp, "b")
+    g(tmp, "init", "-q", "--bare", "-b", "main", origin)
+    g(tmp, "clone", "-q", origin, a)
+    os.makedirs(os.path.join(a, "Reputation-Matrix2", "actors", "worlds", "midlands"))
+    os.makedirs(os.path.join(a, "data"))
+    with open(os.path.join(a, "README.md"), "w") as fh: fh.write("x\n")
+    with open(os.path.join(a, "Reputation-Matrix2", "actors", "worlds", "midlands", "manifest.json"), "w") as fh: fh.write('{"exportedAt": "1"}\n')
+    g(a, "add", "-A"); g(a, "commit", "-q", "-m", "init"); g(a, "push", "-q", "-u", "origin", "main")
+    g(tmp, "clone", "-q", origin, b)
+    g(b, "branch", "-q", "--set-upstream-to=origin/main", "main")
+    # point the suite's git helpers at clone b
+    saved = (suite.ROOT, suite.WORLDS, suite.ACTORS, suite.CHILD_ENV)
+    suite.ROOT = b; suite.ACTORS = os.path.join(b, "Reputation-Matrix2", "actors"); suite.WORLDS = os.path.join(suite.ACTORS, "worlds"); suite.CHILD_ENV = env
+    try:
+        st = suite.git_state()
+        check("git_state: branch, upstream, clean, in step", st["ok"] and st["branch"] == "main" and st["upstream"] == "origin/main" and st["dirty"] == [] and st["behind"] == 0 and st["ahead"] == 0, str(st))
+        check("git_sync_paths names only what the suite writes (mirror, cast, sheets.json, root export)",
+              suite.git_sync_paths("midlands") == ["Reputation-Matrix2/actors/worlds/midlands", "Reputation-Matrix2/actors/cast", "data/sheets.json", "midlands-all-actors.json"])
+        pulled, msg = suite.git_pull("midlands")
+        check("git_pull: nothing to pull says so and does nothing", pulled is False and "current with origin/main" in msg, msg)
+        # GitHub moved (clone a pushes a module bump): the suite fast-forwards
+        with open(os.path.join(a, "README.md"), "a") as fh: fh.write("module 1.7\n")
+        g(a, "commit", "-q", "-am", "module 1.7"); g(a, "push", "-q")
+        pulled, msg = suite.git_pull("midlands")
+        check("git_pull: a clean checkout behind origin is fast-forwarded (the module / tools follow GitHub by themselves)", pulled is True and "fast-forwarded 1 commit" in msg and open(os.path.join(b, "README.md")).read().endswith("module 1.7\n"), msg)
+        # a foreign local change blocks the pull; the suite's own files do not
+        with open(os.path.join(a, "README.md"), "a") as fh: fh.write("more\n")
+        g(a, "commit", "-q", "-am", "more"); g(a, "push", "-q")
+        with open(os.path.join(b, "notes.txt"), "w") as fh: fh.write("mine\n")
+        pulled, msg = suite.git_pull("midlands")
+        check("git_pull: uncommitted changes outside the suite's files block the pull (never clobber the GM's work)", pulled is False and "not pulling" in msg and "1 uncommitted" in msg, msg)
+        os.remove(os.path.join(b, "notes.txt"))
+        # the suite wrote the mirror: commit + push
+        with open(os.path.join(b, "Reputation-Matrix2", "actors", "worlds", "midlands", "manifest.json"), "w") as fh: fh.write('{"exportedAt": "2"}\n')
+        os.makedirs(os.path.join(b, "data"), exist_ok=True)
+        with open(os.path.join(b, "data", "sheets.json"), "w") as fh: fh.write("{}\n")
+        with open(os.path.join(b, "scratch.txt"), "w") as fh: fh.write("not ours\n")
+        committed, pushed, msg = suite.git_commit_and_push("midlands", stamp="2026-10-06T09:00:00.000Z", push=False)
+        log = g(b, "log", "-1", "--format=%s").stdout.strip()
+        shown = g(b, "show", "--stat", "--format=", "HEAD").stdout
+        check("git_commit_and_push: commits only the suite's paths with a telling message, leaves other files alone, can hold the push",
+              committed and not pushed and "2 file(s)" in msg and log == "sheets-suite: midlands mirror from export 2026-10-06T09:00:00.000Z — 2 file(s)" and "manifest.json" in shown and "sheets.json" in shown and "scratch" not in shown and os.path.exists(os.path.join(b, "scratch.txt")), msg + " | " + log)
+        os.remove(os.path.join(b, "scratch.txt"))
+        # behind AND ahead: the pull rebases our commit, then the push lands
+        pulled, msg = suite.git_pull("midlands")
+        check("git_pull: behind with local suite commits → rebased, not refused", pulled is True and "rebased" in msg, msg)
+        committed, pushed, msg = suite.git_commit_and_push("midlands")
+        check("git_commit_and_push: nothing new to commit is said plainly", committed is False and "nothing of the suite's" in msg, msg)
+        code = g(b, "push", "-q").returncode
+        st = suite.git_state()
+        g(a, "fetch", "-q")
+        check("…and after the push origin has the suite's commit (the GitHub side of the two-way sync)", code == 0 and st["ahead"] == 0 and st["behind"] == 0 and "sheets-suite: midlands mirror" in g(a, "log", "origin/main", "--format=%s").stdout, str(st) + g(a, "log", "origin/main", "--format=%s").stdout)
+    finally:
+        suite.ROOT, suite.WORLDS, suite.ACTORS, suite.CHILD_ENV = saved
 
 print(f"sheets suite: {len(oks)} ok, {len(fails)} failed ({time.time() - t0:.1f}s for the check passes)")
 for f in fails:

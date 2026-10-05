@@ -53,7 +53,7 @@
 
 export const MODULE_ID = "waluipedia-mass-import";
 /** Must match module.json — Sync compares the two to catch a world still running old code. */
-export const MODULE_VERSION = "1.6.0";
+export const MODULE_VERSION = "1.7.0";
 export const FORMAT = "waluipedia-actors/1";
 export const RAW_BASE = "https://raw.githubusercontent.com/mikegent01/bik/gh-pages/";
 /** The repo's ready-made import-all files (the Import dialog lists them). */
@@ -761,6 +761,27 @@ function sameFolder(actor, folderId) {
   return current === folderId;
 }
 
+/** A world document's last change (Foundry's _stats.modifiedTime, ms) or null. */
+export function statsTime(doc) {
+  const t = doc?._stats?.modifiedTime ?? (doc?.toObject ? doc.toObject()?._stats?.modifiedTime : doc?._stats?.modifiedTime) ?? null;
+  return Number.isFinite(Number(t)) && Number(t) > 0 ? Number(t) : null;
+}
+/** The packet copy's time: its own _stats.modifiedTime (a mirror of the world) or, failing that, the packet's export stamp. */
+export function packetTime(data, packetExportMs = null) {
+  const own = Number(data?._stats?.modifiedTime);
+  if (Number.isFinite(own) && own > 0) return own;
+  return packetExportMs ?? null;
+}
+/**
+ * Pure: the world's copy changed after the packet's copy was taken (more than
+ * a second later — Foundry stamps the import's own writes too). Unknown on
+ * either side → false (the packet applies, as always).
+ */
+export function worldNewer(existing, data, packetExportMs = null) {
+  const w = statsTime(existing), p = packetTime(data, packetExportMs);
+  return !!(w && p && w > p + 1000);
+}
+
 /**
  * Find the world actor an incoming document stands for.
  *  1. same _id (when ids are kept);
@@ -831,56 +852,178 @@ const itemLabel = (d) => `${d?.name ?? "?"} [${d?.type ?? "?"}]`;
  *    keeps the cached-spell ids it must remove on the shared batch options,
  *    so two such items in one call would trip over each other.
  */
-async function syncEmbedded(actor, collection, docName, incoming, replace) {
+/** dnd5e's one-per-character items (metadata.singleton): a second creation is refused in _preCreate. */
+export const SINGLETON_TYPES = new Set(["race", "background"]);
+const isSingletonType = (actor, type) => actor?.type === "character" && SINGLETON_TYPES.has(type);
+const standInsOf = (coll, type, except = null) => (coll?.contents ?? [...(coll?.values?.() ?? [])])
+  .filter((i) => i?.type === type && (i.id ?? i._id) !== except).map((i) => ({ id: i.id ?? i._id, name: i.name }));
+/** Pure: the leaf paths of an update object ("system.attributes.hp.value"), arrays and -=keys as leaves. */
+export function leafPaths(obj, prefix = "", out = []) {
+  for (const [k, v] of Object.entries(obj ?? {})) {
+    const here = prefix ? `${prefix}.${k}` : k;
+    if (isPlain(v) && Object.keys(v).length && !k.startsWith("-=")) leafPaths(v, here, out);
+    else out.push(here);
+  }
+  return out;
+}
+
+/**
+ * Pure: what bringing `existing` (embeddedSources, cached spells removed) to
+ * `incoming` takes. {batch, solo, invalid, toCreate, toDelete, unchanged,
+ * changes[]} — `changes` in words ("~ Toad [race] (system.identifier)").
+ */
+export function planEmbedded(existing, incoming, replace) {
+  const wanted = (incoming ?? []).filter((d) => d && !isCachedSpell(d));
+  const incomingIds = new Set(wanted.filter((d) => d._id).map((d) => d._id));
+  const plan = { batch: [], solo: [], invalid: [], toCreate: [], toDelete: [], unchanged: 0, changes: [] };
+  plan.toDelete = replace ? [...existing.keys()].filter((id) => !incomingIds.has(id)) : [];
+  for (const id of plan.toDelete) plan.changes.push(`− ${itemLabel(existing.get(id)?.obj)}`);
+  for (const d of wanted) {
+    if (!d._id || !existing.has(d._id)) { plan.toCreate.push(d); plan.changes.push(`+ ${itemLabel(d)}`); continue; }
+    const cur = existing.get(d._id);
+    const diff = docDiff(cur.obj, d);
+    if (!Object.keys(diff).length) { plan.unchanged++; continue; }
+    const paths = leafPaths(diff);
+    plan.changes.push(`${cur.invalid ? "repair" : "~"} ${itemLabel(d)} (${paths.slice(0, 4).join(", ")}${paths.length > 4 ? ` +${paths.length - 4}` : ""})`);
+    if (cur.invalid) { plan.invalid.push({ data: d, update: { _id: d._id, ...diff } }); continue; }
+    (isPlain(diff.system) && "activities" in diff.system ? plan.solo : plan.batch).push({ _id: d._id, ...diff });
+  }
+  return plan;
+}
+
+/**
+ * Repair ONE document Foundry holds as invalid. Through the parent first:
+ * `actor.update({items: [{_id, ...fixes}]})` merges by _id on the actor's
+ * SOURCE, where an invalid document still lives — the path dnd5e's own
+ * migrations take; the embedded route (updateEmbeddedDocuments) looks the
+ * document up in the live collection, where it is not, and dies with
+ * "Cannot read properties of undefined (reading '_source')" (v14). If even
+ * that fails the document is replaced — but one of a kind (a species, a
+ * background) is NEVER deleted while a stand-in sits on the sheet: the
+ * creation would be refused and the broken copy was the only one left. The
+ * GM gets a swap (one click) instead.
+ */
+async function repairInvalid(actor, collection, docName, data, update, stats) {
+  const coll = actor[collection];
+  const id = data._id;
+  const label = itemLabel(data);
+  try {
+    await actor.update({ [collection]: [update] }, { render: false });
+    stats.repaired++; stats.updated++;
+    const live = typeof coll?.has === "function" ? coll.has(id) : true;
+    if (!live && coll?.invalidDocumentIds?.has?.(id)) stats.reloadNeeded++;
+    return;
+  } catch (err) { console.warn(`[${MODULE_ID}] ${actor.name}: ${label} could not be repaired through the actor (${err?.message ?? err})`); }
+  if (isSingletonType(actor, data.type)) {
+    const standIns = standInsOf(coll, data.type, id);
+    if (standIns.length) { stats.refused.push(label); stats.swaps.push({ label, data: clone(data), standIns, invalidId: id }); return; }
+    // no stand-in: a fresh copy first (under a new id — the old one is taken until the broken copy goes), the broken copy last
+    const { _id, ...fresh } = data;
+    const made = await actor.createEmbeddedDocuments(docName, [fresh]);
+    if (!Array.isArray(made) || made.length === 0) { stats.refused.push(label); return; }
+    try { await actor.deleteEmbeddedDocuments(docName, [id]); } catch (err) { console.warn(`[${MODULE_ID}] ${actor.name}: delete broken ${label}:`, err); }
+    stats.repaired++; stats.created++;
+    return;
+  }
+  try { await actor.deleteEmbeddedDocuments(docName, [id]); } catch (err) { console.warn(`[${MODULE_ID}] ${actor.name}: delete ${label}:`, err); }
+  const made = await actor.createEmbeddedDocuments(docName, [data], { keepId: true });
+  if (Array.isArray(made) && made.length === 0) stats.refused.push(label);
+  else { stats.repaired++; stats.created++; }
+}
+
+async function syncEmbedded(actor, collection, docName, incoming, replace, { dryRun = false } = {}) {
   const coll = actor[collection];
   const existing = embeddedSources(actor, collection);
   for (const [id, e] of [...existing]) if (isCachedSpell(e.obj)) existing.delete(id);
-  const wanted = (incoming ?? []).filter((d) => d && !isCachedSpell(d));
-  const incomingIds = new Set(wanted.filter((d) => d._id).map((d) => d._id));
-  const stats = { deleted: 0, updated: 0, created: 0, unchanged: 0, repaired: 0, refused: [] };
-  const toDelete = replace ? [...existing.keys()].filter((id) => !incomingIds.has(id)) : [];
-  const batch = [], solo = [], invalid = [];
-  for (const d of wanted) {
-    if (!d._id || !existing.has(d._id)) continue;
-    const cur = existing.get(d._id);
-    const diff = docDiff(cur.obj, d);
-    if (!Object.keys(diff).length) { stats.unchanged++; continue; }
-    if (cur.invalid) { invalid.push({ data: d, update: { _id: d._id, ...diff } }); continue; }
-    (isPlain(diff.system) && "activities" in diff.system ? solo : batch).push({ _id: d._id, ...diff });
+  const plan = planEmbedded(existing, incoming, replace);
+  const stats = { deleted: 0, updated: 0, created: 0, unchanged: plan.unchanged, repaired: 0, refused: [], swaps: [], reloadNeeded: 0, changes: plan.changes };
+  const gone = new Set(plan.toDelete);
+  // one of a kind with a stand-in on the sheet (that is staying): the system
+  // would refuse the creation — not attempted, offered as a swap instead
+  const creatable = [];
+  for (const d of plan.toCreate) {
+    const standIns = isSingletonType(actor, d.type) ? standInsOf(coll, d.type).filter((x) => !gone.has(x.id)) : [];
+    if (standIns.length) { stats.refused.push(itemLabel(d)); stats.swaps.push({ label: itemLabel(d), data: clone(d), standIns, invalidId: null }); continue; }
+    creatable.push(d);
   }
-  const toCreate = wanted.filter((d) => !d._id || !existing.has(d._id));
-  if (toDelete.length) {
-    const live = toDelete.filter((id) => !existing.get(id)?.invalid && (typeof coll?.has === "function" ? coll.has(id) : true));
+  if (dryRun) {
+    stats.deleted = plan.toDelete.length;
+    stats.updated = plan.batch.length + plan.solo.length + plan.invalid.length;
+    stats.repaired = plan.invalid.length;
+    stats.created = creatable.length;
+    return stats;
+  }
+  if (plan.toDelete.length) {
+    const live = plan.toDelete.filter((id) => !existing.get(id)?.invalid && (typeof coll?.has === "function" ? coll.has(id) : true));
     if (live.length) await actor.deleteEmbeddedDocuments(docName, live);
     stats.deleted = live.length;
-    for (const id of toDelete.filter((bad) => existing.get(bad)?.invalid)) {
+    for (const id of plan.toDelete.filter((bad) => existing.get(bad)?.invalid)) {
       try { await actor.deleteEmbeddedDocuments(docName, [id]); stats.deleted++; }
       catch (err) { console.warn(`[${MODULE_ID}] ${actor.name}: invalid ${docName} ${id} could not be deleted:`, err); }
     }
   }
-  if (batch.length) await actor.updateEmbeddedDocuments(docName, batch);
-  for (const one of solo) await actor.updateEmbeddedDocuments(docName, [one]);
-  stats.updated = batch.length + solo.length;
-  for (const { data, update } of invalid) {
-    // repair: the update carries what the packet fixed (the identifier); if
-    // the document is beyond updating, replace it under its own id
-    try { await actor.updateEmbeddedDocuments(docName, [update]); stats.repaired++; stats.updated++; continue; }
-    catch (err) { console.warn(`[${MODULE_ID}] ${actor.name}: ${itemLabel(data)} could not be updated in place (${err?.message ?? err}); replacing it`); }
-    try { await actor.deleteEmbeddedDocuments(docName, [data._id]); } catch (err) { console.warn(`[${MODULE_ID}] ${actor.name}: delete ${itemLabel(data)}:`, err); }
-    const made = await actor.createEmbeddedDocuments(docName, [data], { keepId: true });
-    if (Array.isArray(made) && made.length === 0) stats.refused.push(itemLabel(data));
-    else { stats.repaired++; stats.created++; }
-  }
-  if (toCreate.length) {
-    const made = await actor.createEmbeddedDocuments(docName, toCreate, { keepId: true });
-    const got = Array.isArray(made) ? made.length : toCreate.length;
+  if (plan.batch.length) await actor.updateEmbeddedDocuments(docName, plan.batch);
+  for (const one of plan.solo) await actor.updateEmbeddedDocuments(docName, [one]);
+  stats.updated = plan.batch.length + plan.solo.length;
+  for (const { data, update } of plan.invalid) await repairInvalid(actor, collection, docName, data, update, stats);
+  if (creatable.length) {
+    const made = await actor.createEmbeddedDocuments(docName, creatable, { keepId: true });
+    const got = Array.isArray(made) ? made.length : creatable.length;
     stats.created += got;
-    if (Array.isArray(made) && got < toCreate.length) {
+    if (Array.isArray(made) && got < creatable.length) {
       const ids = new Set(made.map((m) => m?.id ?? m?._id).filter(Boolean));
-      for (const d of toCreate) if (!(d._id && ids.has(d._id)) && !made.some((m) => m?.name === d.name && m?.type === d.type)) stats.refused.push(itemLabel(d));
+      for (const d of creatable) if (!(d._id && ids.has(d._id)) && !made.some((m) => m?.name === d.name && m?.type === d.type)) stats.refused.push(itemLabel(d));
     }
   }
   return stats;
+}
+
+/**
+ * The one click behind a refused species/background: the stand-in(s) of that
+ * type leave the sheet (and the broken copy, if one is still held invalid),
+ * then the packet's item is created under its own id. dnd5e points
+ * system.details.race / .background at it by itself (_onCreate).
+ */
+export async function swapSingleton({ actorId, data, invalidId = null }) {
+  const g = G();
+  const actor = g.game?.actors?.get?.(actorId);
+  if (!actor) throw new Error(`actor ${actorId} is not in this world any more`);
+  if (!data?.type) throw new Error("nothing to swap in");
+  const ids = standInsOf(actor.items, data.type, data._id).map((x) => x.id);
+  if (invalidId && actor.items?.invalidDocumentIds?.has?.(invalidId)) ids.push(invalidId);
+  if (ids.length) await actor.deleteEmbeddedDocuments("Item", ids);
+  const made = await actor.createEmbeddedDocuments("Item", [data], { keepId: !!data._id });
+  if (!Array.isArray(made) || !made.length) throw new Error(`${itemLabel(data)} was refused even with the stand-in gone — add it from the compendium`);
+  return made[0];
+}
+
+/** HTML for the swaps a report carries: one button each (works in the dialog and in the chat whisper). */
+export function swapsHtml(swaps) {
+  if (!swaps?.length) return "";
+  const btn = (w) => `<li><b>${escapeHtml(w.actor)}</b> — ${escapeHtml(w.label)} is what the packet has; the sheet carries ${escapeHtml(w.standIns.map((x) => x.name).join(" / "))} <button type="button" class="wmi-swap" data-actor="${escapeHtml(w.actorId)}" data-invalid="${escapeHtml(w.invalidId ?? "")}" data-item="${escapeHtml(JSON.stringify(w.data))}">Swap: remove ${escapeHtml(w.standIns.map((x) => x.name).join(" / "))}, add ${escapeHtml(w.data.name)}</button></li>`;
+  return `<details open><summary>One of a kind — swap the stand-in? (${swaps.length})</summary><ul>${swaps.map(btn).join("")}</ul><p class="notes">dnd5e allows one species and one background per character, so the sync never deletes one and never forces the other in. The button removes the stand-in and adds the packet's item under its own id; nothing else on the sheet moves.</p></details>`;
+}
+
+/** Click handler for the swap buttons (dialog or chat) — bound once at ready. */
+export async function onSwapClick(event) {
+  const b = event?.target?.closest?.(".wmi-swap");
+  if (!b || b.disabled) return false;
+  event.preventDefault?.();
+  let data = null;
+  try { data = JSON.parse(b.dataset.item); } catch (err) { data = null; }
+  if (!data) { notify("error", "Swap: the item data is missing — run Sync again"); return false; }
+  b.disabled = true;
+  try {
+    const made = await swapSingleton({ actorId: b.dataset.actor, data, invalidId: b.dataset.invalid || null });
+    b.textContent = `✔ ${made?.name ?? data.name} is on the sheet`;
+    notify("info", `${made?.name ?? data.name} swapped in`);
+    return true;
+  } catch (err) {
+    b.disabled = false;
+    notify("error", `Swap: ${err?.message ?? err}`);
+    console.error(`[${MODULE_ID}] swap`, err);
+    return false;
+  }
 }
 
 /**
@@ -915,6 +1058,7 @@ const DEFAULTS = {
   skipPlayerCharacters: false,
   overwriteOwnership: false, // keep the world's ownership on updates
   replaceEmbedded: true,     // delete items/effects that the import no longer has
+  preferNewer: true,         // an actor changed in the world AFTER the packet's copy was exported is kept as is (the export loop brings it back; a dry run names the difference)
   replaceOnTypeChange: true, // same id, different type (npc -> character): delete + recreate under the same id
   colorFolders: true,        // paint new folders (and colourless existing ones) in the packet's colours
   repairIdentifiers: true,   // slugify item identifiers dnd5e would reject (reported)
@@ -951,7 +1095,8 @@ export async function importPayload(raw, options = {}) {
   const o = { ...DEFAULTS, ...options };
   const Actor = G().Actor;
   const { entries, meta, folderStyles } = normalizeImport(raw);
-  const report = { created: [], updated: [], replaced: [], skipped: [], failed: [], foldersCreated: [], foldersStyled: [], foldersMerged: [], foldersPruned: [], missingImages: [], repaired: [], notes: [], embeddedRepaired: 0, unchanged: 0, dryRun: o.dryRun, meta };
+  const report = { created: [], updated: [], replaced: [], skipped: [], failed: [], kept: [], foldersCreated: [], foldersStyled: [], foldersMerged: [], foldersPruned: [], missingImages: [], repaired: [], notes: [], swaps: [], embeddedRepaired: 0, reloadNeeded: 0, unchanged: 0, dryRun: o.dryRun, meta };
+  const packetExportMs = Date.parse(meta?.exportedAt ?? "") || null;
   const folderCache = new Map();
   const prefix = splitPath(o.rootFolder);
   const batchIds = new Set(entries.map((e) => e.data?._id).filter(Boolean));
@@ -979,6 +1124,25 @@ export async function importPayload(raw, options = {}) {
       if (!existing && o.mode === "update") { report.skipped.push({ actor: label, reason: "not found (update-only)" }); continue; }
       if (o.checkImages) await checkImages(data, o.fixMissingImages, report, label);
 
+      // The world moved on after this copy was exported (a session: HP, loot,
+      // a level-up at the table): the packet is behind for this actor and must
+      // not roll it back. Kept as is — the difference is still computed and
+      // shown; the export loop carries the world into the repo, after which
+      // the packet agrees and the overlays (XP from the ledger, flags) apply.
+      if (existing && o.preferNewer && worldNewer(existing, data, packetExportMs)) {
+        const items_ = await syncEmbedded(existing, "items", "Item", data.items ?? [], o.replaceEmbedded, { dryRun: true });
+        const effects_ = await syncEmbedded(existing, "effects", "ActiveEffect", data.effects ?? [], o.replaceEmbedded, { dryRun: true });
+        const { _id, items = [], effects = [], _stats, ownership, folder, type, ...rest } = data;
+        const update = (existing.type === data.type) ? docDiff(existing.toObject ? existing.toObject() : existing, { ...rest, flags: mergeFlags(existing.flags, rest.flags) }) : { type: data.type };
+        if ((known || path.length) && !sameFolder(existing, folderId)) update.folder = folderId;
+        const fields = leafPaths(update);
+        const changed = fields.length > 0 || [items_, effects_].some((s) => s.deleted || s.updated || s.created);
+        for (const w of [...items_.swaps, ...effects_.swaps]) report.swaps.push({ ...w, actor: label, actorId: existing.id ?? existing._id });
+        if (!changed) { report.unchanged++; report.updated.push({ actor: label, id: existing.id ?? existing._id, folder: folderLabel, items: items_, effects: effects_, changed: false, fields, embedded: [] }); continue; }
+        report.kept.push({ actor: label, id: existing.id ?? existing._id, folder: folderLabel, worldTime: statsTime(existing), packetTime: packetTime(data, packetExportMs), fields, embedded: [...items_.changes, ...effects_.changes], items: items_, effects: effects_ });
+        continue;
+      }
+
       if (existing && existing.type && data.type && existing.type !== data.type) {
         // A document's type cannot be updated in place (an NPC statblock that
         // became a player character, say). Recreate it under the same id so
@@ -1002,23 +1166,25 @@ export async function importPayload(raw, options = {}) {
       }
 
       if (existing) {
-        if (!o.dryRun) {
-          const { _id, items = [], effects = [], _stats, ownership, folder, type, ...rest } = data;
-          const want = { ...rest, flags: mergeFlags(existing.flags, rest.flags) };
-          if (o.overwriteOwnership && ownership) want.ownership = ownership;
-          // only what differs: an untouched actor is not written at all
-          const update = docDiff(existing.toObject ? existing.toObject() : existing, want);
-          if ((known || path.length) && !sameFolder(existing, folderId)) update.folder = folderId;
-          if (Object.keys(update).length) await existing.update(update);
-          const items_ = await syncEmbedded(existing, "items", "Item", items, o.replaceEmbedded);
-          const effects_ = await syncEmbedded(existing, "effects", "ActiveEffect", effects, o.replaceEmbedded);
-          const changed = Object.keys(update).length > 0 || [items_, effects_].some((s) => s.deleted || s.updated || s.created);
-          if (!changed) report.unchanged++;
-          report.embeddedRepaired += items_.repaired + effects_.repaired;
-          for (const what of [...items_.refused, ...effects_.refused]) report.notes.push({ actor: label, note: `${what} not added — the system refused it (only one of its kind per character; a stand-in is already on the sheet)` });
-          for (const note of singletonNotes(existing.toObject ? existing.toObject() : existing)) report.notes.push({ actor: label, note });
-          report.updated.push({ actor: label, id: existing.id ?? existing._id, folder: folderLabel, items: items_, effects: effects_, changed });
-        } else report.updated.push({ actor: label, id: existing.id ?? existing._id, folder: folderLabel });
+        const { _id, items = [], effects = [], _stats, ownership, folder, type, ...rest } = data;
+        const want = { ...rest, flags: mergeFlags(existing.flags, rest.flags) };
+        if (o.overwriteOwnership && ownership) want.ownership = ownership;
+        // only what differs: an untouched actor is not written at all — and a
+        // dry run computes the very same difference, so it can say "nothing"
+        const update = docDiff(existing.toObject ? existing.toObject() : existing, want);
+        if ((known || path.length) && !sameFolder(existing, folderId)) update.folder = folderId;
+        if (Object.keys(update).length && !o.dryRun) await existing.update(update);
+        const items_ = await syncEmbedded(existing, "items", "Item", items, o.replaceEmbedded, { dryRun: o.dryRun });
+        const effects_ = await syncEmbedded(existing, "effects", "ActiveEffect", effects, o.replaceEmbedded, { dryRun: o.dryRun });
+        const fields = leafPaths(update);
+        const changed = fields.length > 0 || [items_, effects_].some((s) => s.deleted || s.updated || s.created);
+        if (!changed) report.unchanged++;
+        report.embeddedRepaired += items_.repaired + effects_.repaired;
+        report.reloadNeeded += items_.reloadNeeded + effects_.reloadNeeded;
+        for (const what of [...items_.refused, ...effects_.refused]) report.notes.push({ actor: label, note: `${what} not added — refused by the system: one of its kind per character, and the sheet already carries one (a swap is offered; the sheet wins until you click it)` });
+        for (const w of [...items_.swaps, ...effects_.swaps]) report.swaps.push({ ...w, actor: label, actorId: existing.id ?? existing._id });
+        if (!o.dryRun) for (const note of singletonNotes(existing.toObject ? existing.toObject() : existing)) report.notes.push({ actor: label, note });
+        report.updated.push({ actor: label, id: existing.id ?? existing._id, folder: folderLabel, items: items_, effects: effects_, changed, fields, embedded: [...items_.changes, ...effects_.changes] });
       } else {
         const createData = { ...data, folder: folderId };
         if (!o.keepIds) delete createData._id;
@@ -1043,9 +1209,13 @@ export async function importFromUrl(url, options = {}) {
   return report;
 }
 
+/** Matched actors that really differ (a row without a `changed` flag — an old report — counts). */
+export const changedRows = (report) => (report.updated ?? []).filter((u) => u.changed !== false);
+
 export function summarize(report) {
-  const parts = [`${report.created.length} created`, `${report.updated.length} updated`];
+  const parts = [`${report.created.length} created`, `${changedRows(report).length} changed`];
   if (report.replaced?.length) parts.push(`${report.replaced.length} replaced`);
+  if (report.kept?.length) parts.push(`${report.kept.length} kept (world newer)`);
   if (report.skipped.length) parts.push(`${report.skipped.length} skipped`);
   if (report.failed.length) parts.push(`${report.failed.length} FAILED`);
   if (report.foldersCreated.length) parts.push(`${report.foldersCreated.length} folders`);
@@ -1054,11 +1224,13 @@ export function summarize(report) {
   if (report.foldersPruned?.length) parts.push(`${report.foldersPruned.length} empty folders removed`);
   if (report.repaired?.length) parts.push(`${report.repaired.reduce((n, r) => n + r.repairs.length, 0)} identifiers repaired`);
   if (report.embeddedRepaired) parts.push(`${report.embeddedRepaired} broken items repaired`);
+  if (report.swaps?.length) parts.push(`${report.swaps.length} swap${report.swaps.length === 1 ? "" : "s"} waiting`);
   if (report.notes?.length) parts.push(`${report.notes.length} note${report.notes.length === 1 ? "" : "s"}`);
   if (report.missingImages.length) parts.push(`${report.missingImages.length} missing images`);
   let text = parts.join(", ");
   if (report.unchanged) text += ` (${report.unchanged} unchanged)`;
-  return (report.dryRun ? "DRY RUN — " : "") + text;
+  if (report.reloadNeeded) text += ` — ${report.reloadNeeded} repaired in the database: reload (F5) to see them`;
+  return (report.preview ? "WAITING FOR YOUR OK — " : report.dryRun ? "DRY RUN — " : "") + text;
 }
 
 function announce(report) {
@@ -1237,6 +1409,7 @@ export function reportHtml(report) {
     <details ${report.replaced?.length ? "open" : ""}><summary>Replaced — same id, new type (${report.replaced?.length ?? 0})</summary>${li(report.replaced ?? [], (r) => `${escapeHtml(r.actor)} · ${escapeHtml(r.from)} → ${escapeHtml(r.to)} → ${escapeHtml(r.folder || "root")}`)}</details>
     <details><summary>Skipped (${report.skipped.length})</summary>${li(report.skipped, (r) => `${escapeHtml(r.actor)} — ${escapeHtml(r.reason)}`)}</details>
     ${repairedHtml(report)}
+    ${swapsHtml(report.swaps)}
     <details><summary>Folders created (${report.foldersCreated.length})</summary>${li(report.foldersCreated, (r) => escapeHtml(r))}</details>
   </div>`;
 }
@@ -1390,8 +1563,12 @@ export const SYNC_DEFAULTS = {
   auto: true,                   // sync by itself when the world loads (once per published packet)
   mergeFolders: true,           // merge duplicate Actor folders after a sync
   pruneFolders: true,           // remove empty Actor folders after a sync
+  confirm: true,                // check first, apply only after the GM's OK (identical → nothing, silently)
+  exportBack: true,             // the world flows back: an export into Data a while after the last change
+  exportDelay: 120,             // seconds of quiet after the last actor change before that export
 };
-const SYNC_SETTING_KEYS = { world: "syncWorld", packetDir: "syncPacketDir", launcher: "syncLauncher", branch: "syncBranch", review: "syncReview", auto: "syncAuto", mergeFolders: "syncMergeFolders", pruneFolders: "syncPruneFolders" };
+const SYNC_SETTING_KEYS = { world: "syncWorld", packetDir: "syncPacketDir", launcher: "syncLauncher", branch: "syncBranch", review: "syncReview", auto: "syncAuto", mergeFolders: "syncMergeFolders", pruneFolders: "syncPruneFolders", confirm: "syncConfirm", exportBack: "syncExportBack", exportDelay: "syncExportDelay" };
+const EXPORT_STAMP_SETTING = "syncLastExport";
 const SYNC_STAMP_SETTING = "syncLastStamp";
 /** Everything one sync carries — there is no scope to choose. */
 export const SYNC_SCOPE_LABEL = "everything: the world mirror, the generated cast, the 955 BF court";
@@ -1484,22 +1661,82 @@ export function syncStamp(info, raw, source = "") {
   return `${source}:${raw?.exportedAt ?? "?"}:${n}:${size}`;
 }
 
+/** Pure: dotted versions compared numerically ("1.10.0" > "1.9.0"); -1 / 0 / 1. */
+export function compareVersions(a, b) {
+  const pa = String(a ?? "").split(/[.+-]/).map((x) => (/^\d+$/.test(x) ? Number(x) : x));
+  const pb = String(b ?? "").split(/[.+-]/).map((x) => (/^\d+$/.test(x) ? Number(x) : x));
+  for (let i = 0; i < Math.max(pa.length, pb.length); i++) {
+    const x = pa[i] ?? 0, y = pb[i] ?? 0;
+    if (x === y) continue;
+    if (typeof x === "number" && typeof y === "number") return x < y ? -1 : 1;
+    return String(x) < String(y) ? -1 : 1;
+  }
+  return 0;
+}
+
 /**
- * The module files on disk vs the code this world is running: Foundry loads
- * a module's scripts once per world launch, so after tools/sheets-suite.py
- * installs a newer version the GM must Setup → relaunch the world (and
- * Ctrl+F5). Returns {running, onDisk, stale}.
+ * Pure: the three versions in play and what they mean.
+ *   running  this file (MODULE_VERSION)
+ *   loaded   the manifest Foundry read when the world was launched (game.modules)
+ *   onDisk   the manifest the server serves right now (module.json, uncached)
+ * stale: newer code is installed than what runs → Setup → relaunch, Ctrl+F5.
+ * behind: the served manifest is OLDER than the running code → a half-updated
+ * install or Foundry reads another Data folder than the suite wrote to. The
+ * old wording ("X is installed but this world still runs Y") was wrong for
+ * that case — the GM ran 1.6.0 and was told 1.5.0 was installed.
+ * mismatch: only the launch-time manifest lags (common after an install
+ * without a relaunch) — a console note, no toast.
  */
-export async function checkModuleVersion() {
-  const out = { running: MODULE_VERSION, onDisk: null, loaded: G().game?.modules?.get?.(MODULE_ID)?.version ?? null, stale: false };
+export function versionVerdict({ running, loaded = null, onDisk = null }) {
+  const out = { running, loaded, onDisk, stale: false, behind: false, mismatch: false, level: null, message: null };
+  const disk = onDisk ? compareVersions(onDisk, running) : 0;
+  if (disk > 0) {
+    out.stale = true; out.level = "warn";
+    out.message = `Waluipedia Mass Import ${onDisk} is installed but this world still runs ${running} — Setup → Launch World (then Ctrl+F5) runs the new code`;
+  } else if (disk < 0) {
+    out.behind = true; out.level = "warn";
+    out.message = `Foundry serves module.json ${onDisk} while the code running is ${running}: the install is half-updated, or Foundry reads a different Data folder than the one the suite wrote to — run tools/sheets-suite.py once more (it names both folders), then Setup → Launch World`;
+  } else if (loaded && compareVersions(loaded, running) !== 0) {
+    out.mismatch = true; out.level = "info";
+    out.message = `Foundry launched this world with the manifest of ${loaded}; the code running is ${running} (what is installed) — Setup → Launch World when convenient, so the module list agrees`;
+  }
+  return out;
+}
+
+let versionCheck = null;
+/** The verdict for this session — one fetch, one toast (onReady and Sync share it). */
+export async function checkModuleVersion({ fresh = false } = {}) {
+  if (versionCheck && !fresh) return versionCheck;
+  const loaded = G().game?.modules?.get?.(MODULE_ID)?.version ?? null;
+  let onDisk = null;
   try {
     const res = await G().fetch(`modules/${MODULE_ID}/module.json?t=${Date.now()}`, { cache: "no-store" });
-    if (res?.ok) {
-      const json = await res.json();
-      out.onDisk = json?.version ?? null;
-      out.stale = !!(out.onDisk && out.onDisk !== MODULE_VERSION);
-    }
+    if (res?.ok) onDisk = (await res.json())?.version ?? null;
   } catch (err) { /* offline packaging, tests — not a problem */ }
+  versionCheck = { ...versionVerdict({ running: MODULE_VERSION, loaded, onDisk }), announced: false };
+  return versionCheck;
+}
+
+/** Say the verdict once per session (a toast for warn, the console for info). */
+export async function announceVersion() {
+  const v = await checkModuleVersion();
+  if (v.announced || !v.message) return v;
+  v.announced = true;
+  if (v.level === "warn") notify("warn", v.message);
+  else console.info(`[${MODULE_ID}] ${v.message}`);
+  return v;
+}
+
+/**
+ * GitHub ahead of this install? The branch's module.json (raw.githubusercontent
+ * answers cross-origin). {github, ahead} — never throws, never blocks.
+ */
+export async function checkGitHubVersion(branch = SYNC_DEFAULTS.branch) {
+  const out = { github: null, ahead: false, branch };
+  try {
+    const res = await G().fetch(`https://raw.githubusercontent.com/mikegent01/bik/${branch}/Reputation-Matrix2/Foundry/mass_import/module.json?t=${Date.now()}`, { cache: "no-store" });
+    if (res?.ok) { out.github = (await res.json())?.version ?? null; out.ahead = !!(out.github && compareVersions(out.github, MODULE_VERSION) > 0); }
+  } catch (err) { /* offline */ }
   return out;
 }
 
@@ -1548,6 +1785,8 @@ const fmtN = (n) => (n === null || n === undefined ? "—" : Number(n).toLocaleS
  */
 export function syncChanges(entries, before, after, report) {
   const failed = new Set((report?.failed ?? []).map((f) => f.actor));
+  const rowsById = new Map(), rowsByLabel = new Map();
+  for (const u of [...(report?.updated ?? []), ...(report?.kept ?? []).map((k) => ({ ...k, kept: true, changed: true }))]) { if (u.id) rowsById.set(u.id, u); rowsByLabel.set(u.actor, u); }
   return entries.map(({ data }) => {
     const want = actorFacts(data);
     const key = `${want.name}\u0000${want.type}`;
@@ -1561,14 +1800,31 @@ export function syncChanges(entries, before, after, report) {
     // a hint, not a change: the ledger (authoritative) is ahead of the sheet
     const levelUp = (want.ledger && want.level !== null && Number(want.ledger.level) > Number(want.level)) ? `ledger level ${want.ledger.level} — level up (sheet is level ${want.level})` : null;
     if (was && want.hp !== null && was.hp !== want.hp) notes.push(`HP ${fmtN(was.hp)} → ${fmtN(want.hp)}`);
-    const added = was ? want.items.filter((n) => !was.items.includes(n)) : [];
-    const removed = was ? was.items.filter((n) => !want.items.includes(n)) : [];
-    if (added.length) notes.push(`+ ${added.join(", ")}`);
-    if (removed.length) notes.push(`− ${removed.join(", ")}`);
+    const row = (want.id && rowsById.get(want.id)) || rowsByLabel.get(`${data.name} [${data.type}]`) || null;
+    if (row) {
+      // what the import itself will do (or did) to the items — a plan, not a guess from the names
+      const embedded = row.embedded ?? [];
+      if (embedded.length) notes.push(...embedded.slice(0, 4), ...(embedded.length > 4 ? [`… +${embedded.length - 4} more items`] : []));
+    } else if (was) {
+      const added = want.items.filter((n) => !was.items.includes(n));
+      const removed = was.items.filter((n) => !want.items.includes(n));
+      if (added.length) notes.push(`+ ${added.join(", ")}`);
+      if (removed.length) notes.push(`− ${removed.join(", ")}`);
+    }
     const folder = ((now?.folderPath?.length ? now.folderPath : want.folderPath) ?? []).join(" / ") || "root";
     if (was && now && was.folderPath && now.folderPath && was.folderPath.join("/") !== now.folderPath.join("/")) notes.push(`moved to ${folder}`);
-    if (status === "updated" && !notes.length) status = "unchanged";
-    return { name: data.name, type: data.type, id: want.id, status, folder, notes, levelUp, promoted: want.promoted, ledger: want.ledger, items: want.items.length };
+    // what the import itself found: the fields that differ (a dry run computes the same) — so "unchanged" means byte-for-byte
+    const fields = row?.fields ?? [];
+    const embedded = row?.embedded ?? [];
+    if (status === "updated" && row && row.changed === false) status = "unchanged";
+    else if (status === "updated" && row) {
+      // the fields the notes above do not already explain (XP, HP, the move)
+      const rest = fields.filter((f) => !/^(folder|system\.details\.xp\.value|system\.attributes\.hp\.)/.test(f));
+      if (rest.length) notes.push(`fields: ${rest.slice(0, 6).join(", ")}${rest.length > 6 ? ` +${rest.length - 6}` : ""}`);
+      if (row.kept) status = "kept";
+    }
+    if (status === "updated" && !row && !notes.length) status = "unchanged";
+    return { name: data.name, type: data.type, id: want.id, status, folder, notes, levelUp, promoted: want.promoted, ledger: want.ledger, items: want.items.length, fields, embedded };
   });
 }
 
@@ -1581,20 +1837,26 @@ export function syncSummaryHtml(report) {
   const tried = (s.attempts ?? []).map((a) => `<li>${a.ok ? "✔" : "✘"} ${escapeHtml(a.label)} <code>${escapeHtml(a.url)}</code>${a.ok ? "" : ` — ${escapeHtml(a.error ?? "")}`}</li>`).join("");
   const stamps = [s.exportedAt ? `export ${escapeHtml(s.exportedAt)}` : null, s.info?.publishedAt ? `published ${escapeHtml(s.info.publishedAt)}` : null].filter(Boolean).join(" · ");
   const levelUps = rows.filter((r) => r.levelUp);
-  const replaced = by("replaced"), changed = by("updated"), fresh = by("new"), same = by("unchanged");
+  const replaced = by("replaced"), changed = by("updated"), fresh = by("new"), same = by("unchanged"), kept = by("kept");
   const merged = (s.merged ?? []).map((m) => `${escapeHtml(m.label)} ${m.actors}${m.omitted ? ` (${m.omitted} already in an earlier part)` : ""}`).join(" · ");
   const version = s.version ?? null;
   const notes = report.notes ?? [];
+  const github = s.github ?? null;
   return `<div class="wmi-report wmi-sync">
     ${version?.stale ? `<p class="wmi-stale">⚠ This world is still running module <b>${escapeHtml(version.running)}</b> while <b>${escapeHtml(version.onDisk)}</b> is installed. <b>Setup → relaunch the world</b> (then Ctrl+F5) to run the new code.</p>` : ""}
+    ${version?.behind ? `<p class="wmi-stale">⚠ Foundry serves module.json <b>${escapeHtml(version.onDisk)}</b> while the code running is <b>${escapeHtml(version.running)}</b> — a half-updated install, or Foundry reads a different Data folder than the suite wrote to. Run <code>tools/sheets-suite.py</code> once more (it names both folders), then Setup → relaunch the world.</p>` : ""}
+    ${github?.ahead ? `<p class="wmi-stale">⬆ GitHub (${escapeHtml(github.branch)}) has module <b>${escapeHtml(github.github)}</b>; this install runs ${escapeHtml(version?.running ?? MODULE_VERSION)}. The suite with <code>--git-sync</code> (or a <code>git pull</code>) installs it; then Setup → relaunch the world.</p>` : ""}
     <p><strong>${escapeHtml(summarize(report))}</strong><br><small>${escapeHtml(SYNC_SCOPE_LABEL)} · from ${escapeHtml(s.used?.label ?? "?")}${stamps ? ` · ${stamps}` : ""}${merged ? ` · ${merged}` : ""} · module ${escapeHtml(version?.running ?? MODULE_VERSION)}${s.trigger === "auto" ? " · automatic" : ""}</small></p>
-    ${levelUps.length ? `<p class="wmi-levelup">⬆ Level up at the table: ${levelUps.map((r) => `<b>${escapeHtml(r.name)}</b> (${escapeHtml(r.levelUp)})`).join(", ")}</p>` : ""}
+    ${report.preview ? `<p class="notes">Nothing has been written yet. <b>Apply</b> writes exactly the differences below (an untouched actor is not written at all); <b>Not now</b> asks again next time; <b>Skip this packet</b> stays quiet until the packet changes.</p>` : ""}
+    ${swapsHtml(report.swaps)}
     <details ${replaced.length ? "open" : ""}><summary>Replaced — NPC statblock → character sheet, same id (${replaced.length})</summary>${li(replaced, row)}</details>
     <details ${changed.length ? "open" : ""}><summary>Changed (${changed.length})</summary>${li(changed, row)}</details>
     <details ${fresh.length ? "open" : ""}><summary>New (${fresh.length})</summary>${li(fresh, row)}</details>
     <details><summary>Unchanged (${same.length})</summary>${li(same, (r) => `<li>${escapeHtml(r.name)}</li>`)}</details>
     <details ${report.failed.length ? "open" : ""}><summary>Failed (${report.failed.length})</summary>${li(report.failed, (r) => `<li>${escapeHtml(r.actor)} — ${escapeHtml(r.error)}</li>`)}</details>
+    <details ${kept.length ? "open" : ""}><summary>Kept — the world is newer than the packet (${kept.length})</summary>${li(kept, row)}<p class="notes">These changed in Foundry after the packet's copy was exported (a session). Nothing was written to them; the difference is what the packet would have rolled back. The export loop (Data → suite → repo) brings the world's version into the packet, after which the ledger's XP and the flags apply on top.</p></details>
     <details ${notes.length ? "open" : ""}><summary>Notes for the GM (${notes.length})</summary>${li(notes, (n) => `<li><b>${escapeHtml(n.actor)}</b> — ${escapeHtml(n.note)}</li>`)}</details>
+    <details><summary>Pending at the table — level-ups the ledger allows (${levelUps.length})</summary>${li(levelUps, (r) => `<li><b>${escapeHtml(r.name)}</b> — ${escapeHtml(r.levelUp)}</li>`)}<p class="notes">Not a change and never applied by the sync: the XP is on the sheet, the level-up happens in dnd5e's own advancement when the player levels up at the table; the export loop then carries it back.</p></details>
     ${repairedHtml(report)}
     <details ${report.missingImages.length ? "open" : ""}><summary>Missing images (${report.missingImages.length})</summary>${li(report.missingImages, (r) => `<li>${escapeHtml(r.actor)} · ${escapeHtml(r.where)} · <code>${escapeHtml(r.path)}</code></li>`)}<p class="notes">Paths the server answered 404 for. Bare file names and <code>modules/…</code> paths come from someone else's Data folder; set the portrait on the sheet or tick <i>fix missing images</i> in Mass import.</p></details>
     <details><summary>Folders (${folderCounts(rows).length}${report.foldersCreated.length ? `, ${report.foldersCreated.length} new` : ""}${report.foldersStyled?.length ? `, ${report.foldersStyled.length} coloured` : ""}${report.foldersMerged?.length ? `, ${report.foldersMerged.length} merged` : ""}${report.foldersPruned?.length ? `, ${report.foldersPruned.length} empty removed` : ""})</summary><ul>${folderCounts(rows).map(([f, n]) => `<li>${escapeHtml(f)} <small>${n}</small>${report.foldersCreated.includes(f) ? " <small>(new)</small>" : ""}</li>`).join("")}</ul>${report.foldersMerged?.length ? `<p class="notes">Merged duplicates: ${report.foldersMerged.map(escapeHtml).join("; ")}</p>` : ""}${report.foldersPruned?.length ? `<p class="notes">Removed empty folders: ${report.foldersPruned.map(escapeHtml).join("; ")}</p>` : ""}</details>
@@ -1679,8 +1941,7 @@ export async function syncFromWaluipedia(overrides = {}) {
     console.log(`[${MODULE_ID}] automatic sync: packet unchanged since the last sync (${stamp}) — nothing to do`);
     return { skipped: true, stamp };
   }
-  const version = await checkModuleVersion();
-  if (version.stale) notify("warn", `Waluipedia Mass Import ${version.onDisk} is installed but this world still runs ${version.running} — Setup → relaunch the world (then Ctrl+F5)`);
+  const version = await announceVersion();
   const exportedAt = info?.exportedAt ?? loaded.exportedAt ?? loaded.raw?.exportedAt ?? null;
   const worldActors = () => g.game?.actors?.contents ?? [...(g.game?.actors?.values?.() ?? [])];
   let raw = loaded.raw;
@@ -1692,6 +1953,39 @@ export async function syncFromWaluipedia(overrides = {}) {
     raw = applyPlanEdits(raw, plan, editsFromForm(picked));
     if (!raw.actors.length) { notify("warn", "Sync: nothing ticked"); return null; }
   }
+  const entries = normalizeImport(raw).entries;
+  const syncMeta = (extra = {}) => ({ used, attempts, info, exportedAt, world: s.world, trigger, stamp, merged: loaded.merged ?? raw.merged ?? null, version, ...extra });
+  const remember = async () => { try { await g.game.settings.set(MODULE_ID, SYNC_STAMP_SETTING, stamp); } catch (err) { /* no settings in tests */ } };
+  // 1. check first: the same import as a dry run — nothing is written, the
+  //    differences are exact (a session changes the world; a packet applied
+  //    blind over it would be the danger). Identical → nothing to do.
+  const asks = !options.dryRun && !s.review && (trigger === "auto" || s.confirm !== false);
+  if (asks) {
+    const before = snapshotWorld(worldActors());
+    let preview;
+    try { preview = await importPayload(raw, { ...options, dryRun: true }); }
+    catch (err) { notify("error", `Sync: ${err.message}`); console.error(`[${MODULE_ID}]`, err); return null; }
+    try { await tidyFolders({ merge: s.mergeFolders !== false, prune: s.pruneFolders !== false, dryRun: true, report: preview }); }
+    catch (err) { console.warn(`[${MODULE_ID}] folder tidy:`, err); }
+    preview.preview = true;
+    preview.source = used.url; preview.files = loaded.files; preview.ignored = loaded.ignored;
+    preview.changes = syncChanges(entries, before, before, preview);
+    preview.sync = syncMeta({ github: overrides.github ?? null });
+    const pending = syncPending(preview);
+    if (!pending.length) {
+      const fresh = lastStamp !== stamp;
+      await remember();
+      console.log(`[${MODULE_ID}] sync: the world already matches the packet (${stamp}) — nothing written`, preview);
+      // the notes and swaps (a stand-in to choose) are not changes — a whisper in the chat log, once per packet
+      if (fresh && (preview.swaps.length || preview.notes.length)) await postSyncChat(preview);
+      if (trigger !== "auto") notify("info", `Sync: the world already matches the packet — nothing to do (${summarize({ ...preview, preview: false, dryRun: false })})`);
+      return { skipped: true, identical: true, stamp, report: preview };
+    }
+    const answer = await askToApply(preview, pending);
+    if (answer === "skip") { await remember(); console.log(`[${MODULE_ID}] sync: packet ${stamp} skipped by the GM — quiet until it changes`); return { skipped: true, declined: true, stamp, report: preview }; }
+    if (answer !== "apply") { console.log(`[${MODULE_ID}] sync: not now (${pending.length} pending)`); return { skipped: true, declined: true, later: true, stamp, report: preview }; }
+  }
+  // 2. apply (or the explicit dry run)
   const before = snapshotWorld(worldActors());
   let report;
   try { report = await importPayload(raw, options); }
@@ -1702,19 +1996,122 @@ export async function syncFromWaluipedia(overrides = {}) {
   report.source = used.url;
   report.files = loaded.files;
   report.ignored = loaded.ignored;
-  report.changes = syncChanges(normalizeImport(raw).entries, before, after, report);
-  report.sync = { used, attempts, info, exportedAt, world: s.world, trigger, stamp, merged: loaded.merged ?? raw.merged ?? null, version };
-  if (!report.dryRun && !s.review) { try { await g.game.settings.set(MODULE_ID, SYNC_STAMP_SETTING, stamp); } catch (err) { /* no settings in tests */ } }
+  report.changes = syncChanges(entries, before, after, report);
+  report.sync = syncMeta({ github: overrides.github ?? null });
+  if (!report.dryRun && !s.review) await remember();
   announce(report);
   if (!report.dryRun) await postSyncChat(report);
-  const quiet = trigger === "auto" && !report.failed.length && !report.created.length && !report.replaced.length && !report.notes.length
+  const quiet = trigger === "auto" && !asks && !report.failed.length && !report.created.length && !report.replaced.length && !report.notes.length
     && report.updated.every((u) => u.changed === false) && !report.foldersMerged.length && !report.foldersPruned.length;
   if (!quiet) await showHtml(report.dryRun ? "Sync — dry run" : "Sync — summary", syncSummaryHtml(report), 660);
   return report;
 }
 
+/** Pure: what a preview would write or wants from the GM — the reasons to ask. */
+export function syncPending(preview) {
+  const out = [];
+  const n = (k, list) => { if (list?.length) out.push(`${list.length} ${k}`); };
+  n("new", preview.created); n("replaced", preview.replaced); n("changed", changedRows(preview)); n("failed", preview.failed);
+  n("duplicate folders to merge", preview.foldersMerged); n("empty folders to remove", preview.foldersPruned);
+  // swaps and notes are the GM's call, not pending writes: they never raise the question by themselves
+  return out;
+}
+
+/** The question: the preview as the summary, three answers. "apply" | "later" | "skip". */
+async function askToApply(preview, pending) {
+  const g = G();
+  const title = `Sync — ${pending.join(", ")}: apply?`;
+  const content = syncSummaryHtml(preview);
+  const DialogV2 = g.foundry?.applications?.api?.DialogV2;
+  if (DialogV2) {
+    const r = await DialogV2.wait({
+      window: { title }, content, rejectClose: false, position: { width: 700 },
+      buttons: [
+        { action: "apply", label: "Apply", icon: "fas fa-sync-alt", default: true },
+        { action: "later", label: "Not now", icon: "fas fa-clock" },
+        { action: "skip", label: "Skip this packet", icon: "fas fa-forward" },
+      ],
+    });
+    return r ?? "later";
+  }
+  if (g.Dialog) {
+    return new Promise((resolve) => {
+      new g.Dialog({ title, content, buttons: {
+        apply: { label: "Apply", callback: () => resolve("apply") },
+        later: { label: "Not now", callback: () => resolve("later") },
+        skip: { label: "Skip this packet", callback: () => resolve("skip") },
+      }, default: "apply", close: () => resolve("later") }, { width: 700 }).render(true);
+    });
+  }
+  return "later";
+}
+
+/* ------------------------------------------------- the world flows back */
+
+let exportTimer = null;
+const exportState = { pending: false, lastAt: null, lastPath: null, running: false };
+/** Pure: the Data path the world export goes to. */
+export const exportBackPath = (packetDir, world) => `${trimSlashes(packetDir || SYNC_DEFAULTS.packetDir)}/${world}/export/${world}-all-actors.json`;
+
+/**
+ * The other direction: the whole world as one export file inside Data, where
+ * tools/sheets-suite.py --watch finds it (next to the packet it publishes).
+ * Quiet: a console line, a stamp in a hidden setting; the file is JSON, which
+ * FilePicker.upload accepts.
+ */
+export async function exportBack({ reason = "manual" } = {}) {
+  const g = G();
+  const s = syncSettings();
+  const world = g.game?.world?.id ?? s.world;
+  const path = exportBackPath(s.packetDir, world);
+  if (exportState.running) { exportState.pending = true; return null; }
+  exportState.running = true;
+  try {
+    const payload = await exportAllActors({ download: false });
+    payload.exportedBy = `${MODULE_ID} ${MODULE_VERSION} (${reason})`;
+    const written = await writeDataFiles([{ path, text: JSON.stringify(payload, null, 2) }]);
+    exportState.lastAt = payload.exportedAt; exportState.lastPath = written[0] ?? path; exportState.pending = false;
+    try { await g.game.settings.set(MODULE_ID, EXPORT_STAMP_SETTING, payload.exportedAt); } catch (err) { /* tests */ }
+    console.log(`[${MODULE_ID}] world exported back (${reason}): ${payload.actors.length} actors → ${exportState.lastPath}`);
+    return { path: exportState.lastPath, actors: payload.actors.length, exportedAt: payload.exportedAt };
+  } catch (err) {
+    console.warn(`[${MODULE_ID}] export back failed (${reason}):`, err);
+    return null;
+  } finally {
+    exportState.running = false;
+    if (exportState.pending) { exportState.pending = false; scheduleExportBack("changes during the export"); }
+  }
+}
+
+/** A change to an actor (or its items/effects) by anyone: export after `exportDelay` quiet seconds — the active GM's client does it. */
+export function scheduleExportBack(reason = "actor changed", { delayMs = null } = {}) {
+  const g = G();
+  if (!g.game?.user?.isGM) return false;
+  const activeGM = g.game.users?.activeGM;
+  if (activeGM && activeGM.id !== g.game.user.id) return false;
+  const s = syncSettings();
+  if (s.exportBack === false) return false;
+  const ms = delayMs ?? Math.max(1, Number(s.exportDelay) || SYNC_DEFAULTS.exportDelay) * 1000;
+  if (exportTimer) clearTimeout(exportTimer);
+  exportTimer = setTimeout(() => { exportTimer = null; exportBack({ reason }); }, ms);
+  return true;
+}
+
+/** The document hooks that mean "the world changed" (world actors only — not tokens' synthetic actors, not compendia). */
+export function exportBackHooks() {
+  const g = G();
+  if (!g.Hooks?.on) return 0;
+  const isWorldActor = (doc) => !!doc && !doc.pack && (doc.documentName === "Actor" ? !doc.isToken : (doc.parent?.documentName === "Actor" && !doc.parent.isToken && !doc.parent.pack));
+  let n = 0;
+  for (const doc of ["Actor", "Item", "ActiveEffect"]) for (const verb of ["create", "update", "delete"]) {
+    g.Hooks.on(`${verb}${doc}`, (d) => { if (isWorldActor(d)) scheduleExportBack(`${verb} ${doc}`); });
+    n++;
+  }
+  return n;
+}
+
 /** The `ready` hook's part: a GM's world syncs itself once per published packet (setting syncAuto). */
-export async function autoSync({ delay = 2500 } = {}) {
+export async function autoSync({ delay = 2500, github = null } = {}) {
   const g = G();
   if (!g.game?.user?.isGM) return null;
   // two GMs logged in: only the active one (Foundry's pick) syncs — the stamp is a world setting
@@ -1724,7 +2121,7 @@ export async function autoSync({ delay = 2500 } = {}) {
   try { on = g.game.settings.get(MODULE_ID, SYNC_SETTING_KEYS.auto) !== false; } catch (err) { on = true; }
   if (!on) return null;
   if (delay) await new Promise((resolve) => setTimeout(resolve, delay));
-  try { return await syncFromWaluipedia({ trigger: "auto" }); }
+  try { return await syncFromWaluipedia({ trigger: "auto", github }); }
   catch (err) { console.warn(`[${MODULE_ID}] automatic sync:`, err); return null; }
 }
 
@@ -1788,8 +2185,9 @@ export const api = {
   loadSource, loadSourceDetailed, loadDataPath, assembleDirectory, walkData, browseData, pickDataPath,
   buildPlan, applyPlanEdits, planHtml, normalizeImport, summarize,
   syncFromWaluipedia, autoSync, syncCandidates, syncSettings, syncChanges, syncSummaryHtml, snapshotWorld, actorFacts,
-  mergePackets, syncStamp, checkModuleVersion, tidyFolders, duplicateFolderGroups, emptyFolderIds, folderKey,
-  embeddedSources, isCachedSpell, singletonNotes,
+  mergePackets, syncStamp, checkModuleVersion, checkGitHubVersion, versionVerdict, compareVersions, tidyFolders, duplicateFolderGroups, emptyFolderIds, folderKey,
+  embeddedSources, isCachedSpell, singletonNotes, planEmbedded, leafPaths, swapSingleton, swapsHtml, syncPending, changedRows,
+  exportBack, scheduleExportBack, exportBackPath, SINGLETON_TYPES,
   loadManifest, isManifest, isSheetIndex, SYNC_DEFAULTS, SYNC_SCOPE_LABEL, MODULE_VERSION,
 };
 
@@ -1814,7 +2212,11 @@ export function onInit() {
     reg("syncMergeFolders", "Sync: merge duplicate folders", "After a sync, two Actor folders with one name under one parent (what an earlier import left) become one — the fuller one.", { type: Boolean, default: SYNC_DEFAULTS.mergeFolders });
     reg("syncPruneFolders", "Sync: remove empty folders", "After a sync, Actor folders holding no actor and no sub-folder are deleted.", { type: Boolean, default: SYNC_DEFAULTS.pruneFolders });
     reg("syncReview", "Sync: review first", "Show the review table before every sync (shift-click the button does it once).", { type: Boolean, default: SYNC_DEFAULTS.review });
+    reg("syncConfirm", "Sync: check first, ask before applying", "Every sync (automatic or the button) is computed as a dry run first. Identical world: nothing happens, a line in the console. Differences: a summary with Apply / Not now / Skip this packet. Off: the button applies at once (the automatic sync always asks).", { type: Boolean, default: SYNC_DEFAULTS.confirm });
+    reg("syncExportBack", "Sync: export the world back into Data", "The other direction: a while after the last change to any actor (a session's edits, a level-up), the GM's client writes the whole world to <packet folder>/<world>/export/<world>-all-actors.json inside Data — tools/sheets-suite.py --watch picks it up, mirrors it into the repo and (with --git-sync) commits it.", { type: Boolean, default: SYNC_DEFAULTS.exportBack });
+    reg("syncExportDelay", "Sync: quiet seconds before that export", "How long after the last actor change the export runs (default 120).", { type: Number, default: SYNC_DEFAULTS.exportDelay, range: { min: 10, max: 3600, step: 10 } });
     g.game.settings.register(MODULE_ID, SYNC_STAMP_SETTING, { scope: "world", config: false, type: String, default: "" });
+    g.game.settings.register(MODULE_ID, EXPORT_STAMP_SETTING, { scope: "world", config: false, type: String, default: "" });
     g.game.settings.register(MODULE_ID, "showTags", { name: "Tag chips in the Actors sidebar", hint: "Show the Waluipedia tags (website group, pc/npc, role, creature type) next to each actor's name.", scope: "client", config: true, type: Boolean, default: true });
   } catch (err) { console.warn(`[${MODULE_ID}] settings`, err); }
 }
@@ -1846,13 +2248,17 @@ export async function onReady() {
   const loaded = mod?.version ?? null;
   console.log(`[${MODULE_ID}] ${MODULE_VERSION} ready — game.modules.get("${MODULE_ID}").api${loaded && loaded !== MODULE_VERSION ? ` (Foundry loaded the manifest of ${loaded} — Setup → Launch World refreshes it; the code running is ${MODULE_VERSION})` : ""}`);
   try { ensureFreshStyles(); } catch (err) { /* cosmetic */ }
+  let github = null;
   if (g.game?.user?.isGM) {
+    try { await announceVersion(); } catch (err) { /* offline packaging, tests */ }
+    try { if (g.document?.body?.addEventListener && !g.document.body.dataset.wmiSwap) { g.document.body.addEventListener("click", onSwapClick); g.document.body.dataset.wmiSwap = "1"; } } catch (err) { /* no DOM in tests */ }
+    try { exportBackHooks(); } catch (err) { console.warn(`[${MODULE_ID}] export-back hooks`, err); }
     try {
-      const version = await checkModuleVersion();
-      if (version.stale) notify("warn", `Waluipedia Mass Import ${version.onDisk} is installed but this world still runs ${version.running} — Setup → Launch World, then Ctrl+F5`);
-    } catch (err) { /* offline packaging, tests */ }
+      github = await checkGitHubVersion(syncSettings().branch);
+      if (github.ahead) notify("info", `Waluipedia Mass Import ${github.github} is on GitHub (${github.branch}); this install runs ${MODULE_VERSION} — the suite with --git-sync (or git pull) installs it, then Setup → Launch World`);
+    } catch (err) { github = null; }
   }
-  return autoSync();
+  return autoSync({ github });
 }
 
 /** "renderActorDirectory": the tag chips and, for GMs, the three buttons. */

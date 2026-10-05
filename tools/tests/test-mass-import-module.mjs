@@ -17,7 +17,7 @@ const check = (label, cond, extra = '') => (cond ? ok : fail).push(label + (extr
 // ---------------------------------------------------------------- manifest
 const manifest = JSON.parse(fs.readFileSync(path.join(MOD_DIR, 'module.json'), 'utf8'));
 check('module id is stable', manifest.id === 'waluipedia-mass-import', manifest.id);
-check('version 1.5 (automatic everything-sync + folder tidy + invalid-document repair, on top of diff updates, identifier repair, folder colours, tags, Data folders, review table, replace on type change)', /^1\.([5-9]|\d{2,})/.test(manifest.version) && /diffs/.test(manifest.description) && /chips/.test(manifest.description) && /Data/.test(manifest.description) && /same id/.test(manifest.description) && /by itself/.test(manifest.description) && /merges duplicate folders/.test(manifest.description) && /could not validate/.test(manifest.description), manifest.version);
+check('version 1.7 (check-first sync, export back, swaps; on top of automatic everything-sync + folder tidy + invalid-document repair, diff updates, identifier repair, folder colours, tags, Data folders, review table, replace on type change)', /^1\.([7-9]|\d{2,})/.test(manifest.version) && /dry run first/.test(manifest.description) && /swap/.test(manifest.description) && /diffs/.test(manifest.description) && /chips/.test(manifest.description) && /Data/.test(manifest.description) && /same id/.test(manifest.description) && /by itself/.test(manifest.description) && /merges duplicate folders/.test(manifest.description) && /could not validate/.test(manifest.description), manifest.version);
 check('manifest loads the script and stylesheet', manifest.esmodules?.includes('scripts/mass-import.js') && manifest.styles?.includes('styles/mass-import.css'));
 const loaderText = fs.readFileSync(path.join(MOD_DIR, 'scripts/mass-import.js'), 'utf8');
 check('v1.6: the entry Foundry loads is a tiny loader — it imports mass-import-core.js with a fresh query string (a newer install runs after a plain F5) and registers the three hooks synchronously', loaderText.split('\n').length < 40 && loaderText.includes('import(`./mass-import-core.js?v=${Date.now()}`)') && ['Hooks.once("init"', 'Hooks.once("ready"', 'Hooks.on("renderActorDirectory"'].every((h) => loaderText.includes(h)) && !/^import\s/m.test(loaderText) && fs.existsSync(path.join(MOD_DIR, 'scripts/mass-import-core.js')));
@@ -123,6 +123,20 @@ class Actor {
     if (rest.name) this.name = rest.name;
     if (rest.flags) this.flags = structuredClone(this._data.flags);
     if (folder !== undefined) this.folderId = folder;
+    // Foundry: an embedded array in a parent update merges by _id on the SOURCE
+    // (an invalid document included); the collection is rebuilt from it
+    if (Array.isArray(items)) {
+      (this.parentItemUpdates ??= []).push(structuredClone(items));
+      for (const partial of items) {
+        if (!partial?._id) throw new Error('You must provide an _id for every object in the update data Array.');
+        const src = this._source.items.find((i) => i._id === partial._id);
+        if (!src) { this._source.items.push(structuredClone(partial)); continue; }
+        applyUpdate(src, partial);
+        const live = this.items.get(partial._id);
+        if (live) { applyUpdate(live._data, partial); live.name = live._data.name; continue; }
+        if (validItem(src)) { this.items.invalidDocumentIds.delete(partial._id); this.items.set(partial._id, new Item(structuredClone(src))); }
+      }
+    }
     return this;
   }
   async createEmbeddedDocuments(type, arr, opts = {}) {
@@ -149,15 +163,9 @@ class Actor {
       if (type === 'Item') {
         const it = this.items.get(d._id);
         if (it) { applyUpdate(it._data, d); it.name = it._data.name; const src = this._source.items.find((i) => i._id === d._id); if (src) applyUpdate(src, d); continue; }
-        // an invalid document can be updated (Foundry fetches it with {invalid: true}); once valid it joins the collection
-        if (this.items.invalidDocumentIds.has(d._id)) {
-          const src = this._source.items.find((i) => i._id === d._id);
-          applyUpdate(src, d);
-          if (!validItem(src)) throw new Error(`Item [${d._id}] validation errors: system.identifier`);
-          this.items.invalidDocumentIds.delete(d._id);
-          this.items.set(d._id, new Item(src));
-          continue;
-        }
+        // Foundry 14 (the GM's console, 1.6.0 run): the embedded route looks the document up in the live
+        // collection, where an invalid one is not, and dies — the 1.5/1.6 "repair by update" never worked
+        if (this.items.invalidDocumentIds.has(d._id)) throw new TypeError("Cannot read properties of undefined (reading '_source')");
         throw new Error(`Item ${d._id} does not exist!`);
       }
       else { const e = this.effects.get(d._id); if (!e) throw new Error(`ActiveEffect ${d._id} does not exist!`); applyUpdate(e, d); }
@@ -358,7 +366,7 @@ game.user.isGM = true;
 // ----------------------------------------------------------- report html
 const html = mod.reportHtml(rb);
 check('report HTML escapes and lists missing images', html.includes('portraits/nope.png') && html.includes('Missing images (3)'));
-check('summarize reads well (and says what was left alone)', /^0 created, 2 updated( \(\d unchanged\))?$/.test(mod.summarize(r2)), mod.summarize(r2));
+check('summarize reads well (and says what was left alone)', /^0 created, [0-2] changed( \(\d unchanged\))?$/.test(mod.summarize(r2)), mod.summarize(r2));
 
 // ------------------------------------------------- the Data folder (v1.1)
 // A fake FilePicker over an in-memory Data tree: browse / createDirectory /
@@ -501,7 +509,7 @@ check('pickDataPath opens a folder picker and writes the choice into the url box
   check('…keeping the world folder and ownership (the players keep access)', salam.folderId === playersFolder.id && game.folders.size === 1 && salam.ownership.P1aaaaaaaaaaaaaa === 3 && salam.ownership.GMaaaaaaaaaaaaaa === 3, JSON.stringify({ folder: salam.folderId, want: playersFolder.id, own: salam.ownership }));
   check('…merging flags instead of wiping other modules', salam.flags['scene-packer']?.hash === 'abc' && salam.flags['waluipedia-sheets']?.promoted?.mode === 'convert');
   check('…with the new class item on board', salam.items.get('I8aaaaaaaaaaaaaa')?.name === 'Ranger' && salam.items.size === 2);
-  check('summarize counts replacements', mod.summarize(rep) === '0 created, 0 updated, 1 replaced');
+  check('summarize counts replacements', mod.summarize(rep) === '0 created, 0 changed, 1 replaced');
   check('report HTML lists the replacement', mod.reportHtml(rep).includes('Replaced — same id, new type (1)') && mod.reportHtml(rep).includes('npc → character'));
   const again = await mod.importPayload(promoted, { checkImages: false });
   check('a second import of the same packet is a plain update', again.replaced.length === 0 && again.updated.length === 1 && game.actors.size === 1);
@@ -587,13 +595,25 @@ check('pickDataPath opens a folder picker and writes the choice into the url box
     if (key === 'npc/waluipedia/midlands/packets.json' && dataHas) return { ok: true, status: 200, json: async () => structuredClone(packetsJson) };
     if (key.startsWith('modules/waluipedia-mass-import/module.json')) return { ok: true, status: 200, json: async () => ({ version: onDiskVersion }) };
     if (key.startsWith('http://127.0.0.1:8765/')) throw new TypeError('Failed to fetch');
-    if (ghFiles.has(key)) return { ok: true, status: 200, json: async () => structuredClone(ghFiles.get(key)) };
+    const bare = key.split('?')[0];
+    if (ghFiles.has(bare)) return { ok: true, status: 200, json: async () => structuredClone(ghFiles.get(bare)) };
     return { ok: false, status: 404 };
   };
   const chats = [];
   globalThis.ChatMessage = { create: async (d) => { chats.push(d); return d; }, getWhisperRecipients: () => [{ id: 'GMaaaaaaaaaaaaaa' }] };
+  // v1.7: every sync is checked first and asks before applying — a DialogV2 stand-in answers
+  const asked = [];
+  let answer = 'apply';
+  const shown = [];
+  globalThis.foundry.applications.api = { DialogV2: { wait: async (cfg) => {
+    const entry = { title: cfg.window?.title ?? '', content: cfg.content ?? '', actions: (cfg.buttons ?? []).map((b) => b.action) };
+    (entry.actions.includes('apply') ? asked : shown).push(entry);
+    const b = (cfg.buttons ?? []).find((x) => x.action === answer) ?? (cfg.buttons ?? []).find((x) => x.default) ?? (cfg.buttons ?? [])[0];
+    return b?.callback ? b.callback({}, { form: null }) : (b?.action ?? null);
+  } } };
 
   const r = await mod.syncFromWaluipedia({ options: { checkImages: false } });
+  check('v1.7: the button sync checked first and asked — the question names what waits, the preview is the summary, three answers', asked.length >= 1 && /^Sync — .*apply\?$/.test(asked[0].title) && /3 new/.test(asked[0].title) && /1 replaced/.test(asked[0].title) && /2 changed/.test(asked[0].title) && asked[0].actions.join() === 'apply,later,skip' && asked[0].content.includes('WAITING FOR YOUR OK') && asked[0].content.includes('Nothing has been written yet'), JSON.stringify(asked.map((a) => [a.title, a.actions])));
   check('sync falls through Data and the launcher to GitHub', r && r.sync.used.source === 'github' && r.sync.attempts.map((a) => `${a.source}:${a.ok}`).join() === 'data:false,launcher:false,github:true', JSON.stringify(r?.sync?.attempts));
   check('the GitHub route fetches every file the manifest lists, then the cast and era packets, and merges them (the era packet 404s → ignored, not fatal)', r.files.length === 5 && log.some((u) => u.includes('aemenor')) && r.sync.merged?.map((m) => `${m.label}:${m.actors}/${m.omitted}`).join() === 'world:5/0,cast:1/1' && r.ignored.some((i) => i.path.endsWith('peachs-castle-955/import.json')), JSON.stringify([r.files, r.sync.merged, r.ignored]));
   check('…and imports them into their folders (players in Players, the manor NPC in its directory, the generated Koopa in a coloured Koopa Troop; the cast\'s Bowser left out for the world\'s)', ['Bowser', 'Eager', 'Waluigi', 'Hjumpik Deldkur'].every((n) => game.actors.contents.find((a) => a.name === n)?.folder?.name === 'Players')
@@ -602,20 +622,25 @@ check('pickDataPath opens a folder picker and writes the choice into the url box
   check('Bowser: NPC statblock replaced by the character sheet under the same id, ownership kept', r.replaced.length === 1 && game.actors.get('Bo1aaaaaaaaaaaaa').type === 'character' && game.actors.get('Bo1aaaaaaaaaaaaa').ownership.P1aaaaaaaaaaaaaa === 3);
   const rows = Object.fromEntries(r.changes.map((c) => [c.name, c]));
   check('summary row: Bowser replaced — type, XP, class line', rows.Bowser.status === 'replaced' && rows.Bowser.notes.includes('npc → character') && rows.Bowser.notes.includes('XP — → 35,292') && rows.Bowser.notes.includes('Fighter 8'), JSON.stringify(rows.Bowser));
-  check('summary row: Eager — the spoil arrived and she moved into Players', rows.Eager.status === 'updated' && rows.Eager.notes.includes('+ The Electric Sphere') && rows.Eager.notes.includes('moved to Players'), JSON.stringify(rows.Eager));
-  check('summary row: Waluigi unchanged', rows.Waluigi.status === 'unchanged' && rows.Waluigi.notes.length === 0, JSON.stringify(rows.Waluigi));
+  check('summary row: Eager — the spoil arrived (the plan\'s words) and she moved into Players; the flags she gains are named', rows.Eager.status === 'updated' && rows.Eager.notes.includes('+ The Electric Sphere [loot]') && rows.Eager.notes.includes('moved to Players') && rows.Eager.notes.some((n) => /^fields: flags\./.test(n) && !/, folder$/.test(n)), JSON.stringify(rows.Eager));
+  check('summary row: Waluigi — nothing visible moved, but the packet brings flags the sheet lacks (the ledger key, the folder path): a real write, named', rows.Waluigi.status === 'updated' && rows.Waluigi.notes.length === 1 && /^fields: flags\.waluipedia-sheets\.ledger\.xpKey/.test(rows.Waluigi.notes[0]) && rows.Waluigi.fields.includes('flags.waluipedia-mass-import.folderPath'), JSON.stringify(rows.Waluigi));
   check('summary row: Hjumpik new, with the level-up the ledger allows (a hint, not a change)', rows['Hjumpik Deldkur'].status === 'new' && rows['Hjumpik Deldkur'].levelUp === 'ledger level 7 — level up (sheet is level 6)' && !rows['Hjumpik Deldkur'].notes.some((n) => n.startsWith('ledger')), JSON.stringify(rows['Hjumpik Deldkur']));
   const sh = mod.syncSummaryHtml(r);
-  check('summary HTML: counts, level-up banner, the source, what each packet contributed, the module version, where it looked', sh.includes('3 created, 2 updated, 1 replaced') && sh.includes('Level up at the table') && sh.includes('Hjumpik Deldkur') && sh.includes('GitHub (gh-pages)') && sh.includes('export 2026-10-04T17:21:43.770Z') && sh.includes('✘ Foundry Data folder') && sh.includes('✔ GitHub') && sh.includes('cast 1 (1 already in an earlier part)') && sh.includes(`module ${mod.MODULE_VERSION}`) && !sh.includes('wmi-stale'), sh.slice(0, 400));
+  check('summary HTML: counts (only real changes count), the level-up demoted to "pending at the table", the source, what each packet contributed, the module version, where it looked', sh.includes('3 created, 2 changed, 1 replaced') && !sh.includes('unchanged)') && !sh.includes('Level up at the table') && sh.includes('Pending at the table — level-ups the ledger allows (1)') && sh.includes('never applied by the sync') && sh.includes('Hjumpik Deldkur') && sh.includes('GitHub (gh-pages)') && sh.includes('export 2026-10-04T17:21:43.770Z') && sh.includes('✘ Foundry Data folder') && sh.includes('✔ GitHub') && sh.includes('cast 1 (1 already in an earlier part)') && sh.includes(`module ${mod.MODULE_VERSION}`) && !sh.includes('wmi-stale'), sh.slice(0, 400));
   check('the sync remembers the packet it synced (world setting)', settings.get('waluipedia-mass-import.syncLastStamp') === r.sync.stamp && r.sync.stamp.startsWith('github:'));
   check('the summary is whispered to the GMs as a chat message', chats.length === 1 && chats[0].whisper.join() === 'GMaaaaaaaaaaaaaa' && chats[0].content.includes('Replaced'));
 
   // second click: Data now has the packet (the suite ran) — nothing changes, Data wins, the stamps show
   dataHas = true; log.length = 0;
+  asked.length = 0;
+  const infos = [];
+  const prevInfo = ui.notifications.info;
+  ui.notifications.info = (m) => infos.push(m);
   const r2 = await mod.syncFromWaluipedia({ options: { checkImages: false } });
-  check('with the packet published, Sync reads the Data folder first and never touches the network (the module.json version check is same-origin)', r2.sync.used.source === 'data' && !log.some((u) => u.startsWith('http')) && r2.sync.info?.publishedAt === '2026-10-04T18:00:00+0000' && r2.sync.stamp === `data:${packetsJson.digest}`, JSON.stringify(log.filter((u) => u.startsWith('http'))));
-  check('a second sync of the same actors changes nothing and says so (the ledger hint stays)', r2.changes.every((c) => c.status === 'unchanged') && r2.replaced.length === 0 && r2.created.length === 0 && game.actors.size === 6 && r2.changes.find((c) => c.name === 'Hjumpik Deldkur').levelUp !== null, JSON.stringify(r2.changes.map((c) => [c.name, c.status, c.notes])));
-  check('dry run syncs report without writing or chatting', (await mod.syncFromWaluipedia({ options: { checkImages: false, dryRun: true } })).dryRun === true && chats.length === 2);
+  ui.notifications.info = prevInfo;
+  check('with the packet published, Sync reads the Data folder first and never touches the network (the module.json version check is same-origin)', r2.report.sync.used.source === 'data' && !log.some((u) => u.startsWith('http')) && r2.report.sync.info?.publishedAt === '2026-10-04T18:00:00+0000' && r2.stamp === `data:${packetsJson.digest}`, JSON.stringify(log.filter((u) => u.startsWith('http'))));
+  check('v1.7: a second sync of the same actors is IDENTICAL — nothing written, no question, no chat, one toast, the stamp remembered (the ledger hint stays)', r2.identical === true && r2.skipped === true && asked.length === 0 && r2.report.changes.every((c) => c.status === 'unchanged') && r2.report.replaced.length === 0 && r2.report.created.length === 0 && game.actors.size === 6 && r2.report.changes.find((c) => c.name === 'Hjumpik Deldkur').levelUp !== null && chats.length === 1 && infos.some((m) => /already matches/.test(m)) && settings.get('waluipedia-mass-import.syncLastStamp') === r2.stamp, JSON.stringify([r2.identical, asked.length, infos, r2.report.changes.map((c) => [c.name, c.status, c.notes])]));
+  check('dry run syncs report without writing or chatting (and without the question)', (await mod.syncFromWaluipedia({ options: { checkImages: false, dryRun: true } })).dryRun === true && chats.length === 1 && asked.length === 0);
 
   // the automatic sync (world load): once per published packet
   settings.set('waluipedia-mass-import.syncAuto', true);
@@ -625,7 +650,44 @@ check('pickDataPath opens a folder picker and writes the choice into the url box
   check('automatic sync of a packet already synced does nothing (same digest) and opens nothing', auto1?.skipped === true && auto1.stamp === `data:${packetsJson.digest}`, JSON.stringify(auto1));
   packetsJson.digest = 'd1gest000000000000000000000000000000002';
   const auto2 = await mod.autoSync({ delay: 0 });
-  check('a newly published packet (new digest) is synced on load, marked automatic, and remembered', auto2?.sync?.trigger === 'auto' && auto2.sync.stamp.endsWith('0002') && settings.get('waluipedia-mass-import.syncLastStamp') === auto2.sync.stamp, JSON.stringify(auto2?.sync?.stamp));
+  check('v1.7: a newly published packet (new digest) is CHECKED on load — identical world → nothing written, no dialog, the stamp remembered', auto2?.identical === true && auto2.stamp.endsWith('0002') && asked.length === 0 && settings.get('waluipedia-mass-import.syncLastStamp') === auto2.stamp, JSON.stringify([auto2?.identical, auto2?.stamp, asked.length]));
+  // a session happened: Waluigi took damage and found a dagger; the packet (GitHub side) still has the old sheet — the automatic sync must ASK, never apply blind
+  const wal = game.actors.get('Wa1aaaaaaaaaaaaa');
+  await wal.update({ system: { attributes: { hp: { max: 31 } } } });
+  await wal.createEmbeddedDocuments('Item', [{ _id: 'Dg1aaaaaaaaaaaaa', name: 'Dagger', type: 'weapon' }], { keepId: true });
+  packetsJson.digest = 'd1gest000000000000000000000000000000003';
+  answer = 'later';
+  const auto3 = await mod.autoSync({ delay: 0 });
+  const walRow = auto3?.report?.changes?.find((c) => c.name === 'Waluigi');
+  check('v1.7: a world that drifted from the packet gets a question — the preview names the HP roll-back AND the dagger the packet would remove; "Not now" writes nothing and forgets nothing', auto3?.skipped === true && auto3.declined === true && auto3.later === true && asked.length === 1 && /^Sync — 1 changed: apply\?$/.test(asked[0].title) && walRow?.status === 'updated' && walRow.notes.join(' | ') === 'HP 31 → 30 | − Dagger [weapon]' && walRow.fields.join() === 'system.attributes.hp.max' && game.actors.get('Wa1aaaaaaaaaaaaa').toObject().system.attributes.hp.max === 31 && game.actors.get('Wa1aaaaaaaaaaaaa').items.has('Dg1aaaaaaaaaaaaa') && settings.get('waluipedia-mass-import.syncLastStamp') !== auto3.stamp, JSON.stringify([auto3?.skipped, auto3?.later, asked.map((a) => a.title), walRow]));
+  // the real guard: Foundry stamps every change (_stats.modifiedTime). A sheet changed AFTER the packet's copy was exported is KEPT — no roll-back, no question
+  const walNewer = game.actors.get('Wa1aaaaaaaaaaaaa');
+  walNewer._data._stats = { modifiedTime: Date.parse('2026-10-04T20:00:00Z') };
+  packet.actors.find((a) => a._id === 'Wa1aaaaaaaaaaaaa')._stats = { modifiedTime: Date.parse('2026-10-04T17:21:43Z') };
+  asked.length = 0;
+  const keptRun = await mod.autoSync({ delay: 0 });
+  const keptRow = keptRun?.report?.changes?.find((c) => c.name === 'Waluigi');
+  check('v1.7: preferNewer — the world\'s Waluigi (changed 20:00) is newer than the packet\'s copy (exported 17:21): kept as is, the difference shown, nothing pending, no question, the stamp remembered', keptRun?.identical === true && asked.length === 0 && keptRow?.status === 'kept' && keptRow.notes.join(' | ') === 'HP 31 → 30 | − Dagger [weapon]' && keptRun.report.kept.length === 1 && /1 kept \(world newer\)/.test(mod.summarize(keptRun.report)) && mod.syncSummaryHtml(keptRun.report).includes('Kept — the world is newer than the packet (1)') && walNewer.toObject().system.attributes.hp.max === 31 && walNewer.items.has('Dg1aaaaaaaaaaaaa'), JSON.stringify([keptRun?.identical, asked.length, keptRow, mod.summarize(keptRun?.report ?? { created: [], updated: [], skipped: [], failed: [], foldersCreated: [], missingImages: [] })]));
+  check('worldNewer / statsTime / packetTime are pure (a second of slack for the import\'s own writes; unknown on either side → the packet applies)', mod.worldNewer({ _stats: { modifiedTime: 2000 } }, { _stats: { modifiedTime: 1000 } }) === false && mod.worldNewer({ _stats: { modifiedTime: 3001 } }, { _stats: { modifiedTime: 1000 } }) === true && mod.worldNewer({ _stats: { modifiedTime: 3001 } }, {}, 1000) === true && mod.worldNewer({ _stats: { modifiedTime: 3001 } }, {}) === false && mod.worldNewer({}, { _stats: { modifiedTime: 1 } }) === false && mod.statsTime({ _stats: { modifiedTime: '5' } }) === 5 && mod.packetTime({}, 7) === 7);
+  // the export loop ran: the packet's copy is the world's (same stamp) — the packet applies again
+  packet.actors.find((a) => a._id === 'Wa1aaaaaaaaaaaaa')._stats = { modifiedTime: Date.parse('2026-10-04T20:00:00Z') };
+  packetsJson.digest = 'd1gest000000000000000000000000000000003b';
+  asked.length = 0; answer = 'later';
+  const afterLoop = await mod.autoSync({ delay: 0 });
+  check('v1.7: once the packet\'s copy carries the world\'s stamp (the export loop ran) the difference is a question again', afterLoop?.later === true && asked.length === 1 && afterLoop.report.kept.length === 0, JSON.stringify([afterLoop?.later, asked.length]));
+  asked.length = 0; answer = 'skip';
+  const auto4 = await mod.autoSync({ delay: 0 });
+  check('v1.7: "Skip this packet" writes nothing but remembers the stamp — quiet until the packet changes', auto4?.declined === true && !auto4.later && settings.get('waluipedia-mass-import.syncLastStamp') === auto4.stamp && game.actors.get('Wa1aaaaaaaaaaaaa').toObject().system.attributes.hp.max === 31 && (await mod.autoSync({ delay: 0 }))?.skipped === true && asked.length === 1, JSON.stringify([auto4, asked.length]));
+  asked.length = 0; answer = 'apply';
+  packetsJson.digest = 'd1gest000000000000000000000000000000004';
+  const auto5 = await mod.autoSync({ delay: 0 });
+  check('v1.7: "Apply" writes exactly what the preview showed (HP back to the packet, the dagger removed), marked automatic, remembered', auto5?.sync?.trigger === 'auto' && auto5.sync.stamp.endsWith('0004') && settings.get('waluipedia-mass-import.syncLastStamp') === auto5.sync.stamp && game.actors.get('Wa1aaaaaaaaaaaaa').toObject().system.attributes.hp.max === 30 && !game.actors.get('Wa1aaaaaaaaaaaaa').items.has('Dg1aaaaaaaaaaaaa') && auto5.updated.find((u) => u.actor === 'Waluigi [character]').fields.join() === 'system.attributes.hp.max' && auto5.updated.find((u) => u.actor === 'Waluigi [character]').embedded.join() === '− Dagger [weapon]', JSON.stringify([auto5?.sync?.stamp, auto5?.updated?.find((u) => u.actor === 'Waluigi [character]')]));
+  settings.set('waluipedia-mass-import.syncConfirm', false);
+  asked.length = 0;
+  await wal.update({ system: { attributes: { hp: { max: 33 } } } });
+  const direct = await mod.syncFromWaluipedia({ options: { checkImages: false } });
+  check('v1.7: with "check first" off the button applies at once (no question) — the automatic sync still asks', direct?.sync?.trigger === 'button' && asked.length === 0 && game.actors.get('Wa1aaaaaaaaaaaaa').toObject().system.attributes.hp.max === 30, JSON.stringify([direct?.sync?.trigger, asked.length]));
+  settings.set('waluipedia-mass-import.syncConfirm', true);
   settings.set('waluipedia-mass-import.syncAuto', false);
   check('automatic sync respects the setting (off → nothing)', (await mod.autoSync({ delay: 0 })) === null);
   game.user.isGM = false;
@@ -636,14 +698,32 @@ check('pickDataPath opens a folder picker and writes the choice into the url box
 
   // stale code: the suite installed a newer module while this world still runs the old one
   onDiskVersion = '9.9.9';
+  await mod.checkModuleVersion({ fresh: true });
   const warned = [];
   const prevWarn = ui.notifications.warn;
   ui.notifications.warn = (m) => warned.push(m);
   const stale = await mod.syncFromWaluipedia({ options: { checkImages: false } });
+  const staleAgain = await mod.syncFromWaluipedia({ options: { checkImages: false } });
   ui.notifications.warn = prevWarn;
-  check('a newer module.json on disk than the running code is called out (notification + summary banner: Setup → relaunch, Ctrl+F5)', stale.sync.version.stale === true && stale.sync.version.onDisk === '9.9.9' && warned.some((m) => /relaunch/.test(m) && /9\.9\.9/.test(m)) && mod.syncSummaryHtml(stale).includes('wmi-stale') && /relaunch the world/.test(mod.syncSummaryHtml(stale)), JSON.stringify(warned));
-  onDiskVersion = mod.MODULE_VERSION;
-  check('checkModuleVersion is quiet when they match', (await mod.checkModuleVersion()).stale === false);
+  const staleHtml = mod.syncSummaryHtml(stale.report);
+  check('a newer module.json on disk than the running code is called out ONCE per session (notification + summary banner: Setup → Launch World, Ctrl+F5)', stale.report.sync.version.stale === true && stale.report.sync.version.onDisk === '9.9.9' && warned.length === 1 && /Launch World/.test(warned[0]) && /9\.9\.9/.test(warned[0]) && staleAgain.report.sync.version.stale === true && staleHtml.includes('wmi-stale') && /relaunch the world/.test(staleHtml), JSON.stringify(warned));
+  // the GM's 1.6.0 run: module.json served 1.5.0 while the code running was 1.6.0 — the old text said "1.5.0 is installed but this world still runs 1.6.0"
+  onDiskVersion = '1.5.0'; modules.get('waluipedia-mass-import').version = '1.5.0';
+  await mod.checkModuleVersion({ fresh: true });
+  warned.length = 0; ui.notifications.warn = (m) => warned.push(m);
+  const behind = await mod.syncFromWaluipedia({ options: { checkImages: false } });
+  ui.notifications.warn = prevWarn;
+  check('v1.7: a served manifest OLDER than the running code is "behind" — half-updated install or another Data folder — never "still runs" (the 1.6 wording was wrong)', behind.report.sync.version.behind === true && behind.report.sync.version.stale === false && warned.length === 1 && /half-updated|different Data folder/.test(warned[0]) && !/still runs/.test(warned[0]) && mod.syncSummaryHtml(behind.report).includes('half-updated install'), JSON.stringify(warned));
+  onDiskVersion = mod.MODULE_VERSION; modules.get('waluipedia-mass-import').version = mod.MODULE_VERSION;
+  check('checkModuleVersion is quiet when they match', (await mod.checkModuleVersion({ fresh: true })).stale === false && (await mod.checkModuleVersion()).behind === false && (await mod.checkModuleVersion()).message === null);
+  check('versionVerdict is pure: stale / behind / mismatch (launch-time manifest lags → console only) / quiet', mod.versionVerdict({ running: '1.7.0', onDisk: '1.8.0' }).stale === true && mod.versionVerdict({ running: '1.7.0', onDisk: '1.6.0' }).behind === true && mod.versionVerdict({ running: '1.7.0', onDisk: '1.7.0', loaded: '1.6.0' }).mismatch === true && mod.versionVerdict({ running: '1.7.0', onDisk: '1.7.0', loaded: '1.6.0' }).level === 'info' && mod.versionVerdict({ running: '1.7.0', onDisk: '1.7.0', loaded: '1.7.0' }).message === null && mod.versionVerdict({ running: '1.10.0', onDisk: '1.9.0' }).behind === true);
+  check('compareVersions is numeric per part', mod.compareVersions('1.10.0', '1.9.0') === 1 && mod.compareVersions('1.6.0', '1.6.0') === 0 && mod.compareVersions('1.5.0', '1.6.0') === -1 && mod.compareVersions('2', '1.99.99') === 1);
+  // GitHub ahead: the branch's module.json is newer than this install
+  ghFiles.set(`https://raw.githubusercontent.com/mikegent01/bik/gh-pages/Reputation-Matrix2/Foundry/mass_import/module.json`, { version: '9.0.0' });
+  const ghv = await mod.checkGitHubVersion('gh-pages');
+  check('v1.7: checkGitHubVersion reads the branch manifest (cross-origin raw) and says when GitHub is ahead; the summary carries the hint', ghv.github === '9.0.0' && ghv.ahead === true && mod.syncSummaryHtml({ ...stale.report, sync: { ...stale.report.sync, github: ghv } }).includes('GitHub (gh-pages) has module <b>9.0.0</b>'), JSON.stringify(ghv));
+  ghFiles.delete(`https://raw.githubusercontent.com/mikegent01/bik/gh-pages/Reputation-Matrix2/Foundry/mass_import/module.json`);
+  check('…and is quiet when the branch has none (gh-pages before the PR merges)', (await mod.checkGitHubVersion('gh-pages')).ahead === false);
 
   // nothing anywhere: a help dialog, no exception, nothing changed
   dataHas = false; ghFiles.clear();
@@ -818,6 +898,8 @@ check('pickDataPath opens a folder picker and writes the choice into the url box
   const fixed = await mod.importPayload({ actors: [packetEager] }, { checkImages: false, progress: false });
   const u = fixed.updated[0];
   check('v1.5: the actor no longer FAILS — the invalid species, background and feat are repaired through updates (no create, no "_id already exists")', fixed.failed.length === 0 && u.items.repaired === 3 && u.items.created === 1 && eagerLive.items.size === 7 && eagerLive.items.invalidDocumentIds.size === 0 && eagerLive.items.get('d5c6b4b8da1e46c8').toObject().system.identifier === 'toad-eager-variant' && !eagerLive.embeddedCreates.some((c) => c.arr.some((d) => d._id === 'd5c6b4b8da1e46c8')), JSON.stringify([fixed.failed, u.items]));
+  check('v1.7: the repair went THROUGH THE ACTOR (actor.update({items:[{_id, …}]}) — the path dnd5e migrations take), never through updateEmbeddedDocuments, which dies on an invalid id in Foundry 14', (eagerLive.parentItemUpdates ?? []).length === 3 && eagerLive.parentItemUpdates.every((batch) => batch.length === 1 && Object.keys(batch[0]).join() === '_id,system') && !(eagerLive.embeddedUpdates ?? []).some((b) => b.arr.some((d) => ['d5c6b4b8da1e46c8', '5f606a64c6bb43f3', '218ad632c6e149d9'].includes(d._id))) && (eagerLive.embeddedDeletes ?? []).length === 0, JSON.stringify([eagerLive.parentItemUpdates, eagerLive.embeddedDeletes]));
+  check('v1.7: the plan said so beforehand (planEmbedded is pure) — three repairs, one addition, in words', (() => { const p = mod.planEmbedded(mod.embeddedSources(new Actor(worldEager), 'items'), packetEager.items, false); return p.invalid.length === 3 && p.toCreate.length === 1 && p.changes.join(' | ') === 'repair Toad — Eager Variant [race] (system.identifier) | repair Disaster Inc. Catastrophe Scout [background] (system.identifier) | repair Fighting Style — Archery [feat] (system.identifier) | + The Electric Sphere [loot]'; })(), JSON.stringify(mod.planEmbedded(mod.embeddedSources(new Actor(worldEager), 'items'), packetEager.items, false).changes));
   check('v1.5: no singleton refusal was provoked (the species went in as an update, not a creation)', refusedSingletons.length === 0, refusedSingletons.join('; '));
   check('v1.5: the GM gets a note — two species, two backgrounds, keep one — instead of a failure', fixed.notes.length === 2 && fixed.notes.every((n) => n.actor === 'Eager [character]') && fixed.notes.some((n) => /2 species items — /.test(n.note) && /Toad — Eager Variant/.test(n.note) && /Grung/.test(n.note)) && fixed.notes.some((n) => /2 background items/.test(n.note)) && /3 broken items repaired, 2 notes/.test(mod.summarize(fixed)) && mod.syncSummaryHtml({ ...fixed, changes: [], sync: {} }).includes('Notes for the GM (2)'), JSON.stringify(fixed.notes) + ' ' + mod.summarize(fixed));
   const again = await mod.importPayload({ actors: [packetEager] }, { checkImages: false, progress: false });
@@ -833,15 +915,48 @@ check('pickDataPath opens a folder picker and writes the choice into the url box
     { _id: 'e6cbf8b57a504da9', name: 'Wild Surge — Unstable Aura', type: 'feat', img: 'icons/svg/item-bag.svg', system: { identifier: 'wild-surge-unstable-aura' } }] };
   const danRep = await mod.importPayload({ actors: [danPacket] }, { checkImages: false, progress: false });
   check('v1.5: a creation the system refuses is reported as a note on the actor, the rest of the batch still lands, nothing FAILED', danRep.failed.length === 0 && dan.items.has('e6cbf8b57a504da9') && !dan.items.has('4b8eb918a8d24833') && danRep.updated[0].items.refused.join() === 'Toad — Feyward Variant [race]' && danRep.notes.some((n) => n.actor === 'Feyward Dan [character]' && /refused/.test(n.note)), JSON.stringify([danRep.failed, danRep.notes, danRep.updated[0].items]));
+  check('v1.7: …the system was not even asked (no error toast at the table): the sync saw the stand-in and offered a SWAP instead', refusedSingletons.length === 0 && danRep.swaps.length === 1 && danRep.swaps[0].actorId === 'IlzuThuR8upTtqtF' && danRep.swaps[0].data._id === '4b8eb918a8d24833' && danRep.swaps[0].standIns.map((x) => x.name).join() === 'Grung' && /1 swap waiting/.test(mod.summarize(danRep)), JSON.stringify([refusedSingletons, danRep.swaps.map((w) => [w.actorId, w.label, w.standIns])]));
+  const swapHtml = mod.syncSummaryHtml({ ...danRep, changes: [], sync: {} });
+  check('v1.7: the swap is one button in the summary (and the chat whisper): actor, stand-in, the item data on the button', swapHtml.includes('One of a kind — swap the stand-in? (1)') && swapHtml.includes('class="wmi-swap"') && swapHtml.includes('data-actor="IlzuThuR8upTtqtF"') && swapHtml.includes('Swap: remove Grung, add Toad — Feyward Variant') && swapHtml.includes('&quot;_id&quot;:&quot;4b8eb918a8d24833&quot;') && mod.reportHtml(danRep).includes('wmi-swap'), swapHtml.slice(swapHtml.indexOf('One of a kind'), swapHtml.indexOf('One of a kind') + 300));
+  const fakeButton = { disabled: false, textContent: '', dataset: { actor: 'IlzuThuR8upTtqtF', invalid: '', item: JSON.stringify(danRep.swaps[0].data) } };
+  const clicked = await mod.onSwapClick({ target: { closest: (sel) => (sel === '.wmi-swap' ? fakeButton : null) }, preventDefault() {} });
+  check('v1.7: the click swaps — the Grung stand-in leaves, the packet\'s Toad arrives under its own id, dnd5e points details.race at it itself; the button says so', clicked === true && !dan.items.has('sCxUWoCkQo9o7KeU') && dan.items.get('4b8eb918a8d24833')?.toObject().system.identifier === 'toad-feyward-variant' && dan.items.contents.filter((i) => i.type === 'race').length === 1 && /✔/.test(fakeButton.textContent), JSON.stringify([clicked, dan.items.contents.map((i) => i.name), fakeButton.textContent]));
+  // the GM's real packet carries BOTH species for Dan (the export kept the invalid Toad beside the Grung): after the swap
+  // the other one is missing — offered as the next swap, never forced, and the actor still counts as unchanged (no question)
+  const danAgain = await mod.importPayload({ actors: [danPacket] }, { checkImages: false, progress: false });
+  check('v1.7: the same packet again — the other species is only offered (a swap back), nothing written, the actor unchanged, nothing pending', danAgain.swaps.length === 1 && danAgain.swaps[0].data.name === 'Grung' && danAgain.unchanged === 1 && danAgain.updated[0].changed === false && mod.syncPending(danAgain).length === 0, JSON.stringify([danAgain.swaps.map((w) => w.label), danAgain.unchanged, mod.syncPending(danAgain)]));
 
-  // an invalid document that cannot be updated into shape is replaced under its id
+  // an invalid document that cannot be repaired through the actor either is replaced under its id — unless it is one of a kind
   const stubborn = await Actor.create({ _id: 'St1aaaaaaaaaaaaa', name: 'Stubborn', type: 'npc', img: 'icons/svg/mystery-man.svg', system: {}, flags: {}, items: [
     { _id: 'Bad1aaaaaaaaaaaa', name: 'Odd Thing', type: 'feat', img: 'icons/svg/item-bag.svg', system: { identifier: 'odd—thing' } }] }, { keepId: true });
-  const realUpdate = stubborn.updateEmbeddedDocuments.bind(stubborn);
-  stubborn.updateEmbeddedDocuments = async (type, arr, opts) => { if (arr.some((d) => d._id === 'Bad1aaaaaaaaaaaa')) throw new Error('Item [Bad1aaaaaaaaaaaa] validation errors'); return realUpdate(type, arr, opts); };
+  const realUpdate = stubborn.update.bind(stubborn);
+  stubborn.update = async (data, opts) => { if (data.items?.some((d) => d._id === 'Bad1aaaaaaaaaaaa')) throw new Error('Item [Bad1aaaaaaaaaaaa] validation errors'); return realUpdate(data, opts); };
   const stubbornRep = await mod.importPayload({ actors: [{ _id: 'St1aaaaaaaaaaaaa', name: 'Stubborn', type: 'npc', img: 'icons/svg/mystery-man.svg', system: {}, flags: {}, items: [
     { _id: 'Bad1aaaaaaaaaaaa', name: 'Odd Thing', type: 'feat', img: 'icons/svg/item-bag.svg', system: { identifier: 'odd-thing' } }] }] }, { checkImages: false, progress: false });
-  check('v1.5: when the update is refused the broken document is deleted and created again under its own id', stubbornRep.failed.length === 0 && stubborn.items.get('Bad1aaaaaaaaaaaa')?.toObject().system.identifier === 'odd-thing' && stubborn.items.invalidDocumentIds.size === 0 && stubbornRep.updated[0].items.repaired === 1, JSON.stringify([stubbornRep.failed, stubbornRep.updated[0].items]));
+  check('v1.5/1.7: when even the actor update is refused, a feat (not one of a kind) is deleted and created again under its own id', stubbornRep.failed.length === 0 && stubborn.items.get('Bad1aaaaaaaaaaaa')?.toObject().system.identifier === 'odd-thing' && stubborn.items.invalidDocumentIds.size === 0 && stubbornRep.updated[0].items.repaired === 1, JSON.stringify([stubbornRep.failed, stubbornRep.updated[0].items]));
+  // the GM's world after 1.6.0: a broken species beside a Grung stand-in, and an actor that refuses the repair — the species is NEVER deleted
+  const keeper = await Actor.create({ _id: 'Kp1aaaaaaaaaaaaa', name: 'Keeper', type: 'character', img: 'icons/svg/mystery-man.svg', system: {}, flags: {}, items: [
+    { _id: 'Bad2aaaaaaaaaaaa', name: 'Toad — Keeper Variant', type: 'race', img: 'icons/svg/item-bag.svg', system: { identifier: 'toad-—-keeper' } },
+    { _id: 'Grg2aaaaaaaaaaaa', name: 'Grung', type: 'race', img: 'icons/svg/item-bag.svg', system: { identifier: 'grung' } }] }, { keepId: true });
+  const keeperUpdate = keeper.update.bind(keeper);
+  keeper.update = async (data, opts) => { if (data.items?.some((d) => d._id === 'Bad2aaaaaaaaaaaa')) throw new Error('Item [Bad2aaaaaaaaaaaa] validation errors'); return keeperUpdate(data, opts); };
+  const keeperPacket = { _id: 'Kp1aaaaaaaaaaaaa', name: 'Keeper', type: 'character', img: 'icons/svg/mystery-man.svg', system: {}, flags: {}, items: [
+    { _id: 'Bad2aaaaaaaaaaaa', name: 'Toad — Keeper Variant', type: 'race', img: 'icons/svg/item-bag.svg', system: { identifier: 'toad-keeper' } },
+    { _id: 'Grg2aaaaaaaaaaaa', name: 'Grung', type: 'race', img: 'icons/svg/item-bag.svg', system: { identifier: 'grung' } }] };
+  const keeperRep = await mod.importPayload({ actors: [keeperPacket] }, { checkImages: false, progress: false });
+  check('v1.7: a species that cannot be repaired in place is NOT deleted while a stand-in sits on the sheet (1.6 deleted Eager\'s and Dan\'s Toads, then the creation was refused) — a swap is offered, nothing is lost', keeperRep.failed.length === 0 && (keeper.embeddedDeletes ?? []).length === 0 && keeper.items.invalidDocumentIds.has('Bad2aaaaaaaaaaaa') && keeper.items.has('Grg2aaaaaaaaaaaa') && keeperRep.swaps.length === 1 && keeperRep.swaps[0].invalidId === 'Bad2aaaaaaaaaaaa' && keeperRep.swaps[0].standIns[0].id === 'Grg2aaaaaaaaaaaa' && keeperRep.updated[0].items.refused.join() === 'Toad — Keeper Variant [race]', JSON.stringify([keeperRep.failed, keeper.embeddedDeletes, keeperRep.swaps.map((w) => [w.invalidId, w.standIns])]));
+  keeper.update = keeperUpdate;
+  const swapped = await mod.swapSingleton({ actorId: 'Kp1aaaaaaaaaaaaa', data: keeperPacket.items[0], invalidId: 'Bad2aaaaaaaaaaaa' });
+  check('v1.7: that swap removes the stand-in AND the broken copy, then creates the packet\'s species under its id', swapped?.id === 'Bad2aaaaaaaaaaaa' && !keeper.items.has('Grg2aaaaaaaaaaaa') && keeper.items.invalidDocumentIds.size === 0 && keeper.items.get('Bad2aaaaaaaaaaaa')?.toObject().system.identifier === 'toad-keeper', JSON.stringify([swapped?.id, keeper.items.contents.map((i) => i.name)]));
+  // a lone broken species (no stand-in) that refuses the repair: a fresh copy first, the broken one last — never a moment without a species
+  const lone = await Actor.create({ _id: 'Ln1aaaaaaaaaaaaa', name: 'Lone', type: 'character', img: 'icons/svg/mystery-man.svg', system: {}, flags: {}, items: [
+    { _id: 'Bad3aaaaaaaaaaaa', name: 'Toad — Lone Variant', type: 'race', img: 'icons/svg/item-bag.svg', system: { identifier: 'toad-—-lone' } }] }, { keepId: true });
+  const loneUpdate = lone.update.bind(lone);
+  lone.update = async (data, opts) => { if (data.items?.some((d) => d._id === 'Bad3aaaaaaaaaaaa')) throw new Error('Item [Bad3aaaaaaaaaaaa] validation errors'); return loneUpdate(data, opts); };
+  const loneRep = await mod.importPayload({ actors: [{ _id: 'Ln1aaaaaaaaaaaaa', name: 'Lone', type: 'character', img: 'icons/svg/mystery-man.svg', system: {}, flags: {}, items: [
+    { _id: 'Bad3aaaaaaaaaaaa', name: 'Toad — Lone Variant', type: 'race', img: 'icons/svg/item-bag.svg', system: { identifier: 'toad-lone' } }] }] }, { checkImages: false, progress: false });
+  const loneOrder = [...(lone.embeddedCreates ?? []).map(() => 'create'), ...(lone.embeddedDeletes ?? []).map(() => 'delete')];
+  check('v1.7: …created first (fresh id), the broken copy deleted after; the sheet ends with exactly one valid species', loneRep.failed.length === 0 && loneOrder.join() === 'create,delete' && lone.items.contents.filter((i) => i.type === 'race').length === 1 && lone.items.invalidDocumentIds.size === 0 && lone.items.contents[0].toObject().system.identifier === 'toad-lone' && loneRep.updated[0].items.repaired === 1, JSON.stringify([loneRep.failed, loneOrder, lone.items.contents.map((i) => i.name)]));
 
   // ---- folders: case-insensitive matching, duplicate merge, empty prune
   game.actors.clear(); game.folders.clear();
@@ -947,11 +1062,12 @@ if (process.env.WMI_EXPORT) {
     await new Promise((r) => setTimeout(r, 50));
     check('loader → core: init registered the settings through the loader', settings.has('waluipedia-mass-import.defaultSource') && settings.get('waluipedia-mass-import.syncWorld') === 'midlands');
     check('loader → core: ready exposed the api and logged the running version', typeof modEntry.api?.importPayload === 'function' && modEntry.api.MODULE_ID === 'waluipedia-mass-import' && logs.some((l) => l.includes(`[waluipedia-mass-import] ${manifest.version} ready`)));
-    check('ready: when Foundry loaded an older manifest the log says so and a fresh stylesheet is linked with a cache-busting query', logs.some((l) => l.includes('loaded the manifest of 1.2.0')) && head.links.length === 1 && /styles\/mass-import\.css\?v=1\.6\.0-\d+/.test(head.links[0].href) && mod.ensureFreshStyles() === false);
+    check('ready: when Foundry loaded an older manifest the log says so and a fresh stylesheet is linked with a cache-busting query', logs.some((l) => l.includes('loaded the manifest of 1.2.0')) && head.links.length === 1 && new RegExp(`styles/mass-import\\.css\\?v=${manifest.version.replace(/\./g, '\\.')}-\\d+`).test(head.links[0].href) && mod.ensureFreshStyles() === false, head.links[0]?.href);
     check('ready: when module.json on disk is newer than the code running, the GM is warned to Setup → Launch World then Ctrl+F5', warned.length === 1 && /9\.9\.9 is installed/.test(warned[0]) && /Launch World/.test(warned[0]) && /Ctrl\+F5/.test(warned[0]), warned.join(' | '));
     check('loader → core: renderActorDirectory injected the Sync / Mass import / Mass export buttons', header.html.includes('wmi-sync') && header.html.includes('wmi-import') && header.html.includes('wmi-export'));
-    const v = await mod.checkModuleVersion();
+    const v = await mod.checkModuleVersion({ fresh: true });
     check('checkModuleVersion reports running, onDisk and what Foundry loaded', v.running === manifest.version && v.onDisk === '9.9.9' && v.loaded === '1.2.0' && v.stale === true, JSON.stringify(v));
+    check('v1.7: the export-back hooks are wired at ready (create/update/delete × Actor/Item/ActiveEffect)', ['createActor', 'updateActor', 'deleteActor', 'createItem', 'updateItem', 'deleteItem', 'createActiveEffect', 'updateActiveEffect', 'deleteActiveEffect'].every((h) => (hooks[h]?.length ?? 0) >= 1), Object.keys(hooks).join());
   } finally {
     console.log = prevLog;
     ui.notifications.warn = prevWarn;

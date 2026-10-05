@@ -162,12 +162,19 @@ def export_stamp(path):
     return time.strftime("%Y-%m-%dT%H:%M:%S", time.gmtime(os.path.getmtime(path))) + ".000Z"
 
 
-def find_exports(world, downloads=None):
-    """Every candidate export for `world`, newest stamp first: (path, stamp)."""
+def find_exports(world, downloads=None, extra_dirs=()):
+    """Every candidate export for `world`, newest stamp first: (path, stamp).
+    Looks in the repo root, ~/Downloads (the Mass export button) and `extra_dirs`
+    — the module's export-back folder inside Foundry's Data (1.7: the GM's
+    client writes <Data>/npc/waluipedia/<world>/export/<world>-all-actors.json
+    a while after the last change to any actor)."""
     dirs = [ROOT]
     downloads = downloads if downloads is not None else os.path.join(os.path.expanduser("~"), "Downloads")
     if downloads and os.path.isdir(downloads):
         dirs.append(downloads)
+    for d in extra_dirs or ():
+        if d and os.path.isdir(d) and d not in dirs:
+            dirs.append(d)
     found = []
     for d in dirs:
         for p in glob.glob(os.path.join(d, f"{world}-all-actors*.json")):
@@ -213,10 +220,17 @@ def step_intake(write):
     return ok
 
 
-def step_split(world, write, downloads=None):
+def export_back_dir(foundry_data, world):
+    """Where the module's export-back lands inside Data (None without a Data folder)."""
+    if not foundry_data:
+        return None
+    return os.path.join(published_dir(foundry_data, world), "export")
+
+
+def step_split(world, write, downloads=None, extra_dirs=()):
     # --check only looks at the committed input (the repo-root export): the
     # mirror in git must be the split of the export in git.
-    exports = find_exports(world, downloads if write else "")
+    exports = find_exports(world, downloads if write else "", extra_dirs if write else ())
     if not exports:
         say(f"  split    : no {world}-all-actors.json in the repo root{'' if not write else ' or Downloads'} — using the mirror as it is")
         return True
@@ -603,15 +617,126 @@ def urls(world, port):
     }
 
 
-def one_pass(world, write, port, downloads=None, foundry=None):
-    """foundry: {"data": explicit path or None, "install": bool, "images": bool, "publish": bool}"""
+# ------------------------------------------------------------------- git sync
+
+def git(args, check=False):
+    """Run git in the repo; (returncode, output). Never raises on a non-zero exit."""
+    try:
+        proc = subprocess.run(["git"] + list(args), cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                              encoding="utf-8", errors="replace", env=CHILD_ENV)
+    except OSError as exc:
+        return 127, str(exc)
+    out = (proc.stdout or "").strip()
+    if check and proc.returncode:
+        raise RuntimeError(out or f"git {' '.join(args)} failed")
+    return proc.returncode, out
+
+
+def git_state(fetch=True):
+    """{branch, upstream, dirty, behind, ahead, ok, error} — the facts the sync leg needs."""
+    st = {"branch": None, "upstream": None, "dirty": [], "behind": 0, "ahead": 0, "ok": False, "error": None}
+    code, out = git(["rev-parse", "--abbrev-ref", "HEAD"])
+    if code:
+        st["error"] = out or "not a git checkout"
+        return st
+    st["branch"] = out
+    code, out = git(["rev-parse", "--abbrev-ref", "--symbolic-full-name", "@{u}"])
+    st["upstream"] = out if not code else None
+    if fetch and st["upstream"]:
+        code, out = git(["fetch", "-q", "origin"])
+        if code:
+            st["error"] = f"fetch: {out.splitlines()[-1] if out else 'failed'}"
+    code, out = git(["status", "--porcelain"])
+    st["dirty"] = [line for line in out.splitlines() if line.strip()] if not code else []
+    if st["upstream"]:
+        code, out = git(["rev-list", "--left-right", "--count", f"HEAD...{st['upstream']}"])
+        if not code and out:
+            ahead, behind = (out.split() + ["0", "0"])[:2]
+            st["ahead"], st["behind"] = int(ahead), int(behind)
+    st["ok"] = st["error"] is None
+    return st
+
+
+def git_sync_paths(world):
+    """What the suite itself writes and may commit: the mirror, the generated cast, the site index, the root export."""
+    return [os.path.relpath(p, ROOT).replace(os.sep, "/") for p in (
+        os.path.join(WORLDS, world), os.path.join(ACTORS, "cast"), os.path.join(ROOT, "data", "sheets.json"),
+        os.path.join(ROOT, f"{world}-all-actors.json"))]
+
+
+def git_pull(world=None):
+    """Before a pass: bring the checkout up to date when that is safe.
+    Returns (pulled: bool, message). Never touches a dirty tree except through
+    --autostash on a rebase of our own earlier commits."""
+    st = git_state(fetch=True)
+    if not st["ok"]:
+        return False, f"git: {st['error']}"
+    if not st["upstream"]:
+        return False, f"git: branch {st['branch']} tracks nothing — not pulling"
+    if st["behind"] == 0:
+        return False, f"git: {st['branch']} is current with {st['upstream']}" + (f" ({st['ahead']} local commit(s) to push)" if st["ahead"] else "")
+    own = set(git_sync_paths(world)) if world else set()
+    # porcelain rows: "XY path" — an untracked directory shows as "?? dir/"
+    foreign = [d for d in st["dirty"] if not any(d[3:].startswith(p) or p.startswith(d[3:]) for p in own)]
+    if foreign:
+        return False, f"git: {st['behind']} commit(s) behind {st['upstream']} but the tree has {len(foreign)} uncommitted change(s) outside the suite's files — not pulling (commit or stash them)"
+    if st["ahead"]:
+        code, out = git(["pull", "--rebase", "--autostash", "-q", "origin", st["upstream"].split("/", 1)[1]])
+        how = "rebased"
+    else:
+        code, out = git(["pull", "--ff-only", "-q", "origin", st["upstream"].split("/", 1)[1]])
+        how = "fast-forwarded"
+    if code:
+        return False, f"git: pull failed — {out.splitlines()[-1] if out else 'unknown'}"
+    return True, f"git: {how} {st['behind']} commit(s) from {st['upstream']} — the module / tools / sheets may have changed"
+
+
+def git_commit_and_push(world, stamp=None, push=True):
+    """After a write pass: commit what the suite changed under its own paths and push the current branch.
+    Returns (committed: bool, pushed: bool, message)."""
+    paths = [p for p in git_sync_paths(world) if os.path.exists(os.path.join(ROOT, p))]
+    code, out = git(["status", "--porcelain", "--"] + paths) if paths else (0, "")
+    if code:
+        return False, False, f"git: {out}"
+    changed = [line for line in out.splitlines() if line.strip()]
+    if not changed:
+        return False, False, "git: nothing of the suite's to commit"
+    code, out = git(["add", "-A", "--"] + paths)
+    if code:
+        return False, False, f"git: add failed — {out.splitlines()[-1] if out else 'unknown'}"
+    ident = []
+    if git(["config", "user.name"])[0] or git(["config", "user.email"])[0]:
+        ident = ["-c", "user.name=sheets-suite", "-c", "user.email=sheets-suite@users.noreply.github.com"]
+    msg = f"sheets-suite: {world} mirror" + (f" from export {stamp}" if stamp else "") + f" — {len(changed)} file(s)"
+    code, out = git(ident + ["commit", "-q", "-m", msg])
+    if code:
+        return False, False, f"git: commit failed — {out.splitlines()[-1] if out else 'unknown'}"
+    if not push:
+        return True, False, f"git: committed {len(changed)} file(s) ({msg!r}) — not pushing"
+    st = git_state(fetch=False)
+    if not st["upstream"]:
+        return True, False, f"git: committed {len(changed)} file(s); branch {st['branch']} tracks nothing — not pushed"
+    code, out = git(["push", "-q", "origin", f"HEAD:{st['upstream'].split('/', 1)[1]}"])
+    if code:
+        return True, False, f"git: committed {len(changed)} file(s); push failed — {out.splitlines()[-1] if out else 'unknown'} (the next pass retries)"
+    return True, True, f"git: committed and pushed {len(changed)} file(s) to {st['upstream']}"
+
+
+def one_pass(world, write, port, downloads=None, foundry=None, git_sync=False):
+    """foundry: {"data": explicit path or None, "install": bool, "images": bool, "publish": bool}
+    git_sync: pull (fast-forward) before, commit + push the suite's own files after."""
     f = {"data": None, "install": True, "images": True, "publish": True, **(foundry or {})}
     t0 = time.time()
     say(f"sheets-suite: {'pass' if write else 'check'} for world {world!r} — {time.strftime('%H:%M:%S')}")
     mirror = os.path.relpath(os.path.join(WORLDS, world), ROOT)
     ok = True
+    if git_sync and write:
+        say("  git      : " + git_pull(world)[1])
+    data_dir, how = find_foundry_data(f["data"]) if f["publish"] else (None, None)
+    export_dirs = [export_back_dir(data_dir, world)] if data_dir else []
+    stamp_before = mirror_stamp(world)
     ok = step_intake(write) and ok
-    ok = step_split(world, write, downloads) and ok
+    ok = step_split(world, write, downloads, export_dirs) and ok
     if not os.path.isdir(os.path.join(WORLDS, world)):
         say(f"  mirror   : {mirror} does not exist — export the world with the Mass Import module first")
         return False
@@ -624,10 +749,12 @@ def one_pass(world, write, port, downloads=None, foundry=None):
     ok = run([TOOLS["build"]] + ([] if write else ["--check"]), "build")[0] and ok
     ok = step_combine(world, write) and ok
     if f["publish"]:
-        data_dir, how = find_foundry_data(f["data"])
         ok = step_publish(world, write, port, data_dir, how, install=f["install"], images=f["images"], foundry_url=f.get("url")) and ok
     ok = run([TOOLS["check_sheets"]], "verify")[0] and ok
     ok = run([TOOLS["promote"], "--check"], "verify")[0] and ok
+    if git_sync and write:
+        say("  git      : " + git_commit_and_push(world, stamp=mirror_stamp(world) if mirror_stamp(world) != stamp_before else None)[2] if ok
+            else "  git      : the pass failed — nothing committed")
     u = urls(world, port)
     say(f"  {'done' if ok else 'FAILED'}     : {time.time() - t0:.1f}s")
     if write:
@@ -636,13 +763,15 @@ def one_pass(world, write, port, downloads=None, foundry=None):
         say(f"  foundry  : the console's first module line must read '[{MODULE_ID}] <version> ready' — from 1.6 a newer install runs after a plain F5; an older world needs Return to Setup -> Launch World, then Ctrl+F5 once")
         say(f"  packet   : {u['everything']}  (everything: world + cast + eras; Mass import → URL if you ever need it by hand)")
         say(f"  packet   : {u['players']}  (the Players folder only)")
+        if export_dirs:
+            say(f"  back     : the module exports the world to {os.path.join(export_dirs[0], f'{world}-all-actors.json')} after changes — this pass picks it up (--watch: by itself)")
     return ok
 
 
 # ---------------------------------------------------------------------- watch
 
-def watch_inputs(world, downloads=None):
-    paths = [p for p, _ in find_exports(world, downloads)] + glob.glob(os.path.join(CHANGES_DIR, "*.json"))
+def watch_inputs(world, downloads=None, extra_dirs=()):
+    paths = [p for p, _ in find_exports(world, downloads, extra_dirs)] + glob.glob(os.path.join(CHANGES_DIR, "*.json"))
     if os.path.exists(PLAYERS_JSON):
         paths.append(PLAYERS_JSON)
     out = {}
@@ -654,11 +783,11 @@ def watch_inputs(world, downloads=None):
     return out
 
 
-def guarded_pass(world, port, downloads=None, foundry=None):
+def guarded_pass(world, port, downloads=None, foundry=None, git_sync=False):
     """A pass under --watch: a crash is reported like a failed step and the
     watcher stays up for the next export."""
     try:
-        return one_pass(world, True, port, downloads, foundry)
+        return one_pass(world, True, port, downloads, foundry, git_sync)
     except Exception as exc:  # noqa: BLE001 — anything; the watcher must survive
         say(f"  FAILED   : {type(exc).__name__}: {exc}")
         for line in traceback.format_exc().rstrip().splitlines()[-6:]:
@@ -666,21 +795,35 @@ def guarded_pass(world, port, downloads=None, foundry=None):
         return False
 
 
-def watch(world, port, interval, downloads=None, foundry=None):
-    seen = watch_inputs(world, downloads)
-    guarded_pass(world, port, downloads, foundry)
-    say(f"  watching : {len(seen)} input file(s) every {interval:g}s — Ctrl-C to stop")
+def watch(world, port, interval, downloads=None, foundry=None, git_sync=False, git_interval=300.0):
+    f = foundry or {}
+    data_dir = find_foundry_data(f.get("data"))[0] if f.get("publish", True) else None
+    extra = [export_back_dir(data_dir, world)] if data_dir else []
+    seen = watch_inputs(world, downloads, extra)
+    guarded_pass(world, port, downloads, foundry, git_sync)
+    say(f"  watching : {len(seen)} input file(s) every {interval:g}s" + (f"; GitHub every {git_interval:g}s" if git_sync else "") + " — Ctrl-C to stop")
+    last_git = time.time()
     while True:
         time.sleep(interval)
-        now = watch_inputs(world, downloads)
+        now = watch_inputs(world, downloads, extra)
         if now != seen:
             changed = sorted(set(p for p in set(now) | set(seen) if now.get(p) != seen.get(p)))
             say("")
             say("  changed  : " + ", ".join(os.path.basename(p) for p in changed))
             # let a download finish landing before reading it
             time.sleep(1.0)
-            seen = watch_inputs(world, downloads)
-            guarded_pass(world, port, downloads, foundry)
+            seen = watch_inputs(world, downloads, extra)
+            guarded_pass(world, port, downloads, foundry, git_sync)
+            last_git = time.time()
+        elif git_sync and time.time() - last_git >= git_interval:
+            # GitHub moved (a merged PR, a newer module): pull and run a pass so the module / packets follow
+            last_git = time.time()
+            pulled, msg = git_pull(world)
+            if pulled:
+                say("")
+                say("  git      : " + msg)
+                seen = watch_inputs(world, downloads, extra)
+                guarded_pass(world, port, downloads, foundry, git_sync)
 
 
 def main(argv=None):
@@ -698,6 +841,9 @@ def main(argv=None):
     ap.add_argument("--no-publish", action="store_true", help="do not copy the packets / module / art into Foundry's Data folder")
     ap.add_argument("--no-module-install", action="store_true", help="publish the packets but leave Data/modules alone")
     ap.add_argument("--no-images", action="store_true", help="publish without copying the repo's portraits into Data")
+    ap.add_argument("--git-sync", action="store_true",
+                    help="two-way with GitHub: pull (fast-forward) before a pass, commit + push the suite's own files (mirror, cast, sheets.json, root export) after; under --watch also poll GitHub every --git-interval seconds")
+    ap.add_argument("--git-interval", type=float, default=300.0, help="seconds between GitHub polls under --watch --git-sync (default 300)")
     args = ap.parse_args(argv)
     utf8_streams()
     downloads = args.downloads if args.downloads is not None else None
@@ -708,11 +854,11 @@ def main(argv=None):
         return 0 if one_pass(args.world, False, args.port, downloads, foundry) else 1
     if args.watch:
         try:
-            watch(args.world, args.port, args.interval, downloads, foundry)
+            watch(args.world, args.port, args.interval, downloads, foundry, args.git_sync, args.git_interval)
         except KeyboardInterrupt:
             say("\nsheets-suite: stopped")
         return 0
-    return 0 if one_pass(args.world, True, args.port, downloads, foundry) else 1
+    return 0 if one_pass(args.world, True, args.port, downloads, foundry, args.git_sync) else 1
 
 
 if __name__ == "__main__":
