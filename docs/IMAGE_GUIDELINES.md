@@ -145,6 +145,17 @@ The table places characters on the map; a token needs the whole figure. The
   picture of the character, the caption says who.
 * Leads at **≥1024 px**. The 188×188 batch of 2026-09 is a tile, not a
   source; re-render before cutting anything from it.
+* **The batch is a pipeline, not a grid** — `tools/make-token-plates.py`.
+  `plan` says who is READY / CUT / GENERATE and writes a manifest of prompts
+  (look from the captions, the lead or existing plate as the reference
+  image, a key colour the character does not wear: magenta, green for the
+  purple-and-pink wardrobes); renders go on that flat key colour; `cut`
+  keys them into trimmed, square, transparent PNGs (`--raw-dir` for a
+  folder of renders made with any generator, `--flat` for opaque plates on
+  a plain field); `pixel` keeps the Bone-Line sprites as pixel art (figure
+  kept, burnt-in name dropped, whole-pixel upscale); `apply` wires
+  `fullBody`; `check` guards. Portraits are never replaced by this — the
+  plate is a second file.
 * **Look on the shelf before generating.** `tools/portrait-audit.py
   --orphans` lists every file under `portraits/` that no record points at;
   the 2026-10-05 pass found finished plates for Captain Syrup, Captain

@@ -148,6 +148,10 @@ token's texture is the article's **`fullBody`** plate when it has one
 map, a bust is the article's picture. Live player sheets keep the GM's art
 either way (`docs/IMAGE_GUIDELINES.md` §4b, the 2026-10-05 portrait audit).
 
+Transparent plates for the token come from `tools/make-token-plates.py`
+(`plan` → render on the key colour → `cut` → `apply`; `check` in your hand;
+`docs/IMAGE_GUIDELINES.md` §4b).
+
 **Roster micro-articles.** `tools/file-roster-toads.py` files every
 Liberated Toad on the Command page roster
 (`data/liberated-toads/toadslist-data.js`) that has no article — one

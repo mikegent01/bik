@@ -185,3 +185,37 @@ px.
   `_v2` renders of characters with no article…) are listed by
   `--orphans`, not triaged: each is either an article waiting to be written
   or a file to delete, and that is a GM call per file.
+
+## 6. Addendum — the full-body pass, batched (same day)
+
+**Asked:** full-body sprites one at a time is too slow — find the batch way,
+make the remaining ones, keep the portraits.
+
+**Found first:** of the 17 plates on file only Captain Syrup's and Speaker
+Rivers' were actually transparent; the other 15 sat on plain cream, grey or
+parchment fields, and the 54 roster toads are opaque cuts of their cohort
+sheets. "Usable in game" meant every one of them, not just the missing ones.
+
+**The batch** is `tools/make-token-plates.py` (above, §4b of the
+guidelines). Nothing is written by hand per character: the prompt comes
+from the captions, the reference is the existing art, the key colour is
+chosen off the wardrobe, the cut and the wiring are mechanical, and a
+contact sheet is the review. What that bought today, without a single new
+render: 12 party plates keyed off their plain fields, Dan, Toriel, Orange T,
+Healer Mistpetal, 18 roster toads from their 550 px cuts, 18 Bone-Line
+pixel sprites with the burnt-in names dropped — 58 plates. Then ten renders
+(the per-turn cap of the image tool here is ten): Waluigi, Wario, Salam,
+Eager, Toad Lee, Usk, Rattles, John Lee, Paulo, Luigi.
+
+**State:** 77/242 sheet characters token-ready; **the party is 18/18**.
+Left: 160 renders (36 roster toads whose only art is a 180 px cut, 59
+placed NPCs, the rest) — `plan --manifest` lists them in table-use order
+with the prompt and the reference for each. Two ways to burn that down:
+ten a turn here, or render the manifest with any generator locally and
+`cut --raw-dir <folder>` + `apply` the lot in one pass.
+
+**Rules learned:** a chroma key is keyed wherever it appears (the hole
+between an arm and a body is not connected to the border; a flat cream
+field is keyed only from the border so a white cap survives); 500 px
+cut-outs and 450 px roster cuts are usable tokens — the floor is 400, the
+target 1024; pixel art is upscaled by whole pixels, never regenerated.
