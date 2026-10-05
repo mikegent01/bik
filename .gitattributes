@@ -1,2 +1,4 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+# batch files must stay CRLF on checkout (cmd.exe quirks with LF-only labels)
+*.bat text eol=crlf

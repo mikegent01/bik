@@ -201,6 +201,25 @@ The table places characters on the map; a token needs the whole figure. The
   on a 2.1 encoder), the seed, every LoadImage and the SaveImage prefix.
   The int8 / nvfp4 weights only load through ComfyUI's own loaders, so
   Comfy Desktop has to be open; there is no diffusers path.
+* **The full run** — `start.bat plates` (= `python
+  tools\make-token-plates.py render --full`): every sheet character still
+  without a transparent plate, every tier, hands-off. Three things differ
+  from the QC-gated loop: when none of the attempts passes QC the
+  least-bad one (fewest complaints, then the taller figure) is wired
+  anyway, its caption and the log saying `needs eyes` and why; the eleven
+  characters with no usable reference (event scenes, icons — the
+  `NO_REFERENCE` set) are drawn by 2.1 from their record (name, title,
+  race, the look line — `drawn from the record alone` in the caption);
+  and a contact sheet of everything plated lands in
+  `<raw-dir>/run-sheet.png`. If no image at all comes back for three
+  characters in a row the run stops and says why (the server went away,
+  or ComfyUI rejected the graph — its own message, e.g. a model filename
+  that is not in its list, is printed). Review is a git job: `git status`,
+  the sheet, the site's rotator; a plate that fails the eye goes back out
+  with `make-token-plates.py drop --ids <id>` (file deleted — a copy in
+  the raw dir — and `fullBody` unwired) and is re-rendered with `render
+  --ids <id> --redo`, or made by hand. The studio has the same run as the
+  *full run* tick on Run queue and a *Drop plate* button.
 * **With eyes on it: the Token Plate Studio** — `python
   tools\token-plate-studio.py` (or the *Token plates* button in
   `start.py`) opens a local page at `http://127.0.0.1:8766`: the roster on

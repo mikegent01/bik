@@ -126,7 +126,10 @@ changes file changes; `python3 tools/sheets-suite.py --check` is the
 read-only pass `tools/check-all.py` runs. See `docs/SHEETS_SYSTEM.md`.
 
 `start.py` sits in the repository root, serves the archive over HTTP and opens
-the home page for you. **Use it rather than double-clicking `index.html`.**
+the home page for you (on Windows, `start.bat` double-clicks it; `start.bat
+studio` opens the Token Plate Studio and `start.bat plates` runs the full
+token-plate batch — `docs/IMAGE_GUIDELINES.md` §4b). **Use it rather than
+double-clicking `index.html`.**
 Opening the file directly still renders the shell, but the browser blocks
 `fetch()` on `file://`, so `Reputation-Matrix2/data/*.json` never loads and
 events, characters, exhibits and investigations silently come up empty. The

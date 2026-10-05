@@ -170,6 +170,25 @@ def main():
         time.sleep(0.2)
     check(not http(base + "/api/state")[1]["queue"]["running"], "queue stops")
 
+    # full queue: keep_best + text_only — bustguy (one attempt, fails QC) is wired flagged; linkguy is drawn from the record
+    os.remove(plate_path)
+    tmp.FakeComfy.attempts = {}          # the fake stretches the figure from a character's second attempt on: start bustguy fresh
+    code, q = http(base + "/api/queue/run", {"ids": ["bustguy", "linkguy"], "retries": 0, "keep_best": True, "text_only": True})
+    check(code == 202, "full queue started")
+    t0 = time.time()
+    while time.time() - t0 < 60 and http(base + "/api/state")[1]["queue"]["running"]:
+        time.sleep(0.2)
+    q = http(base + "/api/state")[1]["queue"]
+    arts = {x["id"]: x for x in json.load(open(os.path.join(rm, "data/characters.json"), encoding="utf-8"))}
+    check(q["done"] == 2 and q["failed"] == 0 and any(e.get("plated") for e in q["eyes"]), "full queue: both plated, the kept-best flagged: %s" % json.dumps(q)[:300])
+    check("needs eyes" in arts["bustguy"].get("fullBodyCaption", "") and "drawn from the record alone" in arts["linkguy"].get("fullBodyCaption", ""), "full-queue captions carry the flags")
+    code, chk = http(base + "/api/character?id=bustguy")
+    check(chk["needsEyes"] is True and "needs eyes" in chk["plateCaption"], "character reports the flag")
+    code, dr = http(base + "/api/drop", {"id": "linkguy"})
+    arts = {x["id"]: x for x in json.load(open(os.path.join(rm, "data/characters.json"), encoding="utf-8"))}
+    check(code == 200 and "fullBody" not in arts["linkguy"] and not os.path.isfile(os.path.join(rm, "portraits/player/fullbody/linkguy.png"))
+          and os.path.isfile(os.path.join(raw_dir, "linkguy.dropped.png")), "drop route unwires the plate and keeps a copy")
+
     # start_comfy is honest when there is no Comfy Desktop here
     r = st.start_comfy()
     check(r["started"] is False and "not found" in r["error"] or r["started"], "start_comfy reports what happened")

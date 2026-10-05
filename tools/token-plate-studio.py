@@ -164,6 +164,8 @@ class Studio:
         if info["plate"]:
             fw, fh, clear, _ = m.plate_facts(plate_path)
             info["plateFacts"] = {"size": [fw, fh], "border_clear": round(clear, 3)}
+            info["plateCaption"] = art.get("fullBodyCaption") or ""
+            info["needsEyes"] = "needs eyes" in (art.get("fullBodyCaption") or "")
         return info
 
     # ---------------------------------------------------------------- jobs ----
@@ -280,7 +282,7 @@ class Studio:
         facts["key"] = str(facts["key"])
         return {"preview": cid + ".preview.png", "facts": facts, "qc": qc, "crop": crop, "mode": mode, "ok": not qc}
 
-    def accept(self, cid, date=None):
+    def accept(self, cid, date=None, notes=None):
         import shutil
         m = self.mod
         preview = os.path.join(self.raw_dir, cid + ".preview.png")
@@ -289,10 +291,17 @@ class Studio:
         dst = os.path.join(m.RM, m.PLATES, cid + ".png")
         os.makedirs(os.path.dirname(dst), exist_ok=True)
         shutil.copyfile(preview, dst)
-        m.cmd_apply(argparse.Namespace(date=date))
+        m.cmd_apply(argparse.Namespace(date=date, notes=notes or {}))
         self._log(cid, {"accepted": m.PLATES + "/" + cid + ".png"})
         self._dirty = True
         return {"plate": m.PLATES + "/" + cid + ".png"}
+
+    def drop(self, cid):
+        """Undo a wired plate (file + fullBody) — `make-token-plates.py drop`; a copy stays in the raw dir."""
+        self.mod.cmd_drop(argparse.Namespace(ids=[cid], raw_dir=self.raw_dir))
+        self._log(cid, {"dropped": True})
+        self._dirty = True
+        return {"dropped": cid}
 
     def reject(self, cid, render):
         src = self._raw(render)
@@ -305,8 +314,10 @@ class Studio:
         return {"rejected": os.path.basename(dst)}
 
     # ---------------------------------------------------------------- queue ----
-    def run_queue(self, tier=None, limit=None, ids=None, retries=2, steps=None, resolution=None, transparent=True):
-        """The batch, in the background: auto-Accept whatever passes QC, leave the rest for eyes. Stop between characters."""
+    def run_queue(self, tier=None, limit=None, ids=None, retries=2, steps=None, resolution=None, transparent=True, keep_best=False, text_only=False):
+        """The batch, in the background: auto-Accept whatever passes QC, leave the rest for eyes. Stop between characters.
+        keep_best = the full run: when no attempt passes QC the least-bad one is accepted anyway, flagged in the caption;
+        text_only = draw characters without a usable reference from their record (2.1 only)."""
         if self.queue_state["running"]:
             raise RuntimeError("the queue is already running")
         rows = [r for r in self.rows(refresh=True).values() if r["status"] in ("GENERATE", "SMALL") and (not tier or r["tier"] <= int(tier))]
@@ -328,26 +339,43 @@ class Studio:
                     cid = r["id"]
                     qs["current"] = cid
                     art = self._arts[cid]
-                    if not m.reference_for(art, r)[0]:
+                    no_ref = not m.reference_for(art, r)[0]
+                    if no_ref and not (text_only and rend.can_text_only()):
                         qs["eyes"].append({"id": cid, "why": ["no usable reference"]}); qs["failed"] += 1
                         continue
-                    ok, why = False, []
+                    ok, why, attempts = False, [], []
                     for attempt in range(1, int(retries) + 2):
                         if self.stop_flag:
                             break
                         seed = random.randint(1, 2 ** 31 - 1)
                         with self.work:
                             try:
-                                raw, facts, why = rend.render(art, r, self.raw_dir, seed, transparent=transparent, raw_name="%s-%d.png" % (cid, seed))
+                                raw, facts, why = rend.render(art, r, self.raw_dir, seed, transparent=transparent, raw_name="%s-%d.png" % (cid, seed), text_only=no_ref)
                             except Exception as exc:  # noqa: BLE001
                                 raw, facts, why = None, None, ["%s: %s" % (type(exc).__name__, str(exc)[:200])]
                         if raw and not why:
                             os.replace(os.path.join(self.raw_dir, cid + ".cut.png"), os.path.join(self.raw_dir, cid + ".preview.png"))
-                            self.accept(cid)
+                            self.accept(cid, notes={cid: "drawn from the record alone (no reference) — needs eyes; rendered"} if no_ref else None)
                             qs["log"].append("%s: ok (seed %d, attempt %d)" % (cid, seed, attempt))
                             ok = True
                             break
                         qs["log"].append("%s: attempt %d — %s" % (cid, attempt, "; ".join(why)))
+                        cut_path = os.path.join(self.raw_dir, cid + ".cut.png")
+                        if facts and os.path.isfile(cut_path):
+                            keep = os.path.join(self.raw_dir, "%s.cut-%d.png" % (cid, attempt))
+                            os.replace(cut_path, keep)
+                            attempts.append((why, keep, seed, facts))
+                    if not ok and keep_best and attempts:
+                        why_b, keep, seed, facts = min(attempts, key=lambda t: (len(t[0]), -t[3]["figure"][1]))
+                        os.replace(keep, os.path.join(self.raw_dir, cid + ".preview.png"))
+                        if m.plate_facts(os.path.join(self.raw_dir, cid + ".preview.png"))[2] >= m.BORDER_CLEAR:
+                            self.accept(cid, notes={cid: "best of %d attempt(s), QC flagged: %s — needs eyes; rendered" % (len(attempts), "; ".join(why_b))})
+                            qs["log"].append("%s: kept the best of %d (seed %d) — needs eyes: %s" % (cid, len(attempts), seed, "; ".join(why_b)))
+                            qs["eyes"].append({"id": cid, "why": why_b, "plated": True})
+                            ok = True
+                    for _, keep, _, _ in attempts:
+                        if os.path.isfile(keep):
+                            os.remove(keep)
                     if ok:
                         qs["done"] += 1
                     else:
@@ -451,9 +479,12 @@ class Handler(BaseHTTPRequestHandler):
                 return self._send(200, s.accept(body["id"], date=body.get("date")))
             if path == "/api/reject":
                 return self._send(200, s.reject(body["id"], body["render"]))
+            if path == "/api/drop":
+                return self._send(200, s.drop(body["id"]))
             if path == "/api/queue/run":
                 return self._send(202, s.run_queue(tier=body.get("tier"), limit=body.get("limit"), ids=body.get("ids"), retries=body.get("retries", 2),
-                                                   steps=body.get("steps"), resolution=body.get("resolution"), transparent=body.get("transparent", True)))
+                                                   steps=body.get("steps"), resolution=body.get("resolution"), transparent=body.get("transparent", True),
+                                                   keep_best=body.get("keep_best", False), text_only=body.get("text_only", False)))
             if path == "/api/queue/stop":
                 return self._send(200, s.stop())
             return self._send(404, {"error": "no route " + path})

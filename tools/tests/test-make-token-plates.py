@@ -92,6 +92,7 @@ class FakeComfy(BaseHTTPRequestHandler):
     With engine qwen21 a prompt that asks for transparency (or the remove-background instruction) comes back as a
     real RGBA image, keyed off the canvas colour — what Qwen-Image-2.1 does natively."""
     engine = "qwen21"
+    reject = ""
     inputs = {}
     outputs = {}
     attempts = {}
@@ -136,17 +137,26 @@ class FakeComfy(BaseHTTPRequestHandler):
             open(path, "wb").write(data)
             self.inputs[name] = path
             return self._send(200, {"name": name, "subfolder": "token-plates", "type": "input"})
+        if self.path == "/prompt" and self.reject:
+            return self._send(400, {"error": {"type": "prompt_outputs_failed_validation", "message": "Prompt outputs failed validation"},
+                                    "node_errors": {"451": {"class_type": "UNETLoader", "errors": [{"type": "value_not_in_list", "message": self.reject, "details": "unet_name: 'x'"}]}}})
         if self.path == "/prompt":
             import numpy as np
             wf = json.loads(body)["prompt"]
             self.prompts.append(wf)
-            load = [v for v in wf.values() if v["class_type"] == "LoadImage"][0]["inputs"]["image"].split("/")[-1]
+            loads = [v for v in wf.values() if v["class_type"] == "LoadImage"]
             prefix = [v for v in wf.values() if v["class_type"] == "SaveImage"][0]["inputs"]["filename_prefix"]
             enc = [v for v in wf.values() if v["class_type"].startswith("TextEncodeQwenImage")]
             text = " ".join(v["inputs"].get("prompt", "") for v in enc)
             cid = prefix.split("/")[-1]
             self.attempts[cid] = self.attempts.get(cid, 0) + 1
-            im = Image.open(self.inputs[load]).convert("RGB")
+            if loads:
+                im = Image.open(self.inputs[loads[0]["inputs"]["image"].split("/")[-1]]).convert("RGB")
+            else:   # text-only: a figure drawn "from the record" on the empty latent's canvas (magenta field, keyed below)
+                lat = [v for v in wf.values() if v["class_type"] == "EmptyLatentImage"][0]["inputs"]
+                im = Image.new("RGB", (lat["width"], lat["height"]), (255, 0, 255))
+                fig = figure(int(lat["width"] * 0.35), int(lat["height"] * 0.8), (90, 50, 20))
+                im.paste(fig, ((im.width - fig.width) // 2, int(im.height * 0.1)), fig)
             arr = np.asarray(im).astype(int)
             ring = np.concatenate([arr[0], arr[-1], arr[:, 0], arr[:, -1]])
             kc = np.median(ring, axis=0)
@@ -230,7 +240,7 @@ def main():
     raw = os.path.join(root, "renders")
     res = run("render", "--url", url, "--raw-dir", raw, "--retries", "2", "--date", "2026-10-05")
     out = res.stdout + res.stderr
-    check("(qwen-edit)" in out, "engine picked from the server's nodes: " + out[:200])
+    check("(qwen-edit;" in out, "engine picked from the server's nodes: " + out[:200])
     check("bustguy: attempt 1 not usable" in out and "bust?" in out, "QC rejected the bust-sized first attempt: " + out[-400:])
     check(re.search(r"bustguy: ok in \d+s \(seed \d+, attempt 2\)", out) is not None, "second attempt accepted")
     check("linkguy: no usable reference" in out, "hotlinked lead is skipped with a reason")
@@ -260,7 +270,7 @@ def main():
     raw2 = os.path.join(root, "renders21")
     res = run("render", "--url", url, "--raw-dir", raw2, "--retries", "2", "--ids", "bustguy", "--steps", "8", "--resolution", "1536")
     out = res.stdout + res.stderr
-    check("(qwen21)" in out and re.search(r"bustguy: ok in \d+s \(seed \d+, attempt 2\)", out), "2.1 engine renders and retries: " + out[-300:])
+    check("(qwen21;" in out and re.search(r"bustguy: ok in \d+s \(seed \d+, attempt 2\)", out), "2.1 engine renders and retries: " + out[-300:])
     wf = FakeComfy.prompts[0]
     enc = wf["474"]["inputs"]
     check("<image1>" in enc["prompt"] and "Transparent background" in enc["prompt"] and enc["negative_prompt"] == mod.NEGATIVE, "2.1 prompt on the one encoder node")
@@ -281,6 +291,41 @@ def main():
     outp = rend.remove_background(opaque, os.path.join(root, "removed.png"))
     check(Image.open(outp).mode == "RGBA" and FakeComfy.prompts[-1]["474"]["inputs"]["prompt"] == mod.REMOVE_BG_PROMPT, "remove-background pass")
     check(comfy.choices("UNETLoader", "unet_name") == ["qwen_image_2.1_int8_convrot.safetensors", "other.safetensors"], "loader choices read from the server")
+    srv.shutdown()
+
+    # render --full: one attempt each; bustguy fails QC (bust) -> best attempt kept + flagged; linkguy drawn from the record
+    srv, url = serve("qwen21")
+    arts = json.load(open(os.path.join(rm, "data/characters.json"), encoding="utf-8"))
+    for art in arts:
+        art.pop("fullBody", None); art.pop("fullBodyCaption", None)
+    json.dump(arts, open(os.path.join(rm, "data/characters.json"), "w", encoding="utf-8"), indent=2, ensure_ascii=False)
+    for f in os.listdir(os.path.join(rm, "portraits/player/fullbody")):
+        os.remove(os.path.join(rm, "portraits/player/fullbody", f))
+    raw3 = os.path.join(root, "renders-full")
+    res = run("render", "--full", "--url", url, "--raw-dir", raw3, "--retries", "0", "--date", "2026-10-05")
+    out = res.stdout + res.stderr
+    check("full run" in out and "kept the best of 1" in out and "needs eyes" in out, "--full keeps the best attempt when QC fails: " + out[-500:])
+    check(re.search(r"linkguy: ok in \d+s \(seed \d+, attempt 1, from the record\)", out) is not None, "--full draws the reference-less character from the record: " + out[-300:])
+    arts = {x["id"]: x for x in json.load(open(os.path.join(rm, "data/characters.json"), encoding="utf-8"))}
+    check("needs eyes" in arts["bustguy"].get("fullBodyCaption", "") and "bust?" in arts["bustguy"]["fullBodyCaption"], "flagged caption on the kept-best plate: " + arts["bustguy"].get("fullBodyCaption", "")[:120])
+    check("drawn from the record alone" in arts["linkguy"].get("fullBodyCaption", ""), "text-only caption on the record-drawn plate")
+    wf = next(w for w in FakeComfy.prompts if "token-plates/linkguy" in json.dumps(w))
+    check(not any(v["class_type"] == "LoadImage" for v in wf.values()) and wf["458"]["inputs"]["latent_image"] == ["456", 0]
+          and "images.image_1" not in wf["474"]["inputs"] and "Link Guy" in wf["474"]["inputs"]["prompt"], "text-only graph: no LoadImage, empty latent, name in the prompt")
+    log = json.load(open(os.path.join(raw3, "render-log.json")))
+    check(log["bustguy"].get("needsEyes") and log["linkguy"].get("textOnly"), "full-run log marks needs-eyes and text-only")
+    check(os.path.isfile(os.path.join(raw3, "run-sheet.png")) and "flagged for eyes" in out, "contact sheet + summary at the end of a full run")
+    check(res.returncode == 0, "full run exit code 0 when everybody got a plate: %s" % res.returncode)
+    # drop: the undo
+    res = run("drop", "--ids", "bustguy", "--raw-dir", raw3)
+    arts = {x["id"]: x for x in json.load(open(os.path.join(rm, "data/characters.json"), encoding="utf-8"))}
+    check("1 plate(s) removed" in res.stdout and "fullBody" not in arts["bustguy"] and not os.path.isfile(os.path.join(rm, "portraits/player/fullbody/bustguy.png"))
+          and os.path.isfile(os.path.join(raw3, "bustguy.dropped.png")), "drop removes the plate, unwires the article, keeps a copy")
+    # a server that answers but rejects every graph: the run stops after three characters, naming the reason
+    FakeComfy.reject = "value not in list: unet_name"
+    res = run("render", "--url", url, "--raw-dir", raw3, "--retries", "0", "--ids", "bustguy", "linkguy", "flatguy", "pixelguy", "--text-only", "--redo")
+    FakeComfy.reject = ""
+    check(res.returncode == 3 and "no image came back for 3 characters in a row" in res.stdout and "unet_name" in res.stdout, "a rejected graph stops the run with the server's reason: " + res.stdout[-300:])
     srv.shutdown()
 
     # cut: a native-alpha render is trimmed and squared, never keyed

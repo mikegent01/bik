@@ -102,9 +102,10 @@
     <b style="color:var(--ink)">Run queue</b>
     <label class="inline">tier ≤ <select id="qTier"><option>1</option><option selected>2</option><option>3</option></select></label>
     <label class="inline">limit <input type="number" id="qLimit" value="10" min="1" style="width:60px"></label>
+    <label class="inline" title="the full run: when no attempt passes QC the least-bad one is wired anyway, flagged 'needs eyes' in its caption; characters without a reference are drawn from their record"><input type="checkbox" id="qFull"> full run (keep best, draw the reference-less)</label>
     <button id="btnRun" class="primary">Run</button>
     <button id="btnStop" class="danger">Stop</button>
-    <div class="prog" id="qProg">Auto-accepts whatever passes QC; the rest stays in the list for your eyes.</div>
+    <div class="prog" id="qProg">Auto-accepts whatever passes QC; the rest stays in the list for your eyes. Tick "full run" to leave nobody without a plate.</div>
   </div>
 </aside>
 
@@ -133,6 +134,7 @@
           <select id="ground"><option value="checker">checker</option><option value="dark" selected>dark</option><option value="white">white</option><option value="key">key colour</option></select>
         </label>
         <span id="plateInfo"></span>
+        <button id="btnDrop" class="danger" title="take the wired plate back out (file + fullBody); a copy stays in the renders folder" style="display:none">Drop plate</button>
       </div>
       <div class="body ground dark" id="plateBody"><div class="empty">The plate appears here after Generate (auto) or Plate.</div></div>
       <div class="facts" id="plateFacts"></div>
@@ -285,8 +287,8 @@
       showRender();
       // plate
       const pb = $("plateBody"); pb.innerHTML = "";
-      if (c.plate) { const im = document.createElement("img"); im.src = imgUrl("rm", c.plate); pb.appendChild(im); $("plateInfo").textContent = "current plate (wired)"; $("plateFacts").textContent = c.plateFacts ? c.plateFacts.size.join("×") + " · border clear " + pct(c.plateFacts.border_clear) : ""; }
-      else { pb.innerHTML = '<div class="empty">No plate yet.</div>'; $("plateInfo").textContent = ""; $("plateFacts").textContent = ""; }
+      if (c.plate) { const im = document.createElement("img"); im.src = imgUrl("rm", c.plate); pb.appendChild(im); $("plateInfo").textContent = "current plate (wired)" + (c.needsEyes ? " — flagged: needs eyes" : ""); $("plateFacts").textContent = (c.plateFacts ? c.plateFacts.size.join("×") + " · border clear " + pct(c.plateFacts.border_clear) : "") + (c.plateCaption ? "\n" + c.plateCaption : ""); $("btnDrop").style.display = ""; }
+      else { pb.innerHTML = '<div class="empty">No plate yet.</div>'; $("plateInfo").textContent = ""; $("plateFacts").textContent = ""; $("btnDrop").style.display = "none"; }
       drawRoster();
       const row = document.querySelector('.row[data-id="' + CSS.escape(id) + '"]'); if (row && row.scrollIntoView) row.scrollIntoView({ block: "nearest" });
     } catch (e) { log(e.message, "bad"); }
@@ -434,7 +436,8 @@
   let qTimer = null;
   async function runQueue() {
     try {
-      const q = await api("/api/queue/run", { tier: +$("qTier").value, limit: +$("qLimit").value || null, steps: +$("steps").value || null, resolution: +$("resolution").value, transparent: $("transparent").checked });
+      const full = $("qFull").checked;
+      const q = await api("/api/queue/run", { tier: full ? 3 : +$("qTier").value, limit: +$("qLimit").value || null, steps: +$("steps").value || null, resolution: +$("resolution").value, transparent: $("transparent").checked, keep_best: full, text_only: full });
       showQueue(q);
       clearInterval(qTimer);
       qTimer = setInterval(async () => { const st = await api("/api/state"); showQueue(st.queue); if (!st.queue.running) { clearInterval(qTimer); loadRoster(true); } }, 2000);
@@ -451,6 +454,7 @@
   $("btnAccept").addEventListener("click", accept);
   $("btnReject").addEventListener("click", reject);
   $("btnSkip").addEventListener("click", skip);
+  $("btnDrop").addEventListener("click", async () => { if (!S.cur || !S.cur.plate) return; if (!confirm("Drop the wired plate for " + S.cur.name + "? (a copy stays in the renders folder)")) return; try { await api("/api/drop", { id: S.cur.id }); log("plate dropped and unwired — re-render or make it by hand", "ok"); await loadCharacter(S.cur.id, true); loadRoster(true); } catch (e) { log(e.message, "bad"); } });
   $("btnRun").addEventListener("click", runQueue);
   $("btnStop").addEventListener("click", async () => { try { await api("/api/queue/stop", {}); log("stopping after the current character"); } catch (e) { log(e.message, "bad"); } });
   $("btnPromptReset").addEventListener("click", () => { if (S.cur) $("prompt").value = $("transparent").checked ? S.cur.prompt : S.cur.promptOpaque; });

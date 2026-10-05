@@ -292,3 +292,13 @@ background" prompt is what the Comfy-Org template relies on, and whether
 (a render with no alpha falls back to the key colour canvas it was given);
 the resolution the 1024 budget gives a 832×1216 canvas is 832×1248, so a
 figure comes out ~1100 px and the plate is 1024 as before.
+
+**And the hands-off version.** Asked for a full run that goes through every
+image, cuts and applies, bad ones to be fixed through git: `start.bat`
+(new — the launcher, `studio`, `plates`) and `render --full`. The full run
+keeps the least-bad attempt when QC fails (flagged `needs eyes` in the
+caption and the log), draws the eleven reference-less characters from their
+record, writes a contact sheet, stops after three characters with no image
+at all (and prints ComfyUI's own reason — a wrong model filename says so
+now instead of "Bad Request"), and `drop --ids` is the undo that pairs with
+`git status`. Both tests grew (54 + 43).

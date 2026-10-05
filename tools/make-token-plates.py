@@ -34,6 +34,10 @@ keys what comes back.
           it — native alpha — else Qwen-Image-Edit; your own exported API-format workflow with --workflow),
           wait, cut, QC (keyed field, clear border, nothing cropped), retry with a new seed, apply,
           next. Resumable: a plate on disk is skipped. Ctrl-C between characters is safe.
+          --full is the hands-off run: every tier, the best attempt kept when none passes QC (flagged
+          "needs eyes" in the caption + log), the reference-less drawn from the record on a 2.1 server,
+          a contact sheet at the end; review in git, `drop` the bad ones, re-render them with --ids --redo.
+  drop    take plates back out (file + fullBody wiring) — the undo for a plate that failed the eye.
   heal    re-check every chroma-keyed plate on disk pixel by pixel against its key colour and give back
           the figure pixels an earlier keyer (int16 overflow, before 2026-10-05) punched out — specks
           in dark purples / blues / reds. Idempotent; `check` reports plates that still need it.
@@ -47,6 +51,8 @@ keys what comes back.
   python3 tools/make-token-plates.py cut  --raw-dir ~/renders    # every <id>.png rendered elsewhere from the manifest
   python3 tools/make-token-plates.py render                      # drive the local ComfyUI (Qwen-Image-2.1 in Comfy Desktop) through everything left
   python3 tools/make-token-plates.py render --workflow my_qwen_edit_api.json --tier 2 --limit 20
+  python3 tools/make-token-plates.py render --full               # everything, hands-off (start.bat plates); then: git status, drop the bad ones
+  python3 tools/make-token-plates.py drop --ids kyrn pet_rock     # undo two plates the eye rejected
   python3 tools/token-plate-studio.py                            # the same loop with eyes on it: preview, crop, key, remove background, accept
   python3 tools/make-token-plates.py apply [--date 2026-10-05]
   python3 tools/make-token-plates.py check
@@ -599,14 +605,24 @@ def cmd_apply(a):
         path = os.path.join(RM, rel)
         if not os.path.isfile(path):
             continue
-        if (art.get("fullBody") or "").replace("\\", "/") == rel:
+        note = (getattr(a, "notes", None) or {}).get(art["id"])
+        wired = (art.get("fullBody") or "").replace("\\", "/") == rel
+        if wired and not note:
             continue
         w, h, clear, _ = plate_facts(path)
         if clear < BORDER_CLEAR:
             print(f"apply: {art['id']} plate is not transparent — not wired")
             continue
         caption = (f"Full-body token plate — {art.get('name', art['id'])} head to foot on a transparent field, the look of the lead; "
-                   f"cut from a keyed render on {date} for the table's token.")
+                   f"{note or 'cut from a keyed render'} on {date} for the table's token.")
+        existing = art.get("fullBodyCaption") or ""
+        # a hand-written caption stays; the pipeline's own caption gives way to a note (needs eyes / drawn from the record)
+        keep = existing if existing and not (note and existing.startswith("Full-body token plate")) else caption
+        if wired:
+            if art.get("fullBodyCaption") != keep:
+                art["fullBodyCaption"] = keep
+                changed.append(art["id"])
+            continue
         items = list(art.items())
         anchor = "imageCaption" if "imageCaption" in art else "image"
         new = {}
@@ -616,10 +632,10 @@ def cmd_apply(a):
             new[k] = v
             if k == anchor:
                 new["fullBody"] = rel
-                new["fullBodyCaption"] = art.get("fullBodyCaption") or caption
+                new["fullBodyCaption"] = keep
         if "fullBody" not in new:  # no image key at all
             new["fullBody"] = rel
-            new["fullBodyCaption"] = caption
+            new["fullBodyCaption"] = keep
         art.clear()
         art.update(new)
         changed.append(art["id"])
@@ -629,6 +645,33 @@ def cmd_apply(a):
             fh.write(json.dumps(arts, indent=2, ensure_ascii=False) + "\n")
         os.replace(tmp, CHARACTERS)
     print(f"apply: {len(changed)} article(s) now point at a plate" + (": " + ", ".join(changed) if changed else ""))
+    return 0
+
+
+def cmd_drop(a):
+    """Take a plate back out: delete the file (a copy goes to --raw-dir as <id>.dropped.png) and unwire fullBody /
+    fullBodyCaption from the article — the undo for a render that passed the robot and failed the eye. Re-render
+    with `render --ids <id> --redo` or make it by hand."""
+    import shutil
+    arts = json.load(open(CHARACTERS, encoding="utf-8"))
+    raw_dir = os.path.abspath(os.path.expanduser(a.raw_dir))
+    os.makedirs(raw_dir, exist_ok=True)
+    dropped = []
+    for cid in a.ids:
+        path = os.path.join(RM, PLATES, cid + ".png")
+        if os.path.isfile(path):
+            shutil.copyfile(path, os.path.join(raw_dir, cid + ".dropped.png"))
+            os.remove(path)
+        for art in arts:
+            if art["id"] == cid and (art.get("fullBody") or "").replace("\\", "/") == f"{PLATES}/{cid}.png":
+                art.pop("fullBody", None)
+                art.pop("fullBodyCaption", None)
+        dropped.append(cid)
+    tmp = CHARACTERS + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as fh:
+        fh.write(json.dumps(arts, indent=2, ensure_ascii=False) + "\n")
+    os.replace(tmp, CHARACTERS)
+    print(f"drop: {len(dropped)} plate(s) removed and unwired (copies in {raw_dir}): " + ", ".join(dropped))
     return 0
 
 
@@ -955,12 +998,27 @@ class Comfy:
         return self.download(self.wait(pid, timeout=timeout), dst)
 
     def _json(self, path, data=None, method=None):
+        import urllib.error
         import urllib.request
         body = json.dumps(data).encode("utf-8") if data is not None else None
         req = urllib.request.Request(self.url + path, data=body, method=method or ("POST" if body else "GET"),
                                      headers={"Content-Type": "application/json"} if body else {})
-        with urllib.request.urlopen(req, timeout=60) as r:
-            raw = r.read()
+        try:
+            with urllib.request.urlopen(req, timeout=60) as r:
+                raw = r.read()
+        except urllib.error.HTTPError as exc:
+            # ComfyUI answers a bad graph with 400 + JSON that names the node and the field: say that, not "Bad Request"
+            detail = exc.read().decode("utf-8", "replace")[:1500]
+            try:
+                j = json.loads(detail)
+                msgs = [j.get("error", {}).get("message") if isinstance(j.get("error"), dict) else j.get("error")]
+                for node, err in (j.get("node_errors") or {}).items():
+                    for e in err.get("errors", []):
+                        msgs.append(f"node {node} ({err.get('class_type', '?')}): {e.get('message')} {e.get('details', '')}".strip())
+                detail = "; ".join(m for m in msgs if m)
+            except ValueError:
+                pass
+            raise RuntimeError(f"ComfyUI rejected the request ({exc.code}): {detail}") from None
         return json.loads(raw.decode("utf-8")) if raw else {}
 
     def alive(self):
@@ -1077,6 +1135,29 @@ def workflow_tune(wf, steps=None, resolution=None, cfg=None, models=None, engine
             if v.get("inputs", {}).get("model") == ["469", 0]:
                 v["inputs"]["model"] = src
     return wf
+
+
+def qwen21_t2i_prompt(art, transparent=True):
+    """No usable reference: 2.1 draws the figure from the record (name, title, race, the look line). Flagged in the
+    log and the caption, because nothing anchors the face."""
+    name = art.get("name", art["id"])
+    title = (art.get("title") or "").strip()
+    race = re.split(r"[;.]", (art.get("race") or "").strip())[0].strip()
+    if re.match(r"^(unknown|unfiled|corrupted copy)\b", race, re.I) and " — " in race:
+        race = race.split(" — ", 1)[1].strip()
+    elif re.match(r"^(unknown|unfiled)\b", race, re.I):
+        race = ""
+    who = name + (f", {title}" if title and title.lower() not in name.lower() else "") + (f" ({race})" if race else "")
+    look = look_of(art)
+    body = f"A full-body character illustration of {who}. "
+    if look:
+        body += f"{look}. "
+    body += ("A complete standing figure from the top of the head to the soles of the feet, facing the viewer and turned slightly, arms and "
+             "hands visible, holding their weapon or tool if they carry one. Painterly illustration with clean edges. One figure only, centred, "
+             "with empty space on every side; no floor, no cast shadow, no scenery, no text, no border. ")
+    body += ("Transparent background: output a PNG image with an alpha channel and nothing behind the figure." if transparent
+             else "The entire background is plain solid flat bright magenta.")
+    return body
 
 
 def prep_reference(src, dst, key, full_body, size=(1024, 1024)):
@@ -1201,23 +1282,51 @@ class Renderer:
     def prompt_for(self, art, row, transparent=True):
         return default_prompt(art, row, self.engine, transparent=transparent)
 
-    def render(self, art, row, raw_dir, seed, prompt=None, transparent=True, raw_name=None, reference=None):
-        """Returns (raw_path, facts_or_None, why[]) — facts from the cut when the render came back usable."""
+    def can_text_only(self):
+        return self.engine == "qwen21"
+
+    def text_only_workflow(self):
+        """The 2.1 graph without a reference: no LoadImage, the encoder's image slot gone, an EmptyLatentImage of the
+        portrait canvas feeding the sampler (what the template's switch does when image_1 is empty)."""
+        wf = json.loads(json.dumps(self.wf))
+        w, h = REF_SIZES["qwen21"]
+        wf["456"] = {"class_type": "EmptyLatentImage", "inputs": {"width": w, "height": h, "batch_size": 1}}
+        for k in [k for k, v in wf.items() if v.get("class_type") == "LoadImage"]:
+            del wf[k]
+        for v in wf.values():
+            if v.get("class_type") == "TextEncodeQwenImage21":
+                for key in [k for k in v["inputs"] if k.startswith("images.")]:
+                    del v["inputs"][key]
+            if v.get("class_type") in SAMPLERS:
+                v["inputs"]["latent_image"] = ["456", 0]
+        return wf
+
+    def render(self, art, row, raw_dir, seed, prompt=None, transparent=True, raw_name=None, reference=None, text_only=False):
+        """Returns (raw_path, facts_or_None, why[]) — facts from the cut when the render came back usable.
+        `text_only` lets a 2.1 server draw a character that has no usable reference from its record instead."""
         cid = art["id"]
         ref_rel, full_body = reference_for(art, row)
+        wf = self.wf
         if reference:
             ref_src, full_body = reference, True
         elif ref_rel:
             ref_src = os.path.join(RM, ref_rel)
+        elif text_only and self.can_text_only():
+            ref_src = None
+            wf = self.text_only_workflow()
+            prompt = prompt or qwen21_t2i_prompt(art, transparent=transparent)
         else:
             return None, None, ["no usable reference — an edit model needs one; render this one by hand"]
         key = key_for(art)
-        ref_png = os.path.join(raw_dir, cid + ".ref.png")
-        prep_reference(ref_src, ref_png, key, full_body, size=REF_SIZES.get(self.engine, (1024, 1024)))
-        prompt = prompt or self.prompt_for(art, row, transparent=transparent)
         raw = os.path.join(raw_dir, raw_name or (cid + ".png"))
-        name = self.comfy.upload(ref_png, f"{cid}.png")
-        self.comfy.run(workflow_fill(self.wf, prompt, name, f"token-plates/{cid}", seed), raw, timeout=self.timeout)
+        if ref_src:
+            ref_png = os.path.join(raw_dir, cid + ".ref.png")
+            prep_reference(ref_src, ref_png, key, full_body, size=REF_SIZES.get(self.engine, (1024, 1024)))
+            prompt = prompt or self.prompt_for(art, row, transparent=transparent)
+            name = self.comfy.upload(ref_png, f"{cid}.png")
+        else:
+            name = ""
+        self.comfy.run(workflow_fill(wf, prompt, name, f"token-plates/{cid}", seed), raw, timeout=self.timeout)
         tmp = os.path.join(raw_dir, cid + ".cut.png")
         try:
             facts = cut(raw, tmp, "auto" if transparent else key)
@@ -1241,6 +1350,8 @@ def cmd_render(a):
     arts, by_sheet = load()
     by_id = {x["id"]: x for x in arts}
     rows = statuses(arts, by_sheet)
+    if a.full:                      # the hands-off run: everything, every tier, keep the best attempt, draw the reference-less from the record
+        a.tier, a.keep_best, a.text_only = None, True, True
     todo = [r for r in rows if r["status"] in ("GENERATE", "SMALL") and (not a.tier or r["tier"] <= a.tier)]
     if a.ids:
         todo = [r for r in rows if r["id"] in set(a.ids)]
@@ -1275,50 +1386,95 @@ def cmd_render(a):
         wf["75"]["inputs"]["model"] = ["89", 0]
         wf["3"]["inputs"]["steps"] = a.steps or 4
         wf["3"]["inputs"]["cfg"] = 1.0
-    print(f"render: {len(todo)} character(s) to do through {comfy.url} ({rend.engine}); raws + log in {raw_dir}")
-    done = failed = 0
+    mode = "full run — every tier, best attempt kept, reference-less drawn from the record" if a.full else "QC-gated"
+    print(f"render: {len(todo)} character(s) to do through {comfy.url} ({rend.engine}; {mode}); raws + log in {raw_dir}")
+    done = failed = eyes = 0
+    plated_now = []
+    dead = 0                                   # consecutive characters with no image at all: the server went away, or the graph is wrong
     for n, r in enumerate(todo, 1):
         cid = r["id"]
         art = by_id[cid]
         plate = os.path.join(RM, PLATES, cid + ".png")
         if os.path.isfile(plate) and not a.redo and plate_facts(plate)[2] >= BORDER_CLEAR:
             continue
-        if not reference_for(art, r)[0]:
-            print(f"[{n}/{len(todo)}] {cid}: no usable reference — an edit model needs one; render this one by hand")
+        text_only = not reference_for(art, r)[0]
+        if text_only and not (a.text_only and rend.can_text_only()):
+            print(f"[{n}/{len(todo)}] {cid}: no usable reference — an edit model needs one; render this one by hand (or --text-only on a 2.1 server)")
             log[cid] = {"skipped": "no reference"}
             json.dump(log, open(log_path, "w", encoding="utf-8"), indent=1)
             failed += 1
             continue
         ok = False
         why = []
+        attempts = []                          # (why, cut_path, seed, facts) of the attempts that came back as an image
+        got_image = False
         for attempt in range(1, (a.retries or 0) + 2):
             seed = random.randint(1, 2 ** 31 - 1)
             t0 = time.time()
             try:
-                raw, facts, why = rend.render(art, r, raw_dir, seed, transparent=not a.opaque)
+                raw, facts, why = rend.render(art, r, raw_dir, seed, transparent=not a.opaque, text_only=text_only)
             except KeyboardInterrupt:
                 print("\nrender: stopped between characters — run again to resume"); json.dump(log, open(log_path, "w", encoding="utf-8"), indent=1); return 130
             except Exception as exc:  # noqa: BLE001
-                why = [f"{type(exc).__name__}: {str(exc)[:200]}"]
-                raw = None
+                why = [f"{type(exc).__name__}: {str(exc)[:300]}"]
+                raw, facts = None, None
+            got_image = got_image or bool(raw)
             secs = time.time() - t0
             if not why:
                 os.replace(os.path.join(raw_dir, cid + ".cut.png"), plate)
-                print(f"[{n}/{len(todo)}] {cid}: ok in {secs:.0f}s (seed {seed}, attempt {attempt}) -> {PLATES}/{cid}.png")
-                log[cid] = {"ok": True, "seed": seed, "attempt": attempt, "seconds": round(secs), "engine": rend.engine}
+                print(f"[{n}/{len(todo)}] {cid}: ok in {secs:.0f}s (seed {seed}, attempt {attempt}{', from the record' if text_only else ''}) -> {PLATES}/{cid}.png")
+                log[cid] = {"ok": True, "seed": seed, "attempt": attempt, "seconds": round(secs), "engine": rend.engine, "textOnly": text_only}
                 ok = True
                 break
             print(f"[{n}/{len(todo)}] {cid}: attempt {attempt} not usable — {'; '.join(why)}")
             if raw and os.path.isfile(raw):
                 os.replace(raw, os.path.join(raw_dir, f"{cid}.rejected-{attempt}.png"))
+            cut_path = os.path.join(raw_dir, cid + ".cut.png")
+            if facts and os.path.isfile(cut_path):
+                keep = os.path.join(raw_dir, f"{cid}.cut-{attempt}.png")
+                os.replace(cut_path, keep)
+                attempts.append((why, keep, seed, facts))
+        notes = {}
+        if not ok and a.keep_best and attempts:
+            # the full run leaves nobody without a plate: the least-bad attempt goes on the sheet, flagged for the eye
+            why_b, keep, seed, facts = min(attempts, key=lambda t: (len(t[0]), -t[3]["figure"][1]))
+            os.replace(keep, plate)
+            fw, fh, clear, _ = plate_facts(plate)
+            if clear >= BORDER_CLEAR:
+                ok = True
+                eyes += 1
+                notes[cid] = f"best of {len(attempts)} attempt(s), QC flagged: {'; '.join(why_b)} — needs eyes; rendered"
+                log[cid] = {"ok": True, "needsEyes": True, "seed": seed, "why": why_b, "engine": rend.engine, "textOnly": text_only}
+                print(f"[{n}/{len(todo)}] {cid}: kept the best of {len(attempts)} (seed {seed}) — needs eyes: {'; '.join(why_b)}")
+            else:
+                os.remove(plate)
+        for _, keep, _, _ in attempts:
+            if os.path.isfile(keep):
+                os.remove(keep)
         if ok:
             done += 1
-            cmd_apply(argparse.Namespace(date=a.date))
+            plated_now.append(cid)
+            dead = 0
+            if text_only and cid not in notes:
+                notes[cid] = "drawn from the record alone (no reference) — needs eyes; rendered"
+            cmd_apply(argparse.Namespace(date=a.date, notes=notes))
         else:
             failed += 1
             log[cid] = {"ok": False, "why": why}
+            dead = 0 if got_image else dead + 1
         json.dump(log, open(log_path, "w", encoding="utf-8"), indent=1)
-    print(f"render: {done} plated, {failed} left for eyes (see {log_path}); run 'check' and the sheets suite next")
+        if dead >= 3:
+            print(f"render: no image came back for {dead} characters in a row ({why[0] if why else 'no detail'}) — the server is gone or the graph is wrong; stopping here, run again to resume")
+            return 3
+    if plated_now and (a.full or len(plated_now) >= 10):
+        out = os.path.join(raw_dir, "run-sheet.png")
+        try:
+            cmd_sheet(argparse.Namespace(out=out, ids=plated_now, cell=160, cols=10))
+        except Exception as exc:  # noqa: BLE001
+            print(f"render: contact sheet skipped ({exc})")
+    print(f"render: {done} plated ({eyes} flagged for eyes), {failed} not plated (see {log_path}); run 'check' and the sheets suite next")
+    if a.full:
+        print("render: review with `git status` / the contact sheet; take a bad one back with `make-token-plates.py drop --ids <id>` and re-render it with `render --ids <id> --redo`")
     return 0 if not failed else 2
 
 
@@ -1330,17 +1486,20 @@ def main(argv=None):
     p = sub.add_parser("cut"); p.add_argument("--id"); p.add_argument("--src"); p.add_argument("--key", default="auto"); p.add_argument("--flat", action="store_true"); p.add_argument("--raw-dir"); p.add_argument("--ids", nargs="*")
     p.add_argument("--grid-sheet"); p.add_argument("--rows", type=int); p.add_argument("--cols", type=int)
     p = sub.add_parser("apply"); p.add_argument("--date")
+    p = sub.add_parser("drop"); p.add_argument("--ids", nargs="+", required=True); p.add_argument("--raw-dir", default=os.path.join(ROOT, "..", "token-renders"))
     p = sub.add_parser("check"); p.add_argument("--check", action="store_true")
     p = sub.add_parser("pixel"); p.add_argument("--ids", nargs="*")
     p = sub.add_parser("heal"); p.add_argument("--ids", nargs="*"); p.add_argument("--key", choices=list(KEYS))
     p = sub.add_parser("render"); p.add_argument("--url", default=None); p.add_argument("--workflow"); p.add_argument("--tier", type=int)
     p.add_argument("--model", choices=["auto", "qwen21", "qwen-edit"], default="auto"); p.add_argument("--resolution", type=int); p.add_argument("--opaque", action="store_true")
+    p.add_argument("--full", action="store_true", help="the hands-off run: every tier, keep the best attempt when none passes QC, draw the reference-less from the record; review in git")
+    p.add_argument("--keep-best", action="store_true"); p.add_argument("--text-only", action="store_true")
     p.add_argument("--ids", nargs="*"); p.add_argument("--limit", type=int); p.add_argument("--retries", type=int, default=2); p.add_argument("--timeout", type=int, default=900)
     p.add_argument("--raw-dir", default=os.path.join(ROOT, "..", "token-renders")); p.add_argument("--redo", action="store_true"); p.add_argument("--dry-run", action="store_true")
     p.add_argument("--unet"); p.add_argument("--clip"); p.add_argument("--vae"); p.add_argument("--lora"); p.add_argument("--steps", type=int); p.add_argument("--date")
     p = sub.add_parser("sheet"); p.add_argument("--out", required=True); p.add_argument("--ids", nargs="*"); p.add_argument("--cell", type=int, default=160); p.add_argument("--cols", type=int, default=10)
     a = ap.parse_args(argv)
-    return {"plan": cmd_plan, "cut": cmd_cut, "apply": cmd_apply, "check": cmd_check, "sheet": cmd_sheet, "pixel": cmd_pixel, "heal": cmd_heal, "render": cmd_render}[a.cmd](a)
+    return {"plan": cmd_plan, "cut": cmd_cut, "apply": cmd_apply, "drop": cmd_drop, "check": cmd_check, "sheet": cmd_sheet, "pixel": cmd_pixel, "heal": cmd_heal, "render": cmd_render}[a.cmd](a)
 
 
 if __name__ == "__main__":
