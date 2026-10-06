@@ -116,6 +116,9 @@ def main() -> int:
         # NPC Forge: the generator's activities, the faction draft, the cut,
         # the hand-off brief and the page's HTTP, on a sandbox copy.
         ("npc forge", [py, "tools/tests/test-npc-forge.py"], ROOT),
+        # The control panel start.py serves at /panel (the start page that
+        # replaced the tkinter window): its routes, the page, the launcher.
+        ("control panel", [py, "tools/tests/test-control-panel.py"], ROOT),
         # Foundry mass import: the Python bridge (split/combine/link-images/
         # apply/check/install-images), the one-file import packet for the 955
         # roster, and the module zip that the manifest URL downloads.

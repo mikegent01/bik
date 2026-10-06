@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-start.py — serve the Waluipedia locally and open it in a browser.
+start.py — serve the Waluipedia locally and open its control panel.
 
 The site is static (see README: "Open index.html and it runs"), but opening it
 straight off the filesystem breaks the parts that matter most: `fetch()` calls
@@ -9,8 +9,8 @@ on `file://`, so events, characters, props and investigations silently fail to
 load. Serving over HTTP fixes that, and this script is the one-command way to do
 it.
 
-    python3 start.py                 # the launcher window (where tkinter and a display exist)
-    python3 start.py --no-gui        # the plain terminal server, as before
+    python3 start.py                 # serve + the control panel (http://localhost:8765/panel)
+    python3 start.py --no-gui        # the plain terminal server (the panel page still answers)
     python3 start.py --port 9000     # pick the port
     python3 start.py --no-browser    # just serve (headless / remote boxes)
     python3 start.py --route "#/article/the_belly_of_the_beast"
@@ -19,17 +19,19 @@ it.
     python3 start.py --no-sheets     # skip the character-sheet suite (tools/sheets-suite.py --watch)
     python3 start.py --foundry-data "C:/Users/me/AppData/Local/FoundryVTT/Data"   # where the suite publishes for Foundry (found automatically otherwise)
 
-The launcher window has a tick per thing that can run — the site, the workflow
-server (chat + LM Studio bridge), the character-sheet suite (the GM's Foundry
-export → world mirror → player sheets at ledger XP → sheets.json + the import
-packets Foundry pulls back), the Qwen3-TTS studio (off unless you tick it) —
-a start/stop button, live status lights for each, and a log pane. Your ticks
-are remembered in ~/.waluipedia-start.json. The "Token plates" button opens
-the Token Plate Studio (tools/token-plate-studio.py), which renders full-body
-token plates through Comfy Desktop's ComfyUI and wires the ones you accept.
+The control panel is a page on the site server itself (tools/control-panel.html
+at /panel): a switch per thing that can run — the workflow server (chat + LM
+Studio bridge), the character-sheet suite (the GM's Foundry export → world
+mirror → player sheets at ledger XP → sheets.json + the import packets Foundry
+pulls back), the Qwen3-TTS studio (off unless you tick it) — live status lights,
+the log, the remembered ticks (~/.waluipedia-start.json), and buttons that
+open the other rooms: the site, the chatroom, the sheets, the Waluipedia Hub,
+the Token Plate Studio and the NPC Forge (each its own process, launched from
+here). The ticked services start when start.py starts, so a double-click on
+start.bat brings everything up.
 
-Ctrl-C to stop (terminal mode). Nothing is built — this only serves the
-repository as it already exists.
+Ctrl-C (or the panel's Shut down) stops it. Nothing is built — this only
+serves the repository as it already exists.
 """
 
 from __future__ import annotations
@@ -39,7 +41,6 @@ import contextlib
 import http.server
 import json
 import os
-import queue
 import socket
 import socketserver
 import subprocess
@@ -296,29 +297,8 @@ def launch_tts_studio(say=print) -> None:
 
 
 def launch_plate_studio(say=print) -> None:
-    """Open the Token Plate Studio. If one already answers on PLATES_PORT just
-    open the page; otherwise start tools/token-plate-studio.py as its own
-    process (own console on Windows) — it opens the browser itself. Renders
-    need Comfy Desktop running; the page says so and can launch it."""
-    if port_open("127.0.0.1", PLATES_PORT):
-        webbrowser.open("http://127.0.0.1:%d/" % PLATES_PORT)
-        say("  plates : studio already up — opened http://127.0.0.1:%d/" % PLATES_PORT)
-        return
-    if not PLATES_SCRIPT.is_file():
-        say("  plates : %s is missing" % PLATES_SCRIPT)
-        return
-    try:
-        subprocess.Popen(
-            [sys.executable, str(PLATES_SCRIPT)],
-            cwd=str(ROOT),
-            creationflags=getattr(subprocess, "CREATE_NEW_CONSOLE", 0),
-            close_fds=True,
-        )
-    except Exception as exc:  # a failed launch must not kill the site
-        say("  plates : could not launch %s (%s)" % (PLATES_SCRIPT, exc))
-        return
-    say("  plates : Token Plate Studio starting — it opens http://127.0.0.1:%d/ itself" % PLATES_PORT)
-    say("            (renders go through Comfy Desktop; open it, or press Start Comfy on the page)")
+    """Open the Token Plate Studio (tools/token-plate-studio.py) — see launch_tool."""
+    launch_tool("plates", say)
 
 
 # --------------------------------------------------------------------------
@@ -430,6 +410,7 @@ PREF_DEFAULTS = {
     "site": True, "workflow": True, "sheets": True, "tts": False, "browser": True,
     "port": DEFAULT_PORT, "workflow_port": WORKFLOW_PORT, "expose": False,
     "lm_url": "", "open": "home", "route": "", "foundry_data": "", "git_sync": False, "art_base": "",
+    "autostart": True,
 }
 
 
@@ -455,18 +436,6 @@ def save_prefs(prefs: dict, path: Path = PREFS_PATH) -> bool:
         return False
 
 
-def gui_available() -> bool:
-    """tkinter importable and somewhere to draw: Windows/macOS always have a
-    display; on Linux one of DISPLAY / WAYLAND_DISPLAY must be set."""
-    try:
-        import tkinter  # noqa: F401
-    except Exception:
-        return False
-    if sys.platform.startswith(("win", "darwin")):
-        return True
-    return bool(os.environ.get("DISPLAY") or os.environ.get("WAYLAND_DISPLAY"))
-
-
 def chat_url(site_port: int, workflow_port: int) -> str:
     """The chatroom: through the workflow server when it answers (disk saves,
     archive routes), the static page otherwise."""
@@ -476,314 +445,375 @@ def chat_url(site_port: int, workflow_port: int) -> str:
 
 
 # --------------------------------------------------------------------------
-# The launcher window
+# The control panel — the start page in the browser (replaces the tkinter window)
 # --------------------------------------------------------------------------
-def run_gui(args) -> int:
-    import tkinter as tk
-    from tkinter import ttk
-    from tkinter.scrolledtext import ScrolledText
+PANEL_HTML = ROOT / "tools" / "control-panel.html"
+PANEL_ROUTE = "/panel"
+HUB_SCRIPT = ROOT / "Reputation-Matrix2" / "tools" / "hub" / "server.py"
+HUB_PORT = 8777
+FORGE_SCRIPT = ROOT / "tools" / "npc-forge.py"
+FORGE_PORT = 8768
+LOG_LINES = 2000
+# The tools the panel opens in their own process (own console on Windows):
+# name → (script, port, label). Each serves its own page and opens it itself.
+TOOLS = {
+    "plates": (PLATES_SCRIPT, PLATES_PORT, "Token Plate Studio"),
+    "forge": (FORGE_SCRIPT, FORGE_PORT, "NPC Forge"),
+    "hub": (HUB_SCRIPT, HUB_PORT, "Waluipedia Hub"),
+}
 
-    prefs = load_prefs()
-    # Flags on the command line win over the remembered ticks, once.
-    if args.port != DEFAULT_PORT:
-        prefs["port"] = args.port
-    if args.host == "0.0.0.0":
-        prefs["expose"] = True
-    if args.no_browser:
-        prefs["browser"] = False
-    if args.no_tts:
-        prefs["tts"] = False
-    if args.workflow:
-        prefs["workflow"] = True
-    if args.no_sheets:
-        prefs["sheets"] = False
-    elif args.sheets:
-        prefs["sheets"] = True
-    if args.foundry_data:
-        prefs["foundry_data"] = args.foundry_data
-    if args.git_sync:
-        prefs["git_sync"] = True
-    if args.art_base:
-        prefs["art_base"] = args.art_base
-    if args.route:
-        prefs["open"], prefs["route"] = "route", args.route
-    elif args.page and args.page != "index.html":
-        prefs["open"], prefs["route"] = "route", args.page
 
-    root = tk.Tk()
-    root.title("Waluipedia — start")
-    root.minsize(640, 520)
+def launch_tool(name: str, say=print) -> dict:
+    """Open one of TOOLS: if it already answers on its port just open the page,
+    otherwise start the script as its own process — it opens the browser
+    itself. Never raises; a failed launch must not take the site down."""
+    script, port, label = TOOLS[name]
+    url = "http://127.0.0.1:%d/" % port
+    if port_open("127.0.0.1", port):
+        webbrowser.open(url)
+        say("  %-6s : %s already up — opened %s" % (name, label, url))
+        return {"started": False, "up": True, "url": url}
+    if not script.is_file():
+        say("  %-6s : %s is missing" % (name, script))
+        return {"started": False, "up": False, "error": "%s is missing" % script}
     try:
-        root.tk.call("tk", "scaling", 1.15)
-    except Exception:
-        pass
-    style = ttk.Style(root)
-    with contextlib.suppress(Exception):
-        style.theme_use("clam" if sys.platform.startswith("linux") else style.theme_use())
+        subprocess.Popen([sys.executable, str(script)], cwd=str(ROOT),
+                         creationflags=getattr(subprocess, "CREATE_NEW_CONSOLE", 0), close_fds=True)
+    except Exception as exc:
+        say("  %-6s : could not launch %s (%s)" % (name, script, exc))
+        return {"started": False, "up": False, "error": str(exc)}
+    say("  %-6s : %s starting — it opens %s itself" % (name, label, url))
+    if name in ("plates", "forge"):
+        say("           (renders go through Comfy Desktop; open it, or press Start Comfy on the page)")
+    return {"started": True, "up": False, "url": url}
 
-    lines = queue.Queue()
-    state = {"httpd": None, "thread": None, "workflow": None, "sheets": None, "running": False, "port": prefs["port"]}
 
-    def say(text: str) -> None:
-        lines.put(str(text))
+class Panel:
+    """What the window used to hold: the site server, the children (workflow
+    server, sheets suite), the remembered ticks and the log — behind a JSON
+    API the page at /panel talks to."""
 
-    v_site = tk.BooleanVar(value=prefs["site"])
-    v_workflow = tk.BooleanVar(value=prefs["workflow"])
-    v_sheets = tk.BooleanVar(value=prefs["sheets"])
-    v_tts = tk.BooleanVar(value=prefs["tts"])
-    v_browser = tk.BooleanVar(value=prefs["browser"])
-    v_expose = tk.BooleanVar(value=prefs["expose"])
-    v_port = tk.StringVar(value=str(prefs["port"]))
-    v_wport = tk.StringVar(value=str(prefs["workflow_port"]))
-    v_lm = tk.StringVar(value=prefs["lm_url"])
-    v_fd = tk.StringVar(value=prefs.get("foundry_data", ""))
-    v_art = tk.StringVar(value=prefs.get("art_base", ""))
-    v_git = tk.BooleanVar(value=bool(prefs.get("git_sync", False)))
-    v_open = tk.StringVar(value=prefs["open"])
-    v_route = tk.StringVar(value=prefs["route"])
+    SERVICES = ("workflow", "sheets", "tts")
 
-    pad = {"padx": 10, "pady": 4}
-    head = ttk.Frame(root)
-    head.pack(fill="x", **pad)
-    ttk.Label(head, text="Waluipedia — The Vigilance Terminal", font=("TkDefaultFont", 13, "bold")).pack(anchor="w")
-    ttk.Label(head, text="serving %s" % ROOT, foreground="#666").pack(anchor="w")
+    def __init__(self, args):
+        self.args = args
+        self.saved = load_prefs()          # what the prefs file says
+        self.prefs = dict(self.saved)      # what this run uses: the file + the flags
+        self.apply_flags(args)
+        self.lines = []            # [(seq, text)], trimmed to LOG_LINES
+        self.seq = 0
+        self.lock = threading.Lock()
+        self.httpd = None
+        self.thread = None
+        self.port = None
+        self.host = "127.0.0.1"
+        self.children = {"workflow": None, "sheets": None}
+        self.exit = threading.Event()
 
-    box = ttk.LabelFrame(root, text="What to run")
-    box.pack(fill="x", **pad)
-    row = ttk.Frame(box); row.pack(fill="x", padx=8, pady=3)
-    ttk.Checkbutton(row, text="The site (static server)", variable=v_site).pack(side="left")
-    ttk.Label(row, text="port").pack(side="left", padx=(16, 4))
-    ttk.Entry(row, textvariable=v_port, width=7).pack(side="left")
-    ttk.Checkbutton(row, text="reachable from other machines (0.0.0.0 — phones on the tailnet)", variable=v_expose).pack(side="left", padx=(16, 0))
+    # ---- flags → prefs (the command line wins over the remembered ticks, once)
+    def apply_flags(self, args) -> None:
+        p = self.prefs
+        if args.port != DEFAULT_PORT:
+            p["port"] = args.port
+        if args.host == "0.0.0.0":
+            p["expose"] = True
+        if args.no_browser:
+            p["browser"] = False
+        if args.no_tts:
+            p["tts"] = False
+        if args.workflow:
+            p["workflow"] = True
+        if args.no_sheets:
+            p["sheets"] = False
+        elif args.sheets:
+            p["sheets"] = True
+        if args.foundry_data:
+            p["foundry_data"] = args.foundry_data
+        if args.git_sync:
+            p["git_sync"] = True
+        if args.art_base:
+            p["art_base"] = args.art_base
+        if args.route:
+            p["open"], p["route"] = "route", args.route
+        elif args.page and args.page != "index.html":
+            p["open"], p["route"] = "route", args.page
 
-    row = ttk.Frame(box); row.pack(fill="x", padx=8, pady=3)
-    ttk.Checkbutton(row, text="Workflow server — the chatroom's disk saves, archive routes and the LM Studio bridge", variable=v_workflow).pack(side="left")
-    ttk.Label(row, text="port").pack(side="left", padx=(16, 4))
-    ttk.Entry(row, textvariable=v_wport, width=7).pack(side="left")
+    # ---- the log
+    def say(self, text) -> None:
+        text = str(text)
+        with contextlib.suppress(Exception):
+            print(text)
+        with self.lock:
+            self.seq += 1
+            self.lines.append((self.seq, text))
+            if len(self.lines) > LOG_LINES:
+                del self.lines[: len(self.lines) - LOG_LINES]
 
-    row = ttk.Frame(box); row.pack(fill="x", padx=8, pady=3)
-    ttk.Label(row, text="LM Studio address (blank = 127.0.0.1:1234)").pack(side="left", padx=(24, 4))
-    ttk.Entry(row, textvariable=v_lm, width=34).pack(side="left")
+    def log_since(self, since: int) -> dict:
+        with self.lock:
+            lines = [(s, t) for s, t in self.lines if s > since]
+            return {"seq": self.seq, "lines": [t for _, t in lines]}
 
-    row = ttk.Frame(box); row.pack(fill="x", padx=8, pady=3)
-    ttk.Checkbutton(row, text="Character sheets — split the GM's Foundry export, player sheets at ledger XP, spoils, sheets.json, import packets; re-runs when an export lands", variable=v_sheets).pack(side="left")
+    # ---- the site server (always on: the panel is served by it)
+    def start_site(self) -> None:
+        host = "0.0.0.0" if self.prefs.get("expose") else "127.0.0.1"
+        port = find_port(host, int(self.prefs.get("port") or DEFAULT_PORT))
+        handler = make_handler(self)
+        self.httpd = Server((host, port), handler)
+        self.host, self.port = host, port
+        self.thread = threading.Thread(target=self.httpd.serve_forever, daemon=True)
+        self.thread.start()
+        self.say("  site   : %s  (serving %s)" % (self.site_url(), ROOT))
+        if host == "0.0.0.0":
+            self.say("  note   : bound to 0.0.0.0 — reachable from other machines")
+        if port != int(self.prefs.get("port") or DEFAULT_PORT):
+            self.say("  note   : port %s was busy, using %d" % (self.prefs.get("port"), port))
 
-    row = ttk.Frame(box); row.pack(fill="x", padx=8, pady=3)
-    ttk.Label(row, text="Foundry Data folder (blank = find it; the packets and the module are published there for the Sync button)").pack(side="left", padx=(24, 4))
-    ttk.Entry(row, textvariable=v_fd, width=34).pack(side="left")
+    def stop_site(self) -> None:
+        if self.httpd is not None:
+            httpd, self.httpd = self.httpd, None
+            httpd.shutdown()
+            httpd.server_close()
+            self.say("  site   : stopped")
 
-    row = ttk.Frame(box); row.pack(fill="x", padx=8, pady=3)
-    ttk.Label(row, text="Art address (blank = copy the art into Foundry's Data folder; 'auto' or a URL = Foundry loads it from this server instead — opt-in)").pack(side="left", padx=(24, 4))
-    ttk.Entry(row, textvariable=v_art, width=26).pack(side="left")
+    def restart_site(self, delay: float = 0.5) -> None:
+        """Rebind after the reply has gone out (the page reloads itself)."""
+        def go():
+            time.sleep(delay)
+            self.stop_site()
+            self.start_site()
+        threading.Thread(target=go, daemon=True).start()
 
-    row = ttk.Frame(box); row.pack(fill="x", padx=8, pady=3)
-    ttk.Checkbutton(row, text="Two-way with GitHub — pull before a pass, commit + push the mirror and the sheets after, poll GitHub while idle (the module and the tools update themselves)", variable=v_git).pack(side="left", padx=(24, 0))
+    def site_url(self, route: str = "") -> str:
+        return "http://localhost:%d/%s" % (self.port or int(self.prefs.get("port") or DEFAULT_PORT), route)
 
-    bat = next((b for b in tts_bat_candidates() if b.is_file()), None)
-    row = ttk.Frame(box); row.pack(fill="x", padx=8, pady=3)
-    ttk.Checkbutton(row, text="Qwen3-TTS studio (Read aloud) — only when you want the voice; it is heavy", variable=v_tts).pack(side="left")
-    ttk.Label(row, text=("found: %s" % bat) if bat else "'Run Qwen3 TTS.bat' not found in Downloads/qw", foreground="#666").pack(side="left", padx=(12, 0))
+    def panel_url(self) -> str:
+        return self.site_url(PANEL_ROUTE.lstrip("/"))
 
-    row = ttk.Frame(box); row.pack(fill="x", padx=8, pady=3)
-    ttk.Checkbutton(row, text="Open the browser on", variable=v_browser).pack(side="left")
-    ttk.Radiobutton(row, text="the home page", variable=v_open, value="home").pack(side="left", padx=(10, 0))
-    ttk.Radiobutton(row, text="the chatroom", variable=v_open, value="chat").pack(side="left", padx=(10, 0))
-    ttk.Radiobutton(row, text="a route:", variable=v_open, value="route").pack(side="left", padx=(10, 0))
-    ttk.Entry(row, textvariable=v_route, width=26).pack(side="left", padx=(4, 0))
+    def home_url(self) -> str:
+        p = self.prefs
+        if p.get("open") == "route" and p.get("route"):
+            r = p["route"]
+            return self.site_url(r if r.startswith("#") or r.endswith(".html") else "#" + r.lstrip("#"))
+        if p.get("open") == "chat":
+            return chat_url(self.port, int(p.get("workflow_port") or WORKFLOW_PORT))
+        if p.get("open") == "sheets":
+            return self.site_url(SHEETS_ROUTE)
+        return self.site_url()
 
-    status = ttk.LabelFrame(root, text="Status (probed every two seconds)")
-    status.pack(fill="x", **pad)
-    lights = {}
-    for key, label in (("site", "site"), ("workflow", "workflow server"), ("sheets", "character sheets"), ("lm", "LM Studio"), ("tts", "Qwen3-TTS")):
-        cell = ttk.Frame(status); cell.pack(side="left", padx=10, pady=6)
-        dot = tk.Label(cell, text="●", fg="#999", font=("TkDefaultFont", 12)); dot.pack(side="left")
-        ttk.Label(cell, text=label).pack(side="left", padx=(4, 0))
-        lights[key] = dot
-    tail = ttk.Label(status, text="", foreground="#666"); tail.pack(side="left", padx=10)
+    # ---- the services
+    def start(self, name: str) -> dict:
+        p = self.prefs
+        if name == "workflow":
+            if self.alive("workflow"):
+                return {"ok": True, "note": "already running"}
+            self.children["workflow"] = launch_workflow(int(p.get("workflow_port") or WORKFLOW_PORT), self.host, p.get("lm_url", ""), self.say)
+            return {"ok": self.children["workflow"] is not None or port_open("127.0.0.1", int(p.get("workflow_port") or WORKFLOW_PORT))}
+        if name == "sheets":
+            if self.alive("sheets"):
+                return {"ok": True, "note": "already running"}
+            self.children["sheets"] = launch_sheets_suite(self.port, self.say, p.get("foundry_data", ""), bool(p.get("git_sync", False)),
+                                                          art_base_for(self.port, self.host, p.get("art_base", "")))
+            return {"ok": self.children["sheets"] is not None}
+        if name == "tts":
+            launch_tts_studio(self.say)
+            return {"ok": True}
+        if name in TOOLS:
+            return launch_tool(name, self.say)
+        raise KeyError(name)
 
-    buttons = ttk.Frame(root)
-    buttons.pack(fill="x", **pad)
-    b_start = ttk.Button(buttons, text="▶ Start"); b_start.pack(side="left")
-    b_stop = ttk.Button(buttons, text="■ Stop", state="disabled"); b_stop.pack(side="left", padx=(6, 0))
-    ttk.Separator(buttons, orient="vertical").pack(side="left", fill="y", padx=10)
-    b_site = ttk.Button(buttons, text="Open the site"); b_site.pack(side="left")
-    b_chat = ttk.Button(buttons, text="Open the chatroom"); b_chat.pack(side="left", padx=(6, 0))
-    b_sheets = ttk.Button(buttons, text="Open the sheets"); b_sheets.pack(side="left", padx=(6, 0))
-    b_tts = ttk.Button(buttons, text="Open the TTS studio"); b_tts.pack(side="left", padx=(6, 0))
-    b_plates = ttk.Button(buttons, text="Token plates"); b_plates.pack(side="left", padx=(6, 0))
-    b_prefs = ttk.Button(buttons, text="Remember these ticks"); b_prefs.pack(side="right")
+    def stop(self, name: str) -> dict:
+        if name in self.children:
+            proc = self.children.get(name)
+            if proc is None:
+                return {"ok": True, "note": "not started from here"}
+            stop_process(proc, self.say)
+            self.children[name] = None
+            self.say("  %-6s : stopped" % ("chat" if name == "workflow" else name))
+            return {"ok": True}
+        if name == "tts":
+            return {"ok": False, "note": "the TTS studio runs in its own window — close it there"}
+        if name in TOOLS:
+            return {"ok": False, "note": "%s runs in its own window — close it there" % TOOLS[name][2]}
+        raise KeyError(name)
 
-    log = ScrolledText(root, height=12, wrap="word", font=("TkFixedFont", 9), state="disabled")
-    log.pack(fill="both", expand=True, padx=10, pady=(0, 10))
+    def alive(self, name: str) -> bool:
+        proc = self.children.get(name)
+        return proc is not None and proc.poll() is None
 
-    def current_prefs() -> dict:
-        def num(var, fallback):
-            try:
-                return int(var.get().strip())
-            except Exception:
-                return fallback
+    def status(self) -> dict:
+        p = self.prefs
+        wport = int(p.get("workflow_port") or WORKFLOW_PORT)
         return {
-            "site": bool(v_site.get()), "workflow": bool(v_workflow.get()), "sheets": bool(v_sheets.get()),
-            "tts": bool(v_tts.get()), "browser": bool(v_browser.get()), "expose": bool(v_expose.get()),
-            "port": num(v_port, DEFAULT_PORT), "workflow_port": num(v_wport, WORKFLOW_PORT),
-            "lm_url": v_lm.get().strip(), "open": v_open.get(), "route": v_route.get().strip(),
-            "foundry_data": v_fd.get().strip().strip('"'), "git_sync": bool(v_git.get()),
-            "art_base": v_art.get().strip().strip('"'),
+            "site": {"up": self.httpd is not None, "port": self.port, "host": self.host, "url": self.site_url(), "home": self.home_url()},
+            "workflow": {"up": port_open("127.0.0.1", wport), "managed": self.alive("workflow"), "port": wport, "url": chat_url(self.port or 0, wport)},
+            "sheets": {"up": self.alive("sheets"), "managed": self.alive("sheets"), "url": self.site_url(SHEETS_ROUTE)},
+            "tts": {"up": port_open(TTS_HOST, TTS_PORT), "managed": False, "port": TTS_PORT, "url": "http://%s:%d/" % (TTS_HOST, TTS_PORT),
+                    "available": any(b.is_file() for b in tts_bat_candidates())},
+            "lm": {"up": port_open("127.0.0.1", LM_STUDIO_PORT), "port": LM_STUDIO_PORT},
+            **{name: {"up": port_open("127.0.0.1", port), "managed": False, "port": port, "url": "http://127.0.0.1:%d/" % port, "label": label,
+                      "available": script.is_file()} for name, (script, port, label) in TOOLS.items()},
         }
 
-    def site_url(page: str = "", route: str = "") -> str:
-        return "http://localhost:%d/%s%s" % (state["port"], page, route)
+    def state(self) -> dict:
+        return {"root": str(ROOT), "prefs": self.prefs, "prefs_path": str(PREFS_PATH), "status": self.status(),
+                "panel": self.panel_url(), "python": sys.version.split()[0],
+                "tailscale": tailscale_ipv4() if self.prefs.get("expose") else None, "lan": lan_ipv4() if self.prefs.get("expose") else None}
 
-    def start():
-        if state["running"]:
-            return
-        p = current_prefs()
-        host = "0.0.0.0" if p["expose"] else "127.0.0.1"
-        if p["site"]:
-            try:
-                port = find_port(host, p["port"])
-            except SystemExit as exc:
-                say(str(exc)); return
-            state["port"] = port
-            if port != p["port"]:
-                say("  note   : port %d was busy, using %d" % (p["port"], port))
-            try:
-                httpd = Server((host, port), Handler)
-            except OSError as exc:
-                say("  site   : could not bind %s:%d (%s)" % (host, port, exc)); return
-            state["httpd"] = httpd
-            state["thread"] = threading.Thread(target=httpd.serve_forever, daemon=True)
-            state["thread"].start()
-            say("  site   : http://localhost:%d/  (serving %s)" % (port, ROOT))
-            if host == "0.0.0.0":
-                say("  note   : bound to 0.0.0.0 — reachable from other machines")
-        if p["workflow"]:
-            state["workflow"] = launch_workflow(p["workflow_port"], host, p["lm_url"], say)
-        if p["sheets"]:
-            state["sheets"] = launch_sheets_suite(state["port"], say, p.get("foundry_data", ""), bool(p.get("git_sync", False)),
-                                                  art_base_for(state["port"], host, p.get("art_base", "")))
-        if p["tts"]:
-            launch_tts_studio(say)
-        ts_ip = tailscale_ipv4()
-        if ts_ip:
-            say("  tailnet: %s — phones on the tailnet read the archive at http://%s:%d/%s"
-                % (ts_ip, ts_ip, state["port"], "" if host == "0.0.0.0" else "  (tick “reachable from other machines” first)"))
-        state["running"] = True
-        b_start.configure(state="disabled"); b_stop.configure(state="normal")
-        if p["browser"]:
-            def open_later():
-                time.sleep(0.8)
-                if p["open"] == "chat":
-                    for _ in range(12):           # the workflow server takes a moment to bind
-                        if not p["workflow"] or port_open("127.0.0.1", p["workflow_port"]):
-                            break
-                        time.sleep(0.25)
-                    url = chat_url(state["port"], p["workflow_port"])
-                elif p["open"] == "route":
-                    r = p["route"]
-                    url = site_url("", r) if r.startswith("#") else site_url(r.lstrip("/"))
-                else:
-                    url = site_url()
+    def set_prefs(self, data: dict) -> dict:
+        changed = []
+        for key, default in PREF_DEFAULTS.items():
+            if key not in data:
+                continue
+            value = data[key]
+            if isinstance(default, bool):
+                value = bool(value)
+            elif isinstance(default, int):
                 try:
-                    if not webbrowser.open(url):
-                        raise webbrowser.Error("no browser")
-                    say("  opened : %s" % url)
-                except Exception:
-                    say("  (could not open a browser automatically — visit %s)" % url)
-            threading.Thread(target=open_later, daemon=True).start()
+                    value = int(value)
+                except (TypeError, ValueError):
+                    continue
+            else:
+                value = str(value)
+            if self.prefs.get(key) != value:
+                self.prefs[key] = value
+                changed.append(key)
+            self.saved[key] = value
+        # only the keys the page sent are written: a flag meant for one run
+        # (--no-browser, --host 0.0.0.0) never leaks into the file by itself
+        ok = save_prefs(self.saved)
+        self.say("  prefs  : %s" % (("remembered %s in %s" % (", ".join(changed), PREFS_PATH)) if changed else "nothing changed"))
+        rebind = any(k in changed for k in ("port", "expose"))
+        if rebind:
+            self.say("  site   : rebinding on %s:%s" % ("0.0.0.0" if self.prefs.get("expose") else "127.0.0.1", self.prefs.get("port")))
+            self.restart_site()
+        return {"ok": ok, "changed": changed, "rebind": rebind, "url": self.panel_url()}
 
-    def stop():
-        if state["httpd"] is not None:
-            with contextlib.suppress(Exception):
-                state["httpd"].shutdown()
-                state["httpd"].server_close()
-            state["httpd"] = None
-            say("  site   : stopped")
-        if state["workflow"] is not None:
-            stop_process(state["workflow"], say)
-            state["workflow"] = None
-            say("  chat   : workflow server stopped")
-        if state["sheets"] is not None:
-            stop_process(state["sheets"], say)
-            state["sheets"] = None
-            say("  sheets : character-sheet suite stopped")
-        state["running"] = False
-        b_start.configure(state="normal"); b_stop.configure(state="disabled")
+    def autostart(self) -> None:
+        p = self.prefs
+        if p.get("workflow"):
+            self.start("workflow")
+        if p.get("sheets"):
+            self.start("sheets")
+        if p.get("tts"):
+            self.start("tts")
 
-    def open_site():
-        webbrowser.open(site_url())
+    def shutdown(self) -> None:
+        for name in ("workflow", "sheets"):
+            if self.alive(name):
+                self.stop(name)
+        # the ticks are remembered by Remember on the panel, never by a flag
+        # that was meant for one run (--no-browser, --host 0.0.0.0, …)
+        self.exit.set()
 
-    def open_chat():
-        webbrowser.open(chat_url(state["port"], current_prefs()["workflow_port"]))
 
-    def open_sheets():
-        webbrowser.open(site_url("", SHEETS_ROUTE))
+def make_handler(panel: "Panel"):
+    """The static Handler plus the panel: /panel is the page, /panel/api/* the
+    JSON it talks to; everything else is the archive as before."""
 
-    def open_tts():
-        webbrowser.open("http://%s:%d/" % (TTS_HOST, TTS_PORT))
+    class PanelHandler(Handler):
+        def _json(self, code, body):
+            data = json.dumps(body, ensure_ascii=False).encode("utf-8")
+            self.send_response(code)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(data)))
+            self.end_headers()
+            self.wfile.write(data)
 
-    def open_plates():
-        launch_plate_studio(say)
+        def _page(self):
+            try:
+                data = PANEL_HTML.read_bytes()
+            except OSError:
+                return self._json(404, {"error": "%s is missing" % PANEL_HTML})
+            self.send_response(200)
+            self.send_header("Content-Type", "text/html; charset=utf-8")
+            self.send_header("Content-Length", str(len(data)))
+            self.end_headers()
+            self.wfile.write(data)
 
-    def remember():
-        ok = save_prefs(current_prefs())
-        say("  prefs  : %s" % ("remembered in %s" % PREFS_PATH if ok else "could not write %s" % PREFS_PATH))
+        def do_GET(self):
+            path = self.path.split("?", 1)[0]
+            query = dict(p.split("=", 1) if "=" in p else (p, "") for p in self.path.split("?", 1)[1].split("&")) if "?" in self.path else {}
+            if path in (PANEL_ROUTE, PANEL_ROUTE + "/", PANEL_ROUTE + "/index.html"):
+                return self._page()
+            if path == PANEL_ROUTE + "/api/state":
+                return self._json(200, panel.state())
+            if path == PANEL_ROUTE + "/api/log":
+                try:
+                    since = int(query.get("since") or 0)
+                except ValueError:
+                    since = 0
+                return self._json(200, panel.log_since(since))
+            return super().do_GET()
 
-    def probe():
-        p = current_prefs()
-        up = {
-            "site": state["httpd"] is not None or port_open("127.0.0.1", p["port"]),
-            "workflow": port_open("127.0.0.1", p["workflow_port"]),
-            "sheets": state["sheets"] is not None and state["sheets"].poll() is None,
-            "lm": port_open("127.0.0.1", LM_STUDIO_PORT),
-            "tts": port_open(TTS_HOST, TTS_PORT),
-        }
-        for key, dot in lights.items():
-            dot.configure(fg="#1f9d55" if up[key] else "#bbb")
-        tail.configure(text="" if up["lm"] else "LM Studio is not answering on :%d — start its server (and enable CORS) for the chat" % LM_STUDIO_PORT)
-        root.after(2000, probe)
+        def do_POST(self):
+            path = self.path.split("?", 1)[0]
+            if not path.startswith(PANEL_ROUTE + "/api/"):
+                return self._json(404, {"error": "no route " + path})
+            n = int(self.headers.get("Content-Length") or 0)
+            try:
+                body = json.loads(self.rfile.read(n).decode("utf-8") or "{}") if n else {}
+            except ValueError:
+                return self._json(400, {"error": "bad JSON"})
+            try:
+                if path == PANEL_ROUTE + "/api/start":
+                    return self._json(200, panel.start(str(body.get("service", ""))))
+                if path == PANEL_ROUTE + "/api/stop":
+                    return self._json(200, panel.stop(str(body.get("service", ""))))
+                if path == PANEL_ROUTE + "/api/prefs":
+                    return self._json(200, panel.set_prefs(body if isinstance(body, dict) else {}))
+                if path == PANEL_ROUTE + "/api/open":
+                    url = str(body.get("url") or "")
+                    if not url.startswith(("http://", "https://")):
+                        return self._json(400, {"error": "http(s) URLs only"})
+                    webbrowser.open(url)
+                    return self._json(200, {"ok": True})
+                if path == PANEL_ROUTE + "/api/shutdown":
+                    self._json(200, {"ok": True, "note": "stopping everything; close this tab"})
+                    threading.Thread(target=panel.shutdown, daemon=True).start()
+                    return None
+                return self._json(404, {"error": "no route " + path})
+            except KeyError as exc:
+                return self._json(404, {"error": "unknown service %s" % exc})
+            except Exception as exc:  # the panel must not take the site down
+                return self._json(500, {"error": "%s: %s" % (type(exc).__name__, exc)})
 
-    def drain():
-        try:
-            while True:
-                text = lines.get_nowait()
-                log.configure(state="normal")
-                log.insert("end", text + "\n")
-                log.see("end")
-                log.configure(state="disabled")
-        except queue.Empty:
-            pass
-        root.after(150, drain)
+    return PanelHandler
 
-    def on_close():
-        stop()
-        save_prefs(current_prefs())
-        root.destroy()
 
-    b_start.configure(command=start)
-    b_stop.configure(command=stop)
-    b_site.configure(command=open_site)
-    b_chat.configure(command=open_chat)
-    b_sheets.configure(command=open_sheets)
-    b_tts.configure(command=open_tts)
-    b_plates.configure(command=open_plates)
-    b_prefs.configure(command=remember)
-    root.protocol("WM_DELETE_WINDOW", on_close)
-
-    say("Waluipedia — The Vigilance Terminal")
-    say("  tick what you want running and press ▶ Start. The Qwen3-TTS studio stays off unless you tick it.")
-    probe()
-    drain()
-    if args.autostart:
-        root.after(300, start)
-    root.mainloop()
+def run_panel(args) -> int:
+    """Serve the site, open the control panel, run the remembered ticks, wait."""
+    panel = Panel(args)
+    panel.say("Waluipedia — The Vigilance Terminal")
+    panel.start_site()
+    print_tailnet_tip(panel.port, panel.host)
+    panel.say("  panel  : %s  (start / stop the workflow server, the sheets suite, the TTS studio; open the tools)" % panel.panel_url())
+    panel.say("  stop   : Ctrl-C here, or Shut down on the panel")
+    if args.autostart or panel.prefs.get("autostart", True):
+        panel.autostart()
+    if panel.prefs.get("browser", True):
+        def open_browser():
+            time.sleep(0.6)
+            try:
+                if not webbrowser.open(panel.panel_url()):
+                    raise webbrowser.Error("no browser")
+            except Exception:
+                panel.say("  (could not open a browser automatically — visit %s)" % panel.panel_url())
+        threading.Thread(target=open_browser, daemon=True).start()
+    try:
+        while not panel.exit.is_set():
+            panel.exit.wait(0.5)
+    except KeyboardInterrupt:
+        print("\nStopped.")
+    finally:
+        panel.shutdown()
+        panel.stop_site()
     return 0
-
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Serve the Waluipedia locally and open it in a browser.",
+        description="Serve the Waluipedia locally and open its control panel in a browser.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="Ctrl-C to stop.",
     )
@@ -792,9 +822,9 @@ def main() -> int:
     parser.add_argument("--host", default="127.0.0.1",
                         help="interface to bind (default 127.0.0.1; use 0.0.0.0 to expose)")
     parser.add_argument("--route", default="",
-                        help='hash route to open, e.g. "#/article/the_belly_of_the_beast"')
+                        help='hash route the Home button opens, e.g. "#/article/the_belly_of_the_beast"')
     parser.add_argument("--page", default="index.html",
-                        help="page to open (default index.html)")
+                        help="page the Home button opens (default index.html)")
     parser.add_argument("--no-browser", action="store_true",
                         help="serve without opening a browser")
     parser.add_argument("--no-tts", action="store_true",
@@ -825,12 +855,12 @@ def main() -> int:
                              "Blank = the suite finds it (WALUIPEDIA_FOUNDRY_DATA, the usual AppData / "
                              "~/.local/share / Library paths)")
     mode = parser.add_mutually_exclusive_group()
-    mode.add_argument("--gui", action="store_true",
-                      help="open the launcher window (the default where tkinter and a display exist)")
-    mode.add_argument("--no-gui", action="store_true",
-                      help="plain terminal mode: serve, print the address, Ctrl-C to stop")
+    mode.add_argument("--panel", "--gui", dest="panel", action="store_true",
+                      help="open the control panel in the browser (the default; --gui is the old name)")
+    mode.add_argument("--no-gui", "--no-panel", dest="no_gui", action="store_true",
+                      help="plain terminal mode: serve, print the address, Ctrl-C to stop (the panel page still answers at /panel)")
     parser.add_argument("--autostart", action="store_true",
-                        help="(window) press Start on open")
+                        help="(panel) run the remembered ticks on open — the default; kept for old shortcuts")
     args = parser.parse_args()
     with contextlib.suppress(Exception):
         # the address shows up even when piped to a log, and a glyph the
@@ -838,10 +868,8 @@ def main() -> int:
         sys.stdout.reconfigure(line_buffering=True, errors="replace")
 
     check_root()
-    if args.gui or (not args.no_gui and gui_available()):
-        if gui_available():
-            return run_gui(args)
-        print("  note    : no tkinter/display here — running in the terminal instead")
+    if not args.no_gui:
+        return run_panel(args)
     port = find_port(args.host, args.port)
 
     display_host = "localhost" if args.host in ("0.0.0.0", "127.0.0.1", "") else args.host
@@ -850,6 +878,7 @@ def main() -> int:
     print("Waluipedia — The Vigilance Terminal")
     print("  serving : %s" % ROOT)
     print("  address : %s" % url)
+    print("  panel   : http://%s:%d%s" % (display_host, port, PANEL_ROUTE))
     if args.host == "0.0.0.0":
         print("  note    : bound to 0.0.0.0 — reachable from other machines")
     if port != args.port:
@@ -879,8 +908,13 @@ def main() -> int:
                       "visit the address above)")
         threading.Thread(target=open_browser, daemon=True).start()
 
+    # terminal mode still answers /panel; the children started here are the
+    # panel's to stop, and it can start the rest
+    panel = Panel(args)
+    panel.children["workflow"], panel.children["sheets"] = workflow, sheets_suite
     try:
-        with Server((args.host, port), Handler) as httpd:
+        with Server((args.host, port), make_handler(panel)) as httpd:
+            panel.httpd, panel.port, panel.host = httpd, port, args.host
             httpd.serve_forever()
     except KeyboardInterrupt:
         print("\nStopped.")

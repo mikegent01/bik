@@ -89,8 +89,8 @@ run to view the site.
 ### Running it — `python3 start.py`
 
 ```bash
-python3 start.py                                      # the launcher window (tkinter); terminal mode where there is no display
-python3 start.py --no-gui                             # terminal mode: serve + open the browser (+ the TTS studio)
+python3 start.py                                      # serve + the control panel in the browser (http://localhost:8765/panel)
+python3 start.py --no-gui                             # plain terminal mode: serve, print the address, Ctrl-C to stop
 python3 start.py --no-gui --workflow                  # …and run workflow/server.py (chat saves, archive routes, LM Studio bridge)
 python3 start.py --route "#/article/the_belly_of_the_beast"
 python3 start.py --no-browser --host 0.0.0.0 --port 9000
@@ -98,16 +98,22 @@ python3 start.py --no-tts                             # serve without launching 
 python3 start.py --no-sheets                          # serve without the character-sheet suite
 ```
 
-The **launcher window** is the default wherever tkinter and a display exist
-(double-click `start.py` on Windows). It has a tick for each thing that can
-run — the site, the workflow server, the **character-sheet suite**, and the
-**Qwen3-TTS studio, which stays off unless you tick it** — a port and a
-"reachable from other machines" tick, what to open the browser on (home, the
-chatroom, a route), **▶ Start / ■ Stop**, status lights for the site, the
-workflow server, the sheet suite, LM Studio and the studio (probed every two
-seconds), buttons that open each (including *Open the sheets* → `#/sheets`),
-and a log pane with the servers' lines. *Remember these ticks* keeps them in
-`~/.waluipedia-start.json`; closing the window stops everything it started.
+The **control panel** (`tools/control-panel.html`, served by `start.py` itself
+at `/panel`; double-click `start.bat` on Windows) is the start page: a row with
+a status light and **Start / Stop** for each thing that can run — the workflow
+server, the **character-sheet suite**, the **Qwen3-TTS studio (off unless you
+tick it)**, the **Waluipedia Hub** (8777), the **Token Plate Studio** (8766)
+and the **NPC Forge** (8768; the last four run in their own windows and are
+closed there) — plus LM Studio's light, **Open** buttons for every room (the
+archive, the chatroom, `#/sheets`, each tool), the settings (port, "reachable
+from other machines", workflow port, LM Studio URL, Foundry Data folder, art
+base, two-way-with-GitHub, what Home opens) with *Remember*, which keeps them
+in `~/.waluipedia-start.json`, and the log pane with the servers' lines. The
+ticked services start with `start.py`, so one double-click brings everything
+up; **Shut down** on the panel (or Ctrl-C in the console) stops what it
+started. `--no-gui` is the plain terminal server — the panel page still
+answers there, it just does not open by itself. The flags above override the
+remembered ticks for one run without changing the file.
 
 The **character-sheet suite** (`tools/sheets-suite.py --watch`, on by default,
 `--no-sheets` to skip) is the Foundry loop as one process: when the GM's
@@ -141,10 +147,11 @@ changes; `python3 tools/sheets-suite.py --check` is the read-only pass
 `tools/check-all.py` runs. See `docs/SHEETS_SYSTEM.md`.
 
 `start.py` sits in the repository root, serves the archive over HTTP and opens
-the home page for you (on Windows, `start.bat` double-clicks it; `start.bat
-studio` opens the Token Plate Studio and `start.bat plates` runs the full
-token-plate batch — `docs/IMAGE_GUIDELINES.md` §4b). **Use it rather than
-double-clicking `index.html`.**
+the control panel for you (on Windows, `start.bat` double-clicks it; `start.bat
+studio` opens the Token Plate Studio on its own, `start.bat forge` the NPC Forge
+— `docs/NPC_FORGE.md` — and `start.bat plates` runs the full token-plate batch
+— `docs/IMAGE_GUIDELINES.md` §4b). **Use it rather than double-clicking
+`index.html`.**
 Opening the file directly still renders the shell, but the browser blocks
 `fetch()` on `file://`, so `Reputation-Matrix2/data/*.json` never loads and
 events, characters, exhibits and investigations silently come up empty. The

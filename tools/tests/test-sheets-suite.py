@@ -227,14 +227,15 @@ check("1.9: the party is the roster plus the ledger's / affiliation's allies (Bo
 
 # ---- start.py wiring ------------------------------------------------------
 start = (ROOT / "start.py").read_text(encoding="utf-8")
-check("start.py remembers a 'sheets' tick (default on)", '"sheets": True' in start and 'v_sheets' in start)
-check("start.py launches tools/sheets-suite.py --watch and stops it with the rest", 'launch_sheets_suite' in start and '"--watch"' in start and 'stop_process(sheets_suite)' in start)
-check("start.py shows a status light and an Open-the-sheets button", '("sheets", "character sheets")' in start and 'Open the sheets' in start and 'SHEETS_ROUTE = "#/sheets"' in start)
+panel_page = (ROOT / "tools" / "control-panel.html").read_text(encoding="utf-8")
+check("start.py remembers a 'sheets' tick (default on) and the control panel shows it", '"sheets": True' in start and 'name="sheets"' in panel_page)
+check("start.py launches tools/sheets-suite.py --watch and stops it with the rest", 'launch_sheets_suite' in start and '"--watch"' in start and 'stop_process(sheets_suite)' in start and 'self.children["sheets"] = launch_sheets_suite' in start)
+check("the control panel shows a sheets light and a Character-sheets button", "'sheets'" in panel_page and "Character sheets" in panel_page and 'SHEETS_ROUTE = "#/sheets"' in start and '"sheets": {"up": self.alive("sheets")' in start)
 check("start.py serves with CORS so Foundry can fetch the packets", 'Access-Control-Allow-Origin' in start)
 helptext = subprocess.run([PY, str(ROOT / "start.py"), "--help"], cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
 check("start.py --help documents --sheets / --no-sheets", helptext.returncode == 0 and "--no-sheets" in helptext.stdout and "--sheets" in helptext.stdout)
 check("start.py has a remembered 'two-way with GitHub' tick and --git-sync that reach the suite as --git-sync",
-      '"git_sync": False' in start and 'v_git' in start and '(["--git-sync"] if git_sync else [])' in start and "--git-sync" in helptext.stdout)
+      '"git_sync": False' in start and 'name="git_sync"' in panel_page and '(["--git-sync"] if git_sync else [])' in start and "--git-sync" in helptext.stdout)
 suitehelp = subprocess.run([PY, str(ROOT / "tools/sheets-suite.py"), "--help"], cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
 check("sheets-suite --help documents --git-sync / --git-interval", suitehelp.returncode == 0 and "--git-sync" in suitehelp.stdout and "--git-interval" in suitehelp.stdout)
 readme = (ROOT / "README.md").read_text(encoding="utf-8")
@@ -461,7 +462,7 @@ with tempfile.TemporaryDirectory() as tmp:
           gate_ok is False and any("publish  : skipped — a check failed" in t for t in _said2) and any("FAILED" in t for t in _said2) and any(l == "check" for l, _ in _ran), " | ".join(_said2)[-400:])
     check("…and the git leg says so rather than committing", gate_ok is False and not any("git      : committed" in t for t in _said2), " | ".join(_said2)[-300:])
 
-check("start.py passes --foundry-data through to the suite (flag, remembered pref, GUI entry)", '"--foundry-data", foundry_data' in start and '"foundry_data": ""' in start and 'v_fd = tk.StringVar' in start and 'parser.add_argument("--foundry-data"' in start)
+check("start.py passes --foundry-data through to the suite (flag, remembered pref, panel field)", '"--foundry-data", foundry_data' in start and '"foundry_data": ""' in start and 'name="foundry_data"' in panel_page and 'parser.add_argument("--foundry-data"' in start)
 check("start.py --help documents --foundry-data", "--foundry-data DIR" in helptext.stdout)
 
 # ---- the suite's own check pass -------------------------------------------
