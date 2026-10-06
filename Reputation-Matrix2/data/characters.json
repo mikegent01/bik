@@ -8198,5 +8198,182 @@
     "sheetRole": "civilian",
     "rosterNumber": 75,
     "generatedBy": "tools/file-roster-toads.py"
+  },
+  {
+    "id": "sir_frankfurt",
+    "name": "Sir Frankfurt",
+    "title": "The Tenth of Twenty-Four",
+    "race": "Koopa (Hammer Bro)",
+    "status": "Historical actor — last placed falling fifty feet from the castle wall after escaping the dragon's vacuum, 18 Harvestide 1035 BF; survival not confirmed by the record",
+    "affiliation": "Koopa Troop",
+    "summary": "Sir Frankfurt is the Hammer Bro the assault record leaves standing in a room Bowser had told him to guard, after the order to leave it had been given and had not reached him. When the supplied dragon put its head through the wall and asked where Bowser was, he answered it in Draconic. Since he was not the target, he said, perhaps he could be released. Then he told the dragon his family history, and the dragon began to suck him into its vacuum.",
+    "description": "The record gives the family history in full, because the dragon had to sit through it. Sir Frankfurt is the fourteenth of his name, or the fiftieth, depending on which end of the count he reaches first, and the tenth child of twenty-four. His father charged Mario and died before the third world was over. His mother died of grief a few days afterward. Bowser took in the surviving children. Bowser could be harsh, Sir Frankfurt said, but he had done right by them — which is the sentence that explains why a Hammer Bro stayed at a post everyone else had been told to abandon.\n\nThe dragon called the speech nonsense and began to suck him into its vacuum. The record is specific about how he got out: he grabbed the intake, curled into his shell and spun; the shell struck the machine, vaulted upward, overshot the landing, and fell from the fifty-foot castle. The record drops him 'into the unknown' and does not pick him up again. The dragon, it adds, was more shocked by the story than by the escape.\n\nHe is filed under the name he gave the dragon when it asked. The archive notes that a Hammer Bro who speaks the language of the thing that is eating him, and uses it to negotiate, is the kind of soldier a kingdom finds out it had only after the kingdom has fallen on him.",
+    "keyEvents": [
+      "the_assault_on_bowsers_castle"
+    ],
+    "relatedArticles": [
+      "bowser",
+      "the_supplied_dragon",
+      "hammer_bro_fred",
+      "hammer_bro_ed",
+      "fawthful",
+      "bowsers_castle",
+      "koopa_troop"
+    ],
+    "image": "portraits/sir_frankfurt.png",
+    "fullBody": "portraits/player/fullbody/sir_frankfurt.png",
+    "imageCaption": "Sir Frankfurt as the room found him — dented helm, a tabard counting the twenty-four, and a hammer he had not yet thrown.",
+    "fullBodyCaption": "Full-body token plate — Sir Frankfurt whole on a transparent field, the look of the lead; generated for the 1035 BF castle session on 2026-10-05 from the archive's references (the 955 BF Hammer Bro token) and cut from a magenta-keyed render for the table's token."
+  },
+  {
+    "id": "hammer_bro_fred",
+    "name": "Fred (Hammer Bro)",
+    "title": "The One Who Asked About the Switch",
+    "race": "Koopa (Hammer Bro)",
+    "status": "Historical actor — carried into a side room under Bowser's arm when the throne-room wall burst, 18 Harvestide 1035 BF; placed with the king at the breach thereafter",
+    "affiliation": "Koopa Troop",
+    "summary": "Fred is one of the two Hammer Bros Bowser carried out of the throne room 'the way a king carries equipment that has become unexpectedly alive' when the dragon finally brought the wall in. In the side room the two of them asked the question the rest of the night turned on: did the castle have a self-destruct switch, and if the dragon was taking it anyway, why not blow it up and walk the survivors to Neo Bowser City? The record does not say which of them asked it first.",
+    "description": "Bowser's answer was 'You want me to blow up my own castle?' The Hammer Bros' position, which the record preserves, was that Mario had once pressed a switch and brought a whole castle down, so the technology plainly existed; Bowser had not built such a switch, so if there was one here perhaps somebody had sabotaged it, and the argument drifted toward the axe at the end of the river. The archive files the proposal under Fred and the objections under Ed because it needs two articles for two Hammer Bros and one argument; take the split as filing, not testimony. The hag Bowser met a few minutes later turned out to have built a switch, and could not say what it did.\n\nFred is filed because the record files the question, and because the question was the first time that night anyone proposed treating the castle as a thing to be spent rather than a thing to be held. Bowser refused it. The refusal is in the event record under its own heading. Fred went back toward the breach with the king.",
+    "keyEvents": [
+      "the_assault_on_bowsers_castle"
+    ],
+    "relatedArticles": [
+      "bowser",
+      "hammer_bro_ed",
+      "sir_frankfurt",
+      "the_switch_hag",
+      "bowsers_castle",
+      "koopa_troop"
+    ],
+    "image": "portraits/hammer_bro_fred.png",
+    "fullBody": "portraits/player/fullbody/hammer_bro_fred.png",
+    "imageCaption": "Fred, mid-proposal, with the diagram he was fairly sure was the castle's wiring.",
+    "fullBodyCaption": "Full-body token plate — Fred whole on a transparent field, the look of the lead; generated for the 1035 BF castle session on 2026-10-05 from the archive's references (the 955 BF Hammer Bro token) and cut from a magenta-keyed render for the table's token."
+  },
+  {
+    "id": "hammer_bro_ed",
+    "name": "Ed (Hammer Bro)",
+    "title": "The One Who Remembered Who Builds Switches",
+    "race": "Koopa (Hammer Bro)",
+    "status": "Historical actor — carried into a side room under Bowser's other arm when the throne-room wall burst, 18 Harvestide 1035 BF; placed with the king at the breach thereafter",
+    "affiliation": "Koopa Troop",
+    "summary": "Ed is the other Hammer Bro under Bowser's arm. The record gives the pair one argument between them and does not split it; the archive files Ed with the half that followed the proposal: Bowser had not built such a switch, so if there was one here somebody might have sabotaged it, old castles contain controls nobody remembers installing, and there was an axe at the end of a river somewhere that this was going to come back to.",
+    "description": "The archive keeps Ed as the counterweight — filing, not testimony. The question of who had done the wiring is the one that, a few minutes later, had an answer: a hag, hired by 'a green bean', who could have sworn the switch was the door. Neither Hammer Bro knew that yet. They only knew that a switch nobody remembered installing was a switch somebody else had installed.\n\nHe is filed with Fred because the record files them together — two hammers, one argument, carried at a run — and because the argument was the only strategy meeting the garrison held that night. Bowser ended it by refusing the switch and going back to the breach, and Ed went with him.",
+    "keyEvents": [
+      "the_assault_on_bowsers_castle"
+    ],
+    "relatedArticles": [
+      "bowser",
+      "hammer_bro_fred",
+      "sir_frankfurt",
+      "the_switch_hag",
+      "bowsers_castle",
+      "koopa_troop"
+    ],
+    "image": "portraits/hammer_bro_ed.png",
+    "fullBody": "portraits/player/fullbody/hammer_bro_ed.png",
+    "imageCaption": "Ed, hammers crossed, not convinced.",
+    "fullBodyCaption": "Full-body token plate — Ed whole on a transparent field, the look of the lead; generated for the 1035 BF castle session on 2026-10-05 from the archive's references (the 955 BF Hammer Bro token) and cut from a magenta-keyed render for the table's token."
+  },
+  {
+    "id": "the_supplied_dragon",
+    "name": "The Supplied Dragon",
+    "title": "The Contract That Broke the Wall",
+    "race": "Dragon",
+    "bodyPlan": "quadruped",
+    "status": "Historical actor — on the castle at the close of the assault record, 18 Harvestide 1035 BF; its contract with Fawthful not described as ended",
+    "affiliation": "Fawthful's Forces (under contract — not loyal; it dislikes the bean)",
+    "summary": "The dragon is the loud half of Fawthful's assault on Bowser's Castle. Its head cleared the outer wall first; its claw hooked the battlement and shed blocks into the courtyard; it struck the throne-room wall once and failed — 'OWW! My head!' — was asked by Fawthful what kind of incompetent dragon had been supplied, and on the second blow brought the wall in. It speaks Draconic, was sent to kill Bowser, and has said so.",
+    "description": "The archive does not have the dragon's name. Fawthful's complaint — that it had been 'supplied', and badly — is the nearest the record comes to describing where it came from, so the archive files it by that word, as it files the Jester by the act and the Koopa Prisoner by the cell.\n\nTwo things in the record make it more than weather. The first is the conversation: when a Hammer Bro answered its question in Draconic and argued that he was not the target, the dragon considered the point. It has a bargain with the bean and does not like the bean; it listens to people who speak its language. The second is the apparatus: Fawthful fitted it with a vacuum intake of the same make as the one on his own head, and it used that intake on the Hammer Bro — who got out by shell and spin — and on two red-armband Koopas its wings swept off the building, who did not.\n\nIt played with a Goomba in the courtyard until the play stopped being survivable. It held the outer approach while the loyalists went out through the lava tunnel. It was still on the castle when the record ends.",
+    "keyEvents": [
+      "the_assault_on_bowsers_castle"
+    ],
+    "relatedArticles": [
+      "fawthful",
+      "bowser",
+      "sir_frankfurt",
+      "cackletta",
+      "mimbus",
+      "bowsers_castle",
+      "fawful_forces"
+    ],
+    "image": "portraits/the_supplied_dragon.png",
+    "fullBody": "portraits/player/fullbody/the_supplied_dragon.png",
+    "imageCaption": "The supplied dragon in Fawthful's intake harness, the forehead still sore from the first attempt at the wall.",
+    "fullBodyCaption": "Full-body token plate — the supplied dragon whole on a transparent field, the look of the lead; generated for the 1035 BF castle session on 2026-10-05 from the archive's references (the assault record's description — harness, forehead lump, wings over a wall) and cut from a magenta-keyed render for the table's token."
+  },
+  {
+    "id": "the_switch_hag",
+    "name": "The Switch Hag",
+    "title": "'I Could Have Sworn It Was the Door'",
+    "race": "Hag (fey; not filed further)",
+    "bodyPlan": "biped",
+    "status": "Historical actor — dismissed by Bowser in his own castle, 18 Harvestide 1035 BF; whether she left is not recorded",
+    "affiliation": "Hired by 'a green bean' — contractor, not combatant",
+    "summary": "Bowser ran into a hag at exactly the wrong moment. She had made a self-destruct switch and was pleased to present it. Asked who had hired her: a green bean. Told the castle was under siege and her duties relinquished, and asked what the switch actually controlled: 'I could have sworn it was the door.' Bowser pushed past her, and the record notes that the switch's true function was never confirmed.",
+    "description": "The hag is filed because she is the only person in the record who built part of the castle's downfall and did not know it. Fawthful's forces came in through traitors, doors opened from inside and a dragon; the hag came in through a commission, and left a switch wired into a castle whose owner had not ordered it. The lower command room's own plate — SELF-DESTRUCT over two identical red toggles, with a second label forbidding its use for lighting and a third suggesting one toggle may be the lighting — is filed separately as a prop; whether it is her work the record does not say. Bowser closed that cover without touching either toggle.\n\nShe attacked nobody. She is the reason Fred's question about a self-destruct switch had an answer and Bowser's refusal of it had a shape: nobody could say whether the thing destroyed the castle, opened a door, or added another joke to a night already full of them. The archive does not name her; it files her by the switch.",
+    "keyEvents": [
+      "the_assault_on_bowsers_castle"
+    ],
+    "relatedArticles": [
+      "bowser",
+      "fawthful",
+      "hammer_bro_fred",
+      "hammer_bro_ed",
+      "bowsers_castle"
+    ],
+    "image": "portraits/the_switch_hag.png",
+    "fullBody": "portraits/player/fullbody/the_switch_hag.png",
+    "imageCaption": "The hag and the box — one red lever, wired into the castle somewhere.",
+    "fullBodyCaption": "Full-body token plate — the Switch Hag whole on a transparent field, the look of the lead; generated for the 1035 BF castle session on 2026-10-05 from the archive's references (the assault record's description — goggles, tool apron, the lever box) and cut from a magenta-keyed render for the table's token."
+  },
+  {
+    "id": "koopa_killer_killa",
+    "name": "Koopa Killer Killa",
+    "title": "The Boss Nobody Appointed",
+    "race": "Koopa",
+    "status": "Historical actor — at Toad Town Station with the remnant at the close of the assault record, 18 Harvestide 1035 BF; claim to command disputed by at least one Goomba",
+    "affiliation": "Koopa Troop remnant (self-appointed)",
+    "summary": "'Then the other boss arrived.' Nine Goombas and two Koopas were planning a retreat over an empty train track without their king when Koopa Killer Killa walked in and said that Killa was the boss. A Goomba objected that Killa was not Bowser. Nobody had appointed Killa. The record observes that the empty space left by a retreating king was apparently enough to encourage the claim.",
+    "description": "The record gives the name, the claim, and the objection. It does not give which Koopas Killa has killed, whether the title is aspirational, or what Killa intends to do with nine Goombas, two Koopas and a railway with no train on it. The archive files what it has.\n\nKilla is not a traitor and not, in any sense the record recognises, a loyalist. Killa is what grows in the gap between a retreating king and the people he told to meet him at Neo Bowser City: a voice that spoke last. The Goomba who argued, the Hammer Bro behind the door who said no one would be left behind, and the drone that appeared in the next room are the rest of that scene; the archive expects the scene to continue.",
+    "keyEvents": [
+      "the_assault_on_bowsers_castle"
+    ],
+    "relatedArticles": [
+      "bowser",
+      "goomba_who_took_his_chances",
+      "fawthful",
+      "koopa_troop",
+      "bowsers_castle"
+    ],
+    "image": "portraits/koopa_killer_killa.png",
+    "fullBody": "portraits/player/fullbody/koopa_killer_killa.png",
+    "imageCaption": "Koopa Killer Killa — a crown nobody issued, a sash that says what the crown means, and a club that is the actual argument.",
+    "fullBodyCaption": "Full-body token plate — Koopa Killer Killa whole on a transparent field, the look of the lead; generated for the 1035 BF castle session on 2026-10-05 from the archive's references (the 955 BF Koopatrol token) and cut from a magenta-keyed render for the table's token."
+  },
+  {
+    "id": "goomba_who_took_his_chances",
+    "name": "The Goomba Who Took His Chances",
+    "title": "He Would Take His Chances",
+    "race": "Goomba",
+    "bodyPlan": "goomba",
+    "status": "Historical actor — walked toward a Fawthful drone at Toad Town Station as the assault record ends, 18 Harvestide 1035 BF; outcome of that walk not yet recorded",
+    "affiliation": "Koopa Troop (remnant)",
+    "summary": "The Goomba who watched the dragon talk to a Hammer Bro, ran, and reached the route toward Toad Town Station. He was part of the argument that settled on Toad Town, then Shy Guy Falls, then Toad Town again, in which somebody asked what would happen if Mario came and stepped on them; he objected that Koopa Killer Killa was not Bowser; and when the Hammer Bro behind the door said no one would be left behind, he said he would take his chances. He walked toward the drone. The fight began there.",
+    "description": "The archive files him by what he did, because nobody in the record says his name. He is the Goomba who was in the room when Cheeseland was proposed as a stop, on the grounds that one of the Goombas liked cheese. He is the one who told a self-appointed boss that he was not Bowser. He is the one who did not wait to find out whether the drone was alone.\n\nThe record ends with his first step toward it. The archive expects to pick him up again on a train, and has left the page open.",
+    "keyEvents": [
+      "the_assault_on_bowsers_castle"
+    ],
+    "relatedArticles": [
+      "koopa_killer_killa",
+      "bowser",
+      "fawthful",
+      "koopa_troop",
+      "bowsers_castle"
+    ],
+    "image": "portraits/goomba_who_took_his_chances.png",
+    "fullBody": "portraits/player/fullbody/goomba_who_took_his_chances.png",
+    "imageCaption": "The Goomba who took his chances — satchel, ticket, and a platform with no train on it.",
+    "fullBodyCaption": "Full-body token plate — the Goomba who took his chances whole on a transparent field, the look of the lead; generated for the 1035 BF castle session on 2026-10-05 from the archive's references (the 955 BF Goomba token) and cut from a magenta-keyed render for the table's token."
   }
 ]

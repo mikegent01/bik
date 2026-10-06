@@ -9,11 +9,11 @@
     "folderScheme": "actors/folders.json",
     "castImport": "actors/cast/import.json",
     "counts": {
-      "characters": 248,
-      "sheets": 242,
+      "characters": 255,
+      "sheets": 249,
       "generated": 54,
       "eras": 3,
-      "existing": 188,
+      "existing": 195,
       "party": 51,
       "skipped": 6
     },
@@ -2347,6 +2347,40 @@
       "versions": []
     },
     {
+      "id": "goomba_who_took_his_chances",
+      "name": "The Goomba Who Took His Chances",
+      "title": "He Would Take His Chances",
+      "sheetName": "The Goomba Who Took His Chances",
+      "source": "era",
+      "file": "actors/bowsers-castle-1035/fvtt-Actor-bc1035-goomba-who-took-his-chances.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Koopa Troop",
+      "portrait": "portraits/goomba_who_took_his_chances.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "kind": "npc",
+      "abilities": {
+        "str": 10,
+        "dex": 12,
+        "con": 11,
+        "int": 9,
+        "wis": 12,
+        "cha": 10
+      },
+      "hp": 9,
+      "speed": "25",
+      "size": "sm",
+      "items": 4,
+      "ac": 11,
+      "cr": 0.125,
+      "type": "monstrosity (goomba)",
+      "versions": []
+    },
+    {
       "id": "grandpa_semi",
       "name": "Grandpa Semi",
       "title": "Keeper of the Half-Told Tale",
@@ -2417,6 +2451,74 @@
         "Bard 6"
       ],
       "species": "Toad — Giant-Blooded",
+      "versions": []
+    },
+    {
+      "id": "hammer_bro_ed",
+      "name": "Ed (Hammer Bro)",
+      "title": "The One Who Remembered Who Builds Switches",
+      "sheetName": "Ed",
+      "source": "era",
+      "file": "actors/bowsers-castle-1035/fvtt-Actor-bc1035-hammer-bro-ed.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Koopa Troop",
+      "portrait": "portraits/hammer_bro_ed.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "kind": "npc",
+      "abilities": {
+        "str": 15,
+        "dex": 14,
+        "con": 14,
+        "int": 10,
+        "wis": 13,
+        "cha": 10
+      },
+      "hp": 39,
+      "speed": "30",
+      "size": "med",
+      "items": 6,
+      "ac": 15,
+      "cr": 2,
+      "type": "humanoid (koopa)",
+      "versions": []
+    },
+    {
+      "id": "hammer_bro_fred",
+      "name": "Fred (Hammer Bro)",
+      "title": "The One Who Asked About the Switch",
+      "sheetName": "Fred",
+      "source": "era",
+      "file": "actors/bowsers-castle-1035/fvtt-Actor-bc1035-hammer-bro-fred.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Koopa Troop",
+      "portrait": "portraits/hammer_bro_fred.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "kind": "npc",
+      "abilities": {
+        "str": 15,
+        "dex": 14,
+        "con": 14,
+        "int": 12,
+        "wis": 10,
+        "cha": 11
+      },
+      "hp": 39,
+      "speed": "30",
+      "size": "med",
+      "items": 6,
+      "ac": 15,
+      "cr": 2,
+      "type": "humanoid (koopa)",
       "versions": []
     },
     {
@@ -3231,6 +3333,40 @@
       "ac": 14,
       "cr": 2,
       "type": "monstrosity (Underground monster)",
+      "versions": []
+    },
+    {
+      "id": "koopa_killer_killa",
+      "name": "Koopa Killer Killa",
+      "title": "The Boss Nobody Appointed",
+      "sheetName": "Koopa Killer Killa",
+      "source": "era",
+      "file": "actors/bowsers-castle-1035/fvtt-Actor-bc1035-koopa-killer-killa.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Koopa Troop",
+      "portrait": "portraits/koopa_killer_killa.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "kind": "npc",
+      "abilities": {
+        "str": 18,
+        "dex": 10,
+        "con": 16,
+        "int": 8,
+        "wis": 9,
+        "cha": 13
+      },
+      "hp": 60,
+      "speed": "25",
+      "size": "med",
+      "items": 6,
+      "ac": 17,
+      "cr": 4,
+      "type": "humanoid (koopa)",
       "versions": []
     },
     {
@@ -5886,6 +6022,40 @@
       "versions": []
     },
     {
+      "id": "sir_frankfurt",
+      "name": "Sir Frankfurt",
+      "title": "The Tenth of Twenty-Four",
+      "sheetName": "Sir Frankfurt",
+      "source": "era",
+      "file": "actors/bowsers-castle-1035/fvtt-Actor-bc1035-sir-frankfurt.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Koopa Troop",
+      "portrait": "portraits/sir_frankfurt.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "kind": "npc",
+      "abilities": {
+        "str": 16,
+        "dex": 14,
+        "con": 15,
+        "int": 10,
+        "wis": 12,
+        "cha": 13
+      },
+      "hp": 52,
+      "speed": "30",
+      "size": "med",
+      "items": 8,
+      "ac": 16,
+      "cr": 3,
+      "type": "humanoid (koopa)",
+      "versions": []
+    },
+    {
       "id": "skullcap_murphy",
       "name": "Skull-Cap Murphy",
       "title": "Toad Network Review Stub",
@@ -6422,6 +6592,74 @@
       "ac": 13,
       "cr": 2,
       "type": "plant",
+      "versions": []
+    },
+    {
+      "id": "the_supplied_dragon",
+      "name": "The Supplied Dragon",
+      "title": "The Contract That Broke the Wall",
+      "sheetName": "The Supplied Dragon",
+      "source": "era",
+      "file": "actors/bowsers-castle-1035/fvtt-Actor-bc1035-the-supplied-dragon.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Fawthful's Forces",
+      "portrait": "portraits/the_supplied_dragon.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "kind": "npc",
+      "abilities": {
+        "str": 23,
+        "dex": 10,
+        "con": 21,
+        "int": 12,
+        "wis": 11,
+        "cha": 13
+      },
+      "hp": 184,
+      "speed": "40",
+      "size": "huge",
+      "items": 11,
+      "ac": 18,
+      "cr": 12,
+      "type": "dragon",
+      "versions": []
+    },
+    {
+      "id": "the_switch_hag",
+      "name": "The Switch Hag",
+      "title": "'I Could Have Sworn It Was the Door'",
+      "sheetName": "The Switch Hag",
+      "source": "era",
+      "file": "actors/bowsers-castle-1035/fvtt-Actor-bc1035-the-switch-hag.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Rakasha & the Feywild",
+      "portrait": "portraits/the_switch_hag.png",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "kind": "npc",
+      "abilities": {
+        "str": 9,
+        "dex": 12,
+        "con": 14,
+        "int": 15,
+        "wis": 13,
+        "cha": 11
+      },
+      "hp": 33,
+      "speed": "25",
+      "size": "med",
+      "items": 5,
+      "ac": 12,
+      "cr": 2,
+      "type": "fey (hag (not filed further))",
       "versions": []
     },
     {

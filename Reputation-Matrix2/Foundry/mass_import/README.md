@@ -198,6 +198,7 @@ The repo ships ready-made packets. In the Import dialog they are in the
 | --- | --- | --- |
 | **Waluipedia Cast** — every generated character sheet (152: 118 NPCs and 34 main-cast player characters, plus the past selves under *<group> / 955 BF*; folders *Waluipedia Cast / <group>*) | `Reputation-Matrix2/actors/cast/import.json` | `https://raw.githubusercontent.com/mikegent01/bik/gh-pages/Reputation-Matrix2/actors/cast/import.json` |
 | **Peach's Castle 955 BF** — the court + Bowser's incursion (30) | `Reputation-Matrix2/actors/peachs-castle-955/import.json` | `https://raw.githubusercontent.com/mikegent01/bik/gh-pages/Reputation-Matrix2/actors/peachs-castle-955/import.json` |
+| **Bowser's Castle 1035 BF** — Bowser's line, Fawthful's forces, the remnant at the track (27) | `Reputation-Matrix2/actors/bowsers-castle-1035/import.json` | `https://raw.githubusercontent.com/mikegent01/bik/gh-pages/Reputation-Matrix2/actors/bowsers-castle-1035/import.json` |
 | **Your live world** (`midlands`) — split one file per actor | `Reputation-Matrix2/actors/worlds/midlands/` (a directory, no single file) | import it **as a directory**: link the repo into Data with `python3 tools/foundry-studio.py link` and give the dialog `npc/waluipedia/actors/worlds/midlands` |
 | One character | any `fvtt-Actor-*.json` — also the *Download Foundry JSON* button on `#/sheets/<id>` | the sheet page prints its own *Mass Import URL* |
 
@@ -439,7 +440,8 @@ Macros (ready to paste into a script macro) live in `macros/`:
 `export-all-actors.js` (works even without the module — falls back to inline
 code that still records folder paths), `export-to-data-folder.js`,
 `import-all-actors.js`, `import-from-data-folder.js`,
-`import-peachs-castle-955.js`, `sync-from-waluipedia.js`.
+`import-peachs-castle-955.js`, `import-bowsers-castle-1035.js`,
+`sync-from-waluipedia.js`.
 
 ## The session loop with `tools/foundry-bridge.py`
 

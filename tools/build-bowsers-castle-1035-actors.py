@@ -361,8 +361,9 @@ def build_side_a():
             "Sir Frankfurt the fourteenth — or the fiftieth, depending on which part of "
             "the count he reaches first — and the tenth child of twenty-four. His father "
             "charged Mario and died before the third world was over; his mother died of "
-            "grief a few days later; Bowser took in the surviving children. 'Harsh, but "
-            "he did right by us.' The dented helm and the tabard with the 24 are his.",
+            "grief a few days later; Bowser took in the surviving children. Bowser could "
+            "be harsh, he told the dragon, but he had done right by them. The dented helm "
+            "and the tabard with the 24 are his.",
             "Built as a knight the party can be handed: two hammers, a reaction that "
             "protects the ally beside him, and the shell spin that got him out of the "
             "dragon's intake and off a fifty-foot wall. The record drops him 'into the "
@@ -408,16 +409,18 @@ def build_side_a():
         ac=15, hp=39, hp_formula="6d8 + 12", cr=2, walk=30,
         biography=bio([
             "One of the two Hammer Bros Bowser carried into a side room under his arms "
-            "when the throne-room wall burst. Fred is the one with the question: does the "
-            "castle have a self-destruct switch, and if the dragon is taking it anyway, "
-            "could they not blow it up and walk the survivors to Neo Bowser City?",
-            "Bowser's answer was 'you want me to blow up my own castle?' Fred's position "
+            "when the throne-room wall burst. The record gives the pair one question "
+            "between them — does the castle have a self-destruct switch, and if the "
+            "dragon is taking it anyway, could they not blow it up and walk the "
+            "survivors to Neo Bowser City? — and does not say which of them asked it. "
+            "This sheet gives Fred the proposal so the two can be played apart.",
+            "Bowser's answer was 'You want me to blow up my own castle?' Fred's position "
             "is that Mario once pressed a switch and a whole castle came down, so the "
             "technology exists. He is not wrong about the technology. He is a demolitions "
             "mind in a hammer-throwing body: his hammers find the weak course in a wall, "
             "and he can tell whether a switch does what its label says — which, tonight, "
             "matters.",
-        ], "the side room, the switch question, 'Mario pressed a switch once'."),
+        ], "the side room; the switch question; Mario once pressed a switch and a castle came down."),
         items=[
             hammer(o),
             feat(o, "Multiattack", I["strike"], "<p>Fred makes two Hammer attacks.</p>"),
@@ -441,12 +444,14 @@ def build_side_a():
         size="med", sc=scores(15, 14, 14, 10, 13, 10), trained={"ath": 1, "prc": 1},
         ac=15, hp=39, hp_formula="6d8 + 12", cr=2, walk=30,
         biography=bio([
-            "The other Hammer Bro under Bowser's arm. Ed agrees with Fred in principle and "
-            "disagrees with him in every particular, which is how they have stayed alive "
-            "this long. He is the one who remembers that nobody here built the switch, "
-            "that old castles contain controls nobody remembers installing, and that "
-            "there is an axe at the end of a river somewhere that this is going to come "
-            "back to.",
+            "The other Hammer Bro under Bowser's arm. The record files the side-room "
+            "argument to both of them without splitting it; this sheet gives Ed the "
+            "objections so the two can be played apart. Ed agrees with Fred in principle "
+            "and disagrees with him in every particular, which is how they have stayed "
+            "alive this long. He is the one who remembers that nobody here built the "
+            "switch, that old castles contain controls nobody remembers installing, and "
+            "that there is an axe at the end of a river somewhere that this is going to "
+            "come back to.",
             "Steadier than he looks. Beside the king, or beside Sir Frankfurt, he holds; "
             "on his own he counts exits. Both are useful on a night like this.",
         ], "the side room, the sabotage theory, the axe at the end of the river."),
@@ -560,9 +565,11 @@ def build_side_a():
             "soldiers by their belts toward the stairs. Two of them shouted in triumph "
             "when the dragon's claw slipped, and immediately remembered they were "
             "supposed to be retreating.",
-            "One asked whether Bowser had ever fought a dragon before. One told another "
-            "that going back together was better than being crushed alone. One got "
-            "played with by the dragon until the play stopped being survivable. The "
+            "Asked by Bowser whether it had ever fought a dragon before, one of them had "
+            "not, and said 'We got this!' anyway. Another, asked whether it was afraid "
+            "of being stepped on, answered that it was just some dragons. One told "
+            "another that going back together was better than being crushed alone. One "
+            "got played with by the dragon until the play stopped being survivable. The "
             "sheet is for the ones still running.",
         ], "the belt-hauling under the dragon's jaw; 'We got this!'"),
         items=[
@@ -595,7 +602,7 @@ def build_side_a():
             "The record's verdict stands on the sheet: the retreat was the first honest "
             "order anybody followed all night. The west passage was no longer a position. "
             "It was a place where the ceiling was about to become a floor.",
-        ], "the west passage; 'I have held.'"),
+        ], "the west passage; he shouted back that he had held."),
         items=[
             hammer(o),
             feat(o, "Multiattack", I["strike"], "<p>The Hammer Bro makes two Hammer attacks.</p>"),
@@ -697,8 +704,8 @@ def build_side_b():
             "article is <code>fawthful</code>. Legendary Resistances are two because the "
             "record shows him surviving a throne-room full of fire by not being where it "
             "landed.",
-        ], "the hoverpad, the vacuum apparatus, the claim at the gate, 'there will be "
-           "consequences' to the dragon."),
+        ], "the hoverpad, the vacuum apparatus, the claim at the gate; he told the dragon "
+           "there would be consequences."),
         items=[
             attack(o, "Fury Ray", I["beam"],
                    "<p>Ranged spell attack, 120 feet. Green light with a headache in "
@@ -1107,7 +1114,7 @@ def build_side_b():
             "strike: shell barriers made a lane, Goombas pulled at legs and belts, and "
             "the garrison took its own people down without killing them. The sheet makes "
             "that the rule.",
-        ], "'The hypnotised soldiers were defeated by coordination.'"),
+        ], "'The hypnotised soldiers were defeated by coordination rather than by one heroic strike.'"),
         items=[
             spear(o),
             attack(o, "Shell Bash", I["fist"], "<p>Melee, 5 feet.</p>",
@@ -1284,10 +1291,15 @@ def build_side_b():
             "what the switch controlled: 'I could have sworn it was the door.' Bowser "
             "pushed past her.",
             "She attacks nobody. She is a contractor whose work is still in the building, "
-            "and the sheet's only real feature is the box: nobody — including her — can "
+            "and the sheet's only real feature is the switch: nobody — including her — can "
             "say whether it destroys the castle, opens a door, or adds another joke to a "
-            "room already full of them. Roll the die when somebody throws it. Neutral "
-            "disposition; filed under Side B because the bean paid.",
+            "room already full of them. The lower command room already has a plate "
+            "labelled SELF-DESTRUCT, DO NOT USE FOR LIGHTING and THIS ONE MAY BE THE "
+            "LIGHTING over two identical red toggles (the archive's "
+            "<code>prop_castle_self_destruct_switch_label</code>); Bowser closed that "
+            "cover without touching either. Whether her box and that plate are the same "
+            "mechanism is the GM's call. Roll the die when somebody throws anything. "
+            "Neutral disposition; filed under Side B because the bean paid.",
             "The archive does not name her; the sheet files her by the switch, as it files "
             "the Jester by the act.",
         ], "'I could have sworn it was the door.'"),
@@ -1295,8 +1307,11 @@ def build_side_b():
             attack(o, "Wrench", I["club"], "<p>Melee, 5 feet. Only if somebody starts it.</p>",
                    dmg=(1, 6, ["bludgeoning"]), wtype="simpleM"),
             feat(o, "The Switch", I["bell"],
-                 "<p>A wooden box with a big red lever, wired into the castle somewhere. "
-                 "When anyone throws it, roll a d6:</p><ol><li><strong>1–2:</strong> a door "
+                 "<p>The self-destruct switch she built: a wooden box with a big red lever, "
+                 "wired into the castle somewhere — or either of the two identical red "
+                 "toggles under the labelled plate in the lower command room, if the GM "
+                 "rules they are the same work. When anyone throws it, roll a d6:</p><ol>"
+                 "<li><strong>1–2:</strong> a door "
                  "or portcullis somewhere in the castle opens or drops — the GM picks the "
                  "least convenient one.</li><li><strong>3:</strong> a bell rings once, "
                  "somewhere below, and stops.</li><li><strong>4:</strong> nothing. This "
@@ -1347,7 +1362,7 @@ def build_track():
             "complication: the remnant follows whoever spoke last, and he intends to be "
             "last. The name is as the record gives it; the archive has not asked which "
             "Koopas he has killed, or whether the title is aspirational.",
-        ], "'I am the boss.' — Toad Town Station, the empty track."),
+        ], "Killa answered that Killa was the boss — Toad Town Station, the empty track."),
         items=[
             attack(o, "Spiked Iron Club", I["maul"],
                    "<p>Melee, 5 feet. Heavy, two-handed.</p>",
@@ -1390,7 +1405,7 @@ def build_track():
             "per day to not die, a nose for ambushes he walks into on purpose, and the "
             "way to Cheeseland. What he becomes after that is not written yet, and the "
             "archive files him by what he did, not by a name nobody said.",
-        ], "'I will take my chances.' — the empty track."),
+        ], "the Goomba said he would take his chances — the empty track."),
         items=[
             attack(o, "Headbutt", I["fist"], "<p>Melee, 5 feet.</p>",
                    dmg=(1, 4, ["bludgeoning"]), wtype="natural"),

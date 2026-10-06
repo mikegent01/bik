@@ -17363,6 +17363,41 @@
         "id": "thejestergoomba",
         "name": "The Jester (Goomba)",
         "role": "Remained part of the hostile operation, though the assault record loses him in the smoke after the first breach."
+      },
+      {
+        "id": "the_supplied_dragon",
+        "name": "The Supplied Dragon",
+        "role": "Broke the outer wall and, on the second blow, the throne-room wall; held the outer approach; spoke Draconic with a Hammer Bro and tried to swallow him; swept two traitors off the building."
+      },
+      {
+        "id": "sir_frankfurt",
+        "name": "Sir Frankfurt",
+        "role": "Held a room the order to leave never reached, answered the dragon in Draconic, escaped its vacuum by shell and spin, and fell fifty feet from the wall."
+      },
+      {
+        "id": "hammer_bro_fred",
+        "name": "Fred (Hammer Bro)",
+        "role": "Carried into a side room under Bowser's arm; with Ed, asked whether the castle had a self-destruct switch and proposed blowing it up and walking the survivors to Neo Bowser City."
+      },
+      {
+        "id": "hammer_bro_ed",
+        "name": "Ed (Hammer Bro)",
+        "role": "Carried into the side room under Bowser's other arm; with Fred, argued the switch question — Mario had once collapsed a castle with one; if this castle had one, perhaps somebody had sabotaged it."
+      },
+      {
+        "id": "the_switch_hag",
+        "name": "The Switch Hag",
+        "role": "Presented the self-destruct switch she had built for 'a green bean'; could have sworn it was the door; Bowser pushed past her."
+      },
+      {
+        "id": "koopa_killer_killa",
+        "name": "Koopa Killer Killa",
+        "role": "Arrived at Toad Town Station and declared himself the boss of the remnant; nobody had appointed him."
+      },
+      {
+        "id": "goomba_who_took_his_chances",
+        "name": "The Goomba Who Took His Chances",
+        "role": "Argued the remnant's route at the empty track, then walked toward the Fawthful drone rather than wait."
       }
     ],
     "keyBattles": [],

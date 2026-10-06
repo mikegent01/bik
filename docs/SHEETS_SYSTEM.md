@@ -33,7 +33,7 @@ The Character Sheets system closes that gap in one deterministic pass:
 |---|---|---|
 | `live` | 30 | the GM's real world export (2026-10-04), mirrored in `actors/worlds/midlands/` with its folder tree — the twelve player characters in `Players/`, the 955 BF court the GM imported, the manors' casts |
 | `intake` | 2 | the PC packet (`actors/fvtt-Actor-*.json`) — Azure, Orange T (Bowser's and Wario's intake sheets now ride as alternates under their live sheets) |
-| `era` | 0 | the 955 BF court packet (`actors/peachs-castle-955/`) is in the live world now; its files remain alternates |
+| `era` | 0 | the 955 BF court packet (`actors/peachs-castle-955/`) is in the live world now; its files remain alternates. The 1035 BF siege packet (`actors/bowsers-castle-1035/`) binds the same way: its seven named figures have articles, and the packet files ride as era alternates under them until the GM imports the packet |
 | `generated` | 156 | built by `tools/build-character-sheets.py` from the article's own text — 122 NPC stat blocks, 34 main-cast player characters |
 | skipped | 6 | deliberately not statted — the GM, the collectives, a cosmic entity |
 | *past selves* | 3 | era versions under a character (`versions[]`): Mario, Luigi and Bowser in 955 BF — `actors/cast/eras/` |
