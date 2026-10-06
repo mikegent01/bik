@@ -93,6 +93,9 @@ def main():
     check(code == 200 and "<image1>" in ch["prompt"] and "Transparent background" in ch["prompt"] and "bright magenta" in ch["promptOpaque"] and ch["reference"] and not ch["fullBodyRef"], "/api/character: prompts + reference")
     code, _ = http(base + "/api/character?id=nobody")
     check(code == 404, "unknown id is 404")
+    code, toad = http(base + "/api/character?id=fullguy")
+    check(ch["bodyPlan"] == "biped" and toad["bodyPlan"] == "short" and "short, big-headed" in toad["build"] and "short, big-headed" in toad["prompt"]
+          and "two legs and feet" in ch["prompt"], "/api/character carries the build and the prompt follows it")
 
     # generate → job → result
     code, job = http(base + "/api/generate", {"id": "bustguy", "prompt": ch["prompt"], "seed": 4242, "steps": 8, "resolution": 1024, "transparent": True, "models": {"unet": "other.safetensors"}})

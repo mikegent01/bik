@@ -121,6 +121,23 @@ Add a row when a character gains established art; update a row only when the
 | **smoking_j** | **Frog-faced** toad (amphibian features, not a Toad face): pale grey mushroom cap with **darker grey spots**, yellow-green skin, stern brow; dark brown leather jacket with shoulder plating, diagonal strap and belt, dark trousers, short boots; **coiled rope whip** at the hip. | `portraits/smoking_j.jpg`, `portraits/player/fullbody/smoking_j.png` |
 | **usk** | Young **bald** human monk with **milky-white blind eyes**; plain cream-beige gi with a wide cloth belt, loose trousers, sandals; **both fists wrapped in bloodstained bandages**. | `portraits/usk.jpg`, `portraits/player/fullbody/usk.png` |
 
+**Body plan.** The registry also says how a character is *built*, because
+the generator will give anyone legs if asked for "a figure head to foot"
+(Fawful and Flowey came back as tall humans on 2026-10-05). The plate
+pipeline reads it from the article's `bodyPlan` — one of the names
+`biped`, `short` (Toads, Beanish, Koopas, Shy Guys, penguins: head about as
+big as the rest, short arms and legs), `goomba`, `floating` (Boos),
+`ghost` (fades below, no feet), `object`, `plant`, `quadruped`, `serpent` —
+or a free sentence (Kirby: *a round pink ball of a body with small stubby
+arms and two red feet right under it — no legs, no neck, no torso*). Without
+the field the race line decides (`RACE_PLANS` in `tools/make-token-plates.py`:
+Toad → short, Boo → floating, Human/Dwarf/Skeleton → biped …) and a race
+that says nothing (*Underground-linked entity*) is `unknown`: the model is
+told to judge the body from the reference and never to add human legs to a
+creature that has none. Set `bodyPlan` on the article whenever the race
+line does not say what the body is — Flowey is `plant`, the Plant Lady is
+`biped` (a plant *in the shape of* a noblewoman), the Oracle is `short`.
+
 Style families, for matching new work to the shelf it joins:
 
 * **Toads (cel cartoon):** Salam state, Eager base+state, Dan base+state —
@@ -140,8 +157,9 @@ The table places characters on the map; a token needs the whole figure. The
 `tools/portrait-audit.py`) set these rules:
 
 * A **full-body plate** is `portraits/player/fullbody/<id>.png` +
-  `fullBody` on the article (+ `fullBodyCaption`). Whole figure, feet in
-  frame, plain field, no scenery, **no text**. Generated from the lead as the
+  `fullBody` on the article (+ `fullBodyCaption`). The whole figure as the
+  character is built — feet in frame when it has feet — plain field, no
+  scenery, **no text**. Generated from the lead as the
   reference so the face and wardrobe match; the subject's own style family.
 * **One plate per character** at ≥1024 px for anyone the table places
   (party, companions, named opponents). A shared grid is for background
@@ -184,11 +202,15 @@ The table places characters on the map; a token needs the whole figure. The
   tools\make-token-plates.py render` walks every sheet character still
   without a plate in table-use order: the reference is padded onto a
   canvas of its key colour (a bust sits in the top of the canvas with
-  empty key colour below, so the edit has room to draw the rest), the
+  empty key colour below, so the edit has room to draw the rest — a
+  portrait 832×1216 canvas for a biped, a square one with the bust lower
+  and larger for every other build, and a small lead is scaled up to the
+  box instead of sitting as a speck over a page of empty field), the
   instruction + reference go to the server, the result is cut, QC'd
   (clear field, clear border, nothing touching the frame, figure at least
-  45 % of the frame tall), retried with a new seed when it fails, applied,
-  next. A plate on disk is skipped, so the run resumes; Ctrl-C between
+  45 % of the frame tall for a biped, 38 % for an unknown build, 28 % for
+  a Toad, a Boo or a Goomba), retried with a new seed when it fails,
+  applied, next. A plate on disk is skipped, so the run resumes; Ctrl-C between
   characters is safe; rejected attempts stay in
   `<raw-dir>/<id>.rejected-N.png` and `render-log.json` says what happened
   to every id. Ids with no local reference (a hotlinked lead, nothing at
@@ -220,8 +242,8 @@ The table places characters on the map; a token needs the whole figure. The
   tools\make-token-plates.py render --full`): every sheet character still
   without a transparent plate, every tier, hands-off. Three things differ
   from the QC-gated loop: when none of the attempts passes QC the
-  least-bad one (fewest complaints, then the taller figure) is wired
-  anyway, its caption and the log saying `needs eyes` and why; the eleven
+  least-bad one (fewest complaints, then the bigger figure — not the
+  taller one, which rewarded the stretched renders) is wired anyway, its caption and the log saying `needs eyes` and why; the eleven
   characters with no usable reference (event scenes, icons — the
   `NO_REFERENCE` set) are drawn by 2.1 from their record (name, title,
   race, the look line — `drawn from the record alone` in the caption);
@@ -235,6 +257,29 @@ The table places characters on the map; a token needs the whole figure. The
   the raw dir — and `fullBody` unwired) and is re-rendered with `render
   --ids <id> --redo`, or made by hand. The studio has the same run as the
   *full run* tick on Run queue and a *Drop plate* button.
+* **Nobody gets legs they do not have** (2026-10-05). Every prompt used to
+  say *a complete standing figure from the top of the head to the soles of
+  the feet* and, for a bust, *continue the body downward and draw the legs
+  and feet*; the negative prompt forbade *bust*; the reference canvas was a
+  tall portrait with the bust in its top 42 % and the rest empty; QC threw
+  out anything under 45 % of the frame tall and the retry loop kept the
+  tallest attempt. Every one of those pushed a short, round, floating or
+  rooted character towards a tall human with legs — Fawful got a torso and
+  trousers, Flowey a vine body on two legs. Now the prompt carries the
+  **body plan** (section 4): *built exactly the way this character is
+  built: a short, big-headed figure …* / *a plant … no legs, no feet*, the
+  bust-continuation sentence asks for legs only on a biped and otherwise
+  says *continue the body downward only as far as this build goes and no
+  further — do not add legs, feet, a neck or human proportions the
+  character does not have*, the canvas, the QC floor and the best-attempt
+  pick follow the plan, and `apply` writes `built as <plan>` into the
+  caption. `check` lists the pipeline plates of a non-biped build that
+  were rendered before this and came out tall and narrow (figure more than
+  1.7× taller than wide) — look at them, `drop` the wrong ones, render
+  again. Plates made before 2026-10-05 for anyone who is not a standing
+  humanoid deserve a second look even when `check` is quiet. The studio
+  shows the build under the reference (*build: short — …*; `unknown` says
+  to set `bodyPlan` on the article).
 * **With eyes on it: the Token Plate Studio** — `python
   tools\token-plate-studio.py` (or the *Token plates* button in
   `start.py`) opens a local page at `http://127.0.0.1:8766`: the roster on

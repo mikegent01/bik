@@ -33,7 +33,9 @@ keys what comes back.
           (a Comfy Desktop instance or classic install on :8188, the legacy app on :8000; Qwen-Image-2.1 when the server has
           it — native alpha — else Qwen-Image-Edit; your own exported API-format workflow with --workflow),
           wait, cut, QC (keyed field, clear border, nothing cropped), retry with a new seed, apply,
-          next. Resumable: a plate on disk is skipped. Ctrl-C between characters is safe.
+          next. Resumable: a plate on disk is skipped. Ctrl-C between characters is safe. The prompt, the
+          canvas and the QC follow the character's body plan (`bodyPlan` on the article, else the race line):
+          only a biped is asked for legs and feet — a Toad stays short, a Boo floats, a flower keeps its stem.
           --full is the hands-off run: every tier, the best attempt kept when none passes QC (flagged
           "needs eyes" in the caption + log), the reference-less drawn from the record on a 2.1 server,
           a contact sheet at the end; review in git, `drop` the bad ones, re-render them with --ids --redo.
@@ -124,6 +126,78 @@ def look_of(a):
     return ""
 
 
+# ----------------------------------------------------------- body plan ----
+# How the character is built. Every prompt used to demand "a standing figure from the top of the head to the soles
+# of the feet" of everyone, on a tall portrait canvas, with QC throwing out anything under 45 % of the frame tall and
+# the retry loop keeping the tallest — so Fawful, Boos and a flower came back as tall humans with legs. The plan is
+# the article's `bodyPlan` (one of the names below, or a free sentence — docs/IMAGE_GUIDELINES.md §4), else read from
+# the race line; `unknown` tells the model to judge the body from the reference and never to invent human legs.
+BODY_PLANS = {
+    "biped": "a standing humanoid of ordinary proportions — head, torso, two arms, two legs and feet",
+    "short": ("a short, big-headed figure — the head about as big as all the rest, a small stocky body, short arms and short "
+              "legs; not tall, not slender, not human proportions"),
+    "goomba": "a Goomba — one round mushroom-shaped body that is also the head, no arms, two small feet directly under it, no legs",
+    "floating": "a floating ghost — a round body with little arms, no legs and no feet, nothing below the body; it hovers",
+    "ghost": "a ghost — the figure as the reference shows it, fading away into mist below; no legs and no feet unless the reference shows them",
+    "object": "a solid round or block-shaped body with no limbs beyond what the reference shows — no human arms, no human legs",
+    "plant": "a plant — a flower or leafy head on a stem growing from leaves, roots or soil; no legs, no feet, no arms unless the reference shows them",
+    "quadruped": "a four-legged animal body, the torso rising from it if the reference shows one",
+    "serpent": "a serpent's tail in place of legs — no legs, no feet",
+    "unknown": ("the body this creature would really have, judged from the reference — a person gets a normal standing body with legs "
+                "and feet; a floating, round, plant-like or animal creature gets its own kind of body and no human legs"),
+}
+RACE_PLANS = [                                   # first match on the race line wins
+    (r"\bgoomba", "goomba"),
+    (r"\bboo\b", "floating"),
+    (r"\b(ghost|spirit|spectre|specter|wraith|phantom|poltergeist)\b", "ghost"),
+    (r"\b(chain ?chomp|bob-?omb|thwomp|whomp|bullet bill|slime|blob|golem)\b", "object"),
+    (r"\b(piranha|plant|flower|spore monster|fungus|fungal|shroom)\b", "plant"),
+    (r"\bcentaur\b", "quadruped"),
+    (r"\b(naga|lamia|yuan-ti|serpentfolk|snake-?bodied)\b", "serpent"),
+    (r"\b(toad|toadette|beanish|koopa|magikoopa|shy guy|penguin|kirby)\b", "short"),
+    (r"\b(human|dwarf|dwarven|elf|elven|orc|goblin|hobgoblin|vampire|satyr|kremling|rakasha|rakshasa|fey|fairy|skeleton|bone|medusa|"
+     r"tiefling|dragonborn|gnome|halfling|kivotan)\b", "biped"),
+]
+TALL_PLANS = {"biped"}                           # the only build that wants a portrait canvas and a tall figure
+PLAN_MIN_HEIGHT = {"biped": 0.45, "unknown": 0.38}   # QC: a figure shorter than this share of the frame is "a bust?" — others 0.28
+PLAN_BUST = {"biped": (0.60, 0.42, 0.05), "unknown": (0.60, 0.46, 0.05), "short": (0.62, 0.52, 0.06), "plant": (0.60, 0.50, 0.06),
+             "quadruped": (0.60, 0.42, 0.05), "serpent": (0.60, 0.42, 0.05)}   # (max width, max height, top) of a bust on the canvas
+PLAN_BUST_DEFAULT = (0.68, 0.62, 0.10)           # goomba / floating / ghost / object / custom: the "bust" is nearly the whole creature
+
+
+def body_plan_of(a):
+    """(plan name, build sentence) for an article: its `bodyPlan` (a name from BODY_PLANS, or a free sentence —
+    that becomes plan "custom"), else the first RACE_PLANS match on the race line, else "unknown"."""
+    field = (a.get("bodyPlan") or "").strip()
+    if field:
+        if field in BODY_PLANS:
+            return field, BODY_PLANS[field]
+        return "custom", field.rstrip(".")
+    race = (a.get("race") or "").lower()
+    for pat, plan in RACE_PLANS:
+        if re.search(pat, race):
+            return plan, BODY_PLANS[plan]
+    return "unknown", BODY_PLANS["unknown"]
+
+
+def plan_canvas(plan, engine):
+    """The reference canvas (= the 2.1 output size): portrait for a biped, square for everything else, so a short or
+    legless character is not handed half a page of empty field under its head."""
+    if plan in TALL_PLANS:
+        return REF_SIZES.get(engine, (1024, 1024))
+    return (1024, 1024)
+
+
+def plan_min_height(plan):
+    return PLAN_MIN_HEIGHT.get(plan, 0.28)
+
+
+def best_attempt(attempts):
+    """The least-bad of several (why, path, seed, facts): fewest QC flags, then the biggest figure by area — not the
+    tallest, which rewarded the stretched ones."""
+    return min(attempts, key=lambda t: (len(t[0]), -(t[3]["figure"][0] * t[3]["figure"][1])))
+
+
 def key_for(a):
     blob = " ".join(str(a.get(k) or "") for k in ("name", "imageCaption", "fullBodyCaption", "race"))
     if a["id"] in GREEN_KEY_IDS or (GREEN_KEY_WORDS.search(blob) and not MAGENTA_KEY_WORDS.search(blob)):
@@ -143,9 +217,11 @@ def prompt_for(a):
     if look:
         parts.append(f"Established look: {look}.")
     parts.append("The same character and the same art style as the reference image, with the same face, colours and wardrobe.")
-    parts.append("The whole figure from the top of the head to the soles of the feet, standing in a relaxed neutral pose facing the viewer "
-                 "and turned slightly, arms and hands visible, weapon or tool held if the character carries one.")
-    parts.append("Centred with empty space on every side, nothing cropped.")
+    plan, build = body_plan_of(a)
+    parts.append(f"The whole figure, nothing cropped, built exactly the way this character is built: {build}. "
+                 "Relaxed neutral pose facing the viewer and turned slightly, weapon or tool held if the character carries one"
+                 + ("; do not add legs, feet or human proportions the character does not have." if plan != "biped" else "."))
+    parts.append("Centred with empty space on every side.")
     colour = "bright magenta (#FF00FF)" if key == "magenta" else "bright green (#00FF00)"
     parts.append(f"Plain solid flat {colour} background, no floor, no cast shadow on the ground, no scenery, no text, no border, no watermark.")
     return " ".join(parts), key
@@ -409,12 +485,14 @@ def plan_grid(a, todo, by_id):
                 art = by_id[r["id"]]
                 look = look_of(art)
                 who = art.get("name", r["id"]) + (f", {art['title']}" if art.get("title") else "") + (f" ({art['race']})" if art.get("race") else "")
-                cells.append(f"Cell {n}: {who}" + (f" — {look}" if look else "") + ".")
+                plan, build = body_plan_of(art)
+                cells.append(f"Cell {n}: {who}" + (f" — {look}" if look else "") + (f"; built as {build}" if plan != "biped" else "") + ".")
                 ref = "" if r["id"] in NO_REFERENCE else ((art.get("fullBody") or "") if (art.get("fullBody") or "").startswith("portraits/player/fullbody/") else (art.get("image") or ""))
                 refs.append(os.path.join("Reputation-Matrix2", ref).replace("\\", "/") if ref and not ref.startswith("http") else None)
             prompt = (f"A character token sheet: {len(chunk)} separate full-body figures arranged in a {rows} by {cols} grid of equal cells, "
-                      f"read left to right then top to bottom, one figure per cell, each figure whole from the top of the head to the soles of the feet, "
-                      f"standing in a relaxed neutral pose facing the viewer, centred in its cell with empty space around it, no figure touching another or the cell edge. "
+                      f"read left to right then top to bottom, one figure per cell, each figure whole and uncropped and built the way that character is built "
+                      f"(a person standing head to foot; a short big-headed Toad short; a ghost, plant or round creature without human legs), "
+                      f"relaxed neutral pose facing the viewer, centred in its cell with empty space around it, no figure touching another or the cell edge. "
                       f"Plain solid flat {colour} background everywhere including the gutters between cells; no floor, no cast shadows, no scenery, no text, no labels, no borders, no watermark. "
                       f"Each figure matches the numbered reference image for that cell — same face, colours and wardrobe — and all share one painterly fantasy illustration style. "
                       + " ".join(cells))
@@ -613,8 +691,10 @@ def cmd_apply(a):
         if clear < BORDER_CLEAR:
             print(f"apply: {art['id']} plate is not transparent — not wired")
             continue
-        caption = (f"Full-body token plate — {art.get('name', art['id'])} head to foot on a transparent field, the look of the lead; "
-                   f"{note or 'cut from a keyed render'} on {date} for the table's token.")
+        plan = body_plan_of(art)[0]
+        caption = (f"Full-body token plate — {art.get('name', art['id'])} whole on a transparent field, the look of the lead"
+                   + (f", built as {plan}" if plan != "biped" else "")
+                   + f"; {note or 'cut from a keyed render'} on {date} for the table's token.")
         existing = art.get("fullBodyCaption") or ""
         # a hand-written caption stays; the pipeline's own caption gives way to a note (needs eyes / drawn from the record)
         keep = existing if existing and not (note and existing.startswith("Full-body token plate")) else caption
@@ -702,7 +782,42 @@ def cmd_check(a):
           f"({sum(1 for r in left if r['tier'] == 1)} party, {sum(1 for r in left if r['tier'] == 2)} placed, {sum(1 for r in left if r['tier'] == 3)} other still to do)")
     for cid, why in bad:
         print(f"  {cid:<36} {why}")
+    legs = legs_suspects(arts)
+    if legs:
+        by_id = {x["id"]: x for x in arts}
+        print(f"  {len(legs)} pipeline plate(s) of a non-biped build were rendered under the old head-to-feet prompt — look at them "
+              f"(sheet --ids ...), then drop the wrong ones and render them again with --redo --ids ... or in the studio:")
+        print("    " + " ".join(f"{cid}({body_plan_of(by_id[cid])[0]})" for cid in legs))
     return 1 if (bad and a.check) else 0
+
+
+LEGGY = 1.7          # a figure this many times taller than wide, on a build that is short, round or legless, probably got legs
+
+
+def figure_aspect(path):
+    """height / width of the opaque figure on a plate (0 when there is none)."""
+    from PIL import Image
+    np = _np()
+    alpha = np.asarray(Image.open(path).convert("RGBA"))[:, :, 3] > 16
+    rows, cols = np.where(alpha.any(axis=1))[0], np.where(alpha.any(axis=0))[0]
+    if not len(rows) or not len(cols):
+        return 0.0
+    return (rows[-1] - rows[0] + 1) / (cols[-1] - cols[0] + 1)
+
+
+def legs_suspects(arts):
+    """Pipeline-rendered plates (the pipeline's own caption, from before the build went into the prompt) of a build
+    that is not a biped, whose figure came out tall and narrow — the ones the old head-to-feet prompt gave legs."""
+    out = []
+    for art in arts:
+        cap = art.get("fullBodyCaption") or ""
+        fb = (art.get("fullBody") or "").replace("\\", "/")
+        if not cap.startswith("Full-body token plate") or not fb.startswith(PLATES) or "built as" in cap:
+            continue
+        path = os.path.join(RM, fb)
+        if body_plan_of(art)[0] not in ("biped", "unknown") and os.path.isfile(path) and figure_aspect(path) > LEGGY:
+            out.append(art["id"])
+    return out
 
 
 # ---------------------------------------------------------------- heal ----
@@ -952,10 +1067,11 @@ BUILTIN_QWEN21 = {
 ENGINES = {"qwen21": ("TextEncodeQwenImage21", BUILTIN_QWEN21, {"unet": "451", "clip": "453", "vae": "454"}),
            "qwen-edit": ("TextEncodeQwenImageEdit", BUILTIN_QWEN_EDIT, {"unet": "37", "clip": "38", "vae": "39"})}
 REMOVE_BG_PROMPT = "Remove the background, and output a PNG image"
-NEGATIVE = "scenery, floor, ground shadow, text, letters, watermark, border, frame, cropped feet, cropped head, bust, portrait crop, extra figures"
+NEGATIVE = ("scenery, floor, ground shadow, text, letters, watermark, border, frame, cropped, bust crop, portrait crop, extra figures, "
+            "extra limbs, elongated body")
 PROMPT_FIELDS = ("prompt", "text")
 SAMPLERS = ("KSampler", "KSamplerAdvanced")
-REF_SIZES = {"qwen21": (832, 1216), "qwen-edit": (1024, 1024)}   # the edit canvas is the reference's: portrait for a standing figure
+REF_SIZES = {"qwen21": (832, 1216), "qwen-edit": (1024, 1024)}   # the edit canvas is the reference's: portrait for a standing biped (plan_canvas)
 
 
 class Comfy:
@@ -1149,44 +1265,65 @@ def qwen21_t2i_prompt(art, transparent=True):
         race = ""
     who = name + (f", {title}" if title and title.lower() not in name.lower() else "") + (f" ({race})" if race else "")
     look = look_of(art)
+    plan, build = body_plan_of(art)
     body = f"A full-body character illustration of {who}. "
     if look:
         body += f"{look}. "
-    body += ("A complete standing figure from the top of the head to the soles of the feet, facing the viewer and turned slightly, arms and "
-             "hands visible, holding their weapon or tool if they carry one. Painterly illustration with clean edges. One figure only, centred, "
+    body += (f"The whole figure, nothing cropped, built exactly the way this character is built: {build}. "
+             "Facing the viewer and turned slightly, holding their weapon or tool if they carry one"
+             + ("; no legs, feet or human proportions the character does not have. " if plan != "biped" else ". ")
+             + "Painterly illustration with clean edges. One figure only, centred, "
              "with empty space on every side; no floor, no cast shadow, no scenery, no text, no border. ")
     body += ("Transparent background: output a PNG image with an alpha channel and nothing behind the figure." if transparent
              else "The entire background is plain solid flat bright magenta.")
     return body
 
 
-def prep_reference(src, dst, key, full_body, size=(1024, 1024)):
+def prep_reference(src, dst, key, full_body, size=(1024, 1024), plan="biped"):
     """The reference the edit model sees: the figure on a key-colour canvas — a full-body plate with a margin, a
-    bust in the upper part with empty key colour below it, which is where the body gets drawn. The canvas is also
-    the edit's output size (2.1 samples at the first reference's size), so a standing figure gets a portrait one."""
+    bust in the upper part with empty key colour below it, which is where the rest of the body gets drawn. The
+    canvas is also the edit's output size (2.1 samples at the first reference's size): portrait for a standing
+    biped, square for every other build (plan_canvas), and the bust sits lower and larger the less body there is
+    to add (PLAN_BUST) — a Boo's "bust" is the whole Boo."""
     from PIL import Image
     kc = KEYS[key]
     im = Image.open(src).convert("RGBA")
     w, h = size
     canvas = Image.new("RGBA", (w, h), kc + (255,))
     if full_body:
-        im.thumbnail((int(w * 0.86), int(h * 0.88)))
+        im = fit(im, int(w * 0.86), int(h * 0.88))
         canvas.paste(im, ((w - im.width) // 2, (h - im.height) // 2), im)
     else:
-        im.thumbnail((int(w * 0.6), int(h * 0.42)))
-        canvas.paste(im, ((w - im.width) // 2, int(h * 0.05)), im)
+        bw, bh, top = PLAN_BUST.get(plan, PLAN_BUST_DEFAULT)
+        im = fit(im, int(w * bw), int(h * bh))
+        canvas.paste(im, ((w - im.width) // 2, int(h * top)), im)
     canvas.convert("RGB").save(dst)
     return dst
+
+
+def fit(im, bw, bh, up_to=3.0):
+    """Scale the reference into a box — down, or UP to three times (thumbnail() only shrinks, so a 268 px lead sat
+    as a speck at the top of a 1216 px canvas with a page of empty field under it to fill with body)."""
+    from PIL import Image
+    scale = min(bw / im.width, bh / im.height, up_to)
+    if abs(scale - 1) < 1e-6:
+        return im
+    return im.resize((max(1, round(im.width * scale)), max(1, round(im.height * scale))), Image.LANCZOS)
 
 
 def qwen21_prompt(entry, full_body, transparent=True):
     """The 2.1 instruction: the reference is <image1>; ask for the PNG with alpha the model can draw natively."""
     colour = "bright magenta" if entry["key"] == "magenta" else "bright green"
-    body = ("Show the character from <image1> as a complete standing figure from the top of the head to the soles of the feet, "
-            "facing the viewer and turned slightly, arms and hands visible, holding their weapon or tool if they carry one. "
+    plan, build = entry.get("plan") or "unknown", entry.get("build") or BODY_PLANS["unknown"]
+    body = (f"Show the character from <image1> whole, nothing cropped, built exactly the way this character is built: {build}. "
+            "Facing the viewer and turned slightly, holding their weapon or tool if they carry one. "
             "Keep exactly the same face, colours, wardrobe and art style as <image1>. ")
     if not full_body:
-        body += "<image1> shows only the upper body: continue the body downward and draw the legs and feet to match, nothing cropped. "
+        if plan == "biped":
+            body += "<image1> shows only the upper body: continue the body downward and draw the legs and feet to match, nothing cropped. "
+        else:
+            body += ("<image1> is cropped: continue the body downward only as far as this build goes and no further — "
+                     "do not add legs, feet, a neck or human proportions the character does not have. ")
     look = entry.get("look") or ""
     if look:
         body += f"Established look: {look}. "
@@ -1201,11 +1338,16 @@ def qwen21_prompt(entry, full_body, transparent=True):
 def render_prompt(entry, full_body):
     """The edit instruction: an edit model wants to be told what to change, not what to paint."""
     colour = "bright magenta" if entry["key"] == "magenta" else "bright green"
+    plan, build = entry.get("plan") or "unknown", entry.get("build") or BODY_PLANS["unknown"]
     body = (f"Keep this character exactly as they are — same face, colours, wardrobe and art style — and show the whole "
-            f"figure from the top of the head to the soles of the feet, standing in a relaxed neutral pose facing the viewer, "
-            f"turned slightly, arms and hands visible, weapon or tool held if they carry one. ")
+            f"figure, nothing cropped, built exactly the way this character is built: {build}. Relaxed neutral pose facing the "
+            f"viewer, turned slightly, weapon or tool held if they carry one. ")
     if not full_body:
-        body += "Extend the body downward from what is shown so the figure is complete, feet included, nothing cropped. "
+        if plan == "biped":
+            body += "Extend the body downward from what is shown so the figure is complete, feet included, nothing cropped. "
+        else:
+            body += ("Extend the body downward only as far as this build goes and no further — do not add legs, feet, a neck or "
+                     "human proportions the character does not have. ")
     look = entry.get("look") or ""
     if look:
         body += f"Established look: {look}. "
@@ -1214,8 +1356,9 @@ def render_prompt(entry, full_body):
     return body
 
 
-def render_qc(raw_path, facts):
-    """Did the render come back usable? (keyed field present, border clear after the cut, nothing touching the frame)"""
+def render_qc(raw_path, facts, plan="biped"):
+    """Did the render come back usable? (keyed field present, border clear after the cut, nothing touching the frame,
+    the figure tall enough for its build — 45 % of the frame for a biped, 28 % for a Boo or a Goomba)"""
     from PIL import Image
     np = _np()
     why = []
@@ -1238,8 +1381,9 @@ def render_qc(raw_path, facts):
         if fig[:, :m].mean() > 0.02 or fig[:, -m:].mean() > 0.02:
             why.append("figure touches a side edge")
         rows = np.where(fig.any(axis=1))[0]
-        if len(rows) and (rows[-1] - rows[0]) < 0.45 * h:
-            why.append("figure is under 45%% of the frame tall (%d px) — a bust?" % (rows[-1] - rows[0]))
+        least = plan_min_height(plan)
+        if len(rows) and (rows[-1] - rows[0]) < least * h:
+            why.append("figure is under %d%% of the frame tall (%d px) — a bust?" % (round(least * 100), rows[-1] - rows[0]))
     return why
 
 
@@ -1252,13 +1396,15 @@ def reference_for(art, row):
     ref = fb if fb and os.path.isfile(os.path.join(RM, fb)) else (art.get("image") or "").replace("\\", "/")
     if not ref or ref.startswith("http") or not os.path.isfile(os.path.join(RM, ref)):
         return "", False
-    full_body = bool(fb) or (row or {}).get("status") == "SMALL" or plate_facts(os.path.join(RM, ref))[2] >= BORDER_CLEAR
+    # the plate itself is the whole figure; a lead stands in for a missing plate on its own merits
+    full_body = ref == fb or (row or {}).get("status") == "SMALL" or plate_facts(os.path.join(RM, ref))[2] >= BORDER_CLEAR
     return ref, full_body
 
 
 def default_prompt(art, row, engine, transparent=True):
     ref, full_body = reference_for(art, row)
-    entry = {"id": art["id"], "key": key_for(art), "look": look_of(art)}
+    plan, build = body_plan_of(art)
+    entry = {"id": art["id"], "key": key_for(art), "look": look_of(art), "plan": plan, "build": build}
     if engine == "qwen21":
         return qwen21_prompt(entry, full_body, transparent=transparent)
     return render_prompt(entry, full_body)
@@ -1285,11 +1431,11 @@ class Renderer:
     def can_text_only(self):
         return self.engine == "qwen21"
 
-    def text_only_workflow(self):
+    def text_only_workflow(self, plan="biped"):
         """The 2.1 graph without a reference: no LoadImage, the encoder's image slot gone, an EmptyLatentImage of the
-        portrait canvas feeding the sampler (what the template's switch does when image_1 is empty)."""
+        build's canvas feeding the sampler (what the template's switch does when image_1 is empty)."""
         wf = json.loads(json.dumps(self.wf))
-        w, h = REF_SIZES["qwen21"]
+        w, h = plan_canvas(plan, "qwen21")
         wf["456"] = {"class_type": "EmptyLatentImage", "inputs": {"width": w, "height": h, "batch_size": 1}}
         for k in [k for k, v in wf.items() if v.get("class_type") == "LoadImage"]:
             del wf[k]
@@ -1306,6 +1452,7 @@ class Renderer:
         `text_only` lets a 2.1 server draw a character that has no usable reference from its record instead."""
         cid = art["id"]
         ref_rel, full_body = reference_for(art, row)
+        plan = body_plan_of(art)[0]
         wf = self.wf
         if reference:
             ref_src, full_body = reference, True
@@ -1313,7 +1460,7 @@ class Renderer:
             ref_src = os.path.join(RM, ref_rel)
         elif text_only and self.can_text_only():
             ref_src = None
-            wf = self.text_only_workflow()
+            wf = self.text_only_workflow(plan)
             prompt = prompt or qwen21_t2i_prompt(art, transparent=transparent)
         else:
             return None, None, ["no usable reference — an edit model needs one; render this one by hand"]
@@ -1321,7 +1468,7 @@ class Renderer:
         raw = os.path.join(raw_dir, raw_name or (cid + ".png"))
         if ref_src:
             ref_png = os.path.join(raw_dir, cid + ".ref.png")
-            prep_reference(ref_src, ref_png, key, full_body, size=REF_SIZES.get(self.engine, (1024, 1024)))
+            prep_reference(ref_src, ref_png, key, full_body, size=plan_canvas(plan, self.engine), plan=plan)
             prompt = prompt or self.prompt_for(art, row, transparent=transparent)
             name = self.comfy.upload(ref_png, f"{cid}.png")
         else:
@@ -1334,7 +1481,7 @@ class Renderer:
             return raw, None, [str(exc)]
         if facts["key"] not in ("alpha", key) and transparent:
             facts = cut(raw, tmp, key)            # the model ignored the alpha request: key the field it drew
-        why = render_qc(raw, facts)
+        why = render_qc(raw, facts, plan)
         return raw, facts, why
 
     def remove_background(self, src, dst, seed=1):
@@ -1437,7 +1584,7 @@ def cmd_render(a):
         notes = {}
         if not ok and a.keep_best and attempts:
             # the full run leaves nobody without a plate: the least-bad attempt goes on the sheet, flagged for the eye
-            why_b, keep, seed, facts = min(attempts, key=lambda t: (len(t[0]), -t[3]["figure"][1]))
+            why_b, keep, seed, facts = best_attempt(attempts)
             os.replace(keep, plate)
             fw, fh, clear, _ = plate_facts(plate)
             if clear >= BORDER_CLEAR:

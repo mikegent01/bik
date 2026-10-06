@@ -254,7 +254,7 @@ def main():
     wf = FakeComfy.prompts[0]
     pos = wf["76"]["inputs"]["prompt"]; neg = wf["77"]["inputs"]["prompt"]
     check("whole figure" in pos and "Extend the body downward" in pos and "bright magenta" in pos, "edit prompt filled on the sampler's positive")
-    check("cropped feet" in neg and wf["3"]["inputs"]["seed"] > 0 and wf["78"]["inputs"]["image"].endswith("bustguy.png"), "negative, seed and LoadImage filled")
+    check("extra limbs" in neg and "cropped feet" not in neg and wf["3"]["inputs"]["seed"] > 0 and wf["78"]["inputs"]["image"].endswith("bustguy.png"), "negative, seed and LoadImage filled")
     check(os.path.isfile(os.path.join(raw, "bustguy.rejected-1.png")), "rejected attempt kept for eyes")
     res = run("render", "--url", url, "--raw-dir", raw)
     check("render: 0 plated" in res.stdout, "resume skips plated ids: " + res.stdout.strip().splitlines()[-1])
@@ -371,6 +371,64 @@ def main():
     # check
     out = run("check").stdout
     check("fullBody plate(s)" in out, "check runs: " + out.splitlines()[0])
+
+    # body plans: the prompt, the canvas and the QC follow how the character is built — nobody gets legs they do not have
+    bp = mod.body_plan_of
+    check(bp({"race": "Toad"})[0] == "short" and bp({"race": "Beanish"})[0] == "short" and bp({"race": "Boo (king-level)"})[0] == "floating"
+          and bp({"race": "Goomba"})[0] == "goomba" and bp({"race": "Ghost / hostile spirit"})[0] == "ghost" and bp({"race": "Centaur"})[0] == "quadruped"
+          and bp({"race": "Plant (fey overgrowth)"})[0] == "plant" and bp({"race": "Spore monster (not a toad)"})[0] == "plant", "plans read from the race line")
+    check(bp({"race": "Human (Kivotan)"})[0] == "biped" and bp({"race": "Skeleton / Bone-Line Kin"})[0] == "biped" and bp({"race": "Unknown — appears human"})[0] == "biped"
+          and bp({"race": "Underground-linked entity"})[0] == "unknown" and bp({})[0] == "unknown", "people are bipeds, a race that says nothing is unknown")
+    check(bp({"race": "Underground-linked entity", "bodyPlan": "plant"}) == ("plant", mod.BODY_PLANS["plant"])
+          and bp({"race": "Human", "bodyPlan": "a round pink ball with stubby arms and two red feet, no legs."}) == ("custom", "a round pink ball with stubby arms and two red feet, no legs"),
+          "bodyPlan on the article wins: a plan name or a free sentence")
+    toad = {"id": "t", "key": "magenta", "look": "", "plan": "short", "build": mod.BODY_PLANS["short"]}
+    man = {"id": "m", "key": "magenta", "look": "", "plan": "biped", "build": mod.BODY_PLANS["biped"]}
+    for fn in (mod.qwen21_prompt, mod.render_prompt):
+        pt, pm = fn(toad, False), fn(man, False)
+        check("short, big-headed" in pt and "only as far as this build goes" in pt and "legs and feet" not in pt and "soles of the feet" not in pt,
+              fn.__name__ + " for a short build: the build sentence, no legs added")
+        check("two legs and feet" in pm and ("draw the legs and feet" in pm or "feet included" in pm), fn.__name__ + " for a biped: still asks for the legs")
+        check("only as far as this build goes" not in fn(toad, True), fn.__name__ + " with a full-body reference: no continuation sentence")
+    t2i = mod.qwen21_t2i_prompt({"id": "kb", "name": "King Boo", "race": "Boo"})
+    check("floating ghost" in t2i and "no legs, feet or human proportions" in t2i and "soles of the feet" not in t2i, "text-only prompt carries the build")
+    mp, _ = mod.prompt_for({"id": "fl", "name": "Flowey", "race": "Underground-linked entity", "bodyPlan": "plant"})
+    check("a plant — a flower" in mp and "do not add legs" in mp, "manifest prompt carries the build")
+    check(mod.plan_canvas("biped", "qwen21") == (832, 1216) and mod.plan_canvas("short", "qwen21") == (1024, 1024)
+          and mod.plan_canvas("floating", "qwen-edit") == (1024, 1024) and mod.plan_canvas("unknown", "qwen21") == (1024, 1024), "portrait canvas for bipeds only")
+    bust_src = os.path.join(root, "bust.png")
+    Image.new("RGBA", (300, 400), (40, 60, 200, 255)).save(bust_src)
+    bottoms = {}
+    for plan in ("biped", "short", "floating"):
+        dst = os.path.join(root, "ref-%s.png" % plan)
+        mod.prep_reference(bust_src, dst, "magenta", False, size=mod.plan_canvas(plan, "qwen21"), plan=plan)
+        im = Image.open(dst); arr = np.asarray(im.convert("RGB")).astype(int)
+        fig = np.sqrt(((arr - np.array(mod.KEYS["magenta"])) ** 2).sum(axis=2)) > 95
+        rows = np.where(fig.any(axis=1))[0]
+        bottoms[plan] = rows[-1] / im.size[1]
+    check(bottoms["biped"] < 0.5 < bottoms["short"] < bottoms["floating"] and Image.open(os.path.join(root, "ref-short.png")).size == (1024, 1024),
+          "the less body there is to add, the lower and larger the bust sits: %s" % {k: round(v, 2) for k, v in bottoms.items()})
+    shorty = os.path.join(root, "shorty.png")
+    sh = Image.new("RGBA", (1024, 1024), (0, 0, 0, 0)); ImageDraw.Draw(sh).ellipse((312, 330, 712, 690), fill=(40, 60, 200, 255)); sh.save(shorty)
+    facts = {"keyed": 1.0, "border_clear": 1.0, "key": "alpha"}
+    check(any("bust?" in w for w in mod.render_qc(shorty, facts, "biped")) and not mod.render_qc(shorty, facts, "short")
+          and not mod.render_qc(shorty, facts, "floating") and any("38%" in w for w in mod.render_qc(shorty, facts, "unknown")),
+          "QC height floor follows the build (45 / 38 / 28 %)")
+    tall = (["x"], "tall", 1, {"figure": (200, 900)}); wide = (["x"], "wide", 2, {"figure": (700, 500)}); clean = ([], "clean", 3, {"figure": (100, 100)})
+    check(mod.best_attempt([tall, wide])[1] == "wide" and mod.best_attempt([tall, wide, clean])[1] == "clean", "best attempt: fewest flags, then area — not the tallest")
+    leggy = os.path.join(rm, "portraits/player/fullbody/leggy.png")
+    lg = Image.new("RGBA", (1024, 1024), (0, 0, 0, 0)); ImageDraw.Draw(lg).rectangle((400, 20, 620, 1000), fill=(40, 60, 200, 255)); lg.save(leggy)
+    sus = [{"id": "leggy", "race": "Toad", "fullBody": "portraits/player/fullbody/leggy.png", "fullBodyCaption": "Full-body token plate — Leggy head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token."},
+           {"id": "leggy", "race": "Human", "fullBody": "portraits/player/fullbody/leggy.png", "fullBodyCaption": "Full-body token plate — Leggy head to foot on a transparent field; cut on 2026-10-05."},
+           {"id": "leggy", "race": "Toad", "fullBody": "portraits/player/fullbody/leggy.png", "fullBodyCaption": "Full-body token plate — Leggy whole on a transparent field, the look of the lead, built as short; cut from a keyed render on 2026-10-06 for the table's token."},
+           {"id": "leggy", "race": "Toad", "fullBody": "portraits/player/fullbody/leggy.png", "fullBodyCaption": "Hand-made plate."}]
+    check([mod.legs_suspects([a]) for a in sus] == [["leggy"], [], [], []] and mod.figure_aspect(leggy) > 4, "check names a tall pipeline plate of a short build, once")
+    os.remove(leggy)
+    figure(400, 900).save(os.path.join(rm, "portraits/player/fullbody/fullguy.png"))      # a plate for the Toad of the fixture
+    out = run("apply", "--date", "2026-10-06").stdout
+    arts = {x["id"]: x for x in json.load(open(os.path.join(rm, "data/characters.json"), encoding="utf-8"))}
+    check("built as short" in arts["fullguy"].get("fullBodyCaption", "") and "built as" not in arts["bustguy"].get("fullBodyCaption", ""),
+          "apply's caption names a non-biped build: " + arts["fullguy"].get("fullBodyCaption", "")[:90])
 
     shutil.rmtree(root, ignore_errors=True)
     shutil.rmtree(srv.outdir, ignore_errors=True)

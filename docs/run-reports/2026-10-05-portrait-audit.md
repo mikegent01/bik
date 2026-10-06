@@ -362,3 +362,32 @@ the two roster twins (`scene_shift_1/2.png` = `toad_03_rodger` /
 `toad_06_bones`; the roster art is never modified). `tools/check-all.py` now
 runs `dedupe-images.py --check` (13-check test beside it).
 
+### Addendum — why everyone had legs (2026-10-05)
+
+Two renders from the full run came back uncanny: Fawful with a human torso
+and trousers under the cloak, Flowey as a flower head on a vine body with two
+legs. The image model was doing what it was told. Every prompt path in
+`tools/make-token-plates.py` demanded *a complete standing figure from the
+top of the head to the soles of the feet*, the bust case added *continue the
+body downward and draw the legs and feet*, the negative prompt forbade
+*bust*, the reference canvas was a tall 832×1216 portrait with the bust in
+its top 42 % and a page of empty key colour below it (a 268 px lead was
+pasted at its own size — a speck), QC rejected any figure under 45 % of the
+frame tall, and the retry loop kept the tallest attempt. None of it knew
+what a Toad, a Boo or a flower is shaped like.
+
+Fix: a **body plan** per character — `bodyPlan` on the article (a plan name
+or a free sentence; see `docs/IMAGE_GUIDELINES.md` §4), else read from the
+race line, else `unknown` (judge the body from the reference, never add
+human legs). The prompts say *built exactly the way this character is
+built: …*; only a biped is asked to grow legs; the canvas is square and the
+bust sits lower and larger for every other build; the QC floor is 45 / 38 /
+28 % by plan; the best attempt is the biggest figure, not the tallest;
+`apply` writes `built as <plan>` into the caption; `check` lists older
+pipeline plates of non-biped builds that came out tall and narrow. Seven
+articles got an explicit `bodyPlan` (Flowey `plant`, the Plant Lady `biped`,
+the Oracle `short`, Kirby, Meta Knight, Mimbus and Bowser as sentences).
+Nothing was re-rendered here (no GPU in the sandbox): the plates in the
+checkout are the toads and the Bone-Line sprites, whose references were
+already the whole figure; the Fawful and Flowey renders live in the user's
+raw folder and want `drop` + a new render under the new prompt.

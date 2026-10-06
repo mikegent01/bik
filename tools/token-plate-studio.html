@@ -278,7 +278,8 @@
       if (!same || !keepPrompt) $("prompt").value = $("transparent").checked ? c.prompt : c.promptOpaque;
       $("refInfo").innerHTML = "<b></b> · T" + c.tier + " · " + c.status + (c.fullBodyRef ? " · full-body reference" : " · bust/half reference (the model extends it)");
       $("refInfo").querySelector("b").textContent = c.name;
-      $("refFacts").textContent = (c.reference ? c.reference : "no usable reference — render this one by hand or give the article an image") + (c.look ? "\nlook: " + c.look : "");
+      $("refFacts").textContent = (c.reference ? c.reference : "no usable reference — render this one by hand or give the article an image") + (c.look ? "\nlook: " + c.look : "")
+        + (c.bodyPlan ? "\nbuild: " + c.bodyPlan + (c.bodyPlan === "biped" ? "" : " — " + c.build) + (c.bodyPlan === "unknown" ? "  (set bodyPlan on the article to pin it)" : "") : "");
       showReference();
       // renders
       const sel = $("renderPick"); sel.innerHTML = "";

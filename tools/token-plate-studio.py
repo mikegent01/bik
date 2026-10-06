@@ -157,6 +157,7 @@ class Studio:
         plate_path = os.path.join(m.RM, m.PLATES, cid + ".png")
         info = {"id": cid, "name": r["name"], "tier": r["tier"], "status": r["status"], "uses": r["uses"],
                 "reference": ref, "fullBodyRef": full_body, "look": m.look_of(art), "key": m.key_for(art),
+                "bodyPlan": m.body_plan_of(art)[0], "build": m.body_plan_of(art)[1],
                 "prompt": m.default_prompt(art, r, self.engine or "qwen21"),
                 "promptOpaque": m.default_prompt(art, r, self.engine or "qwen21", transparent=False),
                 "plate": plate_rel if os.path.isfile(plate_path) else None,
@@ -275,7 +276,8 @@ class Studio:
         healed = 0
         if heal and facts["key"] != "alpha" and facts["key"] in m.KEYS:
             healed = m.heal(preview, key=facts["key"], hard_tol=int(hard) if hard else 95, soft_tol=int(soft) if soft else 150)
-        qc = m.render_qc(work, facts)
+        self.rows()
+        qc = m.render_qc(work, facts, m.body_plan_of(self._arts[cid])[0] if cid in self._arts else "biped")
         fw, fh, clear, _ = m.plate_facts(preview)
         sp = m.specks(preview) if hasattr(m, "specks") else None
         facts = dict(facts, size=[fw, fh], border_clear=round(clear, 3), healed=healed, specks=sp, figure=list(facts["figure"]))
@@ -366,7 +368,7 @@ class Studio:
                             os.replace(cut_path, keep)
                             attempts.append((why, keep, seed, facts))
                     if not ok and keep_best and attempts:
-                        why_b, keep, seed, facts = min(attempts, key=lambda t: (len(t[0]), -t[3]["figure"][1]))
+                        why_b, keep, seed, facts = m.best_attempt(attempts)
                         os.replace(keep, os.path.join(self.raw_dir, cid + ".preview.png"))
                         if m.plate_facts(os.path.join(self.raw_dir, cid + ".preview.png"))[2] >= m.BORDER_CLEAR:
                             self.accept(cid, notes={cid: "best of %d attempt(s), QC flagged: %s — needs eyes; rendered" % (len(attempts), "; ".join(why_b))})
