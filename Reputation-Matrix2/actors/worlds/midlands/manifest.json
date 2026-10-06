@@ -93,6 +93,26 @@
       "to": "wild-surge-unstable-aura"
     }
   ],
+  "leftoversDropped": [
+    {
+      "actor": "Eager",
+      "item": "Toad — Eager Variant",
+      "type": "race",
+      "applied": "Grung"
+    },
+    {
+      "actor": "Eager",
+      "item": "Disaster Inc. Catastrophe Scout",
+      "type": "background",
+      "applied": "Slave"
+    },
+    {
+      "actor": "Feyward Dan",
+      "item": "Toad — Feyward Variant",
+      "type": "race",
+      "applied": "Grung"
+    }
+  ],
   "unresolvedFolderIds": {},
   "note": "",
   "actors": [

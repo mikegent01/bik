@@ -151,6 +151,57 @@ def repair_identifiers(doc):
     return fixes
 
 
+# dnd5e's one-per-character items (metadata.singleton): a second creation is
+# refused, and system.details.race / .background name the one the sheet uses
+SINGLETON_TYPES = ("race", "background")
+
+
+def applied_singleton_id(doc, item_type):
+    """The id system.details.race / .background names (None for the legacy
+    free-text background or nothing at all)."""
+    val = ((doc.get("system") or {}).get("details") or {}).get(item_type)
+    if isinstance(val, dict):
+        val = val.get("_id") or val.get("id")
+    return val if isinstance(val, str) and FOUNDRY_ID.match(val) else None
+
+
+def singleton_shells(doc, broken=None):
+    """[(item, applied item)]: a character's species / background item dnd5e
+    refuses (an invalid identifier — invisible on the sheet) while
+    details.race / .background names ANOTHER, valid item of that type. A
+    leftover the sheet never used (the archive's own "Toad — Eager Variant"
+    beside the Grung the player applied): repairing it would put a second
+    species on the sheet, which dnd5e refuses, so the module could only offer
+    to swap the live one out. Dropped instead. `broken(item)` says which items
+    count as refused — by default the ones invalid right now."""
+    if doc.get("type") != "character":
+        return []
+    items = [it for it in doc.get("items") or [] if isinstance(it, dict)]
+    by_id = {it.get("_id"): it for it in items}
+    invalid = {id(it) for it, _k, _v in invalid_identifiers(doc)}
+    is_broken = broken or (lambda it: id(it) in invalid)
+    out = []
+    for it in items:
+        if it.get("type") not in SINGLETON_TYPES or not is_broken(it):
+            continue
+        applied = applied_singleton_id(doc, it["type"])
+        live = by_id.get(applied) if applied and applied != it.get("_id") else None
+        if live is not None and live.get("type") == it["type"] and id(live) not in invalid and not is_broken(live):
+            out.append((it, live))
+    return out
+
+
+def drop_singleton_shells(doc, broken=None):
+    """Remove them in place (before repair_identifiers, which would hide the
+    sign). Returns [(item name, type, applied item name)]."""
+    shells = singleton_shells(doc, broken)
+    if not shells:
+        return []
+    gone = {id(it) for it, _live in shells}
+    doc["items"] = [it for it in doc["items"] if id(it) not in gone]
+    return [(it.get("name") or "?", it.get("type"), live.get("name") or "?") for it, live in shells]
+
+
 def invalid_ownership(doc):
     """[(where, problem)] for every ownership map Foundry would refuse on the
     actor or its items: a key that is neither "default" nor a 16-character
@@ -593,11 +644,14 @@ def split(export_path, out_dir, flat=False, prune=False):
     raw = read_json(export_path)
     meta, folders, actors = normalize_payload(raw)
     folders_by_id = {f.get("_id"): f for f in folders if isinstance(f, dict)}
-    written, paths, unresolved, repaired = [], [], {}, []
+    written, paths, unresolved, repaired, dropped = [], [], {}, [], []
     kept = [a for a in actors if isinstance(a, dict) and a.get("name")]
     for actor in kept:
         path = folder_path_of(actor, folders_by_id)
         doc = copy.deepcopy(actor)
+        # a broken species / background beside the one the sheet applies is a
+        # leftover: out of the mirror (the module then deletes the world's copy)
+        dropped.extend((actor.get("name"), *d) for d in drop_singleton_shells(doc))
         # an invalid identifier is an invisible item in Foundry: fix it in the
         # mirror so the next import puts a valid one back
         repaired.extend((actor.get("name"), *f) for f in repair_identifiers(doc))
@@ -627,6 +681,7 @@ def split(export_path, out_dir, flat=False, prune=False):
         "actorCount": len(written),
         "folders": sorted({p for p in paths if p}),
         "identifiersRepaired": [{"actor": a, "item": i, "key": k, "from": b, "to": t} for a, i, k, b, t in repaired],
+        "leftoversDropped": [{"actor": a, "item": i, "type": t, "applied": l} for a, i, t, l in dropped],
         "unresolvedFolderIds": dict(sorted(unresolved.items())),
         "note": ("" if not unresolved else
                  f"{sum(unresolved.values())} actor(s) carry a folder id this export gives no name for; "
@@ -647,6 +702,43 @@ def split(export_path, out_dir, flat=False, prune=False):
                 os.remove(path)
                 pruned.append(path)
     return written, pruned, manifest
+
+
+# --------------------------------------------------------------------- heal
+
+def heal(world_dir):
+    """Re-apply split's leftover rule to a mirror an older bridge split: its
+    manifest remembers which identifiers that split repaired, so a species /
+    background repaired there that is not the one the sheet applies is dropped
+    now (and recorded under leftoversDropped). Returns [(file, actor, item
+    name, type, applied name)]; nothing to do on a clean mirror."""
+    manifest_path = os.path.join(world_dir, "manifest.json")
+    manifest = read_json(manifest_path) if os.path.exists(manifest_path) else {}
+    repaired = {(r.get("actor"), r.get("item")) for r in manifest.get("identifiersRepaired") or [] if isinstance(r, dict)}
+    out = []
+    for path, _rel in actor_files([world_dir]):
+        doc = load_actor_file(path)
+        if doc is None or doc.get("type") != "character" or not repaired:
+            continue
+        name = doc.get("name")
+        dropped = drop_singleton_shells(doc, broken=lambda it, n=name: (n, it.get("name")) in repaired)
+        if not dropped:
+            continue
+        write_text(path, render(doc))
+        rel = os.path.relpath(path, ROOT).replace(os.sep, "/")
+        out.extend((rel, name, i, t, a) for i, t, a in dropped)
+    if out and manifest:
+        rows = (manifest.get("leftoversDropped") or []) + [{"actor": n, "item": i, "type": t, "applied": a} for _f, n, i, t, a in out]
+        # the key where split puts it (after identifiersRepaired), not at the end
+        healed = {}
+        for key, val in manifest.items():
+            if key != "leftoversDropped":
+                healed[key] = val
+            if key == "identifiersRepaired":
+                healed["leftoversDropped"] = rows
+        healed.setdefault("leftoversDropped", rows)
+        write_text(manifest_path, render(healed))
+    return out
 
 
 # ------------------------------------------------------------------ combine
@@ -1110,6 +1202,15 @@ def check_docs(docs, image_lib=DEFAULT_IMAGE_LIB, strict_images=False, roster=No
         for it in doc.get("items") or []:
             if isinstance(it, dict) and it.get("type") in ("race", "class", "subclass", "background") and doc.get("type") == "npc":
                 warnings.append(f"{rel}: npc carries a {it['type']} item ({it.get('name')})")
+        if doc.get("type") == "character":
+            for kind in SINGLETON_TYPES:
+                twins = [it for it in doc.get("items") or [] if isinstance(it, dict) and it.get("type") == kind]
+                if len(twins) > 1:
+                    applied = applied_singleton_id(doc, kind)
+                    names = " / ".join(str(it.get("name")) for it in twins)
+                    using = next((it.get("name") for it in twins if it.get("_id") == applied), None)
+                    warnings.append(f"{rel}: {len(twins)} {kind} items ({names}) — dnd5e keeps one per character"
+                                    + (f"; the sheet applies {using!r}" if using else f"; details.{kind} names none of them"))
         for it, key, val in invalid_identifiers(doc):
             errors.append(f"{rel}: item {it.get('name')!r} system.{key} {val!r} is not letters/digits/-/_ — dnd5e rejects the item "
                           f"(split repairs this; expected {slug_identifier(val) or slug_identifier(it.get('name'))!r})")
@@ -1378,6 +1479,9 @@ def main(argv=None):
     p.add_argument("--flat", action="store_true", help="no folder directories")
     p.add_argument("--prune", action="store_true", help="delete actor files in --out that the export no longer has")
 
+    p = sub.add_parser("heal", help="a mirror an older bridge split: drop the broken species / background its manifest repaired beside the one the sheet applies (split does this itself now)")
+    p.add_argument("world_dir")
+
     p = sub.add_parser("combine", help="actor files -> one import payload (folders rebuilt)")
     p.add_argument("dirs", nargs="+")
     p.add_argument("--out", required=True)
@@ -1436,9 +1540,19 @@ def main(argv=None):
             print(f"  pruned {os.path.relpath(w, ROOT)}")
         for r in manifest["identifiersRepaired"]:
             print(f"  repaired {r['actor']} · {r['item']} · {r['key']} {r['from']!r} -> {r['to']!r}")
+        for r in manifest["leftoversDropped"]:
+            print(f"  dropped {r['actor']} · {r['item']} [{r['type']}] — broken, and the sheet's {r['type']} is {r['applied']}")
         print(f"split: {len(written)} actors from {manifest['exportedFrom'] or args.export} "
               f"into {len(manifest['folders'])} folder path(s) -> {args.out}"
-              + (f", {len(manifest['identifiersRepaired'])} identifier(s) repaired" if manifest["identifiersRepaired"] else ""))
+              + (f", {len(manifest['identifiersRepaired'])} identifier(s) repaired" if manifest["identifiersRepaired"] else "")
+              + (f", {len(manifest['leftoversDropped'])} leftover(s) dropped" if manifest["leftoversDropped"] else ""))
+        return 0
+
+    if args.cmd == "heal":
+        dropped = heal(args.world_dir)
+        for rel, _n, item, typ, applied in dropped:
+            print(f"  dropped {rel}: {item} [{typ}] — broken in the export, and the sheet's {typ} is {applied}")
+        print(f"heal: {len(dropped)} leftover(s) dropped in {args.world_dir}" if dropped else f"heal: nothing to drop in {args.world_dir}")
         return 0
 
     if args.cmd == "combine":

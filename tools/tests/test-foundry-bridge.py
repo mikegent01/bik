@@ -6,6 +6,7 @@
 from __future__ import annotations
 
 import importlib.util
+import copy
 import json
 import os
 import sys
@@ -462,6 +463,71 @@ with tempfile.TemporaryDirectory() as tmp:
     check("…and 0 when clean", cli_ok.returncode == 0 and cli_ok.stdout.startswith("OK check-packet: 3 actors in 1 packet(s), 0 error(s)"), cli_ok.stdout[-300:])
 check("the mirror's check (foundry-bridge.py check) applies the same roster rules: the repo's world mirror passes them",
       fb.check([os.path.join(ROOT, "Reputation-Matrix2", "actors", "worlds", "midlands")])[1] == [])
+
+# ---- 1.9.3: a broken species / background beside the one the sheet applies is a leftover — dropped, not repaired --------
+def race(_id, name, ident, adv=0):
+    return {"_id": _id, "name": name, "type": "race", "img": "icons/svg/item-bag.svg", "system": {"identifier": ident, "advancement": [{"type": "Size"}] * adv}}
+def background(_id, name, ident):
+    return {"_id": _id, "name": name, "type": "background", "img": "icons/svg/item-bag.svg", "system": {"identifier": ident}}
+with tempfile.TemporaryDirectory() as tmp:
+    eager = actor("Eager", "VudZ3W313Y4FILs0", typ="character", items=[
+        race("d5c6b4b8da1e46c8", "Toad — Eager Variant", "toad-—-eager-variant"),            # broken, never applied
+        background("5f606a64c6bb43f3", "Disaster Inc. Catastrophe Scout", "disaster-inc.-catastrophe-scout"),
+        race("sctSWwZ7EHsxJlwW", "Grung", "grung", adv=3), background("fN1FAHmzHWPx6Ky5", "Slave", "slave"),
+        {"_id": "218ad632c6e149d9", "name": "Fighting Style — Archery", "type": "feat", "img": "icons/svg/item-bag.svg", "system": {"identifier": "fighting-style-—-archery"}}])
+    eager["system"]["details"] = {"race": "sctSWwZ7EHsxJlwW", "background": "fN1FAHmzHWPx6Ky5"}
+    # details.race names the BROKEN copy: not a leftover (the sheet uses it) — repaired as before, the Grung stays a stand-in
+    lone = actor("Lone", "Ln1aaaaaaaaaaaaa", typ="character", items=[race("Bad3aaaaaaaaaaaa", "Toad — Lone Variant", "toad-—-lone"), race("Grg3aaaaaaaaaaaa", "Grung", "grung", adv=3)])
+    lone["system"]["details"] = {"race": "Bad3aaaaaaaaaaaa"}
+    # no details at all (an older sheet): nothing is dropped
+    blank = actor("Blank", "Bk1aaaaaaaaaaaaa", typ="character", items=[race("Bad4aaaaaaaaaaaa", "Toad — Blank Variant", "toad-—-blank"), race("Grg4aaaaaaaaaaaa", "Grung", "grung", adv=3)])
+    # an NPC is never a singleton case
+    npc = actor("Guard", "Np1aaaaaaaaaaaaa", typ="npc", items=[race("Bad5aaaaaaaaaaaa", "Toad — Guard", "toad-—-guard"), race("Grg5aaaaaaaaaaaa", "Grung", "grung")])
+    npc["system"]["details"] = {"race": "Grg5aaaaaaaaaaaa"}
+    shells = fb.singleton_shells(eager)
+    check("singleton_shells: the two broken items beside the applied Grung / Slave, each paired with the one the sheet uses; the broken feat is not one of a kind",
+          [(it["name"], live["name"]) for it, live in shells] == [("Toad — Eager Variant", "Grung"), ("Disaster Inc. Catastrophe Scout", "Slave")], str(shells))
+    check("singleton_shells: details naming the broken copy, no details at all, an NPC — nothing is a leftover",
+          fb.singleton_shells(lone) == [] and fb.singleton_shells(blank) == [] and fb.singleton_shells(npc) == [])
+    exp = {"format": fb.FORMAT, "exportedFrom": "test-world", "exportedAt": "2026-10-05T00:00:00Z", "folders": [{"_id": "F1aaaaaaaaaaaaaa", "name": "Players", "type": "Actor", "folder": None}],
+           "actors": [dict(eager, folder="F1aaaaaaaaaaaaaa"), lone, blank, npc]}
+    exp_path = os.path.join(tmp, "test-world-all-actors.json")
+    with open(exp_path, "w", encoding="utf-8") as fh:
+        json.dump(exp, fh)
+    out = os.path.join(tmp, "worlds", "test-world")
+    written, _pruned, manifest = fb.split(exp_path, out)
+    eager_doc = read(os.path.join(out, "Players", "fvtt-Actor-eager-VudZ3W313Y4FILs0.json"))
+    lone_doc = read(os.path.join(out, "fvtt-Actor-lone-Ln1aaaaaaaaaaaaa.json"))
+    check("split drops the leftovers (the mirror no longer carries them, so the module deletes the world's copies instead of offering a swap) and still repairs the feat",
+          [it["name"] for it in eager_doc["items"]] == ["Grung", "Slave", "Fighting Style — Archery"] and eager_doc["items"][2]["system"]["identifier"] == "fighting-style-archery", str([it["name"] for it in eager_doc["items"]]))
+    check("split: the applied-but-broken species is repaired, not dropped; the blank sheet and the NPC keep both",
+          [it["name"] for it in lone_doc["items"]] == ["Toad — Lone Variant", "Grung"] and lone_doc["items"][0]["system"]["identifier"] == "toad-lone"
+          and len(read(os.path.join(out, "fvtt-Actor-blank-Bk1aaaaaaaaaaaaa.json"))["items"]) == 2 and len(read(os.path.join(out, "fvtt-Actor-guard-Np1aaaaaaaaaaaaa.json"))["items"]) == 2)
+    check("manifest: leftoversDropped names actor, item, type and the applied one; identifiersRepaired no longer lists the dropped items",
+          manifest["leftoversDropped"] == [{"actor": "Eager", "item": "Toad — Eager Variant", "type": "race", "applied": "Grung"},
+                                           {"actor": "Eager", "item": "Disaster Inc. Catastrophe Scout", "type": "background", "applied": "Slave"}]
+          and sorted(r["item"] for r in manifest["identifiersRepaired"]) == ["Fighting Style — Archery", "Toad — Blank Variant", "Toad — Guard", "Toad — Lone Variant"], json.dumps(manifest["identifiersRepaired"], ensure_ascii=False))
+    _n, errs, warns = fb.check([out])
+    check("check: a character with two of a kind is a warning naming the one the sheet applies (or that details names none) — never an error",
+          errs == [] and any("2 race items (Toad — Lone Variant / Grung) — dnd5e keeps one per character; the sheet applies 'Toad — Lone Variant'" in w for w in warns)
+          and any("Toad — Blank Variant / Grung" in w and "names none of them" in w for w in warns) and not any("Eager" in w and "race items" in w for w in warns), "\n".join(errs + warns))
+    # a mirror an older bridge split (1.9.2): the shells are there with repaired identifiers, the manifest remembers the repairs — heal drops them
+    old_out = os.path.join(tmp, "worlds", "old-world")
+    old_eager = copy.deepcopy(eager)
+    for it in old_eager["items"]:
+        it["system"]["identifier"] = fb.slug_identifier(it["system"]["identifier"])
+    fb.write_text(os.path.join(old_out, "Players", "fvtt-Actor-eager-VudZ3W313Y4FILs0.json"), fb.render(old_eager))
+    fb.write_text(os.path.join(old_out, "manifest.json"), fb.render({"actorCount": 1, "identifiersRepaired": [
+        {"actor": "Eager", "item": "Toad — Eager Variant", "key": "identifier", "from": "toad-—-eager-variant", "to": "toad-eager-variant"},
+        {"actor": "Eager", "item": "Disaster Inc. Catastrophe Scout", "key": "identifier", "from": "disaster-inc.-catastrophe-scout", "to": "disaster-inc-catastrophe-scout"},
+        {"actor": "Eager", "item": "Fighting Style — Archery", "key": "identifier", "from": "fighting-style-—-archery", "to": "fighting-style-archery"}], "actors": []}))
+    healed = fb.heal(old_out)
+    healed_doc = read(os.path.join(old_out, "Players", "fvtt-Actor-eager-VudZ3W313Y4FILs0.json"))
+    healed_manifest = read(os.path.join(old_out, "manifest.json"))
+    check("heal: the manifest's repaired species / background beside the applied ones go, the repaired feat stays, the manifest records the drops (after identifiersRepaired)",
+          [h[2] for h in healed] == ["Toad — Eager Variant", "Disaster Inc. Catastrophe Scout"] and [it["name"] for it in healed_doc["items"]] == ["Grung", "Slave", "Fighting Style — Archery"]
+          and len(healed_manifest["leftoversDropped"]) == 2 and list(healed_manifest.keys()) == ["actorCount", "identifiersRepaired", "leftoversDropped", "actors"], str(healed))
+    check("heal is idempotent (and a mirror without a manifest is left alone)", fb.heal(old_out) == [] and fb.heal(os.path.join(tmp, "worlds", "nowhere")) == [])
 
 print(f"foundry bridge: {len(OKS)} ok, {len(FAILS)} failed")
 for f in FAILS:

@@ -947,66 +947,6 @@
   },
   "items": [
     {
-      "name": "Toad — Feyward Variant",
-      "type": "race",
-      "system": {
-        "description": {
-          "value": "<p>Medium Toad. The Feyward variant is a parallel-reality survivor. No ancestry memories are assumed to be shared with Original Dan.</p>",
-          "chat": ""
-        },
-        "source": {
-          "custom": "Waluipedia campaign",
-          "rules": "2014",
-          "revision": 1
-        },
-        "identifier": "toad-feyward-variant",
-        "advancement": {},
-        "movement": {
-          "units": "ft",
-          "hover": false,
-          "ignoredDifficultTerrain": []
-        },
-        "senses": {
-          "ranges": {
-            "blindsight": null,
-            "darkvision": null,
-            "tremorsense": null,
-            "truesight": null
-          },
-          "units": "ft",
-          "special": ""
-        },
-        "type": {
-          "value": "humanoid"
-        }
-      },
-      "flags": {
-        "bik": {
-          "source": "Feyward Dan player-character dossier",
-          "ledgerLinked": true
-        }
-      },
-      "effects": [],
-      "folder": null,
-      "sort": 10000,
-      "_id": "4b8eb918a8d24833",
-      "img": "icons/creatures/amphibians/frog-confused-green-blue.webp",
-      "_stats": {
-        "coreVersion": "14.367",
-        "systemId": "dnd5e",
-        "systemVersion": "5.3.3",
-        "createdTime": 1788730632136,
-        "modifiedTime": 1788730632136,
-        "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
-      },
-      "ownership": {
-        "default": 0
-      }
-    },
-    {
       "name": "Dimensional Escapee",
       "type": "background",
       "system": {
