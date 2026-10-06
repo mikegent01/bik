@@ -198,6 +198,10 @@ def main() -> int:
         # the Liberated Toads roster cells off their cream field: one current,
         # clean plate per cell, and the cast packet carrying the plates
         checks.append(("roster toad plates", [py, "tools/tests/test-cut-roster-toads.py"], ROOT))
+        # every portrait and token the packets point at: no plate under
+        # portraits/ carries its field / a key halo / an uncut cream background
+        checks.append(("actor image audit", [py, "tools/tests/test-audit-actor-images.py"], ROOT))
+        checks.append(("actor images", [py, "tools/audit-actor-images.py", "--strict"], ROOT))
     except ImportError:
         pass
 

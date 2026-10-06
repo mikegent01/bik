@@ -843,7 +843,27 @@ render in the NPC Forge replaces one when it matters.
 python3 ../../tools/cut-roster-toads.py                     # cut what is missing or stale, verify
 python3 ../../tools/cut-roster-toads.py --check             # verify the plates on disk (check-all runs this)
 python3 ../../tools/cut-roster-toads.py --sheet sheet.png   # look at them on magenta
+python3 ../../tools/audit-actor-images.py                   # every portrait / token the packets point at, by class
+python3 ../../tools/audit-actor-images.py --list cream      # the paths of one class (field, cream, key, small, …)
 ```
+
+**The image audit** (`tools/audit-actor-images.py`, 2026-10-06) walks every
+`img` and token `texture.src` of every actor in the world packet and the
+Players packet — 474 distinct paths — and says where each lives (the repo,
+Foundry's own `icons/` / `systems/`, a GM upload the repo cannot see, a URL)
+and, for the repo's own files, what the picture is like: a transparent plate
+that is *clean* or merely *small*, one that still carries its *field* / a
+key halo (the same `background_audit` the roster plates pass), an opaque
+portrait (*opaque*, or *framed* when a painted scene sits in a paper mat),
+a figure on a flat white / cream field that was never cut (*cream*), a
+render never keyed (*key*). `--strict` (check-all) fails when a file under
+`portraits/` — the art the repo manages — is field / cream / key; a GM actor
+pointing at some other repo file (Kyrn's `assets/icons/actions/icon_traps.png`,
+a stock icon on white) is reported as the GM's pick. State at the audit: 177
+transparent plates clean (0 field), 109 opaque portraits, 2 framed, 44 GM
+uploads under Foundry's `npc/` / `player/` / `assets/srd5e/` (the module's
+import-time image check verifies those in Foundry), 2 5e.tools URLs on GM
+statblocks.
 
 Every file files into `Liberated Toads / <cohort>` (the scheme's
 `packets.liberated-toads.subfolders`, coloured like the docket), and
