@@ -207,8 +207,10 @@ with tempfile.TemporaryDirectory() as tmp:
     check("fold_singletons: a lone Elsewhere or Bestiary stays; minimum 1 is a no-op; inputs are not mutated",
           fb.fold_singletons({"a": ["Elsewhere"], "b": ["Bestiary"]}, scheme) == {"a": ["Elsewhere"], "b": ["Bestiary"]}
           and fb.fold_singletons(pop, dict(scheme, minimum=1)) == pop and pop["a"] == ["Bestiary", "Ooze"])
-    check("era_actors / world_population read the repo's trees: every 955 BF actor keyed by name + type under the era folder, the midlands mirror by its flags",
-          all(v["path"][0] == "Peach's Castle 955 BF" and v["era"] == "955 BF" for v in fb.era_actors(fb.load_folder_scheme(), REAL_ACTORS).values())
+    check("era_actors / world_population read the repo's trees: every era actor keyed by name + type under its own era folder (955 BF court, 1035 BF castle), the midlands mirror by its flags",
+          all(v["path"][0] == v["folder"] and v["era"] in ("955 BF", "1035 BF") for v in fb.era_actors(fb.load_folder_scheme(), REAL_ACTORS).values())
+          and {v["folder"] for v in fb.era_actors(fb.load_folder_scheme(), REAL_ACTORS).values()} == {"Peach's Castle 955 BF", "Bowser's Castle 1035 BF"}
+          and ("omega bowser (1035 bf)", "npc") in fb.era_actors(fb.load_folder_scheme(), REAL_ACTORS)
           and ("koopatrol", "npc") in fb.era_actors(fb.load_folder_scheme(), REAL_ACTORS) and len(fb.world_population(REAL_ACTORS)) >= 151
           and all(isinstance(path, list) for _, path in fb.world_population(REAL_ACTORS)))
 

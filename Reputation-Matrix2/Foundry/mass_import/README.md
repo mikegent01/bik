@@ -10,7 +10,7 @@ existing ones updated in place (same `_id`), every image path checked, and a
 report. Together with `tools/foundry-bridge.py` this turns "add characters to
 the game" into a loop of *export → edit in the repo → import*.
 
-Module id: `waluipedia-mass-import`, version 1.8.0. Core v12–v14, any game
+Module id: `waluipedia-mass-import`, version 1.8.1. Core v12–v14, any game
 system (built and tested against dnd5e 5.x on core v14).
 
 ## 1.8 — one copy of the art: Foundry loads it from the archive's own server

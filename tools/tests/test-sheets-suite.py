@@ -103,16 +103,16 @@ check("packets are git-ignored build artefacts",
       "Reputation-Matrix2/actors/worlds/*/import.json" in (ROOT / ".gitignore").read_text(encoding="utf-8")
       and "Reputation-Matrix2/actors/worlds/*/players-import.json" in (ROOT / ".gitignore").read_text(encoding="utf-8"))
 check("one import carries everything: the world mirror, the generated cast and the era packets the scheme names, in that precedence",
-      [os.path.relpath(d, suite.ACTORS).replace(os.sep, "/") for d in suite.packet_sources("midlands")] == ["worlds/midlands", "cast", "peachs-castle-955"])
+      [os.path.relpath(d, suite.ACTORS).replace(os.sep, "/") for d in suite.packet_sources("midlands")] == ["worlds/midlands", "cast", "peachs-castle-955", "bowsers-castle-1035"])
 everything = read(ROOT / "Reputation-Matrix2/actors/worlds/midlands/import.json")
 names = {(a["name"].lower(), a["type"]) for a in everything["actors"]}
 n_mirror = read(ROOT / "Reputation-Matrix2/actors/worlds/midlands/manifest.json")["actorCount"]
 n_cast = read(ROOT / "Reputation-Matrix2/actors/cast/import.json")["actorCount"]
-n_era = read(ROOT / "Reputation-Matrix2/actors/peachs-castle-955/import.json")["actorCount"]
+n_era = sum(read(ROOT / f"Reputation-Matrix2/actors/{d}/import.json")["actorCount"] for d in ("peachs-castle-955", "bowsers-castle-1035"))
 omitted = everything.get("omitted") or []
-check("…the built packet holds the live world + cast + 955 BF court; an era copy the world already has (same name + type) is left out and listed",
+check("…the built packet holds the live world + cast + the era packets (955 BF court, 1035 BF castle); an era copy the world already has (same name + type) is left out and listed",
       everything["actorCount"] == n_mirror + n_cast + n_era - len(omitted) and len(omitted) >= 10 and ("koopatrol", "npc") in names and ("bowser (955 bf)", "character") in names
-      and all(o["keptFrom"] == "Reputation-Matrix2/actors/worlds/midlands" and o["file"].startswith("Reputation-Matrix2/actors/peachs-castle-955/") for o in omitted)
+      and all(o["keptFrom"] == "Reputation-Matrix2/actors/worlds/midlands" and o["file"].startswith(("Reputation-Matrix2/actors/peachs-castle-955/", "Reputation-Matrix2/actors/bowsers-castle-1035/")) for o in omitted)
       and len({(o["name"].lower(), o["type"]) for o in omitted} & names) == len(omitted), str(omitted)[:200])
 check("…every folder in it is coloured (groups, Bestiary types, Players, the era) and none is a one-actor sub-folder",
       all(f.get("color") for f in everything["folders"])

@@ -99,6 +99,10 @@ def main() -> int:
         # re-validated against the image-path library and tokens against the
         # installed cutouts.
         ("peachs castle 955 actors", [py, "tools/build-peachs-castle-955-actors.py", "--check"], ROOT),
+        # Bowser's Castle 1035 BF: Session III of the coup chain — Bowser's
+        # line, Fawthful's forces and the remnant at the track (27) from one
+        # generator that shares the 955 item factories and icon shelf.
+        ("bowsers castle 1035 actors", [py, "tools/build-bowsers-castle-1035-actors.py", "--check"], ROOT),
         # Foundry mass import: the Python bridge (split/combine/link-images/
         # apply/check/install-images), the one-file import packet for the 955
         # roster, and the module zip that the manifest URL downloads.
@@ -107,6 +111,10 @@ def main() -> int:
                                            "Reputation-Matrix2/actors/peachs-castle-955",
                                            "--out", "Reputation-Matrix2/actors/peachs-castle-955/import.json",
                                            "--world", "peachs-castle-955", "--check"], ROOT),
+        ("bowsers castle 1035 import.json", [py, "tools/foundry-bridge.py", "combine",
+                                             "Reputation-Matrix2/actors/bowsers-castle-1035",
+                                             "--out", "Reputation-Matrix2/actors/bowsers-castle-1035/import.json",
+                                             "--world", "bowsers-castle-1035", "--check"], ROOT),
         ("foundry module zip", [py, "tools/build-foundry-module-zip.py", "--check"], ROOT),
         # Foundry++ studio: sorting the art folder, the manifest, the Data
         # folder links, the version/era helpers — exercised on a throwaway

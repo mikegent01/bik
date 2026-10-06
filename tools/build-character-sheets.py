@@ -180,6 +180,7 @@ def existing_actor_files():
     """Every hand-made / imported actor file: (relpath from RM, doc)."""
     out = []
     for base, sub, walk in ((ACTORS, "", False), (os.path.join(ACTORS, "peachs-castle-955"), "peachs-castle-955", False),
+                            (os.path.join(ACTORS, "bowsers-castle-1035"), "bowsers-castle-1035", False),
                             (os.path.join(ACTORS, "worlds", "midlands"), "worlds/midlands", True)):
         if not os.path.isdir(base):
             continue
@@ -1971,7 +1972,7 @@ def summarize_actor(doc):
 def source_of(rel):
     if rel.startswith("actors/worlds/"):
         return "live"
-    if rel.startswith("actors/peachs-castle-955/"):
+    if rel.startswith("actors/peachs-castle-955/") or rel.startswith("actors/bowsers-castle-1035/"):
         return "era"
     if rel.startswith("actors/cast/"):
         return "generated"
@@ -2015,7 +2016,7 @@ def match_existing(characters, files):
 
 def norm_name(n):
     n = str(n or "").lower().replace("\u2019", "'")
-    n = re.sub(r"\s*\(.*?\)\s*", " ", n) if "955" not in n and "theater" not in n else n
+    n = re.sub(r"\s*\(.*?\)\s*", " ", n) if "955" not in n and "1035" not in n and "theater" not in n else n
     return re.sub(r"[^a-z0-9]+", " ", n).strip()
 
 

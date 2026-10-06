@@ -509,7 +509,9 @@ def packets_info(world, port, packet_files, published_at, digest=None, art_base=
         "launcher": {"everything": u["everything"], "players": u["players"], "sheets": u["sheets"]},
         "github": {"manifest": f"{RAW_BASE}Reputation-Matrix2/actors/worlds/{world}/manifest.json",
                    "cast": f"{RAW_BASE}Reputation-Matrix2/actors/cast/import.json",
-                   "era": f"{RAW_BASE}Reputation-Matrix2/actors/peachs-castle-955/import.json"},
+                   "era": f"{RAW_BASE}Reputation-Matrix2/actors/peachs-castle-955/import.json",
+                   "eras": [f"{RAW_BASE}Reputation-Matrix2/actors/{os.path.relpath(d, ACTORS).replace(os.sep, '/')}/import.json"
+                            for d in packet_sources(world) if os.path.dirname(d) == ACTORS and os.path.basename(d) != "cast"]},
     }
 
 

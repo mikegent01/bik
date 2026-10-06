@@ -57,13 +57,14 @@
 
 export const MODULE_ID = "waluipedia-mass-import";
 /** Must match module.json — Sync compares the two to catch a world still running old code. */
-export const MODULE_VERSION = "1.8.0";
+export const MODULE_VERSION = "1.8.1";
 export const FORMAT = "waluipedia-actors/1";
 export const RAW_BASE = "https://raw.githubusercontent.com/mikegent01/bik/gh-pages/";
 /** The repo's ready-made import-all files (the Import dialog lists them). */
 export const KNOWN_PACKETS = [
   { id: "cast", label: "Waluipedia cast — every generated character sheet (156, plus the 955 BF past selves), filed into the website group folders", path: "Reputation-Matrix2/actors/cast/import.json" },
   { id: "peachs-castle-955", label: "Peach's Castle 955 BF — the court + Bowser's incursion (30)", path: "Reputation-Matrix2/actors/peachs-castle-955/import.json" },
+  { id: "bowsers-castle-1035", label: "Bowser's Castle 1035 BF — the castle comes down: Bowser's line, Fawthful's forces, the remnant at the track (27)", path: "Reputation-Matrix2/actors/bowsers-castle-1035/import.json" },
 ];
 export const packetUrl = (p) => RAW_BASE + p.path;
 const PLACEHOLDER_ACTOR = "icons/svg/mystery-man.svg";
@@ -1621,7 +1622,9 @@ export function syncCandidates(s = {}) {
     { source: "data", label: "Foundry Data folder", url: `${dir}/${o.world}/import.json`, info: `${dir}/${o.world}/packets.json` },
     { source: "launcher", label: "start.py launcher", url: `${launcher}${rel}import.json`, info: `${launcher}${rel}manifest.json` },
     { source: "github", label: `GitHub (${o.branch})`, url: `${raw}${rel}manifest.json`, manifest: true,
-      extras: [{ label: "cast", url: `${raw}Reputation-Matrix2/actors/cast/import.json` }, { label: "era", url: `${raw}Reputation-Matrix2/actors/peachs-castle-955/import.json` }] },
+      extras: [{ label: "cast", url: `${raw}Reputation-Matrix2/actors/cast/import.json` },
+               { label: "era", url: `${raw}Reputation-Matrix2/actors/peachs-castle-955/import.json` },
+               { label: "era", url: `${raw}Reputation-Matrix2/actors/bowsers-castle-1035/import.json` }] },
   ];
 }
 
