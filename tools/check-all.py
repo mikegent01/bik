@@ -113,6 +113,9 @@ def main() -> int:
         # its actors deterministically; icons are held to the image library,
         # folders to actors/folders.json, tokens to the cut plates.
         ("forge packets (fawful's forces)", [py, "tools/build-forge-packets.py", "--check"], ROOT),
+        # NPC Forge: the generator's activities, the faction draft, the cut,
+        # the hand-off brief and the page's HTTP, on a sandbox copy.
+        ("npc forge", [py, "tools/tests/test-npc-forge.py"], ROOT),
         # Foundry mass import: the Python bridge (split/combine/link-images/
         # apply/check/install-images), the one-file import packet for the 955
         # roster, and the module zip that the manifest URL downloads.
