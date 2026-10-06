@@ -1426,14 +1426,14 @@
       "hp": 25,
       "speed": "30",
       "size": "sm",
-      "items": 64,
+      "items": 63,
       "ac": 18,
       "acApprox": true,
       "level": 3,
       "classes": [
         "Paladin 3"
       ],
-      "species": "Toad — Feyward Variant",
+      "species": "Grung",
       "versions": []
     },
     {
@@ -1754,13 +1754,13 @@
       "hp": 31,
       "speed": "30",
       "size": "sm",
-      "items": 62,
+      "items": 60,
       "ac": 15,
       "level": 4,
       "classes": [
         "Rogue 4"
       ],
-      "species": "Toad — Eager Variant",
+      "species": "Grung",
       "versions": []
     },
     {

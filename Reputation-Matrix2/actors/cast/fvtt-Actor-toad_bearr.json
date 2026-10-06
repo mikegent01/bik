@@ -2,7 +2,7 @@
   "_id": "it66FVv55koCFwFh",
   "name": "Bearr",
   "type": "npc",
-  "img": "assets/images/toads/roster/toad_15_bearr.png",
+  "img": "portraits/liberated-toads/roster/toad_15_bearr.png",
   "system": {
     "abilities": {
       "str": {

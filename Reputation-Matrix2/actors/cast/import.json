@@ -1574,7 +1574,7 @@
       "_id": "w4binvE9r2HpJPWu",
       "name": "4331 T",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_75_4331_t.png",
+      "img": "portraits/liberated-toads/roster/toad_75_4331_t.png",
       "system": {
         "abilities": {
           "str": {
@@ -2412,7 +2412,7 @@
       "_id": "oAcspg6r2k8sPOoH",
       "name": "Anne Ari T",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_74_anne_ari_t.png",
+      "img": "portraits/liberated-toads/roster/toad_74_anne_ari_t.png",
       "system": {
         "abilities": {
           "str": {
@@ -2934,7 +2934,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_74_anne_ari_t.png",
+          "src": "portraits/liberated-toads/roster/toad_74_anne_ari_t.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -3250,7 +3250,7 @@
       "_id": "cPwES1kCsf71n14K",
       "name": "Axie",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_18_axie.png",
+      "img": "portraits/liberated-toads/roster/toad_18_axie.png",
       "system": {
         "abilities": {
           "str": {
@@ -4090,7 +4090,7 @@
       "_id": "b1sfCjeJAzSYZou8",
       "name": "Barie",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_70_barie.png",
+      "img": "portraits/liberated-toads/roster/toad_70_barie.png",
       "system": {
         "abilities": {
           "str": {
@@ -4612,7 +4612,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_70_barie.png",
+          "src": "portraits/liberated-toads/roster/toad_70_barie.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -4926,7 +4926,7 @@
       "_id": "it66FVv55koCFwFh",
       "name": "Bearr",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_15_bearr.png",
+      "img": "portraits/liberated-toads/roster/toad_15_bearr.png",
       "system": {
         "abilities": {
           "str": {
@@ -5767,7 +5767,7 @@
       "_id": "PgWiAxDz39WLURz6",
       "name": "Bion",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_17_bion.png",
+      "img": "portraits/liberated-toads/roster/toad_17_bion.png",
       "system": {
         "abilities": {
           "str": {
@@ -6607,7 +6607,7 @@
       "_id": "ExZQm7rZ1qkoWikd",
       "name": "Bluey",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_27_bluey.png",
+      "img": "portraits/liberated-toads/roster/toad_27_bluey.png",
       "system": {
         "abilities": {
           "str": {
@@ -7445,7 +7445,7 @@
       "_id": "HNDnUmZYH36plbAa",
       "name": "Caerk",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_71_caerk.png",
+      "img": "portraits/liberated-toads/roster/toad_71_caerk.png",
       "system": {
         "abilities": {
           "str": {
@@ -7967,7 +7967,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_71_caerk.png",
+          "src": "portraits/liberated-toads/roster/toad_71_caerk.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -8283,7 +8283,7 @@
       "_id": "tndLKeUGA9MqYJ4O",
       "name": "Crai Yellow",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_59_crai_yellow.png",
+      "img": "portraits/liberated-toads/roster/toad_59_crai_yellow.png",
       "system": {
         "abilities": {
           "str": {
@@ -8805,7 +8805,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_59_crai_yellow.png",
+          "src": "portraits/liberated-toads/roster/toad_59_crai_yellow.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -9168,7 +9168,7 @@
       "_id": "eLxkXCPICERjSvf6",
       "name": "Freaza",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_19_freaza.png",
+      "img": "portraits/liberated-toads/roster/toad_19_freaza.png",
       "system": {
         "abilities": {
           "str": {
@@ -10007,7 +10007,7 @@
       "_id": "vZdJqRZ6mieFSsgB",
       "name": "Gearspore",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_47_gearspore.png",
+      "img": "portraits/liberated-toads/roster/toad_47_gearspore.png",
       "system": {
         "abilities": {
           "str": {
@@ -10892,7 +10892,7 @@
       "_id": "jnkWsEsYmfGnNfoV",
       "name": "Gentlepad",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_52_gentlepad.png",
+      "img": "portraits/liberated-toads/roster/toad_52_gentlepad.png",
       "system": {
         "abilities": {
           "str": {
@@ -11414,7 +11414,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_52_gentlepad.png",
+          "src": "portraits/liberated-toads/roster/toad_52_gentlepad.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -11737,7 +11737,7 @@
       "_id": "teHBUacJt9aPWbCI",
       "name": "Hammerling",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_48_hammerling.png",
+      "img": "portraits/liberated-toads/roster/toad_48_hammerling.png",
       "system": {
         "abilities": {
           "str": {
@@ -12259,7 +12259,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_48_hammerling.png",
+          "src": "portraits/liberated-toads/roster/toad_48_hammerling.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -12582,7 +12582,7 @@
       "_id": "08UKwFafJ8QrTzKL",
       "name": "Hustion Gold",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_64_hustion_gold.png",
+      "img": "portraits/liberated-toads/roster/toad_64_hustion_gold.png",
       "system": {
         "abilities": {
           "str": {
@@ -13104,7 +13104,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_64_hustion_gold.png",
+          "src": "portraits/liberated-toads/roster/toad_64_hustion_gold.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -13467,7 +13467,7 @@
       "_id": "PuzdKv0KwbPL7P3m",
       "name": "Inkspot",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_45_inkspot.png",
+      "img": "portraits/liberated-toads/roster/toad_45_inkspot.png",
       "system": {
         "abilities": {
           "str": {
@@ -14352,7 +14352,7 @@
       "_id": "qlyfz1l3GeDQH7lk",
       "name": "Kila T",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_67_kila_t.png",
+      "img": "portraits/liberated-toads/roster/toad_67_kila_t.png",
       "system": {
         "abilities": {
           "str": {
@@ -14874,7 +14874,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_67_kila_t.png",
+          "src": "portraits/liberated-toads/roster/toad_67_kila_t.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -15192,7 +15192,7 @@
       "_id": "K1hd2nVYC7CoGaOR",
       "name": "Kit T",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_42_kit_t.png",
+      "img": "portraits/liberated-toads/roster/toad_42_kit_t.png",
       "system": {
         "abilities": {
           "str": {
@@ -15714,7 +15714,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_42_kit_t.png",
+          "src": "portraits/liberated-toads/roster/toad_42_kit_t.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -16037,7 +16037,7 @@
       "_id": "RJyiKm8Ou4XHzbkO",
       "name": "Kyo",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_21_kyo.png",
+      "img": "portraits/liberated-toads/roster/toad_21_kyo.png",
       "system": {
         "abilities": {
           "str": {
@@ -16559,7 +16559,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_21_kyo.png",
+          "src": "portraits/liberated-toads/roster/toad_21_kyo.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -16878,7 +16878,7 @@
       "_id": "SWyJuKdId1eUm3sh",
       "name": "Lilystalker",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_44_lilystalker.png",
+      "img": "portraits/liberated-toads/roster/toad_44_lilystalker.png",
       "system": {
         "abilities": {
           "str": {
@@ -17718,7 +17718,7 @@
       "_id": "lCdhG6uRrk23xR6t",
       "name": "Lualu Green",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_60_lualu_green.png",
+      "img": "portraits/liberated-toads/roster/toad_60_lualu_green.png",
       "system": {
         "abilities": {
           "str": {
@@ -18240,7 +18240,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_60_lualu_green.png",
+          "src": "portraits/liberated-toads/roster/toad_60_lualu_green.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -18603,7 +18603,7 @@
       "_id": "A44Bo5wkaofd61oF",
       "name": "Lucky T",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_11_lucky_t.png",
+      "img": "portraits/liberated-toads/roster/toad_11_lucky_t.png",
       "system": {
         "abilities": {
           "str": {
@@ -19441,7 +19441,7 @@
       "_id": "VnCbYpz0anRSJgEj",
       "name": "Mechal",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_26_mechal.png",
+      "img": "portraits/liberated-toads/roster/toad_26_mechal.png",
       "system": {
         "abilities": {
           "str": {
@@ -19963,7 +19963,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_26_mechal.png",
+          "src": "portraits/liberated-toads/roster/toad_26_mechal.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -20279,7 +20279,7 @@
       "_id": "qtBBYfLbdtMo6PeM",
       "name": "Naners",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_22_naners.png",
+      "img": "portraits/liberated-toads/roster/toad_22_naners.png",
       "system": {
         "abilities": {
           "str": {
@@ -21119,7 +21119,7 @@
       "_id": "0rwRI29LAYQg8bsX",
       "name": "Nat",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_72_nat.png",
+      "img": "portraits/liberated-toads/roster/toad_72_nat.png",
       "system": {
         "abilities": {
           "str": {
@@ -21641,7 +21641,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_72_nat.png",
+          "src": "portraits/liberated-toads/roster/toad_72_nat.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -21957,7 +21957,7 @@
       "_id": "1BfZgOemyHSpgShH",
       "name": "Necro",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_39_necro.png",
+      "img": "portraits/liberated-toads/roster/toad_39_necro.png",
       "system": {
         "abilities": {
           "str": {
@@ -22479,7 +22479,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_39_necro.png",
+          "src": "portraits/liberated-toads/roster/toad_39_necro.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -22797,7 +22797,7 @@
       "_id": "A0pg2pEmyxTH8Fle",
       "name": "Oiqie",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_23_oiqie.png",
+      "img": "portraits/liberated-toads/roster/toad_23_oiqie.png",
       "system": {
         "abilities": {
           "str": {
@@ -23319,7 +23319,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_23_oiqie.png",
+          "src": "portraits/liberated-toads/roster/toad_23_oiqie.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -23633,7 +23633,7 @@
       "_id": "wO1vSGLaYdhjKN2v",
       "name": "Oliver P",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_62_oliver_p.png",
+      "img": "portraits/liberated-toads/roster/toad_62_oliver_p.png",
       "system": {
         "abilities": {
           "str": {
@@ -24155,7 +24155,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_62_oliver_p.png",
+          "src": "portraits/liberated-toads/roster/toad_62_oliver_p.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -24518,7 +24518,7 @@
       "_id": "VXGmUDXH244Gji3e",
       "name": "Perot",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_07_perot.png",
+      "img": "portraits/liberated-toads/roster/toad_07_perot.png",
       "system": {
         "abilities": {
           "str": {
@@ -25040,7 +25040,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_07_perot.png",
+          "src": "portraits/liberated-toads/roster/toad_07_perot.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -25358,7 +25358,7 @@
       "_id": "T076PAalzBdK2usH",
       "name": "Poe White",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_63_poe_white.png",
+      "img": "portraits/liberated-toads/roster/toad_63_poe_white.png",
       "system": {
         "abilities": {
           "str": {
@@ -25880,7 +25880,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_63_poe_white.png",
+          "src": "portraits/liberated-toads/roster/toad_63_poe_white.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -26243,7 +26243,7 @@
       "_id": "KA4LxI1POTOxTWfp",
       "name": "Pondscum",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_43_pondscum.png",
+      "img": "portraits/liberated-toads/roster/toad_43_pondscum.png",
       "system": {
         "abilities": {
           "str": {
@@ -26765,7 +26765,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_43_pondscum.png",
+          "src": "portraits/liberated-toads/roster/toad_43_pondscum.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -27088,7 +27088,7 @@
       "_id": "EzletDmLjYImZsQL",
       "name": "Quillback",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_46_quillback.png",
+      "img": "portraits/liberated-toads/roster/toad_46_quillback.png",
       "system": {
         "abilities": {
           "str": {
@@ -27973,7 +27973,7 @@
       "_id": "weNR7D6d0yY71nOy",
       "name": "Ratie",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_41_ratie.png",
+      "img": "portraits/liberated-toads/roster/toad_41_ratie.png",
       "system": {
         "abilities": {
           "str": {
@@ -28495,7 +28495,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_41_ratie.png",
+          "src": "portraits/liberated-toads/roster/toad_41_ratie.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -28811,7 +28811,7 @@
       "_id": "JjJWRRoEKojJ1kOG",
       "name": "Rawra",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_24_rawra.png",
+      "img": "portraits/liberated-toads/roster/toad_24_rawra.png",
       "system": {
         "abilities": {
           "str": {
@@ -29650,7 +29650,7 @@
       "_id": "m6pKMXhNAn4DI5CS",
       "name": "Rchie Iser",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_66_rchie_iser.png",
+      "img": "portraits/liberated-toads/roster/toad_66_rchie_iser.png",
       "system": {
         "abilities": {
           "str": {
@@ -30172,7 +30172,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_66_rchie_iser.png",
+          "src": "portraits/liberated-toads/roster/toad_66_rchie_iser.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -30535,7 +30535,7 @@
       "_id": "gPxSCOGUAgCoATpk",
       "name": "Regan",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_25_regan.png",
+      "img": "portraits/liberated-toads/roster/toad_25_regan.png",
       "system": {
         "abilities": {
           "str": {
@@ -31376,7 +31376,7 @@
       "_id": "Yxp4tLRWY5IiBLJH",
       "name": "Sally Silver",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_65_sally_silver.png",
+      "img": "portraits/liberated-toads/roster/toad_65_sally_silver.png",
       "system": {
         "abilities": {
           "str": {
@@ -31898,7 +31898,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_65_sally_silver.png",
+          "src": "portraits/liberated-toads/roster/toad_65_sally_silver.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -32261,7 +32261,7 @@
       "_id": "vw4Ic7Ynkj2j6Cgf",
       "name": "Shadowleap",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_53_shadowleap.png",
+      "img": "portraits/liberated-toads/roster/toad_53_shadowleap.png",
       "system": {
         "abilities": {
           "str": {
@@ -32783,7 +32783,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_53_shadowleap.png",
+          "src": "portraits/liberated-toads/roster/toad_53_shadowleap.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -33101,7 +33101,7 @@
       "_id": "2rxG4KD7Gz8iNZXc",
       "name": "Shieldback",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_50_shieldback.png",
+      "img": "portraits/liberated-toads/roster/toad_50_shieldback.png",
       "system": {
         "abilities": {
           "str": {
@@ -33623,7 +33623,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_50_shieldback.png",
+          "src": "portraits/liberated-toads/roster/toad_50_shieldback.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -33939,7 +33939,7 @@
       "_id": "JOk3z135MNUb2kTO",
       "name": "Slinat",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_28_slinat.png",
+      "img": "portraits/liberated-toads/roster/toad_28_slinat.png",
       "system": {
         "abilities": {
           "str": {
@@ -34777,7 +34777,7 @@
       "_id": "M6aRowDaTAzuO7rU",
       "name": "Soothing Moss",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_51_soothing_moss.png",
+      "img": "portraits/liberated-toads/roster/toad_51_soothing_moss.png",
       "system": {
         "abilities": {
           "str": {
@@ -35299,7 +35299,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_51_soothing_moss.png",
+          "src": "portraits/liberated-toads/roster/toad_51_soothing_moss.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -35617,7 +35617,7 @@
       "_id": "XmB3P30ldi78Y5jX",
       "name": "Spearwort",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_49_spearwort.png",
+      "img": "portraits/liberated-toads/roster/toad_49_spearwort.png",
       "system": {
         "abilities": {
           "str": {
@@ -36139,7 +36139,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_49_spearwort.png",
+          "src": "portraits/liberated-toads/roster/toad_49_spearwort.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -36463,7 +36463,7 @@
       "_id": "SX1AZHvY59NB1iRd",
       "name": "Speki",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_57_speki.png",
+      "img": "portraits/liberated-toads/roster/toad_57_speki.png",
       "system": {
         "abilities": {
           "str": {
@@ -36985,7 +36985,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_57_speki.png",
+          "src": "portraits/liberated-toads/roster/toad_57_speki.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -37299,7 +37299,7 @@
       "_id": "AkpSk5Us4T2LJf25",
       "name": "Spik",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_56_spik.png",
+      "img": "portraits/liberated-toads/roster/toad_56_spik.png",
       "system": {
         "abilities": {
           "str": {
@@ -37821,7 +37821,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_56_spik.png",
+          "src": "portraits/liberated-toads/roster/toad_56_spik.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -38135,7 +38135,7 @@
       "_id": "gWZyGtj6OSLXTZgK",
       "name": "Spoky",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_16_spoky.png",
+      "img": "portraits/liberated-toads/roster/toad_16_spoky.png",
       "system": {
         "abilities": {
           "str": {
@@ -38973,7 +38973,7 @@
       "_id": "54HaJzkQo6lQhq1I",
       "name": "Spoolo",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_58_spoolo.png",
+      "img": "portraits/liberated-toads/roster/toad_58_spoolo.png",
       "system": {
         "abilities": {
           "str": {
@@ -39495,7 +39495,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_58_spoolo.png",
+          "src": "portraits/liberated-toads/roster/toad_58_spoolo.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -39809,7 +39809,7 @@
       "_id": "kSBOHq3z90P1ebf4",
       "name": "Spork",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_55_spork.png",
+      "img": "portraits/liberated-toads/roster/toad_55_spork.png",
       "system": {
         "abilities": {
           "str": {
@@ -40331,7 +40331,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_55_spork.png",
+          "src": "portraits/liberated-toads/roster/toad_55_spork.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -40645,7 +40645,7 @@
       "_id": "I8jzBjJalRIPe0ei",
       "name": "Swig",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_29_swig.png",
+      "img": "portraits/liberated-toads/roster/toad_29_swig.png",
       "system": {
         "abilities": {
           "str": {
@@ -41484,7 +41484,7 @@
       "_id": "9TuXY4caS0VUfYWT",
       "name": "Tally",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_40_tally.png",
+      "img": "portraits/liberated-toads/roster/toad_40_tally.png",
       "system": {
         "abilities": {
           "str": {
@@ -42006,7 +42006,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_40_tally.png",
+          "src": "portraits/liberated-toads/roster/toad_40_tally.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -42324,7 +42324,7 @@
       "_id": "q2VmDdERZ9yDcp9l",
       "name": "Toad ie Foxx",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_73_toad_ie_foxx.png",
+      "img": "portraits/liberated-toads/roster/toad_73_toad_ie_foxx.png",
       "system": {
         "abilities": {
           "str": {
@@ -42846,7 +42846,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_73_toad_ie_foxx.png",
+          "src": "portraits/liberated-toads/roster/toad_73_toad_ie_foxx.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -43162,7 +43162,7 @@
       "_id": "iNepAkAKriHWB1Nt",
       "name": "Transparen T",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_38_transparen_t.png",
+      "img": "portraits/liberated-toads/roster/toad_38_transparen_t.png",
       "system": {
         "abilities": {
           "str": {
@@ -44002,7 +44002,7 @@
       "_id": "Ybpvqk0Dxrh0Dvgr",
       "name": "Unidentified Spore (#69)",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_69_unknown.png",
+      "img": "portraits/liberated-toads/roster/toad_69_unknown.png",
       "system": {
         "abilities": {
           "str": {
@@ -44524,7 +44524,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_69_unknown.png",
+          "src": "portraits/liberated-toads/roster/toad_69_unknown.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -44838,7 +44838,7 @@
       "_id": "HXdh0VX9WFXGCdxW",
       "name": "Wavey",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_68_wavey.png",
+      "img": "portraits/liberated-toads/roster/toad_68_wavey.png",
       "system": {
         "abilities": {
           "str": {
@@ -45360,7 +45360,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_68_wavey.png",
+          "src": "portraits/liberated-toads/roster/toad_68_wavey.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -45723,7 +45723,7 @@
       "_id": "XLp2lcSQD2Ov0BnU",
       "name": "Whispertail",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_54_whispertail.png",
+      "img": "portraits/liberated-toads/roster/toad_54_whispertail.png",
       "system": {
         "abilities": {
           "str": {
@@ -46245,7 +46245,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_54_whispertail.png",
+          "src": "portraits/liberated-toads/roster/toad_54_whispertail.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -46566,7 +46566,7 @@
       "_id": "h61wBPqcx8cedQfX",
       "name": "Zahue T Black",
       "type": "npc",
-      "img": "assets/images/toads/roster/toad_61_zahue_t_black.png",
+      "img": "portraits/liberated-toads/roster/toad_61_zahue_t_black.png",
       "system": {
         "abilities": {
           "str": {
@@ -47088,7 +47088,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "assets/images/toads/roster/toad_61_zahue_t_black.png",
+          "src": "portraits/liberated-toads/roster/toad_61_zahue_t_black.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",

@@ -2,7 +2,7 @@
   "_id": "b1sfCjeJAzSYZou8",
   "name": "Barie",
   "type": "npc",
-  "img": "assets/images/toads/roster/toad_70_barie.png",
+  "img": "portraits/liberated-toads/roster/toad_70_barie.png",
   "system": {
     "abilities": {
       "str": {
@@ -524,7 +524,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "assets/images/toads/roster/toad_70_barie.png",
+      "src": "portraits/liberated-toads/roster/toad_70_barie.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",

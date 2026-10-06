@@ -790,6 +790,25 @@ python3 ../../tools/build-liberated-toads-actors.py --check    # verify
 python3 ../../tools/build-liberated-toads-actors.py plates     # re-cut the role plates
 ```
 
+The **named** Toads with articles live in the generated cast
+(`cast/fvtt-Actor-toad_*.json`, 54 of them) and their art is the website's
+roster cell — `assets/images/toads/roster/toad_NN_<slug>.png`, a Toad on a
+cream field (a cream rectangle around every token on a map). The cells are
+keyed off that field by `tools/cut-roster-toads.py` into
+`portraits/liberated-toads/roster/<same name>.png` — transparent, trimmed,
+square, each one verified (border clear, no leftover field, no half-keyed
+field) — and `tools/build-character-sheets.py` gives such an actor the plate
+for portrait **and** token when it exists; the website keeps the cell
+(`characters.json` is untouched). 47 of the cells are the website's 180 px
+ones, so their plates are small: fine on the map, soft as a portrait — a
+render in the NPC Forge replaces one when it matters.
+
+```bash
+python3 ../../tools/cut-roster-toads.py                     # cut what is missing or stale, verify
+python3 ../../tools/cut-roster-toads.py --check             # verify the plates on disk (check-all runs this)
+python3 ../../tools/cut-roster-toads.py --sheet sheet.png   # look at them on magenta
+```
+
 Every file files into `Liberated Toads / <cohort>` (the scheme's
 `packets.liberated-toads.subfolders`, coloured like the docket), and
 [`liberated-toads/import.json`](liberated-toads/import.json) is the combined

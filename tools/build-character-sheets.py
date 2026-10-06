@@ -1459,22 +1459,40 @@ def group_of(c, party):
     return "Elsewhere"
 
 
+ROSTER_CELLS = "assets/images/toads/roster/"
+ROSTER_PLATES = "portraits/liberated-toads/roster/"
+
+
+def roster_plate(path):
+    """A Liberated Toads roster cell (the website's art, a Toad on a cream
+    field) has a transparent twin cut by tools/cut-roster-toads.py under
+    portraits/liberated-toads/roster/<same name>. The actor takes the plate —
+    portrait and token both — when it exists; the website keeps the cell."""
+    path = (path or "").replace("\\", "/")
+    name = path.rsplit("/", 1)[-1]
+    if ROSTER_CELLS not in path or not name.startswith("toad_") or not name.endswith(".png"):
+        return None
+    plate = ROSTER_PLATES + name
+    return plate if os.path.exists(os.path.join(RM, plate)) else None
+
+
 def portrait_of(c):
     im = (c.get("image") or "").replace("\\", "/")
     if not im or im.startswith("http"):
         return PLACEHOLDER, False
     if os.path.exists(os.path.join(RM, im)):
-        return im, True
+        return roster_plate(im) or im, True
     return PLACEHOLDER, False
 
 
 def token_of(c, img):
     """The token texture: the article's full-body plate (`fullBody`, head to
     feet on a plain field — what a token on the map should be) when it exists,
-    else the portrait the actor already carries."""
+    else the portrait the actor already carries. A roster cell becomes its
+    transparent plate here too."""
     fb = (c.get("fullBody") or "").replace("\\", "/")
     if fb and not fb.startswith("http") and os.path.exists(os.path.join(RM, fb)):
-        return fb
+        return roster_plate(fb) or fb
     return img
 
 

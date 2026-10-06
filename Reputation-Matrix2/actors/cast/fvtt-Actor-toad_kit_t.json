@@ -2,7 +2,7 @@
   "_id": "K1hd2nVYC7CoGaOR",
   "name": "Kit T",
   "type": "npc",
-  "img": "assets/images/toads/roster/toad_42_kit_t.png",
+  "img": "portraits/liberated-toads/roster/toad_42_kit_t.png",
   "system": {
     "abilities": {
       "str": {
@@ -524,7 +524,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "assets/images/toads/roster/toad_42_kit_t.png",
+      "src": "portraits/liberated-toads/roster/toad_42_kit_t.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",

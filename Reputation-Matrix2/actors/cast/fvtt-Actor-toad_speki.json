@@ -2,7 +2,7 @@
   "_id": "SX1AZHvY59NB1iRd",
   "name": "Speki",
   "type": "npc",
-  "img": "assets/images/toads/roster/toad_57_speki.png",
+  "img": "portraits/liberated-toads/roster/toad_57_speki.png",
   "system": {
     "abilities": {
       "str": {
@@ -524,7 +524,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "assets/images/toads/roster/toad_57_speki.png",
+      "src": "portraits/liberated-toads/roster/toad_57_speki.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",

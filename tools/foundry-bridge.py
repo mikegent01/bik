@@ -53,6 +53,7 @@ from __future__ import annotations
 
 import argparse
 import copy
+import filecmp
 import hashlib
 import json
 import os
@@ -1320,7 +1321,8 @@ def install_images(dirs, foundry_data, dry_run=False, force=False):
                     missing.append(p)
                 continue  # unknown = a GM upload the repo never had; nothing to copy
             dst = os.path.join(foundry_data, *p.replace("\\", "/").split("/"))
-            if os.path.exists(dst) and not force and os.path.getsize(dst) == os.path.getsize(src):
+            # the same BYTES, not the same size: a plate cut again (a Toad off its cream field) is often the same size
+            if os.path.exists(dst) and not force and filecmp.cmp(src, dst, shallow=False):
                 skipped.append(p)
                 continue
             if not dry_run:
