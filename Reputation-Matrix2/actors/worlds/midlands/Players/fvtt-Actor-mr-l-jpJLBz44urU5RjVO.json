@@ -1,12 +1,19 @@
 {
-  "_id": "mq07JYwSxl6XIsBK",
-  "name": "Smoking J",
-  "type": "npc",
-  "img": "portraits/smoking_j.jpg",
+  "_id": "jpJLBz44urU5RjVO",
+  "name": "Mr. L",
+  "type": "character",
+  "img": "portraits/mr_l.jpg",
   "system": {
+    "currency": {
+      "pp": 0,
+      "gp": 0,
+      "ep": 0,
+      "sp": 0,
+      "cp": 0
+    },
     "abilities": {
       "str": {
-        "value": 10,
+        "value": 12,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -29,7 +36,7 @@
         }
       },
       "dex": {
-        "value": 16,
+        "value": 18,
         "proficient": 1,
         "bonuses": {
           "check": "",
@@ -52,7 +59,7 @@
         }
       },
       "con": {
-        "value": 12,
+        "value": 13,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -75,8 +82,8 @@
         }
       },
       "int": {
-        "value": 13,
-        "proficient": 1,
+        "value": 14,
+        "proficient": 0,
         "bonuses": {
           "check": "",
           "save": ""
@@ -98,7 +105,7 @@
         }
       },
       "wis": {
-        "value": 13,
+        "value": 12,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -121,8 +128,8 @@
         }
       },
       "cha": {
-        "value": 12,
-        "proficient": 0,
+        "value": 15,
+        "proficient": 1,
         "bonuses": {
           "check": "",
           "save": ""
@@ -144,146 +151,9 @@
         }
       }
     },
-    "attributes": {
-      "ac": {
-        "flat": 14,
-        "calc": "natural",
-        "formula": ""
-      },
-      "hp": {
-        "value": 27,
-        "max": 27,
-        "formula": "5d8 + 5",
-        "temp": null,
-        "tempmax": null
-      },
-      "movement": {
-        "walk": "30",
-        "units": "ft",
-        "hover": false,
-        "burrow": "0",
-        "climb": "0",
-        "fly": "0",
-        "swim": "0",
-        "ignoredDifficultTerrain": []
-      },
-      "senses": {
-        "units": "ft",
-        "ranges": {
-          "darkvision": 0
-        },
-        "special": ""
-      },
-      "init": {
-        "ability": "",
-        "roll": {
-          "min": null,
-          "max": null,
-          "mode": 0
-        },
-        "bonus": ""
-      },
-      "attunement": {
-        "max": 3
-      },
-      "spellcasting": "",
-      "exhaustion": 0,
-      "concentration": {
-        "ability": "",
-        "roll": {
-          "min": null,
-          "max": null,
-          "mode": 0
-        },
-        "bonuses": {
-          "save": ""
-        },
-        "limit": 1
-      },
-      "loyalty": {},
-      "hd": {
-        "spent": 0
-      },
-      "death": {
-        "roll": {
-          "min": null,
-          "max": null,
-          "mode": 0
-        },
-        "success": 0,
-        "failure": 0,
-        "bonuses": {
-          "save": ""
-        }
-      },
-      "price": {
-        "value": null,
-        "denomination": "gp"
-      },
-      "spell": {
-        "level": 0
-      }
-    },
-    "details": {
-      "alignment": "Neutral",
-      "type": {
-        "value": "humanoid",
-        "subtype": ""
-      },
-      "cr": 1,
-      "biography": {
-        "value": "<p><em>Waluipedia cast sheet — Smoking J.</em> Built by <code>tools/build-character-sheets.py</code>, generated from the article's own words. XP ledger: level 2, power rating 4 → CR 1 as a operative. Numbers are a GM-ready reading of the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p><p><strong>The Venomous Casualty</strong> — Disaster Inc. (situational)</p><p>Status: Active — recovering from spider venom</p><p>Smoking J was bitten during the Battle of the Spider Grove and suffered a severe venomous reaction that forced his withdrawal from the front line. His incapacitation at a critical moment reduced the party's fighting strength during the most dangerous phase of the battle. Waluigi hopes Smoking J has fully recovered, though the long-term effects of arachnid venom are unpredictable.</p><h3>Evidence</h3><ul><li><strong>Bite</strong> — “He was fighting alongside the main group when one of the dog-sized spiders landed a bite.”</li><li><strong>Pack Tactics</strong> — “The toad squad got cut off partly because there weren't enough fighters to maintain a continuous line.”</li><li><strong>Mechanical Aptitude</strong> — “Remi had to hold her position with only her mechanical dog as backup.”</li></ul><p>Article: <code>#/article/smoking_j</code> (characters). Site sheet: <code>#/sheets/smoking_j</code>.</p>",
-        "public": ""
-      },
-      "ideal": "",
-      "bond": "",
-      "flaw": "",
-      "race": null,
-      "habitat": {
-        "value": [],
-        "custom": ""
-      },
-      "treasure": {
-        "value": []
-      }
-    },
-    "traits": {
-      "size": "med",
-      "languages": {
-        "value": [
-          "common"
-        ],
-        "custom": "",
-        "communication": {}
-      },
-      "ci": {
-        "value": [],
-        "custom": ""
-      },
-      "di": {
-        "value": [],
-        "custom": "",
-        "bypasses": []
-      },
-      "dr": {
-        "value": [],
-        "custom": "",
-        "bypasses": []
-      },
-      "dv": {
-        "value": [],
-        "custom": "",
-        "bypasses": []
-      },
-      "dm": {
-        "amount": {},
-        "bypasses": []
-      },
-      "important": false
-    },
     "skills": {
       "acr": {
-        "value": 0,
+        "value": 2,
         "ability": "dex",
         "roll": {
           "min": null,
@@ -335,7 +205,7 @@
         }
       },
       "dec": {
-        "value": 1,
+        "value": 2,
         "ability": "cha",
         "roll": {
           "min": null,
@@ -426,7 +296,7 @@
         }
       },
       "prc": {
-        "value": 1,
+        "value": 0,
         "ability": "wis",
         "roll": {
           "min": null,
@@ -439,7 +309,7 @@
         }
       },
       "prf": {
-        "value": 0,
+        "value": 1,
         "ability": "cha",
         "roll": {
           "min": null,
@@ -478,7 +348,7 @@
         }
       },
       "slt": {
-        "value": 1,
+        "value": 0,
         "ability": "dex",
         "roll": {
           "min": null,
@@ -491,7 +361,7 @@
         }
       },
       "ste": {
-        "value": 2,
+        "value": 1,
         "ability": "dex",
         "roll": {
           "min": null,
@@ -517,18 +387,8 @@
         }
       }
     },
-    "source": {
-      "custom": "Waluipedia campaign",
-      "revision": 1,
-      "rules": "2024"
-    },
-    "currency": {
-      "pp": 0,
-      "gp": 0,
-      "ep": 0,
-      "sp": 0,
-      "cp": 0
-    },
+    "tools": {},
+    "spells": {},
     "bonuses": {
       "mwak": {
         "attack": "",
@@ -555,32 +415,189 @@
         "dc": ""
       }
     },
-    "tools": {},
-    "spells": {},
     "resources": {
-      "legact": {
+      "primary": {
+        "value": 0,
         "max": 0,
-        "spent": 0
+        "sr": false,
+        "lr": false,
+        "label": ""
       },
-      "legres": {
+      "secondary": {
+        "value": 0,
         "max": 0,
-        "spent": 0
+        "sr": false,
+        "lr": false,
+        "label": ""
       },
-      "lair": {
-        "value": false,
-        "initiative": null,
-        "inside": false
+      "tertiary": {
+        "value": 0,
+        "max": 0,
+        "sr": false,
+        "lr": false,
+        "label": ""
+      }
+    },
+    "favorites": [],
+    "bastion": {
+      "name": "",
+      "description": ""
+    },
+    "attributes": {
+      "ac": {
+        "flat": 15,
+        "calc": "natural",
+        "formula": ""
+      },
+      "hp": {
+        "value": 21,
+        "max": 21,
+        "temp": null,
+        "tempmax": 0,
+        "bonuses": {}
+      },
+      "movement": {
+        "walk": "40",
+        "units": "ft",
+        "hover": false,
+        "burrow": "0",
+        "climb": "0",
+        "fly": "0",
+        "swim": "0",
+        "ignoredDifficultTerrain": []
+      },
+      "senses": {
+        "units": "ft",
+        "ranges": {
+          "darkvision": 0
+        },
+        "special": ""
+      },
+      "init": {
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonus": ""
+      },
+      "attunement": {
+        "max": 3
+      },
+      "spellcasting": "int",
+      "exhaustion": 0,
+      "inspiration": false,
+      "concentration": {
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "save": ""
+        },
+        "limit": 1
+      },
+      "loyalty": {},
+      "death": {
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "success": 0,
+        "failure": 0,
+        "bonuses": {
+          "save": ""
+        }
+      }
+    },
+    "details": {
+      "alignment": "Chaotic Neutral",
+      "race": "6f4wL6Tae1A5yxdS",
+      "background": "EUph0XtC0WeFs8An",
+      "originalClass": "7RfBQX1VC1GEOgyX",
+      "xp": {
+        "value": 900
+      },
+      "trait": "",
+      "ideal": "",
+      "bond": "",
+      "flaw": "",
+      "appearance": "",
+      "eyes": "",
+      "hair": "",
+      "skin": "",
+      "height": "",
+      "weight": "",
+      "age": "",
+      "gender": "",
+      "faith": "",
+      "biography": {
+        "value": "<p><em>Waluipedia cast sheet — Mr. L.</em> Built by <code>tools/build-character-sheets.py</code>, hand-authored from the article. XP ledger: level 3, power rating 4 → a level 3 Rogue player-character sheet (a player may take this seat; the authored CR 3 stands in where the ledger is silent). Numbers are a GM-ready reading of the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p><p><strong>The Green Thunder — Or The Shadow Luigi Cannot Escape</strong> — Unknown dimensional entity (historical) / Possibly still active (concerning)</p><p>Status: Officially suppressed — but the warrant suggests otherwise, and a backfilled 1035 record now has him in the open outside Star Hill Clinic: reciting, lengthening under fire, and watching from a staircase in three copies</p><p>Mr. L is either Luigi's darkest chapter or Luigi's truest self, depending on who you ask and how much you trust the official narrative. The Regency claims Mr. L was a temporary condition—Luigi brainwashed by dimensional forces, used as a weapon against the Mushroom Kingdom, eventually freed and returned to normal. The warrant charging Luigi with 'residual Mr. L activities' suggests the Regency does not fully believe their own story. The Loyalists claim Mr. L proves Luigi was always compromised and should never be trusted. Luigi himself went SILENT when asked if Mr. L did something evil—a silence witnessed by multiple parties at the ruined manor convergence. Waluigi has spent considerable effort investigating the Mr. L incident, and what Waluigi has found raises more questions than it answers. Was Luigi truly a puppet with someone else pulling the strings? Was Mr. L a separate personality that emerged under stress? Was the 'brainwashing' actually an AWAKENING of something that was always present? And most disturbingly—does Mr. L's existence connect to Mario's disappearance in ways that no one wants to acknowledge? Waluigi does not know. Waluigi is not sure anyone knows. But Waluigi is going to document every theory, every fragment of evidence, and every disturbing implication until the truth emerges or Waluigi runs out of paper. WAH.</p><h3>Evidence</h3><ul><li><strong>Green Thunder Strike</strong> — “The Green Thunder — Or The Shadow Luigi Cannot Escape”</li><li><strong>Extra Attack</strong> — “The Green Thunder — Or The Shadow Luigi Cannot Escape”</li><li><strong>Three Copies</strong> — “Officially suppressed — but the warrant suggests otherwise, and a backfilled 1035 record now has him in the open outside Star Hill Clinic: reciting, lengthening under fire, and watching from a staircase in three copies”</li><li><strong>Reciter</strong> — “Officially suppressed — but the warrant suggests otherwise, and a backfilled 1035 record now has him in the open outside Star Hill Clinic: reciting, lengthening under fire, and watching from a staircase in three copies”</li><li><strong>Luigi's Shadow</strong> — “Mr. L is either Luigi's darkest chapter or Luigi's truest self, depending on who you ask and how much you trust the official narrative.”</li></ul><p>Article: <code>#/article/mr_l</code> (characters). Site sheet: <code>#/sheets/mr_l</code>.</p>",
+        "public": ""
+      }
+    },
+    "traits": {
+      "size": "med",
+      "languages": {
+        "value": [
+          "common"
+        ],
+        "custom": "",
+        "communication": {}
+      },
+      "weaponProf": {
+        "value": [
+          "sim"
+        ],
+        "custom": "",
+        "mastery": {
+          "value": [],
+          "bonus": []
+        }
+      },
+      "armorProf": {
+        "value": [
+          "lgt"
+        ],
+        "custom": ""
+      },
+      "ci": {
+        "value": [],
+        "custom": ""
+      },
+      "di": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dr": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dv": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dm": {
+        "amount": {},
+        "bypasses": []
       }
     }
   },
   "prototypeToken": {
-    "name": "Smoking J",
+    "name": "Mr. L",
     "displayName": 0,
-    "actorLink": false,
+    "actorLink": true,
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "portraits/smoking_j.jpg",
+      "src": "portraits/mr_l.jpg",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -592,7 +609,7 @@
     "lockRotation": false,
     "rotation": 0,
     "alpha": 1,
-    "disposition": 1,
+    "disposition": 0,
     "displayBars": 0,
     "bar1": {
       "attribute": "attributes.hp"
@@ -627,7 +644,7 @@
       }
     },
     "sight": {
-      "enabled": false,
+      "enabled": true,
       "range": 0,
       "angle": 360,
       "visionMode": "basic",
@@ -667,13 +684,209 @@
   },
   "items": [
     {
-      "_id": "6AFBJDPizO3NmNrx",
-      "name": "Bite",
-      "type": "weapon",
-      "img": "icons/creatures/abilities/mouth-teeth-fire-orange.webp",
+      "_id": "7RfBQX1VC1GEOgyX",
+      "name": "Rogue",
+      "type": "class",
+      "img": "icons/skills/melee/weapons-crossed-swords-white-blue.webp",
       "system": {
         "description": {
-          "value": "<p>Bite; melee weapon attack.</p><p><em>Record:</em> “He was fighting alongside the main group when one of the dog-sized spiders landed a bite.”</p>",
+          "value": "<p>Rogue — the class this sheet reads the record as. Levels follow the XP ledger.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "identifier": "rogue",
+        "levels": 3,
+        "hd": {
+          "denomination": "d8",
+          "spent": 0,
+          "additional": ""
+        },
+        "advancement": {},
+        "startingEquipment": [],
+        "properties": [],
+        "primaryAbility": {
+          "value": [],
+          "all": true
+        },
+        "spellcasting": {
+          "progression": "third",
+          "ability": "int",
+          "preparation": {
+            "formula": ""
+          }
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "folder": null,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791171676921,
+        "modifiedTime": 1791171676921,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      }
+    },
+    {
+      "_id": "u25bsFCBflUIPqd0",
+      "name": "Arcane Trickster",
+      "type": "subclass",
+      "img": "icons/skills/melee/weapons-crossed-swords-white-blue.webp",
+      "system": {
+        "description": {
+          "value": "<p>Arcane Trickster (Rogue).</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "identifier": "arcane-trickster",
+        "classIdentifier": "rogue",
+        "advancement": {},
+        "spellcasting": {
+          "progression": "none",
+          "ability": "",
+          "preparation": {
+            "formula": ""
+          }
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "folder": null,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791171676921,
+        "modifiedTime": 1791171676921,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      }
+    },
+    {
+      "_id": "6f4wL6Tae1A5yxdS",
+      "name": "Human (allegedly)",
+      "type": "race",
+      "img": "icons/environment/people/group.webp",
+      "system": {
+        "description": {
+          "value": "<p>Human (allegedly), as the article files it.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "identifier": "human-allegedly",
+        "advancement": {},
+        "movement": {
+          "walk": "40",
+          "units": "ft",
+          "hover": false,
+          "ignoredDifficultTerrain": []
+        },
+        "senses": {
+          "units": "ft",
+          "special": "",
+          "ranges": {
+            "darkvision": null,
+            "blindsight": null,
+            "tremorsense": null,
+            "truesight": null
+          }
+        },
+        "type": {
+          "value": "humanoid",
+          "subtype": ""
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "folder": null,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791171676921,
+        "modifiedTime": 1791171676921,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      }
+    },
+    {
+      "_id": "EUph0XtC0WeFs8An",
+      "name": "Entertainer",
+      "type": "background",
+      "img": "icons/sundries/scrolls/scroll-bound-white-tan.webp",
+      "system": {
+        "description": {
+          "value": "<p>Entertainer — the life the article describes before the table.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "identifier": "entertainer",
+        "advancement": {},
+        "startingEquipment": []
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      },
+      "folder": null,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791171676921,
+        "modifiedTime": 1791171676921,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      }
+    },
+    {
+      "_id": "ou78ImJ52ROGYmuY",
+      "name": "Green Thunder Strike",
+      "type": "weapon",
+      "img": "icons/magic/lightning/bolt-strike-forked-blue.webp",
+      "system": {
+        "description": {
+          "value": "<p>Melee attack wrapped in lime lightning.</p>",
           "chat": ""
         },
         "source": {
@@ -725,11 +938,11 @@
             }
           },
           "base": {
-            "number": 1,
+            "number": 2,
             "denomination": 6,
             "bonus": "",
             "types": [
-              "piercing"
+              "lightning"
             ],
             "custom": {
               "enabled": false,
@@ -758,7 +971,7 @@
         },
         "container": null,
         "equipped": true,
-        "proficient": null,
+        "proficient": 1,
         "identifier": "",
         "attuned": false,
         "ammunition": {},
@@ -825,7 +1038,7 @@
               "recovery": []
             },
             "attack": {
-              "ability": "str",
+              "ability": "dex",
               "bonus": "",
               "critical": {
                 "threshold": null
@@ -940,7 +1153,7 @@
       },
       "effects": [],
       "flags": {},
-      "sort": 100000,
+      "sort": 500000,
       "ownership": {
         "default": 0
       },
@@ -949,8 +1162,8 @@
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1791171676229,
-        "modifiedTime": 1791171676229,
+        "createdTime": 1791171676921,
+        "modifiedTime": 1791171676921,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -958,17 +1171,17 @@
       }
     },
     {
-      "_id": "nBli8rfSZ88QX8xZ",
-      "name": "Pack Tactics",
+      "_id": "M1Rq7nm0QaJ9B3Pg",
+      "name": "Extra Attack",
       "type": "feat",
-      "img": "icons/magic/nature/wolf-paw-glow-large-teal-blue.webp",
+      "img": "icons/skills/melee/strike-slashes-orange.webp",
       "system": {
         "description": {
-          "value": "<p>Has advantage on an attack roll against a creature if at least one of its allies is within 5 feet of the creature and the ally is not incapacitated.</p>",
+          "value": "<p>Mr. L makes two Green Thunder Strikes.</p><p><em>Arrives early:</em> the class table grants this at level 5; the article's record of how this character fights put it on the sheet now. The GM may hold it.</p>",
           "chat": ""
         },
         "type": {
-          "value": "monster",
+          "value": "class",
           "subtype": ""
         },
         "uses": {
@@ -998,7 +1211,7 @@
       },
       "effects": [],
       "flags": {},
-      "sort": 200000,
+      "sort": 600000,
       "ownership": {
         "default": 0
       },
@@ -1007,8 +1220,8 @@
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1791171676229,
-        "modifiedTime": 1791171676229,
+        "createdTime": 1791171676921,
+        "modifiedTime": 1791171676921,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -1016,17 +1229,80 @@
       }
     },
     {
-      "_id": "u3OBPQ73WZvUPLKU",
-      "name": "Mechanical Aptitude",
+      "_id": "7cax4jh9T7Elvma9",
+      "name": "Three Copies",
       "type": "feat",
-      "img": "icons/tools/hand/wrench-adjustable.webp",
+      "img": "icons/equipment/head/mask-carved-gargoyle-grey.webp",
       "system": {
         "description": {
-          "value": "<p>Proficient with tinker's tools (expertise). Can jury-rig a broken mechanism with 1 minute of work and a DC 15 check, or disable one as an action.</p>",
+          "value": "<p>Once per day, Mr. L splits into three identical images for 1 minute (as <em>mirror image</em>); witnesses at Star Hill Clinic counted three of him on a staircase.</p>",
           "chat": ""
         },
         "type": {
-          "value": "monster",
+          "value": "class",
+          "subtype": ""
+        },
+        "uses": {
+          "spent": 0,
+          "max": "1",
+          "recovery": [
+            {
+              "period": "day",
+              "type": "recoverAll"
+            }
+          ]
+        },
+        "activities": {},
+        "source": {
+          "custom": "Waluipedia campaign",
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "advancement": {},
+        "identifier": "",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": ""
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 700000,
+      "ownership": {
+        "default": 0
+      },
+      "folder": null,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791171676921,
+        "modifiedTime": 1791171676921,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      }
+    },
+    {
+      "_id": "byywKorST6K4mz8e",
+      "name": "Reciter",
+      "type": "feat",
+      "img": "icons/magic/sonic/scream-wail-shout-teal.webp",
+      "system": {
+        "description": {
+          "value": "<p>Mr. L recites under fire. While he is speaking verse, he has advantage on Dexterity saving throws and attackers who can hear him have disadvantage on opportunity attacks against him.</p>",
+          "chat": ""
+        },
+        "type": {
+          "value": "class",
           "subtype": ""
         },
         "uses": {
@@ -1056,7 +1332,7 @@
       },
       "effects": [],
       "flags": {},
-      "sort": 300000,
+      "sort": 800000,
       "ownership": {
         "default": 0
       },
@@ -1065,8 +1341,66 @@
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1791171676229,
-        "modifiedTime": 1791171676229,
+        "createdTime": 1791171676921,
+        "modifiedTime": 1791171676921,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      }
+    },
+    {
+      "_id": "T0P2dPB9SFt9EdhT",
+      "name": "Luigi's Shadow",
+      "type": "feat",
+      "img": "icons/magic/perception/eye-ringed-glow-angry-small-red.webp",
+      "system": {
+        "description": {
+          "value": "<p>Any effect that would reveal Mr. L's true identity shows Luigi's face. Luigi, if present, must succeed on a DC 13 Wisdom save at the start of each of his turns or be unable to attack Mr. L this turn.</p>",
+          "chat": ""
+        },
+        "type": {
+          "value": "class",
+          "subtype": ""
+        },
+        "uses": {
+          "spent": 0,
+          "max": "",
+          "recovery": []
+        },
+        "activities": {},
+        "source": {
+          "custom": "Waluipedia campaign",
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "advancement": {},
+        "identifier": "",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": ""
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 900000,
+      "ownership": {
+        "default": 0
+      },
+      "folder": null,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791171676921,
+        "modifiedTime": 1791171676921,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -1075,7 +1409,7 @@
     }
   ],
   "effects": [],
-  "folder": "FvKdqeKTwINidr0T",
+  "folder": "7eA2RknXeZ96vDQo",
   "ownership": {
     "default": 0,
     "7BMT1Aux3QVtq027": 3
@@ -1083,53 +1417,72 @@
   "flags": {
     "waluipedia-mass-import": {
       "folderPath": [
-        "Disaster Inc."
+        "Players"
       ],
       "source": "tools/build-character-sheets.py"
     },
     "waluipedia-sheets": {
-      "characterId": "smoking_j",
+      "characterId": "mr_l",
       "generated": true,
-      "bespoke": false,
+      "bespoke": true,
       "role": "rogue",
       "ledger": {
-        "level": 2,
+        "level": 3,
         "powerLevel": 4
       },
       "evidence": [
         {
-          "feature": "Bite",
-          "quote": "He was fighting alongside the main group when one of the dog-sized spiders landed a bite.",
+          "feature": "Green Thunder Strike",
+          "quote": "The Green Thunder — Or The Shadow Luigi Cannot Escape",
           "source": "article"
         },
         {
-          "feature": "Pack Tactics",
-          "quote": "The toad squad got cut off partly because there weren't enough fighters to maintain a continuous line.",
+          "feature": "Extra Attack",
+          "quote": "The Green Thunder — Or The Shadow Luigi Cannot Escape",
           "source": "article"
         },
         {
-          "feature": "Mechanical Aptitude",
-          "quote": "Remi had to hold her position with only her mechanical dog as backup.",
+          "feature": "Three Copies",
+          "quote": "Officially suppressed — but the warrant suggests otherwise, and a backfilled 1035 record now has him in the open outside Star Hill Clinic: reciting, lengthening under fire, and watching from a staircase in three copies",
+          "source": "article"
+        },
+        {
+          "feature": "Reciter",
+          "quote": "Officially suppressed — but the warrant suggests otherwise, and a backfilled 1035 record now has him in the open outside Star Hill Clinic: reciting, lengthening under fire, and watching from a staircase in three copies",
+          "source": "article"
+        },
+        {
+          "feature": "Luigi's Shadow",
+          "quote": "Mr. L is either Luigi's darkest chapter or Luigi's truest self, depending on who you ask and how much you trust the official narrative.",
           "source": "article"
         }
       ],
       "tags": [
         "Disaster Inc.",
-        "npc",
-        "humanoid",
-        "party"
+        "pc",
+        "Elsewhere"
       ],
       "color": "#D4A017",
+      "pc": {
+        "level": 3,
+        "class": "Rogue",
+        "subclass": "Arcane Trickster",
+        "cr": 3,
+        "hitDie": "d8",
+        "formula": "3d8 + 3"
+      },
       "organized": {
         "path": [
-          "Disaster Inc."
+          "Players"
         ],
-        "basis": "gm-group",
-        "from": null
+        "basis": "website",
+        "from": [
+          "Elsewhere"
+        ]
       }
     },
     "scene-packer": {
-      "hash": "3b6ad59615aae523ef91555b09c5548b0c16985a"
+      "hash": "fa518a6a63031ec80ac5e2de2035d6f19f5f47c1"
     },
     "midi-qol": {
       "onUseMacroParts": {}
@@ -1141,8 +1494,8 @@
     "systemVersion": "5.3.3",
     "compendiumSource": null,
     "duplicateSource": null,
-    "createdTime": 1791171676229,
-    "modifiedTime": 1791172239095,
+    "createdTime": 1791171676921,
+    "modifiedTime": 1791172239380,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

@@ -1,13 +1,20 @@
 {
-  "_id": "gty769WQ2e9bUUgh",
-  "name": "Ryan",
-  "type": "npc",
-  "img": "portraits/ryan.png",
+  "_id": "cHR6kdrBKPRurO8q",
+  "name": "Bryan",
+  "type": "character",
+  "img": "portraits/bryan.png",
   "system": {
+    "currency": {
+      "pp": 0,
+      "gp": 0,
+      "ep": 0,
+      "sp": 0,
+      "cp": 0
+    },
     "abilities": {
       "str": {
-        "value": 15,
-        "proficient": 1,
+        "value": 14,
+        "proficient": 0,
         "bonuses": {
           "check": "",
           "save": ""
@@ -29,7 +36,7 @@
         }
       },
       "dex": {
-        "value": 12,
+        "value": 10,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -53,29 +60,6 @@
       },
       "con": {
         "value": 14,
-        "proficient": 1,
-        "bonuses": {
-          "check": "",
-          "save": ""
-        },
-        "max": null,
-        "check": {
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "save": {
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        }
-      },
-      "int": {
-        "value": 10,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -97,7 +81,7 @@
           }
         }
       },
-      "wis": {
+      "int": {
         "value": 11,
         "proficient": 0,
         "bonuses": {
@@ -120,9 +104,32 @@
           }
         }
       },
+      "wis": {
+        "value": 18,
+        "proficient": 1,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
       "cha": {
-        "value": 10,
-        "proficient": 0,
+        "value": 13,
+        "proficient": 1,
         "bonuses": {
           "check": "",
           "save": ""
@@ -143,143 +150,6 @@
           }
         }
       }
-    },
-    "attributes": {
-      "ac": {
-        "flat": 14,
-        "calc": "natural",
-        "formula": ""
-      },
-      "hp": {
-        "value": 32,
-        "max": 32,
-        "formula": "5d8 + 10",
-        "temp": null,
-        "tempmax": null
-      },
-      "movement": {
-        "walk": "30",
-        "units": "ft",
-        "hover": false,
-        "burrow": "0",
-        "climb": "0",
-        "fly": "0",
-        "swim": "0",
-        "ignoredDifficultTerrain": []
-      },
-      "senses": {
-        "units": "ft",
-        "ranges": {
-          "darkvision": 0
-        },
-        "special": ""
-      },
-      "init": {
-        "ability": "",
-        "roll": {
-          "min": null,
-          "max": null,
-          "mode": 0
-        },
-        "bonus": ""
-      },
-      "attunement": {
-        "max": 3
-      },
-      "spellcasting": "",
-      "exhaustion": 0,
-      "concentration": {
-        "ability": "",
-        "roll": {
-          "min": null,
-          "max": null,
-          "mode": 0
-        },
-        "bonuses": {
-          "save": ""
-        },
-        "limit": 1
-      },
-      "loyalty": {},
-      "hd": {
-        "spent": 0
-      },
-      "death": {
-        "roll": {
-          "min": null,
-          "max": null,
-          "mode": 0
-        },
-        "success": 0,
-        "failure": 0,
-        "bonuses": {
-          "save": ""
-        }
-      },
-      "price": {
-        "value": null,
-        "denomination": "gp"
-      },
-      "spell": {
-        "level": 0
-      }
-    },
-    "details": {
-      "alignment": "Neutral",
-      "type": {
-        "value": "humanoid",
-        "subtype": "human"
-      },
-      "cr": 1,
-      "biography": {
-        "value": "<p><em>Waluipedia cast sheet — Ryan.</em> Built by <code>tools/build-character-sheets.py</code>, generated from the article's own words. XP ledger: level 2, power rating 4 → CR 1 as a soldier. Numbers are a GM-ready reading of the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p><p><strong>The Man Who Jumped</strong> — Liberated Toads / Disaster Inc. (separated)</p><p>Status: Active — location uncertain, last known contact with Rakasha spirit-walkers</p><p>Ryan is the person who jumped off the Vigilance during the Iron Sky Breach rather than be captured by the Iron Legion. He jumped. Off an airship. In the sky. He survived—somehow—and was taken in by a Rakasha spirit-walker. Waluigi does not know Ryan's current status or location, but anyone who survives a jump like that has earned Waluigi's respect forever.</p><h3>Evidence</h3><ul><li><strong>Spear</strong> — “The Man Who Jumped”</li><li><strong>Iron Discipline</strong> — “Ryan is the person who jumped off the Vigilance during the Iron Sky Breach rather than be captured by the Iron Legion.”</li></ul><p>Article: <code>#/article/ryan</code> (characters). Site sheet: <code>#/sheets/ryan</code>.</p>",
-        "public": ""
-      },
-      "ideal": "",
-      "bond": "",
-      "flaw": "",
-      "race": null,
-      "habitat": {
-        "value": [],
-        "custom": ""
-      },
-      "treasure": {
-        "value": []
-      }
-    },
-    "traits": {
-      "size": "med",
-      "languages": {
-        "value": [
-          "common"
-        ],
-        "custom": "",
-        "communication": {}
-      },
-      "ci": {
-        "value": [],
-        "custom": ""
-      },
-      "di": {
-        "value": [],
-        "custom": "",
-        "bypasses": []
-      },
-      "dr": {
-        "value": [],
-        "custom": "",
-        "bypasses": []
-      },
-      "dv": {
-        "value": [],
-        "custom": "",
-        "bypasses": []
-      },
-      "dm": {
-        "amount": {},
-        "bypasses": []
-      },
-      "important": false
     },
     "skills": {
       "acr": {
@@ -322,7 +192,7 @@
         }
       },
       "ath": {
-        "value": 1,
+        "value": 0,
         "ability": "str",
         "roll": {
           "min": null,
@@ -361,7 +231,7 @@
         }
       },
       "ins": {
-        "value": 0,
+        "value": 1,
         "ability": "wis",
         "roll": {
           "min": null,
@@ -374,7 +244,7 @@
         }
       },
       "itm": {
-        "value": 0,
+        "value": 1,
         "ability": "cha",
         "roll": {
           "min": null,
@@ -426,7 +296,7 @@
         }
       },
       "prc": {
-        "value": 1,
+        "value": 0,
         "ability": "wis",
         "roll": {
           "min": null,
@@ -465,7 +335,7 @@
         }
       },
       "rel": {
-        "value": 0,
+        "value": 2,
         "ability": "int",
         "roll": {
           "min": null,
@@ -504,7 +374,7 @@
         }
       },
       "sur": {
-        "value": 0,
+        "value": 1,
         "ability": "wis",
         "roll": {
           "min": null,
@@ -517,18 +387,8 @@
         }
       }
     },
-    "source": {
-      "custom": "Waluipedia campaign",
-      "revision": 1,
-      "rules": "2024"
-    },
-    "currency": {
-      "pp": 0,
-      "gp": 0,
-      "ep": 0,
-      "sp": 0,
-      "cp": 0
-    },
+    "tools": {},
+    "spells": {},
     "bonuses": {
       "mwak": {
         "attack": "",
@@ -555,32 +415,191 @@
         "dc": ""
       }
     },
-    "tools": {},
-    "spells": {},
     "resources": {
-      "legact": {
+      "primary": {
+        "value": 0,
         "max": 0,
-        "spent": 0
+        "sr": false,
+        "lr": false,
+        "label": ""
       },
-      "legres": {
+      "secondary": {
+        "value": 0,
         "max": 0,
-        "spent": 0
+        "sr": false,
+        "lr": false,
+        "label": ""
       },
-      "lair": {
-        "value": false,
-        "initiative": null,
-        "inside": false
+      "tertiary": {
+        "value": 0,
+        "max": 0,
+        "sr": false,
+        "lr": false,
+        "label": ""
+      }
+    },
+    "favorites": [],
+    "bastion": {
+      "name": "",
+      "description": ""
+    },
+    "attributes": {
+      "ac": {
+        "flat": 15,
+        "calc": "natural",
+        "formula": ""
+      },
+      "hp": {
+        "value": 24,
+        "max": 24,
+        "temp": null,
+        "tempmax": 0,
+        "bonuses": {}
+      },
+      "movement": {
+        "walk": "25",
+        "units": "ft",
+        "hover": false,
+        "burrow": "0",
+        "climb": "0",
+        "fly": "0",
+        "swim": "0",
+        "ignoredDifficultTerrain": []
+      },
+      "senses": {
+        "units": "ft",
+        "ranges": {
+          "darkvision": 0
+        },
+        "special": ""
+      },
+      "init": {
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonus": ""
+      },
+      "attunement": {
+        "max": 3
+      },
+      "spellcasting": "wis",
+      "exhaustion": 0,
+      "inspiration": false,
+      "concentration": {
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "save": ""
+        },
+        "limit": 1
+      },
+      "loyalty": {},
+      "death": {
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "success": 0,
+        "failure": 0,
+        "bonuses": {
+          "save": ""
+        }
+      }
+    },
+    "details": {
+      "alignment": "Lawful Neutral",
+      "race": "lFkbHp60B0wrzU8B",
+      "background": "eG4vB5s8UBmE6RBs",
+      "originalClass": "WuFABgUUCmDzmNJs",
+      "xp": {
+        "value": 900
+      },
+      "trait": "",
+      "ideal": "",
+      "bond": "",
+      "flaw": "",
+      "appearance": "",
+      "eyes": "",
+      "hair": "",
+      "skin": "",
+      "height": "",
+      "weight": "",
+      "age": "",
+      "gender": "",
+      "faith": "",
+      "biography": {
+        "value": "<p><em>Waluipedia cast sheet — Bryan.</em> Built by <code>tools/build-character-sheets.py</code>, hand-authored from the article. XP ledger: level 3, power rating 100 → a level 3 Cleric player-character sheet (a player may take this seat; the authored CR 3 stands in where the ledger is silent). Numbers are a GM-ready reading of the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p><p><strong>The Toad God's Instrument of Judgment, Currently Lost in the Shadowfell</strong> — Servant of the Toad God / Affiliated with Mystic Morel's hunting party</p><p>Status: Active — last confirmed location: the Shadowfell grove, where a massive fireball was hurled at Mazebounds</p><p>Bryan is the servant of a deity he calls the Toad God, and he arrived at Raventree's extended crisis with the mission-oriented certainty of someone who has received divine instruction and the practical limitations of someone who has never actually been to the Shadowfell. He recruited Dan from the Mages' Guild barracks, partnered with Mystic Morel for planar transit, and entered the Shadowfell hunting Archie Miser under a theological mandate that he described as being 'for the good of the world.' He found the Mazehound grove instead. A massive fireball was hurled. Waluigi does not know whose fireball it was or whether Bryan survived the grove encounter. Waluigi notes that anyone hunting Archie Miser in the Shadowfell while carrying a mandate from a Toad God and traveling with a fortune-telling pickpocket is operating at a significant information disadvantage relative to the situation they have entered. WAH.</p><h3>Evidence</h3><ul><li><strong>Instrument of Judgment</strong> — “The Toad God's Instrument of Judgment, Currently Lost in the Shadowfell”</li><li><strong>Toad God's Mandate</strong> — “Bryan is the servant of a deity he calls the Toad God, and he arrived at Raventree's extended crisis with the mission-oriented certainty of someone who has received divine instruction and the practical limitations of”</li><li><strong>Divine Judgment</strong> — “A sincere Toad God servant who reaches Archie and believes divine judgment demands action will act.”</li><li><strong>Power Rating 100</strong> — “The Toad God's Instrument of Judgment, Currently Lost in the Shadowfell”</li></ul><p>Article: <code>#/article/bryan</code> (characters). Site sheet: <code>#/sheets/bryan</code>.</p>",
+        "public": ""
+      }
+    },
+    "traits": {
+      "size": "sm",
+      "languages": {
+        "value": [
+          "common"
+        ],
+        "custom": "",
+        "communication": {}
+      },
+      "weaponProf": {
+        "value": [
+          "sim"
+        ],
+        "custom": "",
+        "mastery": {
+          "value": [],
+          "bonus": []
+        }
+      },
+      "armorProf": {
+        "value": [
+          "lgt",
+          "med",
+          "shl"
+        ],
+        "custom": ""
+      },
+      "ci": {
+        "value": [],
+        "custom": ""
+      },
+      "di": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dr": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dv": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dm": {
+        "amount": {},
+        "bypasses": []
       }
     }
   },
   "prototypeToken": {
-    "name": "Ryan",
+    "name": "Bryan",
     "displayName": 0,
-    "actorLink": false,
+    "actorLink": true,
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "portraits/ryan.png",
+      "src": "portraits/bryan.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -592,7 +611,7 @@
     "lockRotation": false,
     "rotation": 0,
     "alpha": 1,
-    "disposition": 1,
+    "disposition": 0,
     "displayBars": 0,
     "bar1": {
       "attribute": "attributes.hp"
@@ -627,7 +646,7 @@
       }
     },
     "sight": {
-      "enabled": false,
+      "enabled": true,
       "range": 0,
       "angle": 360,
       "visionMode": "basic",
@@ -667,13 +686,209 @@
   },
   "items": [
     {
-      "_id": "57baaFUTEddwyKCc",
-      "name": "Spear",
-      "type": "weapon",
-      "img": "icons/weapons/polearms/spear-simple-engraved.webp",
+      "_id": "WuFABgUUCmDzmNJs",
+      "name": "Cleric",
+      "type": "class",
+      "img": "icons/skills/melee/weapons-crossed-swords-white-blue.webp",
       "system": {
         "description": {
-          "value": "<p>Spear; melee weapon attack.</p>",
+          "value": "<p>Cleric — the class this sheet reads the record as. Levels follow the XP ledger.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "identifier": "cleric",
+        "levels": 3,
+        "hd": {
+          "denomination": "d8",
+          "spent": 0,
+          "additional": ""
+        },
+        "advancement": {},
+        "startingEquipment": [],
+        "properties": [],
+        "primaryAbility": {
+          "value": [],
+          "all": true
+        },
+        "spellcasting": {
+          "progression": "full",
+          "ability": "wis",
+          "preparation": {
+            "formula": ""
+          }
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "folder": null,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791171676538,
+        "modifiedTime": 1791171676538,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      }
+    },
+    {
+      "_id": "dAUOO4tNCxsAcdRI",
+      "name": "War Domain",
+      "type": "subclass",
+      "img": "icons/skills/melee/weapons-crossed-swords-white-blue.webp",
+      "system": {
+        "description": {
+          "value": "<p>War Domain (Cleric).</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "identifier": "war-domain",
+        "classIdentifier": "cleric",
+        "advancement": {},
+        "spellcasting": {
+          "progression": "none",
+          "ability": "",
+          "preparation": {
+            "formula": ""
+          }
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "folder": null,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791171676538,
+        "modifiedTime": 1791171676538,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      }
+    },
+    {
+      "_id": "lFkbHp60B0wrzU8B",
+      "name": "Toad",
+      "type": "race",
+      "img": "icons/environment/people/group.webp",
+      "system": {
+        "description": {
+          "value": "<p>Toad, as the article files it.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "identifier": "toad",
+        "advancement": {},
+        "movement": {
+          "walk": "25",
+          "units": "ft",
+          "hover": false,
+          "ignoredDifficultTerrain": []
+        },
+        "senses": {
+          "units": "ft",
+          "special": "",
+          "ranges": {
+            "darkvision": null,
+            "blindsight": null,
+            "tremorsense": null,
+            "truesight": null
+          }
+        },
+        "type": {
+          "value": "humanoid",
+          "subtype": ""
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "folder": null,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791171676538,
+        "modifiedTime": 1791171676538,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      }
+    },
+    {
+      "_id": "eG4vB5s8UBmE6RBs",
+      "name": "Acolyte",
+      "type": "background",
+      "img": "icons/sundries/scrolls/scroll-bound-white-tan.webp",
+      "system": {
+        "description": {
+          "value": "<p>Acolyte — the life the article describes before the table.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "identifier": "acolyte",
+        "advancement": {},
+        "startingEquipment": []
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      },
+      "folder": null,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791171676538,
+        "modifiedTime": 1791171676538,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      }
+    },
+    {
+      "_id": "UmtrVZGtk1lN3W5R",
+      "name": "Instrument of Judgment",
+      "type": "weapon",
+      "img": "icons/weapons/maces/mace-round-steel.webp",
+      "system": {
+        "description": {
+          "value": "<p>A heavy, blessed mace.</p>",
           "chat": ""
         },
         "source": {
@@ -698,8 +913,8 @@
         "identified": true,
         "cover": null,
         "range": {
-          "value": 20,
-          "long": 60,
+          "value": null,
+          "long": null,
           "units": "ft",
           "reach": null
         },
@@ -711,10 +926,10 @@
         "damage": {
           "versatile": {
             "number": 1,
-            "denomination": 8,
+            "denomination": 10,
             "bonus": "",
             "types": [
-              "piercing"
+              "bludgeoning"
             ],
             "custom": {
               "enabled": false,
@@ -728,10 +943,10 @@
           },
           "base": {
             "number": 1,
-            "denomination": 6,
+            "denomination": 8,
             "bonus": "",
             "types": [
-              "piercing"
+              "bludgeoning"
             ],
             "custom": {
               "enabled": false,
@@ -754,7 +969,6 @@
           "conditions": ""
         },
         "properties": [
-          "thr",
           "ver"
         ],
         "type": {
@@ -763,7 +977,7 @@
         },
         "container": null,
         "equipped": true,
-        "proficient": null,
+        "proficient": 1,
         "identifier": "",
         "attuned": false,
         "ammunition": {},
@@ -945,7 +1159,7 @@
       },
       "effects": [],
       "flags": {},
-      "sort": 100000,
+      "sort": 500000,
       "ownership": {
         "default": 0
       },
@@ -954,8 +1168,8 @@
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1791171676199,
-        "modifiedTime": 1791171676199,
+        "createdTime": 1791171676538,
+        "modifiedTime": 1791171676538,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -963,17 +1177,17 @@
       }
     },
     {
-      "_id": "Km1lX0DLVB4fZfna",
-      "name": "Iron Discipline",
+      "_id": "HCTFUx6m05UjKH0h",
+      "name": "Toad God's Mandate",
       "type": "feat",
-      "img": "icons/skills/melee/shield-block-gray-orange.webp",
+      "img": "icons/magic/holy/prayer-hands-glowing-yellow.webp",
       "system": {
         "description": {
-          "value": "<p>While within 5 feet of an ally, gains +2 AC and advantage on saving throws against being frightened.</p>",
+          "value": "<p>Spellcasting ability Wisdom (spell save DC 14, +6 to hit). At will: <em>guidance, sacred flame, thaumaturgy</em>. 1st level (4 slots): <em>bless, command, cure wounds, shield of faith</em>. 2nd level (2 slots): <em>hold person, spiritual weapon</em>.</p>",
           "chat": ""
         },
         "type": {
-          "value": "monster",
+          "value": "class",
           "subtype": ""
         },
         "uses": {
@@ -1003,7 +1217,7 @@
       },
       "effects": [],
       "flags": {},
-      "sort": 200000,
+      "sort": 600000,
       "ownership": {
         "default": 0
       },
@@ -1012,8 +1226,124 @@
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1791171676199,
-        "modifiedTime": 1791171676199,
+        "createdTime": 1791171676538,
+        "modifiedTime": 1791171676538,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      }
+    },
+    {
+      "_id": "XTQIceWIWg82dWAt",
+      "name": "Divine Judgment",
+      "type": "feat",
+      "img": "icons/magic/light/beam-strike-orange-gold.webp",
+      "system": {
+        "description": {
+          "value": "<p>Once per turn, when Bryan hits a creature he has named as judged, the attack deals an extra 2d8 radiant damage. He names one creature per long rest and believes the choice is not his.</p>",
+          "chat": ""
+        },
+        "type": {
+          "value": "class",
+          "subtype": ""
+        },
+        "uses": {
+          "spent": 0,
+          "max": "",
+          "recovery": []
+        },
+        "activities": {},
+        "source": {
+          "custom": "Waluipedia campaign",
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "advancement": {},
+        "identifier": "",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": ""
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 700000,
+      "ownership": {
+        "default": 0
+      },
+      "folder": null,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791171676538,
+        "modifiedTime": 1791171676538,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      }
+    },
+    {
+      "_id": "HIpAwL0DMg3ll2mJ",
+      "name": "Power Rating 100",
+      "type": "feat",
+      "img": "icons/magic/light/explosion-star-glow-yellow.webp",
+      "system": {
+        "description": {
+          "value": "<p>The ledger gives Bryan a power rating of 100 and a level of 3. The sheet follows the level; the rating is the god behind him, and the GM may answer one of Bryan's prayers per session with anything.</p>",
+          "chat": ""
+        },
+        "type": {
+          "value": "class",
+          "subtype": ""
+        },
+        "uses": {
+          "spent": 0,
+          "max": "",
+          "recovery": []
+        },
+        "activities": {},
+        "source": {
+          "custom": "Waluipedia campaign",
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "advancement": {},
+        "identifier": "",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": ""
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 800000,
+      "ownership": {
+        "default": 0
+      },
+      "folder": null,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791171676538,
+        "modifiedTime": 1791171676538,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -1022,7 +1352,7 @@
     }
   ],
   "effects": [],
-  "folder": "FvKdqeKTwINidr0T",
+  "folder": "7eA2RknXeZ96vDQo",
   "ownership": {
     "default": 0,
     "7BMT1Aux3QVtq027": 3
@@ -1030,48 +1360,67 @@
   "flags": {
     "waluipedia-mass-import": {
       "folderPath": [
-        "Disaster Inc."
+        "Players"
       ],
       "source": "tools/build-character-sheets.py"
     },
     "waluipedia-sheets": {
-      "characterId": "ryan",
+      "characterId": "bryan",
       "generated": true,
-      "bespoke": false,
-      "role": "soldier",
+      "bespoke": true,
+      "role": "priest",
       "ledger": {
-        "level": 2,
-        "powerLevel": 4
+        "level": 3,
+        "powerLevel": 100
       },
       "evidence": [
         {
-          "feature": "Spear",
-          "quote": "The Man Who Jumped",
-          "source": "title"
+          "feature": "Instrument of Judgment",
+          "quote": "The Toad God's Instrument of Judgment, Currently Lost in the Shadowfell",
+          "source": "article"
         },
         {
-          "feature": "Iron Discipline",
-          "quote": "Ryan is the person who jumped off the Vigilance during the Iron Sky Breach rather than be captured by the Iron Legion.",
+          "feature": "Toad God's Mandate",
+          "quote": "Bryan is the servant of a deity he calls the Toad God, and he arrived at Raventree's extended crisis with the mission-oriented certainty of someone who has received divine instruction and the practical limitations of",
+          "source": "article"
+        },
+        {
+          "feature": "Divine Judgment",
+          "quote": "A sincere Toad God servant who reaches Archie and believes divine judgment demands action will act.",
+          "source": "article"
+        },
+        {
+          "feature": "Power Rating 100",
+          "quote": "The Toad God's Instrument of Judgment, Currently Lost in the Shadowfell",
           "source": "article"
         }
       ],
       "tags": [
         "Disaster Inc.",
-        "npc",
-        "humanoid",
-        "party"
+        "pc",
+        "Elsewhere"
       ],
       "color": "#D4A017",
+      "pc": {
+        "level": 3,
+        "class": "Cleric",
+        "subclass": "War Domain",
+        "cr": 3,
+        "hitDie": "d8",
+        "formula": "3d8 + 6"
+      },
       "organized": {
         "path": [
-          "Disaster Inc."
+          "Players"
         ],
-        "basis": "gm-group",
-        "from": null
+        "basis": "website",
+        "from": [
+          "Elsewhere"
+        ]
       }
     },
     "scene-packer": {
-      "hash": "68219383ce1a95f4c9200f87d91ea93b50c549e6"
+      "hash": "9185765468088dfd55c841ebd432baee4ee70329"
     },
     "midi-qol": {
       "onUseMacroParts": {}
@@ -1083,8 +1432,8 @@
     "systemVersion": "5.3.3",
     "compendiumSource": null,
     "duplicateSource": null,
-    "createdTime": 1791171676199,
-    "modifiedTime": 1791172239079,
+    "createdTime": 1791171676538,
+    "modifiedTime": 1791172239195,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

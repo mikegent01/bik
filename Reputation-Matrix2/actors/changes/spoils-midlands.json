@@ -16,9 +16,12 @@
   },
   "scope": "party",
   "filed": {
+    "8A0DJ9nGovNrKCzx/kamek_seal_rubbing": "2026-10-06T04:41:13Z",
     "9u5pnP0zaqw8AQQv/bowser_badge_447": "2026-10-05T04:03:37Z",
     "9u5pnP0zaqw8AQQv/necromancer_wand": "2026-10-05T04:03:37Z",
     "BmWNDwbxPQHU3Bbn/colour_division_handcuffs": "2026-10-05T04:03:37Z",
+    "GPEhvwf2TKNxsBAi/poltergust": "2026-10-06T04:41:13Z",
+    "QEDBzpvI4JdFzMVd/mystic_morel_tarot_bag": "2026-10-06T04:41:13Z",
     "Qir5aDX8bkL5lt1c/book_of_revised_history": "2026-10-05T04:03:37Z",
     "Qir5aDX8bkL5lt1c/hjumpik_wolf_pelt_onesie": "2026-10-05T04:03:37Z",
     "Qir5aDX8bkL5lt1c/morel_feyward_key": "2026-10-05T04:03:37Z",
@@ -27,12 +30,102 @@
     "Qir5aDX8bkL5lt1c/steely_rusted_fragments": "2026-10-05T04:03:37Z",
     "Qir5aDX8bkL5lt1c/woodfellow_library_card": "2026-10-05T04:03:37Z",
     "VudZ3W313Y4FILs0/tea_syndicate_book": "2026-10-05T04:03:37Z",
+    "fFKZDy00hhMH2quo/bones_legion_uniform": "2026-10-06T04:41:13Z",
     "le5OCgY5x5nnKvkt/black_crystal": "2026-10-05T04:03:37Z",
     "mEqlzuZoafEdiApl/toad_lee_diary_pages": "2026-10-05T04:03:37Z",
+    "vqwmQfgNMrOfUeDi/speaker_l_feathered_hat": "2026-10-06T04:41:13Z",
     "wBy4aV2AGHNqT4l1/oracle_deck": "2026-10-05T04:03:37Z"
   },
   "declined": [],
   "changes": [
+    {
+      "match": {
+        "_id": "fFKZDy00hhMH2quo",
+        "name": "Bones"
+      },
+      "addItems": [
+        {
+          "_id": "xYPtbqJhqK0BSqfG",
+          "name": "Bones’s Borrowed Legion Uniform",
+          "type": "equipment",
+          "img": "icons/commodities/tech/cog-brass.webp",
+          "system": {
+            "description": {
+              "value": "<p>The Legion uniform Bones used to become invisible inside procedure.</p><ul><li>Grants procedural camouflage.</li><li>Exploits Iron Legion trust in uniforms.</li><li>Smells like bureaucracy and terror.</li></ul><p><em>On the record:</em> used in Aegis infiltration.</p><blockquote>Uniforms are doors people wear. Bones found the handle. — W.</blockquote><p><em>Waluipedia inventory <code>bones_legion_uniform</code>, held by Bones. Mechanics as the table rules them; the archive records custody.</em></p>",
+              "chat": ""
+            },
+            "source": {
+              "custom": "Waluipedia inventory — Rare Operational Disguise",
+              "revision": 1,
+              "rules": "2024"
+            },
+            "identifier": "boness-borrowed-legion-uniform",
+            "quantity": 1,
+            "weight": {
+              "value": 1,
+              "units": "lb"
+            },
+            "price": {
+              "value": 0,
+              "denomination": "gp"
+            },
+            "identified": true,
+            "unidentified": {
+              "description": ""
+            },
+            "container": null,
+            "properties": [],
+            "attunement": "",
+            "attuned": false,
+            "equipped": false,
+            "rarity": "",
+            "cover": null,
+            "crewed": false,
+            "uses": {
+              "max": "",
+              "recovery": [],
+              "spent": 0
+            },
+            "armor": {
+              "value": null,
+              "dex": null
+            },
+            "hp": {
+              "value": 0,
+              "max": 0,
+              "dt": null,
+              "conditions": ""
+            },
+            "speed": {
+              "value": null,
+              "conditions": "",
+              "units": "ft"
+            },
+            "strength": null,
+            "proficient": null,
+            "type": {
+              "value": "trinket",
+              "baseItem": ""
+            },
+            "activities": {}
+          },
+          "effects": [],
+          "flags": {
+            "waluipedia": {
+              "inventoryItem": "bones_legion_uniform",
+              "holder": "bones",
+              "event": null,
+              "filedOn": "2026-10-06",
+              "note": "used in Aegis infiltration"
+            }
+          },
+          "folder": null,
+          "ownership": {
+            "default": 0
+          }
+        }
+      ]
+    },
     {
       "match": {
         "_id": "9u5pnP0zaqw8AQQv",
@@ -663,6 +756,126 @@
     },
     {
       "match": {
+        "_id": "8A0DJ9nGovNrKCzx",
+        "name": "Kamek"
+      },
+      "addItems": [
+        {
+          "_id": "keg2Q1Ghq6AK2QnS",
+          "name": "Kamek’s Misread Seal Rubbing",
+          "type": "loot",
+          "img": "icons/sundries/documents/document-bound-white-tan.webp",
+          "system": {
+            "description": {
+              "value": "<p>A rubbing of ancient seal markings that Kamek apparently interpreted as “for me” instead of “do not open the god-worm prison.”</p><ul><li>Contains ancient seal notation.</li><li>Demonstrates catastrophic wizard confidence.</li><li>Useful as evidence in arguments about signage.</li></ul><p><em>On the record:</em> trial evidence / research scrap.</p><blockquote>The greatest wizard in Koopa history versus a label. The label lost first, then everyone else did. — W.</blockquote><p><em>Waluipedia inventory <code>kamek_seal_rubbing</code>, held by Kamek. Mechanics as the table rules them; the archive records custody.</em></p>",
+              "chat": ""
+            },
+            "source": {
+              "custom": "Waluipedia inventory — Catastrophic Scholarship",
+              "revision": 1,
+              "rules": "2024"
+            },
+            "identifier": "kameks-misread-seal-rubbing",
+            "quantity": 1,
+            "weight": {
+              "value": 1,
+              "units": "lb"
+            },
+            "price": {
+              "value": 0,
+              "denomination": "gp"
+            },
+            "identified": true,
+            "unidentified": {
+              "description": ""
+            },
+            "container": null,
+            "properties": [],
+            "rarity": "",
+            "type": {
+              "value": "",
+              "subtype": ""
+            }
+          },
+          "effects": [],
+          "flags": {
+            "waluipedia": {
+              "inventoryItem": "kamek_seal_rubbing",
+              "holder": "kamek",
+              "event": null,
+              "filedOn": "2026-10-06",
+              "note": "trial evidence / research scrap"
+            }
+          },
+          "folder": null,
+          "ownership": {
+            "default": 0
+          }
+        }
+      ]
+    },
+    {
+      "match": {
+        "_id": "GPEhvwf2TKNxsBAi",
+        "name": "Luigi"
+      },
+      "addItems": [
+        {
+          "_id": "oymPZjjJexUIVuv8",
+          "name": "Poltergust",
+          "type": "loot",
+          "img": "icons/containers/bags/pouch-leather-brown-green.webp",
+          "system": {
+            "description": {
+              "value": "<p>Luigi’s ghost-capture apparatus, built from E. Gadd paratechnology. It turns fear into procedure: strobe, suction, containment, screaming optional but common.</p><ul><li>Captures and contains spectral entities.</li><li>Uses strobe functions to disrupt animated or ghostly threats.</li><li>Counts as Technique when Luigi operates it; not Arcane XP by default.</li></ul><p><em>Obtained:</em> Issued/trained through Professor E. Gadd’s ghost-research legacy and Luigi’s long-running ghost-hunting work.</p><p><em>On the record:</em> signature equipment / active field device.</p><blockquote>A vacuum cleaner became one of the most important supernatural containment tools in history. Waluigi hates that Luigi makes this believable. — W.</blockquote><p><em>Waluipedia inventory <code>poltergust</code>, held by Luigi — filed from <code>the_waiting_room_testimony</code>. Mechanics as the table rules them; the archive records custody.</em></p>",
+              "chat": ""
+            },
+            "source": {
+              "custom": "Waluipedia inventory — Signature Device",
+              "revision": 1,
+              "rules": "2024"
+            },
+            "identifier": "poltergust",
+            "quantity": 1,
+            "weight": {
+              "value": 1,
+              "units": "lb"
+            },
+            "price": {
+              "value": 0,
+              "denomination": "gp"
+            },
+            "identified": true,
+            "unidentified": {
+              "description": ""
+            },
+            "container": null,
+            "properties": [],
+            "rarity": "",
+            "type": {
+              "value": "",
+              "subtype": ""
+            }
+          },
+          "effects": [],
+          "flags": {
+            "waluipedia": {
+              "inventoryItem": "poltergust",
+              "holder": "luigi",
+              "event": "the_waiting_room_testimony",
+              "filedOn": "2026-10-06",
+              "note": "signature equipment / active field device"
+            }
+          },
+          "folder": null,
+          "ownership": {
+            "default": 0
+          }
+        }
+      ]
+    },
+    {
+      "match": {
         "_id": "le5OCgY5x5nnKvkt",
         "name": "Markop Judi"
       },
@@ -723,6 +936,80 @@
     },
     {
       "match": {
+        "_id": "QEDBzpvI4JdFzMVd",
+        "name": "Mystic Morel (Purple T)"
+      },
+      "addItems": [
+        {
+          "_id": "f29N2soTEFdOzuVk",
+          "name": "Mystic Morel’s Tarot Bag",
+          "type": "tool",
+          "img": "icons/sundries/gaming/playing-cards-brown.webp",
+          "system": {
+            "description": {
+              "value": "<p>A bag for cards, stolen keys, watches, songs, and excuses.</p><ul><li>Stores prophetic tools and stolen items.</li><li>May be bigger on the inside, morally speaking.</li><li>Always check your pockets after hearing music.</li></ul><p><em>On the record:</em> carried by Morel.</p><blockquote>If a bag jingles in rhythm, run inventory immediately. — W.</blockquote><p><em>Waluipedia inventory <code>mystic_morel_tarot_bag</code>, held by Mystic Morel (Purple T). Mechanics as the table rules them; the archive records custody.</em></p>",
+              "chat": ""
+            },
+            "source": {
+              "custom": "Waluipedia inventory — Rare Trickster Kit",
+              "revision": 1,
+              "rules": "2024"
+            },
+            "identifier": "mystic-morels-tarot-bag",
+            "quantity": 1,
+            "weight": {
+              "value": 1,
+              "units": "lb"
+            },
+            "price": {
+              "value": 0,
+              "denomination": "gp"
+            },
+            "identified": true,
+            "unidentified": {
+              "description": ""
+            },
+            "container": null,
+            "properties": [],
+            "attunement": "",
+            "attuned": false,
+            "equipped": false,
+            "rarity": "",
+            "crewed": false,
+            "uses": {
+              "max": "",
+              "recovery": [],
+              "spent": 0
+            },
+            "type": {
+              "value": "",
+              "baseItem": ""
+            },
+            "ability": "",
+            "chatFlavor": "",
+            "proficient": null,
+            "bonus": "",
+            "activities": {}
+          },
+          "effects": [],
+          "flags": {
+            "waluipedia": {
+              "inventoryItem": "mystic_morel_tarot_bag",
+              "holder": "mystic_morel",
+              "event": null,
+              "filedOn": "2026-10-06",
+              "note": "carried by Morel"
+            }
+          },
+          "folder": null,
+          "ownership": {
+            "default": 0
+          }
+        }
+      ]
+    },
+    {
+      "match": {
         "_id": "wBy4aV2AGHNqT4l1",
         "name": "Remi"
       },
@@ -772,6 +1059,94 @@
               "event": null,
               "filedOn": "2026-10-06",
               "note": "associated / high narrative value"
+            }
+          },
+          "folder": null,
+          "ownership": {
+            "default": 0
+          }
+        }
+      ]
+    },
+    {
+      "match": {
+        "_id": "vqwmQfgNMrOfUeDi",
+        "name": "Speaker L"
+      },
+      "addItems": [
+        {
+          "_id": "ZDtWZOtvhZXDNM0q",
+          "name": "Speaker L’s Feathered Hat",
+          "type": "equipment",
+          "img": "icons/containers/bags/pouch-leather-brown-green.webp",
+          "system": {
+            "description": {
+              "value": "<p>Speaker L’s feathered hat, worn with the dignity of a man building order out of barrel-trauma and bad odds.</p><ul><li>Signals leadership among Liberated Toads.</li><li>Improves morale by being unmistakable.</li><li>Looks better than the situation deserves.</li></ul><p><em>On the record:</em> worn publicly.</p><blockquote>Some revolutions get banners. This one gets a hat. Fine. It works. — W.</blockquote><p><em>Waluipedia inventory <code>speaker_l_feathered_hat</code>, held by Speaker L. Mechanics as the table rules them; the archive records custody.</em></p>",
+              "chat": ""
+            },
+            "source": {
+              "custom": "Waluipedia inventory — Uncommon / Morale Object",
+              "revision": 1,
+              "rules": "2024"
+            },
+            "identifier": "speaker-ls-feathered-hat",
+            "quantity": 1,
+            "weight": {
+              "value": 1,
+              "units": "lb"
+            },
+            "price": {
+              "value": 0,
+              "denomination": "gp"
+            },
+            "identified": true,
+            "unidentified": {
+              "description": ""
+            },
+            "container": null,
+            "properties": [],
+            "attunement": "",
+            "attuned": false,
+            "equipped": false,
+            "rarity": "",
+            "cover": null,
+            "crewed": false,
+            "uses": {
+              "max": "",
+              "recovery": [],
+              "spent": 0
+            },
+            "armor": {
+              "value": null,
+              "dex": null
+            },
+            "hp": {
+              "value": 0,
+              "max": 0,
+              "dt": null,
+              "conditions": ""
+            },
+            "speed": {
+              "value": null,
+              "conditions": "",
+              "units": "ft"
+            },
+            "strength": null,
+            "proficient": null,
+            "type": {
+              "value": "trinket",
+              "baseItem": ""
+            },
+            "activities": {}
+          },
+          "effects": [],
+          "flags": {
+            "waluipedia": {
+              "inventoryItem": "speaker_l_feathered_hat",
+              "holder": "speaker_l",
+              "event": null,
+              "filedOn": "2026-10-06",
+              "note": "worn publicly"
             }
           },
           "folder": null,

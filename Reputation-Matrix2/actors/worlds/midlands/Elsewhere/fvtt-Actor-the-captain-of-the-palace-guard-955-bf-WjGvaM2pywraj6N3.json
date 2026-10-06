@@ -1,8 +1,8 @@
 {
-  "_id": "gty769WQ2e9bUUgh",
-  "name": "Ryan",
+  "_id": "WjGvaM2pywraj6N3",
+  "name": "The Captain of the Palace Guard (955 BF)",
   "type": "npc",
-  "img": "portraits/ryan.png",
+  "img": "portraits/captain_of_the_palace_guard_955.jpg",
   "system": {
     "abilities": {
       "str": {
@@ -29,7 +29,7 @@
         }
       },
       "dex": {
-        "value": 12,
+        "value": 13,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -53,7 +53,7 @@
       },
       "con": {
         "value": 14,
-        "proficient": 1,
+        "proficient": 0,
         "bonuses": {
           "check": "",
           "save": ""
@@ -75,7 +75,7 @@
         }
       },
       "int": {
-        "value": 10,
+        "value": 12,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -98,8 +98,8 @@
         }
       },
       "wis": {
-        "value": 11,
-        "proficient": 0,
+        "value": 13,
+        "proficient": 1,
         "bonuses": {
           "check": "",
           "save": ""
@@ -121,7 +121,7 @@
         }
       },
       "cha": {
-        "value": 10,
+        "value": 14,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -151,14 +151,14 @@
         "formula": ""
       },
       "hp": {
-        "value": 32,
-        "max": 32,
-        "formula": "5d8 + 10",
+        "value": 49,
+        "max": 49,
+        "formula": "9d6 + 18",
         "temp": null,
         "tempmax": null
       },
       "movement": {
-        "walk": "30",
+        "walk": "25",
         "units": "ft",
         "hover": false,
         "burrow": "0",
@@ -228,11 +228,11 @@
       "alignment": "Neutral",
       "type": {
         "value": "humanoid",
-        "subtype": "human"
+        "subtype": "Toad"
       },
-      "cr": 1,
+      "cr": 2,
       "biography": {
-        "value": "<p><em>Waluipedia cast sheet — Ryan.</em> Built by <code>tools/build-character-sheets.py</code>, generated from the article's own words. XP ledger: level 2, power rating 4 → CR 1 as a soldier. Numbers are a GM-ready reading of the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p><p><strong>The Man Who Jumped</strong> — Liberated Toads / Disaster Inc. (separated)</p><p>Status: Active — location uncertain, last known contact with Rakasha spirit-walkers</p><p>Ryan is the person who jumped off the Vigilance during the Iron Sky Breach rather than be captured by the Iron Legion. He jumped. Off an airship. In the sky. He survived—somehow—and was taken in by a Rakasha spirit-walker. Waluigi does not know Ryan's current status or location, but anyone who survives a jump like that has earned Waluigi's respect forever.</p><h3>Evidence</h3><ul><li><strong>Spear</strong> — “The Man Who Jumped”</li><li><strong>Iron Discipline</strong> — “Ryan is the person who jumped off the Vigilance during the Iron Sky Breach rather than be captured by the Iron Legion.”</li></ul><p>Article: <code>#/article/ryan</code> (characters). Site sheet: <code>#/sheets/ryan</code>.</p>",
+        "value": "<p><em>Waluipedia cast sheet — The Captain of the Palace Guard (955 BF).</em> Built by <code>tools/build-character-sheets.py</code>, generated from the article's own words. no XP ledger entry; archetype default → CR 2 as a officer. Numbers are a GM-ready reading of the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p><p><strong>The Captain Who Stood Between the Fire and the Stair</strong> — Peach's Castle — Captain of the Palace Guard</p><p>Status: Deceased — killed by Bowser's fire in the hall of Peach's Castle on a night in Efferd, 955 BF, a month or so before the assassination; his sash left the castle on John Lee's arms</p><p>The head of the palace guard in the last month of the reign, known to the archive from one account and one night. He questioned a ceremonial guard for jumping, was warned by the same guard that the dungeon cell was unlocked and full of hoods, and did not get to answer, because Bowser came through the wall and breathed fire down the hall and the captain was standing between the fire and the stair to the royal apartments. His scorched sash is the one piece of him on the record, wound around both of John Lee's forearms.</p><h3>Evidence</h3><ul><li><strong>Sabre</strong> — “The Captain Who Stood Between the Fire and the Stair”</li><li><strong>Sneak Attack</strong> — “Deceased — killed by Bowser's fire in the hall of Peach's Castle on a night in Efferd, 955 BF, a month or so before the assassination; his sash left the castle on John Lee's arms”</li><li><strong>Leadership</strong> — “The Captain Who Stood Between the Fire and the Stair”</li></ul><p>Article: <code>#/article/captain_of_the_palace_guard_955</code> (characters). Site sheet: <code>#/sheets/captain_of_the_palace_guard_955</code>.</p>",
         "public": ""
       },
       "ideal": "",
@@ -248,7 +248,7 @@
       }
     },
     "traits": {
-      "size": "med",
+      "size": "sm",
       "languages": {
         "value": [
           "common"
@@ -374,7 +374,7 @@
         }
       },
       "itm": {
-        "value": 0,
+        "value": 1,
         "ability": "cha",
         "roll": {
           "min": null,
@@ -452,7 +452,7 @@
         }
       },
       "per": {
-        "value": 0,
+        "value": 1,
         "ability": "cha",
         "roll": {
           "min": null,
@@ -574,13 +574,13 @@
     }
   },
   "prototypeToken": {
-    "name": "Ryan",
+    "name": "The Captain of the Palace Guard (955 BF)",
     "displayName": 0,
     "actorLink": false,
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "portraits/ryan.png",
+      "src": "portraits/captain_of_the_palace_guard_955.jpg",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -592,7 +592,7 @@
     "lockRotation": false,
     "rotation": 0,
     "alpha": 1,
-    "disposition": 1,
+    "disposition": -1,
     "displayBars": 0,
     "bar1": {
       "attribute": "attributes.hp"
@@ -667,13 +667,13 @@
   },
   "items": [
     {
-      "_id": "57baaFUTEddwyKCc",
-      "name": "Spear",
+      "_id": "xbHyDgpE4cCsDIS7",
+      "name": "Sabre",
       "type": "weapon",
-      "img": "icons/weapons/polearms/spear-simple-engraved.webp",
+      "img": "icons/weapons/swords/sword-guard-brass-worn.webp",
       "system": {
         "description": {
-          "value": "<p>Spear; melee weapon attack.</p>",
+          "value": "<p>Sabre; melee weapon attack.</p>",
           "chat": ""
         },
         "source": {
@@ -698,8 +698,8 @@
         "identified": true,
         "cover": null,
         "range": {
-          "value": 20,
-          "long": 60,
+          "value": null,
+          "long": null,
           "units": "ft",
           "reach": null
         },
@@ -710,12 +710,10 @@
         },
         "damage": {
           "versatile": {
-            "number": 1,
-            "denomination": 8,
+            "number": null,
+            "denomination": null,
             "bonus": "",
-            "types": [
-              "piercing"
-            ],
+            "types": [],
             "custom": {
               "enabled": false,
               "formula": ""
@@ -728,10 +726,10 @@
           },
           "base": {
             "number": 1,
-            "denomination": 6,
+            "denomination": 8,
             "bonus": "",
             "types": [
-              "piercing"
+              "slashing"
             ],
             "custom": {
               "enabled": false,
@@ -754,11 +752,10 @@
           "conditions": ""
         },
         "properties": [
-          "thr",
-          "ver"
+          "fin"
         ],
         "type": {
-          "value": "simpleM",
+          "value": "martialM",
           "baseItem": ""
         },
         "container": null,
@@ -830,7 +827,7 @@
               "recovery": []
             },
             "attack": {
-              "ability": "str",
+              "ability": "dex",
               "bonus": "",
               "critical": {
                 "threshold": null
@@ -954,8 +951,8 @@
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1791171676199,
-        "modifiedTime": 1791171676199,
+        "createdTime": 1791171677114,
+        "modifiedTime": 1791171677114,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -963,13 +960,13 @@
       }
     },
     {
-      "_id": "Km1lX0DLVB4fZfna",
-      "name": "Iron Discipline",
+      "_id": "fDNB7kdJA0xPs6gO",
+      "name": "Sneak Attack",
       "type": "feat",
-      "img": "icons/skills/melee/shield-block-gray-orange.webp",
+      "img": "icons/weapons/daggers/dagger-simple-black.webp",
       "system": {
         "description": {
-          "value": "<p>While within 5 feet of an ally, gains +2 AC and advantage on saving throws against being frightened.</p>",
+          "value": "<p>Once per turn, deals an extra 2d6 damage with a weapon attack against a creature it has advantage against, or that is within 5 feet of one of its allies.</p>",
           "chat": ""
         },
         "type": {
@@ -1012,8 +1009,71 @@
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1791171676199,
-        "modifiedTime": 1791171676199,
+        "createdTime": 1791171677114,
+        "modifiedTime": 1791171677114,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      }
+    },
+    {
+      "_id": "uO4h2TSVD4MnHqCn",
+      "name": "Leadership",
+      "type": "feat",
+      "img": "icons/sundries/flags/banner-flag-blue.webp",
+      "system": {
+        "description": {
+          "value": "<p>For 1 minute, allies within 30 feet that can hear it add a d4 to attack rolls and saving throws. Once per short rest.</p>",
+          "chat": ""
+        },
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "uses": {
+          "spent": 0,
+          "max": "1",
+          "recovery": [
+            {
+              "period": "sr",
+              "type": "recoverAll"
+            }
+          ]
+        },
+        "activities": {},
+        "source": {
+          "custom": "Waluipedia campaign",
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "advancement": {},
+        "identifier": "",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": ""
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "folder": null,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791171677114,
+        "modifiedTime": 1791171677114,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -1022,7 +1082,7 @@
     }
   ],
   "effects": [],
-  "folder": "FvKdqeKTwINidr0T",
+  "folder": "7eA2RknXeZ96vDQo",
   "ownership": {
     "default": 0,
     "7BMT1Aux3QVtq027": 3
@@ -1030,48 +1090,54 @@
   "flags": {
     "waluipedia-mass-import": {
       "folderPath": [
-        "Disaster Inc."
+        "Elsewhere"
       ],
       "source": "tools/build-character-sheets.py"
     },
     "waluipedia-sheets": {
-      "characterId": "ryan",
+      "characterId": "captain_of_the_palace_guard_955",
       "generated": true,
       "bespoke": false,
-      "role": "soldier",
+      "role": "officer",
       "ledger": {
-        "level": 2,
-        "powerLevel": 4
+        "level": null,
+        "powerLevel": null
       },
       "evidence": [
         {
-          "feature": "Spear",
-          "quote": "The Man Who Jumped",
+          "feature": "Sabre",
+          "quote": "The Captain Who Stood Between the Fire and the Stair",
           "source": "title"
         },
         {
-          "feature": "Iron Discipline",
-          "quote": "Ryan is the person who jumped off the Vigilance during the Iron Sky Breach rather than be captured by the Iron Legion.",
+          "feature": "Sneak Attack",
+          "quote": "Deceased — killed by Bowser's fire in the hall of Peach's Castle on a night in Efferd, 955 BF, a month or so before the assassination; his sash left the castle on John Lee's arms",
+          "source": "article"
+        },
+        {
+          "feature": "Leadership",
+          "quote": "The Captain Who Stood Between the Fire and the Stair",
           "source": "article"
         }
       ],
       "tags": [
-        "Disaster Inc.",
+        "Elsewhere",
         "npc",
-        "humanoid",
-        "party"
+        "humanoid"
       ],
-      "color": "#D4A017",
+      "color": "#6C757D",
       "organized": {
         "path": [
-          "Disaster Inc."
+          "Elsewhere"
         ],
-        "basis": "gm-group",
-        "from": null
+        "basis": "website",
+        "from": [
+          "Elsewhere"
+        ]
       }
     },
     "scene-packer": {
-      "hash": "68219383ce1a95f4c9200f87d91ea93b50c549e6"
+      "hash": "97f93c09b376cf17f84425476ee9b1851e0e4b6a"
     },
     "midi-qol": {
       "onUseMacroParts": {}
@@ -1083,8 +1149,8 @@
     "systemVersion": "5.3.3",
     "compendiumSource": null,
     "duplicateSource": null,
-    "createdTime": 1791171676199,
-    "modifiedTime": 1791172239079,
+    "createdTime": 1791171677114,
+    "modifiedTime": 1791172239478,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

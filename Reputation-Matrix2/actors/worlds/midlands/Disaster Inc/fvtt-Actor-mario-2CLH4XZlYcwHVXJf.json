@@ -1,35 +1,12 @@
 {
-  "_id": "gty769WQ2e9bUUgh",
-  "name": "Ryan",
+  "name": "Mario",
   "type": "npc",
-  "img": "portraits/ryan.png",
+  "_id": "2CLH4XZlYcwHVXJf",
+  "img": "npc/mario0.webp",
   "system": {
     "abilities": {
       "str": {
-        "value": 15,
-        "proficient": 1,
-        "bonuses": {
-          "check": "",
-          "save": ""
-        },
-        "max": null,
-        "check": {
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "save": {
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        }
-      },
-      "dex": {
-        "value": 12,
+        "value": 16,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -51,8 +28,31 @@
           }
         }
       },
+      "dex": {
+        "value": 18,
+        "proficient": 1,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
       "con": {
-        "value": 14,
+        "value": 16,
         "proficient": 1,
         "bonuses": {
           "check": "",
@@ -75,29 +75,6 @@
         }
       },
       "int": {
-        "value": 10,
-        "proficient": 0,
-        "bonuses": {
-          "check": "",
-          "save": ""
-        },
-        "max": null,
-        "check": {
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "save": {
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        }
-      },
-      "wis": {
         "value": 11,
         "proficient": 0,
         "bonuses": {
@@ -120,8 +97,31 @@
           }
         }
       },
+      "wis": {
+        "value": 13,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
       "cha": {
-        "value": 10,
+        "value": 15,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -146,19 +146,19 @@
     },
     "attributes": {
       "ac": {
-        "flat": 14,
+        "flat": 15,
         "calc": "natural",
         "formula": ""
       },
       "hp": {
-        "value": 32,
-        "max": 32,
-        "formula": "5d8 + 10",
+        "value": 105,
+        "max": 105,
+        "formula": "14d8 + 42",
         "temp": null,
         "tempmax": null
       },
       "movement": {
-        "walk": "30",
+        "walk": "40",
         "units": "ft",
         "hover": false,
         "burrow": "0",
@@ -225,14 +225,14 @@
       }
     },
     "details": {
-      "alignment": "Neutral",
+      "alignment": "Neutral Good",
       "type": {
         "value": "humanoid",
         "subtype": "human"
       },
-      "cr": 1,
+      "cr": 5,
       "biography": {
-        "value": "<p><em>Waluipedia cast sheet — Ryan.</em> Built by <code>tools/build-character-sheets.py</code>, generated from the article's own words. XP ledger: level 2, power rating 4 → CR 1 as a soldier. Numbers are a GM-ready reading of the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p><p><strong>The Man Who Jumped</strong> — Liberated Toads / Disaster Inc. (separated)</p><p>Status: Active — location uncertain, last known contact with Rakasha spirit-walkers</p><p>Ryan is the person who jumped off the Vigilance during the Iron Sky Breach rather than be captured by the Iron Legion. He jumped. Off an airship. In the sky. He survived—somehow—and was taken in by a Rakasha spirit-walker. Waluigi does not know Ryan's current status or location, but anyone who survives a jump like that has earned Waluigi's respect forever.</p><h3>Evidence</h3><ul><li><strong>Spear</strong> — “The Man Who Jumped”</li><li><strong>Iron Discipline</strong> — “Ryan is the person who jumped off the Vigilance during the Iron Sky Breach rather than be captured by the Iron Legion.”</li></ul><p>Article: <code>#/article/ryan</code> (characters). Site sheet: <code>#/sheets/ryan</code>.</p>",
+        "value": "<p><em>Waluipedia cast sheet — Mario.</em> Built by <code>tools/build-character-sheets.py</code>, hand-authored from the article. XP ledger: level 5, power rating 14 → CR 5 as a hero. Numbers are a GM-ready reading of the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p><p><strong>The Plumber Who Vanished</strong> — Mushroom Kingdom (Former Hero) / Unknown</p><p>Status: Missing — Presumed alive, location unknown, last confirmed sighting 1039 BF at the Star Fountain</p><p>Mario is—or WAS—the most famous hero in the Mushroom Kingdom. The man who saved Princess Peach countless times before her assassination in 955 BF. The red-capped plumber who could jump higher than physics should allow, who stomped Bowser's schemes into the ground repeatedly, who was so synonymous with heroism that his NAME became a verb. And then, after eighty-five years of diminished appearances and growing silence, he DISAPPEARED entirely. Luigi found him at the Star Fountain. They flew together on wing caps. Luigi said 'Nothing can hurt us... as long as we're together.' And then Mario was GONE again, and Luigi is working alone for the Mages' Guild at Raventree Manor, sucking up ghosts with a vacuum cleaner and refusing to explain ANYTHING. Waluigi has spent considerable effort piecing together what happened. The picture that emerges is worse than a simple disappearance. WAH. The Garden Above the Fire does not return Mario; it makes his absence louder, because Luigi's rescue ends with Luigi asking the brother who is not in the room whether they are still superstars.</p><h3>Evidence</h3><ul><li><strong>Stomp</strong> — “The red-capped plumber who could jump higher than physics should allow, who stomped Bowser's schemes into the ground repeatedly, who was so synonymous with heroism that his NAME became a verb.”</li><li><strong>Prodigious Leap</strong> — “The red-capped plumber who could jump higher than physics should allow, who stomped Bowser's schemes into the ground repeatedly, who was so synonymous with heroism that his NAME became a verb.”</li><li><strong>Multiattack</strong> — “The red-capped plumber who could jump higher than physics should allow, who stomped Bowser's schemes into the ground repeatedly, who was so synonymous with heroism that his NAME became a verb.”</li><li><strong>Wing Cap (1/Day)</strong> — “They flew together on wing caps.”</li><li><strong>Diminished</strong> — “And then, after eighty-five years of diminished appearances and growing silence, he DISAPPEARED entirely.”</li><li><strong>Missing Since 1039 BF</strong> — “Missing — Presumed alive, location unknown, last confirmed sighting 1039 BF at the Star Fountain”</li></ul><p>Article: <code>#/article/mario</code> (characters). Site sheet: <code>#/sheets/mario</code>.</p>",
         "public": ""
       },
       "ideal": "",
@@ -283,7 +283,7 @@
     },
     "skills": {
       "acr": {
-        "value": 0,
+        "value": 2,
         "ability": "dex",
         "roll": {
           "min": null,
@@ -574,13 +574,14 @@
     }
   },
   "prototypeToken": {
-    "name": "Ryan",
+    "name": "Mario",
     "displayName": 0,
     "actorLink": false,
     "width": 1,
     "height": 1,
+    "depth": 1,
     "texture": {
-      "src": "portraits/ryan.png",
+      "src": "npc/mario0.webp",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -592,7 +593,7 @@
     "lockRotation": false,
     "rotation": 0,
     "alpha": 1,
-    "disposition": 1,
+    "disposition": 0,
     "displayBars": 0,
     "bar1": {
       "attribute": "attributes.hp"
@@ -600,7 +601,6 @@
     "bar2": {
       "attribute": null
     },
-    "depth": 1,
     "light": {
       "negative": false,
       "priority": 0,
@@ -667,13 +667,13 @@
   },
   "items": [
     {
-      "_id": "57baaFUTEddwyKCc",
-      "name": "Spear",
+      "_id": "EaaPSBdrTPB6QBvi",
+      "name": "Stomp",
       "type": "weapon",
-      "img": "icons/weapons/polearms/spear-simple-engraved.webp",
+      "img": "icons/skills/melee/unarmed-punch-fist.webp",
       "system": {
         "description": {
-          "value": "<p>Spear; melee weapon attack.</p>",
+          "value": "<p>A leaping stomp from above. If Mario moved at least 10 feet straight toward the target first, the target must succeed on a DC 15 Strength save or be knocked prone.</p>",
           "chat": ""
         },
         "source": {
@@ -698,8 +698,8 @@
         "identified": true,
         "cover": null,
         "range": {
-          "value": 20,
-          "long": 60,
+          "value": null,
+          "long": null,
           "units": "ft",
           "reach": null
         },
@@ -710,12 +710,10 @@
         },
         "damage": {
           "versatile": {
-            "number": 1,
-            "denomination": 8,
+            "number": null,
+            "denomination": null,
             "bonus": "",
-            "types": [
-              "piercing"
-            ],
+            "types": [],
             "custom": {
               "enabled": false,
               "formula": ""
@@ -727,11 +725,11 @@
             }
           },
           "base": {
-            "number": 1,
+            "number": 2,
             "denomination": 6,
             "bonus": "",
             "types": [
-              "piercing"
+              "bludgeoning"
             ],
             "custom": {
               "enabled": false,
@@ -753,12 +751,9 @@
           "dt": null,
           "conditions": ""
         },
-        "properties": [
-          "thr",
-          "ver"
-        ],
+        "properties": [],
         "type": {
-          "value": "simpleM",
+          "value": "natural",
           "baseItem": ""
         },
         "container": null,
@@ -830,7 +825,7 @@
               "recovery": []
             },
             "attack": {
-              "ability": "str",
+              "ability": "dex",
               "bonus": "",
               "critical": {
                 "threshold": null
@@ -946,30 +941,30 @@
       "effects": [],
       "flags": {},
       "sort": 100000,
-      "ownership": {
-        "default": 0
-      },
-      "folder": null,
       "_stats": {
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1791171676199,
-        "modifiedTime": 1791171676199,
+        "createdTime": 1791083923709,
+        "modifiedTime": 1791083923709,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null
+      },
+      "folder": null,
+      "ownership": {
+        "default": 0
       }
     },
     {
-      "_id": "Km1lX0DLVB4fZfna",
-      "name": "Iron Discipline",
+      "_id": "dyAJ7qnpTsJhPnoO",
+      "name": "Prodigious Leap",
       "type": "feat",
-      "img": "icons/skills/melee/shield-block-gray-orange.webp",
+      "img": "icons/skills/movement/arrow-upward-yellow.webp",
       "system": {
         "description": {
-          "value": "<p>While within 5 feet of an ally, gains +2 AC and advantage on saving throws against being frightened.</p>",
+          "value": "<p>Mario's long jump is 30 feet and his high jump 20 feet, with or without a running start. He can jump as part of his movement and takes no damage from falls of 60 feet or less.</p>",
           "chat": ""
         },
         "type": {
@@ -1004,25 +999,263 @@
       "effects": [],
       "flags": {},
       "sort": 200000,
-      "ownership": {
-        "default": 0
-      },
-      "folder": null,
       "_stats": {
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1791171676199,
-        "modifiedTime": 1791171676199,
+        "createdTime": 1791083923709,
+        "modifiedTime": 1791083923709,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null
+      },
+      "folder": null,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "pWHZbwdAgWGjETF4",
+      "name": "Multiattack",
+      "type": "feat",
+      "img": "icons/skills/melee/strike-slashes-orange.webp",
+      "system": {
+        "description": {
+          "value": "<p>Mario makes two Stomp attacks.</p>",
+          "chat": ""
+        },
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "uses": {
+          "spent": 0,
+          "max": "",
+          "recovery": []
+        },
+        "activities": {},
+        "source": {
+          "custom": "Waluipedia campaign",
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "advancement": {},
+        "identifier": "",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": ""
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 300000,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791083923709,
+        "modifiedTime": 1791083923709,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "JEt1X6jPzluGeI09",
+      "name": "Wing Cap (1/Day)",
+      "type": "feat",
+      "img": "icons/skills/movement/feet-winged-boots-brown.webp",
+      "system": {
+        "description": {
+          "value": "<p>Mario gains a flying speed of 60 feet for 10 minutes. The archive's last confirmed sighting has him in the air.</p>",
+          "chat": ""
+        },
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "uses": {
+          "spent": 0,
+          "max": "1",
+          "recovery": [
+            {
+              "period": "day",
+              "type": "recoverAll"
+            }
+          ]
+        },
+        "activities": {},
+        "source": {
+          "custom": "Waluipedia campaign",
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "advancement": {},
+        "identifier": "",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": ""
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 400000,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791083923709,
+        "modifiedTime": 1791083923709,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "wOAPnET4DhIQ8GT6",
+      "name": "Diminished",
+      "type": "feat",
+      "img": "icons/magic/time/hourglass-yellow-green.webp",
+      "system": {
+        "description": {
+          "value": "<p>Eighty-five years of growing silence. Mario begins any scene with one level of exhaustion that no rest removes while the record of 955 BF stays unanswered; it clears for 1 minute whenever an ally within 30 feet drops to 0 hit points.</p>",
+          "chat": ""
+        },
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "uses": {
+          "spent": 0,
+          "max": "",
+          "recovery": []
+        },
+        "activities": {},
+        "source": {
+          "custom": "Waluipedia campaign",
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "advancement": {},
+        "identifier": "",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": ""
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 500000,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791083923709,
+        "modifiedTime": 1791083923709,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "bTfLAxII5QFO4t16",
+      "name": "Missing Since 1039 BF",
+      "type": "feat",
+      "img": "icons/magic/perception/eye-ringed-glow-angry-small-red.webp",
+      "system": {
+        "description": {
+          "value": "<p>This sheet is a reconstruction: the plumber who could do these things was last seen at the Star Fountain in 1039 BF. If he appears at the table, the GM decides how much of this he still is.</p>",
+          "chat": ""
+        },
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "uses": {
+          "spent": 0,
+          "max": "",
+          "recovery": []
+        },
+        "activities": {},
+        "source": {
+          "custom": "Waluipedia campaign",
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "advancement": {},
+        "identifier": "",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": ""
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 600000,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791083923709,
+        "modifiedTime": 1791083923709,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
+      "ownership": {
+        "default": 0
       }
     }
   ],
   "effects": [],
-  "folder": "FvKdqeKTwINidr0T",
+  "folder": "khjVG7Y8S9IOVDnn",
+  "sort": 0,
   "ownership": {
     "default": 0,
     "7BMT1Aux3QVtq027": 3
@@ -1035,23 +1268,43 @@
       "source": "tools/build-character-sheets.py"
     },
     "waluipedia-sheets": {
-      "characterId": "ryan",
+      "characterId": "mario",
       "generated": true,
-      "bespoke": false,
-      "role": "soldier",
+      "bespoke": true,
+      "role": "hero",
       "ledger": {
-        "level": 2,
-        "powerLevel": 4
+        "level": 5,
+        "powerLevel": 14
       },
       "evidence": [
         {
-          "feature": "Spear",
-          "quote": "The Man Who Jumped",
-          "source": "title"
+          "feature": "Stomp",
+          "quote": "The red-capped plumber who could jump higher than physics should allow, who stomped Bowser's schemes into the ground repeatedly, who was so synonymous with heroism that his NAME became a verb.",
+          "source": "article"
         },
         {
-          "feature": "Iron Discipline",
-          "quote": "Ryan is the person who jumped off the Vigilance during the Iron Sky Breach rather than be captured by the Iron Legion.",
+          "feature": "Prodigious Leap",
+          "quote": "The red-capped plumber who could jump higher than physics should allow, who stomped Bowser's schemes into the ground repeatedly, who was so synonymous with heroism that his NAME became a verb.",
+          "source": "article"
+        },
+        {
+          "feature": "Multiattack",
+          "quote": "The red-capped plumber who could jump higher than physics should allow, who stomped Bowser's schemes into the ground repeatedly, who was so synonymous with heroism that his NAME became a verb.",
+          "source": "article"
+        },
+        {
+          "feature": "Wing Cap (1/Day)",
+          "quote": "They flew together on wing caps.",
+          "source": "article"
+        },
+        {
+          "feature": "Diminished",
+          "quote": "And then, after eighty-five years of diminished appearances and growing silence, he DISAPPEARED entirely.",
+          "source": "article"
+        },
+        {
+          "feature": "Missing Since 1039 BF",
+          "quote": "Missing — Presumed alive, location unknown, last confirmed sighting 1039 BF at the Star Fountain",
           "source": "article"
         }
       ],
@@ -1066,12 +1319,26 @@
         "path": [
           "Disaster Inc."
         ],
-        "basis": "gm-group",
-        "from": null
+        "basis": "website",
+        "from": []
       }
     },
-    "scene-packer": {
-      "hash": "68219383ce1a95f4c9200f87d91ea93b50c549e6"
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "brute"
+        ],
+        "reasons": [
+          "High HP (105) melee combatant → brute/frontliner"
+        ],
+        "confidence": 0.3333333333333333,
+        "version": 3,
+        "timestamp": 1791083926914,
+        "manuallyOverridden": false
+      }
+    },
+    "dnd5e": {
+      "showTokenPortrait": true
     },
     "midi-qol": {
       "onUseMacroParts": {}
@@ -1081,12 +1348,11 @@
     "coreVersion": "14.367",
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
+    "createdTime": 1791083923709,
+    "modifiedTime": 1791171680582,
+    "lastModifiedBy": "7BMT1Aux3QVtq027",
     "compendiumSource": null,
     "duplicateSource": null,
-    "createdTime": 1791171676199,
-    "modifiedTime": 1791172239079,
-    "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
-  },
-  "sort": 0
+  }
 }

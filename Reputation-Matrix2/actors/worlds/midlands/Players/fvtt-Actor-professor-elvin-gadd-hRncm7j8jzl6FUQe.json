@@ -1,12 +1,19 @@
 {
-  "_id": "mq07JYwSxl6XIsBK",
-  "name": "Smoking J",
-  "type": "npc",
-  "img": "portraits/smoking_j.jpg",
+  "_id": "hRncm7j8jzl6FUQe",
+  "name": "Professor Elvin Gadd",
+  "type": "character",
+  "img": "portraits/professor_e_gadd.jpg",
   "system": {
+    "currency": {
+      "pp": 0,
+      "gp": 0,
+      "ep": 0,
+      "sp": 0,
+      "cp": 0
+    },
     "abilities": {
       "str": {
-        "value": 10,
+        "value": 7,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -29,8 +36,8 @@
         }
       },
       "dex": {
-        "value": 16,
-        "proficient": 1,
+        "value": 12,
+        "proficient": 0,
         "bonuses": {
           "check": "",
           "save": ""
@@ -52,7 +59,7 @@
         }
       },
       "con": {
-        "value": 12,
+        "value": 10,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -75,7 +82,7 @@
         }
       },
       "int": {
-        "value": 13,
+        "value": 20,
         "proficient": 1,
         "bonuses": {
           "check": "",
@@ -98,7 +105,7 @@
         }
       },
       "wis": {
-        "value": 13,
+        "value": 14,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -121,7 +128,7 @@
         }
       },
       "cha": {
-        "value": 12,
+        "value": 11,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -143,143 +150,6 @@
           }
         }
       }
-    },
-    "attributes": {
-      "ac": {
-        "flat": 14,
-        "calc": "natural",
-        "formula": ""
-      },
-      "hp": {
-        "value": 27,
-        "max": 27,
-        "formula": "5d8 + 5",
-        "temp": null,
-        "tempmax": null
-      },
-      "movement": {
-        "walk": "30",
-        "units": "ft",
-        "hover": false,
-        "burrow": "0",
-        "climb": "0",
-        "fly": "0",
-        "swim": "0",
-        "ignoredDifficultTerrain": []
-      },
-      "senses": {
-        "units": "ft",
-        "ranges": {
-          "darkvision": 0
-        },
-        "special": ""
-      },
-      "init": {
-        "ability": "",
-        "roll": {
-          "min": null,
-          "max": null,
-          "mode": 0
-        },
-        "bonus": ""
-      },
-      "attunement": {
-        "max": 3
-      },
-      "spellcasting": "",
-      "exhaustion": 0,
-      "concentration": {
-        "ability": "",
-        "roll": {
-          "min": null,
-          "max": null,
-          "mode": 0
-        },
-        "bonuses": {
-          "save": ""
-        },
-        "limit": 1
-      },
-      "loyalty": {},
-      "hd": {
-        "spent": 0
-      },
-      "death": {
-        "roll": {
-          "min": null,
-          "max": null,
-          "mode": 0
-        },
-        "success": 0,
-        "failure": 0,
-        "bonuses": {
-          "save": ""
-        }
-      },
-      "price": {
-        "value": null,
-        "denomination": "gp"
-      },
-      "spell": {
-        "level": 0
-      }
-    },
-    "details": {
-      "alignment": "Neutral",
-      "type": {
-        "value": "humanoid",
-        "subtype": ""
-      },
-      "cr": 1,
-      "biography": {
-        "value": "<p><em>Waluipedia cast sheet — Smoking J.</em> Built by <code>tools/build-character-sheets.py</code>, generated from the article's own words. XP ledger: level 2, power rating 4 → CR 1 as a operative. Numbers are a GM-ready reading of the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p><p><strong>The Venomous Casualty</strong> — Disaster Inc. (situational)</p><p>Status: Active — recovering from spider venom</p><p>Smoking J was bitten during the Battle of the Spider Grove and suffered a severe venomous reaction that forced his withdrawal from the front line. His incapacitation at a critical moment reduced the party's fighting strength during the most dangerous phase of the battle. Waluigi hopes Smoking J has fully recovered, though the long-term effects of arachnid venom are unpredictable.</p><h3>Evidence</h3><ul><li><strong>Bite</strong> — “He was fighting alongside the main group when one of the dog-sized spiders landed a bite.”</li><li><strong>Pack Tactics</strong> — “The toad squad got cut off partly because there weren't enough fighters to maintain a continuous line.”</li><li><strong>Mechanical Aptitude</strong> — “Remi had to hold her position with only her mechanical dog as backup.”</li></ul><p>Article: <code>#/article/smoking_j</code> (characters). Site sheet: <code>#/sheets/smoking_j</code>.</p>",
-        "public": ""
-      },
-      "ideal": "",
-      "bond": "",
-      "flaw": "",
-      "race": null,
-      "habitat": {
-        "value": [],
-        "custom": ""
-      },
-      "treasure": {
-        "value": []
-      }
-    },
-    "traits": {
-      "size": "med",
-      "languages": {
-        "value": [
-          "common"
-        ],
-        "custom": "",
-        "communication": {}
-      },
-      "ci": {
-        "value": [],
-        "custom": ""
-      },
-      "di": {
-        "value": [],
-        "custom": "",
-        "bypasses": []
-      },
-      "dr": {
-        "value": [],
-        "custom": "",
-        "bypasses": []
-      },
-      "dv": {
-        "value": [],
-        "custom": "",
-        "bypasses": []
-      },
-      "dm": {
-        "amount": {},
-        "bypasses": []
-      },
-      "important": false
     },
     "skills": {
       "acr": {
@@ -309,7 +179,7 @@
         }
       },
       "arc": {
-        "value": 0,
+        "value": 2,
         "ability": "int",
         "roll": {
           "min": null,
@@ -335,7 +205,7 @@
         }
       },
       "dec": {
-        "value": 1,
+        "value": 0,
         "ability": "cha",
         "roll": {
           "min": null,
@@ -348,7 +218,7 @@
         }
       },
       "his": {
-        "value": 0,
+        "value": 1,
         "ability": "int",
         "roll": {
           "min": null,
@@ -387,7 +257,7 @@
         }
       },
       "inv": {
-        "value": 0,
+        "value": 2,
         "ability": "int",
         "roll": {
           "min": null,
@@ -426,7 +296,7 @@
         }
       },
       "prc": {
-        "value": 1,
+        "value": 0,
         "ability": "wis",
         "roll": {
           "min": null,
@@ -478,7 +348,7 @@
         }
       },
       "slt": {
-        "value": 1,
+        "value": 0,
         "ability": "dex",
         "roll": {
           "min": null,
@@ -491,7 +361,7 @@
         }
       },
       "ste": {
-        "value": 2,
+        "value": 0,
         "ability": "dex",
         "roll": {
           "min": null,
@@ -517,18 +387,8 @@
         }
       }
     },
-    "source": {
-      "custom": "Waluipedia campaign",
-      "revision": 1,
-      "rules": "2024"
-    },
-    "currency": {
-      "pp": 0,
-      "gp": 0,
-      "ep": 0,
-      "sp": 0,
-      "cp": 0
-    },
+    "tools": {},
+    "spells": {},
     "bonuses": {
       "mwak": {
         "attack": "",
@@ -555,32 +415,191 @@
         "dc": ""
       }
     },
-    "tools": {},
-    "spells": {},
     "resources": {
-      "legact": {
+      "primary": {
+        "value": 0,
         "max": 0,
-        "spent": 0
+        "sr": false,
+        "lr": false,
+        "label": ""
       },
-      "legres": {
+      "secondary": {
+        "value": 0,
         "max": 0,
-        "spent": 0
+        "sr": false,
+        "lr": false,
+        "label": ""
       },
-      "lair": {
-        "value": false,
-        "initiative": null,
-        "inside": false
+      "tertiary": {
+        "value": 0,
+        "max": 0,
+        "sr": false,
+        "lr": false,
+        "label": ""
+      }
+    },
+    "favorites": [],
+    "bastion": {
+      "name": "",
+      "description": ""
+    },
+    "attributes": {
+      "ac": {
+        "flat": 11,
+        "calc": "natural",
+        "formula": ""
+      },
+      "hp": {
+        "value": 18,
+        "max": 18,
+        "temp": null,
+        "tempmax": 0,
+        "bonuses": {}
+      },
+      "movement": {
+        "walk": "25",
+        "units": "ft",
+        "hover": false,
+        "burrow": "0",
+        "climb": "0",
+        "fly": "0",
+        "swim": "0",
+        "ignoredDifficultTerrain": []
+      },
+      "senses": {
+        "units": "ft",
+        "ranges": {
+          "darkvision": 0
+        },
+        "special": ""
+      },
+      "init": {
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonus": ""
+      },
+      "attunement": {
+        "max": 3
+      },
+      "spellcasting": "int",
+      "exhaustion": 0,
+      "inspiration": false,
+      "concentration": {
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "save": ""
+        },
+        "limit": 1
+      },
+      "loyalty": {},
+      "death": {
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "success": 0,
+        "failure": 0,
+        "bonuses": {
+          "save": ""
+        }
+      }
+    },
+    "details": {
+      "alignment": "Neutral",
+      "race": "nK8BOWiztuwrgswj",
+      "background": "BrE28XkV7eVbHPFH",
+      "originalClass": "XTwbu2SbZC8aGBxp",
+      "xp": {
+        "value": 900
+      },
+      "trait": "",
+      "ideal": "",
+      "bond": "",
+      "flaw": "",
+      "appearance": "",
+      "eyes": "",
+      "hair": "",
+      "skin": "",
+      "height": "",
+      "weight": "",
+      "age": "",
+      "gender": "",
+      "faith": "",
+      "biography": {
+        "value": "<p><em>Waluipedia cast sheet — Professor Elvin Gadd.</em> Built by <code>tools/build-character-sheets.py</code>, hand-authored from the article. XP ledger: level 3, power rating 5 → a level 3 Artificer player-character sheet (a player may take this seat; the authored CR 1 stands in where the ledger is silent). Numbers are a GM-ready reading of the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p><p><strong>The Ghost Researcher Who Disappeared</strong> — Formerly Mushroom Kingdom Royal Science Division / Formerly Boo Research Institute / Formerly Gadd Science Incorporated (dissolved) / Rumored connections to entities Waluigi cannot confirm</p><p>Status: Unknown — last confirmed public appearance approximately 1028 BF, current location classified or unknown</p><p>Professor Elvin Gadd — known publicly as E. Gadd — was the Mushroom Kingdom's foremost expert on paranormal phenomena, spectral containment, dimensional engineering, and what academic literature delicately calls 'paratechnological development.' He invented the Poltergust, the device Luigi uses to capture ghosts. He invented the Pixelator, a matter-to-data conversion system whose applications remain classified. He invented the Ghost Portrificationizer, the Dark-Light Device, the Dual Scream communicator, and at minimum twenty-three other devices that Waluigi has found references to in fragmentary documentation — most of which are described only by codename and clearance level. He served the Mushroom Kingdom's royal family for over seven decades in various advisory capacities. He trained Luigi personally in ghost-hunting operations. He was present — in some capacity that records do not specify — during multiple events that shaped the kingdom's recent history. And then, approximately twelve years ago, Professor E. Gadd stopped appearing in public. His laboratories were seized by government authority. His research was classified. His name was removed from active academic registries. His former colleagues were discouraged from discussing him. His correspondence was returned unopened. The official explanation is 'retirement to pursue private research.' The unofficial explanation varies depending on who Waluigi asks — some say he discovered something too dangerous to publish, some say he was silenced by parties unknown, some say he simply got tired of institutional politics and walked away. Waluigi has attempted to locate Professor E. Gadd for interview purposes. Waluigi has been unsuccessful. This is unusual, because Waluigi is very good at finding people who do not want to be found. E. Gadd is either dead, dimensionally displaced, or being protected by resources that exceed Waluigi's investigative capabilities. Waluigi does not know which. Waluigi would very much like to find out. WAH.</p><h3>Evidence</h3><ul><li><strong>Prototype Strobe</strong> — “Professor Elvin Gadd — known publicly as E. Gadd — was the Mushroom Kingdom's foremost expert on paranormal phenomena, spectral containment, dimensional engineering, and what academic literature delicately calls”</li><li><strong>Paratechnologist</strong> — “He invented the Pixelator, a matter-to-data conversion system whose applications remain classified.”</li><li><strong>Trained Luigi Personally</strong> — “He trained Luigi personally in ghost-hunting operations.”</li><li><strong>Twenty-Three Other Devices</strong> — “He invented the Ghost Portrificationizer, the Dark-Light Device, the Dual Scream communicator, and at minimum twenty-three other devices that Waluigi has found references to in fragmentary documentation — most of which”</li></ul><p>Article: <code>#/article/professor_e_gadd</code> (characters). Site sheet: <code>#/sheets/professor_e_gadd</code>.</p>",
+        "public": ""
+      }
+    },
+    "traits": {
+      "size": "med",
+      "languages": {
+        "value": [
+          "common"
+        ],
+        "custom": "",
+        "communication": {}
+      },
+      "weaponProf": {
+        "value": [
+          "sim"
+        ],
+        "custom": "",
+        "mastery": {
+          "value": [],
+          "bonus": []
+        }
+      },
+      "armorProf": {
+        "value": [
+          "lgt",
+          "med",
+          "shl"
+        ],
+        "custom": ""
+      },
+      "ci": {
+        "value": [],
+        "custom": ""
+      },
+      "di": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dr": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dv": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dm": {
+        "amount": {},
+        "bypasses": []
       }
     }
   },
   "prototypeToken": {
-    "name": "Smoking J",
+    "name": "Professor Elvin Gadd",
     "displayName": 0,
-    "actorLink": false,
+    "actorLink": true,
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "portraits/smoking_j.jpg",
+      "src": "portraits/professor_e_gadd.jpg",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -592,7 +611,7 @@
     "lockRotation": false,
     "rotation": 0,
     "alpha": 1,
-    "disposition": 1,
+    "disposition": 0,
     "displayBars": 0,
     "bar1": {
       "attribute": "attributes.hp"
@@ -627,7 +646,7 @@
       }
     },
     "sight": {
-      "enabled": false,
+      "enabled": true,
       "range": 0,
       "angle": 360,
       "visionMode": "basic",
@@ -667,13 +686,209 @@
   },
   "items": [
     {
-      "_id": "6AFBJDPizO3NmNrx",
-      "name": "Bite",
-      "type": "weapon",
-      "img": "icons/creatures/abilities/mouth-teeth-fire-orange.webp",
+      "_id": "XTwbu2SbZC8aGBxp",
+      "name": "Artificer",
+      "type": "class",
+      "img": "icons/skills/melee/weapons-crossed-swords-white-blue.webp",
       "system": {
         "description": {
-          "value": "<p>Bite; melee weapon attack.</p><p><em>Record:</em> “He was fighting alongside the main group when one of the dog-sized spiders landed a bite.”</p>",
+          "value": "<p>Artificer — the class this sheet reads the record as. Levels follow the XP ledger.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "identifier": "artificer",
+        "levels": 3,
+        "hd": {
+          "denomination": "d8",
+          "spent": 0,
+          "additional": ""
+        },
+        "advancement": {},
+        "startingEquipment": [],
+        "properties": [],
+        "primaryAbility": {
+          "value": [],
+          "all": true
+        },
+        "spellcasting": {
+          "progression": "artificer",
+          "ability": "int",
+          "preparation": {
+            "formula": ""
+          }
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "folder": null,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791171680706,
+        "modifiedTime": 1791171680706,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      }
+    },
+    {
+      "_id": "WpE8RWvidgkJZjT0",
+      "name": "Artillerist",
+      "type": "subclass",
+      "img": "icons/skills/melee/weapons-crossed-swords-white-blue.webp",
+      "system": {
+        "description": {
+          "value": "<p>Artillerist (Artificer).</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "identifier": "artillerist",
+        "classIdentifier": "artificer",
+        "advancement": {},
+        "spellcasting": {
+          "progression": "none",
+          "ability": "",
+          "preparation": {
+            "formula": ""
+          }
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "folder": null,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791171680706,
+        "modifiedTime": 1791171680706,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      }
+    },
+    {
+      "_id": "nK8BOWiztuwrgswj",
+      "name": "Human",
+      "type": "race",
+      "img": "icons/environment/people/group.webp",
+      "system": {
+        "description": {
+          "value": "<p>Human, as the article files it.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "identifier": "human",
+        "advancement": {},
+        "movement": {
+          "walk": "25",
+          "units": "ft",
+          "hover": false,
+          "ignoredDifficultTerrain": []
+        },
+        "senses": {
+          "units": "ft",
+          "special": "",
+          "ranges": {
+            "darkvision": null,
+            "blindsight": null,
+            "tremorsense": null,
+            "truesight": null
+          }
+        },
+        "type": {
+          "value": "humanoid",
+          "subtype": ""
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "folder": null,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791171680706,
+        "modifiedTime": 1791171680706,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      }
+    },
+    {
+      "_id": "BrE28XkV7eVbHPFH",
+      "name": "Sage",
+      "type": "background",
+      "img": "icons/sundries/scrolls/scroll-bound-white-tan.webp",
+      "system": {
+        "description": {
+          "value": "<p>Sage — the life the article describes before the table.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "identifier": "sage",
+        "advancement": {},
+        "startingEquipment": []
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      },
+      "folder": null,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791171680706,
+        "modifiedTime": 1791171680706,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      }
+    },
+    {
+      "_id": "mG76vPKUxRteqDYu",
+      "name": "Prototype Strobe",
+      "type": "weapon",
+      "img": "icons/sundries/lights/lantern-iron-yellow.webp",
+      "system": {
+        "description": {
+          "value": "<p>Ranged attack with a device that is not finished.</p>",
           "chat": ""
         },
         "source": {
@@ -698,7 +913,7 @@
         "identified": true,
         "cover": null,
         "range": {
-          "value": null,
+          "value": 30,
           "long": null,
           "units": "ft",
           "reach": null
@@ -726,10 +941,10 @@
           },
           "base": {
             "number": 1,
-            "denomination": 6,
+            "denomination": 10,
             "bonus": "",
             "types": [
-              "piercing"
+              "radiant"
             ],
             "custom": {
               "enabled": false,
@@ -758,7 +973,7 @@
         },
         "container": null,
         "equipped": true,
-        "proficient": null,
+        "proficient": 1,
         "identifier": "",
         "attuned": false,
         "ammunition": {},
@@ -825,14 +1040,14 @@
               "recovery": []
             },
             "attack": {
-              "ability": "str",
+              "ability": "int",
               "bonus": "",
               "critical": {
                 "threshold": null
               },
               "flat": false,
               "type": {
-                "value": "melee",
+                "value": "ranged",
                 "classification": "weapon"
               }
             },
@@ -940,7 +1155,7 @@
       },
       "effects": [],
       "flags": {},
-      "sort": 100000,
+      "sort": 500000,
       "ownership": {
         "default": 0
       },
@@ -949,8 +1164,8 @@
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1791171676229,
-        "modifiedTime": 1791171676229,
+        "createdTime": 1791171680706,
+        "modifiedTime": 1791171680706,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -958,75 +1173,17 @@
       }
     },
     {
-      "_id": "nBli8rfSZ88QX8xZ",
-      "name": "Pack Tactics",
-      "type": "feat",
-      "img": "icons/magic/nature/wolf-paw-glow-large-teal-blue.webp",
-      "system": {
-        "description": {
-          "value": "<p>Has advantage on an attack roll against a creature if at least one of its allies is within 5 feet of the creature and the ally is not incapacitated.</p>",
-          "chat": ""
-        },
-        "type": {
-          "value": "monster",
-          "subtype": ""
-        },
-        "uses": {
-          "spent": 0,
-          "max": "",
-          "recovery": []
-        },
-        "activities": {},
-        "source": {
-          "custom": "Waluipedia campaign",
-          "book": "",
-          "page": "",
-          "license": "",
-          "revision": 1,
-          "rules": "2024"
-        },
-        "advancement": {},
-        "identifier": "",
-        "crewed": false,
-        "enchant": {},
-        "prerequisites": {
-          "items": [],
-          "repeatable": false
-        },
-        "properties": [],
-        "requirements": ""
-      },
-      "effects": [],
-      "flags": {},
-      "sort": 200000,
-      "ownership": {
-        "default": 0
-      },
-      "folder": null,
-      "_stats": {
-        "coreVersion": "14.367",
-        "systemId": "dnd5e",
-        "systemVersion": "5.3.3",
-        "createdTime": 1791171676229,
-        "modifiedTime": 1791171676229,
-        "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
-      }
-    },
-    {
-      "_id": "u3OBPQ73WZvUPLKU",
-      "name": "Mechanical Aptitude",
+      "_id": "zrk4jwlWsAdmAAvO",
+      "name": "Paratechnologist",
       "type": "feat",
       "img": "icons/tools/hand/wrench-adjustable.webp",
       "system": {
         "description": {
-          "value": "<p>Proficient with tinker's tools (expertise). Can jury-rig a broken mechanism with 1 minute of work and a DC 15 check, or disable one as an action.</p>",
+          "value": "<p>Expertise with tinker's tools. Given an hour, parts and a captured ghost, Gadd can build one device from his catalogue (Poltergust, Dark-Light Device, Dual Scream, Pixelator) at the GM's discretion; the Pixelator remains classified.</p>",
           "chat": ""
         },
         "type": {
-          "value": "monster",
+          "value": "class",
           "subtype": ""
         },
         "uses": {
@@ -1056,7 +1213,7 @@
       },
       "effects": [],
       "flags": {},
-      "sort": 300000,
+      "sort": 600000,
       "ownership": {
         "default": 0
       },
@@ -1065,8 +1222,124 @@
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1791171676229,
-        "modifiedTime": 1791171676229,
+        "createdTime": 1791171680706,
+        "modifiedTime": 1791171680706,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      }
+    },
+    {
+      "_id": "w9C34wZ2NYBfzj6U",
+      "name": "Trained Luigi Personally",
+      "type": "feat",
+      "img": "icons/sundries/books/book-worn-brown-grey.webp",
+      "system": {
+        "description": {
+          "value": "<p>Luigi and any Poltergust operator Gadd has trained can reroll one failed check with Gadd's devices per short rest while he can speak to them.</p>",
+          "chat": ""
+        },
+        "type": {
+          "value": "class",
+          "subtype": ""
+        },
+        "uses": {
+          "spent": 0,
+          "max": "",
+          "recovery": []
+        },
+        "activities": {},
+        "source": {
+          "custom": "Waluipedia campaign",
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "advancement": {},
+        "identifier": "",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": ""
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 700000,
+      "ownership": {
+        "default": 0
+      },
+      "folder": null,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791171680706,
+        "modifiedTime": 1791171680706,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      }
+    },
+    {
+      "_id": "GyM3joqNSyweUt8L",
+      "name": "Twenty-Three Other Devices",
+      "type": "feat",
+      "img": "icons/sundries/documents/document-sealed-signatures-red.webp",
+      "system": {
+        "description": {
+          "value": "<p>Most of his inventory is described only in fragmentary documentation. Once per session the GM may hand Gadd one unclassified gadget whose effect the table discovers on use.</p>",
+          "chat": ""
+        },
+        "type": {
+          "value": "class",
+          "subtype": ""
+        },
+        "uses": {
+          "spent": 0,
+          "max": "",
+          "recovery": []
+        },
+        "activities": {},
+        "source": {
+          "custom": "Waluipedia campaign",
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "advancement": {},
+        "identifier": "",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": ""
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 800000,
+      "ownership": {
+        "default": 0
+      },
+      "folder": null,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791171680706,
+        "modifiedTime": 1791171680706,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -1075,7 +1348,7 @@
     }
   ],
   "effects": [],
-  "folder": "FvKdqeKTwINidr0T",
+  "folder": "khjVG7Y8S9IOVDnn",
   "ownership": {
     "default": 0,
     "7BMT1Aux3QVtq027": 3
@@ -1083,53 +1356,67 @@
   "flags": {
     "waluipedia-mass-import": {
       "folderPath": [
-        "Disaster Inc."
+        "Players"
       ],
       "source": "tools/build-character-sheets.py"
     },
     "waluipedia-sheets": {
-      "characterId": "smoking_j",
+      "characterId": "professor_e_gadd",
       "generated": true,
-      "bespoke": false,
-      "role": "rogue",
+      "bespoke": true,
+      "role": "scholar",
       "ledger": {
-        "level": 2,
-        "powerLevel": 4
+        "level": 3,
+        "powerLevel": 5
       },
       "evidence": [
         {
-          "feature": "Bite",
-          "quote": "He was fighting alongside the main group when one of the dog-sized spiders landed a bite.",
+          "feature": "Prototype Strobe",
+          "quote": "Professor Elvin Gadd — known publicly as E. Gadd — was the Mushroom Kingdom's foremost expert on paranormal phenomena, spectral containment, dimensional engineering, and what academic literature delicately calls",
           "source": "article"
         },
         {
-          "feature": "Pack Tactics",
-          "quote": "The toad squad got cut off partly because there weren't enough fighters to maintain a continuous line.",
+          "feature": "Paratechnologist",
+          "quote": "He invented the Pixelator, a matter-to-data conversion system whose applications remain classified.",
           "source": "article"
         },
         {
-          "feature": "Mechanical Aptitude",
-          "quote": "Remi had to hold her position with only her mechanical dog as backup.",
+          "feature": "Trained Luigi Personally",
+          "quote": "He trained Luigi personally in ghost-hunting operations.",
+          "source": "article"
+        },
+        {
+          "feature": "Twenty-Three Other Devices",
+          "quote": "He invented the Ghost Portrificationizer, the Dark-Light Device, the Dual Scream communicator, and at minimum twenty-three other devices that Waluigi has found references to in fragmentary documentation — most of which",
           "source": "article"
         }
       ],
       "tags": [
         "Disaster Inc.",
-        "npc",
-        "humanoid",
-        "party"
+        "pc",
+        "Mushroom Regency & Kingdom"
       ],
       "color": "#D4A017",
+      "pc": {
+        "level": 3,
+        "class": "Artificer",
+        "subclass": "Artillerist",
+        "cr": 1,
+        "hitDie": "d8",
+        "formula": "3d8"
+      },
       "organized": {
         "path": [
-          "Disaster Inc."
+          "Players"
         ],
-        "basis": "gm-group",
-        "from": null
+        "basis": "website",
+        "from": [
+          "Mushroom Regency & Kingdom"
+        ]
       }
     },
     "scene-packer": {
-      "hash": "3b6ad59615aae523ef91555b09c5548b0c16985a"
+      "hash": "0ebdbba8a693e3071e69b2f8c47037329fcee020"
     },
     "midi-qol": {
       "onUseMacroParts": {}
@@ -1141,8 +1428,8 @@
     "systemVersion": "5.3.3",
     "compendiumSource": null,
     "duplicateSource": null,
-    "createdTime": 1791171676229,
-    "modifiedTime": 1791172239095,
+    "createdTime": 1791171680706,
+    "modifiedTime": 1791172240229,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

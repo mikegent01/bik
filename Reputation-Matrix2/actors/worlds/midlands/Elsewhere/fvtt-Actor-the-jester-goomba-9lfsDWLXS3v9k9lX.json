@@ -1,13 +1,13 @@
 {
-  "_id": "gty769WQ2e9bUUgh",
-  "name": "Ryan",
+  "_id": "9lfsDWLXS3v9k9lX",
+  "name": "The Jester (Goomba)",
   "type": "npc",
-  "img": "portraits/ryan.png",
+  "img": "portraits/jester_goomba.webp",
   "system": {
     "abilities": {
       "str": {
-        "value": 15,
-        "proficient": 1,
+        "value": 10,
+        "proficient": 0,
         "bonuses": {
           "check": "",
           "save": ""
@@ -29,6 +29,29 @@
         }
       },
       "dex": {
+        "value": 16,
+        "proficient": 1,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "con": {
         "value": 12,
         "proficient": 0,
         "bonuses": {
@@ -51,8 +74,8 @@
           }
         }
       },
-      "con": {
-        "value": 14,
+      "int": {
+        "value": 13,
         "proficient": 1,
         "bonuses": {
           "check": "",
@@ -74,31 +97,8 @@
           }
         }
       },
-      "int": {
-        "value": 10,
-        "proficient": 0,
-        "bonuses": {
-          "check": "",
-          "save": ""
-        },
-        "max": null,
-        "check": {
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "save": {
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        }
-      },
       "wis": {
-        "value": 11,
+        "value": 13,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -121,7 +121,7 @@
         }
       },
       "cha": {
-        "value": 10,
+        "value": 12,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -151,9 +151,9 @@
         "formula": ""
       },
       "hp": {
-        "value": 32,
-        "max": 32,
-        "formula": "5d8 + 10",
+        "value": 27,
+        "max": 27,
+        "formula": "5d8 + 5",
         "temp": null,
         "tempmax": null
       },
@@ -228,11 +228,11 @@
       "alignment": "Neutral",
       "type": {
         "value": "humanoid",
-        "subtype": "human"
+        "subtype": ""
       },
       "cr": 1,
       "biography": {
-        "value": "<p><em>Waluipedia cast sheet — Ryan.</em> Built by <code>tools/build-character-sheets.py</code>, generated from the article's own words. XP ledger: level 2, power rating 4 → CR 1 as a soldier. Numbers are a GM-ready reading of the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p><p><strong>The Man Who Jumped</strong> — Liberated Toads / Disaster Inc. (separated)</p><p>Status: Active — location uncertain, last known contact with Rakasha spirit-walkers</p><p>Ryan is the person who jumped off the Vigilance during the Iron Sky Breach rather than be captured by the Iron Legion. He jumped. Off an airship. In the sky. He survived—somehow—and was taken in by a Rakasha spirit-walker. Waluigi does not know Ryan's current status or location, but anyone who survives a jump like that has earned Waluigi's respect forever.</p><h3>Evidence</h3><ul><li><strong>Spear</strong> — “The Man Who Jumped”</li><li><strong>Iron Discipline</strong> — “Ryan is the person who jumped off the Vigilance during the Iron Sky Breach rather than be captured by the Iron Legion.”</li></ul><p>Article: <code>#/article/ryan</code> (characters). Site sheet: <code>#/sheets/ryan</code>.</p>",
+        "value": "<p><em>Waluipedia cast sheet — The Jester (Goomba).</em> Built by <code>tools/build-character-sheets.py</code>, generated from the article's own words. no XP ledger entry; archetype default → CR 1 as a operative. Numbers are a GM-ready reading of the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p><p><strong>The False Heir's Laugh</strong> — Fawthful's Forces</p><p>Status: Historical actor — implicated in the 1035 BF false Bowser Jr. session and castle compromise; current whereabouts not established</p><p>The Jester is a Goomba who used the shape or role of Bowser Jr. as part of the historical deception that preceded the castle assault. The performance was funny only until Bowser woke up and found that the joke had been used to move a hostile plan inside his walls.</p><h3>Evidence</h3><ul><li><strong>Dagger</strong> — “The False Heir's Laugh”</li><li><strong>As Filed</strong> — “The False Heir's Laugh”</li></ul><p>Article: <code>#/article/thejestergoomba</code> (characters). Site sheet: <code>#/sheets/thejestergoomba</code>.</p>",
         "public": ""
       },
       "ideal": "",
@@ -322,7 +322,7 @@
         }
       },
       "ath": {
-        "value": 1,
+        "value": 0,
         "ability": "str",
         "roll": {
           "min": null,
@@ -335,7 +335,7 @@
         }
       },
       "dec": {
-        "value": 0,
+        "value": 1,
         "ability": "cha",
         "roll": {
           "min": null,
@@ -478,7 +478,7 @@
         }
       },
       "slt": {
-        "value": 0,
+        "value": 1,
         "ability": "dex",
         "roll": {
           "min": null,
@@ -491,7 +491,7 @@
         }
       },
       "ste": {
-        "value": 0,
+        "value": 2,
         "ability": "dex",
         "roll": {
           "min": null,
@@ -574,13 +574,13 @@
     }
   },
   "prototypeToken": {
-    "name": "Ryan",
+    "name": "The Jester (Goomba)",
     "displayName": 0,
     "actorLink": false,
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "portraits/ryan.png",
+      "src": "portraits/jester_goomba.webp",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -592,7 +592,7 @@
     "lockRotation": false,
     "rotation": 0,
     "alpha": 1,
-    "disposition": 1,
+    "disposition": -1,
     "displayBars": 0,
     "bar1": {
       "attribute": "attributes.hp"
@@ -667,13 +667,13 @@
   },
   "items": [
     {
-      "_id": "57baaFUTEddwyKCc",
-      "name": "Spear",
+      "_id": "kES5pGoOIdATWE6n",
+      "name": "Dagger",
       "type": "weapon",
-      "img": "icons/weapons/polearms/spear-simple-engraved.webp",
+      "img": "icons/weapons/daggers/dagger-simple-black.webp",
       "system": {
         "description": {
-          "value": "<p>Spear; melee weapon attack.</p>",
+          "value": "<p>Dagger; melee weapon attack.</p>",
           "chat": ""
         },
         "source": {
@@ -710,12 +710,10 @@
         },
         "damage": {
           "versatile": {
-            "number": 1,
-            "denomination": 8,
+            "number": null,
+            "denomination": null,
             "bonus": "",
-            "types": [
-              "piercing"
-            ],
+            "types": [],
             "custom": {
               "enabled": false,
               "formula": ""
@@ -728,7 +726,7 @@
           },
           "base": {
             "number": 1,
-            "denomination": 6,
+            "denomination": 4,
             "bonus": "",
             "types": [
               "piercing"
@@ -754,8 +752,9 @@
           "conditions": ""
         },
         "properties": [
-          "thr",
-          "ver"
+          "fin",
+          "lgt",
+          "thr"
         ],
         "type": {
           "value": "simpleM",
@@ -830,7 +829,7 @@
               "recovery": []
             },
             "attack": {
-              "ability": "str",
+              "ability": "dex",
               "bonus": "",
               "critical": {
                 "threshold": null
@@ -954,8 +953,8 @@
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1791171676199,
-        "modifiedTime": 1791171676199,
+        "createdTime": 1791171677555,
+        "modifiedTime": 1791171677555,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -963,13 +962,13 @@
       }
     },
     {
-      "_id": "Km1lX0DLVB4fZfna",
-      "name": "Iron Discipline",
+      "_id": "GM5AJ1DutPRvDPAp",
+      "name": "As Filed",
       "type": "feat",
-      "img": "icons/skills/melee/shield-block-gray-orange.webp",
+      "img": "icons/sundries/scrolls/scroll-bound-white-tan.webp",
       "system": {
         "description": {
-          "value": "<p>While within 5 feet of an ally, gains +2 AC and advantage on saving throws against being frightened.</p>",
+          "value": "<p>The archive records The Jester (Goomba) as The False Heir's Laugh; nothing in the article describes a fighting trick, so this sheet carries none. Treat the numbers as a baseline.</p>",
           "chat": ""
         },
         "type": {
@@ -1012,8 +1011,8 @@
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1791171676199,
-        "modifiedTime": 1791171676199,
+        "createdTime": 1791171677555,
+        "modifiedTime": 1791171677555,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -1022,7 +1021,7 @@
     }
   ],
   "effects": [],
-  "folder": "FvKdqeKTwINidr0T",
+  "folder": "p2xyuft3tNkqb1dC",
   "ownership": {
     "default": 0,
     "7BMT1Aux3QVtq027": 3
@@ -1030,48 +1029,63 @@
   "flags": {
     "waluipedia-mass-import": {
       "folderPath": [
-        "Disaster Inc."
+        "Elsewhere"
       ],
       "source": "tools/build-character-sheets.py"
     },
     "waluipedia-sheets": {
-      "characterId": "ryan",
+      "characterId": "thejestergoomba",
       "generated": true,
       "bespoke": false,
-      "role": "soldier",
+      "role": "rogue",
       "ledger": {
-        "level": 2,
-        "powerLevel": 4
+        "level": null,
+        "powerLevel": null
       },
       "evidence": [
         {
-          "feature": "Spear",
-          "quote": "The Man Who Jumped",
+          "feature": "Dagger",
+          "quote": "The False Heir's Laugh",
           "source": "title"
         },
         {
-          "feature": "Iron Discipline",
-          "quote": "Ryan is the person who jumped off the Vigilance during the Iron Sky Breach rather than be captured by the Iron Legion.",
-          "source": "article"
+          "feature": "As Filed",
+          "quote": "The False Heir's Laugh",
+          "source": "title"
         }
       ],
       "tags": [
-        "Disaster Inc.",
+        "Fawthful's Forces",
         "npc",
-        "humanoid",
-        "party"
+        "humanoid"
       ],
-      "color": "#D4A017",
+      "color": "#6C757D",
       "organized": {
         "path": [
-          "Disaster Inc."
+          "Elsewhere"
         ],
-        "basis": "gm-group",
-        "from": null
+        "basis": "website",
+        "from": [
+          "Fawthful's Forces"
+        ]
       }
     },
     "scene-packer": {
-      "hash": "68219383ce1a95f4c9200f87d91ea93b50c549e6"
+      "hash": "a56d641322016169567f622602242223fe11aad4"
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "skirmisher"
+        ],
+        "reasons": [
+          "No inference signals — fallback pool pick for \"humanoid\": skirmisher"
+        ],
+        "confidence": 0,
+        "version": 3,
+        "timestamp": 1791172225380,
+        "manuallyOverridden": false
+      }
     },
     "midi-qol": {
       "onUseMacroParts": {}
@@ -1083,8 +1097,8 @@
     "systemVersion": "5.3.3",
     "compendiumSource": null,
     "duplicateSource": null,
-    "createdTime": 1791171676199,
-    "modifiedTime": 1791172239079,
+    "createdTime": 1791171677555,
+    "modifiedTime": 1791172239546,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

@@ -1,13 +1,13 @@
 {
-  "_id": "gty769WQ2e9bUUgh",
-  "name": "Ryan",
+  "_id": "irvBhrF2bDGPH3Ee",
+  "name": "The Koopa Prisoner",
   "type": "npc",
-  "img": "portraits/ryan.png",
+  "img": "portraits/the_koopa_prisoner.jpg",
   "system": {
     "abilities": {
       "str": {
-        "value": 15,
-        "proficient": 1,
+        "value": 9,
+        "proficient": 0,
         "bonuses": {
           "check": "",
           "save": ""
@@ -29,7 +29,7 @@
         }
       },
       "dex": {
-        "value": 12,
+        "value": 13,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -52,8 +52,8 @@
         }
       },
       "con": {
-        "value": 14,
-        "proficient": 1,
+        "value": 12,
+        "proficient": 0,
         "bonuses": {
           "check": "",
           "save": ""
@@ -75,8 +75,8 @@
         }
       },
       "int": {
-        "value": 10,
-        "proficient": 0,
+        "value": 16,
+        "proficient": 1,
         "bonuses": {
           "check": "",
           "save": ""
@@ -98,8 +98,8 @@
         }
       },
       "wis": {
-        "value": 11,
-        "proficient": 0,
+        "value": 13,
+        "proficient": 1,
         "bonuses": {
           "check": "",
           "save": ""
@@ -121,7 +121,7 @@
         }
       },
       "cha": {
-        "value": 10,
+        "value": 12,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -146,14 +146,14 @@
     },
     "attributes": {
       "ac": {
-        "flat": 14,
+        "flat": 12,
         "calc": "natural",
         "formula": ""
       },
       "hp": {
-        "value": 32,
-        "max": 32,
-        "formula": "5d8 + 10",
+        "value": 38,
+        "max": 38,
+        "formula": "7d8 + 7",
         "temp": null,
         "tempmax": null
       },
@@ -228,11 +228,11 @@
       "alignment": "Neutral",
       "type": {
         "value": "humanoid",
-        "subtype": "human"
+        "subtype": "Koopa"
       },
-      "cr": 1,
+      "cr": 2,
       "biography": {
-        "value": "<p><em>Waluipedia cast sheet — Ryan.</em> Built by <code>tools/build-character-sheets.py</code>, generated from the article's own words. XP ledger: level 2, power rating 4 → CR 1 as a soldier. Numbers are a GM-ready reading of the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p><p><strong>The Man Who Jumped</strong> — Liberated Toads / Disaster Inc. (separated)</p><p>Status: Active — location uncertain, last known contact with Rakasha spirit-walkers</p><p>Ryan is the person who jumped off the Vigilance during the Iron Sky Breach rather than be captured by the Iron Legion. He jumped. Off an airship. In the sky. He survived—somehow—and was taken in by a Rakasha spirit-walker. Waluigi does not know Ryan's current status or location, but anyone who survives a jump like that has earned Waluigi's respect forever.</p><h3>Evidence</h3><ul><li><strong>Spear</strong> — “The Man Who Jumped”</li><li><strong>Iron Discipline</strong> — “Ryan is the person who jumped off the Vigilance during the Iron Sky Breach rather than be captured by the Iron Legion.”</li></ul><p>Article: <code>#/article/ryan</code> (characters). Site sheet: <code>#/sheets/ryan</code>.</p>",
+        "value": "<p><em>Waluipedia cast sheet — The Koopa Prisoner.</em> Built by <code>tools/build-character-sheets.py</code>, generated from the article's own words. no XP ledger entry; archetype default → CR 2 as a spellcaster. Numbers are a GM-ready reading of the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p><p><strong>The Prisoner Who Was Never Locked In</strong> — Unknown employer — worked with Fawful by his own word ('never thought I'd work with a bean'); moved through Peach's Castle and the Mages' Guild's company without being stopped</p><p>Status: At large as of the last account — at dawn in Efferd, 955 BF, in Fawful's Bean Badge, holding the fat vial; not placed on Highsun 1 or after</p><p>The prisoner nobody in Peach's Castle would describe to a guard. A Koopa in an unlocked cell, expecting a friend at the door and getting a ceremonial guard with a lantern — so you finally came to free me — oh. It's you. He shook Fawful's hand in front of three Mages' Guild hoods, reached Fawful's bean shop before the Toad who crawled five hours through the drains to find it, and admitted there that he had led the escort into the ambush and had himself alerted the castle to Bowser's attack. He holds a fat glass vial that Fawful's plan runs through. Waluigi's working name for him is the Arrangement's courier.</p><h3>Evidence</h3><ul><li><strong>Staff</strong> — “The Prisoner Who Was Never Locked In”</li><li><strong>Keen Records</strong> — “The prisoner nobody in Peach's Castle would describe to a guard.”</li><li><strong>Guild Spellcasting</strong> — “Unknown employer — worked with Fawful by his own word ('never thought I'd work with a bean'); moved through Peach's Castle and the Mages' Guild's company without being stopped”</li></ul><p>Article: <code>#/article/the_koopa_prisoner</code> (characters). Site sheet: <code>#/sheets/the_koopa_prisoner</code>.</p>",
         "public": ""
       },
       "ideal": "",
@@ -309,7 +309,7 @@
         }
       },
       "arc": {
-        "value": 0,
+        "value": 1,
         "ability": "int",
         "roll": {
           "min": null,
@@ -322,7 +322,7 @@
         }
       },
       "ath": {
-        "value": 1,
+        "value": 0,
         "ability": "str",
         "roll": {
           "min": null,
@@ -348,7 +348,7 @@
         }
       },
       "his": {
-        "value": 0,
+        "value": 1,
         "ability": "int",
         "roll": {
           "min": null,
@@ -361,7 +361,7 @@
         }
       },
       "ins": {
-        "value": 0,
+        "value": 1,
         "ability": "wis",
         "roll": {
           "min": null,
@@ -426,7 +426,7 @@
         }
       },
       "prc": {
-        "value": 1,
+        "value": 0,
         "ability": "wis",
         "roll": {
           "min": null,
@@ -574,13 +574,13 @@
     }
   },
   "prototypeToken": {
-    "name": "Ryan",
+    "name": "The Koopa Prisoner",
     "displayName": 0,
     "actorLink": false,
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "portraits/ryan.png",
+      "src": "portraits/the_koopa_prisoner.jpg",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -592,7 +592,7 @@
     "lockRotation": false,
     "rotation": 0,
     "alpha": 1,
-    "disposition": 1,
+    "disposition": 0,
     "displayBars": 0,
     "bar1": {
       "attribute": "attributes.hp"
@@ -667,13 +667,13 @@
   },
   "items": [
     {
-      "_id": "57baaFUTEddwyKCc",
-      "name": "Spear",
+      "_id": "tLrZgyG68jZSMWXB",
+      "name": "Staff",
       "type": "weapon",
-      "img": "icons/weapons/polearms/spear-simple-engraved.webp",
+      "img": "icons/weapons/staves/staff-ornate-purple.webp",
       "system": {
         "description": {
-          "value": "<p>Spear; melee weapon attack.</p>",
+          "value": "<p>Staff; melee weapon attack.</p>",
           "chat": ""
         },
         "source": {
@@ -698,8 +698,8 @@
         "identified": true,
         "cover": null,
         "range": {
-          "value": 20,
-          "long": 60,
+          "value": null,
+          "long": null,
           "units": "ft",
           "reach": null
         },
@@ -714,7 +714,7 @@
             "denomination": 8,
             "bonus": "",
             "types": [
-              "piercing"
+              "bludgeoning"
             ],
             "custom": {
               "enabled": false,
@@ -731,7 +731,7 @@
             "denomination": 6,
             "bonus": "",
             "types": [
-              "piercing"
+              "bludgeoning"
             ],
             "custom": {
               "enabled": false,
@@ -754,7 +754,6 @@
           "conditions": ""
         },
         "properties": [
-          "thr",
           "ver"
         ],
         "type": {
@@ -954,8 +953,8 @@
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1791171676199,
-        "modifiedTime": 1791171676199,
+        "createdTime": 1791171680291,
+        "modifiedTime": 1791171680291,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -963,13 +962,13 @@
       }
     },
     {
-      "_id": "Km1lX0DLVB4fZfna",
-      "name": "Iron Discipline",
+      "_id": "HzJecyVzKkZ2eHBs",
+      "name": "Keen Records",
       "type": "feat",
-      "img": "icons/skills/melee/shield-block-gray-orange.webp",
+      "img": "icons/tools/scribal/ink-quill-pink.webp",
       "system": {
         "description": {
-          "value": "<p>While within 5 feet of an ally, gains +2 AC and advantage on saving throws against being frightened.</p>",
+          "value": "<p>Has advantage on Intelligence (History) and (Investigation) checks about anything it has filed, and can recall any document it has read in the last year word for word.</p>",
           "chat": ""
         },
         "type": {
@@ -1012,8 +1011,66 @@
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1791171676199,
-        "modifiedTime": 1791171676199,
+        "createdTime": 1791171680291,
+        "modifiedTime": 1791171680291,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      }
+    },
+    {
+      "_id": "0sKZ0ZYUOEhv3zw6",
+      "name": "Guild Spellcasting",
+      "type": "feat",
+      "img": "icons/magic/water/orb-ice-web.webp",
+      "system": {
+        "description": {
+          "value": "<p>Spellcasting ability Intelligence (spell save DC 13, +5 to hit with spell attacks). At will: <em>light, mage hand, prestidigitation, fire bolt</em>. 1st level (4 slots): <em>magic missile, shield, sleep</em>. 2nd level (2 slots): <em>misty step, hold person</em>.</p>",
+          "chat": ""
+        },
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "uses": {
+          "spent": 0,
+          "max": "",
+          "recovery": []
+        },
+        "activities": {},
+        "source": {
+          "custom": "Waluipedia campaign",
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "advancement": {},
+        "identifier": "",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": ""
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "folder": null,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791171680291,
+        "modifiedTime": 1791171680291,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -1022,7 +1079,7 @@
     }
   ],
   "effects": [],
-  "folder": "FvKdqeKTwINidr0T",
+  "folder": "Cdp9oOZJz8mNmOmh",
   "ownership": {
     "default": 0,
     "7BMT1Aux3QVtq027": 3
@@ -1030,48 +1087,72 @@
   "flags": {
     "waluipedia-mass-import": {
       "folderPath": [
-        "Disaster Inc."
+        "Mages' Guild"
       ],
       "source": "tools/build-character-sheets.py"
     },
     "waluipedia-sheets": {
-      "characterId": "ryan",
+      "characterId": "the_koopa_prisoner",
       "generated": true,
       "bespoke": false,
-      "role": "soldier",
+      "role": "caster",
       "ledger": {
-        "level": 2,
-        "powerLevel": 4
+        "level": null,
+        "powerLevel": null
       },
       "evidence": [
         {
-          "feature": "Spear",
-          "quote": "The Man Who Jumped",
+          "feature": "Staff",
+          "quote": "The Prisoner Who Was Never Locked In",
           "source": "title"
         },
         {
-          "feature": "Iron Discipline",
-          "quote": "Ryan is the person who jumped off the Vigilance during the Iron Sky Breach rather than be captured by the Iron Legion.",
+          "feature": "Keen Records",
+          "quote": "The prisoner nobody in Peach's Castle would describe to a guard.",
+          "source": "article"
+        },
+        {
+          "feature": "Guild Spellcasting",
+          "quote": "Unknown employer — worked with Fawful by his own word ('never thought I'd work with a bean'); moved through Peach's Castle and the Mages' Guild's company without being stopped",
           "source": "article"
         }
       ],
       "tags": [
-        "Disaster Inc.",
+        "Mages' Guild",
         "npc",
-        "humanoid",
-        "party"
+        "humanoid"
       ],
-      "color": "#D4A017",
+      "color": "#8A2BE2",
       "organized": {
         "path": [
-          "Disaster Inc."
+          "Mages' Guild"
         ],
-        "basis": "gm-group",
-        "from": null
+        "basis": "website",
+        "from": [
+          "Mages' Guild"
+        ]
       }
     },
     "scene-packer": {
-      "hash": "68219383ce1a95f4c9200f87d91ea93b50c549e6"
+      "hash": "98ce0ae318445e582289271ad99aa0b27e8e5cc9"
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "skirmisher",
+          "disciplined",
+          "tactician"
+        ],
+        "reasons": [
+          "Spellcasting detected",
+          "Keyword \"guard\" in name/biography → disciplined",
+          "INT 16 ≥ 16 → tactician overlay"
+        ],
+        "confidence": 1,
+        "version": 3,
+        "timestamp": 1791172057922,
+        "manuallyOverridden": false
+      }
     },
     "midi-qol": {
       "onUseMacroParts": {}
@@ -1083,8 +1164,8 @@
     "systemVersion": "5.3.3",
     "compendiumSource": null,
     "duplicateSource": null,
-    "createdTime": 1791171676199,
-    "modifiedTime": 1791172239079,
+    "createdTime": 1791171680291,
+    "modifiedTime": 1791172240088,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

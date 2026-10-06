@@ -1,13 +1,20 @@
 {
-  "_id": "gty769WQ2e9bUUgh",
-  "name": "Ryan",
-  "type": "npc",
-  "img": "portraits/ryan.png",
+  "_id": "8A0DJ9nGovNrKCzx",
+  "name": "Kamek",
+  "type": "character",
+  "img": "portraits/kamek.jpg",
   "system": {
+    "currency": {
+      "pp": 0,
+      "gp": 0,
+      "ep": 0,
+      "sp": 0,
+      "cp": 0
+    },
     "abilities": {
       "str": {
-        "value": 15,
-        "proficient": 1,
+        "value": 8,
+        "proficient": 0,
         "bonuses": {
           "check": "",
           "save": ""
@@ -52,52 +59,6 @@
         }
       },
       "con": {
-        "value": 14,
-        "proficient": 1,
-        "bonuses": {
-          "check": "",
-          "save": ""
-        },
-        "max": null,
-        "check": {
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "save": {
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        }
-      },
-      "int": {
-        "value": 10,
-        "proficient": 0,
-        "bonuses": {
-          "check": "",
-          "save": ""
-        },
-        "max": null,
-        "check": {
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "save": {
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        }
-      },
-      "wis": {
         "value": 11,
         "proficient": 0,
         "bonuses": {
@@ -120,8 +81,54 @@
           }
         }
       },
+      "int": {
+        "value": 17,
+        "proficient": 1,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "wis": {
+        "value": 13,
+        "proficient": 1,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
       "cha": {
-        "value": 10,
+        "value": 12,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -143,143 +150,6 @@
           }
         }
       }
-    },
-    "attributes": {
-      "ac": {
-        "flat": 14,
-        "calc": "natural",
-        "formula": ""
-      },
-      "hp": {
-        "value": 32,
-        "max": 32,
-        "formula": "5d8 + 10",
-        "temp": null,
-        "tempmax": null
-      },
-      "movement": {
-        "walk": "30",
-        "units": "ft",
-        "hover": false,
-        "burrow": "0",
-        "climb": "0",
-        "fly": "0",
-        "swim": "0",
-        "ignoredDifficultTerrain": []
-      },
-      "senses": {
-        "units": "ft",
-        "ranges": {
-          "darkvision": 0
-        },
-        "special": ""
-      },
-      "init": {
-        "ability": "",
-        "roll": {
-          "min": null,
-          "max": null,
-          "mode": 0
-        },
-        "bonus": ""
-      },
-      "attunement": {
-        "max": 3
-      },
-      "spellcasting": "",
-      "exhaustion": 0,
-      "concentration": {
-        "ability": "",
-        "roll": {
-          "min": null,
-          "max": null,
-          "mode": 0
-        },
-        "bonuses": {
-          "save": ""
-        },
-        "limit": 1
-      },
-      "loyalty": {},
-      "hd": {
-        "spent": 0
-      },
-      "death": {
-        "roll": {
-          "min": null,
-          "max": null,
-          "mode": 0
-        },
-        "success": 0,
-        "failure": 0,
-        "bonuses": {
-          "save": ""
-        }
-      },
-      "price": {
-        "value": null,
-        "denomination": "gp"
-      },
-      "spell": {
-        "level": 0
-      }
-    },
-    "details": {
-      "alignment": "Neutral",
-      "type": {
-        "value": "humanoid",
-        "subtype": "human"
-      },
-      "cr": 1,
-      "biography": {
-        "value": "<p><em>Waluipedia cast sheet — Ryan.</em> Built by <code>tools/build-character-sheets.py</code>, generated from the article's own words. XP ledger: level 2, power rating 4 → CR 1 as a soldier. Numbers are a GM-ready reading of the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p><p><strong>The Man Who Jumped</strong> — Liberated Toads / Disaster Inc. (separated)</p><p>Status: Active — location uncertain, last known contact with Rakasha spirit-walkers</p><p>Ryan is the person who jumped off the Vigilance during the Iron Sky Breach rather than be captured by the Iron Legion. He jumped. Off an airship. In the sky. He survived—somehow—and was taken in by a Rakasha spirit-walker. Waluigi does not know Ryan's current status or location, but anyone who survives a jump like that has earned Waluigi's respect forever.</p><h3>Evidence</h3><ul><li><strong>Spear</strong> — “The Man Who Jumped”</li><li><strong>Iron Discipline</strong> — “Ryan is the person who jumped off the Vigilance during the Iron Sky Breach rather than be captured by the Iron Legion.”</li></ul><p>Article: <code>#/article/ryan</code> (characters). Site sheet: <code>#/sheets/ryan</code>.</p>",
-        "public": ""
-      },
-      "ideal": "",
-      "bond": "",
-      "flaw": "",
-      "race": null,
-      "habitat": {
-        "value": [],
-        "custom": ""
-      },
-      "treasure": {
-        "value": []
-      }
-    },
-    "traits": {
-      "size": "med",
-      "languages": {
-        "value": [
-          "common"
-        ],
-        "custom": "",
-        "communication": {}
-      },
-      "ci": {
-        "value": [],
-        "custom": ""
-      },
-      "di": {
-        "value": [],
-        "custom": "",
-        "bypasses": []
-      },
-      "dr": {
-        "value": [],
-        "custom": "",
-        "bypasses": []
-      },
-      "dv": {
-        "value": [],
-        "custom": "",
-        "bypasses": []
-      },
-      "dm": {
-        "amount": {},
-        "bypasses": []
-      },
-      "important": false
     },
     "skills": {
       "acr": {
@@ -309,7 +179,7 @@
         }
       },
       "arc": {
-        "value": 0,
+        "value": 2,
         "ability": "int",
         "roll": {
           "min": null,
@@ -322,7 +192,7 @@
         }
       },
       "ath": {
-        "value": 1,
+        "value": 0,
         "ability": "str",
         "roll": {
           "min": null,
@@ -335,7 +205,7 @@
         }
       },
       "dec": {
-        "value": 0,
+        "value": 1,
         "ability": "cha",
         "roll": {
           "min": null,
@@ -348,7 +218,7 @@
         }
       },
       "his": {
-        "value": 0,
+        "value": 1,
         "ability": "int",
         "roll": {
           "min": null,
@@ -426,7 +296,7 @@
         }
       },
       "prc": {
-        "value": 1,
+        "value": 0,
         "ability": "wis",
         "roll": {
           "min": null,
@@ -517,18 +387,8 @@
         }
       }
     },
-    "source": {
-      "custom": "Waluipedia campaign",
-      "revision": 1,
-      "rules": "2024"
-    },
-    "currency": {
-      "pp": 0,
-      "gp": 0,
-      "ep": 0,
-      "sp": 0,
-      "cp": 0
-    },
+    "tools": {},
+    "spells": {},
     "bonuses": {
       "mwak": {
         "attack": "",
@@ -555,32 +415,187 @@
         "dc": ""
       }
     },
-    "tools": {},
-    "spells": {},
     "resources": {
-      "legact": {
+      "primary": {
+        "value": 0,
         "max": 0,
-        "spent": 0
+        "sr": false,
+        "lr": false,
+        "label": ""
       },
-      "legres": {
+      "secondary": {
+        "value": 0,
         "max": 0,
-        "spent": 0
+        "sr": false,
+        "lr": false,
+        "label": ""
       },
-      "lair": {
-        "value": false,
-        "initiative": null,
-        "inside": false
+      "tertiary": {
+        "value": 0,
+        "max": 0,
+        "sr": false,
+        "lr": false,
+        "label": ""
+      }
+    },
+    "favorites": [],
+    "bastion": {
+      "name": "",
+      "description": ""
+    },
+    "attributes": {
+      "ac": {
+        "flat": 12,
+        "calc": "natural",
+        "formula": ""
+      },
+      "hp": {
+        "value": 10,
+        "max": 10,
+        "temp": null,
+        "tempmax": 0,
+        "bonuses": {}
+      },
+      "movement": {
+        "walk": "30",
+        "units": "ft",
+        "hover": false,
+        "burrow": "0",
+        "climb": "0",
+        "fly": "0",
+        "swim": "0",
+        "ignoredDifficultTerrain": []
+      },
+      "senses": {
+        "units": "ft",
+        "ranges": {
+          "darkvision": 60
+        },
+        "special": ""
+      },
+      "init": {
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonus": ""
+      },
+      "attunement": {
+        "max": 3
+      },
+      "spellcasting": "int",
+      "exhaustion": 0,
+      "inspiration": false,
+      "concentration": {
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "save": ""
+        },
+        "limit": 1
+      },
+      "loyalty": {},
+      "death": {
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "success": 0,
+        "failure": 0,
+        "bonuses": {
+          "save": ""
+        }
+      }
+    },
+    "details": {
+      "alignment": "Lawful Evil",
+      "race": "JjbfF5IVdNOap18S",
+      "background": "ugkFmApaNQCU8ify",
+      "originalClass": "MCPzu8z3tJbQkQsq",
+      "xp": {
+        "value": 300
+      },
+      "trait": "",
+      "ideal": "",
+      "bond": "",
+      "flaw": "",
+      "appearance": "",
+      "eyes": "",
+      "hair": "",
+      "skin": "",
+      "height": "",
+      "weight": "",
+      "age": "",
+      "gender": "",
+      "faith": "",
+      "biography": {
+        "value": "<p><em>Waluipedia cast sheet — Kamek.</em> Built by <code>tools/build-character-sheets.py</code>, hand-authored from the article. XP ledger: level 2, power rating 10 → a level 2 Wizard player-character sheet (a player may take this seat; the authored CR 2 stands in where the ledger is silent). Numbers are a GM-ready reading of the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p><p><strong>The Fallen Regent</strong> — Koopa Troop (Formerly)</p><p>Status: Imprisoned — Stripped of power by Bowser</p><p>Kamek decided that Bowser's methods were obsolete, so he dug under the castle and awoke a world-eating space worm. It went poorly. He sacrificed hundreds of troops, declared himself the 'Regent Sorcerer', and was ultimately defeated by his own construction workers. Bowser has now sentenced him to eternal imprisonment in the very pit he opened. Waluigi thinks Kamek should have just stuck to kidnapping plumbers.</p><h3>Evidence</h3><ul><li><strong>Wand Bolt</strong> — “The greatest wizard in Koopa history was brought down by unionized labor.”</li><li><strong>Magikoopa Spellcasting</strong> — “As the Wyrm's magic flooded into him, he became less a wizard and more a mouthpiece—a corrupted construct wearing Kamek's ambition while the entity beneath the Valley did the actual thinking.”</li><li><strong>The Fallen Regent</strong> — “Imprisoned — Stripped of power by Bowser”</li></ul><p>Article: <code>#/article/kamek</code> (characters). Site sheet: <code>#/sheets/kamek</code>.</p>",
+        "public": ""
+      }
+    },
+    "traits": {
+      "size": "med",
+      "languages": {
+        "value": [
+          "common"
+        ],
+        "custom": "",
+        "communication": {}
+      },
+      "weaponProf": {
+        "value": [
+          "sim"
+        ],
+        "custom": "",
+        "mastery": {
+          "value": [],
+          "bonus": []
+        }
+      },
+      "armorProf": {
+        "value": [],
+        "custom": ""
+      },
+      "ci": {
+        "value": [],
+        "custom": ""
+      },
+      "di": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dr": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dv": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dm": {
+        "amount": {},
+        "bypasses": []
       }
     }
   },
   "prototypeToken": {
-    "name": "Ryan",
+    "name": "Kamek",
     "displayName": 0,
-    "actorLink": false,
+    "actorLink": true,
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "portraits/ryan.png",
+      "src": "portraits/kamek.jpg",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -592,7 +607,7 @@
     "lockRotation": false,
     "rotation": 0,
     "alpha": 1,
-    "disposition": 1,
+    "disposition": 0,
     "displayBars": 0,
     "bar1": {
       "attribute": "attributes.hp"
@@ -627,7 +642,7 @@
       }
     },
     "sight": {
-      "enabled": false,
+      "enabled": true,
       "range": 0,
       "angle": 360,
       "visionMode": "basic",
@@ -667,13 +682,164 @@
   },
   "items": [
     {
-      "_id": "57baaFUTEddwyKCc",
-      "name": "Spear",
-      "type": "weapon",
-      "img": "icons/weapons/polearms/spear-simple-engraved.webp",
+      "_id": "MCPzu8z3tJbQkQsq",
+      "name": "Wizard",
+      "type": "class",
+      "img": "icons/skills/melee/weapons-crossed-swords-white-blue.webp",
       "system": {
         "description": {
-          "value": "<p>Spear; melee weapon attack.</p>",
+          "value": "<p>Wizard — the class this sheet reads the record as. Levels follow the XP ledger.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "identifier": "wizard",
+        "levels": 2,
+        "hd": {
+          "denomination": "d6",
+          "spent": 0,
+          "additional": ""
+        },
+        "advancement": {},
+        "startingEquipment": [],
+        "properties": [],
+        "primaryAbility": {
+          "value": [],
+          "all": true
+        },
+        "spellcasting": {
+          "progression": "full",
+          "ability": "int",
+          "preparation": {
+            "formula": ""
+          }
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "folder": null,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791171679013,
+        "modifiedTime": 1791171679013,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      }
+    },
+    {
+      "_id": "JjbfF5IVdNOap18S",
+      "name": "Magikoopa",
+      "type": "race",
+      "img": "icons/environment/people/group.webp",
+      "system": {
+        "description": {
+          "value": "<p>Magikoopa, as the article files it.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "identifier": "magikoopa",
+        "advancement": {},
+        "movement": {
+          "walk": "30",
+          "units": "ft",
+          "hover": false,
+          "ignoredDifficultTerrain": []
+        },
+        "senses": {
+          "units": "ft",
+          "special": "",
+          "ranges": {
+            "darkvision": null,
+            "blindsight": null,
+            "tremorsense": null,
+            "truesight": null
+          }
+        },
+        "type": {
+          "value": "humanoid",
+          "subtype": ""
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "folder": null,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791171679013,
+        "modifiedTime": 1791171679013,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      }
+    },
+    {
+      "_id": "ugkFmApaNQCU8ify",
+      "name": "Courtier",
+      "type": "background",
+      "img": "icons/sundries/scrolls/scroll-bound-white-tan.webp",
+      "system": {
+        "description": {
+          "value": "<p>Courtier — the life the article describes before the table.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "identifier": "courtier",
+        "advancement": {},
+        "startingEquipment": []
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "folder": null,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791171679013,
+        "modifiedTime": 1791171679013,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      }
+    },
+    {
+      "_id": "zbj8tC4YmBIy9RQ4",
+      "name": "Wand Bolt",
+      "type": "weapon",
+      "img": "icons/weapons/staves/staff-ornate-purple.webp",
+      "system": {
+        "description": {
+          "value": "<p>Ranged spell attack, 60 feet, a stuttering triangle-square-circle burst.</p>",
           "chat": ""
         },
         "source": {
@@ -698,8 +864,8 @@
         "identified": true,
         "cover": null,
         "range": {
-          "value": 20,
-          "long": 60,
+          "value": 60,
+          "long": null,
           "units": "ft",
           "reach": null
         },
@@ -710,12 +876,10 @@
         },
         "damage": {
           "versatile": {
-            "number": 1,
-            "denomination": 8,
+            "number": null,
+            "denomination": null,
             "bonus": "",
-            "types": [
-              "piercing"
-            ],
+            "types": [],
             "custom": {
               "enabled": false,
               "formula": ""
@@ -727,11 +891,11 @@
             }
           },
           "base": {
-            "number": 1,
-            "denomination": 6,
+            "number": 2,
+            "denomination": 8,
             "bonus": "",
             "types": [
-              "piercing"
+              "force"
             ],
             "custom": {
               "enabled": false,
@@ -753,17 +917,14 @@
           "dt": null,
           "conditions": ""
         },
-        "properties": [
-          "thr",
-          "ver"
-        ],
+        "properties": [],
         "type": {
-          "value": "simpleM",
+          "value": "natural",
           "baseItem": ""
         },
         "container": null,
         "equipped": true,
-        "proficient": null,
+        "proficient": 1,
         "identifier": "",
         "attuned": false,
         "ammunition": {},
@@ -830,15 +991,15 @@
               "recovery": []
             },
             "attack": {
-              "ability": "str",
+              "ability": "int",
               "bonus": "",
               "critical": {
                 "threshold": null
               },
               "flat": false,
               "type": {
-                "value": "melee",
-                "classification": "weapon"
+                "value": "ranged",
+                "classification": "spell"
               }
             },
             "damage": {
@@ -945,7 +1106,7 @@
       },
       "effects": [],
       "flags": {},
-      "sort": 100000,
+      "sort": 400000,
       "ownership": {
         "default": 0
       },
@@ -954,8 +1115,8 @@
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1791171676199,
-        "modifiedTime": 1791171676199,
+        "createdTime": 1791171679013,
+        "modifiedTime": 1791171679013,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -963,17 +1124,17 @@
       }
     },
     {
-      "_id": "Km1lX0DLVB4fZfna",
-      "name": "Iron Discipline",
+      "_id": "MzeOv3GfndTowlnS",
+      "name": "Magikoopa Spellcasting",
       "type": "feat",
-      "img": "icons/skills/melee/shield-block-gray-orange.webp",
+      "img": "icons/magic/water/orb-ice-web.webp",
       "system": {
         "description": {
-          "value": "<p>While within 5 feet of an ally, gains +2 AC and advantage on saving throws against being frightened.</p>",
+          "value": "<p>Spellcasting ability Intelligence (spell save DC 13, +5 to hit). At will: <em>mage hand, minor illusion, prestidigitation</em>. 1st level (3 slots): <em>shield, magic missile, charm person</em>. 2nd level (1 slot): <em>misty step</em>. Imprisoned: his broom and his old court authority are gone, and the Wyrm's magic with them.</p>",
           "chat": ""
         },
         "type": {
-          "value": "monster",
+          "value": "class",
           "subtype": ""
         },
         "uses": {
@@ -1003,7 +1164,7 @@
       },
       "effects": [],
       "flags": {},
-      "sort": 200000,
+      "sort": 500000,
       "ownership": {
         "default": 0
       },
@@ -1012,17 +1173,127 @@
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1791171676199,
-        "modifiedTime": 1791171676199,
+        "createdTime": 1791171679013,
+        "modifiedTime": 1791171679013,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null
       }
+    },
+    {
+      "_id": "yMZE7fuEEKPyysNG",
+      "name": "The Fallen Regent",
+      "type": "feat",
+      "img": "icons/equipment/head/crown-gold-blue.webp",
+      "system": {
+        "description": {
+          "value": "<p>Kamek was stripped of power by Bowser. This sheet is the prisoner, not the 30-foot puppet of the entity under the Valley; Koopa Troop soldiers who recognise him must succeed on a DC 13 Wisdom save or hesitate (lose their reaction) the first time he gives an order.</p>",
+          "chat": ""
+        },
+        "type": {
+          "value": "class",
+          "subtype": ""
+        },
+        "uses": {
+          "spent": 0,
+          "max": "",
+          "recovery": []
+        },
+        "activities": {},
+        "source": {
+          "custom": "Waluipedia campaign",
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "advancement": {},
+        "identifier": "",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": ""
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 600000,
+      "ownership": {
+        "default": 0
+      },
+      "folder": null,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791171679013,
+        "modifiedTime": 1791171679013,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      }
+    },
+    {
+      "_id": "keg2Q1Ghq6AK2QnS",
+      "name": "Kamek’s Misread Seal Rubbing",
+      "type": "loot",
+      "img": "icons/sundries/documents/document-bound-white-tan.webp",
+      "system": {
+        "description": {
+          "value": "<p>A rubbing of ancient seal markings that Kamek apparently interpreted as “for me” instead of “do not open the god-worm prison.”</p><ul><li>Contains ancient seal notation.</li><li>Demonstrates catastrophic wizard confidence.</li><li>Useful as evidence in arguments about signage.</li></ul><p><em>On the record:</em> trial evidence / research scrap.</p><blockquote>The greatest wizard in Koopa history versus a label. The label lost first, then everyone else did. — W.</blockquote><p><em>Waluipedia inventory <code>kamek_seal_rubbing</code>, held by Kamek. Mechanics as the table rules them; the archive records custody.</em></p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia inventory — Catastrophic Scholarship",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "identifier": "kameks-misread-seal-rubbing",
+        "quantity": 1,
+        "weight": {
+          "value": 1,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "properties": [],
+        "rarity": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "effects": [],
+      "flags": {
+        "waluipedia": {
+          "inventoryItem": "kamek_seal_rubbing",
+          "holder": "kamek",
+          "event": null,
+          "filedOn": "2026-10-06",
+          "note": "trial evidence / research scrap"
+        }
+      },
+      "folder": null,
+      "ownership": {
+        "default": 0
+      }
     }
   ],
   "effects": [],
-  "folder": "FvKdqeKTwINidr0T",
+  "folder": "txtt9HC0wxmSvDeo",
   "ownership": {
     "default": 0,
     "7BMT1Aux3QVtq027": 3
@@ -1030,48 +1301,62 @@
   "flags": {
     "waluipedia-mass-import": {
       "folderPath": [
-        "Disaster Inc."
+        "Players"
       ],
       "source": "tools/build-character-sheets.py"
     },
     "waluipedia-sheets": {
-      "characterId": "ryan",
+      "characterId": "kamek",
       "generated": true,
-      "bespoke": false,
-      "role": "soldier",
+      "bespoke": true,
+      "role": "caster",
       "ledger": {
         "level": 2,
-        "powerLevel": 4
+        "powerLevel": 10
       },
       "evidence": [
         {
-          "feature": "Spear",
-          "quote": "The Man Who Jumped",
-          "source": "title"
+          "feature": "Wand Bolt",
+          "quote": "The greatest wizard in Koopa history was brought down by unionized labor.",
+          "source": "article"
         },
         {
-          "feature": "Iron Discipline",
-          "quote": "Ryan is the person who jumped off the Vigilance during the Iron Sky Breach rather than be captured by the Iron Legion.",
+          "feature": "Magikoopa Spellcasting",
+          "quote": "As the Wyrm's magic flooded into him, he became less a wizard and more a mouthpiece—a corrupted construct wearing Kamek's ambition while the entity beneath the Valley did the actual thinking.",
+          "source": "article"
+        },
+        {
+          "feature": "The Fallen Regent",
+          "quote": "Imprisoned — Stripped of power by Bowser",
           "source": "article"
         }
       ],
       "tags": [
         "Disaster Inc.",
-        "npc",
-        "humanoid",
-        "party"
+        "pc",
+        "Koopa Troop"
       ],
       "color": "#D4A017",
+      "pc": {
+        "level": 2,
+        "class": "Wizard",
+        "subclass": null,
+        "cr": 2,
+        "hitDie": "d6",
+        "formula": "2d6"
+      },
       "organized": {
         "path": [
-          "Disaster Inc."
+          "Players"
         ],
-        "basis": "gm-group",
-        "from": null
+        "basis": "website",
+        "from": [
+          "Koopa Troop"
+        ]
       }
     },
     "scene-packer": {
-      "hash": "68219383ce1a95f4c9200f87d91ea93b50c549e6"
+      "hash": "7f4532ca0d4e91acf0055e86e7f75f0592e39d90"
     },
     "midi-qol": {
       "onUseMacroParts": {}
@@ -1083,8 +1368,8 @@
     "systemVersion": "5.3.3",
     "compendiumSource": null,
     "duplicateSource": null,
-    "createdTime": 1791171676199,
-    "modifiedTime": 1791172239079,
+    "createdTime": 1791171679013,
+    "modifiedTime": 1791172239719,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },
