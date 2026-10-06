@@ -946,10 +946,13 @@
     }
   ],
   "effects": [],
-  "folder": "yHWl5WjWuswIaAdF",
+  "folder": "5Q4w3VVb0sOc5DgD",
   "sort": 450000,
   "flags": {
     "core": {},
+    "midi-qol": {
+      "onUseMacroParts": {}
+    },
     "waluipedia-mass-import": {
       "folderPath": [
         "Iron Legion"
@@ -972,6 +975,23 @@
           "A House Divided",
           "Characters of the Ruined Manor"
         ]
+      }
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "hunter",
+          "bodyguard"
+        ],
+        "reasons": [
+          "Keen Senses detected",
+          "Mixed melee/ranged weapons → hunter",
+          "Keyword \"bodyguard\" in name/biography → bodyguard"
+        ],
+        "confidence": 1,
+        "version": 3,
+        "timestamp": 1791172227630,
+        "manuallyOverridden": false
       }
     }
   },
@@ -1691,11 +1711,11 @@
     "compendiumSource": "Compendium.dnd5e.monsters.O3ABqI55Ir1du1Xa",
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "14.365",
+    "coreVersion": "14.367",
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
     "createdTime": 1788231129569,
-    "modifiedTime": 1788231129724,
+    "modifiedTime": 1791172227639,
     "lastModifiedBy": "7BMT1Aux3QVtq027"
   },
   "ownership": {

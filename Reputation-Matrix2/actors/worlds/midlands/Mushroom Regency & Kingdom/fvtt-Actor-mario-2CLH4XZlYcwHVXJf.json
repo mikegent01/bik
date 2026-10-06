@@ -1254,7 +1254,7 @@
     }
   ],
   "effects": [],
-  "folder": null,
+  "folder": "khjVG7Y8S9IOVDnn",
   "sort": 0,
   "ownership": {
     "default": 0,
@@ -1339,6 +1339,9 @@
     },
     "dnd5e": {
       "showTokenPortrait": true
+    },
+    "midi-qol": {
+      "onUseMacroParts": {}
     }
   },
   "_stats": {
@@ -1346,7 +1349,7 @@
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
     "createdTime": 1791083923709,
-    "modifiedTime": 1791083943985,
+    "modifiedTime": 1791171680582,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "compendiumSource": null,
     "duplicateSource": null,

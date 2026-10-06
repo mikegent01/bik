@@ -2079,7 +2079,7 @@
     }
   ],
   "effects": [],
-  "folder": "mSjiQ0a7M8it70qu",
+  "folder": "ecL6IHQSFUEngHKa",
   "flags": {
     "5e-npc-combat-automation": {
       "aiProfile": {
@@ -2094,6 +2094,9 @@
         "timestamp": 1789787080087,
         "manuallyOverridden": false
       }
+    },
+    "midi-qol": {
+      "onUseMacroParts": {}
     },
     "waluipedia-mass-import": {
       "folderPath": [
@@ -2123,7 +2126,7 @@
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
     "createdTime": 1789785085035,
-    "modifiedTime": 1789787080095,
+    "modifiedTime": 1791171665687,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "compendiumSource": "Compendium.dnd5e.actors24.Actor.mmDustMephit0000"
   },

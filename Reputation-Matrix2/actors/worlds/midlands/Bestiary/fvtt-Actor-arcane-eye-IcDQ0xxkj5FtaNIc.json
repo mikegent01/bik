@@ -977,7 +977,7 @@
       "folder": null
     }
   ],
-  "folder": "9mmdDqYZFLIJBacj",
+  "folder": "ecL6IHQSFUEngHKa",
   "flags": {
     "dnd5e": {
       "showTokenPortrait": false
@@ -995,6 +995,9 @@
         "timestamp": 1789785433017,
         "manuallyOverridden": false
       }
+    },
+    "midi-qol": {
+      "onUseMacroParts": {}
     },
     "waluipedia-mass-import": {
       "folderPath": [
@@ -1023,7 +1026,7 @@
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
     "createdTime": 1789785100541,
-    "modifiedTime": 1789785433022,
+    "modifiedTime": 1791171665241,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "compendiumSource": "Compendium.dnd5e.actors24.Actor.phbsplArcaneEye0"
   },

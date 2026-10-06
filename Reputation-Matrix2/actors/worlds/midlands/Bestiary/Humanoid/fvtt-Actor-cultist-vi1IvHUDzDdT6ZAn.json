@@ -1102,10 +1102,13 @@
     }
   ],
   "effects": [],
-  "folder": "oq65o5ZsauMtb1JY",
+  "folder": "tg6HtxKrksVGzwr7",
   "flags": {
     "scene-packer": {
       "hash": "a5446720a8841bc341059502022e9b62ccac0f2a"
+    },
+    "midi-qol": {
+      "onUseMacroParts": {}
     },
     "waluipedia-mass-import": {
       "folderPath": [
@@ -1137,7 +1140,7 @@
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
     "createdTime": 1790396499678,
-    "modifiedTime": 1790396499678,
+    "modifiedTime": 1791171670798,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "compendiumSource": "Compendium.dnd5e.actors24.Actor.mmCultist0000000"
   },

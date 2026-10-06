@@ -747,7 +747,7 @@
     "lockRotation": false,
     "rotation": 0,
     "alpha": 1,
-    "disposition": -1,
+    "disposition": 1,
     "displayBars": 0,
     "bar1": {
       "attribute": "attributes.hp"
@@ -919,12 +919,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -956,12 +956,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -1008,12 +1008,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1785640451639
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -1138,12 +1138,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -1237,7 +1237,81 @@
               "requireIdentification": false,
               "requireMagic": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            }
           }
         },
         "advancement": {},
@@ -1264,12 +1338,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -1362,7 +1436,82 @@
               "prompt": false,
               "visible": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true
           }
         },
         "advancement": {},
@@ -1389,12 +1538,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -1442,12 +1591,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -1495,12 +1644,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -1584,7 +1733,82 @@
               "prompt": false,
               "visible": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true
           }
         },
         "advancement": {},
@@ -1611,12 +1835,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -1672,7 +1896,10 @@
                   }
                 }
               ],
-              "onSave": "half"
+              "onSave": "half",
+              "critical": {
+                "allow": false
+              }
             },
             "_id": "PiGQ0ka6DlutS3eD",
             "sort": 0,
@@ -1717,7 +1944,83 @@
               "requireIdentification": false,
               "requireMagic": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true,
+            "friendlySave": "default"
           }
         },
         "advancement": {},
@@ -1745,12 +2048,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -1834,7 +2137,82 @@
               "prompt": false,
               "visible": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true
           }
         },
         "advancement": {},
@@ -1861,12 +2239,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -1914,12 +2292,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -2004,7 +2382,82 @@
               "prompt": false,
               "visible": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true
           },
           "resist": {
             "type": "utility",
@@ -2061,7 +2514,82 @@
               "prompt": false,
               "visible": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true
           }
         },
         "advancement": {},
@@ -2088,12 +2616,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -2164,7 +2692,10 @@
                   }
                 }
               ],
-              "onSave": "half"
+              "onSave": "half",
+              "critical": {
+                "allow": false
+              }
             },
             "_id": "Snz4ry3AsT9HunVc",
             "sort": 0,
@@ -2197,7 +2728,83 @@
               "requireIdentification": false,
               "requireMagic": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true,
+            "friendlySave": "default"
           }
         },
         "advancement": {},
@@ -2224,12 +2831,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -2350,7 +2957,87 @@
               "requireIdentification": false,
               "requireMagic": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true,
+            "attackMode": "oneHanded",
+            "ammunition": "",
+            "otherActivityUuid": "",
+            "attackRollPerTarget": "default",
+            "fumbleThreshold": 1
           }
         },
         "uses": {
@@ -2393,12 +3080,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -2529,7 +3216,87 @@
               "requireIdentification": false,
               "requireMagic": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true,
+            "attackMode": "oneHanded",
+            "ammunition": "",
+            "otherActivityUuid": "",
+            "attackRollPerTarget": "default",
+            "fumbleThreshold": 1
           }
         },
         "uses": {
@@ -2573,12 +3340,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -2662,12 +3429,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -2746,12 +3513,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -2818,12 +3585,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -2902,12 +3669,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -2957,12 +3724,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -3012,12 +3779,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -3067,12 +3834,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -3122,12 +3889,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -3177,12 +3944,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -3232,12 +3999,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -3287,12 +4054,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -3342,12 +4109,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -3397,12 +4164,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -3452,12 +4219,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -3507,12 +4274,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -3562,12 +4329,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -3634,12 +4401,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -3713,12 +4480,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -3775,12 +4542,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -3828,12 +4595,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -3881,12 +4648,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -3934,12 +4701,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -3989,12 +4756,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -4042,12 +4809,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -4095,12 +4862,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -4148,12 +4915,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -4203,12 +4970,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -4258,12 +5025,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -4311,12 +5078,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -4364,12 +5131,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -4417,12 +5184,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -4472,12 +5239,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -4525,12 +5292,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -4580,12 +5347,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -4633,12 +5400,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -4686,12 +5453,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -4739,12 +5506,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -4794,12 +5561,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -4913,7 +5680,87 @@
               "includeBase": true,
               "parts": []
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true,
+            "attackMode": "oneHanded",
+            "ammunition": "",
+            "otherActivityUuid": "",
+            "attackRollPerTarget": "default",
+            "fumbleThreshold": 1
           }
         },
         "uses": {
@@ -4957,12 +5804,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -5080,12 +5927,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -5186,12 +6033,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -5295,12 +6142,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -5400,12 +6247,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -5503,12 +6350,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -5606,12 +6453,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -5713,12 +6560,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -5820,12 +6667,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -5930,12 +6777,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -6044,12 +6891,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -6154,12 +7001,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -6264,12 +7111,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -6374,12 +7221,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -6481,12 +7328,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -6587,12 +7434,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -6694,12 +7541,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -6801,12 +7648,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -6913,12 +7760,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -7023,12 +7870,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -7107,12 +7954,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -7184,12 +8031,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -7261,12 +8108,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -7338,12 +8185,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -7415,12 +8262,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -7488,12 +8335,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -7568,12 +8415,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -7648,12 +8495,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -7728,12 +8575,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -7808,12 +8655,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -7888,12 +8735,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -7968,12 +8815,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -8052,12 +8899,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -8125,12 +8972,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -8209,12 +9056,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -8282,12 +9129,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -8362,12 +9209,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -8446,12 +9293,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -8519,12 +9366,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -8599,12 +9446,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -8767,7 +9614,10 @@
                     "formula": ""
                   }
                 }
-              ]
+              ],
+              "critical": {
+                "allow": false
+              }
             },
             "save": {
               "ability": [
@@ -8786,7 +9636,83 @@
               "requireIdentification": false,
               "requireMagic": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true,
+            "friendlySave": "default"
           }
         },
         "identifier": "fireball",
@@ -8859,12 +9785,12 @@
         "compendiumSource": "Actor.frBH6pLS8IXhAGKj.Item.CEnqwQbDcb50Vo9j",
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552,
-        "lastModifiedBy": "f9K62vO9hIl1GByi"
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496,
+        "lastModifiedBy": "7BMT1Aux3QVtq027"
       },
       "ownership": {
         "default": 0,
@@ -8988,7 +9914,82 @@
               "requireIdentification": false,
               "requireMagic": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true
           }
         },
         "identifier": "thaumaturgy",
@@ -9023,12 +10024,12 @@
         "compendiumSource": "Actor.frBH6pLS8IXhAGKj.Item.RvKc0u5ZdBd3IYpj",
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552,
-        "lastModifiedBy": "f9K62vO9hIl1GByi"
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496,
+        "lastModifiedBy": "7BMT1Aux3QVtq027"
       },
       "ownership": {
         "default": 0,
@@ -9186,7 +10187,87 @@
               "requireIdentification": false,
               "requireMagic": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true,
+            "attackMode": "oneHanded",
+            "ammunition": "",
+            "otherActivityUuid": "",
+            "attackRollPerTarget": "default",
+            "fumbleThreshold": 1
           }
         },
         "identifier": "fire-bolt",
@@ -9229,12 +10310,12 @@
         "compendiumSource": "Actor.frBH6pLS8IXhAGKj.Item.NDeOFn5cM6vYQQbB",
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552,
-        "lastModifiedBy": "f9K62vO9hIl1GByi"
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496,
+        "lastModifiedBy": "7BMT1Aux3QVtq027"
       },
       "ownership": {
         "default": 0,
@@ -9343,7 +10424,81 @@
               "requireIdentification": false,
               "requireMagic": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            }
           }
         },
         "identifier": "claws",
@@ -9374,12 +10529,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552,
-        "lastModifiedBy": "f9K62vO9hIl1GByi"
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496,
+        "lastModifiedBy": "7BMT1Aux3QVtq027"
       },
       "folder": null,
       "sort": 0,
@@ -9442,12 +10597,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552,
-        "lastModifiedBy": "f9K62vO9hIl1GByi"
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496,
+        "lastModifiedBy": "7BMT1Aux3QVtq027"
       },
       "folder": null,
       "sort": 0,
@@ -9510,12 +10665,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552,
-        "lastModifiedBy": "f9K62vO9hIl1GByi"
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496,
+        "lastModifiedBy": "7BMT1Aux3QVtq027"
       },
       "folder": null,
       "sort": 0,
@@ -9578,12 +10733,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552,
-        "lastModifiedBy": "f9K62vO9hIl1GByi"
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496,
+        "lastModifiedBy": "7BMT1Aux3QVtq027"
       },
       "folder": null,
       "sort": 0,
@@ -9690,7 +10845,81 @@
               "requireIdentification": false,
               "requireMagic": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            }
           }
         },
         "identifier": "claws",
@@ -9721,12 +10950,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552,
-        "lastModifiedBy": "f9K62vO9hIl1GByi"
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496,
+        "lastModifiedBy": "7BMT1Aux3QVtq027"
       },
       "folder": null,
       "sort": 0,
@@ -9789,12 +11018,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552,
-        "lastModifiedBy": "f9K62vO9hIl1GByi"
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496,
+        "lastModifiedBy": "7BMT1Aux3QVtq027"
       },
       "folder": null,
       "sort": 0,
@@ -9883,7 +11112,82 @@
               "requireIdentification": false,
               "requireMagic": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true
           }
         },
         "identifier": "shell-defense",
@@ -9915,12 +11219,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1785693107242,
-        "lastModifiedBy": "f9K62vO9hIl1GByi"
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496,
+        "lastModifiedBy": "7BMT1Aux3QVtq027"
       },
       "folder": null,
       "sort": 0,
@@ -9992,12 +11296,12 @@
         "duplicateSource": null,
         "exportSource": null,
         "compendiumSource": "Compendium.dnd5e.equipment24.Item.dmgBagOfHolding0",
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552,
-        "lastModifiedBy": "f9K62vO9hIl1GByi"
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496,
+        "lastModifiedBy": "7BMT1Aux3QVtq027"
       },
       "sort": 300000,
       "ownership": {
@@ -10120,7 +11424,90 @@
               "requireIdentification": false,
               "requireMagic": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true,
+            "damage": {
+              "onSave": "half",
+              "parts": [],
+              "critical": {
+                "allow": false
+              }
+            },
+            "friendlySave": "default"
           }
         },
         "identifier": "weathered-playing-cards",
@@ -10169,12 +11556,12 @@
         "compendiumSource": "Compendium.dnd5e.items.YwlHI3BVJapz4a3E",
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552,
-        "lastModifiedBy": "f9K62vO9hIl1GByi"
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496,
+        "lastModifiedBy": "7BMT1Aux3QVtq027"
       },
       "ownership": {
         "default": 0,
@@ -10222,12 +11609,12 @@
         "compendiumSource": "Scene.Yvhc0ZDKLC1YLLDU.Token.7w1DPyrIaullrbKz.Actor.PoPjwpQ8IOb9PmnY.Item.KnoBjPpkqqCNOoKs",
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552,
-        "lastModifiedBy": "f9K62vO9hIl1GByi"
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496,
+        "lastModifiedBy": "7BMT1Aux3QVtq027"
       },
       "effects": [],
       "folder": null,
@@ -10287,12 +11674,12 @@
         "compendiumSource": "Scene.Yvhc0ZDKLC1YLLDU.Token.7w1DPyrIaullrbKz.Actor.PoPjwpQ8IOb9PmnY.Item.ds2b2orrwkDXjCpC",
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552,
-        "lastModifiedBy": "f9K62vO9hIl1GByi"
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496,
+        "lastModifiedBy": "7BMT1Aux3QVtq027"
       },
       "effects": [],
       "folder": null,
@@ -10372,12 +11759,12 @@
         "compendiumSource": "Actor.frBH6pLS8IXhAGKj.Item.IsBJfxoKjbcTVGwe",
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552,
-        "lastModifiedBy": "f9K62vO9hIl1GByi"
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496,
+        "lastModifiedBy": "7BMT1Aux3QVtq027"
       },
       "ownership": {
         "default": 0,
@@ -10535,7 +11922,87 @@
               "requireIdentification": false,
               "requireMagic": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true,
+            "attackMode": "oneHanded",
+            "ammunition": "",
+            "otherActivityUuid": "",
+            "attackRollPerTarget": "default",
+            "fumbleThreshold": 1
           }
         },
         "identifier": "crossbow-bolt",
@@ -10565,12 +12032,12 @@
         "compendiumSource": "Actor.frBH6pLS8IXhAGKj.Item.B4wDR0VJ2cve6fAp",
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552,
-        "lastModifiedBy": "f9K62vO9hIl1GByi"
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496,
+        "lastModifiedBy": "7BMT1Aux3QVtq027"
       },
       "ownership": {
         "default": 0,
@@ -10760,7 +12227,87 @@
               "requireIdentification": false,
               "requireMagic": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true,
+            "attackMode": "oneHanded",
+            "ammunition": "",
+            "otherActivityUuid": "",
+            "attackRollPerTarget": "default",
+            "fumbleThreshold": 1
           }
         },
         "identifier": "1-quarterstaff",
@@ -10814,12 +12361,12 @@
         "compendiumSource": "Actor.frBH6pLS8IXhAGKj.Item.uS3lGAOO0ZKPNbGz",
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552,
-        "lastModifiedBy": "f9K62vO9hIl1GByi"
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496,
+        "lastModifiedBy": "7BMT1Aux3QVtq027"
       },
       "ownership": {
         "default": 0,
@@ -10884,12 +12431,12 @@
         "compendiumSource": null,
         "duplicateSource": "Actor.PoPjwpQ8IOb9PmnY.Item.ZBF0ngbEqg1cNYir",
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -10969,12 +12516,12 @@
         "compendiumSource": null,
         "duplicateSource": "Actor.PoPjwpQ8IOb9PmnY.Item.jPeJRtnb2KJ3mg58",
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -11036,12 +12583,12 @@
         "compendiumSource": null,
         "duplicateSource": "Actor.PoPjwpQ8IOb9PmnY.Item.G2N4cB6mKXtXChpD",
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283552,
-        "createdTime": 1782005283552
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791171683496,
+        "createdTime": 1791171683496
       },
       "effects": [],
       "folder": null,
@@ -11214,11 +12761,11 @@
       "img": "modules/plutonium/media/icon/subclass/phb-fighter-phb-champion.webp",
       "_stats": {
         "systemVersion": "5.3.3",
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
-        "createdTime": 1785640217953,
-        "modifiedTime": 1785640403296,
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null
@@ -11283,11 +12830,11 @@
       "effects": [],
       "_stats": {
         "systemVersion": "5.3.3",
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
-        "createdTime": 1785640218665,
-        "modifiedTime": 1785640403375,
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null
@@ -11388,12 +12935,12 @@
           "folder": null,
           "sort": 0,
           "_stats": {
-            "coreVersion": "14.360",
+            "coreVersion": "14.367",
             "systemId": "dnd5e",
             "systemVersion": "5.3.3",
-            "createdTime": 1785640401621,
-            "modifiedTime": 1785640401621,
-            "lastModifiedBy": "f9K62vO9hIl1GByi",
+            "createdTime": 1791171683496,
+            "modifiedTime": 1791171683496,
+            "lastModifiedBy": "7BMT1Aux3QVtq027",
             "compendiumSource": null,
             "duplicateSource": null,
             "exportSource": null
@@ -11402,11 +12949,11 @@
       ],
       "_stats": {
         "systemVersion": "5.3.3",
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
-        "createdTime": 1785640401621,
-        "modifiedTime": 1785640403375,
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null
@@ -11557,7 +13104,87 @@
               "requireAttunement": false,
               "requireIdentification": false,
               "requireMagic": false
-            }
+            },
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true,
+            "attackMode": "oneHanded",
+            "ammunition": "",
+            "otherActivityUuid": "",
+            "attackRollPerTarget": "default",
+            "fumbleThreshold": 1
           },
           "42I79puD945STK5R": {
             "_id": "42I79puD945STK5R",
@@ -11619,7 +13246,10 @@
             },
             "damage": {
               "onSave": "none",
-              "parts": []
+              "parts": [],
+              "critical": {
+                "allow": false
+              }
             },
             "img": null,
             "sort": 0,
@@ -11629,7 +13259,83 @@
               "requireAttunement": false,
               "requireIdentification": false,
               "requireMagic": false
-            }
+            },
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true,
+            "friendlySave": "default"
           },
           "BuMNiX7dUuBumAnh": {
             "_id": "BuMNiX7dUuBumAnh",
@@ -11691,7 +13397,10 @@
             },
             "damage": {
               "onSave": "none",
-              "parts": []
+              "parts": [],
+              "critical": {
+                "allow": false
+              }
             },
             "img": null,
             "sort": 0,
@@ -11701,7 +13410,83 @@
               "requireAttunement": false,
               "requireIdentification": false,
               "requireMagic": false
-            }
+            },
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true,
+            "friendlySave": "default"
           }
         },
         "identifier": "unarmed-strike",
@@ -11759,12 +13544,12 @@
           "folder": null,
           "sort": 0,
           "_stats": {
-            "coreVersion": "14.360",
+            "coreVersion": "14.367",
             "systemId": "dnd5e",
             "systemVersion": "5.3.3",
-            "createdTime": 1785640403201,
-            "modifiedTime": 1785640403201,
-            "lastModifiedBy": "f9K62vO9hIl1GByi",
+            "createdTime": 1791171683496,
+            "modifiedTime": 1791171683496,
+            "lastModifiedBy": "7BMT1Aux3QVtq027",
             "compendiumSource": null,
             "duplicateSource": null,
             "exportSource": null
@@ -11802,12 +13587,12 @@
           "folder": null,
           "sort": 0,
           "_stats": {
-            "coreVersion": "14.360",
+            "coreVersion": "14.367",
             "systemId": "dnd5e",
             "systemVersion": "5.3.3",
-            "createdTime": 1785640403201,
-            "modifiedTime": 1785640403201,
-            "lastModifiedBy": "f9K62vO9hIl1GByi",
+            "createdTime": 1791171683496,
+            "modifiedTime": 1791171683496,
+            "lastModifiedBy": "7BMT1Aux3QVtq027",
             "compendiumSource": null,
             "duplicateSource": null,
             "exportSource": null
@@ -11816,11 +13601,11 @@
       ],
       "_stats": {
         "systemVersion": "5.3.3",
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
-        "createdTime": 1785640403201,
-        "modifiedTime": 1785640403201,
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null
@@ -11882,11 +13667,11 @@
       "effects": [],
       "_stats": {
         "systemVersion": "5.3.3",
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
-        "createdTime": 1785641159437,
-        "modifiedTime": 1785641159437,
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null
@@ -11984,7 +13769,82 @@
             "roll": {
               "prompt": false,
               "visible": false
-            }
+            },
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true
           }
         },
         "identifier": "runic-shield",
@@ -12010,11 +13870,11 @@
       "effects": [],
       "_stats": {
         "systemVersion": "5.3.3",
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
-        "createdTime": 1785641651402,
-        "modifiedTime": 1785641651403,
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null
@@ -12075,11 +13935,11 @@
       "effects": [],
       "_stats": {
         "systemVersion": "5.3.3",
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
-        "createdTime": 1785641863338,
-        "modifiedTime": 1785641863338,
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null
@@ -12160,11 +14020,11 @@
       "effects": [],
       "_stats": {
         "systemVersion": "5.3.3",
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
-        "createdTime": 1785695124850,
-        "modifiedTime": 1785695237969,
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": "Actor.YDfvgm2dGArNeEsE.Item.1fJ3q3ycPstXhOnx",
         "exportSource": null
@@ -12216,7 +14076,7 @@
           "inventoryItem": "necromancer_wand",
           "holder": "bowser",
           "event": "vivian_corvinarus_corridor_fight",
-          "filedOn": "2026-10-05",
+          "filedOn": "2026-10-06",
           "note": "picked up during Vivian corridor ambush"
         }
       },
@@ -12268,7 +14128,7 @@
           "inventoryItem": "bowser_badge_447",
           "holder": "bowser",
           "event": "the_grove_of_woe_incident",
-          "filedOn": "2026-10-05",
+          "filedOn": "2026-10-06",
           "note": "identity/evidence token"
         }
       },
@@ -12317,12 +14177,12 @@
         }
       },
       "_stats": {
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1782005283552,
-        "modifiedTime": 1782005283552,
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null
@@ -12369,12 +14229,12 @@
         }
       },
       "_stats": {
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1785640218139,
-        "modifiedTime": 1785640218139,
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "createdTime": 1791171683496,
+        "modifiedTime": 1791171683496,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null
@@ -12390,12 +14250,36 @@
     "p6LsOjpmBsnR9V8p": 3
   },
   "flags": {
+    "scene-packer": {
+      "hash": "151ac6b445269f60bc895ee7a732828e46cb5073"
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "fearless",
+          "brute",
+          "controller",
+          "tactician"
+        ],
+        "reasons": [
+          "Legendary Resistance detected",
+          "High HP (230) melee combatant → brute/frontliner",
+          "Keyword \"necromancer\" in name/biography → controller",
+          "Keyword \"vampire\" in name/biography → tactician"
+        ],
+        "confidence": 1,
+        "version": 3,
+        "timestamp": 1785687625791,
+        "manuallyOverridden": false
+      }
+    },
+    "midi-qol": {
+      "onUseMacroParts": {}
+    },
+    "dae": {},
     "ionrift-respite": {
       "restsSinceFood": 1,
       "restsSinceWater": 1
-    },
-    "scene-packer": {
-      "hash": "36e0478396a34d615c0457e622851a6f04ae594f"
     },
     "waluipedia-sheets": {
       "promoted": {
@@ -12436,8 +14320,8 @@
     "coreVersion": "14.367",
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
-    "createdTime": 1791083021994,
-    "modifiedTime": 1791083030053,
+    "createdTime": 1791171683496,
+    "modifiedTime": 1791171683496,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "compendiumSource": null,
     "duplicateSource": "Actor.d1qwl5RJ3yk6THBe",

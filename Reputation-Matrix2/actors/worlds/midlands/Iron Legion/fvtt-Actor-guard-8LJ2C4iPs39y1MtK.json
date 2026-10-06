@@ -1200,6 +1200,9 @@
   "effects": [],
   "folder": "5Q4w3VVb0sOc5DgD",
   "flags": {
+    "midi-qol": {
+      "onUseMacroParts": {}
+    },
     "waluipedia-mass-import": {
       "folderPath": [
         "Iron Legion"
@@ -1228,7 +1231,7 @@
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
     "createdTime": 1788740708884,
-    "modifiedTime": 1788907301258,
+    "modifiedTime": 1791171677764,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "compendiumSource": "Compendium.dnd5e.actors24.Actor.mmGuard000000000"
   },

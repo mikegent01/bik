@@ -12850,13 +12850,29 @@
             "cure": "Rest — one week."
           },
           "filedOn": "2026-10-04"
+        },
+        "scene-packer": {
+          "hash": "b02b45cc302233bb1fd40d53770939250ce6e7ca"
         }
       },
       "folder": null,
       "ownership": {
-        "default": 0
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
       },
-      "_id": "OFrz1snHLCjDaBRg"
+      "_id": "OFrz1snHLCjDaBRg",
+      "sort": 0,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791171683785,
+        "modifiedTime": 1791171683785,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      }
     }
   ],
   "effects": [
@@ -13035,7 +13051,13 @@
     "midi-qol": {
       "actions": {
         "action": false
-      }
+      },
+      "disadvantage": {
+        "skill": {
+          "ste": true
+        }
+      },
+      "onUseMacroParts": {}
     },
     "waluipedia-mass-import": {
       "folderPath": [
@@ -13060,7 +13082,7 @@
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
     "createdTime": 1788730632136,
-    "modifiedTime": 1791129591529,
+    "modifiedTime": 1791171683715,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "compendiumSource": null,
     "duplicateSource": null,

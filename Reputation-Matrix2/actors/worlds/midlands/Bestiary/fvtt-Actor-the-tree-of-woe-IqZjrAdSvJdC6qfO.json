@@ -1,5 +1,5 @@
 {
-  "folder": "OWq9j30lFHJQBqKI",
+  "folder": "ecL6IHQSFUEngHKa",
   "name": "The Tree of Woe",
   "type": "npc",
   "img": "modules/house-divided/assets/creatures/tokens-topdown/tree-of-woe.webp",
@@ -722,6 +722,9 @@
   "effects": [],
   "sort": 0,
   "flags": {
+    "midi-qol": {
+      "onUseMacroParts": {}
+    },
     "waluipedia-mass-import": {
       "folderPath": [
         "Bestiary"
@@ -750,11 +753,11 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "14.365",
+    "coreVersion": "14.367",
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
     "createdTime": 1788231129704,
-    "modifiedTime": 1788231129756,
+    "modifiedTime": 1791171665786,
     "lastModifiedBy": "7BMT1Aux3QVtq027"
   },
   "_id": "IqZjrAdSvJdC6qfO",

@@ -1,5 +1,5 @@
 {
-  "folder": "yHWl5WjWuswIaAdF",
+  "folder": "FvKdqeKTwINidr0T",
   "name": "Usk",
   "type": "npc",
   "img": "modules/house-divided/assets/creatures/portraits/usk.webp",
@@ -1437,6 +1437,9 @@
   "effects": [],
   "sort": 300000,
   "flags": {
+    "midi-qol": {
+      "onUseMacroParts": {}
+    },
     "waluipedia-mass-import": {
       "folderPath": [
         "Disaster Inc."
@@ -1467,11 +1470,11 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "14.365",
+    "coreVersion": "14.367",
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
     "createdTime": 1788231129582,
-    "modifiedTime": 1788231129727,
+    "modifiedTime": 1791171676273,
     "lastModifiedBy": "7BMT1Aux3QVtq027"
   },
   "_id": "I8HET6eCUvhMILDP",

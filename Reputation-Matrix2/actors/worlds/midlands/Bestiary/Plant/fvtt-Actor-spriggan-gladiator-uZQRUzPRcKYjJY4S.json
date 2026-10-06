@@ -1,5 +1,5 @@
 {
-  "folder": "J8DnjiUveS1FZZ6n",
+  "folder": "DeizDylzhw8LTKof",
   "name": "Spriggan Gladiator",
   "type": "npc",
   "_id": "uZQRUzPRcKYjJY4S",
@@ -2055,6 +2055,9 @@
   "sort": 0,
   "flags": {
     "core": {},
+    "midi-qol": {
+      "onUseMacroParts": {}
+    },
     "waluipedia-mass-import": {
       "folderPath": [
         "Bestiary",
@@ -2092,11 +2095,11 @@
       "systemId": "dnd5e",
       "systemVersion": "2.3.0"
     },
-    "coreVersion": "14.365",
+    "coreVersion": "14.367",
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
     "createdTime": 1788231129709,
-    "modifiedTime": 1788231129757,
+    "modifiedTime": 1791171674053,
     "lastModifiedBy": "7BMT1Aux3QVtq027"
   },
   "ownership": {

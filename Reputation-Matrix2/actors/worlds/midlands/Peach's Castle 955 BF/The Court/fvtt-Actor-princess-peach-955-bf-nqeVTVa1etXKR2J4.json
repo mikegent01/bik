@@ -1339,7 +1339,7 @@
     }
   ],
   "effects": [],
-  "folder": null,
+  "folder": "NHRXbS0cGBh3Pl3b",
   "sort": 0,
   "ownership": {
     "default": 0,
@@ -1359,6 +1359,9 @@
         "timestamp": 1791077191600,
         "manuallyOverridden": false
       }
+    },
+    "midi-qol": {
+      "onUseMacroParts": {}
     },
     "waluipedia-mass-import": {
       "folderPath": [
@@ -1389,7 +1392,7 @@
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
     "createdTime": 1791077187606,
-    "modifiedTime": 1791077216119,
+    "modifiedTime": 1791171683033,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "compendiumSource": null,
     "duplicateSource": null,

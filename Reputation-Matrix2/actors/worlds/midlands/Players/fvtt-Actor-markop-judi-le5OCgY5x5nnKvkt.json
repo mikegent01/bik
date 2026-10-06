@@ -25008,7 +25008,7 @@
           "inventoryItem": "black_crystal",
           "holder": "markop",
           "event": "shadow_estate_spotlight_cookie_cottage",
-          "filedOn": "2026-10-05",
+          "filedOn": "2026-10-06",
           "note": "carried / public-known after pursuit logic"
         }
       },
@@ -25090,7 +25090,13 @@
         "bonus": false,
         "reaction": false
       },
-      "concentration-damage": 0
+      "concentration-damage": 0,
+      "disadvantage": {
+        "skill": {
+          "ste": true
+        }
+      },
+      "onUseMacroParts": {}
     },
     "dae": {
       "damageApplied": 13
@@ -25169,7 +25175,7 @@
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
     "createdTime": 1788730579529,
-    "modifiedTime": 1791129040973,
+    "modifiedTime": 1791171683964,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "compendiumSource": null,
     "duplicateSource": null,

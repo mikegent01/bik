@@ -888,10 +888,13 @@
     }
   ],
   "effects": [],
-  "folder": "yHWl5WjWuswIaAdF",
+  "folder": "5Q4w3VVb0sOc5DgD",
   "sort": 800000,
   "flags": {
     "core": {},
+    "midi-qol": {
+      "onUseMacroParts": {}
+    },
     "waluipedia-mass-import": {
       "folderPath": [
         "Iron Legion"
@@ -1636,11 +1639,11 @@
     "compendiumSource": "Compendium.dnd5e.monsters.HB49mCOVBXwWeKWQ",
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "14.365",
+    "coreVersion": "14.367",
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
     "createdTime": 1788231129580,
-    "modifiedTime": 1788231129727,
+    "modifiedTime": 1791171678110,
     "lastModifiedBy": "7BMT1Aux3QVtq027"
   },
   "ownership": {

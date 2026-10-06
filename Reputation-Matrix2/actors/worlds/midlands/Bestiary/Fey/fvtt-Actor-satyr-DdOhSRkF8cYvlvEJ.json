@@ -1298,8 +1298,11 @@
     }
   ],
   "effects": [],
-  "folder": "EypLbRzz5Hphlv5M",
+  "folder": "3No7vuWwLP2EAYgA",
   "flags": {
+    "midi-qol": {
+      "onUseMacroParts": {}
+    },
     "waluipedia-mass-import": {
       "folderPath": [
         "Bestiary",
@@ -1330,7 +1333,7 @@
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
     "createdTime": 1789787104274,
-    "modifiedTime": 1789787104274,
+    "modifiedTime": 1791171666702,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "compendiumSource": "Compendium.dnd5e.actors24.Actor.mmSatyr000000000"
   },

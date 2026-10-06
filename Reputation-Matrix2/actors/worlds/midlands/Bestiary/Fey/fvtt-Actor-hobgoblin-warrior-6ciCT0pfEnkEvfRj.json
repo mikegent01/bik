@@ -1600,8 +1600,16 @@
     }
   ],
   "effects": [],
-  "folder": "EypLbRzz5Hphlv5M",
+  "folder": "3No7vuWwLP2EAYgA",
   "flags": {
+    "midi-qol": {
+      "disadvantage": {
+        "skill": {
+          "ste": true
+        }
+      },
+      "onUseMacroParts": {}
+    },
     "waluipedia-mass-import": {
       "folderPath": [
         "Bestiary",
@@ -1632,7 +1640,7 @@
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
     "createdTime": 1789787106564,
-    "modifiedTime": 1789787106564,
+    "modifiedTime": 1791171666680,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "compendiumSource": "Compendium.dnd5e.actors24.Actor.mmHobgoblinWarri"
   },

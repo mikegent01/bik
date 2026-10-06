@@ -1862,10 +1862,18 @@
     }
   ],
   "effects": [],
-  "folder": null,
+  "folder": "tg6HtxKrksVGzwr7",
   "flags": {
     "dnd5e": {
       "showTokenPortrait": false
+    },
+    "midi-qol": {
+      "disadvantage": {
+        "skill": {
+          "ste": true
+        }
+      },
+      "onUseMacroParts": {}
     },
     "waluipedia-mass-import": {
       "folderPath": [
@@ -1897,7 +1905,7 @@
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
     "createdTime": 1789183357436,
-    "modifiedTime": 1789783560124,
+    "modifiedTime": 1791171671755,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "compendiumSource": "Compendium.dnd5e.actors24.Actor.mmKnight00000000"
   },

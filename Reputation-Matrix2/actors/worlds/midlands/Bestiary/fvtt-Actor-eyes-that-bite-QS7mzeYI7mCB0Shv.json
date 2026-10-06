@@ -31,6 +31,9 @@
         "manuallyOverridden": false
       }
     },
+    "midi-qol": {
+      "onUseMacroParts": {}
+    },
     "waluipedia-mass-import": {
       "folderPath": [
         "Bestiary"
@@ -60,7 +63,7 @@
     "coreVersion": "14.367",
     "systemId": "dnd5e",
     "createdTime": 1789785162211,
-    "modifiedTime": 1789785231064,
+    "modifiedTime": 1791171665712,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "compendiumSource": null,
     "duplicateSource": null,
@@ -2478,7 +2481,7 @@
     }
   ],
   "effects": [],
-  "folder": "M4z9M3EfqK9PqTSc",
+  "folder": "ecL6IHQSFUEngHKa",
   "sort": 0,
   "ownership": {
     "default": 0,

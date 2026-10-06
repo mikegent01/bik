@@ -10334,7 +10334,7 @@
     }
   ],
   "effects": [],
-  "folder": "v85pcrJBfAwwqTrf",
+  "folder": "ymhz3FmhWN0S6kTx",
   "sort": 200000,
   "ownership": {
     "default": 0,
@@ -10373,6 +10373,9 @@
         "manuallyOverridden": false
       }
     },
+    "midi-qol": {
+      "onUseMacroParts": {}
+    },
     "waluipedia-mass-import": {
       "folderPath": [
         "Shadow Estate & House Corvinarus"
@@ -10402,7 +10405,7 @@
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
     "createdTime": 1789183095615,
-    "modifiedTime": 1789184667143,
+    "modifiedTime": 1791171685128,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "compendiumSource": null,
     "duplicateSource": null,

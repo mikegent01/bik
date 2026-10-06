@@ -11725,7 +11725,7 @@
           "inventoryItem": "toad_lee_diary_pages",
           "holder": "toad_lee",
           "event": null,
-          "filedOn": "2026-10-05",
+          "filedOn": "2026-10-06",
           "note": "carried notes"
         }
       },
@@ -11849,7 +11849,13 @@
     "midi-qol": {
       "actions": {
         "action": false
-      }
+      },
+      "disadvantage": {
+        "skill": {
+          "ste": true
+        }
+      },
+      "onUseMacroParts": {}
     },
     "bros_attacks": {
       "energy": 0
@@ -11877,7 +11883,7 @@
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
     "createdTime": 1788573639533,
-    "modifiedTime": 1789180618443,
+    "modifiedTime": 1791171684261,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "compendiumSource": null,
     "duplicateSource": null,

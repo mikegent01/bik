@@ -8228,10 +8228,13 @@
     }
   ],
   "effects": [],
-  "folder": "EypLbRzz5Hphlv5M",
+  "folder": "3No7vuWwLP2EAYgA",
   "flags": {
     "dnd5e": {
       "showTokenPortrait": false
+    },
+    "midi-qol": {
+      "onUseMacroParts": {}
     },
     "waluipedia-mass-import": {
       "folderPath": [
@@ -8263,7 +8266,7 @@
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
     "createdTime": 1789787109334,
-    "modifiedTime": 1789787109334,
+    "modifiedTime": 1791171666338,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "compendiumSource": "Compendium.dnd5e.actors24.Actor.mmGreenHag000000"
   },

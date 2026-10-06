@@ -1,5 +1,5 @@
 {
-  "folder": "M29yXvtlop30CcjP",
+  "folder": "ymhz3FmhWN0S6kTx",
   "name": "Corvinarus Abomination",
   "type": "npc",
   "img": "modules/house-divided/assets/creatures/portraits/darius-abomination.webp",
@@ -3906,6 +3906,9 @@
   "effects": [],
   "sort": 100000,
   "flags": {
+    "midi-qol": {
+      "onUseMacroParts": {}
+    },
     "waluipedia-mass-import": {
       "folderPath": [
         "Shadow Estate & House Corvinarus"
@@ -3935,11 +3938,11 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "14.365",
+    "coreVersion": "14.367",
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
     "createdTime": 1788231129554,
-    "modifiedTime": 1788231129721,
+    "modifiedTime": 1791171684921,
     "lastModifiedBy": "7BMT1Aux3QVtq027"
   },
   "_id": "Xxf80BJeTCVKhIao",

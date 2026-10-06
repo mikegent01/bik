@@ -8109,7 +8109,7 @@
           "inventoryItem": "colour_division_handcuffs",
           "holder": "waluigi",
           "event": "feyward_i_cant_afford_not_to_care",
-          "filedOn": "2026-10-05",
+          "filedOn": "2026-10-06",
           "note": "slipped at once; worn by choice"
         }
       },
@@ -8151,6 +8151,9 @@
     "scene-packer": {
       "hash": "328a988d620b9f9b231a9bfcd41d94e980e4811a"
     },
+    "midi-qol": {
+      "onUseMacroParts": {}
+    },
     "waluipedia-mass-import": {
       "folderPath": [
         "Players"
@@ -8174,7 +8177,7 @@
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
     "createdTime": 1788578834767,
-    "modifiedTime": 1789182512794,
+    "modifiedTime": 1791171684314,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "compendiumSource": null,
     "duplicateSource": null,

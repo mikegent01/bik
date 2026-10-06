@@ -12870,12 +12870,15 @@
     }
   ],
   "effects": [],
-  "folder": "zW3g7ZwVjNkwzEQ4",
+  "folder": "4mIWcIwdTl5ewnav",
   "sort": -150000,
   "flags": {
     "core": {},
     "dnd5e": {
       "showTokenPortrait": false
+    },
+    "midi-qol": {
+      "onUseMacroParts": {}
     },
     "waluipedia-mass-import": {
       "folderPath": [
@@ -13625,11 +13628,11 @@
     "compendiumSource": "Compendium.dnd5e.monsters.B7lBOr1AahNZs4a6",
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "14.365",
+    "coreVersion": "14.367",
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
     "createdTime": 1788231129499,
-    "modifiedTime": 1788231129711,
+    "modifiedTime": 1791171680919,
     "lastModifiedBy": "7BMT1Aux3QVtq027"
   },
   "ownership": {

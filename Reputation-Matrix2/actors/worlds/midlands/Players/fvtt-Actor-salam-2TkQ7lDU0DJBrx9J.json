@@ -495,9 +495,6 @@
         "limit": 1
       },
       "loyalty": {},
-      "hd": {
-        "spent": 0
-      },
       "hp": {
         "value": 25,
         "max": 25,
@@ -546,23 +543,27 @@
       "faith": ""
     },
     "resources": {
-      "legact": {
+      "primary": {
+        "value": 0,
         "max": 0,
-        "spent": 0
+        "sr": false,
+        "lr": false,
+        "label": ""
       },
-      "legres": {
+      "secondary": {
+        "value": 0,
         "max": 0,
-        "spent": 0
+        "sr": false,
+        "lr": false,
+        "label": ""
       },
-      "lair": {
-        "value": false,
-        "initiative": null,
-        "inside": false
+      "tertiary": {
+        "value": 0,
+        "max": 0,
+        "sr": false,
+        "lr": false,
+        "label": ""
       }
-    },
-    "source": {
-      "revision": 1,
-      "rules": "2024"
     },
     "traits": {
       "size": "med",
@@ -642,7 +643,7 @@
     "lockRotation": false,
     "rotation": 0,
     "alpha": 1,
-    "disposition": 0,
+    "disposition": 1,
     "displayBars": 0,
     "bar1": {
       "attribute": "attributes.hp"
@@ -676,7 +677,7 @@
       }
     },
     "sight": {
-      "enabled": false,
+      "enabled": true,
       "range": 0,
       "angle": 360,
       "visionMode": "basic",
@@ -747,7 +748,7 @@
           "spent": 0,
           "additional": ""
         },
-        "advancement": [],
+        "advancement": {},
         "startingEquipment": [],
         "properties": [],
         "primaryAbility": {
@@ -767,6 +768,18 @@
       "sort": 100000,
       "ownership": {
         "default": 0
+      },
+      "folder": null,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791171684215,
+        "modifiedTime": 1791171684215,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
       }
     },
     {
@@ -786,7 +799,7 @@
         },
         "identifier": "hunter",
         "classIdentifier": "ranger",
-        "advancement": [],
+        "advancement": {},
         "spellcasting": {
           "progression": "none",
           "ability": "",
@@ -800,6 +813,18 @@
       "sort": 200000,
       "ownership": {
         "default": 0
+      },
+      "folder": null,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791171684215,
+        "modifiedTime": 1791171684215,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
       }
     },
     {
@@ -818,7 +843,7 @@
           "rules": "2024"
         },
         "identifier": "toad",
-        "advancement": [],
+        "advancement": {},
         "movement": {
           "walk": "30",
           "units": "ft",
@@ -845,6 +870,18 @@
       "sort": 300000,
       "ownership": {
         "default": 0
+      },
+      "folder": null,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791171684215,
+        "modifiedTime": 1791171684215,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
       }
     },
     {
@@ -863,7 +900,7 @@
           "rules": "2024"
         },
         "identifier": "liberated-toad",
-        "advancement": [],
+        "advancement": {},
         "startingEquipment": []
       },
       "effects": [],
@@ -871,6 +908,18 @@
       "sort": 400000,
       "ownership": {
         "default": 0
+      },
+      "folder": null,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791171684215,
+        "modifiedTime": 1791171684215,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
       }
     },
     {
@@ -1190,8 +1239,8 @@
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1788740347408,
-        "modifiedTime": 1788740347408,
+        "createdTime": 1791171684215,
+        "modifiedTime": 1791171684215,
         "lastModifiedBy": "7BMT1Aux3QVtq027"
       },
       "_id": "tthL6NO2AFTjjUyB",
@@ -1307,8 +1356,8 @@
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1788740347408,
-        "modifiedTime": 1788740347408,
+        "createdTime": 1791171684215,
+        "modifiedTime": 1791171684215,
         "lastModifiedBy": "7BMT1Aux3QVtq027"
       },
       "_id": "9yd2x4WFFZ1tx1hK",
@@ -1590,8 +1639,8 @@
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1788740347408,
-        "modifiedTime": 1788740347408,
+        "createdTime": 1791171684215,
+        "modifiedTime": 1791171684215,
         "lastModifiedBy": "7BMT1Aux3QVtq027"
       },
       "_id": "6VW3JBaS7XhDowQz",
@@ -1682,8 +1731,8 @@
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1788740347408,
-        "modifiedTime": 1788740347408,
+        "createdTime": 1791171684215,
+        "modifiedTime": 1791171684215,
         "lastModifiedBy": "7BMT1Aux3QVtq027"
       },
       "_id": "X3RRyDbAOZXQhjwp",
@@ -1703,13 +1752,29 @@
   },
   "flags": {
     "scene-packer": {
-      "hash": "959f0f62ee5c086d614ff5d0d197b4928b024bb0"
+      "hash": "22be02cc022fe888da630e571056c6e9dea0d704"
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "sniper"
+        ],
+        "reasons": [
+          "Long-range weapon with no melee option → sniper"
+        ],
+        "confidence": 0.3333333333333333,
+        "version": 3,
+        "timestamp": 1786388334330,
+        "manuallyOverridden": false
+      }
     },
     "midi-qol": {
       "actions": {
         "action": false
-      }
+      },
+      "onUseMacroParts": {}
     },
+    "dae": {},
     "waluipedia-mass-import": {
       "folderPath": [
         "Players"
@@ -1785,8 +1850,8 @@
     "coreVersion": "14.367",
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
-    "createdTime": 1788740347408,
-    "modifiedTime": 1790522274238,
+    "createdTime": 1791171684215,
+    "modifiedTime": 1791171684215,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "compendiumSource": null,
     "duplicateSource": null,

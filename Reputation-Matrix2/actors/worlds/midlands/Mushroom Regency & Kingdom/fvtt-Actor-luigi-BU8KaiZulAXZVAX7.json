@@ -1623,7 +1623,7 @@
     }
   ],
   "effects": [],
-  "folder": null,
+  "folder": "khjVG7Y8S9IOVDnn",
   "sort": 0,
   "ownership": {
     "default": 0,
@@ -1705,6 +1705,9 @@
         "timestamp": 1791083882518,
         "manuallyOverridden": false
       }
+    },
+    "midi-qol": {
+      "onUseMacroParts": {}
     }
   },
   "_stats": {
@@ -1712,7 +1715,7 @@
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
     "createdTime": 1791083878370,
-    "modifiedTime": 1791084202114,
+    "modifiedTime": 1791171680496,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "compendiumSource": null,
     "duplicateSource": null,

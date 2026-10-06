@@ -554,7 +554,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "portraits/mario.jpg",
+      "src": "portraits/player/fullbody/mario.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -566,7 +566,7 @@
     "lockRotation": false,
     "rotation": 0,
     "alpha": 1,
-    "disposition": 0,
+    "disposition": 1,
     "displayBars": 0,
     "bar1": {
       "attribute": "attributes.hp"
@@ -1481,7 +1481,7 @@
         "hero",
         "generated",
         "955 BF",
-        "Mushroom Regency & Kingdom"
+        "Disaster Inc."
       ],
       "color": "#B8860B",
       "pc": {

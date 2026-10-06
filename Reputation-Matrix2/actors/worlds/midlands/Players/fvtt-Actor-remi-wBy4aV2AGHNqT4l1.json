@@ -29179,7 +29179,7 @@
           "inventoryItem": "oracle_deck",
           "holder": "remi_akamatsu_full_backstory",
           "event": null,
-          "filedOn": "2026-10-05",
+          "filedOn": "2026-10-06",
           "note": "associated / high narrative value"
         }
       },
@@ -29260,7 +29260,43 @@
     "midi-qol": {
       "actions": {
         "action": false
-      }
+      },
+      "advantage": {
+        "attack": {
+          "all|disadvantage": {
+            "ability": {
+              "save": {
+                "dex|resistance": {
+                  "fire|immunity": {
+                    "poison|absorption": {
+                      "necrotic|superSaver": {
+                        "dex|magicResistance": {
+                          "all|critical": {
+                            "mwak|grants": {
+                              "advantage": {
+                                "attack": {
+                                  "all|min": {
+                                    "ability": {
+                                      "save": {
+                                        "all|uncanny-dodge|sharpShooter": "0|true"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "onUseMacroParts": {}
     },
     "sequencer": {
       "effects": []
@@ -29319,7 +29355,7 @@
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
     "createdTime": 1788730402512,
-    "modifiedTime": 1789921676444,
+    "modifiedTime": 1791171684081,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "compendiumSource": null,
     "duplicateSource": null,

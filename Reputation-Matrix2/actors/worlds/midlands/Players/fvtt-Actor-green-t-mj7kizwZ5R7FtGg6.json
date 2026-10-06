@@ -4951,7 +4951,7 @@
     }
   ],
   "effects": [],
-  "folder": null,
+  "folder": "0A40B9PdH5WzraZl",
   "sort": 700000,
   "ownership": {
     "default": 0,
@@ -4981,7 +4981,12 @@
       ],
       "generator": "tools/build-green-t-actor.py"
     },
-    "dnd5e": {},
+    "dnd5e": {
+      "jackOfAllTrades": true
+    },
+    "midi-qol": {
+      "onUseMacroParts": {}
+    },
     "waluipedia-mass-import": {
       "folderPath": [
         "Players"
@@ -5007,7 +5012,7 @@
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
     "createdTime": 1789346305000,
-    "modifiedTime": 1789783560122,
+    "modifiedTime": 1791171683830,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "compendiumSource": null,
     "duplicateSource": null,

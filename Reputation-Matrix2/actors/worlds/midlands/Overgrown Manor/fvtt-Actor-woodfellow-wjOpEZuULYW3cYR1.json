@@ -1404,10 +1404,13 @@
     }
   ],
   "effects": [],
-  "folder": "zW3g7ZwVjNkwzEQ4",
+  "folder": "4mIWcIwdTl5ewnav",
   "sort": 600000,
   "flags": {
     "core": {},
+    "midi-qol": {
+      "onUseMacroParts": {}
+    },
     "waluipedia-mass-import": {
       "folderPath": [
         "Overgrown Manor"
@@ -1430,6 +1433,26 @@
           "A House Divided",
           "Characters of the Feyward Manor"
         ]
+      }
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "territorial",
+          "fearless",
+          "hunter",
+          "brute"
+        ],
+        "reasons": [
+          "Creature type \"plant\" → territorial",
+          "Creature type \"plant\" → fearless",
+          "Mixed melee/ranged weapons → hunter",
+          "High HP (149) melee combatant → brute/frontliner"
+        ],
+        "confidence": 1,
+        "version": 3,
+        "timestamp": 1791171820718,
+        "manuallyOverridden": false
       }
     }
   },
@@ -2154,11 +2177,11 @@
     "compendiumSource": "Compendium.dnd5e.monsters.NB6wUgVqeOQtsQKu",
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "14.365",
+    "coreVersion": "14.367",
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
     "createdTime": 1788231129551,
-    "modifiedTime": 1788231129721,
+    "modifiedTime": 1791171820728,
     "lastModifiedBy": "7BMT1Aux3QVtq027"
   },
   "ownership": {

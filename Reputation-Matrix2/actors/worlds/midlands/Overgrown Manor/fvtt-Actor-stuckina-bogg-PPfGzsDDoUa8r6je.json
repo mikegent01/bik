@@ -1093,10 +1093,13 @@
     }
   ],
   "effects": [],
-  "folder": "zW3g7ZwVjNkwzEQ4",
+  "folder": "4mIWcIwdTl5ewnav",
   "sort": 300000,
   "flags": {
     "core": {},
+    "midi-qol": {
+      "onUseMacroParts": {}
+    },
     "waluipedia-mass-import": {
       "folderPath": [
         "Overgrown Manor"
@@ -1842,11 +1845,11 @@
     "compendiumSource": "Compendium.dnd5e.monsters.OQqybZoMeDFn5AFD",
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "14.365",
+    "coreVersion": "14.367",
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
     "createdTime": 1788231129535,
-    "modifiedTime": 1788231129718,
+    "modifiedTime": 1791171681229,
     "lastModifiedBy": "7BMT1Aux3QVtq027"
   },
   "ownership": {

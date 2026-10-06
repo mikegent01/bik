@@ -1394,10 +1394,13 @@
     }
   ],
   "effects": [],
-  "folder": "OavhmiE8PDHGFQWI",
+  "folder": "GY66W7IKJu1oFLF9",
   "sort": 400000,
   "flags": {
     "core": {},
+    "midi-qol": {
+      "onUseMacroParts": {}
+    },
     "waluipedia-mass-import": {
       "folderPath": [
         "Bestiary",
@@ -2134,11 +2137,11 @@
     "compendiumSource": "Compendium.dnd5e.monsters.WJsxqbHU28D64lWT",
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "14.365",
+    "coreVersion": "14.367",
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
     "createdTime": 1788231129672,
-    "modifiedTime": 1788231129749,
+    "modifiedTime": 1791171673389,
     "lastModifiedBy": "7BMT1Aux3QVtq027"
   },
   "ownership": {

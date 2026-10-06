@@ -12095,7 +12095,6 @@
         },
         "container": null,
         "cover": null,
-        "crewed": false,
         "uses": {
           "max": "",
           "recovery": [],
@@ -12123,7 +12122,10 @@
           "baseItem": ""
         },
         "properties": [],
-        "activities": {}
+        "activities": {},
+        "crew": {
+          "value": []
+        }
       },
       "effects": [],
       "flags": {
@@ -12132,13 +12134,29 @@
           "event": "the_way_i_started_it",
           "filedOn": "2026-10-04",
           "note": "spoil of the grove floor fight; the thing hums and nothing else about it is established"
+        },
+        "scene-packer": {
+          "hash": "812e1188483ff7714cdac48b62cc2b86ff3e0f2b"
         }
       },
       "folder": null,
       "ownership": {
-        "default": 0
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
       },
-      "_id": "d5A0eVW8QiwtM10Y"
+      "_id": "d5A0eVW8QiwtM10Y",
+      "sort": 0,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791171683661,
+        "modifiedTime": 1791171683661,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      }
     },
     {
       "_id": "U3SZCBHFHYTKmk3R",
@@ -12183,7 +12201,7 @@
           "inventoryItem": "tea_syndicate_book",
           "holder": "eager",
           "event": "shadow_estate_spotlight_cookie_cottage",
-          "filedOn": "2026-10-05",
+          "filedOn": "2026-10-06",
           "note": "read; learned nothing"
         }
       },
@@ -12284,7 +12302,8 @@
     "midi-qol": {
       "actions": {
         "action": false
-      }
+      },
+      "onUseMacroParts": {}
     },
     "waluipedia-mass-import": {
       "folderPath": [
@@ -12309,7 +12328,7 @@
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
     "createdTime": 1788730470211,
-    "modifiedTime": 1791129845964,
+    "modifiedTime": 1791171683597,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "compendiumSource": null,
     "duplicateSource": null,

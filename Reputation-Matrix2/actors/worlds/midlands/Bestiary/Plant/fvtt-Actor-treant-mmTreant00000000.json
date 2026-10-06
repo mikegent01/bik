@@ -1849,10 +1849,13 @@
     }
   ],
   "effects": [],
-  "folder": null,
+  "folder": "DeizDylzhw8LTKof",
   "flags": {
     "dnd5e": {
       "isAutoImported": true
+    },
+    "midi-qol": {
+      "onUseMacroParts": {}
     },
     "waluipedia-mass-import": {
       "folderPath": [
@@ -1884,7 +1887,7 @@
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
     "createdTime": 1789180457538,
-    "modifiedTime": 1789783560125,
+    "modifiedTime": 1791171674124,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "compendiumSource": "Compendium.dnd5e.actors24.Actor.mmTreant00000000"
   },

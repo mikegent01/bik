@@ -1,5 +1,5 @@
 {
-  "folder": "OavhmiE8PDHGFQWI",
+  "folder": "ecL6IHQSFUEngHKa",
   "name": "Ruined Manor",
   "type": "npc",
   "img": "icons/environment/settlement/house-manor.webp",
@@ -1193,6 +1193,9 @@
   "effects": [],
   "sort": 0,
   "flags": {
+    "midi-qol": {
+      "onUseMacroParts": {}
+    },
     "waluipedia-mass-import": {
       "folderPath": [
         "Bestiary"
@@ -1215,17 +1218,31 @@
           "Creatures of the Ruined Manor"
         ]
       }
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "disciplined"
+        ],
+        "reasons": [
+          "No inference signals — fallback pool pick for \"\": disciplined"
+        ],
+        "confidence": 0,
+        "version": 3,
+        "timestamp": 1791172426479,
+        "manuallyOverridden": false
+      }
     }
   },
   "_stats": {
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "14.365",
+    "coreVersion": "14.367",
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
     "createdTime": 1788231129670,
-    "modifiedTime": 1788231129749,
+    "modifiedTime": 1791172426486,
     "lastModifiedBy": "7BMT1Aux3QVtq027"
   },
   "_id": "dIXHXuGTzaAhFKxl",

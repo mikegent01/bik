@@ -1620,10 +1620,13 @@
     }
   ],
   "effects": [],
-  "folder": "3rpAjlIiO6X688Ck",
+  "folder": "ymhz3FmhWN0S6kTx",
   "sort": 600000,
   "flags": {
     "core": {},
+    "midi-qol": {
+      "onUseMacroParts": {}
+    },
     "waluipedia-mass-import": {
       "folderPath": [
         "Shadow Estate & House Corvinarus"
@@ -2370,11 +2373,11 @@
     "compendiumSource": "Compendium.dnd5e.monsters.eiifqZwYGi71r2Yl",
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "14.365",
+    "coreVersion": "14.367",
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
     "createdTime": 1788231129594,
-    "modifiedTime": 1788231129730,
+    "modifiedTime": 1791171685331,
     "lastModifiedBy": "7BMT1Aux3QVtq027"
   },
   "ownership": {

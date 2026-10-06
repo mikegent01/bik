@@ -1155,6 +1155,9 @@
         "manuallyOverridden": false
       }
     },
+    "midi-qol": {
+      "onUseMacroParts": {}
+    },
     "waluipedia-mass-import": {
       "folderPath": [
         "Players"
@@ -1174,7 +1177,7 @@
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
     "createdTime": 1788730934402,
-    "modifiedTime": 1788907273089,
+    "modifiedTime": 1791171684681,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "compendiumSource": null,
     "duplicateSource": null,

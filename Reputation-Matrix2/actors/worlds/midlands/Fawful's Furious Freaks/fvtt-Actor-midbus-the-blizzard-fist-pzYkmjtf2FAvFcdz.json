@@ -715,7 +715,7 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "createdTime": 1790388205607,
-        "modifiedTime": 1790388205607,
+        "modifiedTime": 1791171677424,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -1123,7 +1123,7 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "createdTime": 1790388205607,
-        "modifiedTime": 1790388205607,
+        "modifiedTime": 1791171677424,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -1180,7 +1180,7 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "createdTime": 1790388205607,
-        "modifiedTime": 1790388205607,
+        "modifiedTime": 1791171677424,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -1435,7 +1435,7 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "createdTime": 1790388205607,
-        "modifiedTime": 1790388205607,
+        "modifiedTime": 1791171677424,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -1694,7 +1694,7 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "createdTime": 1790388205607,
-        "modifiedTime": 1790388205607,
+        "modifiedTime": 1791171677424,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -1751,7 +1751,7 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "createdTime": 1790388205607,
-        "modifiedTime": 1790388205607,
+        "modifiedTime": 1791171677424,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -1857,7 +1857,7 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "createdTime": 1790388205607,
-        "modifiedTime": 1790388205607,
+        "modifiedTime": 1791171677425,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -1874,7 +1874,7 @@
     }
   ],
   "effects": [],
-  "folder": null,
+  "folder": "9eXeKload6v9Igye",
   "sort": 0,
   "ownership": {
     "default": 0,
@@ -1906,6 +1906,9 @@
         "manuallyOverridden": false
       }
     },
+    "midi-qol": {
+      "onUseMacroParts": {}
+    },
     "waluipedia-mass-import": {
       "folderPath": [
         "Fawful's Furious Freaks"
@@ -1932,7 +1935,7 @@
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
     "createdTime": 1790388205607,
-    "modifiedTime": 1790388205941,
+    "modifiedTime": 1791171677383,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "compendiumSource": null,
     "duplicateSource": null,

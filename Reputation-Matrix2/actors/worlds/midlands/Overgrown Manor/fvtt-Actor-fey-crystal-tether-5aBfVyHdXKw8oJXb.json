@@ -1,5 +1,5 @@
 {
-  "folder": "M29yXvtlop30CcjP",
+  "folder": "4mIWcIwdTl5ewnav",
   "name": "Fey Crystal Tether",
   "type": "npc",
   "img": "icons/commodities/gems/gem-cluster-red.webp",
@@ -727,6 +727,9 @@
   "effects": [],
   "sort": 0,
   "flags": {
+    "midi-qol": {
+      "onUseMacroParts": {}
+    },
     "waluipedia-mass-import": {
       "folderPath": [
         "Overgrown Manor"
@@ -755,11 +758,11 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "14.365",
+    "coreVersion": "14.367",
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
     "createdTime": 1788231129567,
-    "modifiedTime": 1788231129724,
+    "modifiedTime": 1791171680976,
     "lastModifiedBy": "7BMT1Aux3QVtq027"
   },
   "_id": "5aBfVyHdXKw8oJXb",

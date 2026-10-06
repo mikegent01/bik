@@ -1077,7 +1077,7 @@
     }
   ],
   "effects": [],
-  "folder": null,
+  "folder": "NHRXbS0cGBh3Pl3b",
   "sort": 0,
   "ownership": {
     "default": 0,
@@ -1108,6 +1108,9 @@
     "dnd5e": {
       "showTokenPortrait": true
     },
+    "midi-qol": {
+      "onUseMacroParts": {}
+    },
     "waluipedia-sheets": {
       "tags": [
         "Peach's Castle 955 BF",
@@ -1131,7 +1134,7 @@
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
     "createdTime": 1791080169564,
-    "modifiedTime": 1791080197079,
+    "modifiedTime": 1791171682821,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "compendiumSource": null,
     "duplicateSource": null,

@@ -970,10 +970,13 @@
     }
   ],
   "effects": [],
-  "folder": "J8DnjiUveS1FZZ6n",
+  "folder": "tg6HtxKrksVGzwr7",
   "sort": -200000,
   "flags": {
     "core": {},
+    "midi-qol": {
+      "onUseMacroParts": {}
+    },
     "waluipedia-mass-import": {
       "folderPath": [
         "Bestiary",
@@ -1726,11 +1729,11 @@
       "systemId": "dnd5e",
       "systemVersion": "2.0.0-alpha3"
     },
-    "coreVersion": "14.365",
+    "coreVersion": "14.367",
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
     "createdTime": 1788231129621,
-    "modifiedTime": 1788231129736,
+    "modifiedTime": 1791171671293,
     "lastModifiedBy": "7BMT1Aux3QVtq027"
   },
   "ownership": {

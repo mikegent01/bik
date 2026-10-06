@@ -153,9 +153,9 @@
       "hp": {
         "value": 136,
         "max": 136,
-        "formula": "16d8 + 64",
         "temp": null,
-        "tempmax": null
+        "tempmax": null,
+        "bonuses": {}
       },
       "movement": {
         "walk": "30",
@@ -200,9 +200,6 @@
         "limit": 1
       },
       "loyalty": {},
-      "hd": {
-        "spent": 0
-      },
       "death": {
         "roll": {
           "min": null,
@@ -215,13 +212,7 @@
           "save": ""
         }
       },
-      "price": {
-        "value": null,
-        "denomination": "gp"
-      },
-      "spell": {
-        "level": 0
-      }
+      "inspiration": false
     },
     "details": {
       "alignment": "chaotic neutral",
@@ -283,21 +274,40 @@
         "amount": {},
         "bypasses": []
       },
-      "important": false
+      "weaponProf": {
+        "value": [],
+        "custom": "",
+        "mastery": {
+          "value": [],
+          "bonus": []
+        }
+      },
+      "armorProf": {
+        "value": [],
+        "custom": ""
+      }
     },
     "resources": {
-      "legact": {
+      "primary": {
+        "value": 0,
         "max": 0,
-        "spent": 0
+        "sr": false,
+        "lr": false,
+        "label": ""
       },
-      "legres": {
+      "secondary": {
+        "value": 0,
         "max": 0,
-        "spent": 0
+        "sr": false,
+        "lr": false,
+        "label": ""
       },
-      "lair": {
-        "value": false,
-        "initiative": null,
-        "inside": false
+      "tertiary": {
+        "value": 0,
+        "max": 0,
+        "sr": false,
+        "lr": false,
+        "label": ""
       }
     },
     "currency": {
@@ -720,7 +730,7 @@
     "lockRotation": false,
     "rotation": 0,
     "alpha": 1,
-    "disposition": -1,
+    "disposition": 1,
     "displayBars": 0,
     "bar1": {
       "attribute": "attributes.hp"
@@ -754,7 +764,7 @@
       }
     },
     "sight": {
-      "enabled": false,
+      "enabled": true,
       "range": 0,
       "angle": 360,
       "visionMode": "basic",
@@ -983,8 +993,8 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "createdTime": 1788730874413,
-        "modifiedTime": 1788730874413
+        "createdTime": 1791171684641,
+        "modifiedTime": 1791171684641
       },
       "effects": [],
       "folder": null,
@@ -1253,8 +1263,8 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "modifiedTime": 1788730874413,
-        "createdTime": 1788730874413
+        "modifiedTime": 1791171684641,
+        "createdTime": 1791171684641
       },
       "effects": [],
       "folder": null,
@@ -1527,8 +1537,8 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "modifiedTime": 1788730874413,
-        "createdTime": 1788730874413
+        "modifiedTime": 1791171684641,
+        "createdTime": 1791171684641
       },
       "effects": [],
       "folder": null,
@@ -1798,8 +1808,8 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "modifiedTime": 1788730874413,
-        "createdTime": 1788730874413
+        "modifiedTime": 1791171684641,
+        "createdTime": 1791171684641
       },
       "effects": [],
       "folder": null,
@@ -2020,8 +2030,8 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "modifiedTime": 1788730874413,
-        "createdTime": 1788730874413
+        "modifiedTime": 1791171684641,
+        "createdTime": 1791171684641
       },
       "effects": [],
       "folder": null,
@@ -2226,8 +2236,8 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "modifiedTime": 1788730874413,
-        "createdTime": 1788730874413
+        "modifiedTime": 1791171684641,
+        "createdTime": 1791171684641
       },
       "effects": [],
       "folder": null,
@@ -2281,8 +2291,8 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "createdTime": 1788730874413,
-        "modifiedTime": 1788730874413
+        "createdTime": 1791171684641,
+        "modifiedTime": 1791171684641
       },
       "effects": [],
       "folder": null,
@@ -2334,8 +2344,8 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "createdTime": 1788730874413,
-        "modifiedTime": 1788730874413
+        "createdTime": 1791171684641,
+        "modifiedTime": 1791171684641
       },
       "effects": [],
       "folder": null,
@@ -2407,8 +2417,8 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "modifiedTime": 1788730874413,
-        "createdTime": 1788730874413
+        "modifiedTime": 1791171684641,
+        "createdTime": 1791171684641
       },
       "effects": [],
       "folder": null,
@@ -2472,8 +2482,8 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "modifiedTime": 1788730874413,
-        "createdTime": 1788730874413
+        "modifiedTime": 1791171684641,
+        "createdTime": 1791171684641
       },
       "effects": [],
       "folder": null,
@@ -2552,8 +2562,8 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "modifiedTime": 1788730874413,
-        "createdTime": 1788730874413
+        "modifiedTime": 1791171684641,
+        "createdTime": 1791171684641
       },
       "effects": [],
       "folder": null,
@@ -2634,8 +2644,8 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "modifiedTime": 1788730874413,
-        "createdTime": 1788730874413
+        "modifiedTime": 1791171684641,
+        "createdTime": 1791171684641
       },
       "effects": [],
       "folder": null,
@@ -2717,8 +2727,8 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "modifiedTime": 1788730874413,
-        "createdTime": 1788730874413
+        "modifiedTime": 1791171684641,
+        "createdTime": 1791171684641
       },
       "effects": [],
       "folder": null,
@@ -2798,8 +2808,8 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "modifiedTime": 1788730874413,
-        "createdTime": 1788730874413
+        "modifiedTime": 1791171684641,
+        "createdTime": 1791171684641
       },
       "effects": [],
       "folder": null,
@@ -2885,8 +2895,8 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "modifiedTime": 1788730874413,
-        "createdTime": 1788730874413
+        "modifiedTime": 1791171684641,
+        "createdTime": 1791171684641
       },
       "effects": [],
       "folder": null,
@@ -2967,8 +2977,8 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "modifiedTime": 1788730874413,
-        "createdTime": 1788730874413
+        "modifiedTime": 1791171684641,
+        "createdTime": 1791171684641
       },
       "effects": [],
       "folder": null,
@@ -3027,8 +3037,8 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "createdTime": 1788730874413,
-        "modifiedTime": 1788730874413
+        "createdTime": 1791171684641,
+        "modifiedTime": 1791171684641
       },
       "effects": [],
       "folder": null,
@@ -3085,8 +3095,8 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "modifiedTime": 1788730874413,
-        "createdTime": 1788730874413
+        "modifiedTime": 1791171684641,
+        "createdTime": 1791171684641
       },
       "effects": [],
       "folder": null,
@@ -3143,8 +3153,8 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "modifiedTime": 1788730874413,
-        "createdTime": 1788730874413
+        "modifiedTime": 1791171684641,
+        "createdTime": 1791171684641
       },
       "effects": [],
       "folder": null,
@@ -3217,8 +3227,8 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "modifiedTime": 1788730874413,
-        "createdTime": 1788730874413
+        "modifiedTime": 1791171684641,
+        "createdTime": 1791171684641
       },
       "effects": [],
       "folder": null,
@@ -3282,8 +3292,8 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "modifiedTime": 1788730874413,
-        "createdTime": 1788730874413
+        "modifiedTime": 1791171684641,
+        "createdTime": 1791171684641
       },
       "effects": [],
       "folder": null,
@@ -3340,8 +3350,8 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "modifiedTime": 1788730874413,
-        "createdTime": 1788730874413
+        "modifiedTime": 1791171684641,
+        "createdTime": 1791171684641
       },
       "effects": [],
       "folder": null,
@@ -3604,8 +3614,8 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "modifiedTime": 1788730874413,
-        "createdTime": 1788730874413
+        "modifiedTime": 1791171684641,
+        "createdTime": 1791171684641
       },
       "effects": [],
       "folder": null,
@@ -3686,8 +3696,8 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "modifiedTime": 1788730874413,
-        "createdTime": 1788730874413
+        "modifiedTime": 1791171684641,
+        "createdTime": 1791171684641
       },
       "effects": [],
       "folder": null,
@@ -3766,8 +3776,8 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "modifiedTime": 1788730874413,
-        "createdTime": 1788730874413
+        "modifiedTime": 1791171684641,
+        "createdTime": 1791171684641
       },
       "effects": [],
       "folder": null,
@@ -3831,8 +3841,8 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "modifiedTime": 1788730874413,
-        "createdTime": 1788730874413
+        "modifiedTime": 1791171684641,
+        "createdTime": 1791171684641
       },
       "effects": [],
       "folder": null,
@@ -3905,8 +3915,8 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "modifiedTime": 1788730874413,
-        "createdTime": 1788730874413
+        "modifiedTime": 1791171684641,
+        "createdTime": 1791171684641
       },
       "effects": [],
       "folder": null,
@@ -3970,8 +3980,8 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "modifiedTime": 1788730874413,
-        "createdTime": 1788730874413
+        "modifiedTime": 1791171684641,
+        "createdTime": 1791171684641
       },
       "effects": [],
       "folder": null,
@@ -4063,8 +4073,8 @@
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1788730874413,
-        "modifiedTime": 1788730874413,
+        "createdTime": 1791171684641,
+        "modifiedTime": 1791171684641,
         "lastModifiedBy": "7BMT1Aux3QVtq027"
       },
       "sort": 300000,
@@ -4108,7 +4118,7 @@
           "units": "ft",
           "special": ""
         },
-        "advancement": [],
+        "advancement": {},
         "identifier": "human"
       },
       "effects": [],
@@ -4122,10 +4132,12 @@
         "systemVersion": "5.3.3",
         "coreVersion": "14.367",
         "systemId": "dnd5e",
-        "createdTime": 1788579480628,
-        "modifiedTime": 1788579480815,
+        "createdTime": 1791171684641,
+        "modifiedTime": 1791171684641,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "exportSource": null
+        "exportSource": null,
+        "compendiumSource": null,
+        "duplicateSource": null
       },
       "folder": null,
       "sort": 500000
@@ -4146,7 +4158,7 @@
         },
         "identifier": "barbarian",
         "levels": 6,
-        "advancement": [],
+        "advancement": {},
         "spellcasting": {
           "progression": "none",
           "ability": "",
@@ -4176,8 +4188,10 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "modifiedTime": 1788730579529,
-        "createdTime": 1788730579529
+        "modifiedTime": 1791171684641,
+        "createdTime": 1791171684641,
+        "compendiumSource": null,
+        "duplicateSource": null
       },
       "_id": "WBarbarianClass0",
       "ownership": {
@@ -4204,7 +4218,7 @@
           "ability": "",
           "preparation": {}
         },
-        "advancement": []
+        "advancement": {}
       },
       "flags": {},
       "effects": [],
@@ -4217,8 +4231,10 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "modifiedTime": 1788730579529,
-        "createdTime": 1788730579529
+        "modifiedTime": 1791171684641,
+        "createdTime": 1791171684641,
+        "compendiumSource": null,
+        "duplicateSource": null
       },
       "_id": "WBerserkerSub000",
       "ownership": {
@@ -4239,7 +4255,7 @@
           "revision": 1
         },
         "identifier": "criminal",
-        "advancement": [],
+        "advancement": {},
         "startingEquipment": []
       },
       "flags": {},
@@ -4252,10 +4268,12 @@
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1788730632136,
-        "modifiedTime": 1788730632136,
+        "createdTime": 1791171684641,
+        "modifiedTime": 1791171684641,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "exportSource": null
+        "exportSource": null,
+        "compendiumSource": null,
+        "duplicateSource": null
       },
       "ownership": {
         "default": 0
@@ -4293,8 +4311,12 @@
       }
     },
     "scene-packer": {
-      "hash": "3c5460fd1680ea4c23bb15a2f3f174ef2771456a"
+      "hash": "f52919daf3163eb5ed6ff874ee07578b3318ea6f"
     },
+    "midi-qol": {
+      "onUseMacroParts": {}
+    },
+    "dae": {},
     "waluipedia-sheets": {
       "promoted": {
         "on": "2026-10-04",
@@ -4334,8 +4356,8 @@
     "coreVersion": "14.367",
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
-    "createdTime": 1788730874413,
-    "modifiedTime": 1788730876903,
+    "createdTime": 1791171684641,
+    "modifiedTime": 1791171684641,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "compendiumSource": null,
     "duplicateSource": null,
