@@ -391,3 +391,33 @@ Nothing was re-rendered here (no GPU in the sandbox): the plates in the
 checkout are the toads and the Bone-Line sprites, whose references were
 already the whole figure; the Fawful and Flowey renders live in the user's
 raw folder and want `drop` + a new render under the new prompt.
+
+### Addendum — six plates by hand, and a background audit (2026-10-05)
+
+The full run's plates for Dracule Mihawk, Mr. L, Flowey, Lyranth, Tymnas and
+Jory Dobbs failed the eye (Mr. L looked nothing like Luigi; Flowey had legs;
+Tymnas and Jory Dobbs came back on the wrong background). All six were
+painted again from their leads with an image model on a flat key field and
+cut with the pipeline: Mr. L is the existing Luigi plate redressed — the
+same face, build, pose and ink, the Mr. L cap, mask, black-and-green suit
+and green lightning — so he is Luigi in a mask; Flowey is the lead's flower
+on its own stem and leaves (`bodyPlan: plant`), keyed from a flat blue
+field because its petals are pink and its stem green; the other four are
+their leads head to foot on magenta. Captions say so. `check` gained a
+background audit (`background_audit()`: leftover field rectangle, key
+halo, half-keyed translucency); the only plates it does not judge are the
+Bone-Line pixel sprites.
+
+The other 49 plates of the full run were then pushed and looked over one by
+one on a checkerboard. Every cut-out is clean — the audit flags none of them —
+though 44 carried the keyer's specks (stray pixels left in the field), which
+`heal` removed. What the eye found instead was the old body problem in a
+batch rendered before the body-plan prompt: Toads built as tall humans
+wearing a cap. Toadsworth Sr., Big R and Lady Bloomia were painted again
+from their leads at Toad proportions (head as big as the rest, short arms
+and legs) and cut from magenta; Toadburt and Rodger still show it and are
+listed by `check` for the next pass. Captain Fernback and Cackletta follow
+their leads (a bearded man; the Queen Bean portrait), so they stay.
+`body_plan_of()` no longer reads a negated race ("confirmed not a Toad") or
+a title ("Spirit-Walker") as a body plan.
+

@@ -149,7 +149,7 @@ BODY_PLANS = {
 RACE_PLANS = [                                   # first match on the race line wins
     (r"\bgoomba", "goomba"),
     (r"\bboo\b", "floating"),
-    (r"\b(ghost|spirit|spectre|specter|wraith|phantom|poltergeist)\b", "ghost"),
+    (r"\b(ghost|spirit(?!-)|spectre|specter|wraith|phantom|poltergeist)\b", "ghost"),     # "Spirit-Walker" is a title, not a ghost
     (r"\b(chain ?chomp|bob-?omb|thwomp|whomp|bullet bill|slime|blob|golem)\b", "object"),
     (r"\b(piranha|plant|flower|spore monster|fungus|fungal|shroom)\b", "plant"),
     (r"\bcentaur\b", "quadruped"),
@@ -174,6 +174,7 @@ def body_plan_of(a):
             return field, BODY_PLANS[field]
         return "custom", field.rstrip(".")
     race = (a.get("race") or "").lower()
+    race = re.sub(r"\b(?:confirmed\s+)?(?:not|never|no longer)\s+(?:a|an|the)?\s*[\w-]+", " ", race)   # "confirmed not a Toad" says what she is not
     for pat, plan in RACE_PLANS:
         if re.search(pat, race):
             return plan, BODY_PLANS[plan]
@@ -776,6 +777,8 @@ def cmd_check(a):
             bad.append((art["id"], f"{w}x{h} is under {MIN_PX} px {fb}"))
         elif fb.startswith(PLATES) and art["id"] not in sprites and specks(path) > 0:
             bad.append((art["id"], f"{specks(path)} figure pixel(s) keyed out — run heal {fb}"))
+        elif fb.startswith(PLATES) and art["id"] not in sprites and background_audit(path):
+            bad.append((art["id"], "; ".join(background_audit(path)) + " " + fb))
     rows = statuses(arts, by_sheet)
     left = [r for r in rows if r["status"] not in ("READY", "READY-LEAD")]
     print(f"token plates: {n} fullBody plate(s), {len(bad)} problem(s); {len(rows) - len(left)}/{len(rows)} sheet characters token-ready "
@@ -789,6 +792,47 @@ def cmd_check(a):
               f"(sheet --ids ...), then drop the wrong ones and render them again with --redo --ids ... or in the studio:")
         print("    " + " ".join(f"{cid}({body_plan_of(by_id[cid])[0]})" for cid in legs))
     return 1 if (bad and a.check) else 0
+
+
+FIELD_FILL = 0.92    # opaque share of the figure's own box above this is a leftover rectangle of field, not a figure (real figures: <= 0.7)
+KEY_HALO = 0.20      # share of the figure's edge band still near a key colour above this is a halo the keyer left
+SEMI_FIELD = 0.20    # share of the figure that is translucent above this is a half-keyed field
+
+
+def background_audit(path):
+    """Reasons a transparent plate still carries its background (none when it is clean): a near-rectangular opaque
+    mass (the field came along), a key-coloured fringe (the keyer stopped short), a large translucent area (the
+    field was keyed to half alpha instead of away). Pixel sprites are not judged (block shapes, flat colours)."""
+    from PIL import Image
+    np = _np()
+    im = np.asarray(Image.open(path).convert("RGBA")).astype(int)
+    a, rgb = im[:, :, 3], im[:, :, :3]
+    on = a > 16
+    if not on.any():
+        return ["nothing opaque on the plate"]
+    ys, xs = np.where(on)
+    why = []
+    fill = (a > 200).sum() / ((ys.max() - ys.min() + 1) * (xs.max() - xs.min() + 1))
+    if fill > FIELD_FILL:
+        why.append("figure fills %d%% of its own box — a leftover field?" % round(fill * 100))
+    semi = ((a > 16) & (a <= 200)).sum() / on.sum()
+    if semi > SEMI_FIELD:
+        why.append("%d%% of the figure is translucent — a half-keyed field?" % round(semi * 100))
+    off = ~on
+    edge = on & (np.roll(off, 1, 0) | np.roll(off, -1, 0) | np.roll(off, 1, 1) | np.roll(off, -1, 1))
+    band = edge.copy()
+    for _ in range(2):
+        grown = band.copy()
+        for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            grown |= np.roll(np.roll(band, dy, 0), dx, 1)
+        band = grown & on
+    if band.any():
+        near = np.zeros(band.sum(), dtype=bool)
+        for val in KEYS.values():
+            near |= np.sqrt(((rgb[band] - np.array(val)) ** 2).sum(axis=1)) < 120
+        if near.mean() > KEY_HALO:
+            why.append("%d%% of the figure's edge is key-coloured — a halo the keyer left" % round(near.mean() * 100))
+    return why
 
 
 LEGGY = 1.7          # a figure this many times taller than wide, on a build that is short, round or legless, probably got legs

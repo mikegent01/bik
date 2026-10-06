@@ -32,7 +32,7 @@
     ],
     "image": "portraits/dracule_mihawk.jpg",
     "fullBody": "portraits/player/fullbody/dracule_mihawk.png",
-    "fullBodyCaption": "Full-body token plate — Dracule Mihawk head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token."
+    "fullBodyCaption": "Full-body token plate — Dracule Mihawk whole on a transparent field, the look of the lead; painted from the lead with an image model after the batch render failed the eye; cut from a keyed render on 2026-10-05 for the table's token."
   },
   {
     "id": "sans",
@@ -181,7 +181,7 @@
     ],
     "image": "portraits/tymnas.jpg",
     "fullBody": "portraits/player/fullbody/tymnas.png",
-    "fullBodyCaption": "Full-body token plate — Tymnas head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token."
+    "fullBodyCaption": "Full-body token plate — Tymnas whole on a transparent field, the look of the lead; painted from the lead with an image model after the batch render came back on the wrong background; cut from a keyed render on 2026-10-05 for the table's token."
   },
   {
     "id": "professor_e_gadd",
@@ -296,7 +296,7 @@
     ],
     "image": "portraits/mr_l.jpg",
     "fullBody": "portraits/player/fullbody/mr_l.png",
-    "fullBodyCaption": "Full-body token plate — Mr. L head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token."
+    "fullBodyCaption": "Full-body token plate — Mr. L whole on a transparent field, the look of the lead; painted over the Luigi plate (same face, build, pose and line) in the Mr. L costume with an image model, the batch render having looked nothing like Luigi; cut from a keyed render on 2026-10-05 for the table's token."
   },
   {
     "id": "king_boo",
@@ -1318,7 +1318,7 @@
     ],
     "image": "portraits/lady_bloomia.jpg",
     "fullBody": "portraits/player/fullbody/lady_bloomia.png",
-    "fullBodyCaption": "Full-body token plate — Lady Bloomia head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token."
+    "fullBodyCaption": "Full-body token plate — Lady Bloomia whole on a transparent field, the look of the lead, built as short; painted from the lead with an image model at Toad proportions — the batch render had stretched the Toad into a tall human; cut from a keyed render on 2026-10-05 for the table's token."
   },
   {
     "id": "speaker_l",
@@ -1815,7 +1815,7 @@
     ],
     "image": "portraits/lyranth.jpg",
     "fullBody": "portraits/player/fullbody/lyranth.png",
-    "fullBodyCaption": "Full-body token plate — Lyranth head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token."
+    "fullBodyCaption": "Full-body token plate — Lyranth whole on a transparent field, the look of the lead; painted from the lead with an image model after the batch render failed the eye; cut from a keyed render on 2026-10-05 for the table's token."
   },
   {
     "id": "the_archivist",
@@ -2588,7 +2588,7 @@
     "waluigiComment": "Character anchor for the hired man on the Mount Ebot expedition, so the filing does not leave a named casualty unlinked. He was twenty-two in 1032 BF, unpaid, uninsured, and better at rope than anyone who has ever employed him. The filing was released eight years later; his whereabouts were not. WAH.",
     "image": "portraits/jory_dobbs.jpg",
     "fullBody": "portraits/player/fullbody/jory_dobbs.png",
-    "fullBodyCaption": "Full-body token plate — Jory Dobbs head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token."
+    "fullBodyCaption": "Full-body token plate — Jory Dobbs whole on a transparent field, the look of the lead; painted from the lead with an image model after the batch render came back on the wrong background; cut from a keyed render on 2026-10-05 for the table's token."
   },
   {
     "id": "princess_peach",
@@ -2794,7 +2794,7 @@
     ],
     "image": "portraits/toadsworth_sr.jpg",
     "fullBody": "portraits/player/fullbody/toadsworth_sr.png",
-    "fullBodyCaption": "Full-body token plate — Toadsworth the Elder head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token."
+    "fullBodyCaption": "Full-body token plate — Toadsworth the Elder whole on a transparent field, the look of the lead, built as short; painted from the lead with an image model at Toad proportions — the batch render had stretched the Toad into a tall human; cut from a keyed render on 2026-10-05 for the table's token."
   },
   {
     "id": "unknown_assassin",
@@ -4626,7 +4626,7 @@
     ],
     "image": "portraits/flowey.jpg",
     "fullBody": "portraits/player/fullbody/flowey.png",
-    "fullBodyCaption": "Full-body token plate — Flowey head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token."
+    "fullBodyCaption": "Full-body token plate — Flowey whole on a transparent field, the look of the lead, built as plant; the lead's flower on its own stem and leaves, no body and no legs — the lead edited with an image model onto a flat blue field and keyed on 2026-10-05 for the table's token."
   },
   {
     "id": "koffin_k",
@@ -5583,7 +5583,7 @@
     ],
     "image": "portraits/big_r.jpg",
     "fullBody": "portraits/player/fullbody/big_r.png",
-    "fullBodyCaption": "Full-body token plate — Big R head to foot on a transparent field, the look of the lead; cut from a keyed render on 2026-10-05 for the table's token."
+    "fullBodyCaption": "Full-body token plate — Big R whole on a transparent field, the look of the lead, built as short; painted from the lead with an image model at Toad proportions — the batch render had stretched the Toad into a tall human; cut from a keyed render on 2026-10-05 for the table's token."
   },
   {
     "id": "liam",

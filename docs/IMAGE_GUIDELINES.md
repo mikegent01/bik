@@ -280,6 +280,25 @@ The table places characters on the map; a token needs the whole figure. The
   humanoid deserve a second look even when `check` is quiet. The studio
   shows the build under the reference (*build: short — …*; `unknown` says
   to set `bodyPlan` on the article).
+* **Background removal is checked, not trusted.** Besides the transparent
+  border, `check` audits every pipeline plate for the three ways a field
+  survives the keyer: an opaque mass that fills more than 92 % of its own
+  box (the field came along as a rectangle — real figures fill under
+  70 %), an edge band more than 20 % key-coloured (a magenta or green halo),
+  and more than 20 % of the figure translucent (the field keyed to half
+  alpha instead of away). `background_audit()`; pixel sprites are exempt.
+  A plate that fails goes back through `cut` with a tighter key or out of
+  the pipeline altogether — six plates (Mr. L, Flowey, Dracule Mihawk,
+  Lyranth, Tymnas, Jory Dobbs) were painted by hand from their leads on
+  2026-10-05 after the batch's came back wrong: Mr. L is the Luigi plate
+  redressed (same face, build and line, so he reads as Luigi in a mask),
+  Flowey is the lead's flower on its own stem with no legs, the other four
+  are their leads head to foot; all keyed from a flat field and audited.
+  The audit is not the last word: it sees fields, halos and translucency,
+  not bodies — the same batch's clean cut-outs of Toadsworth Sr., Big R and
+  Lady Bloomia were tall humans in caps, caught by eye on a contact sheet
+  (`sheet`) and painted again at Toad proportions. After any batch, run
+  `check` and then `heal` for the keyer's specks, and look at the sheet.
 * **With eyes on it: the Token Plate Studio** — `python
   tools\token-plate-studio.py` (or the *Token plates* button in
   `start.py`) opens a local page at `http://127.0.0.1:8766`: the roster on

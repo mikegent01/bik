@@ -379,6 +379,8 @@ def main():
           and bp({"race": "Plant (fey overgrowth)"})[0] == "plant" and bp({"race": "Spore monster (not a toad)"})[0] == "plant", "plans read from the race line")
     check(bp({"race": "Human (Kivotan)"})[0] == "biped" and bp({"race": "Skeleton / Bone-Line Kin"})[0] == "biped" and bp({"race": "Unknown — appears human"})[0] == "biped"
           and bp({"race": "Underground-linked entity"})[0] == "unknown" and bp({})[0] == "unknown", "people are bipeds, a race that says nothing is unknown")
+    check(bp({"race": "Unknown — possibly Human, confirmed not a Toad"})[0] == "biped" and bp({"race": "Rakasha (Spirit-Walker)"})[0] == "biped"
+          and bp({"race": "Ghost / hostile spirit"})[0] == "ghost", "a negated race and a Spirit-Walker title do not set the plan")
     check(bp({"race": "Underground-linked entity", "bodyPlan": "plant"}) == ("plant", mod.BODY_PLANS["plant"])
           and bp({"race": "Human", "bodyPlan": "a round pink ball with stubby arms and two red feet, no legs."}) == ("custom", "a round pink ball with stubby arms and two red feet, no legs"),
           "bodyPlan on the article wins: a plan name or a free sentence")
@@ -424,6 +426,18 @@ def main():
            {"id": "leggy", "race": "Toad", "fullBody": "portraits/player/fullbody/leggy.png", "fullBodyCaption": "Hand-made plate."}]
     check([mod.legs_suspects([a]) for a in sus] == [["leggy"], [], [], []] and mod.figure_aspect(leggy) > 4, "check names a tall pipeline plate of a short build, once")
     os.remove(leggy)
+    # background audit: a leftover field, a key halo, a half-keyed field — and a clean figure
+    boxy = Image.new("RGBA", (800, 800), (0, 0, 0, 0)); ImageDraw.Draw(boxy).rectangle((100, 60, 700, 760), fill=(90, 80, 70, 255))
+    halo = figure(400, 900).convert("RGBA"); ha = np.asarray(halo).copy()
+    on = ha[:, :, 3] > 16; ring = on & ~(np.roll(on, 3, 0) & np.roll(on, -3, 0) & np.roll(on, 3, 1) & np.roll(on, -3, 1)); ha[ring, :3] = (250, 40, 250)
+    half = np.asarray(figure(400, 900).convert("RGBA")).copy(); half[:, :, 3] = np.where(half[:, :, 3] > 0, half[:, :, 3], 0)
+    pad = np.zeros((900, 400, 4), dtype=np.uint8); pad[:, :, :3] = (255, 0, 255); pad[:, :, 3] = 120; pad[half[:, :, 3] > 0] = half[half[:, :, 3] > 0]
+    pad[:40], pad[-40:], pad[:, :40], pad[:, -40:] = 0, 0, 0, 0
+    reasons = {}
+    for name, im in (("boxy", boxy), ("halo", Image.fromarray(ha, "RGBA")), ("half", Image.fromarray(pad, "RGBA")), ("clean", figure(400, 900))):
+        p = os.path.join(root, name + ".png"); im.save(p); reasons[name] = mod.background_audit(p)
+    check(any("leftover field" in r for r in reasons["boxy"]) and any("halo" in r for r in reasons["halo"]) and any("translucent" in r for r in reasons["half"])
+          and reasons["clean"] == [], "background audit names a leftover field, a key halo and a half-keyed field, and passes a clean figure: %s" % reasons)
     figure(400, 900).save(os.path.join(rm, "portraits/player/fullbody/fullguy.png"))      # a plate for the Toad of the fixture
     out = run("apply", "--date", "2026-10-06").stdout
     arts = {x["id"]: x for x in json.load(open(os.path.join(rm, "data/characters.json"), encoding="utf-8"))}
