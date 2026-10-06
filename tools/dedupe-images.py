@@ -66,8 +66,13 @@ def sha256(path):
 
 def tracked_files():
     try:
-        out = subprocess.run(["git", "ls-files", "-z"], cwd=ROOT, capture_output=True, check=True).stdout
-        return [p for p in out.decode("utf-8", "surrogateescape").split("\0") if p]
+        # Tracked + untracked-but-not-ignored, minus what is deleted in the
+        # working tree: a mirror the organizer just re-filed (files moved,
+        # nothing committed yet) must still check cleanly.
+        out = subprocess.run(["git", "ls-files", "-z", "--cached", "--others", "--exclude-standard"],
+                             cwd=ROOT, capture_output=True, check=True).stdout
+        return [p for p in out.decode("utf-8", "surrogateescape").split("\0")
+                if p and os.path.exists(os.path.join(ROOT, p))]
     except (OSError, subprocess.CalledProcessError):
         files = []
         for dirpath, dirnames, names in os.walk(ROOT):

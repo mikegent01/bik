@@ -17,10 +17,12 @@ packets, the module and the art into the Foundry Data folder the suite finds
     python3 tools/tests/test-sheets-suite.py
 """
 import functools
+import glob
 import http.server
 import importlib.util
 import json
 import os
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -94,11 +96,14 @@ check("the repo-root export is the mirror's export (the committed input matches 
 
 # ---- changes files --------------------------------------------------------
 applying = [os.path.basename(p) for p in suite.changes_for("midlands")]
-check("the grove spoils file applies to the current midlands export", "2026-10-04-grove-spoils.json" in applying)
-spoils = read(ROOT / "Reputation-Matrix2/actors/changes/2026-10-04-grove-spoils.json")
-check("the spoils file is scoped to the export it was written against",
+grove = read(ROOT / "Reputation-Matrix2/actors/changes/2026-10-04-grove-spoils.json")
+check("the hand-filed grove spoils (scoped to the 2026-10-04 export) no longer apply — a later export carries the table's version; the generated spoils file does",
+      "2026-10-04-grove-spoils.json" not in applying and "spoils-midlands.json" in applying
+      and grove["appliesTo"]["world"] == "midlands" and grove["appliesTo"]["exportedAtOrBefore"] < suite.mirror_stamp("midlands"), str(applying))
+spoils = read(ROOT / "Reputation-Matrix2/actors/changes/spoils-midlands.json")
+check("the generated spoils file is scoped to the export it was written against",
       spoils["appliesTo"]["world"] == "midlands" and spoils["appliesTo"]["exportedAtOrBefore"] == suite.mirror_stamp("midlands"))
-check("the spoils file sets no XP (the ledger pin owns that)", not any("set" in c for c in spoils["changes"]))
+check("the spoils files set no XP (the ledger pin owns that)", not any("set" in c for c in spoils["changes"] + grove["changes"]))
 check("packets are git-ignored build artefacts",
       "Reputation-Matrix2/actors/worlds/*/import.json" in (ROOT / ".gitignore").read_text(encoding="utf-8")
       and "Reputation-Matrix2/actors/worlds/*/players-import.json" in (ROOT / ".gitignore").read_text(encoding="utf-8"))
@@ -110,9 +115,9 @@ n_mirror = read(ROOT / "Reputation-Matrix2/actors/worlds/midlands/manifest.json"
 n_cast = read(ROOT / "Reputation-Matrix2/actors/cast/import.json")["actorCount"]
 n_era = sum(read(ROOT / f"Reputation-Matrix2/actors/{d}/import.json")["actorCount"] for d in ("peachs-castle-955", "bowsers-castle-1035"))
 omitted = everything.get("omitted") or []
-check("…the built packet holds the live world + cast + the era packets (955 BF court, 1035 BF castle); an era copy the world already has (same name + type) is left out and listed",
+check("…the built packet holds the live world + cast + the era packets (955 BF court, 1035 BF castle); a cast or era copy the world already has (same name + type) is left out and listed",
       everything["actorCount"] == n_mirror + n_cast + n_era - len(omitted) and len(omitted) >= 10 and ("koopatrol", "npc") in names and ("bowser (955 bf)", "character") in names
-      and all(o["keptFrom"] == "Reputation-Matrix2/actors/worlds/midlands" and o["file"].startswith(("Reputation-Matrix2/actors/peachs-castle-955/", "Reputation-Matrix2/actors/bowsers-castle-1035/")) for o in omitted)
+      and all(o["keptFrom"] == "Reputation-Matrix2/actors/worlds/midlands" and o["file"].startswith(("Reputation-Matrix2/actors/cast/", "Reputation-Matrix2/actors/peachs-castle-955/", "Reputation-Matrix2/actors/bowsers-castle-1035/")) for o in omitted)
       and len({(o["name"].lower(), o["type"]) for o in omitted} & names) == len(omitted), str(omitted)[:200])
 check("…every folder in it is coloured (groups, Bestiary types, Players, the era) and none is a one-actor sub-folder",
       all(f.get("color") for f in everything["folders"])
@@ -141,7 +146,7 @@ for promo in promote.PROMOTIONS:
         continue
     path, doc = live
     src = exported[aid]
-    check(f"{name}: the export had him as an NPC", src["type"] == "npc")
+    check(f"{name}: the world has taken the promotion (the committed export carries the character sheet under the live id; the record says what was done)", src["type"] == "character" and (src["flags"].get("waluipedia-sheets") or {}).get("promoted", {}).get("mode") == promo["mode"], src["type"])
     check(f"{name}: ownership kept from the world (the players keep access)", doc["ownership"] == src["ownership"])
     check(f"{name}: the GM's art kept", doc["img"] == src["img"] and doc["prototypeToken"]["texture"]["src"] == src["prototypeToken"]["texture"]["src"])
     check(f"{name}: token linked to the actor", doc["prototypeToken"]["actorLink"] is True)
@@ -165,7 +170,8 @@ check("Salam: standard array, saves and class HP as recorded",
       and [k for k, v in salam["system"]["abilities"].items() if v["proficient"]] == ["str", "dex"]
       and salam["system"]["attributes"]["hp"]["max"] == 25)
 check("Salam: the assumptions are written into the biography for the player", "Promoted from an NPC statblock" in salam["system"]["details"]["biography"]["value"])
-check("Salam: the NPC automation flag is gone", "5e-npc-combat-automation" not in salam["flags"])
+check("Salam: the promotion record is on the sheet and the class item is a real Ranger (the automation flag the NPC statblock carried is the world's business once it has taken the sheet)",
+      (salam["flags"].get("waluipedia-sheets") or {}).get("promoted", {}).get("mode") == "convert" and any(it["type"] == "class" and it["name"] == "Ranger" for it in salam["items"]))
 bowser = by_id["9u5pnP0zaqw8AQQv"][1]
 warlord = next(iter(mirror.rglob("fvtt-Actor-bowser-warlord-of-darkland-d1qwl5RJ3yk6THBe.json")), None)
 check("Bowser: the Darkland warlord statblock is untouched (filed under Koopa Troop by the organizer)", warlord is not None and read(warlord)["type"] == "npc" and warlord.parent.name == "Koopa Troop")
@@ -199,9 +205,17 @@ check("the new items use icons the repo can see", sphere[0]["img"] in lib and in
 index = read(ROOT / "Reputation-Matrix2/data/sheets.json")
 entry = {s["id"]: s for s in index["sheets"]}
 check("the index resolves Bowser, Wario and Salam to live character sheets", all(entry[i]["source"] == "live" and entry[i]["kind"] == "pc" for i in ("bowser", "wario", "salam")))
-check("Mario and Luigi keep their hand-authored PC sheets with the GM's statblocks as alternates",
-      all(entry[i]["source"] == "generated" and entry[i]["kind"] == "pc" and any(a["source"] == "live" and a["kind"] == "npc" for a in entry[i]["alternates"]) for i in ("mario", "luigi")))
-check("every public live sheet is a PC sheet apart from the companions", all(s["kind"] == "pc" for s in index["sheets"] if s["party"] and s["source"] == "live" and s["id"] not in ("mossy", "usk")))
+check("Mario and Luigi: the world has taken their hand-authored sheets (live character sheets now), the GM's statblocks ride as alternates — and neither is party: a character sheet is not a player character",
+      all(entry[i]["source"] == "live" and entry[i]["kind"] == "pc" and not entry[i]["party"] and any(a["source"] == "live" and a["kind"] == "npc" for a in entry[i]["alternates"]) for i in ("mario", "luigi")),
+      str({i: (entry[i]["source"], entry[i]["kind"], entry[i]["party"], entry[i].get("file")) for i in ("mario", "luigi")}))
+suite_roster = read(ROOT / "Reputation-Matrix2/actors/folders.json")["players"]["roster"]
+roster_ids = {r["character"] for r in suite_roster}
+check("1.9: every roster character is public, resolved to the player's own live sheet (by id, not name — Feyward Dan is not the Liberated Toads' Dan)",
+      all(entry[r["character"]]["party"] and entry[r["character"]]["source"] == "live" and entry[r["character"]]["file"].endswith(f"-{r['actor']}.json") and entry[r["character"]]["kind"] == "pc" for r in suite_roster),
+      str([(r["character"], entry.get(r["character"], {}).get("file")) for r in suite_roster]))
+check("1.9: the party is the roster plus the ledger's / affiliation's allies (Bones, Mossy, Roger, Ryan, Smoking J, Usk) — nobody is party for carrying a character sheet",
+      set(index["meta"]["party"]) == roster_ids | {"bones", "mossy", "roger", "ryan", "smoking_j", "usk"} and not any((s.get("partyWhy") or "") == "player character sheet" for s in index["sheets"])
+      and all(not entry[i]["party"] for i in ("kirby", "sans", "mario", "luigi", "king_dedede", "toriel") if i in entry), str(sorted(index["meta"]["party"])))
 
 # ---- start.py wiring ------------------------------------------------------
 start = (ROOT / "start.py").read_text(encoding="utf-8")
@@ -260,6 +274,29 @@ try:
 finally:
     suite.say, suite.one_pass = _orig_say, _orig_pass
 check("a crash inside a watched pass is reported, not fatal", survived and any("RuntimeError: boom in a step" in t for t in _said), " | ".join(_said)[:300])
+# 1.9: a pass writes the spoils changes file; the watcher must not take its own output for a new input (it re-ran itself every ~12 s)
+with tempfile.TemporaryDirectory() as tmp:
+    _cd, _inv, _pl = suite.CHANGES_DIR, suite.INVENTORY_JSON, suite.PLAYERS_JSON
+    suite.CHANGES_DIR, suite.INVENTORY_JSON, suite.PLAYERS_JSON = os.path.join(tmp, "changes"), os.path.join(tmp, "inventory.json"), os.path.join(tmp, "Players.json")
+    os.makedirs(suite.CHANGES_DIR)
+    spoils_path = os.path.join(suite.CHANGES_DIR, "spoils-midlands.json")
+    try:
+        with open(spoils_path, "w") as fh:
+            fh.write("{}")
+        seen0 = suite.watch_inputs("midlands", downloads="")
+        os.utime(spoils_path, (1, 1))  # "the pass rewrote it"
+        seen1 = suite.own_outputs_seen(seen0, "midlands", downloads="")
+        settled = suite.watch_inputs("midlands", downloads="") == seen1
+        tmp_inv = suite.INVENTORY_JSON
+        with open(tmp_inv, "w") as fh:
+            fh.write("{}")
+        seen2 = suite.own_outputs_seen(seen1, "midlands", downloads="")
+    finally:
+        suite.CHANGES_DIR, suite.INVENTORY_JSON, suite.PLAYERS_JSON = _cd, _inv, _pl
+    check("own_outputs_seen takes the pass's own outputs (changes/*.json, the registry) as seen, so the next poll is quiet", spoils_path in seen0 and settled and tmp_inv not in seen1 and tmp_inv in seen2, str((spoils_path in seen0, settled, tmp_inv in seen1, tmp_inv in seen2)))
+    check("…and the watcher calls it after every pass", suite_src.count("seen = own_outputs_seen(seen, world, downloads, extra)") == 3 and "def own_outputs_seen(" in suite_src)
+    check("spoils-to-changes leaves an unchanged file alone (same bytes → not rewritten, mtime untouched) and says so",
+          "if fh.read() == text:" in (ROOT / "tools/spoils-to-changes.py").read_text(encoding="utf-8") and "unchanged" in (ROOT / "tools/spoils-to-changes.py").read_text(encoding="utf-8").split("def main(")[1])
 
 # ---- publishing into the Foundry Data folder (what Sync reads first) -----
 # The GM imported the wrong file by URL and nothing in Foundry's Data folder
@@ -389,13 +426,32 @@ with tempfile.TemporaryDirectory() as tmp:
     info6 = read(os.path.join(dest, "packets.json"))
     check("packets.json carries artBase + artProbe when the packets reference art by URL (and null without)",
           ok6 and info6["artBase"] == "http://100.64.0.9:8765/" and info6["artProbe"] == "http://100.64.0.9:8765/favicon.ico" and info3.get("artBase") is None, json.dumps(info6))
-    check("art_base_for: default loopback on the site's port; --art-base / WALUIPEDIA_ART_BASE win, get a scheme and one trailing slash; '' / copy / off = None",
-          suite.art_base_for(8765, environ={}) == "http://127.0.0.1:8765/" and suite.art_base_for(8765, "100.64.0.9:9000", environ={}) == "http://100.64.0.9:9000/"
+    check("1.9: art_base_for defaults to None — the art is COPIED into Data (the URL plan did not work at the table); a URL is the opt-in via --art-base / WALUIPEDIA_ART_BASE, with a scheme and one trailing slash; '' / copy / off = None",
+          suite.art_base_for(8765, environ={}) is None and suite.art_base_for(8765, "100.64.0.9:9000", environ={}) == "http://100.64.0.9:9000/"
           and suite.art_base_for(8765, None, environ={"WALUIPEDIA_ART_BASE": "https://gm.tail1234.ts.net:8765//"}) == "https://gm.tail1234.ts.net:8765/"
           and suite.art_base_for(8765, "copy", environ={}) is None and suite.art_base_for(8765, "", environ={"WALUIPEDIA_ART_BASE": "x"}) is None and suite.art_base_for(8765, None, environ={"WALUIPEDIA_ART_BASE": "off"}) is None)
-    check("the suite wires the art base through combine (--art-base) and publishes with prune-images --write instead of install-images",
+    check("by default the publish step copies the art (install-images); prune-images runs only with the opt-in art base",
           '"combine"] + sources + ["--out", os.path.relpath(whole, ROOT), "--world", world] + art' in suite_src and '"prune-images", "--foundry-data", foundry_data, "--art-base", art_base, "--write"' in suite_src
-          and "elif images:" in suite_src and '"install-images"' in suite_src and 'ap.add_argument("--art-copy"' in suite_src)
+          and "if images and art_base:" in suite_src and "elif images:" in suite_src and '"install-images"' in suite_src and 'ap.add_argument("--art-copy"' in suite_src
+          and "None if args.art_copy else art_base_for(args.port, args.art_base)" in suite_src)
+    # the gate: publish and git only after every check passed; the combined packets are checked as Foundry will see them
+    check("1.9: the pass checks the combined packets (check-packet) and verifies BEFORE publishing, and publishes / commits only when everything passed",
+          0 < one_pass_src.find("step_combine(") < one_pass_src.find("step_check_packets(") < one_pass_src.find('TOOLS["check_sheets"]') < one_pass_src.find('TOOLS["promote"], "--check"') < one_pass_src.find("step_publish(")
+          and "if ok:\n            ok = step_publish(" in one_pass_src and "publish  : skipped — a check failed" in one_pass_src and "nothing committed, nothing pushed" in one_pass_src
+          and '"check-packet"' in suite_src and '["--allow-art-url"] if art_base else []' in suite_src)
+    _said2, _ran = [], []
+    _saved = suite.say, suite.run, suite.step_publish
+    suite.say, suite.run = _said2.append, (lambda argv, label, check=True: (_ran.append((label, list(argv))) or (label not in ("check",), "")))
+    suite.step_publish = lambda *a, **k: (_ for _ in ()).throw(AssertionError("published after a failed check"))
+    try:
+        gate_ok = suite.one_pass("midlands", False, 8765, "", {"publish": True, "data": os.devnull}, False)
+    except AssertionError as exc:
+        gate_ok = str(exc)
+    finally:
+        suite.say, suite.run, suite.step_publish = _saved
+    check("a failed check step ends the pass FAILED, skips publish with a reason, and never reaches step_publish",
+          gate_ok is False and any("publish  : skipped — a check failed" in t for t in _said2) and any("FAILED" in t for t in _said2) and any(l == "check" for l, _ in _ran), " | ".join(_said2)[-400:])
+    check("…and the git leg says so rather than committing", gate_ok is False and not any("git      : committed" in t for t in _said2), " | ".join(_said2)[-300:])
 
 check("start.py passes --foundry-data through to the suite (flag, remembered pref, GUI entry)", '"--foundry-data", foundry_data' in start and '"foundry_data": ""' in start and 'v_fd = tk.StringVar' in start and 'parser.add_argument("--foundry-data"' in start)
 check("start.py --help documents --foundry-data", "--foundry-data DIR" in helptext.stdout)
@@ -415,6 +471,26 @@ except UnicodeDecodeError:
 check("the check pass is green and UTF-8 even when the terminal is cp1252", cp.returncode == 0 and "done" in cp_text and "—" in cp_text and "UnicodeEncodeError" not in cp_text, cp.stdout[-400:].decode("utf-8", "replace"))
 pro = subprocess.run([PY, str(ROOT / "tools/promote-player-sheets.py"), "--check"], cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
 check("tools/promote-player-sheets.py --check passes and flags Hjumpik's pending level-up", pro.returncode == 0 and "Hjumpik" in pro.stdout and "level up in Foundry" in pro.stdout, pro.stdout[-400:])
+
+# ---- 1.9: a character sheet in Players/ that is not on the roster (the 2026-10-06 mistake, 34 of them)
+# is an error for --check (the verify step, after the organizer) and a warning right after a write
+# (the organizer is the next step of the same pass) — the pass heals in one go instead of failing on itself.
+with tempfile.TemporaryDirectory() as tmp:
+    mirror_copy = os.path.join(tmp, "midlands")
+    shutil.copytree(promote.MIRROR, mirror_copy)
+    kirby_src = next(p for p in glob.glob(os.path.join(mirror_copy, "*", "fvtt-Actor-kirby-*.json")))
+    shutil.move(kirby_src, os.path.join(mirror_copy, "Players", os.path.basename(kirby_src)))
+    saved = (promote.MIRROR, promote.PLAYERS_DIR)
+    promote.MIRROR, promote.PLAYERS_DIR = mirror_copy, os.path.join(mirror_copy, "Players")
+    try:
+        strict_err, strict_warn = promote.run_check(xp)
+        soft_err, soft_warn = promote.run_check(xp, placement="warn")
+    finally:
+        promote.MIRROR, promote.PLAYERS_DIR = saved
+    check("1.9: Kirby (a character sheet) in Players/ fails the --check verdict — not on the roster",
+          len(strict_err) == 1 and "Kirby" in strict_err[0] and "not on the party roster" in strict_err[0], str(strict_err)[:300])
+    check("1.9: the same mirror right after a write is a warning (the organizer files him back in the same pass), never an error",
+          soft_err == [] and any("Kirby" in w and "not on the party roster" in w for w in soft_warn), str(soft_err)[:300])
 
 # ---- v1.7: the git leg (a throwaway origin + two clones; the suite's helpers pointed at one of them)
 with tempfile.TemporaryDirectory() as tmp:

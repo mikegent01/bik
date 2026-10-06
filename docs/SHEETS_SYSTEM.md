@@ -54,21 +54,38 @@ merges that packet with the world mirror and the 955 BF packet into the one
 visible(sheet)  =  sheet.party === true  ||  debugOn()
 ```
 
-`party` is decided by the builder, not by hand, from two facts the archive
+`party` is decided by the builder, not by hand, from three facts the archive
 already keeps:
 
-1. the XP ledger's faction — `disaster_inc` or `disaster_inc_allies` in
+1. the **party roster** — `Reputation-Matrix2/actors/folders.json` →
+   `players.roster`: one row per player character (live Foundry id, sheet
+   name, website id, ledger key; Green T `offLedger`), plus
+   `players.companions` (the motorbike, the Steel Defender). This is the one
+   list every tool reads: `is_party`, `match_existing` (the row's live sheet
+   is the article's primary sheet, matched by id — Feyward Dan is not the
+   Liberated Toads' *Dan*), the organizer (roster → Players, tagged `pc`),
+   `promote-player-sheets.py`, the bridge's `check` / `check-packet`;
+2. the XP ledger's faction — `disaster_inc` or `disaster_inc_allies` in
    `index.html`'s `XP_SUMMARY` (the same table the Characters tab prints);
-2. the article's `affiliation` field naming Disaster Inc.
+3. the article's `affiliation` field naming Disaster Inc.
 
-Eighteen sheets pass: Archie, Bones, Bowser, Dan (the Toad), Eager, Green T,
-Hjumpik, Markop, Mossy, Remi, Roger, Ryan, Salam, Smoking J, Toad Lee, Usk,
-Waluigi, Wario (a live `character` sheet admits its owner too — that is how
-Salam joined when his statblock was promoted). They are grouped under
-*Disaster Inc.* and each entry carries a
-`partyWhy` saying which fact admitted it. `tools/check-sheets.py` fails if
-the committed flag disagrees with the rule, so nobody can be made public by
-editing the JSON.
+Eighteen sheets pass: the twelve roster characters (Archie, Bowser, Dan the
+Toad, Eager, Green T, Hjumpik, Markop, Remi, Salam, Toad Lee, Waluigi, Wario)
+and the allies the ledger / affiliation admit (Bones, Mossy, Roger, Ryan,
+Smoking J, Usk). They are grouped under *Disaster Inc.* and each entry
+carries a `partyWhy` saying which fact admitted it. `tools/check-sheets.py`
+fails if the committed flag disagrees with the rule, if a roster character is
+not public or not resolved to its live sheet, or if anyone is party "by sheet
+type" — so nobody can be made public by editing the JSON.
+
+**What is not a fact: the dnd5e sheet type.** From the first Character Sheets
+build until module 1.9 a fourth rule read "a live `character` sheet admits
+its owner" (how Salam joined when his statblock was promoted). The GM builds
+NPCs on character sheets too — Mario, Luigi, Kirby, Sans, Toriel, thirty-odd
+of them — and the rule made every one of them a public party member, which
+the organizer then filed into *Players* and tagged `pc`. The rule is gone;
+the roster replaced it. (`kind: "pc"` in the index still means *rendered as a
+character sheet*, which is a layout fact, not a party one.)
 
 Debug mode is the site's existing toggle (`localStorage['waluipedia-debug-v1']`,
 `debugOn()` / `toggleDebug()` in `index.html`). When it flips, `toggleDebug`
@@ -365,23 +382,33 @@ there: the packets (`npc/waluipedia/<world>/players-import.json`,
 `import.json`, `manifest.json`, `packets.json` with the stamps; the cast
 packet under `npc/waluipedia/cast/`), the Mass Import module itself
 (`modules/waluipedia-mass-import/`, kept identical to the checkout — the
-gh-pages zip lags until the branch merges), and — until 1.8 — every
-repo-held image the sheets reference, copied to the same relative paths
-(`portraits/…`, `assets/images/…`). Nothing in the repo moves.
+gh-pages zip lags until the branch merges), and every repo-held image the
+sheets reference, copied to the same relative paths (`portraits/…`,
+`assets/images/…`; `foundry-bridge.py install-images`, only files that are
+missing or differ). Nothing in the repo moves. **Publish runs last and only
+when every check passed** — the mirror's `check`, the combined packets'
+`check-packet` (ids, dnd5e identifiers, ownership maps, art paths, the roster
+rules), `check-sheets.py`, `promote-player-sheets.py --check`; a failed step
+ends the pass `FAILED`, nothing is copied into Data, and `--git-sync` commits
+and pushes nothing.
 
-**Art by URL (module 1.8, suite `--art-base`).** Those copies were the same
-bytes twice (36 MB of them on the GM's disk, and once more per machine that
-imports). Foundry's `img` and `prototypeToken.texture.src` accept absolute
-URLs, and `start.py` already answers with `Access-Control-Allow-Origin: *`
-(the canvas needs it for token textures), so the combine step now writes the
-repo's art as URLs on the archive's own server:
+**Art by URL (module 1.8, suite `--art-base`) — an opt-in since 1.9.** The
+copies are the same bytes twice (36 MB of them on the GM's disk, and once
+more per machine that imports). Foundry's `img` and
+`prototypeToken.texture.src` accept absolute URLs, and `start.py` already
+answers with `Access-Control-Allow-Origin: *` (the canvas needs it for token
+textures), so 1.8 made the combine step write the repo's art as URLs on the
+archive's own server — and at the table that did not work: with `start.py`
+down every portrait and token was blank, players elsewhere could not reach
+`127.0.0.1`, and the console filled with `HEAD …/favicon.ico` refusals. The
+default is the copy again; with `--art-base` the combine step writes:
 `http://<host>:8765/Reputation-Matrix2/portraits/player/fullbody/remi.png`
 (`foundry-bridge.py art_url`; 464 image fields in the midlands packet, the
 live players' own uploads under `npc/…` and `player/…` untouched). The host
-is `127.0.0.1` unless the launcher is *reachable from other machines*, when it
-is the Tailscale address (a node's `100.x` does not churn, so the packets do
-not either) else the LAN one; `--art-base URL` / `WALUIPEDIA_ART_BASE`
-override, `--art-base copy` (suite `--art-copy`) is the old behaviour.
+comes from `--art-base URL` / `WALUIPEDIA_ART_BASE` (`start.py --art-base
+auto` picks the Tailscale address when the launcher is *reachable from other
+machines* — a node's `100.x` does not churn, so the packets do not either —
+else the LAN one, else `127.0.0.1`); blank / `copy` is the default copy.
 Three things keep it honest: the module re-points **placed tokens** when an
 actor's prototype token moves (they copied the Data path when dropped), every
 **export back lists `imagesInUse`** (scene backgrounds, placed tokens, tiles,
@@ -398,16 +425,20 @@ the exposed address; `packets.json` carries `artBase` + `artProbe`, which the
 module HEADs at load — the GM and each player get one yellow toast when the
 server is not answering (with the fix: start `start.bat`; tick *reachable from
 other machines*; ask the GM). A GM who syncs from GitHub without the suite
-gets Data paths as before; the next suite pass republishes with URLs and the
-sync shows the moved images as changed rows.
+gets Data paths as before. With the default (copy) `packets.json` says
+`artBase: null`, the module probes nothing, and `check-packet` treats a
+repo-art or loopback URL in a packet as an error (`--allow-art-url` lifts
+that for the opt-in).
 
 The GM's side, in Foundry, is now **one click: Actors sidebar → Sync**
 (module 1.3). It looks in the Data folder first, then the launcher URL
 (`http://127.0.0.1:8765/Reputation-Matrix2/actors/worlds/midlands/players-import.json`),
 then GitHub (the committed `manifest.json` + `Players/*.json` on
 `gh-pages`), takes the first that answers, rebuilds the folders from each
-actor's `folderPath`, creates / updates in place / replaces by type
-(Bowser / Wario / Salam: `npc → character`, same id, ownership kept) and
+actor's `folderPath`, creates / updates in place (a type change is reported
+as skipped unless *replace on type change* is ticked — Bowser / Wario /
+Salam's `npc → character` promotions went through that way, same id,
+ownership kept) and
 ends with a summary — replaced, changed, new, unchanged; per actor the XP
 change, class line, `+ The Electric Sphere`, folder moves; a *Level up at
 the table* line when the ledger is ahead (Hjumpik 6 → 7 is the players'

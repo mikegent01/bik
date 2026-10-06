@@ -21,7 +21,9 @@ One pass, in order (each step is skipped when there is nothing to do):
             (generated; the loot step of filing an event is one registry line).
   changes   every ``actors/changes/*.json`` whose ``appliesTo`` still covers
             the mirror's export (spoils of war, injuries) → ``apply --write``.
-  check     ``foundry-bridge.py check`` on the mirror (never writes).
+  check     ``foundry-bridge.py check`` on the mirror (never writes): ids,
+            identifiers, item ownership, art paths, and the party roster —
+            who sits in Players and who carries a character sheet.
   build     ``build-character-sheets.py`` → data/sheets.json + the cast packet.
   combine   actors/worlds/<world>/import.json — ONE packet with everything:
             the world mirror, the generated cast and the era packets
@@ -29,29 +31,36 @@ One pass, in order (each step is skipped when there is nothing to do):
             name and type left out of the later sources — plus
             players-import.json (the Players folder only, for a quick
             player-sheet refresh). Both are git-ignored build artefacts.
-  publish   into Foundry's own Data folder when it can be found (--foundry-data,
-            WALUIPEDIA_FOUNDRY_DATA, FOUNDRY_VTT_DATA_PATH, or the OS default
-            such as %LOCALAPPDATA%\FoundryVTT\Data): the packets + manifest +
+            ``foundry-bridge.py check-packet`` then checks the packets as
+            Foundry will see them.
+  verify    ``check-sheets.py`` and ``promote-player-sheets.py --check``.
+  publish   ONLY when every step above passed — a packet that fails its
+            checks never reaches Foundry. Into Foundry's own Data folder when
+            it can be found (--foundry-data, WALUIPEDIA_FOUNDRY_DATA,
+            FOUNDRY_VTT_DATA_PATH, or the OS default such as
+            %LOCALAPPDATA%\\FoundryVTT\\Data): the packets + manifest +
             packets.json under Data/npc/waluipedia/<world>/ (the module's
             Sync button reads them from there, no URL needed), the Mass
             Import module itself under Data/modules/ (so Foundry runs the
-            version in this checkout). The art the sheets reference is NOT
-            copied: the packets name it by URL on the archive's own server
-            (--art-base, default http://127.0.0.1:<port>/ — start.py passes
-            the tailnet / LAN address when it is exposed), one file for the
-            website and every Foundry client; the copies older passes made
-            under Data/portraits and Data/assets/images are removed once the
-            world no longer points at them and the server serves the same
-            bytes (foundry-bridge.py prune-images; --art-copy keeps the old
-            copying behaviour instead). Then it asks the
-            running Foundry server (Config/options.json's port, default
-            30000, or --foundry-url) which module version IT serves, and says
-            plainly whether the Data folder written to is the one Foundry
-            uses and whether the world must be relaunched.
-  verify    ``check-sheets.py`` and ``promote-player-sheets.py --check``.
+            version in this checkout), and the art the sheets reference —
+            portraits, tokens, item icons — copied from the repo into
+            Data/portraits and Data/assets/images (foundry-bridge.py
+            install-images: only files that are missing or differ are
+            written). Then it asks the running Foundry server
+            (Config/options.json's port, default 30000, or --foundry-url)
+            which module version IT serves, and says plainly whether the
+            Data folder written to is the one Foundry uses and whether the
+            world must be relaunched.
+  git       (--git-sync) ONLY when the pass passed: commit the suite's own
+            files and push the current branch.
 
 Then it prints where everything is served (the site's #/sheets route and the
 packet URLs to paste into Mass import → URL).
+
+Art by URL (``--art-base``) is an opt-in: the packets then name the art on
+the archive's own server and nothing is copied. It needs that server
+reachable from every Foundry client whenever Foundry is open; the default is
+the copy.
 
     python3 tools/sheets-suite.py                 # one pass
     python3 tools/sheets-suite.py --watch         # keep running; re-run when an export / Players.json / a changes file changes
@@ -501,9 +510,8 @@ def packets_info(world, port, packet_files, published_at, digest=None, art_base=
         "publishedBy": "tools/sheets-suite.py",
         "digest": digest or packets_digest(packet_files),
         "packets": {k: os.path.basename(v) for k, v in packet_files.items()},
-        # 1.8: the packets' portraits, tokens and item icons are URLs under
-        # artBase (start.py's server). The module HEADs artProbe at load and
-        # says so when the server is not answering.
+        # null in the default (copy) mode: the art sits in Data. Only with
+        # --art-base do the packets name it by URL, and then this says where.
         "artBase": art_base or None,
         "artProbe": (art_base.rstrip("/") + "/favicon.ico") if art_base else None,
         "launcher": {"everything": u["everything"], "players": u["players"], "sheets": u["sheets"]},
@@ -542,10 +550,11 @@ def read_json_quiet(path):
 def step_publish(world, write, port, foundry_data, how, install=True, images=True, foundry_url=None, art_base=None):
     """Put the packets where Foundry can see them without a URL — the Data
     folder — keep the Mass Import module there current, and see to the art:
-    with `art_base` the packets point at the archive's server and the Data
-    copies older passes made are pruned once nothing needs them; without it
-    (--art-copy) the repo-held art the sheets reference is copied into Data.
-    Nothing here touches the repo."""
+    the repo-held art the sheets reference is copied into Data (install-images,
+    missing or differing files only); with the opt-in `art_base` the packets
+    point at the archive's server instead and the Data copies are pruned once
+    nothing needs them. Nothing here touches the repo. The caller runs this
+    only after every check passed."""
     if not foundry_data:
         say(f"  publish  : Foundry Data folder {how} — Sync in Foundry falls back to the launcher URL, then GitHub"
             "  (point at it with --foundry-data or WALUIPEDIA_FOUNDRY_DATA)")
@@ -758,13 +767,16 @@ def git_commit_and_push(world, stamp=None, push=True):
 
 
 def art_base_for(port, explicit=None, environ=None):
-    """Where the packets say the art lives: --art-base, else WALUIPEDIA_ART_BASE,
-    else this machine's loopback on the site's port. "" / "copy" = no URLs
-    (the pre-1.8 copying behaviour)."""
+    """Where the packets say the art lives. None (the default) = the art is
+    copied into Foundry's Data folder and the packets name it by Data path.
+    A URL comes only from --art-base or WALUIPEDIA_ART_BASE (opt-in: the
+    archive's server must then be reachable from every Foundry client);
+    "" / "copy" / "none" / "off" mean the default. `port` is kept for the
+    callers that pass it."""
     env = os.environ if environ is None else environ
     raw = explicit if explicit is not None else env.get("WALUIPEDIA_ART_BASE")
     if raw is None:
-        return f"http://127.0.0.1:{port}/"
+        return None
     raw = str(raw).strip()
     if raw.lower() in ("", "copy", "none", "off"):
         return None
@@ -773,10 +785,26 @@ def art_base_for(port, explicit=None, environ=None):
     return raw.rstrip("/") + "/"
 
 
+def step_check_packets(world, write, art_base=None):
+    """The combined packets as Foundry will see them (ids, identifiers,
+    ownership, art, the party roster) — the gate before anything is published."""
+    if not write:
+        say("  packets  : (skipped under --check; packets are build artefacts)")
+        return True
+    whole, pl = packet_paths(world)
+    present = [os.path.relpath(p, ROOT) for p in (whole, pl) if os.path.exists(p)]
+    if not present:
+        say("  packets  : no packet to check")
+        return False
+    argv = [TOOLS["bridge"], "check-packet"] + present + (["--allow-art-url"] if art_base else [])
+    return run(argv, "packets")[0]
+
+
 def one_pass(world, write, port, downloads=None, foundry=None, git_sync=False):
     """foundry: {"data": explicit path or None, "install": bool, "images": bool, "publish": bool,
-    "art_base": URL the packets reference repo art under (None = copy it into Data)}
-    git_sync: pull (fast-forward) before, commit + push the suite's own files after."""
+    "art_base": None = copy the art into Data (default); a URL = the packets reference repo art under it}
+    git_sync: pull (fast-forward) before, commit + push the suite's own files after.
+    Publishing and the git step happen only when every check passed."""
     f = {"data": None, "install": True, "images": True, "publish": True, "art_base": art_base_for(port), **(foundry or {})}
     t0 = time.time()
     say(f"sheets-suite: {'pass' if write else 'check'} for world {world!r} — {time.strftime('%H:%M:%S')}")
@@ -801,13 +829,17 @@ def one_pass(world, write, port, downloads=None, foundry=None, git_sync=False):
     ok = run([TOOLS["bridge"], "check", mirror], "check")[0] and ok
     ok = run([TOOLS["build"]] + ([] if write else ["--check"]), "build")[0] and ok
     ok = step_combine(world, write, f["art_base"]) and ok
-    if f["publish"]:
-        ok = step_publish(world, write, port, data_dir, how, install=f["install"], images=f["images"], foundry_url=f.get("url"), art_base=f["art_base"]) and ok
+    ok = step_check_packets(world, write, f["art_base"]) and ok
     ok = run([TOOLS["check_sheets"]], "verify")[0] and ok
     ok = run([TOOLS["promote"], "--check"], "verify")[0] and ok
+    if f["publish"]:
+        if ok:
+            ok = step_publish(world, write, port, data_dir, how, install=f["install"], images=f["images"], foundry_url=f.get("url"), art_base=f["art_base"]) and ok
+        else:
+            say("  publish  : skipped — a check failed; nothing was copied into Foundry's Data folder (fix the lines above and run again)")
     if git_sync and write:
         say("  git      : " + git_commit_and_push(world, stamp=mirror_stamp(world) if mirror_stamp(world) != stamp_before else None)[2] if ok
-            else "  git      : the pass failed — nothing committed")
+            else "  git      : the pass failed — nothing committed, nothing pushed")
     u = urls(world, port)
     say(f"  {'done' if ok else 'FAILED'}     : {time.time() - t0:.1f}s")
     if write:
@@ -817,8 +849,8 @@ def one_pass(world, write, port, downloads=None, foundry=None, git_sync=False):
         say(f"  packet   : {u['everything']}  (everything: world + cast + eras; Mass import → URL if you ever need it by hand)")
         say(f"  packet   : {u['players']}  (the Players folder only)")
         if f["art_base"]:
-            say(f"  art      : the packets name portraits, tokens and item icons by URL under {f['art_base']} — start.py must be running whenever Foundry is open"
-                + ("; that address is this machine only: tick 'reachable from other machines' in start.py (or --art-base http://<tailnet-or-LAN-host>:<port>/) for players elsewhere" if "127.0.0.1" in f["art_base"] or "localhost" in f["art_base"] else ""))
+            say(f"  art      : the packets name portraits, tokens and item icons by URL under {f['art_base']} (opt-in --art-base) — that server must be up whenever Foundry is open"
+                + ("; that address is this machine only: players elsewhere need a tailnet / LAN address, or drop --art-base and let the suite copy the art into Data" if "127.0.0.1" in f["art_base"] or "localhost" in f["art_base"] else ""))
         if export_dirs:
             say(f"  back     : the module exports the world to {os.path.join(export_dirs[0], f'{world}-all-actors.json')} after changes — this pass picks it up (--watch: by itself)")
     return ok
@@ -840,6 +872,22 @@ def watch_inputs(world, downloads=None, extra_dirs=()):
     return out
 
 
+def own_outputs_seen(seen, world, downloads=None, extra_dirs=()):
+    """A pass writes some of the files the watcher polls (the spoils changes
+    file, the export it just split): take their new mtimes as seen so the
+    pass does not re-trigger itself. Anything that landed meanwhile outside
+    the changes folder (a fresh export) still counts as changed."""
+    now = watch_inputs(world, downloads, extra_dirs)
+    out = dict(seen)
+    for p, m in now.items():
+        if os.path.dirname(p) == CHANGES_DIR or p in (PLAYERS_JSON, INVENTORY_JSON):
+            out[p] = m
+    for p in list(out):
+        if (os.path.dirname(p) == CHANGES_DIR) and p not in now:
+            out.pop(p, None)
+    return out
+
+
 def guarded_pass(world, port, downloads=None, foundry=None, git_sync=False):
     """A pass under --watch: a crash is reported like a failed step and the
     watcher stays up for the next export."""
@@ -858,6 +906,7 @@ def watch(world, port, interval, downloads=None, foundry=None, git_sync=False, g
     extra = [export_back_dir(data_dir, world)] if data_dir else []
     seen = watch_inputs(world, downloads, extra)
     guarded_pass(world, port, downloads, foundry, git_sync)
+    seen = own_outputs_seen(seen, world, downloads, extra)
     say(f"  watching : {len(seen)} input file(s) every {interval:g}s" + (f"; GitHub every {git_interval:g}s" if git_sync else "") + " — Ctrl-C to stop")
     last_git = time.time()
     while True:
@@ -871,6 +920,7 @@ def watch(world, port, interval, downloads=None, foundry=None, git_sync=False, g
             time.sleep(1.0)
             seen = watch_inputs(world, downloads, extra)
             guarded_pass(world, port, downloads, foundry, git_sync)
+            seen = own_outputs_seen(seen, world, downloads, extra)
             last_git = time.time()
         elif git_sync and time.time() - last_git >= git_interval:
             # GitHub moved (a merged PR, a newer module): pull and run a pass so the module / packets follow
@@ -881,6 +931,7 @@ def watch(world, port, interval, downloads=None, foundry=None, git_sync=False, g
                 say("  git      : " + msg)
                 seen = watch_inputs(world, downloads, extra)
                 guarded_pass(world, port, downloads, foundry, git_sync)
+                seen = own_outputs_seen(seen, world, downloads, extra)
 
 
 def main(argv=None):
@@ -897,10 +948,10 @@ def main(argv=None):
                     help="the running Foundry server, asked which module version it serves (default: WALUIPEDIA_FOUNDRY_URL, else http://127.0.0.1:<port in Config/options.json or 30000>)")
     ap.add_argument("--no-publish", action="store_true", help="do not copy the packets / module / art into Foundry's Data folder")
     ap.add_argument("--no-module-install", action="store_true", help="publish the packets but leave Data/modules alone")
-    ap.add_argument("--no-images", action="store_true", help="publish without touching the art in Data (no pruning, no copying)")
+    ap.add_argument("--no-images", action="store_true", help="publish without touching the art in Data (no copying)")
     ap.add_argument("--art-base", default=None, metavar="URL",
-                    help="the packets reference repo art by URL under this base — the archive's own server (default http://127.0.0.1:<port>/, or WALUIPEDIA_ART_BASE; start.py passes the tailnet / LAN address when exposed); 'copy' = copy the art into Data instead, the pre-1.8 way")
-    ap.add_argument("--art-copy", action="store_true", help="same as --art-base copy")
+                    help="opt-in: the packets reference repo art by URL under this base (the archive's own server, which every Foundry client must then reach) instead of the default — copying the art into Foundry's Data folder (also WALUIPEDIA_ART_BASE; 'copy' = the default)")
+    ap.add_argument("--art-copy", action="store_true", help="copy the art into Data (the default; overrides --art-base / WALUIPEDIA_ART_BASE)")
     ap.add_argument("--git-sync", action="store_true",
                     help="two-way with GitHub: pull (fast-forward) before a pass, commit + push the suite's own files (mirror, cast, sheets.json, root export) after; under --watch also poll GitHub every --git-interval seconds")
     ap.add_argument("--git-interval", type=float, default=300.0, help="seconds between GitHub polls under --watch --git-sync (default 300)")

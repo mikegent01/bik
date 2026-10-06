@@ -196,6 +196,23 @@ def main():
     party_ids = sorted(s["id"] for s in sheets if s.get("party"))
     if sorted(meta.get("party") or []) != party_ids:
         problems.append("meta.party does not match the public entries")
+    # the party roster (actors/folders.json players.roster): every row is a
+    # public entry whose primary sheet is the player's own live sheet — and
+    # the dnd5e sheet type never made anyone party (the GM builds NPCs on
+    # character sheets too)
+    by_id = {e["id"]: e for e in sheets}
+    for row in B.ROSTER["rows"]:
+        e = by_id.get(row.get("character"))
+        if not e:
+            problems.append(f"roster: {row.get('name')} ({row.get('character')}) has no sheet entry — is the website id right?")
+            continue
+        if not e.get("party"):
+            problems.append(f"{e['id']}: on the party roster but not public")
+        if row.get("actor") and not str(e.get("file") or "").endswith(f"-{row['actor']}.json") and e.get("source") == "live":
+            problems.append(f"{e['id']}: primary sheet {e.get('file')} is not the roster's live sheet ({row['actor']})")
+    for e in sheets:
+        if e.get("party") and (e.get("partyWhy") or "").strip() == "player character sheet":
+            problems.append(f"{e['id']}: party by sheet type alone — the roster decides who is a player character")
     counts = meta.get("counts") or {}
     if counts.get("sheets") != len(sheets) or counts.get("skipped") != len(skipped) or counts.get("generated") != generated:
         problems.append("meta.counts are stale")

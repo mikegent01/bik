@@ -500,11 +500,13 @@ check('pickDataPath opens a folder picker and writes the choice into the url box
   const plan = mod.buildPlan(promoted, { actors: game.actors.contents });
   check('buildPlan marks a same-id, different-type row as "replace" with the world type', plan[0].status === 'replace' && plan[0].existingType === 'npc' && plan[0].existingId === 'S1aaaaaaaaaaaaaa');
   check('planHtml shows the replace row with the type change', mod.planHtml(plan).includes('replace <small>(npc → character)</small>'));
-  const dry = await mod.importPayload(promoted, { dryRun: true, checkImages: false });
+  const dry = await mod.importPayload(promoted, { dryRun: true, checkImages: false, replaceOnTypeChange: true });
   check('dry run reports the replacement without touching the actor', dry.replaced.length === 1 && dry.replaced[0].from === 'npc' && dry.replaced[0].to === 'character' && game.actors.get('S1aaaaaaaaaaaaaa').type === 'npc');
   const off = await mod.importPayload(promoted, { replaceOnTypeChange: false, checkImages: false });
   check('replaceOnTypeChange=false skips with the reason', off.skipped.length === 1 && /type differs/.test(off.skipped[0].reason) && game.actors.get('S1aaaaaaaaaaaaaa').type === 'npc');
-  const rep = await mod.importPayload(promoted, { checkImages: false });
+  const byDefault = await mod.importPayload(promoted, { checkImages: false });
+  check('v1.9: replace on type change is OFF by default — the sheet being played is never deleted and recreated unless the GM ticks it; the skip names both types', mod.DEFAULTS.replaceOnTypeChange === false && byDefault.replaced.length === 0 && byDefault.skipped.length === 1 && /world npc, import character/.test(byDefault.skipped[0].reason) && game.actors.get('S1aaaaaaaaaaaaaa').type === 'npc', JSON.stringify(byDefault.skipped));
+  const rep = await mod.importPayload(promoted, { checkImages: false, replaceOnTypeChange: true });
   const salam = game.actors.get('S1aaaaaaaaaaaaaa');
   check('the actor is recreated under the same id as a character', rep.replaced.length === 1 && rep.created.length === 0 && rep.updated.length === 0 && salam?.type === 'character' && game.actors.size === 1);
   check('…keeping the world folder and ownership (the players keep access)', salam.folderId === playersFolder.id && game.folders.size === 1 && salam.ownership.P1aaaaaaaaaaaaaa === 3 && salam.ownership.GMaaaaaaaaaaaaaa === 3, JSON.stringify({ folder: salam.folderId, want: playersFolder.id, own: salam.ownership }));
@@ -514,10 +516,10 @@ check('pickDataPath opens a folder picker and writes the choice into the url box
   check('report HTML lists the replacement', mod.reportHtml(rep).includes('Replaced — same id, new type (1)') && mod.reportHtml(rep).includes('npc → character'));
   const again = await mod.importPayload(promoted, { checkImages: false });
   check('a second import of the same packet is a plain update', again.replaced.length === 0 && again.updated.length === 1 && game.actors.size === 1);
-  const own = await mod.importPayload({ actors: [{ ...promoted.actors[0], type: 'npc' }] }, { checkImages: false, overwriteOwnership: true });
+  const own = await mod.importPayload({ actors: [{ ...promoted.actors[0], type: 'npc' }] }, { checkImages: false, overwriteOwnership: true, replaceOnTypeChange: true });
   check('overwriteOwnership applies the import ownership on a replacement', own.replaced.length === 1 && game.actors.get('S1aaaaaaaaaaaaaa').ownership.P1aaaaaaaaaaaaaa === undefined);
   const legacy = structuredClone(promoted.actors[0]); delete legacy.flags['waluipedia-mass-import']; legacy.folder = 'nope000000000000';
-  const rl = await mod.importPayload({ actors: [legacy] }, { checkImages: false });
+  const rl = await mod.importPayload({ actors: [legacy] }, { checkImages: false, replaceOnTypeChange: true });
   check('an entry with only an unresolvable folder id keeps the world folder on replacement', rl.replaced.length === 1 && game.actors.get('S1aaaaaaaaaaaaaa').type === 'character' && game.actors.get('S1aaaaaaaaaaaaaa').folderId === playersFolder.id);
   game.actors.clear(); game.folders.clear();
 }
@@ -613,7 +615,7 @@ check('pickDataPath opens a folder picker and writes the choice into the url box
     return b?.callback ? b.callback({}, { form: null }) : (b?.action ?? null);
   } } };
 
-  const r = await mod.syncFromWaluipedia({ options: { checkImages: false } });
+  const r = await mod.syncFromWaluipedia({ options: { checkImages: false, replaceOnTypeChange: true } });
   check('v1.7: the button sync checked first and asked — the question names what waits, the preview is the summary, three answers', asked.length >= 1 && /^Sync — .*apply\?$/.test(asked[0].title) && /3 new/.test(asked[0].title) && /1 replaced/.test(asked[0].title) && /2 changed/.test(asked[0].title) && asked[0].actions.join() === 'apply,later,skip' && asked[0].content.includes('WAITING FOR YOUR OK') && asked[0].content.includes('Nothing has been written yet'), JSON.stringify(asked.map((a) => [a.title, a.actions])));
   check('sync falls through Data and the launcher to GitHub', r && r.sync.used.source === 'github' && r.sync.attempts.map((a) => `${a.source}:${a.ok}`).join() === 'data:false,launcher:false,github:true', JSON.stringify(r?.sync?.attempts));
   check('the GitHub route fetches every file the manifest lists, then the cast and era packets, and merges them (the era packet 404s → ignored, not fatal)', r.files.length === 5 && log.some((u) => u.includes('aemenor')) && r.sync.merged?.map((m) => `${m.label}:${m.actors}/${m.omitted}`).join() === 'world:5/0,cast:1/1' && r.ignored.some((i) => i.path.endsWith('peachs-castle-955/import.json')), JSON.stringify([r.files, r.sync.merged, r.ignored]));
@@ -848,7 +850,13 @@ check('pickDataPath opens a folder picker and writes the choice into the url box
   check('docDiff: identical documents give an empty update', Object.keys(d({ a: 1, system: { x: [1, 2], y: { z: 'q' } } }, { a: 1, system: { x: [1, 2], y: { z: 'q' } } })).length === 0);
   check('docDiff: only the changed leaf is sent', JSON.stringify(d({ system: { hp: { value: 3, max: 9 }, ac: 12 } }, { system: { hp: { value: 5, max: 9 }, ac: 12 } })) === '{"system":{"hp":{"value":5}}}');
   check('docDiff: schema keys the import lacks are left alone (no deletions)', Object.keys(d({ system: { identifier: 'toad', hp: 1 } }, { system: { hp: 1 } })).length === 0);
-  check('docDiff: flags, ownership and the activities map get -=key deletions', JSON.stringify(d({ flags: { x: { a: 1, b: 2 } }, ownership: { u1: 3 }, system: { activities: { A1: { t: 1 }, A2: { t: 2 } } } }, { flags: { x: { a: 1 } }, ownership: {}, system: { activities: { A1: { t: 1 } } } })) === '{"flags":{"x":{"-=b":null}},"ownership":{"-=u1":null},"system":{"activities":{"-=A2":null}}}');
+  check('docDiff: flags, ownership and the activities map get -=key deletions', JSON.stringify(d({ flags: { x: { a: 1, b: 2 } }, ownership: { U1aaaaaaaaaaaaaa: 3 }, system: { activities: { A1: { t: 1 }, A2: { t: 2 } } } }, { flags: { x: { a: 1 } }, ownership: {}, system: { activities: { A1: { t: 1 } } } })) === '{"flags":{"x":{"-=b":null}},"ownership":{"-=U1aaaaaaaaaaaaaa":null},"system":{"activities":{"-=A2":null}}}');
+  check('v1.9: docDiff never emits an ownership deletion DocumentOwnershipField refuses (-=default, a non-id key) — the rest of the update survives', JSON.stringify(d({ ownership: { default: 0, u1: 3, U1aaaaaaaaaaaaaa: 3 }, name: 'a' }, { ownership: {}, name: 'b' })) === '{"ownership":{"-=U1aaaaaaaaaaaaaa":null},"name":"b"}');
+  check('v1.9: withoutOwnership / stripEmbeddedOwnership drop ownership from embedded items and effects (and an item\'s own effects), touch nothing else', (() => {
+    const a = { name: 'x', ownership: { default: 0 }, items: [{ _id: 'I1', name: 'i', ownership: { default: 0, U1aaaaaaaaaaaaaa: 3 }, effects: [{ _id: 'E1', ownership: { default: 0 } }] }], effects: [{ _id: 'E2', ownership: { '-=default': null } }] };
+    mod.stripEmbeddedOwnership(a);
+    return a.ownership.default === 0 && !('ownership' in a.items[0]) && !('ownership' in a.items[0].effects[0]) && !('ownership' in a.effects[0]) && a.items[0].name === 'i' && mod.withoutOwnership(null) === null && mod.withoutOwnership({ n: 1 }).n === 1;
+  })());
   check('docDiff: arrays are replaced whole, _id never moves', JSON.stringify(d({ _id: 'a', list: [1, 2] }, { _id: 'b', list: [1, 3] })) === '{"list":[1,3]}');
 
   game.actors.clear(); game.folders.clear();
@@ -1030,6 +1038,24 @@ check('pickDataPath opens a folder picker and writes the choice into the url box
   const stubbornRep = await mod.importPayload({ actors: [{ _id: 'St1aaaaaaaaaaaaa', name: 'Stubborn', type: 'npc', img: 'icons/svg/mystery-man.svg', system: {}, flags: {}, items: [
     { _id: 'Bad1aaaaaaaaaaaa', name: 'Odd Thing', type: 'feat', img: 'icons/svg/item-bag.svg', system: { identifier: 'odd-thing' } }] }] }, { checkImages: false, progress: false });
   check('v1.5/1.7: when even the actor update is refused, a feat (not one of a kind) is deleted and created again under its own id', stubbornRep.failed.length === 0 && stubborn.items.get('Bad1aaaaaaaaaaaa')?.toObject().system.identifier === 'odd-thing' && stubborn.items.invalidDocumentIds.size === 0 && stubbornRep.updated[0].items.repaired === 1, JSON.stringify([stubbornRep.failed, stubbornRep.updated[0].items]));
+  // v14 as the GM saw it: the update through the actor is accepted and changes nothing — the item stays invalid. 1.8 counted that as
+  // "repaired (unverified)" and the world logged the same broken items on every load; 1.9 replaces the item instead.
+  const silent = await Actor.create({ _id: 'Si1aaaaaaaaaaaaa', name: 'Silent', type: 'npc', img: 'icons/svg/mystery-man.svg', system: {}, flags: {}, items: [
+    { _id: 'Bad4aaaaaaaaaaaa', name: 'Quiet Thing', type: 'feat', img: 'icons/svg/item-bag.svg', system: { identifier: 'quiet—thing' } }] }, { keepId: true });
+  const silentUpdate = silent.update.bind(silent);
+  silent.update = async (data, opts) => { if (data.items?.some((d) => d._id === 'Bad4aaaaaaaaaaaa')) return silent; return silentUpdate(data, opts); };
+  const silentRep = await mod.importPayload({ actors: [{ _id: 'Si1aaaaaaaaaaaaa', name: 'Silent', type: 'npc', img: 'icons/svg/mystery-man.svg', system: {}, flags: {}, items: [
+    { _id: 'Bad4aaaaaaaaaaaa', name: 'Quiet Thing', type: 'feat', img: 'icons/svg/item-bag.svg', system: { identifier: 'quiet-thing' } }] }] }, { checkImages: false, progress: false });
+  check('v1.9: an update the actor accepts without bringing the item back (v14) is not a repair — the item is deleted and created again under its id, valid, nothing "unverified"', silentRep.failed.length === 0 && silent.items.get('Bad4aaaaaaaaaaaa')?.toObject().system.identifier === 'quiet-thing' && silent.items.invalidDocumentIds.size === 0 && silentRep.updated[0].items.repaired === 1 && silentRep.updated[0].items.created === 1 && silentRep.reloadNeeded === 0 && (silent.embeddedDeletes ?? []).some((d) => d.includes?.('Bad4aaaaaaaaaaaa') || d.ids?.includes?.('Bad4aaaaaaaaaaaa') || JSON.stringify(d).includes('Bad4aaaaaaaaaaaa')), JSON.stringify([silentRep.failed, silentRep.updated[0].items, silent.embeddedDeletes]));
+  // embedded ownership: the server stamps the creating user on every world copy; the packet copy says {default: 0}.
+  // 1.8 diffed that into `-=<user>` / `-=default` and DocumentOwnershipField refused the whole batch (the 14 spoils items).
+  const owned = await Actor.create({ _id: 'Ow1aaaaaaaaaaaaa', name: 'Owned', type: 'character', img: 'icons/svg/mystery-man.svg', system: {}, flags: {}, items: [
+    { _id: 'Sp1aaaaaaaaaaaaa', name: 'Oracle Deck', type: 'loot', img: 'icons/svg/item-bag.svg', ownership: { default: 0, GMaaaaaaaaaaaaaa: 3 }, system: { quantity: 1 } }] }, { keepId: true });
+  const ownedRep = await mod.importPayload({ actors: [{ _id: 'Ow1aaaaaaaaaaaaa', name: 'Owned', type: 'character', img: 'icons/svg/mystery-man.svg', system: {}, flags: {}, items: [
+    { _id: 'Sp1aaaaaaaaaaaaa', name: 'Oracle Deck', type: 'loot', img: 'icons/svg/item-bag.svg', ownership: { default: 0 }, system: { quantity: 1 } },
+    { _id: 'Sp2aaaaaaaaaaaaa', name: 'Black Crystal', type: 'loot', img: 'icons/svg/item-bag.svg', ownership: { '-=default': null }, system: { quantity: 1 } }] }] }, { checkImages: false, progress: false });
+  const ownedUpdates = (owned.embeddedUpdates ?? []).flatMap((u) => u.arr ?? u.items ?? (Array.isArray(u) ? u : []));
+  check('v1.9: an embedded item that differs from the packet only in ownership is UNCHANGED — no update carries ownership, and a created item arrives without it (the world stamps its own)', ownedRep.failed.length === 0 && ownedRep.updated[0].items.unchanged === 1 && ownedRep.updated[0].items.updated === 0 && ownedRep.updated[0].items.created === 1 && !JSON.stringify(ownedUpdates).includes('ownership') && !(owned.embeddedCreates ?? []).some((c) => c.arr.some((d) => 'ownership' in d)) && owned.items.get('Sp2aaaaaaaaaaaaa')?.name === 'Black Crystal', JSON.stringify([ownedRep.failed, ownedRep.updated[0].items, ownedUpdates, owned.embeddedCreates]));
   // the GM's world after 1.6.0: a broken species beside a Grung stand-in, and an actor that refuses the repair — the species is NEVER deleted
   const keeper = await Actor.create({ _id: 'Kp1aaaaaaaaaaaaa', name: 'Keeper', type: 'character', img: 'icons/svg/mystery-man.svg', system: {}, flags: {}, items: [
     { _id: 'Bad2aaaaaaaaaaaa', name: 'Toad — Keeper Variant', type: 'race', img: 'icons/svg/item-bag.svg', system: { identifier: 'toad-—-keeper' } },

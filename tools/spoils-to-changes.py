@@ -117,12 +117,23 @@ def read_json(path):
 
 
 def write_json(path, doc):
+    """Write `doc`; leave the file untouched (same bytes, same mtime) when it
+    already holds exactly that — the suite's --watch keys on mtimes, and a
+    pass that rewrote an unchanged spoils file re-triggered itself forever.
+    -> True when the file was written."""
     os.makedirs(os.path.dirname(path), exist_ok=True)
+    text = json.dumps(doc, indent=2, ensure_ascii=False) + "\n"
+    try:
+        with open(path, encoding="utf-8") as fh:
+            if fh.read() == text:
+                return False
+    except OSError:
+        pass
     tmp = path + ".tmp"
     with open(tmp, "w", encoding="utf-8") as fh:
-        json.dump(doc, fh, indent=2, ensure_ascii=False)
-        fh.write("\n")
+        fh.write(text)
     os.replace(tmp, path)
+    return True
 
 
 def sid(*parts):
@@ -546,8 +557,10 @@ def main(argv=None):
     else:
         if previous is not None and same_apart_from_time(previous, doc):
             doc = previous  # keep the earlier clock
-        write_json(out_path, doc)
-        say(f"spoils: wrote {os.path.relpath(out_path, ROOT)}")
+        if write_json(out_path, doc):
+            say(f"spoils: wrote {os.path.relpath(out_path, ROOT)}")
+        else:
+            say(f"spoils: {os.path.relpath(out_path, ROOT)} unchanged")
     print(summary)
     return 1 if report["problems"] else 0
 

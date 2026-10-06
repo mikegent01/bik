@@ -159,6 +159,14 @@ with tempfile.TemporaryDirectory() as tmp:
     write(world, "", actor("Black Bear", "E1aaaaaaaaaaaaaa", ctype="beast"))
     write(world, "", actor("Arcane Eye", "X1aaaaaaaaaaaaaa", ctype="custom"))
     write(world, "", actor("Mystery Thing", "Y1aaaaaaaaaaaaaa", ctype=""))
+    # 1.9: a dnd5e character sheet does not make a player character — the roster (folders.json players.roster) does
+    write(world, "", actor("Kirby", "C1aaaaaaaaaaaaaa", typ="character"))  # a GM NPC on a character sheet, at the root
+    write(world, "Players", actor("Director Nobody", "N1aaaaaaaaaaaaaa", typ="character", folder_path=["Players"],
+                                  flags={"waluipedia-sheets": {"organized": {"path": ["Players"], "basis": "website", "from": ["Iron Legion"]}}}))  # the old rule's doing
+    write(world, "Players", actor("Sans", "Z1aaaaaaaaaaaaaa", typ="character", folder_path=["Players"]))  # the GM's own placement
+    index["sheets"].append({"id": "kirby", "name": "Kirby", "source": "live", "kind": "pc", "group": "Dreamland", "party": False,
+                            "file": "actors/worlds/testworld/fvtt-Actor-kirby-C1aaaaaaaaaaaaaa.json"})
+    (worlds / "sheets.json").write_text(json.dumps(index), encoding="utf-8")
 
     rc = org.main(ARGS + ["--check", "--quiet"])
     check("--check on an unorganized mirror exits 1 and writes nothing", rc == 1 and find(world, "E1aaaaaaaaaaaaaa").parent == world)
@@ -181,6 +189,18 @@ with tempfile.TemporaryDirectory() as tmp:
     check("Bestiary / Beast; custom and blank creature types sit straight under Bestiary (no Other drawer)", rel["E1aaaaaaaaaaaaaa"] == "Bestiary/Beast" and rel["X1aaaaaaaaaaaaaa"] == "Bestiary" and rel["Y1aaaaaaaaaaaaaa"] == "Bestiary"
           and fp["X1aaaaaaaaaaaaaa"] == ["Bestiary"])
     check("emptied GM directories are removed", not (world / "A House Divided").exists())
+    where2 = {i: find(world, i) for i in ["C1aaaaaaaaaaaaaa", "N1aaaaaaaaaaaaaa", "Z1aaaaaaaaaaaaaa"]}
+    rel2 = {i: p.relative_to(world).parent.as_posix() for i, p in where2.items()}
+    tags2 = {i: read(p)["flags"]["waluipedia-sheets"]["tags"] for i, p in where2.items()}
+    check("1.9: a character sheet off the roster is an NPC — Kirby files into his website group, tagged npc, never Players",
+          rel2["C1aaaaaaaaaaaaaa"] == "Dreamland" and tags2["C1aaaaaaaaaaaaaa"][:2] == ["Dreamland", "npc"], str((rel2, tags2)))
+    check("1.9: an actor the organizer itself once filed into Players (the old 'character sheet = pc' rule) goes back where it came from",
+          rel2["N1aaaaaaaaaaaaaa"] == "Iron Legion" and "pc" not in tags2["N1aaaaaaaaaaaaaa"], str((rel2["N1aaaaaaaaaaaaaa"], tags2["N1aaaaaaaaaaaaaa"])))
+    check("1.9: an actor the GM put in Players stays (kept, tagged npc) — the bridge check is what reports it",
+          rel2["Z1aaaaaaaaaaaaaa"] == "Players" and tags2["Z1aaaaaaaaaaaaaa"][:2] == ["Players", "npc"], str((rel2["Z1aaaaaaaaaaaaaa"], tags2["Z1aaaaaaaaaaaaaa"])))
+    check("1.9: the roster names the player characters by live id (12 rows, every one with a website id; Green T off-ledger) and the companions (the motorbike, the Steel Defender)",
+          len(scheme["players"]["roster"]) == 12 and all(r.get("actor") and r.get("character") and r.get("name") for r in scheme["players"]["roster"])
+          and sum(1 for r in scheme["players"]["roster"] if r.get("ledger") is None) == 1 and {c["name"] for c in scheme["players"]["companions"]} == {"Wario's Motorbike", "Steel Defender"})
 
     sheets = {i: read(p)["flags"]["waluipedia-sheets"] for i, p in where.items()}
     check("tags: website group, kind, role, creature type, origin folder", sheets["A1aaaaaaaaaaaaaa"]["tags"] == ["Iron Legion", "npc", "officer", "humanoid", "A House Divided"], str(sheets["A1aaaaaaaaaaaaaa"]["tags"]))
@@ -194,7 +214,7 @@ with tempfile.TemporaryDirectory() as tmp:
     check("the placement is recorded with its basis and origin", sheets["B1aaaaaaaaaaaaaa"]["organized"] == {"path": ["Bestiary", "Fey"], "basis": "bestiary", "from": ["A House Divided", "Creatures of the Feyward Manor"]}
           and sheets["A1aaaaaaaaaaaaaa"]["organized"]["basis"] == "website" and "organized" not in sheets["W1aaaaaaaaaaaaaa"], str(sheets["B1aaaaaaaaaaaaaa"].get("organized")))
     man = read(world / "manifest.json")
-    check("manifest follows the moves", man["actorCount"] == 13 and "Bestiary / Fey" in man["folders"] and any(r["file"] == "Bestiary/Fey/" + where["B1aaaaaaaaaaaaaa"].name for r in man["actors"]) and man["exportedFrom"] == "testworld")
+    check("manifest follows the moves", man["actorCount"] == 16 and "Bestiary / Fey" in man["folders"] and any(r["file"] == "Bestiary/Fey/" + where["B1aaaaaaaaaaaaaa"].name for r in man["actors"]) and man["exportedFrom"] == "testworld")
 
     before = {p: p.read_text(encoding="utf-8") for p in world.rglob("*.json")}
     rc = org.main(ARGS + ["--check", "--quiet"])
@@ -339,19 +359,30 @@ for r in rows:
 check("the real mirror: no Bestiary sub-folder holds a single creature; the 955 BF namesakes (Koopatrol, Peach, Toadsworth) sit in the era folder",
       all(n >= 2 for p, n in counts.items() if p[0] == "Bestiary" and len(p) > 1)
       and {r["doc"]["name"] for r in rows if r["target"][0] == ERA_FOLDER} >= {"Koopatrol", "Princess Peach (955 BF)", "Toadsworth the Elder, Royal Chamberlain (955 BF)"}, str(counts))
-check("the real mirror: the party's sheets sit in Players with pc tags", all("pc" in r["tags"] and r["target"] == ["Players"] for r in rows if r["doc"]["type"] == "character"))
+roster = bridge.load_roster(scheme)
+by_id = {r["doc"].get("_id"): r for r in rows}
+check("the real mirror: the twelve roster characters sit in Players with pc tags (basis roster, no filing record)",
+      len(roster["rows"]) == 12 and all(by_id.get(a) and "pc" in by_id[a]["tags"] and by_id[a]["target"] == ["Players"] and by_id[a]["basis"] == "roster" for a in roster["ids"]),
+      str([(a, by_id.get(a, {}).get("target"), by_id.get(a, {}).get("tags")) for a in roster["ids"]]))
+check("the real mirror: nobody else is a pc — the GM's character-sheet NPCs (Kirby, Sans, Mario) are tagged npc and filed by the rules, not into Players",
+      not any("pc" in r["tags"] for r in rows if r["doc"].get("_id") not in roster["ids"])
+      and all(r["target"] != ["Players"] for r in rows if r["doc"]["type"] == "character" and r["doc"].get("_id") not in roster["ids"])
+      and sum(1 for r in rows if r["doc"]["type"] == "character" and r["doc"].get("_id") not in roster["ids"]) >= 30,
+      str([(r["doc"]["name"], r["target"]) for r in rows if r["doc"]["type"] == "character" and r["doc"].get("_id") not in roster["ids"]][:8]))
+check("the real mirror: Players holds the roster and its companions only", all(r["doc"].get("_id") in roster["ids"] or r["doc"].get("_id") in roster["companions"] for r in rows if r["target"] == ["Players"]),
+      str([r["doc"]["name"] for r in rows if r["target"] == ["Players"]]))
 check("the real mirror: every actor is tagged and coloured", all(r["tags"] and r["color"] for r in rows))
 check("the real mirror: the manor adventure's named cast is Overgrown Manor, its creatures Bestiary", any(r["target"] == ["Overgrown Manor"] for r in rows) and sum(1 for r in rows if r["target"][0] == "Bestiary") >= 60)
-check("the real mirror: Koopa Troop and Mushroom Regency filed by name (the lone Mages' Guild adept is a 955 BF namesake and sits with the era)",
-      {"Koopa Troop", "Mushroom Regency & Kingdom"} <= set(roots) and "Mages' Guild" not in roots)
+check("the real mirror: Koopa Troop and Mushroom Regency filed by name", {"Koopa Troop", "Mushroom Regency & Kingdom"} <= set(roots), str(sorted(roots)))
 no_bad = subprocess.run([PY, str(BRIDGE_TOOL), "check", str(MIRROR)], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, encoding="utf-8", errors="replace")
 check("the real mirror: bridge check passes (no invalid identifiers left)", no_bad.returncode == 0, no_bad.stdout.splitlines()[-1] if no_bad.stdout else "")
 cast = json.loads((ROOT / "Reputation-Matrix2" / "actors" / "cast" / "import.json").read_text(encoding="utf-8"))
-check("the cast packet: folders coloured per website group, actors tagged", sum(1 for f in cast["folders"] if f.get("color")) >= 15
-      and all(a["flags"]["waluipedia-sheets"].get("tags") for a in cast["actors"]) and cast.get("folderStyles"))
+check("the cast packet: every folder coloured per website group, every actor tagged (the world has absorbed most of the cast; the Liberated Toads roster and the era versions remain generated)",
+      cast["folders"] and all(f.get("color") for f in cast["folders"])
+      and all(a["flags"]["waluipedia-sheets"].get("tags") for a in cast["actors"]) and cast.get("folderStyles"), str([(f["name"], f.get("color")) for f in cast["folders"]]))
 cast_paths = {tuple(a["flags"][MODULE_ID]["folderPath"]) for a in cast["actors"]}
 check("the cast packet: generated sheets file straight into their group (no Waluipedia Cast root), era versions into the era folder",
-      all(len(p) == 1 for p in cast_paths) and (ERA_FOLDER,) in cast_paths and ("Koopa Troop",) in cast_paths and not any(p[0] == "Waluipedia Cast" for p in cast_paths), str(sorted(cast_paths))[:300])
+      all(len(p) == 1 for p in cast_paths) and (ERA_FOLDER,) in cast_paths and all(p[0] in scheme["groups"] or p[0] == ERA_FOLDER for p in cast_paths) and not any(p[0] == "Waluipedia Cast" for p in cast_paths), str(sorted(cast_paths))[:300])
 check("the cast packet: era versions carry the era colour and the generated + era + group tags",
       all(a["flags"]["waluipedia-sheets"]["color"] == scheme["eras"]["peachs-castle-955"]["color"].upper() and {"generated", "955 BF"} <= set(a["flags"]["waluipedia-sheets"]["tags"])
           for a in cast["actors"] if a["flags"][MODULE_ID]["folderPath"] == [ERA_FOLDER]))

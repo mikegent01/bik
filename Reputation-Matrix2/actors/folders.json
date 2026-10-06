@@ -6,7 +6,26 @@
   "players": {
     "folder": "Players",
     "color": "#D4A017",
-    "description": "The party's own character sheets (the suite keeps them at the ledger level)."
+    "description": "The party's own character sheets (the suite keeps them at the ledger level).",
+    "rosterNote": "WHO IS A PLAYER CHARACTER. The roster — not the dnd5e sheet type — decides: the GM builds plenty of NPCs on character sheets (Mario, Kirby, Sans) and they are not the party. `actor` is the live Foundry id in the world mirror, `character` the website article id (data/characters.json), `ledger` the XP ledger row (XP_SUMMARY in index.html; null = off-ledger, say why in `offLedger`). Every tool reads this list: build-character-sheets (party = roster + Disaster Inc. affiliation; the roster's live file is the article's primary sheet), organize-actors (the pc tag and the Players folder), promote-player-sheets (ledger XP), foundry-bridge check / check-packet (anything else in Players is an error). `companions` are the NPC-typed actors allowed in Players (a mount, a construct).",
+    "roster": [
+      {"actor": "pi25oGpjW0lCFtuF", "name": "Archie Miser", "character": "archie_miser", "ledger": "archie_miser"},
+      {"actor": "9u5pnP0zaqw8AQQv", "name": "Bowser", "character": "bowser", "ledger": "bowser"},
+      {"actor": "VudZ3W313Y4FILs0", "name": "Eager", "character": "eager", "ledger": "eager"},
+      {"actor": "IlzuThuR8upTtqtF", "name": "Feyward Dan", "character": "dan_the_toad", "ledger": "dan_the_toad"},
+      {"actor": "mj7kizwZ5R7FtGg6", "name": "Green T", "character": "green_t", "ledger": null, "offLedger": "the GM runs him as Tea Merchant 6 / Bard 6 at 100000 XP; the ledger (level 5, 12500 XP) is not applied"},
+      {"actor": "Qir5aDX8bkL5lt1c", "name": "Hjumpik Deldkur", "character": "hjumpik", "ledger": "hjumpik"},
+      {"actor": "le5OCgY5x5nnKvkt", "name": "Markop Judi", "character": "markop", "ledger": "markop"},
+      {"actor": "wBy4aV2AGHNqT4l1", "name": "Remi", "character": "remi_akamatsu_full_backstory", "ledger": "remi_akamatsu_full_backstory"},
+      {"actor": "2TkQ7lDU0DJBrx9J", "name": "Salam", "character": "salam", "ledger": "salam"},
+      {"actor": "mEqlzuZoafEdiApl", "name": "Toad Lee", "character": "toad_lee", "ledger": "toad_lee"},
+      {"actor": "BmWNDwbxPQHU3Bbn", "name": "Waluigi", "character": "waluigi", "ledger": "waluigi"},
+      {"actor": "dEhGeFofEfnIG24J", "name": "Wario", "character": "wario", "ledger": "wario"}
+    ],
+    "companions": [
+      {"actor": "y1amANPSbK9exY41", "name": "Wario's Motorbike"},
+      {"actor": "Q8InPZPmhqhpOY7g", "name": "Steel Defender"}
+    ]
   },
   "bestiary": {
     "folder": "Bestiary",

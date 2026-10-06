@@ -223,14 +223,16 @@ def lan_ipv4():
 
 
 def art_base_for(port: int, host: str, explicit: str = "") -> str:
-    """The address the Foundry packets name their art by (the suite's
-    --art-base). The explicit choice wins ("copy" = copy the art into Data
-    instead, the old way). Exposed on the network: the Tailscale address (a
-    node's 100.x never changes, so the packets do not churn), else the LAN
-    address; bound to loopback: 127.0.0.1 — honest, since nothing else can
-    reach the server then."""
+    """The suite's --art-base, or "" for the default: the art is copied into
+    Foundry's Data folder and the packets name it by Data path. Serving the
+    art by URL from this server is an opt-in ("auto" = this server's
+    Tailscale address, else LAN, else loopback; or a URL) — it needs this
+    window open and reachable from every Foundry client whenever Foundry is,
+    which is why it is not the default."""
     explicit = (explicit or "").strip()
-    if explicit:
+    if not explicit or explicit.lower() in ("copy", "none", "off"):
+        return ""
+    if explicit.lower() != "auto":
         return explicit
     if host in ("0.0.0.0", "::"):
         reach = tailscale_ipv4() or lan_ipv4()
@@ -370,11 +372,10 @@ def launch_sheets_suite(site_port: int, say=print, foundry_data: str = "", git_s
     the suite publishes packets and the module into — what the Sync button in
     Foundry reads first. `git_sync` adds --git-sync: pull before a pass,
     commit + push the mirror / sheets after, poll GitHub while idle (the
-    module and the tools update themselves). `art_base` is the URL the
-    packets name portraits, tokens and item icons under — this server, at an
-    address every Foundry client can reach (see art_base_for); "copy" copies
-    the art into Data the old way. Returns the Popen (or None when it cannot
-    start)."""
+    module and the tools update themselves). `art_base` blank (the default)
+    lets the suite copy portraits, tokens and item icons into Data; a URL is
+    the opt-in where the packets name the art on this server instead (see
+    art_base_for). Returns the Popen (or None when it cannot start)."""
     if not SHEETS_SCRIPT.is_file():
         say("  sheets : %s is missing — the sheets page still serves the committed data/sheets.json" % SHEETS_SCRIPT)
         return None
@@ -404,7 +405,7 @@ def launch_sheets_suite(site_port: int, say=print, foundry_data: str = "", git_s
     threading.Thread(target=pump, daemon=True).start()
     say("  sheets : character-sheet suite watching for exports (tools/sheets-suite.py --watch%s); sheets at http://localhost:%d/%s" % (" --git-sync" if git_sync else "", site_port, SHEETS_ROUTE))
     if art_base and art_base.lower() != "copy":
-        say("  art    : Foundry's sheets load portraits, tokens and item icons from %s — keep this window open whenever Foundry is%s"
+        say("  art    : (opt-in) Foundry's sheets load portraits, tokens and item icons from %s — keep this window open whenever Foundry is%s"
             % (art_base, "" if "127.0.0.1" not in art_base else "; only this machine can reach that address (tick 'reachable from other machines' for players elsewhere)"))
     return proc
 
@@ -572,7 +573,7 @@ def run_gui(args) -> int:
     ttk.Entry(row, textvariable=v_fd, width=34).pack(side="left")
 
     row = ttk.Frame(box); row.pack(fill="x", padx=8, pady=3)
-    ttk.Label(row, text="Art address (blank = this server: the Tailscale / LAN address when reachable from other machines, else 127.0.0.1; 'copy' = copy the art into Data instead)").pack(side="left", padx=(24, 4))
+    ttk.Label(row, text="Art address (blank = copy the art into Foundry's Data folder; 'auto' or a URL = Foundry loads it from this server instead — opt-in)").pack(side="left", padx=(24, 4))
     ttk.Entry(row, textvariable=v_art, width=26).pack(side="left")
 
     row = ttk.Frame(box); row.pack(fill="x", padx=8, pady=3)
@@ -815,12 +816,12 @@ def main() -> int:
                              "world mirror / sheets after, and polls GitHub while idle so the Mass Import module "
                              "and the tools update themselves (needs a clean checkout with push rights)")
     parser.add_argument("--art-base", default="", metavar="URL",
-                        help="the address Foundry's sheets load the archive's art from (the sheets suite's --art-base). "
-                             "Default: this server — the Tailscale or LAN address with --host 0.0.0.0, else "
-                             "http://127.0.0.1:<port>/; 'copy' copies the art into the Data folder instead (the old way)")
+                        help="opt-in: the address Foundry's sheets load the archive's art from (the sheets suite's --art-base); "
+                             "'auto' = this server (the Tailscale or LAN address with --host 0.0.0.0, else http://127.0.0.1:<port>/). "
+                             "Default: blank — the suite copies the art into the Foundry Data folder")
     parser.add_argument("--foundry-data", default="", metavar="DIR",
                         help="your Foundry VTT Data folder (…/FoundryVTT/Data); the suite publishes the packets, "
-                             "the Mass Import module there so Sync in Foundry needs no URL (the art is served, see --art-base). "
+                             "the Mass Import module and the art there so Sync in Foundry needs no URL. "
                              "Blank = the suite finds it (WALUIPEDIA_FOUNDRY_DATA, the usual AppData / "
                              "~/.local/share / Library paths)")
     mode = parser.add_mutually_exclusive_group()

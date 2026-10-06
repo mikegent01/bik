@@ -385,6 +385,70 @@ with tempfile.TemporaryDirectory() as tmp:
           rep["deleted"] == ["portraits/salam.png"] and not os.path.exists(os.path.join(data_dir, "portraits", "salam.png")) and rep["bytes"] == 9
           and fb.prune_images(data_dir, base, export_path=new_export, packets=[export_path], fetch=fake_fetch)["kept"] and os.path.exists(os.path.join(data_dir, "portraits", "orange_t.png")))
 
+# ---- 1.9: the party roster, embedded ownership, art by URL — what check / check-packet refuse -----------------
+roster = fb.load_roster()
+check("load_roster reads actors/folders.json players.roster: 12 player characters by live id, website id and name; two companions",
+      len(roster["rows"]) == 12 and len(roster["ids"]) == 12 and roster["ids"].get("9u5pnP0zaqw8AQQv", {}).get("character") == "bowser"
+      and roster["characters"]["dan_the_toad"]["actor"] == "IlzuThuR8upTtqtF" and roster["names"]["green t"]["ledger"] is None
+      and roster["companions"] == {"y1amANPSbK9exY41", "Q8InPZPmhqhpOY7g"} and roster["folder"] == "Players", json.dumps({k: (len(v) if hasattr(v, "__len__") else v) for k, v in roster.items()}))
+check("roster_row: by live id whatever the sheet type; by name only for a character sheet (the Liberated Toads' NPC 'Dan' is not Feyward Dan; an NPC statblock named Bowser is not the player's)",
+      fb.roster_row({"_id": "9u5pnP0zaqw8AQQv", "name": "Bowser", "type": "npc"}, roster)["character"] == "bowser"
+      and fb.roster_row({"_id": "zzzzzzzzzzzzzzzz", "name": "Bowser", "type": "character"}, roster)["character"] == "bowser"
+      and fb.roster_row({"_id": "zzzzzzzzzzzzzzzz", "name": "Bowser", "type": "npc"}, roster) is None
+      and fb.roster_row({"_id": "brg7b4npoBbXuB65", "name": "Dan", "type": "npc"}, roster) is None
+      and fb.roster_row({"_id": "RSw8hpjH7kIEjAmm", "name": "Kirby", "type": "character"}, roster) is None)
+check("is_companion: the motorbike and the Steel Defender by id or name", fb.is_companion({"_id": "y1amANPSbK9exY41", "name": "x", "type": "npc"}, roster)
+      and fb.is_companion({"_id": "zzzzzzzzzzzzzzzz", "name": "Steel Defender", "type": "npc"}, roster) and not fb.is_companion({"_id": "zzzzzzzzzzzzzzzz", "name": "Kirby", "type": "npc"}, roster))
+check("invalid_ownership: -=default, a non-id key, a level outside -1..3, a non-mapping — on the actor and on its items / effects; a user-id deletion with null is fine",
+      [w for w, _ in fb.invalid_ownership({"name": "a", "ownership": {"default": 0, "-=default": None}, "items": [{"name": "Wand", "ownership": {"u1": 3}}, {"name": "Ok", "ownership": {"default": 0, "-=7BMT1Aux3QVtq027": None, "7BMT1Aux3QVtq028": 3}}],
+                                                "effects": [{"name": "Fx", "ownership": {"default": 9}}, {"name": "Bad", "ownership": []}]})] == ["actor", "item 'Wand'", "effect 'Fx'", "effect 'Bad'"]
+      and fb.invalid_ownership({"name": "b", "ownership": {"default": 0}, "items": [{"name": "i"}]}) == [], str(fb.invalid_ownership({"ownership": {"-=default": None}})))
+check("art_by_url lists every img / token / item icon that names repo art or a loopback server by URL (the 1.8 packets named 514 of them); a GM's link elsewhere is his business",
+      [w for w, _ in fb.art_by_url({"img": "http://127.0.0.1:8765/portraits/bowser.png", "prototypeToken": {"texture": {"src": "portraits/bowser.png"}},
+                                    "items": [{"name": "Wand", "img": "http://localhost:8765/Reputation-Matrix2/portraits/wand.webp"}, {"name": "Ok", "img": "icons/svg/item-bag.svg"}, {"name": "Elsewhere", "img": "https://i.imgur.com/x.png"}]})] == ["img", "item 'Wand'"],
+      str(fb.art_by_url({"img": "http://127.0.0.1:8765/portraits/bowser.png", "items": [{"name": "Wand", "img": "http://localhost:8765/Reputation-Matrix2/portraits/wand.webp"}]})))
+with tempfile.TemporaryDirectory() as tmp:
+    bad = {"format": fb.FORMAT, "folders": [{"_id": "F1aaaaaaaaaaaaaa", "name": "Players", "folder": None}, {"_id": "F2aaaaaaaaaaaaaa", "name": "Orphan", "folder": "nope000000000000"}],
+           "actors": [
+               actor("Kirby", "RSw8hpjH7kIEjAmm", typ="character", flags={"waluipedia-mass-import": {"folderPath": ["Players"]}}),
+               dict(actor("Bowser", "9u5pnP0zaqw8AQQv", typ="npc", img="http://127.0.0.1:8765/Reputation-Matrix2/portraits/bowser.png",
+                          items=[{"_id": "kmqLJuIrEf2KPqwc", "name": "Wand", "type": "loot", "img": "icons/svg/item-bag.svg", "ownership": {"-=default": None}, "system": {"identifier": "bad—id"}}],
+                          flags={"waluipedia-mass-import": {"folderPath": ["Koopa Troop"]}})),
+               actor("Wario's Motorbike", "y1amANPSbK9exY41", flags={"waluipedia-mass-import": {"folderPath": ["Players"]}}),
+               actor("Sans", "zzzzzzzzzzzzzzzz", typ="character", flags={"waluipedia-mass-import": {"folderPath": ["Snowdin Bone-Line"]}}),
+           ]}
+    bad_path = os.path.join(tmp, "import.json")
+    with open(bad_path, "w", encoding="utf-8") as fh:
+        json.dump(bad, fh)
+    n, errs, warns = fb.check_packet(bad_path)
+    text = "\n".join(errs)
+    check("check-packet: a non-roster actor in Players is an ERROR (a character sheet does not make a player character) — the companion and a character-sheet NPC elsewhere are not",
+          n == 4 and "Kirby sits in Players but is not on the party roster" in text and "Motorbike" not in text and "Sans" not in text, text)
+    check("check-packet: a roster character on an NPC sheet, an item identifier dnd5e rejects, an ownership deletion Foundry refuses, art by URL, a folder with an unknown parent — all errors; the roster character outside Players a warning",
+          "Bowser is on the party roster but is a 'npc' sheet" in text and "'bad—id' is not letters/digits/-/_" in text and "ownership key '-=default'" in text
+          and "names art by URL" in text and "folder 'Orphan' names a parent" in text and any("sits in Koopa Troop, not Players" in w for w in warns), text)
+    check("check-packet --allow-art-url (the opt-in art base) accepts the URL and nothing else changes",
+          len(fb.check_packet(bad_path, allow_art_url=True)[1]) == len(errs) - sum(1 for e in errs if "art by URL" in e) and sum(1 for e in errs if "art by URL" in e) == 2
+          and "art by URL" not in "\n".join(fb.check_packet(bad_path, allow_art_url=True)[1]))
+    with open(os.path.join(tmp, "stale.json"), "w", encoding="utf-8") as fh:
+        json.dump(dict(bad, format="waluipedia-actors/0"), fh)
+    check("check-packet refuses a packet of another format, and names a file outside the repo by its basename", fb.check_packet(os.path.join(tmp, "stale.json"))[1] == ["stale.json: format 'waluipedia-actors/0' is not waluipedia-actors/1"])
+    good = {"format": fb.FORMAT, "folders": [{"_id": "F1aaaaaaaaaaaaaa", "name": "Players", "folder": None}],
+            "actors": [actor("Bowser", "9u5pnP0zaqw8AQQv", typ="character", flags={"waluipedia-mass-import": {"folderPath": ["Players"]}}),
+                       actor("Wario's Motorbike", "y1amANPSbK9exY41", flags={"waluipedia-mass-import": {"folderPath": ["Players"]}}),
+                       actor("Sans", "zzzzzzzzzzzzzzzz", typ="character", flags={"waluipedia-mass-import": {"folderPath": ["Snowdin Bone-Line"]}})]}
+    good_path = os.path.join(tmp, "good.json")
+    with open(good_path, "w", encoding="utf-8") as fh:
+        json.dump(good, fh)
+    check("check-packet: a clean packet passes with no errors", fb.check_packet(good_path)[1] == [], str(fb.check_packet(good_path)[1]))
+    import subprocess
+    cli = subprocess.run([sys.executable, os.path.join(ROOT, "tools", "foundry-bridge.py"), "check-packet", bad_path, good_path], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, encoding="utf-8", errors="replace")
+    check("the check-packet command exits 1 on errors and sums the packets", cli.returncode == 1 and "FAIL check-packet: 7 actors in 2 packet(s)" in cli.stdout, cli.stdout[-300:])
+    cli_ok = subprocess.run([sys.executable, os.path.join(ROOT, "tools", "foundry-bridge.py"), "check-packet", good_path], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, encoding="utf-8", errors="replace")
+    check("…and 0 when clean", cli_ok.returncode == 0 and cli_ok.stdout.startswith("OK check-packet: 3 actors in 1 packet(s), 0 error(s)"), cli_ok.stdout[-300:])
+check("the mirror's check (foundry-bridge.py check) applies the same roster rules: the repo's world mirror passes them",
+      fb.check([os.path.join(ROOT, "Reputation-Matrix2", "actors", "worlds", "midlands")])[1] == [])
+
 print(f"foundry bridge: {len(OKS)} ok, {len(FAILS)} failed")
 for f in FAILS:
     print("  FAIL " + f)

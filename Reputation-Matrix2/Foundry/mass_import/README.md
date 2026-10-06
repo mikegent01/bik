@@ -10,19 +10,49 @@ existing ones updated in place (same `_id`), every image path checked, and a
 report. Together with `tools/foundry-bridge.py` this turns "add characters to
 the game" into a loop of *export → edit in the repo → import*.
 
-Module id: `waluipedia-mass-import`, version 1.8.1. Core v12–v14, any game
+Module id: `waluipedia-mass-import`, version 1.9.0. Core v12–v14, any game
 system (built and tested against dnd5e 5.x on core v14).
 
-## 1.8 — one copy of the art: Foundry loads it from the archive's own server
+## 1.9 — the art is back in Data; nothing invalid reaches the world; the roster says who is a player character
+
+The 1.8 plan (art by URL on the archive's server) did not work at the table —
+with `start.py` down every portrait and token went blank, players elsewhere
+could not reach `127.0.0.1`, and the sync spent its time HEAD-ing a favicon.
+It is reverted: **the suite copies the art into Foundry's Data folder again**
+(`foundry-bridge.py install-images`, missing or differing files only) and the
+packets name it by Data path. Art by URL remains an opt-in (`sheets-suite.py
+--art-base URL`, `start.py --art-base auto|URL`); `packets.json` then carries
+`artBase` and the module behaves as 1.8 did. With the default, `artBase` is
+null and the module probes nothing.
+
+Three things the GM's console showed after 1.8, fixed in the module:
+
+| Was | Now |
+| --- | --- |
+| *DocumentOwnershipField: ownership … is not a mapping* on `updateEmbeddedDocuments` for the fourteen spoils items — the whole batch refused. | Embedded items and effects **never carry `ownership`** in a diff or a create. Foundry stamps the creating user on every world copy (`{"<user>": 3, default: 0}`) while the packet copy says `{default: 0}`; embedded documents ignore their own ownership anyway. An actor-level diff never emits `-=default` either (only user-id deletions are valid). |
+| *7 broken items repaired (unverified)* — and the same seven invalid identifiers (Eager ×5, Feyward Dan ×2) logged on every world load. | An update through the actor counts as a repair only when the item is live afterwards. On v14 it was accepted and changed nothing; the item is now **deleted and created again** from the packet's (repaired) copy under the same id. A species or background with a stand-in on the sheet is still offered as a swap, never deleted. |
+| *Replace on type change* was on by default: a packet that disagreed with the world about an actor's type deleted the sheet being played and recreated it. | **Off by default.** Such an actor is reported as skipped (*type differs (world npc, import character)*); the GM ticks the option when that is what he wants. |
+
+And on the archive side, what the module imports is checked first: the suite
+publishes a packet only after `foundry-bridge.py check-packet` passes it —
+ids, dnd5e identifiers, ownership maps, art paths, and the **party roster**
+(`actors/folders.json` → `players.roster`): a roster character must be a
+`character` sheet, nothing but the roster and its companions may sit in
+Players, and a `character`-typed sheet is otherwise an NPC. The thirty-odd GM
+NPCs on character sheets (Mario, Kirby, Sans…) that an earlier rule tagged `pc`
+and filed into Players go back to their groups on the next pass.
+
+## 1.8 — one copy of the art: Foundry loads it from the archive's own server (now an opt-in)
 
 Every portrait, token plate and repo item icon used to be copied into Foundry's
 Data folder (`portraits/…`, `assets/images/…`) — the same bytes as the repo,
-twice on the GM's disk, and once more per machine. From 1.8 the packets name
+twice on the GM's disk, and once more per machine. 1.8 made the packets name
 that art by **URL on the archive's own server** (`start.py`, the suite's
 `--art-base`; e.g. `http://100.64.0.9:8765/Reputation-Matrix2/portraits/player/fullbody/remi.png`).
 Foundry's `img` and `texture.src` take absolute URLs as they are; `start.py`
 answers with `Access-Control-Allow-Origin: *`, which the canvas needs for token
 textures. The live players' own uploads (`npc/…`, `player/…`) are untouched.
+**Since 1.9 this is opt-in; the default copies the art into Data again.**
 
 | Now | How |
 | --- | --- |
@@ -33,9 +63,9 @@ textures. The live players' own uploads (`npc/…`, `player/…`) are untouched.
 What this costs: **start.py must run whenever Foundry is open** (the GM's
 `start.bat`), and for players on other machines it must be exposed on an
 address they reach (the launcher's *reachable from other machines* tick picks
-the Tailscale address, else the LAN one). The old behaviour is one flag away:
-`start.py --art-base copy` / `sheets-suite.py --art-copy` copies the art into
-Data again and the packets go back to Data paths.
+the Tailscale address, else the LAN one) — which is why 1.9 made it the
+opt-in and the copy the default (`start.py --art-base auto` / `sheets-suite.py
+--art-base URL` turn it on).
 
 ## 1.7.1 — the spoils arrive, the export says what was applied, the Foundry-only GM is told
 
@@ -271,8 +301,8 @@ source** (Configure Settings → Module Settings), so a recurring import is
 | Mode | upsert | `upsert` creates missing actors and updates existing ones; `create` never touches existing actors; `update` never creates. |
 | Keep ids | on | New actors are created with the `_id` from the file, so the next import finds them again. Turn off only if you *want* duplicates. |
 | Match by name + type | on | Actors without an id (or whose id is not in the world) are matched by `name` + `type` before being created — but never to an actor that is itself part of the same import, so two different "Guard" statblocks in one export stay two actors. |
-| Replace embedded | on | Items and active effects are synced to the file: same `_id` → update, new → create, missing from the file → **deleted**. Off = only create/update, never delete. |
-| Replace on type change | on | An actor whose `_id` exists in the world with a **different type** (an NPC statblock that became a `character` sheet, say) cannot be updated in place — Foundry never changes a document's type. The module deletes it and recreates it **under the same id**, keeping the world's folder and ownership and merging flags, so tokens, journal links and player access keep resolving. The review table shows these rows as `replace (npc → character)`. Off = such rows are skipped and reported. |
+| Replace embedded | on | Items and active effects are synced to the file: same `_id` → update, new → create, missing from the file → **deleted**. Off = only create/update, never delete. Their `ownership` is never compared or sent (1.9): embedded documents ignore it, and the world's copy always carries the creating user's grant. |
+| Replace on type change | **off** (1.9; on before) | An actor whose `_id` exists in the world with a **different type** (an NPC statblock that became a `character` sheet, say) cannot be updated in place — Foundry never changes a document's type. Off, such rows are skipped and reported (*type differs (world npc, import character)*) — the sheet being played stays. On, the module deletes it and recreates it **under the same id**, keeping the world's folder and ownership and merging flags, so tokens, journal links and player access keep resolving; the review table shows these rows as `replace (npc → character)`. |
 | Overwrite ownership | off | Keep the world's permission settings on existing actors (and on replacements). |
 | Skip player characters | off | Leave `type: character` actors alone (handy when a packet of NPCs happens to include PCs). |
 | Check images | on | `HEAD`-requests every `img` / token / item image path and lists the ones the server does not have. |

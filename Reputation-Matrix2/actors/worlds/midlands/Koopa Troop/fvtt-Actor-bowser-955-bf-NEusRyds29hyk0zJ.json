@@ -1891,7 +1891,8 @@
       ],
       "tags": [
         "Koopa Troop",
-        "pc",
+        "npc",
+        "humanoid",
         "Peach's Castle 955 BF"
       ],
       "color": "#006400",

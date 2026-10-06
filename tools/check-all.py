@@ -128,6 +128,14 @@ def main() -> int:
         # the party visibility set and the index.html wiring are all proved.
         ("character sheets", [py, "tools/check-sheets.py"], ROOT),
         ("character sheets cast packet", [py, "tools/foundry-bridge.py", "check", "Reputation-Matrix2/actors/cast"], ROOT),
+        # The committed packets the module merges from GitHub, checked as
+        # Foundry will read them: ids, dnd5e identifiers, ownership maps, art
+        # by Data path, the party roster (nobody is a player character for
+        # carrying a character sheet).
+        ("committed packets (check-packet)", [py, "tools/foundry-bridge.py", "check-packet",
+                                              "Reputation-Matrix2/actors/cast/import.json",
+                                              "Reputation-Matrix2/actors/peachs-castle-955/import.json",
+                                              "Reputation-Matrix2/actors/bowsers-castle-1035/import.json"], ROOT),
         # The live-world loop: player characters carry character sheets (never
         # NPC statblocks) at ledger XP, the spoils files are scoped to their
         # export, the suite start.py runs passes its read-only check.

@@ -19,12 +19,17 @@
     "Bestiary / Undead",
     "Dark Shores",
     "Disaster Inc.",
+    "Dreamland",
     "Elsewhere",
     "Fawful's Furious Freaks",
+    "Fawthful's Forces",
     "Iron Legion",
     "Koopa Troop",
+    "Kremling Krew & the Black Sugar Pirates",
     "Liberated Toads",
     "Mages' Guild",
+    "Mushroom Regency & Kingdom",
+    "Nintendo Mania Studio",
     "Overgrown Manor",
     "Peach Loyalists",
     "Peach's Castle 955 BF / Bowser's Incursion",
@@ -596,16 +601,10 @@
       "file": "Dark Shores/fvtt-Actor-lord-darian-marsh-of-the-dark-shores-13DeuHeGCQ4Cyjbz.json"
     },
     {
-      "name": "Luigi",
-      "type": "npc",
-      "_id": "BU8KaiZulAXZVAX7",
-      "file": "Disaster Inc/fvtt-Actor-luigi-BU8KaiZulAXZVAX7.json"
-    },
-    {
-      "name": "Mario",
-      "type": "npc",
-      "_id": "2CLH4XZlYcwHVXJf",
-      "file": "Disaster Inc/fvtt-Actor-mario-2CLH4XZlYcwHVXJf.json"
+      "name": "Bones",
+      "type": "character",
+      "_id": "fFKZDy00hhMH2quo",
+      "file": "Disaster Inc/fvtt-Actor-bones-fFKZDy00hhMH2quo.json"
     },
     {
       "name": "Roger",
@@ -644,6 +643,24 @@
       "file": "Disaster Inc/fvtt-Actor-usk-shattered-numGvhXBimwHEO3d.json"
     },
     {
+      "name": "King Dedede",
+      "type": "character",
+      "_id": "4rsjYdnySZI05Sbj",
+      "file": "Dreamland/fvtt-Actor-king-dedede-4rsjYdnySZI05Sbj.json"
+    },
+    {
+      "name": "Kirby",
+      "type": "character",
+      "_id": "RSw8hpjH7kIEjAmm",
+      "file": "Dreamland/fvtt-Actor-kirby-RSw8hpjH7kIEjAmm.json"
+    },
+    {
+      "name": "Meta Knight",
+      "type": "character",
+      "_id": "gbeLoOEORplvysrF",
+      "file": "Dreamland/fvtt-Actor-meta-knight-gbeLoOEORplvysrF.json"
+    },
+    {
       "name": "Alice",
       "type": "npc",
       "_id": "dHypoD6vOBLM2lke",
@@ -656,16 +673,16 @@
       "file": "Elsewhere/fvtt-Actor-boundy-xFGJYDDo6VGNgR6b.json"
     },
     {
+      "name": "Bryan",
+      "type": "character",
+      "_id": "cHR6kdrBKPRurO8q",
+      "file": "Elsewhere/fvtt-Actor-bryan-cHR6kdrBKPRurO8q.json"
+    },
+    {
       "name": "Director Vale",
       "type": "npc",
       "_id": "iRZIreKPxkT6UjeJ",
       "file": "Elsewhere/fvtt-Actor-director-vale-iRZIreKPxkT6UjeJ.json"
-    },
-    {
-      "name": "Dr. Toad",
-      "type": "npc",
-      "_id": "lNwsBV5yuVWmbN63",
-      "file": "Elsewhere/fvtt-Actor-dr-toad-lNwsBV5yuVWmbN63.json"
     },
     {
       "name": "Dracule Mihawk",
@@ -698,6 +715,12 @@
       "file": "Elsewhere/fvtt-Actor-john-lee-Btp8QvNTrLWtKNfs.json"
     },
     {
+      "name": "King Boo",
+      "type": "character",
+      "_id": "2a6YjtlDIZkIAwM0",
+      "file": "Elsewhere/fvtt-Actor-king-boo-2a6YjtlDIZkIAwM0.json"
+    },
+    {
       "name": "Lady Bloomia",
       "type": "npc",
       "_id": "0JkhYTAWs7eNdlXD",
@@ -722,6 +745,24 @@
       "file": "Elsewhere/fvtt-Actor-miles-edgeworth-cMIP0nk8eHJIruyw.json"
     },
     {
+      "name": "Mr. L",
+      "type": "character",
+      "_id": "jpJLBz44urU5RjVO",
+      "file": "Elsewhere/fvtt-Actor-mr-l-jpJLBz44urU5RjVO.json"
+    },
+    {
+      "name": "Mystic Morel (Purple T)",
+      "type": "character",
+      "_id": "QEDBzpvI4JdFzMVd",
+      "file": "Elsewhere/fvtt-Actor-mystic-morel-purple-t-QEDBzpvI4JdFzMVd.json"
+    },
+    {
+      "name": "Paulo",
+      "type": "character",
+      "_id": "MBErEU4rVbH1dWT9",
+      "file": "Elsewhere/fvtt-Actor-paulo-MBErEU4rVbH1dWT9.json"
+    },
+    {
       "name": "Piktor Deldkur the Third",
       "type": "npc",
       "_id": "5D2CwFB5J7PVu8rt",
@@ -744,12 +785,6 @@
       "type": "npc",
       "_id": "WjGvaM2pywraj6N3",
       "file": "Elsewhere/fvtt-Actor-the-captain-of-the-palace-guard-955-bf-WjGvaM2pywraj6N3.json"
-    },
-    {
-      "name": "The Jester (Goomba)",
-      "type": "npc",
-      "_id": "9lfsDWLXS3v9k9lX",
-      "file": "Elsewhere/fvtt-Actor-the-jester-goomba-9lfsDWLXS3v9k9lX.json"
     },
     {
       "name": "The Scorncrow",
@@ -780,6 +815,24 @@
       "type": "npc",
       "_id": "pzYkmjtf2FAvFcdz",
       "file": "Fawful's Furious Freaks/fvtt-Actor-midbus-the-blizzard-fist-pzYkmjtf2FAvFcdz.json"
+    },
+    {
+      "name": "Fawthful",
+      "type": "character",
+      "_id": "hn8PnUqxJH3b4ovv",
+      "file": "Fawthful's Forces/fvtt-Actor-fawthful-hn8PnUqxJH3b4ovv.json"
+    },
+    {
+      "name": "Mimbus",
+      "type": "character",
+      "_id": "gB5U7LTIjW3wx80G",
+      "file": "Fawthful's Forces/fvtt-Actor-mimbus-gB5U7LTIjW3wx80G.json"
+    },
+    {
+      "name": "The Jester (Goomba)",
+      "type": "npc",
+      "_id": "9lfsDWLXS3v9k9lX",
+      "file": "Fawthful's Forces/fvtt-Actor-the-jester-goomba-9lfsDWLXS3v9k9lX.json"
     },
     {
       "name": "Aemenor Evenflight",
@@ -908,6 +961,12 @@
       "file": "Koopa Troop/fvtt-Actor-hammer-bro-elite-infantry-j3LA23Bugz03B88A.json"
     },
     {
+      "name": "Kamek",
+      "type": "character",
+      "_id": "8A0DJ9nGovNrKCzx",
+      "file": "Koopa Troop/fvtt-Actor-kamek-8A0DJ9nGovNrKCzx.json"
+    },
+    {
       "name": "Koopa Troopa (Standard Infantry)",
       "type": "npc",
       "_id": "RUZIZZynYJgE58vw",
@@ -918,6 +977,18 @@
       "type": "npc",
       "_id": "7VmH5xlrVjB1simi",
       "file": "Koopa Troop/fvtt-Actor-magikoopa-battle-mage-7VmH5xlrVjB1simi.json"
+    },
+    {
+      "name": "Captain Syrup",
+      "type": "character",
+      "_id": "Nnbd7luvQ2cOl1fo",
+      "file": "Kremling Krew & the Black Sugar Pirates/fvtt-Actor-captain-syrup-Nnbd7luvQ2cOl1fo.json"
+    },
+    {
+      "name": "King K. Rool",
+      "type": "character",
+      "_id": "ApMapT7GARCZJqOu",
+      "file": "Kremling Krew & the Black Sugar Pirates/fvtt-Actor-king-k-rool-ApMapT7GARCZJqOu.json"
     },
     {
       "name": "Bully T",
@@ -936,6 +1007,12 @@
       "type": "npc",
       "_id": "fVH1Bdvw7XV2jBj1",
       "file": "Liberated Toads/fvtt-Actor-creek-fVH1Bdvw7XV2jBj1.json"
+    },
+    {
+      "name": "Dan",
+      "type": "character",
+      "_id": "brg7b4npoBbXuB65",
+      "file": "Liberated Toads/fvtt-Actor-dan-brg7b4npoBbXuB65.json"
     },
     {
       "name": "Elder Mudcap",
@@ -978,6 +1055,12 @@
       "type": "npc",
       "_id": "chy1e2RUzvWVgmZZ",
       "file": "Liberated Toads/fvtt-Actor-scribe-dewdrop-chy1e2RUzvWVgmZZ.json"
+    },
+    {
+      "name": "Speaker L",
+      "type": "character",
+      "_id": "vqwmQfgNMrOfUeDi",
+      "file": "Liberated Toads/fvtt-Actor-speaker-l-vqwmQfgNMrOfUeDi.json"
     },
     {
       "name": "Speaker Rivers",
@@ -1050,6 +1133,66 @@
       "type": "npc",
       "_id": "6apfRNEMlsKmxc5Y",
       "file": "Mages' Guild/fvtt-Actor-x-o-6apfRNEMlsKmxc5Y.json"
+    },
+    {
+      "name": "Chancellor Toadsworth",
+      "type": "character",
+      "_id": "mWdnG3PwPPmR1ivv",
+      "file": "Mushroom Regency & Kingdom/fvtt-Actor-chancellor-toadsworth-mWdnG3PwPPmR1ivv.json"
+    },
+    {
+      "name": "Dr. Toad",
+      "type": "npc",
+      "_id": "lNwsBV5yuVWmbN63",
+      "file": "Mushroom Regency & Kingdom/fvtt-Actor-dr-toad-lNwsBV5yuVWmbN63.json"
+    },
+    {
+      "name": "Luigi",
+      "type": "npc",
+      "_id": "BU8KaiZulAXZVAX7",
+      "file": "Mushroom Regency & Kingdom/fvtt-Actor-luigi-BU8KaiZulAXZVAX7.json"
+    },
+    {
+      "name": "Luigi",
+      "type": "character",
+      "_id": "GPEhvwf2TKNxsBAi",
+      "file": "Mushroom Regency & Kingdom/fvtt-Actor-luigi-GPEhvwf2TKNxsBAi.json"
+    },
+    {
+      "name": "Mario",
+      "type": "npc",
+      "_id": "2CLH4XZlYcwHVXJf",
+      "file": "Mushroom Regency & Kingdom/fvtt-Actor-mario-2CLH4XZlYcwHVXJf.json"
+    },
+    {
+      "name": "Mario",
+      "type": "character",
+      "_id": "PLZBXZMufR5wxjy9",
+      "file": "Mushroom Regency & Kingdom/fvtt-Actor-mario-PLZBXZMufR5wxjy9.json"
+    },
+    {
+      "name": "Princess Daisy",
+      "type": "character",
+      "_id": "4ST4jSdYAiPtbA0J",
+      "file": "Mushroom Regency & Kingdom/fvtt-Actor-princess-daisy-4ST4jSdYAiPtbA0J.json"
+    },
+    {
+      "name": "Professor Elvin Gadd",
+      "type": "character",
+      "_id": "hRncm7j8jzl6FUQe",
+      "file": "Mushroom Regency & Kingdom/fvtt-Actor-professor-elvin-gadd-hRncm7j8jzl6FUQe.json"
+    },
+    {
+      "name": "Director Mario",
+      "type": "character",
+      "_id": "dWIuTVslspxnqaaK",
+      "file": "Nintendo Mania Studio/fvtt-Actor-director-mario-dWIuTVslspxnqaaK.json"
+    },
+    {
+      "name": "Evil Mario",
+      "type": "character",
+      "_id": "43UbOoesLycl730H",
+      "file": "Nintendo Mania Studio/fvtt-Actor-evil-mario-43UbOoesLycl730H.json"
     },
     {
       "name": "Brad",
@@ -1182,6 +1325,12 @@
       "type": "npc",
       "_id": "cOITbXHfqp62nxEa",
       "file": "Peach Loyalists/fvtt-Actor-big-r-cOITbXHfqp62nxEa.json"
+    },
+    {
+      "name": "Captain Toadette",
+      "type": "character",
+      "_id": "aol3F1ArzLzuKbNA",
+      "file": "Peach Loyalists/fvtt-Actor-captain-toadette-aol3F1ArzLzuKbNA.json"
     },
     {
       "name": "Embercap",
@@ -1382,64 +1531,10 @@
       "file": "Players/fvtt-Actor-archie-miser-pi25oGpjW0lCFtuF.json"
     },
     {
-      "name": "Asgore",
-      "type": "character",
-      "_id": "2gd4w2NmsAPBiKhd",
-      "file": "Players/fvtt-Actor-asgore-2gd4w2NmsAPBiKhd.json"
-    },
-    {
-      "name": "Bones",
-      "type": "character",
-      "_id": "fFKZDy00hhMH2quo",
-      "file": "Players/fvtt-Actor-bones-fFKZDy00hhMH2quo.json"
-    },
-    {
       "name": "Bowser",
       "type": "character",
       "_id": "9u5pnP0zaqw8AQQv",
       "file": "Players/fvtt-Actor-bowser-9u5pnP0zaqw8AQQv.json"
-    },
-    {
-      "name": "Bryan",
-      "type": "character",
-      "_id": "cHR6kdrBKPRurO8q",
-      "file": "Players/fvtt-Actor-bryan-cHR6kdrBKPRurO8q.json"
-    },
-    {
-      "name": "Captain Syrup",
-      "type": "character",
-      "_id": "Nnbd7luvQ2cOl1fo",
-      "file": "Players/fvtt-Actor-captain-syrup-Nnbd7luvQ2cOl1fo.json"
-    },
-    {
-      "name": "Captain Toadette",
-      "type": "character",
-      "_id": "aol3F1ArzLzuKbNA",
-      "file": "Players/fvtt-Actor-captain-toadette-aol3F1ArzLzuKbNA.json"
-    },
-    {
-      "name": "Chancellor Toadsworth",
-      "type": "character",
-      "_id": "mWdnG3PwPPmR1ivv",
-      "file": "Players/fvtt-Actor-chancellor-toadsworth-mWdnG3PwPPmR1ivv.json"
-    },
-    {
-      "name": "Chief Thornpaw",
-      "type": "character",
-      "_id": "iI7QZMxhs5x3lM3A",
-      "file": "Players/fvtt-Actor-chief-thornpaw-iI7QZMxhs5x3lM3A.json"
-    },
-    {
-      "name": "Dan",
-      "type": "character",
-      "_id": "brg7b4npoBbXuB65",
-      "file": "Players/fvtt-Actor-dan-brg7b4npoBbXuB65.json"
-    },
-    {
-      "name": "Director Mario",
-      "type": "character",
-      "_id": "dWIuTVslspxnqaaK",
-      "file": "Players/fvtt-Actor-director-mario-dWIuTVslspxnqaaK.json"
     },
     {
       "name": "Eager",
@@ -1448,28 +1543,10 @@
       "file": "Players/fvtt-Actor-eager-VudZ3W313Y4FILs0.json"
     },
     {
-      "name": "Evil Mario",
-      "type": "character",
-      "_id": "43UbOoesLycl730H",
-      "file": "Players/fvtt-Actor-evil-mario-43UbOoesLycl730H.json"
-    },
-    {
-      "name": "Fawthful",
-      "type": "character",
-      "_id": "hn8PnUqxJH3b4ovv",
-      "file": "Players/fvtt-Actor-fawthful-hn8PnUqxJH3b4ovv.json"
-    },
-    {
       "name": "Feyward Dan",
       "type": "character",
       "_id": "IlzuThuR8upTtqtF",
       "file": "Players/fvtt-Actor-feyward-dan-IlzuThuR8upTtqtF.json"
-    },
-    {
-      "name": "Flowey",
-      "type": "character",
-      "_id": "pph59klG2tV6dBv6",
-      "file": "Players/fvtt-Actor-flowey-pph59klG2tV6dBv6.json"
     },
     {
       "name": "Green T",
@@ -1484,112 +1561,10 @@
       "file": "Players/fvtt-Actor-hjumpik-deldkur-Qir5aDX8bkL5lt1c.json"
     },
     {
-      "name": "Kamek",
-      "type": "character",
-      "_id": "8A0DJ9nGovNrKCzx",
-      "file": "Players/fvtt-Actor-kamek-8A0DJ9nGovNrKCzx.json"
-    },
-    {
-      "name": "King Boo",
-      "type": "character",
-      "_id": "2a6YjtlDIZkIAwM0",
-      "file": "Players/fvtt-Actor-king-boo-2a6YjtlDIZkIAwM0.json"
-    },
-    {
-      "name": "King Dedede",
-      "type": "character",
-      "_id": "4rsjYdnySZI05Sbj",
-      "file": "Players/fvtt-Actor-king-dedede-4rsjYdnySZI05Sbj.json"
-    },
-    {
-      "name": "King K. Rool",
-      "type": "character",
-      "_id": "ApMapT7GARCZJqOu",
-      "file": "Players/fvtt-Actor-king-k-rool-ApMapT7GARCZJqOu.json"
-    },
-    {
-      "name": "Kirby",
-      "type": "character",
-      "_id": "RSw8hpjH7kIEjAmm",
-      "file": "Players/fvtt-Actor-kirby-RSw8hpjH7kIEjAmm.json"
-    },
-    {
-      "name": "Luigi",
-      "type": "character",
-      "_id": "GPEhvwf2TKNxsBAi",
-      "file": "Players/fvtt-Actor-luigi-GPEhvwf2TKNxsBAi.json"
-    },
-    {
-      "name": "Marcus Ashford",
-      "type": "character",
-      "_id": "PT4j0cb2M2mk582I",
-      "file": "Players/fvtt-Actor-marcus-ashford-PT4j0cb2M2mk582I.json"
-    },
-    {
-      "name": "Mario",
-      "type": "character",
-      "_id": "PLZBXZMufR5wxjy9",
-      "file": "Players/fvtt-Actor-mario-PLZBXZMufR5wxjy9.json"
-    },
-    {
       "name": "Markop Judi",
       "type": "character",
       "_id": "le5OCgY5x5nnKvkt",
       "file": "Players/fvtt-Actor-markop-judi-le5OCgY5x5nnKvkt.json"
-    },
-    {
-      "name": "Meta Knight",
-      "type": "character",
-      "_id": "gbeLoOEORplvysrF",
-      "file": "Players/fvtt-Actor-meta-knight-gbeLoOEORplvysrF.json"
-    },
-    {
-      "name": "Mimbus",
-      "type": "character",
-      "_id": "gB5U7LTIjW3wx80G",
-      "file": "Players/fvtt-Actor-mimbus-gB5U7LTIjW3wx80G.json"
-    },
-    {
-      "name": "Mr. L",
-      "type": "character",
-      "_id": "jpJLBz44urU5RjVO",
-      "file": "Players/fvtt-Actor-mr-l-jpJLBz44urU5RjVO.json"
-    },
-    {
-      "name": "Mystic Morel (Purple T)",
-      "type": "character",
-      "_id": "QEDBzpvI4JdFzMVd",
-      "file": "Players/fvtt-Actor-mystic-morel-purple-t-QEDBzpvI4JdFzMVd.json"
-    },
-    {
-      "name": "Orangus Cornelius",
-      "type": "character",
-      "_id": "6tcNlolOuZeMI94v",
-      "file": "Players/fvtt-Actor-orangus-cornelius-6tcNlolOuZeMI94v.json"
-    },
-    {
-      "name": "Papyrus",
-      "type": "character",
-      "_id": "13w9iwITPhoqzyPC",
-      "file": "Players/fvtt-Actor-papyrus-13w9iwITPhoqzyPC.json"
-    },
-    {
-      "name": "Paulo",
-      "type": "character",
-      "_id": "MBErEU4rVbH1dWT9",
-      "file": "Players/fvtt-Actor-paulo-MBErEU4rVbH1dWT9.json"
-    },
-    {
-      "name": "Princess Daisy",
-      "type": "character",
-      "_id": "4ST4jSdYAiPtbA0J",
-      "file": "Players/fvtt-Actor-princess-daisy-4ST4jSdYAiPtbA0J.json"
-    },
-    {
-      "name": "Professor Elvin Gadd",
-      "type": "character",
-      "_id": "hRncm7j8jzl6FUQe",
-      "file": "Players/fvtt-Actor-professor-elvin-gadd-hRncm7j8jzl6FUQe.json"
     },
     {
       "name": "Remi",
@@ -1604,40 +1579,10 @@
       "file": "Players/fvtt-Actor-salam-2TkQ7lDU0DJBrx9J.json"
     },
     {
-      "name": "Sans",
-      "type": "character",
-      "_id": "7xCImAeSKudhogzx",
-      "file": "Players/fvtt-Actor-sans-7xCImAeSKudhogzx.json"
-    },
-    {
-      "name": "Speaker L",
-      "type": "character",
-      "_id": "vqwmQfgNMrOfUeDi",
-      "file": "Players/fvtt-Actor-speaker-l-vqwmQfgNMrOfUeDi.json"
-    },
-    {
-      "name": "The Archivist",
-      "type": "character",
-      "_id": "tHCVtXHPMhHI4Z9T",
-      "file": "Players/fvtt-Actor-the-archivist-tHCVtXHPMhHI4Z9T.json"
-    },
-    {
       "name": "Toad Lee",
       "type": "character",
       "_id": "mEqlzuZoafEdiApl",
       "file": "Players/fvtt-Actor-toad-lee-mEqlzuZoafEdiApl.json"
-    },
-    {
-      "name": "Toriel",
-      "type": "character",
-      "_id": "M0eWMQO8K4iAQpGt",
-      "file": "Players/fvtt-Actor-toriel-M0eWMQO8K4iAQpGt.json"
-    },
-    {
-      "name": "Vivian Corvinarus",
-      "type": "character",
-      "_id": "p90C59az8uAIhBXG",
-      "file": "Players/fvtt-Actor-vivian-corvinarus-p90C59az8uAIhBXG.json"
     },
     {
       "name": "Waluigi",
@@ -1656,6 +1601,12 @@
       "type": "npc",
       "_id": "y1amANPSbK9exY41",
       "file": "Players/fvtt-Actor-warios-motorbike-y1amANPSbK9exY41.json"
+    },
+    {
+      "name": "Chief Thornpaw",
+      "type": "character",
+      "_id": "iI7QZMxhs5x3lM3A",
+      "file": "Rakasha & the Feywild/fvtt-Actor-chief-thornpaw-iI7QZMxhs5x3lM3A.json"
     },
     {
       "name": "Rakka",
@@ -1718,6 +1669,12 @@
       "file": "Shadow Estate & House Corvinarus/fvtt-Actor-lyranth-the-sculptor-0Y1HB4Cua7nsM2wV.json"
     },
     {
+      "name": "Marcus Ashford",
+      "type": "character",
+      "_id": "PT4j0cb2M2mk582I",
+      "file": "Shadow Estate & House Corvinarus/fvtt-Actor-marcus-ashford-PT4j0cb2M2mk582I.json"
+    },
+    {
       "name": "Merric",
       "type": "npc",
       "_id": "vCDhEBj8Cr15cpu0",
@@ -1728,6 +1685,12 @@
       "type": "npc",
       "_id": "btK5H0Qx6iUX3v2w",
       "file": "Shadow Estate & House Corvinarus/fvtt-Actor-onyx-knight-btK5H0Qx6iUX3v2w.json"
+    },
+    {
+      "name": "Orangus Cornelius",
+      "type": "character",
+      "_id": "6tcNlolOuZeMI94v",
+      "file": "Shadow Estate & House Corvinarus/fvtt-Actor-orangus-cornelius-6tcNlolOuZeMI94v.json"
     },
     {
       "name": "Orvinder Danos",
@@ -1752,6 +1715,12 @@
       "type": "npc",
       "_id": "rAiXQYgj3SfV8rEr",
       "file": "Shadow Estate & House Corvinarus/fvtt-Actor-tanukiburt-rAiXQYgj3SfV8rEr.json"
+    },
+    {
+      "name": "The Archivist",
+      "type": "character",
+      "_id": "tHCVtXHPMhHI4Z9T",
+      "file": "Shadow Estate & House Corvinarus/fvtt-Actor-the-archivist-tHCVtXHPMhHI4Z9T.json"
     },
     {
       "name": "The Oracle",
@@ -1782,6 +1751,12 @@
       "type": "npc",
       "_id": "PzJIrTDpLyWNboVH",
       "file": "Shadow Estate & House Corvinarus/fvtt-Actor-vivesna-corvinarus-PzJIrTDpLyWNboVH.json"
+    },
+    {
+      "name": "Vivian Corvinarus",
+      "type": "character",
+      "_id": "p90C59az8uAIhBXG",
+      "file": "Shadow Estate & House Corvinarus/fvtt-Actor-vivian-corvinarus-p90C59az8uAIhBXG.json"
     },
     {
       "name": "Baby Bones",
@@ -1874,6 +1849,12 @@
       "file": "Snowdin Bone-Line/fvtt-Actor-ness-l3VVDjElmOqabfnw.json"
     },
     {
+      "name": "Papyrus",
+      "type": "character",
+      "_id": "13w9iwITPhoqzyPC",
+      "file": "Snowdin Bone-Line/fvtt-Actor-papyrus-13w9iwITPhoqzyPC.json"
+    },
+    {
       "name": "Pet Rock",
       "type": "npc",
       "_id": "E8PMhLUrrFK8QS7l",
@@ -1902,6 +1883,12 @@
       "type": "npc",
       "_id": "6CGgraXrIdvoTeuq",
       "file": "Snowdin Bone-Line/fvtt-Actor-s-a-real-star-6CGgraXrIdvoTeuq.json"
+    },
+    {
+      "name": "Sans",
+      "type": "character",
+      "_id": "7xCImAeSKudhogzx",
+      "file": "Snowdin Bone-Line/fvtt-Actor-sans-7xCImAeSKudhogzx.json"
     },
     {
       "name": "Sans of the Dark World",
@@ -1940,6 +1927,12 @@
       "file": "Snowdin Bone-Line/fvtt-Actor-wing-gaster-IiUWLvyZdXnNqFlM.json"
     },
     {
+      "name": "Asgore",
+      "type": "character",
+      "_id": "2gd4w2NmsAPBiKhd",
+      "file": "The Underground/fvtt-Actor-asgore-2gd4w2NmsAPBiKhd.json"
+    },
+    {
       "name": "Boss Knuckles",
       "type": "npc",
       "_id": "ogiOn5piKWLinsNW",
@@ -1952,6 +1945,12 @@
       "file": "The Underground/fvtt-Actor-crossbones-qJfPErd2jeDAwx7A.json"
     },
     {
+      "name": "Flowey",
+      "type": "character",
+      "_id": "pph59klG2tV6dBv6",
+      "file": "The Underground/fvtt-Actor-flowey-pph59klG2tV6dBv6.json"
+    },
+    {
       "name": "High Inquisitor Vale",
       "type": "npc",
       "_id": "ydpBsgotcAuKaxNq",
@@ -1962,6 +1961,12 @@
       "type": "npc",
       "_id": "kaUvrDd1EWN7i74a",
       "file": "The Underground/fvtt-Actor-skull-cap-murphy-kaUvrDd1EWN7i74a.json"
+    },
+    {
+      "name": "Toriel",
+      "type": "character",
+      "_id": "M0eWMQO8K4iAQpGt",
+      "file": "The Underground/fvtt-Actor-toriel-M0eWMQO8K4iAQpGt.json"
     },
     {
       "name": "Asa Hanko",

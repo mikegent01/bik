@@ -223,6 +223,19 @@ check("Feyward spoils: the generated file gives Hjumpik the OC Soul Ring, the Ra
            "woodfellow_library_card", "hjumpik_wolf_pelt_onesie"} <= set(flagged), json.dumps([hj_names, flagged]))
 check("every generated icon is in the image library and every generated item has the inventory flag",
       all(i["img"] in S.load_library() and i["flags"]["waluipedia"]["inventoryItem"] for c in real["changes"] for i in c["addItems"]))
+# 1.9: a write pass that changes nothing leaves the file's bytes AND mtime alone (the suite's --watch keys on mtimes and re-ran itself every pass)
+_real_path = ROOT / "Reputation-Matrix2" / "actors" / "changes" / "spoils-midlands.json"
+_before = (_real_path.stat().st_mtime_ns, _real_path.read_bytes())
+w = subprocess.run([PY, str(ROOT / "tools" / "spoils-to-changes.py")], capture_output=True, text=True)
+check("a write pass over a current file says 'unchanged' and does not touch it (same bytes, same mtime)",
+      w.returncode == 0 and "unchanged" in w.stdout and "wrote" not in w.stdout and (_real_path.stat().st_mtime_ns, _real_path.read_bytes()) == _before, w.stdout[-300:])
+with tempfile.TemporaryDirectory() as tmp2:
+    p2 = os.path.join(tmp2, "x.json")
+    first = S.write_json(p2, {"a": 1})
+    m1 = os.stat(p2).st_mtime_ns
+    second = S.write_json(p2, {"a": 1})
+    third = S.write_json(p2, {"a": 2})
+    check("write_json returns True when it wrote, False when the file already held those bytes", first is True and second is False and third is True and (os.stat(p2).st_mtime_ns >= m1))
 
 print(f"spoils-to-changes: {sum(RESULTS)} ok, {len(RESULTS) - sum(RESULTS)} failed")
 sys.exit(0 if all(RESULTS) else 1)

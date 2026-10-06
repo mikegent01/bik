@@ -37,13 +37,21 @@ array, hit points follow the class die, and every assumption is written to
 ``flags.waluipedia-sheets.promoted`` and the biography so the player can
 revise it in Foundry.
 
+Who is a player character is the party roster in
+``Reputation-Matrix2/actors/folders.json`` (``players.roster``: live Foundry
+id, sheet name, website id, ledger row) — never the dnd5e sheet type, since
+the GM builds NPCs on character sheets too. ``LEDGER``, ``LEDGER_EXEMPT`` and
+``COMPANIONS`` below are read from it.
+
 ``--check`` verifies the mirror without writing:
 
-  * every actor under ``Players/`` is ``type: "character"`` except the
-    allow-listed companions (Steel Defender, Wario's Motorbike);
+  * every roster character sits under ``Players/`` as a ``character`` sheet;
+  * nothing else sits under ``Players/`` except the roster's companions
+    (Steel Defender, Wario's Motorbike) — a character sheet alone does not make
+    a player character;
   * each promoted actor exists under its live id as a character;
-  * every listed player character carries the ledger XP (Green T is exempt:
-    the GM runs him off-ledger, see ``LEDGER_EXEMPT``).
+  * every roster character carries the ledger XP (Green T is exempt: the GM
+    runs him off-ledger, see the roster's ``offLedger``).
 
 A sheet whose class level disagrees with its ledger level is reported as a
 warning, never an error: levelling up is a choice made inside Foundry.
@@ -84,29 +92,16 @@ def _load_module(name, rel):
 B = _load_module("build_character_sheets", "tools/build-character-sheets.py")
 P955 = B.P955
 
-# sheet name -> XP ledger key (XP_SUMMARY in index.html). Every player
-# character in the Players folder is listed; the check fails on drift.
-LEDGER = {
-    "Archie Miser": "archie_miser",
-    "Bowser": "bowser",
-    "Eager": "eager",
-    "Feyward Dan": "dan_the_toad",
-    "Hjumpik Deldkur": "hjumpik",
-    "Markop Judi": "markop",
-    "Remi": "remi_akamatsu_full_backstory",
-    "Salam": "salam",
-    "Toad Lee": "toad_lee",
-    "Waluigi": "waluigi",
-    "Wario": "wario",
-}
-
-# Player characters the GM deliberately runs off-ledger. Reported, never changed.
-LEDGER_EXEMPT = {
-    "Green T": "the GM runs him as Tea Merchant 6 / Bard 6 at 100000 XP; the ledger (level 5, 12500 XP) is not applied",
-}
-
-# NPC-typed actors that may live in Players/ (companions, vehicles).
-COMPANIONS = {"Steel Defender", "Wario's Motorbike"}
+# The party roster (actors/folders.json players.roster) is the one list of
+# player characters every tool reads. From it:
+#   LEDGER         sheet name -> XP ledger key (XP_SUMMARY in index.html); the check fails on drift
+#   LEDGER_EXEMPT  player characters the GM deliberately runs off-ledger (reported, never changed)
+#   COMPANIONS     NPC-typed actors that may live in Players/ (a mount, a construct)
+#   ROSTER         the rows themselves ({actor, name, character, ledger, offLedger})
+ROSTER = B.ROSTER
+LEDGER = {r["name"]: r["ledger"] for r in ROSTER["rows"] if r.get("ledger")}
+LEDGER_EXEMPT = {r["name"]: r.get("offLedger") or "off-ledger by the roster" for r in ROSTER["rows"] if not r.get("ledger")}
+COMPANIONS = {r.get("name") for r in ((B.FOLDER_SCHEME.get("players") or {}).get("companions") or []) if r.get("name")}
 
 PROMOTIONS = [
     {
@@ -355,6 +350,7 @@ def run_write(xp):
         live = read_json(live_path)
         if live.get("type") == "character":
             continue  # already a character sheet (promoted earlier, or rebuilt in Foundry): the XP pin below is all it gets
+        log.append(f"{promo['name']}: live sheet is type {live.get('type')!r} — promoting ({promo['mode']})")
         out_path = target_path(promo)
         doc = promote_replace(live, promo, xp) if promo["mode"] == "replace" else promote_convert(live, promo, xp)
         if os.path.abspath(live_path) != os.path.abspath(out_path):
@@ -419,15 +415,34 @@ def update_manifest():
 
 # -------------------------------------------------------------------- check
 
-def run_check(xp):
+def run_check(xp, placement="error"):
+    """Verify the mirror. `placement` says what a roster/Players mismatch is:
+    "error" (the --check run, after the organizer has filed everything) or
+    "warn" (right after a write, when tools/organize-actors.py still has to
+    run in the same suite pass — the sheets themselves must already be right)."""
     errors, warnings = [], []
+    misplaced = errors if placement == "error" else warnings
     by_name = {}
     for p in sorted(glob.glob(os.path.join(PLAYERS_DIR, "fvtt-Actor-*.json"))):
         doc = read_json(p)
         by_name[doc.get("name")] = (p, doc)
-        if doc.get("type") != "character" and doc.get("name") not in COMPANIONS:
+        row = B.BRIDGE.roster_row(doc, ROSTER)
+        if B.BRIDGE.is_companion(doc, ROSTER):
+            continue
+        if not row:
+            misplaced.append(f"{rel(p)}: {doc.get('name')} ({doc.get('type')}) sits in Players/ but is not on the party roster "
+                             "(Reputation-Matrix2/actors/folders.json players.roster) — a character sheet does not make a player "
+                             "character; add the row (live id, website id, ledger key) or move the actor out of Players")
+            continue
+        if doc.get("type") != "character":
             errors.append(f"{rel(p)}: {doc.get('name')} is a {doc.get('type')} sheet in Players/ — "
                           "player characters carry character sheets (run tools/promote-player-sheets.py)")
+    for row in ROSTER["rows"]:
+        hits = [p for p in mirror_files() if p.endswith(f"-{row['actor']}.json")] if row.get("actor") else []
+        if not hits:
+            errors.append(f"roster: {row['name']} ({row.get('actor')}) is not in the world mirror — fix the roster's live id or export the world")
+        elif os.path.dirname(os.path.abspath(hits[0])) != os.path.abspath(PLAYERS_DIR):
+            misplaced.append(f"{rel(hits[0])}: {row['name']} is on the party roster but sits outside Players/ (tools/organize-actors.py files it there)")
     for promo in PROMOTIONS:
         hits = [p for p in mirror_files() if p.endswith(f"-{promo['id']}.json")]
         if len(hits) != 1:
@@ -469,16 +484,19 @@ def main(argv=None):
     if not args.check:
         for line in run_write(xp):
             print(line)
-    errors, warnings = run_check(xp)
+    # After a write the organizer has not run yet (it is the next suite step),
+    # so who sits in Players/ is reported, not failed; --check is the verdict.
+    errors, warnings = run_check(xp, placement="error" if args.check else "warn")
     for w in warnings:
         print("warning:", w)
     for e in errors:
         print("error:", e)
-    names = ", ".join(f"{p['name']} ({p['mode']})" for p in PROMOTIONS)
     if errors:
         print(f"promote-player-sheets: {len(errors)} error(s)")
         return 1
-    print(f"promote-player-sheets: ok — {len(LEDGER)} player sheets are character sheets at ledger XP; promoted: {names}")
+    done = [f"{p['name']} ({p['mode']})" for p in PROMOTIONS]
+    print(f"promote-player-sheets: ok — {len(ROSTER['rows'])} roster characters in Players/ as character sheets, "
+          f"{len(LEDGER)} at ledger XP, {len(LEDGER_EXEMPT)} off-ledger; promotions on record (already applied, nothing rewritten): {', '.join(done)}")
     return 0
 
 

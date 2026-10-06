@@ -121,18 +121,24 @@ cast packet are rebuilt; and two import packets are combined for Foundry to
 pull straight off this server (`…/worlds/<world>/players-import.json` for the
 Players folder, `…/import.json` for the whole world — paste the printed URL
 into **Mass import → URL**; the server sends `Access-Control-Allow-Origin: *`
-so Foundry can fetch it). The art those packets name — portraits, token
-plates, repo item icons — is **not copied into Foundry**: the packets point
-at it by URL on this server (`--art-base`; the launcher picks the Tailscale or
-LAN address when *reachable from other machines* is ticked, else `127.0.0.1`),
-so **keep `start.py` running whenever Foundry is open** — the Mass Import
-module says so in Foundry when it is not. The copies older passes made under
-Foundry's `Data/portraits` and `Data/assets` are removed once the world no
-longer points at them and this server serves the same bytes
-(`foundry-bridge.py prune-images`; `--art-base copy` restores the old
-copying). It re-runs whenever an export, `Players.json` or a
-changes file changes; `python3 tools/sheets-suite.py --check` is the
-read-only pass `tools/check-all.py` runs. See `docs/SHEETS_SYSTEM.md`.
+so Foundry can fetch it). Who the **player characters** are is one list,
+`Reputation-Matrix2/actors/folders.json` → `players.roster` (live Foundry id,
+sheet name, website id, ledger key): the organizer files those into Players
+and tags them `pc`, the sheets page shows them to everyone, and nobody else
+counts — a dnd5e *character* sheet does not make a player character (the GM
+builds NPCs on them too). Every pass **checks before it publishes**: the mirror
+(`foundry-bridge.py check`) and the combined packets (`check-packet`) must
+pass — ids, item identifiers, item ownership, art paths, the roster — and
+`check-sheets.py` / `promote-player-sheets.py --check` must be green, or
+nothing is copied into Foundry's Data folder and nothing is committed or
+pushed. The art those packets name — portraits, token plates, repo item
+icons — is **copied into Foundry's Data folder** with the packets
+(`foundry-bridge.py install-images`: only files that are missing or differ);
+serving it by URL from this server instead is an opt-in (`--art-base`) that
+needs this server reachable from every Foundry client whenever Foundry is
+open. It re-runs whenever an export, `Players.json` or a changes file
+changes; `python3 tools/sheets-suite.py --check` is the read-only pass
+`tools/check-all.py` runs. See `docs/SHEETS_SYSTEM.md`.
 
 `start.py` sits in the repository root, serves the archive over HTTP and opens
 the home page for you (on Windows, `start.bat` double-clicks it; `start.bat

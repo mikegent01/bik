@@ -87,7 +87,7 @@ check('CAST_SHEETS is the global (index.html already owns SHEETS)', typeof CS ==
 check('every character has a sheet or a skip reason', chars.every(c => ids.has(c.id) || skipIds.has(c.id)));
 check('nothing is both indexed and skipped', [...ids].every(id => !skipIds.has(id)));
 check('mike (the GM) is skipped, not statted', skipIds.has('mike') && !ids.has('mike') && /GM/.test(CS.skipReason('mike')));
-check('Mario and Luigi are hand-authored player-character sheets', ['mario', 'luigi'].every(id => { const e = CS.byCharacter(id); return e && e.source === 'generated' && e.bespoke === true && e.kind === 'pc'; }));
+check('Mario and Luigi carry the live character sheets the GM imported from the hand-authored cast sheets — PC sheets, not party (the roster decides that)', ['mario', 'luigi'].every(id => { const e = CS.byCharacter(id); return e && e.source === 'live' && e.kind === 'pc' && e.party === false && e.level === 5; }));
 check('Mario is a level 5 Monk — the XP ledger level — with the authored CR 5 kept on the entry', CS.byCharacter('mario').level === 5 && CS.byCharacter('mario').ledger.level === 5 && /^Monk 5$/.test(CS.byCharacter('mario').classes[0]) && CS.byCharacter('mario').pc.cr === 5);
 check('every hand-authored sheet is a PC with class, species and background; every templated one is an NPC',
   index.sheets.filter(s => s.source === 'generated').every(s => s.bespoke ? (s.kind === 'pc' && s.level >= 1 && s.classes.length === 1 && s.species) : s.kind === 'npc'));
@@ -95,7 +95,11 @@ check('PC level is the ledger level wherever the ledger has one', index.sheets.f
 check('a generated PC renders as a character sheet with its class line', (() => { const e = CS.byCharacter('mario'); const actor = JSON.parse(fs.readFileSync(path.join(RM, e.file), 'utf8')); const html = CS.pcSheet(actor, e); return /Level 5 Monk 5 \(Warrior of the Open Hand\)/.test(html) && /Extra Attack/.test(html) && !/Multiattack/.test(html); })());
 check('Bowser carries the live character sheet (promoted from the GM\'s NPC copy) with the intake PC as an alternate', CS.byCharacter('bowser').source === 'live' && CS.byCharacter('bowser').kind === 'pc' && (CS.byCharacter('bowser').alternates || []).some(a => a.source === 'intake' && a.kind === 'pc'));
 check('Wario and Salam carry live character sheets, never NPC statblocks', ['wario', 'salam'].every(id => CS.byCharacter(id).source === 'live' && CS.byCharacter(id).kind === 'pc'));
-check('every live player-character entry in the public set is a PC sheet (companions excepted)', index.sheets.filter(s => s.party && s.source === 'live' && !['mossy', 'usk'].includes(s.id)).every(s => s.kind === 'pc'));
+const roster = JSON.parse(fs.readFileSync(path.join(RM, 'actors/folders.json'), 'utf8')).players.roster;
+check('every roster character (actors/folders.json players.roster) is public on a live PC sheet; the public set beyond the roster is the ledger\'s / affiliation\'s allies on whatever sheet the GM keeps',
+  roster.every(r => { const e = CS.byCharacter(r.character); return e && e.party && e.source === 'live' && e.kind === 'pc' && e.file.endsWith(`-${r.actor}.json`); })
+  && index.sheets.filter(s => s.party && !roster.some(r => r.character === s.id)).map(s => s.id).sort().join() === 'bones,mossy,roger,ryan,smoking_j,usk'
+  && !index.sheets.some(s => s.partyWhy === 'player character sheet'));
 check('the GM\'s live statblocks for Mario and Luigi ride as alternates under the hand-authored PC sheets', ['mario', 'luigi'].every(id => (CS.byCharacter(id).alternates || []).some(a => a.source === 'live' && a.kind === 'npc')));
 check('Remi keeps the live-world export', CS.byCharacter('remi_akamatsu_full_backstory').source === 'live');
 const party = index.sheets.filter(s => s.party);
@@ -143,7 +147,7 @@ DEBUG = true;
 check('listVisible is everyone', CS.listVisible().length === index.sheets.length);
 check('searchDocs indexes everyone; refreshSearch grows the docs', CS.searchDocs().length === index.sheets.length && CS.refreshSearch() === index.sheets.length && win.SEARCH_DOCS.filter(d => d.kind === 'sheet').length === index.sheets.length);
 const marioPanel = CS.characterPanel({ id: 'mario' });
-check('characterPanel(Mario) renders with the debug ribbon, restricted badge and the PC line', /cs-panel--restricted/.test(marioPanel) && /cs-debug-ribbon/.test(marioPanel) && /Restricted/.test(marioPanel) && /PC · L5/.test(marioPanel) && /level 5 Monk/.test(marioPanel) && /the XP ledger level/.test(marioPanel));
+check('characterPanel(Mario) renders with the debug ribbon, restricted badge, the PC badge and the live-world note', /cs-panel--restricted/.test(marioPanel) && /cs-debug-ribbon/.test(marioPanel) && /Restricted/.test(marioPanel) && /PC · L5/.test(marioPanel) && /Live world — the Foundry actor this character actually plays with/.test(marioPanel) && /fvtt-Actor-mario-PLZBXZMufR5wxjy9\.json/.test(marioPanel));
 check('characterPanel(Bowser) still has no ribbon', !/cs-debug-ribbon/.test(CS.characterPanel({ id: 'bowser' })));
 check('characterPanel(mike) explains the skip', /No sheet on purpose/.test(CS.characterPanel({ id: 'mike' })));
 CS.view_sheets('');
@@ -153,11 +157,13 @@ check('group chips exist and filtering by group narrows the grid', /cs-chip/.tes
 check('search box filters by name', (() => { CS.setFilter({ q: 'luigi' }); const h = content().innerHTML; CS.setFilter({ q: '' }); return /#\/sheets\/luigi"/.test(h) && !/#\/sheets\/bowser"/.test(h); })());
 CS.view_sheets('mario');
 html = content().innerHTML;
-check('Mario detail renders the header under the debug banner', /cs-debug-banner/.test(html) && /This sheet is restricted/.test(html) && /id="cs-sheet-body"/.test(html) && /Mario/.test(html) && /Hand-authored/.test(html));
+check('Mario detail renders the header under the debug banner: live-world badge, the 955 BF version and the GM\'s statblock as an alternate', /cs-debug-banner/.test(html) && /This sheet is restricted/.test(html) && /id="cs-sheet-body"/.test(html) && /Mario/.test(html) && /Live world/.test(html) && /cs-versions/.test(html) && /#\/sheets\/mario\/955-bf/.test(html) && /#\/sheets\/mario\/alt-1/.test(html) && !/Hand-authored/.test(html));
 await settle();
 html = body().innerHTML;
 check('Mario character sheet: Level 5 Monk, AC 15, HP 47, Stomp, Wing Cap, Extra Attack', /cs-block--pc/.test(html) && /Level 5 Monk 5/.test(html) && /Armor Class<\/b> 15/.test(html) && /Hit Points<\/b> 47/.test(html) && /Stomp/.test(html) && /Wing Cap/.test(html) && /Extra Attack/.test(html) && !/Challenge/.test(html));
-check('Mario detail lists the evidence quotes from his article', /cs-evidence/.test(content().innerHTML) && /Missing Since 1039/.test(content().innerHTML));
+check('Mario\'s live sheet carries no article-evidence section (that belongs to generated sheets; his 955 BF version still has its quotes)', !/cs-evidence/.test(content().innerHTML) && (CS.versionsOf(CS.byCharacter('mario')).find(v => v.key === '955-bf').evidence || []).length > 0);
+CS.view_sheets('toad_4331_t');
+check('a generated sheet (4331 T) lists the evidence quotes tied to its article', /cs-evidence/.test(content().innerHTML) && /Speaker River Follower/.test(content().innerHTML));
 CS.view_sheets('luigi');
 await settle();
 check('Luigi renders as a level 5 Ranger (the ledger level) and keeps his authored CR 4 under it', /Level 5 Ranger 5 \(Monster Slayer\)/.test(body().innerHTML) && CS.byCharacter('luigi').level === 5 && CS.byCharacter('luigi').pc.cr <= 5 && /Luigi/.test(content().innerHTML));

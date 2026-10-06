@@ -15,14 +15,21 @@ The loop the table runs at the end of every session:
               actors/peachs-castle-955) back into ONE import payload with the
               folder tree rebuilt — the module imports it by upload, Data path
               or raw GitHub URL, updating existing actors in place.
-  6. prune-images  (1.8) the packets reference repo art by URL on the
-              archive's own server (combine --art-base); this removes the
-              Data copies step 6b used to make, once the world no longer
-              points at them and the server serves the same bytes.
-  6b. install-images  copy every repo image the actors reference into the
+  6. install-images  copy every repo image the actors reference into the
               Foundry Data folder (never deletes, never overwrites a newer
-              file without --force).
-  check       validates a directory of actor files (ids, duplicates, images).
+              file without --force). This is how the art reaches Foundry.
+  6b. prune-images  only for packets built with `combine --art-base` (art by
+              URL on the archive's own server — opt-in since 1.9; it was the
+              default in 1.8 and did not hold up: blank art whenever start.py
+              was down, nothing for players elsewhere): removes the Data copies
+              the world no longer points at, once the server serves the same
+              bytes.
+  check       validates a directory of actor files: ids, duplicates, item
+              identifiers dnd5e accepts, ownership maps Foundry accepts, no art
+              by URL, the party roster (actors/folders.json players.roster: who
+              sits in Players, who carries a character sheet), images.
+  check-packet  the same validation on a combined import.json — what the suite
+              runs before anything is published to Foundry or committed.
 
 Accepted export shapes: the module's `waluipedia-actors/1` payload, the old
 macro `{ "actors": [...] }`, a bare array (Players.json), or one actor.
@@ -73,6 +80,12 @@ SKIP_FILES = {"manifest.json", "import.json", "players-import.json", "export.jso
 # dnd5e's IdentifierField: anything else makes the whole embedded item invalid
 IDENTIFIER_RE = re.compile(r"^[a-z0-9_-]+$", re.I)
 IDENTIFIER_KEYS = ("identifier", "classIdentifier", "sourceClass")
+# Foundry's DocumentOwnershipField: keys are "default" or 16-character user
+# ids, values CONST.DOCUMENT_OWNERSHIP_LEVELS (INHERIT -1 … OWNER 3); anything
+# else fails validation and the whole update is refused
+OWNERSHIP_LEVELS = {-1, 0, 1, 2, 3}
+# art by URL (the 1.8 scheme): a loopback host is wrong on every machine but the GM's
+LOOPBACK_URL = re.compile(r"^https?://(127\.0\.0\.1|localhost|\[::1\]|0\.0\.0\.0)(:\d+)?/", re.I)
 DEFAULT_FOLDER_SCHEME = os.path.join(RM, "actors", "folders.json")
 
 DEFAULT_PORTRAITS = os.path.join(RM, "portraits")
@@ -135,6 +148,95 @@ def repair_identifiers(doc):
         it["system"][key] = after
         fixes.append((it.get("name") or "?", key, val, after))
     return fixes
+
+
+def invalid_ownership(doc):
+    """[(where, problem)] for every ownership map Foundry would refuse on the
+    actor or its items: a key that is neither "default" nor a 16-character
+    user id (a "-=default" deletion, a slug, a name), a level outside -1..3,
+    a map that is not an object at all."""
+    out = []
+
+    def look(where, own):
+        if own is None:
+            return
+        if not isinstance(own, dict):
+            out.append((where, f"ownership is {type(own).__name__}, not a map"))
+            return
+        for k, v in own.items():
+            key = str(k)
+            if key.startswith("-="):
+                if not FOUNDRY_ID.match(key[2:]) or v is not None:
+                    out.append((where, f"ownership key {key!r} — deletions need a user id and null"))
+                continue
+            if key != "default" and not FOUNDRY_ID.match(key):
+                out.append((where, f"ownership key {key!r} is neither 'default' nor a user id"))
+            if isinstance(v, bool) or not isinstance(v, int) or v not in OWNERSHIP_LEVELS:
+                out.append((where, f"ownership[{key!r}] = {v!r} is not a permission level (-1..3)"))
+
+    look("actor", doc.get("ownership"))
+    for it in doc.get("items") or []:
+        if isinstance(it, dict):
+            look(f"item {it.get('name')!r}", it.get("ownership"))
+            for fx in it.get("effects") or []:
+                if isinstance(fx, dict):
+                    look(f"item {it.get('name')!r} effect {fx.get('name')!r}", fx.get("ownership"))
+    for fx in doc.get("effects") or []:
+        if isinstance(fx, dict):
+            look(f"effect {fx.get('name')!r}", fx.get("ownership"))
+    return out
+
+
+def art_by_url(doc):
+    """[(where, url)] for every image field that names repo art by URL (the
+    1.8 scheme) or any loopback URL: a committed mirror and a packet to publish
+    must name art by Data path — install-images puts the file there."""
+    out = []
+    for container, key in image_fields(doc):
+        p = container.get(key)
+        if isinstance(p, str) and p.startswith(("http://", "https://")) and (art_path(p) or LOOPBACK_URL.match(p)):
+            where = "img" if container is doc else ("token" if key == "src" else f"item {container.get('name')!r}")
+            out.append((where, p))
+    return out
+
+
+def load_roster(scheme=None):
+    """The party roster from the folder scheme (players.roster / players.companions):
+    {folder, rows, ids: {actor id: row}, characters: {website id: row},
+    names: {name lower: row}, companions: {actor id}, companion_names: {name lower}}.
+    Empty maps when the scheme has no roster — every rule that needs one then stays quiet."""
+    scheme = load_folder_scheme() if scheme is None else scheme
+    players = (scheme or {}).get("players") or {}
+    rows = [r for r in (players.get("roster") or []) if isinstance(r, dict) and (r.get("actor") or r.get("name"))]
+    comps = [r for r in (players.get("companions") or []) if isinstance(r, dict) and (r.get("actor") or r.get("name"))]
+    return {
+        "folder": players.get("folder") or "Players",
+        "rows": rows,
+        "ids": {r["actor"]: r for r in rows if r.get("actor")},
+        "characters": {r["character"]: r for r in rows if r.get("character")},
+        "names": {str(r.get("name") or "").strip().lower(): r for r in rows if r.get("name")},
+        "companions": {r["actor"] for r in comps if r.get("actor")},
+        "companion_names": {str(r.get("name") or "").strip().lower() for r in comps if r.get("name")},
+    }
+
+
+def roster_row(doc, roster):
+    """The roster row this actor document is (by live id; by name only for a
+    character sheet, so an NPC statblock named like a player never counts), or None."""
+    if not roster or not isinstance(doc, dict):
+        return None
+    row = roster["ids"].get(doc.get("_id"))
+    if row:
+        return row
+    if doc.get("type") == "character":
+        return roster["names"].get(str(doc.get("name") or "").strip().lower())
+    return None
+
+
+def is_companion(doc, roster):
+    if not roster or not isinstance(doc, dict):
+        return False
+    return doc.get("_id") in roster["companions"] or str(doc.get("name") or "").strip().lower() in roster["companion_names"]
 
 
 def load_folder_scheme(path=DEFAULT_FOLDER_SCHEME):
@@ -911,16 +1013,20 @@ def apply_changes(changes_path, dirs, write=False):
 
 # -------------------------------------------------------------------- check
 
-def check(dirs, image_lib=DEFAULT_IMAGE_LIB, strict_images=False):
+def check_docs(docs, image_lib=DEFAULT_IMAGE_LIB, strict_images=False, roster=None, allow_art_url=False):
+    """The validation behind `check` and `check-packet`. `docs` yields
+    (label, doc) — a file's repo path or a packet's actor name. Returns
+    (count, errors, warnings). `roster` (load_roster) brings the party rules:
+    only roster characters and companions sit in the players folder, and a
+    roster character carries a character sheet; None = no roster rules."""
     lib = load_image_lib(image_lib)
     errors, warnings, ids, unknown = [], [], {}, []
     count = 0
-    for path, _ in actor_files(dirs):
-        rel = os.path.relpath(path, ROOT).replace(os.sep, "/")
-        try:
-            doc = read_json(path)
-        except Exception as exc:  # noqa: BLE001 - report, do not crash
-            errors.append(f"{rel}: invalid JSON ({exc})")
+    players = (roster or {}).get("folder") or "Players"
+    seen_roster = {}
+    for rel, doc in docs:
+        if isinstance(doc, Exception):
+            errors.append(f"{rel}: invalid JSON ({doc})")
             continue
         if not (isinstance(doc, dict) and doc.get("name") and doc.get("type")):
             warnings.append(f"{rel}: not an actor (no name/type) — skipped")
@@ -947,6 +1053,30 @@ def check(dirs, image_lib=DEFAULT_IMAGE_LIB, strict_images=False):
         for it, key, val in invalid_identifiers(doc):
             errors.append(f"{rel}: item {it.get('name')!r} system.{key} {val!r} is not letters/digits/-/_ — dnd5e rejects the item "
                           f"(split repairs this; expected {slug_identifier(val) or slug_identifier(it.get('name'))!r})")
+        for where, problem in invalid_ownership(doc):
+            errors.append(f"{rel}: {where}: {problem} — Foundry refuses the whole update")
+        if not allow_art_url:
+            for where, url in art_by_url(doc):
+                errors.append(f"{rel}: {where} names art by URL ({url}) — art travels as a Data path (install-images copies the file); "
+                              "re-split the export / run the suite without --art-base")
+        # the party: the roster decides, never the sheet type
+        if roster and roster.get("rows"):
+            row = roster_row(doc, roster)
+            here = flag if isinstance(flag, list) else None
+            in_players = bool(here) and here[0] == players
+            if row:
+                if row.get("actor") and aid and row["actor"] != aid:
+                    warnings.append(f"{rel}: {doc.get('name')} is on the roster under id {row['actor']}, this copy is {aid}")
+                elif aid:
+                    seen_roster.setdefault(aid, rel)
+                if doc.get("type") != "character":
+                    errors.append(f"{rel}: {doc.get('name')} is on the party roster but is a {doc.get('type')!r} sheet — "
+                                  "player characters carry character sheets (tools/promote-player-sheets.py)")
+                if here is not None and not in_players:
+                    warnings.append(f"{rel}: {doc.get('name')} is on the party roster but sits in {' / '.join(here) or 'the root'}, not {players}")
+            elif in_players and not is_companion(doc, roster):
+                errors.append(f"{rel}: {doc.get('name')} sits in {players} but is not on the party roster (actors/folders.json players.roster) "
+                              "— a character sheet does not make a player character; add the row or move the actor")
         images = [("img", doc.get("img")), ("token", ((doc.get("prototypeToken") or {}).get("texture") or {}).get("src"))]
         images += [(f"item:{it.get('name')}", it.get("img")) for it in doc.get("items") or [] if isinstance(it, dict)]
         unknown_here = []
@@ -961,6 +1091,47 @@ def check(dirs, image_lib=DEFAULT_IMAGE_LIB, strict_images=False):
             warnings.append(f"{rel}: {len(unknown_here)} image path(s) the repo cannot see (GM uploads?) e.g. {unknown_here[0]}")
     if unknown:
         warnings.append(f"{len(set(unknown))} distinct image path(s) outside the repo, system and modules — the module's import-time image check verifies them in Foundry")
+    return count, errors, warnings
+
+
+def _dir_docs(dirs):
+    for path, _ in actor_files(dirs):
+        rel = os.path.relpath(path, ROOT).replace(os.sep, "/")
+        try:
+            yield rel, read_json(path)
+        except Exception as exc:  # noqa: BLE001 - report, do not crash
+            yield rel, exc
+
+
+def check(dirs, image_lib=DEFAULT_IMAGE_LIB, strict_images=False, roster=None):
+    """Validate a directory tree of actor files (the mirror, an era packet).
+    The roster rules apply whenever the folder scheme has a roster."""
+    roster = load_roster() if roster is None else roster
+    return check_docs(_dir_docs(dirs), image_lib=image_lib, strict_images=strict_images, roster=roster)
+
+
+def check_packet(path, image_lib=DEFAULT_IMAGE_LIB, strict_images=False, roster=None, allow_art_url=False):
+    """Validate one combined import payload (what the module will read)."""
+    roster = load_roster() if roster is None else roster
+    try:
+        raw = read_json(path)
+    except Exception as exc:  # noqa: BLE001
+        return 0, [f"{os.path.relpath(path, ROOT)}: invalid JSON ({exc})"], []
+    meta, folders, actors = normalize_payload(raw)
+    name = os.path.relpath(path, ROOT).replace(os.sep, "/") if os.path.abspath(path).startswith(os.path.abspath(ROOT) + os.sep) else os.path.basename(path)
+    if isinstance(raw, dict) and raw.get("format") not in (None, FORMAT):
+        return 0, [f"{name}: format {raw.get('format')!r} is not {FORMAT}"], []
+
+    def docs():
+        for a in actors:
+            label = f"{name} · {a.get('name')} [{a.get('_id')}]" if isinstance(a, dict) else name
+            yield label, a
+
+    count, errors, warnings = check_docs(docs(), image_lib=image_lib, strict_images=strict_images, roster=roster, allow_art_url=allow_art_url)
+    folder_ids = {f.get("_id") for f in folders if isinstance(f, dict)}
+    for f in folders:
+        if isinstance(f, dict) and f.get("folder") and f["folder"] not in folder_ids:
+            errors.append(f"{name}: folder {f.get('name')!r} names a parent {f['folder']} the packet does not carry")
     return count, errors, warnings
 
 
@@ -1171,10 +1342,16 @@ def main(argv=None):
     p.add_argument("dirs", nargs="+")
     p.add_argument("--write", action="store_true")
 
-    p = sub.add_parser("check", help="validate actor files")
+    p = sub.add_parser("check", help="validate actor files (ids, identifiers, ownership, art paths, the party roster, images)")
     p.add_argument("dirs", nargs="+")
     p.add_argument("--image-lib", default=DEFAULT_IMAGE_LIB)
     p.add_argument("--strict-images", action="store_true", help="unknown images are errors, not warnings")
+
+    p = sub.add_parser("check-packet", help="the same validation on a combined import.json (the suite runs it before publishing or committing)")
+    p.add_argument("packets", nargs="+")
+    p.add_argument("--image-lib", default=DEFAULT_IMAGE_LIB)
+    p.add_argument("--strict-images", action="store_true")
+    p.add_argument("--allow-art-url", action="store_true", help="the packet was built with combine --art-base on purpose")
 
     p = sub.add_parser("install-images", help="copy referenced repo images into the Foundry Data folder (the pre-1.8 way; --art-copy in the suite)")
     p.add_argument("dirs", nargs="+")
@@ -1263,6 +1440,20 @@ def main(argv=None):
         for e in errors:
             print("  ERROR " + e, file=sys.stderr)
         print(f"{'FAIL' if errors else 'OK'} check: {count} actors, {len(errors)} error(s), {len(warnings)} warning(s)")
+        return 1 if errors else 0
+
+    if args.cmd == "check-packet":
+        total, errors, warnings = 0, [], []
+        for pk in args.packets:
+            c, e, w = check_packet(pk, image_lib=args.image_lib, strict_images=args.strict_images, allow_art_url=args.allow_art_url)
+            total += c
+            errors += e
+            warnings += w
+        for w in warnings:
+            print("  warn  " + w)
+        for e in errors:
+            print("  ERROR " + e, file=sys.stderr)
+        print(f"{'FAIL' if errors else 'OK'} check-packet: {total} actors in {len(args.packets)} packet(s), {len(errors)} error(s), {len(warnings)} warning(s)")
         return 1 if errors else 0
 
     if args.cmd == "install-images":

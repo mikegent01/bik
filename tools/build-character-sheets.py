@@ -1332,7 +1332,17 @@ def level_of(xp, cid):
     return e.get("level"), e.get("powerLevel")
 
 
-def is_party(c, xp, sheet_kind):
+def is_party(c, xp, sheet_kind=None):
+    """Who the sheets page shows to everyone and the Foundry folder scheme
+    files under Players: the party roster (actors/folders.json players.roster
+    — the live player characters, by id), the ledger's party factions, a
+    Disaster Inc. affiliation. Never the dnd5e sheet type: the GM builds
+    plenty of NPCs on character sheets (Mario, Kirby, Sans) and the rule that
+    read "character sheet = party" once put thirty-seven of them in the
+    party's folder. `sheet_kind` is accepted for the callers that still pass
+    it and ignored."""
+    if c["id"] in ROSTER["characters"]:
+        return True, "party roster (actors/folders.json)"
     e = xp.get(c["id"]) or {}
     if (e.get("faction") or "") in PARTY_FACTIONS:
         return True, "ledger faction " + e["faction"]
@@ -1340,8 +1350,6 @@ def is_party(c, xp, sheet_kind):
         p = part.strip()
         if p.lower().startswith("disaster inc") and "ally" not in p.lower():
             return True, "affiliation: " + p
-    if sheet_kind == "pc":
-        return True, "player character sheet"
     return False, ""
 
 
@@ -1371,6 +1379,8 @@ GROUPS = [
 
 
 FOLDER_SCHEME = BRIDGE.load_folder_scheme()
+# the party roster: live Foundry id <-> website character id (see is_party, match_existing)
+ROSTER = BRIDGE.load_roster(FOLDER_SCHEME)
 
 
 def sheet_tags(group, kind, role, type_value=None, extra=()):
@@ -1983,16 +1993,28 @@ SOURCE_RANK = {"live": 0, "intake": 1, "era": 2}
 
 
 def match_existing(characters, files):
-    """character id -> [(rel, doc), ...] sorted best first."""
-    by_name = {}
+    """character id -> [(rel, doc), ...] sorted best first.
+
+    A roster character (actors/folders.json players.roster) is matched by its
+    live Foundry id first: the player's own sheet in the world mirror is the
+    article's primary sheet even when an NPC of the same name exists (the
+    Liberated Toads' "Dan" is not Feyward Dan). Everyone else is matched by
+    name (ALIASES first)."""
+    by_name, by_id = {}, {}
     for rel, doc in files:
         by_name.setdefault(norm_name(doc["name"]), []).append((rel, doc))
+        if doc.get("_id") and source_of(rel) == "live":
+            by_id.setdefault(doc["_id"], []).append((rel, doc))
     out = {}
     for c in characters:
         names = [c.get("name") or ""]
         if c["id"] in ALIASES:
             names.insert(0, ALIASES[c["id"]])
         hits = []
+        row = ROSTER["characters"].get(c["id"])
+        if row and row.get("actor"):
+            hits.extend(by_id.get(row["actor"], []))
+            names.insert(0, row.get("name") or "")
         for n in names:
             hits.extend(by_name.get(norm_name(n), []))
         if not hits:
@@ -2005,10 +2027,11 @@ def match_existing(characters, files):
 
         def rank(pair):
             rel, doc = pair
-            # live > intake > era; within a source a player-character sheet
-            # beats an NPC statblock of the same name (the rule that player
-            # characters carry character sheets, not NPC ones)
-            return (SOURCE_RANK[source_of(rel)], 0 if doc.get("type") == "character" else 1, rel)
+            # the roster's live sheet first; then live > intake > era; within a
+            # source a player-character sheet beats an NPC statblock of the
+            # same name (player characters carry character sheets, not NPC ones)
+            mine = 0 if (row and row.get("actor") and doc.get("_id") == row["actor"] and source_of(rel) == "live") else 1
+            return (mine, SOURCE_RANK[source_of(rel)], 0 if doc.get("type") == "character" else 1, rel)
         uniq.sort(key=rank)
         out[c["id"]] = uniq
     return out

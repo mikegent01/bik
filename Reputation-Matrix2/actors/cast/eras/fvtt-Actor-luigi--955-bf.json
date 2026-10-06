@@ -571,7 +571,7 @@
     "lockRotation": false,
     "rotation": 0,
     "alpha": 1,
-    "disposition": 1,
+    "disposition": 0,
     "displayBars": 0,
     "bar1": {
       "attribute": "attributes.hp"
@@ -1390,7 +1390,7 @@
         "hero",
         "generated",
         "955 BF",
-        "Disaster Inc."
+        "Mushroom Regency & Kingdom"
       ],
       "color": "#B8860B",
       "pc": {

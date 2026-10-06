@@ -4997,14 +4997,7 @@
         "Disaster Inc.",
         "pc"
       ],
-      "color": "#D4A017",
-      "organized": {
-        "path": [
-          "Players"
-        ],
-        "basis": "website",
-        "from": []
-      }
+      "color": "#D4A017"
     }
   },
   "_stats": {

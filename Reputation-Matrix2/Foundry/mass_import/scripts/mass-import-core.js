@@ -21,10 +21,14 @@
  *            items and effects are synced, so re-importing never duplicates.
  *            Images are HEAD-checked against the server and reported (or
  *            swapped for a placeholder on request). Dry run available.
- *            1.8: the packets name repo art by URL on the archive's own
- *            server (start.py) — placed tokens follow a moved prototype
- *            token, the export back lists every image the world uses, and a
- *            client that cannot reach the server is told at load.
+ *            1.9: art is back in Data (the suite copies it; art by URL is
+ *            an opt-in --art-base). Embedded items and effects never carry
+ *            ownership in an update or a create (the server stamps the
+ *            creating user on a world copy, so packet and world always
+ *            disagreed there and a `-=default` took the whole batch down);
+ *            an invalid item that an update through the actor does not
+ *            bring back is replaced; a type change is reported, not applied,
+ *            unless the setting says so.
  *            Updates are DIFFS (v1.4): an actor or item identical to the
  *            import is not written at all; dnd5e's activities map and the
  *            flags get real deletions; item identifiers the system would
@@ -57,7 +61,7 @@
 
 export const MODULE_ID = "waluipedia-mass-import";
 /** Must match module.json — Sync compares the two to catch a world still running old code. */
-export const MODULE_VERSION = "1.8.1";
+export const MODULE_VERSION = "1.9.0";
 export const FORMAT = "waluipedia-actors/1";
 export const RAW_BASE = "https://raw.githubusercontent.com/mikegent01/bik/gh-pages/";
 /** The repo's ready-made import-all files (the Import dialog lists them). */
@@ -123,8 +127,45 @@ export function docDiff(before, after, path = "") {
       if (Object.keys(inner).length) out[k] = inner;
     } else if (!deepEqual(b[k], v)) out[k] = clone(v);
   }
-  if (FREEFORM.test(path)) for (const k of Object.keys(b)) if (!(k in a) && !k.startsWith("-=")) out[`-=${k}`] = null;
+  if (FREEFORM.test(path)) {
+    for (const k of Object.keys(b)) {
+      if (k in a || k.startsWith("-=")) continue;
+      // DocumentOwnershipField takes a deletion only for a user id (never
+      // `-=default`) — anything else fails validation and the whole update
+      if (path === "ownership" && !USER_ID.test(k)) continue;
+      out[`-=${k}`] = null;
+    }
+  }
   return out;
+}
+
+/** A Foundry document / user id: 16 letters and digits. */
+export const USER_ID = /^[A-Za-z0-9]{16}$/;
+/**
+ * An embedded document without its `ownership`. Embedded Items and effects
+ * ignore their own ownership field, yet the server stamps the creating user
+ * on every world copy ({"<user>": 3, default: 0}) while a packet copy says
+ * {default: 0} — so the two always disagreed, the diff carried an ownership
+ * deletion, and DocumentOwnershipField refused the update (and with it the
+ * whole batch of that actor's items). Never compared, never sent.
+ */
+export function withoutOwnership(d) {
+  if (!isPlain(d) || !("ownership" in d)) return d;
+  const { ownership, ...rest } = d;
+  return rest;
+}
+/** `data` (an actor) with ownership stripped from every embedded item / effect. */
+export function stripEmbeddedOwnership(data) {
+  if (!isPlain(data)) return data;
+  for (const key of ["items", "effects"]) {
+    if (!Array.isArray(data[key])) continue;
+    data[key] = data[key].map((d) => {
+      const out = withoutOwnership(d);
+      if (isPlain(out) && Array.isArray(out.effects)) out.effects = out.effects.map(withoutOwnership);
+      return out;
+    });
+  }
+  return data;
 }
 
 /** dnd5e accepts identifiers matching this and rejects the whole item otherwise. */
@@ -878,7 +919,7 @@ export function leafPaths(obj, prefix = "", out = []) {
  * changes[]} — `changes` in words ("~ Toad [race] (system.identifier)").
  */
 export function planEmbedded(existing, incoming, replace) {
-  const wanted = (incoming ?? []).filter((d) => d && !isCachedSpell(d));
+  const wanted = (incoming ?? []).filter((d) => d && !isCachedSpell(d)).map(withoutOwnership);
   const incomingIds = new Set(wanted.filter((d) => d._id).map((d) => d._id));
   const plan = { batch: [], solo: [], invalid: [], toCreate: [], toDelete: [], unchanged: 0, changes: [] };
   plan.toDelete = replace ? [...existing.keys()].filter((id) => !incomingIds.has(id)) : [];
@@ -886,7 +927,7 @@ export function planEmbedded(existing, incoming, replace) {
   for (const d of wanted) {
     if (!d._id || !existing.has(d._id)) { plan.toCreate.push(d); plan.changes.push(`+ ${itemLabel(d)}`); continue; }
     const cur = existing.get(d._id);
-    const diff = docDiff(cur.obj, d);
+    const diff = docDiff(withoutOwnership(cur.obj), d);
     if (!Object.keys(diff).length) { plan.unchanged++; continue; }
     const paths = leafPaths(diff);
     plan.changes.push(`${cur.invalid ? "repair" : "~"} ${itemLabel(d)} (${paths.slice(0, 4).join(", ")}${paths.length > 4 ? ` +${paths.length - 4}` : ""})`);
@@ -902,11 +943,15 @@ export function planEmbedded(existing, incoming, replace) {
  * SOURCE, where an invalid document still lives — the path dnd5e's own
  * migrations take; the embedded route (updateEmbeddedDocuments) looks the
  * document up in the live collection, where it is not, and dies with
- * "Cannot read properties of undefined (reading '_source')" (v14). If even
- * that fails the document is replaced — but one of a kind (a species, a
- * background) is NEVER deleted while a stand-in sits on the sheet: the
- * creation would be refused and the broken copy was the only one left. The
- * GM gets a swap (one click) instead.
+ * "Cannot read properties of undefined (reading '_source')" (v14). That
+ * counts as a repair only when the document is live afterwards: on v14 the
+ * update went through without bringing the item back (1.8 then reported it
+ * "repaired (unverified)" and the world logged the same seven invalid items
+ * on every load). Otherwise the document is replaced — deleted and created
+ * again from the packet's copy under the same id — but one of a kind (a
+ * species, a background) is NEVER deleted while a stand-in sits on the
+ * sheet: the creation would be refused and the broken copy was the only one
+ * left. The GM gets a swap (one click) instead.
  */
 async function repairInvalid(actor, collection, docName, data, update, stats) {
   const coll = actor[collection];
@@ -914,11 +959,10 @@ async function repairInvalid(actor, collection, docName, data, update, stats) {
   const label = itemLabel(data);
   try {
     await actor.update({ [collection]: [update] }, { render: false });
-    stats.repaired++; stats.updated++;
     const live = typeof coll?.has === "function" ? coll.has(id) : true;
-    if (!live && coll?.invalidDocumentIds?.has?.(id)) stats.reloadNeeded++;
-    return;
-  } catch (err) { console.warn(`[${MODULE_ID}] ${actor.name}: ${label} could not be repaired through the actor (${err?.message ?? err})`); }
+    if (live) { stats.repaired++; stats.updated++; return; }
+    console.warn(`[${MODULE_ID}] ${actor.name}: ${label} is still invalid after the update through the actor — replacing it`);
+  } catch (err) { console.warn(`[${MODULE_ID}] ${actor.name}: ${label} could not be repaired through the actor (${err?.message ?? err}) — replacing it`); }
   if (isSingletonType(actor, data.type)) {
     const standIns = standInsOf(coll, data.type, id);
     if (standIns.length) { stats.refused.push(label); stats.swaps.push({ label, data: clone(data), standIns, invalidId: id }); return; }
@@ -1052,7 +1096,7 @@ function mergeFlags(existingFlags, incomingFlags) {
   return out;
 }
 
-const DEFAULTS = {
+export const DEFAULTS = {
   mode: "upsert",            // upsert | create | update
   keepIds: true,             // keep _id on create and match on it
   matchByName: true,         // fall back to name + type when no id matches
@@ -1064,7 +1108,7 @@ const DEFAULTS = {
   overwriteOwnership: false, // keep the world's ownership on updates
   replaceEmbedded: true,     // delete items/effects that the import no longer has
   preferNewer: true,         // an actor changed in the world AFTER the packet's copy was exported is kept as is (the export loop brings it back; a dry run names the difference)
-  replaceOnTypeChange: true, // same id, different type (npc -> character): delete + recreate under the same id
+  replaceOnTypeChange: false, // same id, different type (npc -> character): delete + recreate under the same id — off: reported as skipped, the GM decides (1.9; the sheet in the world is the one being played)
   colorFolders: true,        // paint new folders (and colourless existing ones) in the packet's colours
   repairIdentifiers: true,   // slugify item identifiers dnd5e would reject (reported)
   progress: true,
@@ -1115,6 +1159,7 @@ export async function importPayload(raw, options = {}) {
     try {
       if (o.skipPlayerCharacters && data.type === "character") { report.skipped.push({ actor: label, reason: "player character" }); continue; }
       if (o.repairIdentifiers) { const fixes = repairIdentifiers(data); if (fixes.length) report.repaired.push({ actor: label, repairs: fixes }); }
+      stripEmbeddedOwnership(data);
       // folderPath null = the file only has a folder id we cannot name (old macro
       // export). Existing actors then keep their folder; new ones go into that
       // folder if this world has it (same-world re-import), else the root/prefix.
@@ -1180,7 +1225,7 @@ export async function importPayload(raw, options = {}) {
         if ((known || path.length) && !sameFolder(existing, folderId)) update.folder = folderId;
         const textureBefore = existing.prototypeToken?.texture?.src ?? null;
         if (Object.keys(update).length && !o.dryRun) await existing.update(update);
-        // 1.8: the prototype token's art moved (a Data path → the archive's URL):
+        // the prototype token's art moved (a Data path ↔ a URL, a renamed file):
         // placed tokens copied the old path when they were dropped — move them too
         const textureAfter = update.prototypeToken?.texture?.src;
         if (typeof textureAfter === "string" && textureBefore && textureAfter !== textureBefore) {
@@ -2113,13 +2158,13 @@ async function noticeUnreadExport(info, used) {
 }
 
 /* ---------------------------------------------- art on the archive's server */
-// 1.8: the packets name portraits, tokens and item icons by URL on the
-// archive's own server (start.py; the suite's --art-base) instead of copies
-// in Data. Three things follow: placed tokens that copied the old Data path
-// are re-pointed when their actor's prototype token moves; the export back
-// lists every image the world still uses (so the suite can prove a Data copy
-// is unneeded before it deletes it); and a client that cannot reach the
-// server is told so once per load.
+// Art by URL is an OPT-IN (the suite's --art-base; packets.json then names
+// artBase). The default since 1.9 is the art copied into Data again, and
+// artBase is null — nothing below runs then. With a base set: placed tokens
+// that copied the old Data path are re-pointed when their actor's prototype
+// token moves; the export back lists every image the world still uses (so
+// the suite can prove a Data copy is unneeded before it deletes it); and a
+// client that cannot reach the server is told so once per load.
 
 /** Placed tokens of `actor` (every scene) still showing `oldSrc` → `newSrc`. Returns how many. */
 export async function relinkPlacedTokens(actor, oldSrc, newSrc, { dryRun = false } = {}) {
@@ -2342,7 +2387,7 @@ export const api = {
   lastSyncFacts, unreadExport,
   embeddedSources, isCachedSpell, singletonNotes, planEmbedded, leafPaths, swapSingleton, swapsHtml, syncPending, changedRows,
   exportBack, scheduleExportBack, exportBackPath, SINGLETON_TYPES,
-  relinkPlacedTokens, imagesInUse, noticeArtServer,
+  relinkPlacedTokens, imagesInUse, noticeArtServer, withoutOwnership, stripEmbeddedOwnership, USER_ID,
   loadManifest, isManifest, isSheetIndex, SYNC_DEFAULTS, SYNC_SCOPE_LABEL, MODULE_VERSION,
 };
 

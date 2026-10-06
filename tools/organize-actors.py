@@ -10,10 +10,15 @@ and tag every actor.
 The rules live in Reputation-Matrix2/actors/folders.json (the scheme) — edit
 that, never the actor files:
 
-  Players                     the folders in the scheme's `keep` list are never
-                              re-filed (the party's sheets stay where the GM
-                              keeps them); a party *character* found elsewhere
-                              is filed here
+  Players                     the party roster (the scheme's `players.roster`:
+                              live Foundry ids) — a roster character found
+                              elsewhere is filed here, and nothing else is: a
+                              dnd5e *character* sheet does not make a player
+                              character (the GM builds NPCs on them too). The
+                              folders in the scheme's `keep` list are otherwise
+                              never re-filed; an actor the organizer itself once
+                              mis-filed into Players is filed again by the rules
+                              below, one the GM put there stays (check reports it)
   <era> / …                   an actor with the same name and type as one in an
                               era packet the scheme's `eras` name (Peach's
                               Castle 955 BF) is that era's copy: it takes the
@@ -52,8 +57,9 @@ previous folder is kept in `organized.from`, so nothing is lost.
 
 Tags (flags["waluipedia-sheets"].tags — the Mass Import module shows them as
 chips in the Actors sidebar) are rewritten every pass: the website group (or
-Bestiary), pc/npc, the role the site knows, the creature type, and the GM
-folder the actor came from (e.g. "A House Divided"). `color` is the folder's
+Bestiary), pc/npc (pc = on the party roster), the role the site knows, the
+creature type, `party` for an NPC the website counts as the party's (an ally,
+a companion), and the GM folder the actor came from (e.g. "A House Divided"). `color` is the folder's
 colour, so the chips match the folder.
 
 Icons: the scheme's `iconFixes` map core icon paths that no longer exist in
@@ -80,7 +86,7 @@ RM = os.path.join(ROOT, "Reputation-Matrix2")
 WORLDS = os.path.join(RM, "actors", "worlds")
 DEFAULT_INDEX = os.path.join(RM, "data", "sheets.json")
 SHEETS_FLAG = "waluipedia-sheets"
-BASIS_RANK = {"keep": 7, "era": 6, "website": 5, "name-rule": 4, "folder-rule": 3, "gm-group": 2, "bestiary": 1}
+BASIS_RANK = {"roster": 8, "keep": 7, "era": 6, "website": 5, "name-rule": 4, "folder-rule": 3, "gm-group": 2, "bestiary": 1}
 CREATURE_TYPES = {"aberration", "beast", "celestial", "construct", "dragon", "elemental", "fey", "fiend", "giant",
                   "humanoid", "monstrosity", "ooze", "plant", "undead"}
 
@@ -175,31 +181,43 @@ def current_path(doc, rel_parts):
 
 # ------------------------------------------------------------- the rules
 
-def classify(doc, rel_parts, scheme, index, basename="", eras=None):
-    """-> (target path, basis, facts) — facts feed the tags."""
+def classify(doc, rel_parts, scheme, index, basename="", eras=None, roster=None):
+    """-> (target path, basis, facts) — facts feed the tags.
+    `roster` (BRIDGE.load_roster) says who the player characters are; without
+    one nobody is a pc and Players is just a kept folder."""
     players = (scheme.get("players") or {}).get("folder", "Players")
     bestiary = (scheme.get("bestiary") or {}).get("folder", "Bestiary")
     groups = scheme.get("groups") or {}
     keep = set(scheme.get("keep") or [players])
     cur = current_path(doc, rel_parts)
     name = str(doc.get("name") or "")
-    kind = "pc" if doc.get("type") == "character" else "npc"
+    row = BRIDGE.roster_row(doc, roster) if roster else None
+    companion = BRIDGE.is_companion(doc, roster) if roster else False
+    kind = "pc" if row else "npc"
     ctype = creature_type(doc)
     hit = index.get(basename) if basename else None
-    facts = {"kind": kind, "type": ctype, "role": (hit or {}).get("role"), "character": (hit or {}).get("id"),
-             "party": bool((hit or {}).get("party")), "group": None, "from": cur[0] if cur else None, "era": None}
+    facts = {"kind": kind, "type": ctype, "role": (hit or {}).get("role"), "character": (row or {}).get("character") or (hit or {}).get("id"),
+             "party": bool(row) or bool((hit or {}).get("party")), "roster": bool(row), "group": None,
+             "from": cur[0] if cur else None, "era": None}
 
+    if row:
+        # a player character sits in Players, wherever the export found it
+        facts["group"] = (hit or {}).get("group")
+        return [players], "roster", facts
     if cur and cur[0] in keep:
         facts["group"] = (hit or {}).get("group") if hit else None
-        return cur, "keep", facts
+        org = ((doc.get("flags") or {}).get(SHEETS_FLAG) or {}).get("organized")
+        own_doing = isinstance(org, dict) and isinstance(org.get("path"), list) and [str(p) for p in org["path"]] == cur
+        if cur[0] == players and not companion and own_doing:
+            pass  # the organizer filed a non-party actor into Players (the old "character sheet = pc" rule): file it properly below
+        else:
+            return cur, "keep", facts
     era = (eras or {}).get((name.strip().lower(), doc.get("type")))
     if era:
         facts["era"] = era.get("era")
         return list(era["path"]), "era", facts
     if hit:
         facts["group"] = hit["group"]
-        if hit["party"] and kind == "pc":
-            return [players], "website", facts
         return [hit["group"]], "website", facts
     lower = name.lower()
     for group, needles in (scheme.get("nameRules") or {}).items():
@@ -214,6 +232,15 @@ def classify(doc, rel_parts, scheme, index, basename="", eras=None):
     if cur and cur[0] in groups:
         facts["group"] = cur[0]
         return cur[:1], "gm-group", facts
+    if cur and cur[0] == players:
+        # mis-filed into Players by an earlier pass and no rule knows better:
+        # back to the folder it came from, else the fallback group
+        org = ((doc.get("flags") or {}).get(SHEETS_FLAG) or {}).get("organized")
+        came_from = org.get("from") if isinstance(org, dict) else None
+        if isinstance(came_from, list) and came_from and came_from[0] != players:
+            facts["group"] = came_from[0] if came_from[0] in groups else None
+            return [str(p) for p in came_from], "gm-group", facts
+        return [scheme.get("fallback") or "Elsewhere"], "gm-group", facts
     # a creature of a rare or blank type sits straight under Bestiary (no
     # one-creature sub-folders, no "Other" drawer)
     return ([bestiary, ctype] if ctype != "Other" else [bestiary]), "bestiary", facts
@@ -295,13 +322,14 @@ def apply_icon_fixes(doc, fixes):
 def plan(world_dir, scheme, index, force=False, index_path=DEFAULT_INDEX, image_lib=None):
     """[{file, doc, path_now, target, basis, tags, color, move, reason, icons}] for every actor file."""
     eras = load_eras(scheme)
+    roster = BRIDGE.load_roster(scheme)
     lib = BRIDGE.load_image_lib(BRIDGE.DEFAULT_IMAGE_LIB if image_lib is None else image_lib) if scheme.get("iconFixes") else set()
     seeds = []
     for path, rel_parts in BRIDGE.actor_files([world_dir]):
         doc = BRIDGE.load_actor_file(path)
         if doc is None:
             continue
-        target, basis, facts = classify(doc, rel_parts, scheme, index, basename=os.path.basename(path), eras=eras)
+        target, basis, facts = classify(doc, rel_parts, scheme, index, basename=os.path.basename(path), eras=eras, roster=roster)
         seeds.append((path, rel_parts, doc, target, basis, facts))
     # folders worth having: count what the whole import will carry (this
     # mirror, the generated cast, the era packets) and fold the small ones
@@ -312,7 +340,7 @@ def plan(world_dir, scheme, index, force=False, index_path=DEFAULT_INDEX, image_
     folded = BRIDGE.fold_singletons(population, scheme)
     rows = []
     for i, (path, rel_parts, doc, target, basis, facts) in enumerate(seeds):
-        if basis != "keep" and folded.get(f"m{i}") != target:
+        if basis not in ("keep", "roster") and folded.get(f"m{i}") != target:
             facts["folded_from"] = target
             target = folded[f"m{i}"]
         now = current_path(doc, rel_parts)
@@ -321,6 +349,9 @@ def plan(world_dir, scheme, index, force=False, index_path=DEFAULT_INDEX, image_
         move, reason = False, ""
         if basis == "keep":
             move = False
+        elif basis == "roster":
+            move = target != now  # a player character goes to Players whatever the GM's or an earlier pass's placement
+            reason = "party roster" if move else ""
         elif target != now:
             if org_path is None:
                 move, reason = True, "first filing"
@@ -332,7 +363,7 @@ def plan(world_dir, scheme, index, force=False, index_path=DEFAULT_INDEX, image_
                 reason = "left where the GM moved it"
             if move and facts.get("folded_from"):
                 reason += f" (too few for {' / '.join(facts['folded_from'])})"
-        final = target if (move or basis == "keep") else now
+        final = target if (move or basis in ("keep", "roster")) else now
         # the folder the actor came from, remembered across passes (the tag
         # must not change once the move has happened)
         origin = org.get("from") if isinstance(org, dict) and isinstance(org.get("from"), list) else (now if move else None)
@@ -355,7 +386,9 @@ def desired_flags(row):
         sheets["color"] = row["color"]
     else:
         sheets.pop("color", None)
-    if row["basis"] != "keep":
+    if row["basis"] == "roster":
+        sheets.pop("organized", None)  # a player character's place is Players by the roster, not by a filing the GM might undo
+    elif row["basis"] != "keep":
         if row["move"] or not isinstance(row.get("organized"), dict):
             prev = row["organized"] if isinstance(row.get("organized"), dict) else None
             if prev and isinstance(prev.get("from"), list):

@@ -150,11 +150,16 @@ offered again), **changes** (every
 covers the mirror's export → `apply --write`; a later export already carries
 the table's version of those items), **organize** (below: every actor into
 the folder the website would put it in, tags and a colour on each),
-**check**, **build** (`build-character-sheets.py`), **combine**
-(`worlds/<world>/import.json` and `worlds/<world>/players-import.json` — the
-Players folder only — both git-ignored build artefacts), **publish** (below)
-and **verify** (`check-sheets.py`, `promote-player-sheets.py --check`,
-`organize-actors.py --check`). It ends by printing
+**check** (`foundry-bridge.py check`: ids, item identifiers, item
+ownership, art paths, the roster rules), **build**
+(`build-character-sheets.py`), **combine** (`worlds/<world>/import.json` and
+`worlds/<world>/players-import.json` — the Players folder only — both
+git-ignored build artefacts), **packets** (`foundry-bridge.py check-packet`
+on both, as Foundry will read them), **verify** (`check-sheets.py`,
+`promote-player-sheets.py --check`) and — **only when all of that passed** —
+**publish** (below) and the `--git-sync` commit + push; a failed check ends
+the pass `FAILED` with nothing copied into Foundry and nothing committed. It
+ends by printing
 the URLs: the sheets page and the packet to paste into **Mass import → URL**
 (`http://127.0.0.1:8765/Reputation-Matrix2/actors/worlds/midlands/players-import.json`;
 `start.py` sends `Access-Control-Allow-Origin: *` so Foundry can fetch it) —
@@ -171,13 +176,14 @@ result into Foundry (file moves = folder moves, by id). The scheme is
 
 | Folder | Who goes there | Colour |
 | --- | --- | --- |
-| `Players` | the party's `character` sheets and whatever the GM already keeps there (Wario's Motorbike); never re-filed | gold |
+| `Players` | the **party roster** — `players.roster` in `folders.json`, one row per player character: live Foundry `actor` id, sheet `name`, website `character` id, `ledger` key (`null` + `offLedger` for Green T) — and the `players.companions` (Wario's Motorbike, the Steel Defender). A roster character found anywhere else is filed here and tagged `pc`; nothing else is: a dnd5e `character` sheet does not make a player character (the GM builds NPCs on them too — Mario, Kirby, Sans). An actor the organizer itself once mis-filed here goes back to its folder; one the GM put here stays, and `check` reports it until the roster has a row or the actor moves | gold |
 | one folder per website group — `Disaster Inc`, `Iron Legion`, `Koopa Troop`, `Mushroom Regency & Kingdom`, `Mages' Guild`, `Shadow Estate & House Corvinarus`, `Fawful's Furious Freaks`, `Overgrown Manor`, `Elsewhere`, … (the builder's `GROUPS`) | an actor the sheet index (`data/sheets.json`) knows — directly or as an *alternate* of an article — goes to its article's group; else a **name rule** (`Goomba`, `Koopa`, `Hammer Bro`, `Magikoopa`, `Shy Guy` → Koopa Troop; `Palace Guard`, `Royal Guard`, `Castle Chambermaid` → Mushroom Regency; `Legionnaire` → Iron Legion; `Corvinarus`, `Onyx` → Shadow Estate; `Fawful`, `Cackletta`, `Midbus` → the Freaks); else a **folder rule** (`A House Divided / Characters of …` → Overgrown Manor) | the site's faction colour (`data/factionColors.json`) |
 | a GM folder that *is* named like a website group (`Iron Legion`) | stays, and is coloured | the group's colour |
 | `Bestiary / ⟨creature type⟩` | everything else — generic statblocks, by `system.details.type.value` (the 14 dnd5e types; `custom`/blank → `Other`) | a shade per type |
 
-Precedence: `keep` folders (Players) → website index → name rules → folder
-rules → a GM folder named like a group → Bestiary. An actor the GM **moves
+Precedence: the roster (Players) → `keep` folders → the era packets →
+website index → name rules → folder rules → a GM folder named like a group →
+Bestiary. An actor the GM **moves
 after** the organizer filed it (the next export says so) is left where the
 GM put it — the placement is remembered in
 `flags["waluipedia-sheets"].organized = {path, basis, from}` and only
@@ -278,15 +284,19 @@ kill a pass.
 
 ### Player characters carry character sheets: `tools/promote-player-sheets.py`
 
-The rule, enforced by the suite's verify step and `check-all`: **nothing
-under `worlds/<world>/Players/` is an `npc` statblock** except the
-companions (Steel Defender, Wario's Motorbike), and every player sheet's
-`details.xp.value` is the XP ledger's (`const XP_SUMMARY` in `index.html`;
-Green T is exempt — the GM runs him off-ledger at Tea Merchant 6 / Bard 6,
-100000 XP, and the check says so). The 2026-10-04 export had three players
-on statblocks; the tool rewrote them in place, **under their live ids**, so
-the module's replace-on-type-change swaps them in with every token, link
-and ownership grant intact:
+The rule, enforced by the suite's verify step and `check-all`: **every
+roster character** (`folders.json` → `players.roster`, which is where the
+tool reads `LEDGER` / `LEDGER_EXEMPT` / `COMPANIONS` from) **sits under
+`worlds/<world>/Players/` as a `character` sheet, nothing else sits there
+but the companions** (Steel Defender, Wario's Motorbike), and every player
+sheet's `details.xp.value` is the XP ledger's (`const XP_SUMMARY` in
+`index.html`; Green T is exempt — the GM runs him off-ledger at Tea Merchant
+6 / Bard 6, 100000 XP, and the check says so). A `character` sheet that is
+not on the roster is an NPC the GM built that way, and the check fails if it
+sits in Players. The 2026-10-04 export had three players on statblocks; the
+tool rewrote them in place, **under their live ids**, so the module's
+replace-on-type-change (an option the GM ticks since 1.9; it was the default
+then) swapped them in with every token, link and ownership grant intact:
 
 | Actor | Live id | Mode | What happened |
 | --- | --- | --- | --- |
@@ -296,9 +306,10 @@ and ownership grant intact:
 
 Once a promoted actor comes back from Foundry as a `character` the tool
 leaves it alone apart from the XP pin — the world owns everything the
-ledger does not. Sheet levels are never changed by the tool: a sheet below
-its ledger level (Hjumpik, Fighter 6 at 25342 XP) is a warning that reads
-"level up in Foundry".
+ledger does not — and its last line says so ("promotions on record (already
+applied, nothing rewritten)"). Sheet levels are never changed by the tool: a
+sheet below its ledger level (Hjumpik, Fighter 6 at 25342 XP) is a warning
+that reads "level up in Foundry".
 
 [`tools/foundry-studio.py`](../../tools/foundry-studio.py) — the **Foundry++
 character editor suite** — is the art side of the same loop: `sort` names,
