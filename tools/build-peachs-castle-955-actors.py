@@ -30,9 +30,12 @@ Design rules (same as tools/build-sanctum-npcs.py):
     canon anchor is events.json `highsun_1_955_bf_the_day_of`.
   * Every actor carries a deterministic `_id` and a
     `flags.waluipedia-mass-import.folderPath`, so the mass-import module
-    (Reputation-Matrix2/foundry/mass-import) files them into
-    "Peach's Castle 955 BF / The Court | Bowser's Incursion" and re-imports
-    update in place instead of duplicating.
+    (Reputation-Matrix2/Foundry/mass_import) files them by FACTION, in the
+    era's sub-folder: the court under "Mushroom Regency & Kingdom / 955 BF —
+    Peach's Castle", the incursion under "Koopa Troop / 955 BF — Peach's
+    Castle" (the sub-folder name is actors/folders.json `eras.peachs-castle-
+    955.folder`; --check holds the two together). Re-imports update in place
+    instead of duplicating.
 
 Usage:
     python3 tools/build-peachs-castle-955-actors.py            # write
@@ -58,9 +61,13 @@ FOUNDRY_ID = re.compile(r"^[A-Za-z0-9]{16}$")
 # mass-import): the flag scope is the module id, so Foundry keeps it on import
 # and `tools/foundry-bridge.py combine` can rebuild the folder tree from it.
 MODULE_ID = "waluipedia-mass-import"
-FOLDER_ROOT = "Peach's Castle 955 BF"
-FOLDERS = {"court": [FOLDER_ROOT, "The Court"],
-           "incursion": [FOLDER_ROOT, "Bowser's Incursion"]}
+FOLDER_SCHEME = os.path.join(RM, "actors", "folders.json")
+# The era sub-folder, under each side's faction (website group) folder — the
+# sidebar reads by faction, then by date: Koopa Troop / 1035 BF — Bowser's
+# Castle / 955 BF — Peach's Castle (Foundry sorts the sub-folders by name).
+ERA_FOLDER = "955 BF — Peach's Castle"
+FOLDERS = {"court": ["Mushroom Regency & Kingdom", ERA_FOLDER],
+           "incursion": ["Koopa Troop", ERA_FOLDER]}
 
 ABILITY_KEYS = ("str", "dex", "con", "int", "wis", "cha")
 SKILL_ABILITY = {
@@ -1249,10 +1256,38 @@ def load_image_lib():
         return {ln.strip().replace("\\", "/") for ln in fh if ln.strip()}
 
 
-def validate(slug, actor, lib):
+def load_folder_scheme():
+    try:
+        with open(FOLDER_SCHEME, encoding="utf-8") as fh:
+            scheme = json.load(fh)
+    except (OSError, ValueError):
+        return {}
+    return scheme if isinstance(scheme, dict) else {}
+
+
+def validate_folder(actor, scheme, era_dir, era_folder):
+    """The folderPath flag: [faction group, era sub-folder], the group one the
+    scheme knows and the sub-folder the one the scheme's `eras.<dir>` names
+    (the organizer and the module file by the same scheme)."""
+    problems = []
+    path = ((actor.get("flags") or {}).get(MODULE_ID) or {}).get("folderPath")
+    if not isinstance(path, list) or len(path) != 2:
+        return ["folderPath must be [faction group, era sub-folder]"]
+    if scheme.get("groups") and path[0] not in scheme["groups"]:
+        problems.append(f"folderPath group {path[0]!r} is not a website group in actors/folders.json")
+    if path[1] != era_folder:
+        problems.append(f"folderPath must end in the era sub-folder {era_folder!r}")
+    want = ((scheme.get("eras") or {}).get(era_dir) or {}).get("folder")
+    if scheme and want != era_folder:
+        problems.append(f"actors/folders.json eras.{era_dir}.folder is {want!r}, this generator says {era_folder!r}")
+    return problems
+
+
+def validate(slug, actor, lib, scheme=None):
     problems = []
     if actor["type"] != "npc":
         problems.append("type must be npc")
+    problems += validate_folder(actor, scheme if scheme is not None else load_folder_scheme(), "peachs-castle-955", ERA_FOLDER)
     if not FOUNDRY_ID.match(actor.get("_id") or ""):
         problems.append("actor _id must be 16 alphanumerics")
     if actor["prototypeToken"]["actorLink"]:

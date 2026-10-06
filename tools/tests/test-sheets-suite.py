@@ -107,18 +107,25 @@ check("the spoils files set no XP (the ledger pin owns that)", not any("set" in 
 check("packets are git-ignored build artefacts",
       "Reputation-Matrix2/actors/worlds/*/import.json" in (ROOT / ".gitignore").read_text(encoding="utf-8")
       and "Reputation-Matrix2/actors/worlds/*/players-import.json" in (ROOT / ".gitignore").read_text(encoding="utf-8"))
-check("one import carries everything: the world mirror, the generated cast and the era packets the scheme names, in that precedence",
-      [os.path.relpath(d, suite.ACTORS).replace(os.sep, "/") for d in suite.packet_sources("midlands")] == ["worlds/midlands", "cast", "peachs-castle-955", "bowsers-castle-1035"])
+check("one import carries everything: the world mirror, the generated cast, the era packets and the other committed packets the scheme names (the Liberated Toads cohorts), in that precedence",
+      [os.path.relpath(d, suite.ACTORS).replace(os.sep, "/") for d in suite.packet_sources("midlands")] == ["worlds/midlands", "cast", "peachs-castle-955", "bowsers-castle-1035", "liberated-toads"])
 everything = read(ROOT / "Reputation-Matrix2/actors/worlds/midlands/import.json")
 names = {(a["name"].lower(), a["type"]) for a in everything["actors"]}
 n_mirror = read(ROOT / "Reputation-Matrix2/actors/worlds/midlands/manifest.json")["actorCount"]
 n_cast = read(ROOT / "Reputation-Matrix2/actors/cast/import.json")["actorCount"]
-n_era = sum(read(ROOT / f"Reputation-Matrix2/actors/{d}/import.json")["actorCount"] for d in ("peachs-castle-955", "bowsers-castle-1035"))
+n_era = sum(read(ROOT / f"Reputation-Matrix2/actors/{d}/import.json")["actorCount"] for d in ("peachs-castle-955", "bowsers-castle-1035", "liberated-toads"))
 omitted = everything.get("omitted") or []
-check("…the built packet holds the live world + cast + the era packets (955 BF court, 1035 BF castle); a cast or era copy the world already has (same name + type) is left out and listed",
+check("…the built packet holds the live world + cast + the era packets (955 BF court, 1035 BF castle) + the Liberated Toads cohorts; a cast or packet copy the world already has (same name + type) is left out and listed",
       everything["actorCount"] == n_mirror + n_cast + n_era - len(omitted) and len(omitted) >= 10 and ("koopatrol", "npc") in names and ("bowser (955 bf)", "character") in names
-      and all(o["keptFrom"] == "Reputation-Matrix2/actors/worlds/midlands" and o["file"].startswith(("Reputation-Matrix2/actors/cast/", "Reputation-Matrix2/actors/peachs-castle-955/", "Reputation-Matrix2/actors/bowsers-castle-1035/")) for o in omitted)
+      and ("sentry t", "npc") in names
+      and all(o["keptFrom"] == "Reputation-Matrix2/actors/worlds/midlands" and o["file"].startswith(("Reputation-Matrix2/actors/cast/", "Reputation-Matrix2/actors/peachs-castle-955/", "Reputation-Matrix2/actors/bowsers-castle-1035/", "Reputation-Matrix2/actors/liberated-toads/")) for o in omitted)
       and len({(o["name"].lower(), o["type"]) for o in omitted} & names) == len(omitted), str(omitted)[:200])
+era_sub = suite.read_json_quiet(os.path.join(suite.ACTORS, "folders.json"))["eras"]["peachs-castle-955"]["folder"]
+check("…the eras sit under their factions (Koopa Troop / 955 BF — Peach's Castle, Mushroom Regency & Kingdom / 955 BF — Peach's Castle) and the cohorts under Liberated Toads / <cohort>; no era root of its own",
+      {tuple(a["flags"]["waluipedia-mass-import"]["folderPath"]) for a in everything["actors"] if a["name"] in ("Koopatrol", "Bowser (955 BF)")} == {("Koopa Troop", era_sub)}
+      and {tuple(a["flags"]["waluipedia-mass-import"]["folderPath"]) for a in everything["actors"] if a["name"] in ("Princess Peach (955 BF)", "Mario (955 BF)")} == {("Mushroom Regency & Kingdom", era_sub)}
+      and {tuple(a["flags"]["waluipedia-mass-import"]["folderPath"]) for a in everything["actors"] if a["name"] == "Sentry T"} == {("Liberated Toads", "Pond Patrol")}
+      and not any(f["path"][0].startswith(("Peach's Castle", "Bowser's Castle")) for f in everything["folders"]), str(sorted({tuple(f["path"]) for f in everything["folders"]}))[:400])
 check("…every folder in it is coloured (groups, Bestiary types, Players, the era) and none is a one-actor sub-folder",
       all(f.get("color") for f in everything["folders"])
       and not [f["name"] for f in everything["folders"] if len(f["path"]) > 1 and sum(1 for a in everything["actors"] if a["flags"]["waluipedia-mass-import"]["folderPath"] == f["path"]) < 2],

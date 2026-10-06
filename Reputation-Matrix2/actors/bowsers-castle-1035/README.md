@@ -8,8 +8,10 @@ the lava tunnel, and Bowser is fighting his way **down** his own castle. The
 GM run-sheet is
 [`docs/sessions/bowsers-castle-1035-the-castle-comes-down.md`](../../../docs/sessions/bowsers-castle-1035-the-castle-comes-down.md).
 
-Two sides and a sideplot, filed as three Foundry folders under *Bowser's
-Castle 1035 BF*:
+Two sides and a sideplot, filed by faction and then by date — Side A and the
+remnant under *Koopa Troop / 1035 BF — Bowser's Castle*, Side B under
+*Fawthful's Forces / 1035 BF — Bowser's Castle* (the folder scheme's `eras`
+entry names the sub-folder):
 
 - **Side A — Bowser's Line** (friendly) — the loyal garrison and **Omega
   Bowser**, the form Bowser takes if the castle lands on him.
@@ -43,8 +45,9 @@ blocks and icon shelf, so the two era packets cannot drift apart.
    `https://raw.githubusercontent.com/mikegent01/bik/gh-pages/Reputation-Matrix2/actors/bowsers-castle-1035/import.json`),
    or upload [`import.json`](import.json), or paste
    [`macros/import-bowsers-castle-1035.js`](../../Foundry/mass_import/macros/import-bowsers-castle-1035.js)
-   into a script macro. It creates the three folders, all twenty-seven actors
-   with their fixed `_id`s, and reports any token the server cannot find.
+   into a script macro. It creates the two era sub-folders, all twenty-seven
+   actors with their fixed `_id`s, and reports any token the server cannot
+   find.
    Running it again after a rebuild **updates** them in place. The sheets
    suite also folds this packet into the world's everything-import, exactly
    as it does the 955 packet (the folder scheme's `eras` names both).

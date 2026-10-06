@@ -19,10 +19,17 @@ that, never the actor files:
                               never re-filed; an actor the organizer itself once
                               mis-filed into Players is filed again by the rules
                               below, one the GM put there stays (check reports it)
-  <era> / …                   an actor with the same name and type as one in an
-                              era packet the scheme's `eras` name (Peach's
-                              Castle 955 BF) is that era's copy: it takes the
-                              packet's folder (the court, the incursion)
+  <faction> / <era> …         an actor with the same name and type as one in an
+                              era packet the scheme's `eras` name is that era's
+                              copy: it takes the packet's folder — the faction's
+                              group folder, then the era sub-folder (Koopa Troop
+                              / 955 BF — Peach's Castle for the incursion,
+                              Mushroom Regency & Kingdom / 955 BF — Peach's
+                              Castle for the court); the generated era versions
+                              of the cast (Mario (955 BF)) file the same way
+  <group> / <cohort>          likewise a copy of an actor in a committed packet
+                              the scheme's `packets` name (the Liberated Toads
+                              cohorts: Liberated Toads / Pond Patrol)
   <website group>             every actor the sheet index (data/sheets.json)
                               maps to a character article: Disaster Inc.,
                               Liberated Toads, Iron Legion, Shadow Estate &
@@ -86,7 +93,7 @@ RM = os.path.join(ROOT, "Reputation-Matrix2")
 WORLDS = os.path.join(RM, "actors", "worlds")
 DEFAULT_INDEX = os.path.join(RM, "data", "sheets.json")
 SHEETS_FLAG = "waluipedia-sheets"
-BASIS_RANK = {"roster": 8, "keep": 7, "era": 6, "website": 5, "name-rule": 4, "folder-rule": 3, "gm-group": 2, "bestiary": 1}
+BASIS_RANK = {"roster": 8, "keep": 7, "era": 6, "packet": 6, "website": 5, "name-rule": 4, "folder-rule": 3, "gm-group": 2, "bestiary": 1}
 CREATURE_TYPES = {"aberration", "beast", "celestial", "construct", "dragon", "elemental", "fey", "fiend", "giant",
                   "humanoid", "monstrosity", "ooze", "plant", "undead"}
 
@@ -135,27 +142,38 @@ def load_index_raw(path=DEFAULT_INDEX):
 
 
 def era_label_folders(scheme):
-    """{"955 BF": "Peach's Castle 955 BF"} — era label -> era folder."""
+    """{"955 BF": "955 BF — Peach's Castle"} — era label -> the era sub-folder
+    (it sits under the faction's group folder)."""
     return {e.get("era"): e["folder"] for e in BRIDGE.era_folders(scheme).values() if e.get("era")}
 
 
 def cast_population(scheme, index_path=DEFAULT_INDEX):
     """[path] for every generated sheet and era version the website index lists —
     what tools/build-character-sheets.py puts in the cast packet (group
-    folders; era versions in the era folder)."""
+    folders; an era version under its faction's era sub-folder, read from the
+    version's own file so a past self filed under another faction — Bowser
+    (955 BF) under Koopa Troop — counts where it really sits)."""
     by_label = era_label_folders(scheme)
     paths = []
     for e in load_index_raw(index_path).get("sheets") or []:
         if e.get("source") == "generated":
             paths.append([e.get("group") or "Elsewhere"])
         for v in e.get("versions") or []:
+            group = e.get("group") or "Elsewhere"
             folder = by_label.get(v.get("era"))
-            paths.append([folder] if folder else [e.get("group") or "Elsewhere", str(v.get("era") or "era")])
+            doc = BRIDGE.load_actor_file(os.path.join(RM, v["file"])) if v.get("file") else None
+            flag = ((doc or {}).get("flags") or {}).get(MODULE_ID, {}).get("folderPath")
+            if isinstance(flag, list) and flag:
+                paths.append([str(x) for x in flag])
+            else:
+                paths.append([group, folder] if folder else [group, str(v.get("era") or "era")])
     return paths
 
 
 def load_eras(scheme):
-    """{(name lower, type): {"path", "folder", "era", "file"}} — the era packets' actors."""
+    """{(name lower, type): {"path", "folder", "era", "file", "generated"}} — the
+    actors of the committed packets (eras, Liberated Toads cohorts) and the
+    generated era versions of the cast; see foundry-bridge.era_actors."""
     return BRIDGE.era_actors(scheme)
 
 
@@ -214,8 +232,12 @@ def classify(doc, rel_parts, scheme, index, basename="", eras=None, roster=None)
             return cur, "keep", facts
     era = (eras or {}).get((name.strip().lower(), doc.get("type")))
     if era:
+        # a copy of a committed packet's actor files where the packet files it:
+        # an era actor under its faction's era sub-folder, a cohort toad under
+        # Liberated Toads / <cohort>
         facts["era"] = era.get("era")
-        return list(era["path"]), "era", facts
+        facts["group"] = era["path"][0] if era.get("path") and era["path"][0] in groups else None
+        return list(era["path"]), ("era" if era.get("era") else "packet"), facts
     if hit:
         facts["group"] = hit["group"]
         return [hit["group"]], "website", facts
@@ -261,6 +283,8 @@ def tags_for(target, basis, facts, scheme):
         tags.append("party")
     if facts.get("era"):
         tags.append(str(facts["era"]))
+    if basis == "packet" and target and len(target) >= 2:
+        tags.append(str(target[1]))   # the cohort
     came_from = facts.get("from")
     if came_from and target and came_from != target[0] and came_from not in tags:
         tags.append(came_from)
@@ -336,7 +360,7 @@ def plan(world_dir, scheme, index, force=False, index_path=DEFAULT_INDEX, image_
     mirror_keys = {(str(d.get("name") or "").strip().lower(), d.get("type")) for _, _, d, *_ in seeds}
     population = {f"m{i}": t for i, (_, _, _, t, _, _) in enumerate(seeds)}
     population.update({f"c{i}": p for i, p in enumerate(cast_population(scheme, index_path))})
-    population.update({f"e{i}": v["path"] for i, (k, v) in enumerate(eras.items()) if k not in mirror_keys})
+    population.update({f"e{i}": v["path"] for i, (k, v) in enumerate(eras.items()) if k not in mirror_keys and not v.get("generated")})
     folded = BRIDGE.fold_singletons(population, scheme)
     rows = []
     for i, (path, rel_parts, doc, target, basis, facts) in enumerate(seeds):

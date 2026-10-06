@@ -40,10 +40,12 @@ the archive files the Jester and the Koopa Prisoner. Generic troops reuse the
 cutouts; the named figures have their own tokens under
 Reputation-Matrix2/portraits/bowsers-castle-1035/.
 
-The folder scheme (actors/folders.json `eras.bowsers-castle-1035`) files the
-packet under "Bowser's Castle 1035 BF" in Foundry, and the sheets suite folds
-it into the world's import.json like the 955 packet. Do not hand-edit the
-JSON: change this generator and re-run it (`check-all` runs `--check`).
+The packet files by FACTION in Foundry, in the era's sub-folder (actors/
+folders.json `eras.bowsers-castle-1035.folder`): Side A and the remnant at the
+track under "Koopa Troop / 1035 BF — Bowser's Castle", Side B under "Fawthful's
+Forces / 1035 BF — Bowser's Castle"; the sheets suite folds it into the world's
+import.json like the 955 packet. Do not hand-edit the JSON: change this
+generator and re-run it (`check-all` runs `--check`).
 """
 from __future__ import annotations
 
@@ -62,10 +64,10 @@ PORTRAITS = os.path.join(RM, "portraits", PACKET)
 TOKEN_PREFIX = f"portraits/{PACKET}/"
 FILE_PREFIX = "fvtt-Actor-bc1035-"
 MODULE_ID = "waluipedia-mass-import"
-FOLDER_ROOT = "Bowser's Castle 1035 BF"
-FOLDERS = {"a": [FOLDER_ROOT, "Side A — Bowser's Line"],
-           "b": [FOLDER_ROOT, "Side B — Fawthful's Forces"],
-           "track": [FOLDER_ROOT, "The Remnant at the Track"]}
+ERA_FOLDER = "1035 BF — Bowser's Castle"   # the era sub-folder under each side's faction folder
+FOLDERS = {"a": ["Koopa Troop", ERA_FOLDER],
+           "b": ["Fawthful's Forces", ERA_FOLDER],
+           "track": ["Koopa Troop", ERA_FOLDER]}
 DISPOSITION = {"a": 1, "b": -1, "track": 0}
 FOUNDRY_ID = re.compile(r"^[A-Za-z0-9]{16}$")
 
@@ -1461,8 +1463,7 @@ def validate(slug, actor, lib):
     bio_html = actor["system"]["details"]["biography"]["value"]
     if "1035 BF" not in bio_html:
         problems.append("biography must anchor the era (1035 BF)")
-    if actor["flags"][MODULE_ID]["folderPath"][0] != FOLDER_ROOT:
-        problems.append("folderPath must sit under the era folder")
+    problems += P955.validate_folder(actor, P955.load_folder_scheme(), PACKET, ERA_FOLDER)
     return [f"{slug}: {p}" for p in problems]
 
 

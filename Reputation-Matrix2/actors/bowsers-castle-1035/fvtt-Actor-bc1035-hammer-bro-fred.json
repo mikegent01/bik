@@ -960,8 +960,8 @@
   "flags": {
     "waluipedia-mass-import": {
       "folderPath": [
-        "Bowser's Castle 1035 BF",
-        "Side A — Bowser's Line"
+        "Koopa Troop",
+        "1035 BF — Bowser's Castle"
       ],
       "source": "tools/build-bowsers-castle-1035-actors.py"
     }

@@ -44,8 +44,10 @@ stale.) Every one of the 188 is a dnd5e actor file that imports through the
 [Mass Import module](../Reputation-Matrix2/Foundry/mass_import/README.md), and
 the 156 generated ones plus the past selves ship together as
 `actors/cast/import.json` (folders: the website groups themselves, past
-selves in the era folder *Peach's Castle 955 BF*) — and the sheets suite
-merges that packet with the world mirror and the 955 BF packet into the one
+selves in their era faction's era sub-folder — *Koopa Troop / 955 BF —
+Peach's Castle*, *Mushroom Regency & Kingdom / 955 BF — Peach's Castle*) —
+and the sheets suite merges that packet with the world mirror, the era
+packets and the Liberated Toads cohorts into the one
 `actors/worlds/<world>/import.json` the Mass Import module syncs.
 
 ## The visibility rule
@@ -247,9 +249,11 @@ can carry — one entry per version with `version`, `era`, `label`, `when`
 `BESPOKE` entry and its own `pc=` tuple. `build_eras()` builds each through
 `build_generated(…, era=…)`: a player-character sheet named *Name (955 BF)*,
 id `sid("cast", "<id>--<version>")`, file
-`actors/cast/eras/fvtt-Actor-<id>--<version>.json`, folder *Peach's Castle
-955 BF* (the scheme's era folder for the label; *<group> / <era>* when the
-scheme has none), flag `waluipedia-sheets.era {version, era, label, when}`.
+`actors/cast/eras/fvtt-Actor-<id>--<version>.json`, folder *<era faction> /
+955 BF — Peach's Castle* (the `group` the `ERAS` entry names — Bowser's past
+self under Koopa Troop, the brothers' under Mushroom Regency & Kingdom — then
+the scheme's era sub-folder for the label; *<group> / <era>* when the scheme
+has none), flag `waluipedia-sheets.era {version, era, label, when}`.
 Rules: **an era level never exceeds the ledger level** (the builder and the
 checker both refuse it — a past self cannot hold more experience than the
 present one; a prime shows in the kit), every feature quotes the article,

@@ -25,15 +25,15 @@
     "Fawthful's Forces",
     "Iron Legion",
     "Koopa Troop",
+    "Koopa Troop / 955 BF — Peach's Castle",
     "Kremling Krew & the Black Sugar Pirates",
     "Liberated Toads",
     "Mages' Guild",
     "Mushroom Regency & Kingdom",
+    "Mushroom Regency & Kingdom / 955 BF — Peach's Castle",
     "Nintendo Mania Studio",
     "Overgrown Manor",
     "Peach Loyalists",
-    "Peach's Castle 955 BF / Bowser's Incursion",
-    "Peach's Castle 955 BF / The Court",
     "Players",
     "Rakasha & the Feywild",
     "Shadow Estate & House Corvinarus",
@@ -325,22 +325,10 @@
       "file": "Bestiary/Humanoid/fvtt-Actor-knight-3J8i4nu6k0pg3AjL.json"
     },
     {
-      "name": "Luigi (955 BF)",
-      "type": "character",
-      "_id": "VdDk9KgwrGooGnjD",
-      "file": "Bestiary/Humanoid/fvtt-Actor-luigi-955-bf-VdDk9KgwrGooGnjD.json"
-    },
-    {
       "name": "Mage",
       "type": "npc",
       "_id": "BPMXrVGAPzawfLyl",
       "file": "Bestiary/Humanoid/fvtt-Actor-mage-BPMXrVGAPzawfLyl.json"
-    },
-    {
-      "name": "Mario (955 BF)",
-      "type": "character",
-      "_id": "OM85BsasOM7M2hnh",
-      "file": "Bestiary/Humanoid/fvtt-Actor-mario-955-bf-OM85BsasOM7M2hnh.json"
     },
     {
       "name": "Shadow Servant",
@@ -937,10 +925,88 @@
       "file": "Iron Legion/fvtt-Actor-warol-creeton-NBW2gNE6ws5ClMip.json"
     },
     {
+      "name": "Bob-omb Sapper",
+      "type": "npc",
+      "_id": "6FxVBN6rL9FlAozF",
+      "file": "Koopa Troop/955 BF — Peach's Castle/fvtt-Actor-bob-omb-sapper-6FxVBN6rL9FlAozF.json"
+    },
+    {
+      "name": "Boo Infiltrator",
+      "type": "npc",
+      "_id": "vRuQFHc1jpMHwbbz",
+      "file": "Koopa Troop/955 BF — Peach's Castle/fvtt-Actor-boo-infiltrator-vRuQFHc1jpMHwbbz.json"
+    },
+    {
       "name": "Bowser (955 BF)",
       "type": "character",
       "_id": "NEusRyds29hyk0zJ",
-      "file": "Koopa Troop/fvtt-Actor-bowser-955-bf-NEusRyds29hyk0zJ.json"
+      "file": "Koopa Troop/955 BF — Peach's Castle/fvtt-Actor-bowser-955-bf-NEusRyds29hyk0zJ.json"
+    },
+    {
+      "name": "Bowser, the Interloper (955 BF)",
+      "type": "npc",
+      "_id": "mAed1y8NsgfSV6mu",
+      "file": "Koopa Troop/955 BF — Peach's Castle/fvtt-Actor-bowser-the-interloper-955-bf-mAed1y8NsgfSV6mu.json"
+    },
+    {
+      "name": "Chargin' Chuck",
+      "type": "npc",
+      "_id": "fVMEEE6TJv0f3Kus",
+      "file": "Koopa Troop/955 BF — Peach's Castle/fvtt-Actor-chargin-chuck-fVMEEE6TJv0f3Kus.json"
+    },
+    {
+      "name": "Dry Bones",
+      "type": "npc",
+      "_id": "hDOhSJotIpcQxl44",
+      "file": "Koopa Troop/955 BF — Peach's Castle/fvtt-Actor-dry-bones-hDOhSJotIpcQxl44.json"
+    },
+    {
+      "name": "Goomba Rusher",
+      "type": "npc",
+      "_id": "R804oR8qXTCBm6aO",
+      "file": "Koopa Troop/955 BF — Peach's Castle/fvtt-Actor-goomba-rusher-R804oR8qXTCBm6aO.json"
+    },
+    {
+      "name": "Hammer Bro",
+      "type": "npc",
+      "_id": "5qGtcYFWmOY8jUbA",
+      "file": "Koopa Troop/955 BF — Peach's Castle/fvtt-Actor-hammer-bro-5qGtcYFWmOY8jUbA.json"
+    },
+    {
+      "name": "Koopa Paratroopa",
+      "type": "npc",
+      "_id": "i7myOQigDXyhosem",
+      "file": "Koopa Troop/955 BF — Peach's Castle/fvtt-Actor-koopa-paratroopa-i7myOQigDXyhosem.json"
+    },
+    {
+      "name": "Koopa Troopa Soldier",
+      "type": "npc",
+      "_id": "QLoY9lbXJdh4s9Ds",
+      "file": "Koopa Troop/955 BF — Peach's Castle/fvtt-Actor-koopa-troopa-soldier-QLoY9lbXJdh4s9Ds.json"
+    },
+    {
+      "name": "Koopatrol",
+      "type": "npc",
+      "_id": "22hYWvbxZwLuebUn",
+      "file": "Koopa Troop/955 BF — Peach's Castle/fvtt-Actor-koopatrol-22hYWvbxZwLuebUn.json"
+    },
+    {
+      "name": "Lakitu Spotter",
+      "type": "npc",
+      "_id": "izfxhm0u7Gt46Ksj",
+      "file": "Koopa Troop/955 BF — Peach's Castle/fvtt-Actor-lakitu-spotter-izfxhm0u7Gt46Ksj.json"
+    },
+    {
+      "name": "Magikoopa",
+      "type": "npc",
+      "_id": "q0m7HdCju2cibCjS",
+      "file": "Koopa Troop/955 BF — Peach's Castle/fvtt-Actor-magikoopa-q0m7HdCju2cibCjS.json"
+    },
+    {
+      "name": "Sledge Bro",
+      "type": "npc",
+      "_id": "oO7BK9AXY61peKZx",
+      "file": "Koopa Troop/955 BF — Peach's Castle/fvtt-Actor-sledge-bro-oO7BK9AXY61peKZx.json"
     },
     {
       "name": "Bowser, Warlord of Darkland",
@@ -1133,6 +1199,120 @@
       "type": "npc",
       "_id": "6apfRNEMlsKmxc5Y",
       "file": "Mages' Guild/fvtt-Actor-x-o-6apfRNEMlsKmxc5Y.json"
+    },
+    {
+      "name": "Captain of the Palace Guard (955 BF)",
+      "type": "npc",
+      "_id": "9x7nrIxYnyxX1963",
+      "file": "Mushroom Regency & Kingdom/955 BF — Peach's Castle/fvtt-Actor-captain-of-the-palace-guard-955-bf-9x7nrIxYnyxX1963.json"
+    },
+    {
+      "name": "Castle Chambermaid",
+      "type": "npc",
+      "_id": "4ySsVWpa8rE1UEsI",
+      "file": "Mushroom Regency & Kingdom/955 BF — Peach's Castle/fvtt-Actor-castle-chambermaid-4ySsVWpa8rE1UEsI.json"
+    },
+    {
+      "name": "Castle Cook",
+      "type": "npc",
+      "_id": "IgmYIFm3Jzw5Tdcy",
+      "file": "Mushroom Regency & Kingdom/955 BF — Peach's Castle/fvtt-Actor-castle-cook-IgmYIFm3Jzw5Tdcy.json"
+    },
+    {
+      "name": "Castle Herald",
+      "type": "npc",
+      "_id": "nkB2ORetn9JIW3hL",
+      "file": "Mushroom Regency & Kingdom/955 BF — Peach's Castle/fvtt-Actor-castle-herald-nkB2ORetn9JIW3hL.json"
+    },
+    {
+      "name": "Castle Page",
+      "type": "npc",
+      "_id": "vTi1wJzyV0TOXrkF",
+      "file": "Mushroom Regency & Kingdom/955 BF — Peach's Castle/fvtt-Actor-castle-page-vTi1wJzyV0TOXrkF.json"
+    },
+    {
+      "name": "Luigi (955 BF)",
+      "type": "character",
+      "_id": "VdDk9KgwrGooGnjD",
+      "file": "Mushroom Regency & Kingdom/955 BF — Peach's Castle/fvtt-Actor-luigi-955-bf-VdDk9KgwrGooGnjD.json"
+    },
+    {
+      "name": "Mages' Guild Adept (Hooded)",
+      "type": "npc",
+      "_id": "KzGh4fOS5MyySgSM",
+      "file": "Mushroom Regency & Kingdom/955 BF — Peach's Castle/fvtt-Actor-mages-guild-adept-hooded-KzGh4fOS5MyySgSM.json"
+    },
+    {
+      "name": "Mario (955 BF)",
+      "type": "character",
+      "_id": "OM85BsasOM7M2hnh",
+      "file": "Mushroom Regency & Kingdom/955 BF — Peach's Castle/fvtt-Actor-mario-955-bf-OM85BsasOM7M2hnh.json"
+    },
+    {
+      "name": "Palace Crossbow Guard",
+      "type": "npc",
+      "_id": "FesY143bI3ftr4ZM",
+      "file": "Mushroom Regency & Kingdom/955 BF — Peach's Castle/fvtt-Actor-palace-crossbow-guard-FesY143bI3ftr4ZM.json"
+    },
+    {
+      "name": "Palace Door Guard",
+      "type": "npc",
+      "_id": "4x1eVC5whyM12s70",
+      "file": "Mushroom Regency & Kingdom/955 BF — Peach's Castle/fvtt-Actor-palace-door-guard-4x1eVC5whyM12s70.json"
+    },
+    {
+      "name": "Palace Gate Guard",
+      "type": "npc",
+      "_id": "E9lW3QxW6wNDCeaj",
+      "file": "Mushroom Regency & Kingdom/955 BF — Peach's Castle/fvtt-Actor-palace-gate-guard-E9lW3QxW6wNDCeaj.json"
+    },
+    {
+      "name": "Palace Guard at Attention",
+      "type": "npc",
+      "_id": "SWf5Nc5afoNXl6dI",
+      "file": "Mushroom Regency & Kingdom/955 BF — Peach's Castle/fvtt-Actor-palace-guard-at-attention-SWf5Nc5afoNXl6dI.json"
+    },
+    {
+      "name": "Palace Guard Recruit",
+      "type": "npc",
+      "_id": "5blPuqwzSrGEGl6E",
+      "file": "Mushroom Regency & Kingdom/955 BF — Peach's Castle/fvtt-Actor-palace-guard-recruit-5blPuqwzSrGEGl6E.json"
+    },
+    {
+      "name": "Palace Guard Sergeant",
+      "type": "npc",
+      "_id": "ZtxEXSyJ3xNBh0eC",
+      "file": "Mushroom Regency & Kingdom/955 BF — Peach's Castle/fvtt-Actor-palace-guard-sergeant-ZtxEXSyJ3xNBh0eC.json"
+    },
+    {
+      "name": "Palace Heavy Guard",
+      "type": "npc",
+      "_id": "lQkHGvpXoOdbB0KR",
+      "file": "Mushroom Regency & Kingdom/955 BF — Peach's Castle/fvtt-Actor-palace-heavy-guard-lQkHGvpXoOdbB0KR.json"
+    },
+    {
+      "name": "Palace Night Watch",
+      "type": "npc",
+      "_id": "9UInBdI0DUPwALMM",
+      "file": "Mushroom Regency & Kingdom/955 BF — Peach's Castle/fvtt-Actor-palace-night-watch-9UInBdI0DUPwALMM.json"
+    },
+    {
+      "name": "Palace Veteran Guard",
+      "type": "npc",
+      "_id": "rmbpc4QjNQwF6PpK",
+      "file": "Mushroom Regency & Kingdom/955 BF — Peach's Castle/fvtt-Actor-palace-veteran-guard-rmbpc4QjNQwF6PpK.json"
+    },
+    {
+      "name": "Princess Peach (955 BF)",
+      "type": "npc",
+      "_id": "nqeVTVa1etXKR2J4",
+      "file": "Mushroom Regency & Kingdom/955 BF — Peach's Castle/fvtt-Actor-princess-peach-955-bf-nqeVTVa1etXKR2J4.json"
+    },
+    {
+      "name": "Toadsworth the Elder, Royal Chamberlain (955 BF)",
+      "type": "npc",
+      "_id": "oHLrMdbccIJx6YgS",
+      "file": "Mushroom Regency & Kingdom/955 BF — Peach's Castle/fvtt-Actor-toadsworth-the-elder-royal-chamberlain-955-bf-oHLrMdbccIJx6YgS.json"
     },
     {
       "name": "Chancellor Toadsworth",
@@ -1343,186 +1523,6 @@
       "type": "npc",
       "_id": "jPy3x6dJawnAmQTK",
       "file": "Peach Loyalists/fvtt-Actor-mistveil-jPy3x6dJawnAmQTK.json"
-    },
-    {
-      "name": "Bob-omb Sapper",
-      "type": "npc",
-      "_id": "6FxVBN6rL9FlAozF",
-      "file": "Peach's Castle 955 BF/Bowser's Incursion/fvtt-Actor-bob-omb-sapper-6FxVBN6rL9FlAozF.json"
-    },
-    {
-      "name": "Boo Infiltrator",
-      "type": "npc",
-      "_id": "vRuQFHc1jpMHwbbz",
-      "file": "Peach's Castle 955 BF/Bowser's Incursion/fvtt-Actor-boo-infiltrator-vRuQFHc1jpMHwbbz.json"
-    },
-    {
-      "name": "Bowser, the Interloper (955 BF)",
-      "type": "npc",
-      "_id": "mAed1y8NsgfSV6mu",
-      "file": "Peach's Castle 955 BF/Bowser's Incursion/fvtt-Actor-bowser-the-interloper-955-bf-mAed1y8NsgfSV6mu.json"
-    },
-    {
-      "name": "Chargin' Chuck",
-      "type": "npc",
-      "_id": "fVMEEE6TJv0f3Kus",
-      "file": "Peach's Castle 955 BF/Bowser's Incursion/fvtt-Actor-chargin-chuck-fVMEEE6TJv0f3Kus.json"
-    },
-    {
-      "name": "Dry Bones",
-      "type": "npc",
-      "_id": "hDOhSJotIpcQxl44",
-      "file": "Peach's Castle 955 BF/Bowser's Incursion/fvtt-Actor-dry-bones-hDOhSJotIpcQxl44.json"
-    },
-    {
-      "name": "Goomba Rusher",
-      "type": "npc",
-      "_id": "R804oR8qXTCBm6aO",
-      "file": "Peach's Castle 955 BF/Bowser's Incursion/fvtt-Actor-goomba-rusher-R804oR8qXTCBm6aO.json"
-    },
-    {
-      "name": "Hammer Bro",
-      "type": "npc",
-      "_id": "5qGtcYFWmOY8jUbA",
-      "file": "Peach's Castle 955 BF/Bowser's Incursion/fvtt-Actor-hammer-bro-5qGtcYFWmOY8jUbA.json"
-    },
-    {
-      "name": "Koopa Paratroopa",
-      "type": "npc",
-      "_id": "i7myOQigDXyhosem",
-      "file": "Peach's Castle 955 BF/Bowser's Incursion/fvtt-Actor-koopa-paratroopa-i7myOQigDXyhosem.json"
-    },
-    {
-      "name": "Koopa Troopa Soldier",
-      "type": "npc",
-      "_id": "QLoY9lbXJdh4s9Ds",
-      "file": "Peach's Castle 955 BF/Bowser's Incursion/fvtt-Actor-koopa-troopa-soldier-QLoY9lbXJdh4s9Ds.json"
-    },
-    {
-      "name": "Koopatrol",
-      "type": "npc",
-      "_id": "22hYWvbxZwLuebUn",
-      "file": "Peach's Castle 955 BF/Bowser's Incursion/fvtt-Actor-koopatrol-22hYWvbxZwLuebUn.json"
-    },
-    {
-      "name": "Lakitu Spotter",
-      "type": "npc",
-      "_id": "izfxhm0u7Gt46Ksj",
-      "file": "Peach's Castle 955 BF/Bowser's Incursion/fvtt-Actor-lakitu-spotter-izfxhm0u7Gt46Ksj.json"
-    },
-    {
-      "name": "Magikoopa",
-      "type": "npc",
-      "_id": "q0m7HdCju2cibCjS",
-      "file": "Peach's Castle 955 BF/Bowser's Incursion/fvtt-Actor-magikoopa-q0m7HdCju2cibCjS.json"
-    },
-    {
-      "name": "Sledge Bro",
-      "type": "npc",
-      "_id": "oO7BK9AXY61peKZx",
-      "file": "Peach's Castle 955 BF/Bowser's Incursion/fvtt-Actor-sledge-bro-oO7BK9AXY61peKZx.json"
-    },
-    {
-      "name": "Captain of the Palace Guard (955 BF)",
-      "type": "npc",
-      "_id": "9x7nrIxYnyxX1963",
-      "file": "Peach's Castle 955 BF/The Court/fvtt-Actor-captain-of-the-palace-guard-955-bf-9x7nrIxYnyxX1963.json"
-    },
-    {
-      "name": "Castle Chambermaid",
-      "type": "npc",
-      "_id": "4ySsVWpa8rE1UEsI",
-      "file": "Peach's Castle 955 BF/The Court/fvtt-Actor-castle-chambermaid-4ySsVWpa8rE1UEsI.json"
-    },
-    {
-      "name": "Castle Cook",
-      "type": "npc",
-      "_id": "IgmYIFm3Jzw5Tdcy",
-      "file": "Peach's Castle 955 BF/The Court/fvtt-Actor-castle-cook-IgmYIFm3Jzw5Tdcy.json"
-    },
-    {
-      "name": "Castle Herald",
-      "type": "npc",
-      "_id": "nkB2ORetn9JIW3hL",
-      "file": "Peach's Castle 955 BF/The Court/fvtt-Actor-castle-herald-nkB2ORetn9JIW3hL.json"
-    },
-    {
-      "name": "Castle Page",
-      "type": "npc",
-      "_id": "vTi1wJzyV0TOXrkF",
-      "file": "Peach's Castle 955 BF/The Court/fvtt-Actor-castle-page-vTi1wJzyV0TOXrkF.json"
-    },
-    {
-      "name": "Mages' Guild Adept (Hooded)",
-      "type": "npc",
-      "_id": "KzGh4fOS5MyySgSM",
-      "file": "Peach's Castle 955 BF/The Court/fvtt-Actor-mages-guild-adept-hooded-KzGh4fOS5MyySgSM.json"
-    },
-    {
-      "name": "Palace Crossbow Guard",
-      "type": "npc",
-      "_id": "FesY143bI3ftr4ZM",
-      "file": "Peach's Castle 955 BF/The Court/fvtt-Actor-palace-crossbow-guard-FesY143bI3ftr4ZM.json"
-    },
-    {
-      "name": "Palace Door Guard",
-      "type": "npc",
-      "_id": "4x1eVC5whyM12s70",
-      "file": "Peach's Castle 955 BF/The Court/fvtt-Actor-palace-door-guard-4x1eVC5whyM12s70.json"
-    },
-    {
-      "name": "Palace Gate Guard",
-      "type": "npc",
-      "_id": "E9lW3QxW6wNDCeaj",
-      "file": "Peach's Castle 955 BF/The Court/fvtt-Actor-palace-gate-guard-E9lW3QxW6wNDCeaj.json"
-    },
-    {
-      "name": "Palace Guard at Attention",
-      "type": "npc",
-      "_id": "SWf5Nc5afoNXl6dI",
-      "file": "Peach's Castle 955 BF/The Court/fvtt-Actor-palace-guard-at-attention-SWf5Nc5afoNXl6dI.json"
-    },
-    {
-      "name": "Palace Guard Recruit",
-      "type": "npc",
-      "_id": "5blPuqwzSrGEGl6E",
-      "file": "Peach's Castle 955 BF/The Court/fvtt-Actor-palace-guard-recruit-5blPuqwzSrGEGl6E.json"
-    },
-    {
-      "name": "Palace Guard Sergeant",
-      "type": "npc",
-      "_id": "ZtxEXSyJ3xNBh0eC",
-      "file": "Peach's Castle 955 BF/The Court/fvtt-Actor-palace-guard-sergeant-ZtxEXSyJ3xNBh0eC.json"
-    },
-    {
-      "name": "Palace Heavy Guard",
-      "type": "npc",
-      "_id": "lQkHGvpXoOdbB0KR",
-      "file": "Peach's Castle 955 BF/The Court/fvtt-Actor-palace-heavy-guard-lQkHGvpXoOdbB0KR.json"
-    },
-    {
-      "name": "Palace Night Watch",
-      "type": "npc",
-      "_id": "9UInBdI0DUPwALMM",
-      "file": "Peach's Castle 955 BF/The Court/fvtt-Actor-palace-night-watch-9UInBdI0DUPwALMM.json"
-    },
-    {
-      "name": "Palace Veteran Guard",
-      "type": "npc",
-      "_id": "rmbpc4QjNQwF6PpK",
-      "file": "Peach's Castle 955 BF/The Court/fvtt-Actor-palace-veteran-guard-rmbpc4QjNQwF6PpK.json"
-    },
-    {
-      "name": "Princess Peach (955 BF)",
-      "type": "npc",
-      "_id": "nqeVTVa1etXKR2J4",
-      "file": "Peach's Castle 955 BF/The Court/fvtt-Actor-princess-peach-955-bf-nqeVTVa1etXKR2J4.json"
-    },
-    {
-      "name": "Toadsworth the Elder, Royal Chamberlain (955 BF)",
-      "type": "npc",
-      "_id": "oHLrMdbccIJx6YgS",
-      "file": "Peach's Castle 955 BF/The Court/fvtt-Actor-toadsworth-the-elder-royal-chamberlain-955-bf-oHLrMdbccIJx6YgS.json"
     },
     {
       "name": "Archie Miser",

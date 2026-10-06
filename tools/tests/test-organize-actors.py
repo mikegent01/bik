@@ -89,9 +89,10 @@ check("scheme: format, Players, Bestiary with creature-type colours, website gro
       scheme.get("format") == "waluipedia-folders/1" and scheme["players"]["folder"] == "Players"
       and scheme["bestiary"]["folder"] == "Bestiary" and len(scheme["bestiary"]["types"]) >= 14
       and all(v.get("color") for v in scheme["groups"].values()) and "Players" in scheme["keep"])
-check("scheme: minimum 2 per folder, Elsewhere the fallback, the 955 BF era folder named with a colour",
-      scheme.get("minimum") == 2 and scheme.get("fallback") == "Elsewhere" and scheme["eras"]["peachs-castle-955"]["folder"] == "Peach's Castle 955 BF"
-      and scheme["eras"]["peachs-castle-955"]["era"] == "955 BF" and scheme["eras"]["peachs-castle-955"]["color"])
+check("scheme: minimum 2 per folder, Elsewhere the fallback, the 955 BF era sub-folder named (year — event) with a colour, the Liberated Toads packet with its cohort sub-folders",
+      scheme.get("minimum") == 2 and scheme.get("fallback") == "Elsewhere" and scheme["eras"]["peachs-castle-955"]["folder"] == "955 BF — Peach's Castle"
+      and scheme["eras"]["peachs-castle-955"]["era"] == "955 BF" and scheme["eras"]["peachs-castle-955"]["color"]
+      and scheme["packets"]["liberated-toads"]["folder"] == "Liberated Toads" and "Pond Patrol" in scheme["packets"]["liberated-toads"]["subfolders"])
 ERA_FOLDER = scheme["eras"]["peachs-castle-955"]["folder"]
 builder = load("build_character_sheets", "tools/build-character-sheets.py")
 check("scheme: every website group of the builder has a colour",
@@ -288,9 +289,9 @@ with tempfile.TemporaryDirectory() as tmp:
           and fsheets["P2aaaaaaaaaaaaaa"]["color"] == scheme["groups"]["Elsewhere"]["color"].upper(), str(fsheets["P2aaaaaaaaaaaaaa"]))
     check("fold: the generated cast counts — one Goomba + the cast's Koopa Commander keep Koopa Troop", frel["K2aaaaaaaaaaaaaa"] == "Koopa Troop")
     check("fold: the ooze's tag still names its creature type and origin", fsheets["J2aaaaaaaaaaaaaa"]["tags"] == ["Bestiary", "npc", "ooze", "Creatures"], str(fsheets["J2aaaaaaaaaaaaaa"]["tags"]))
-    check("era: the world's Koopatrol (a 955 packet namesake) is filed into the era folder with the era tag and colour",
-          frel["T2aaaaaaaaaaaaaa"] == f"{ERA_FOLDER}/Bowser's Incursion" and fsheets["T2aaaaaaaaaaaaaa"]["organized"]["basis"] == "era"
-          and fsheets["T2aaaaaaaaaaaaaa"]["tags"][:1] == [ERA_FOLDER] and "955 BF" in fsheets["T2aaaaaaaaaaaaaa"]["tags"]
+    check("era: the world's Koopatrol (a 955 packet namesake) is filed where the packet files it — its faction, then the era sub-folder — with the faction and era tags and the era colour",
+          frel["T2aaaaaaaaaaaaaa"] == f"Koopa Troop/{ERA_FOLDER}" and fsheets["T2aaaaaaaaaaaaaa"]["organized"]["basis"] == "era"
+          and fsheets["T2aaaaaaaaaaaaaa"]["tags"][:1] == ["Koopa Troop"] and "955 BF" in fsheets["T2aaaaaaaaaaaaaa"]["tags"]
           and fsheets["T2aaaaaaaaaaaaaa"]["color"] == scheme["eras"]["peachs-castle-955"]["color"].upper(), str(fsheets["T2aaaaaaaaaaaaaa"]))
     check("era: Players still wins over the era rule (Bowser stays a player)", frel["O2aaaaaaaaaaaaaa"] == "Players")
     rc = org.main(FARGS + ["--check", "--quiet"])
@@ -308,10 +309,10 @@ with tempfile.TemporaryDirectory() as tmp:
           and read(satyr)["flags"]["waluipedia-sheets"]["organized"]["from"] == ["Creatures"] and "Creatures" in read(satyr)["flags"]["waluipedia-sheets"]["tags"], str(read(satyr)["flags"]["waluipedia-sheets"]))
     rc = org.main(FARGS + ["--check", "--quiet"])
     check("fold: …and that is stable too", rc == 0)
-    fold_pop = {"a": ["Bestiary", "Ooze"], "b": ["Lonely"], "c": ["Players"], "d": [ERA_FOLDER, "The Court"], "e": ["Elsewhere"], "f": ["Bestiary"], "g": []}
+    fold_pop = {"a": ["Bestiary", "Ooze"], "b": ["Lonely"], "c": ["Players"], "d": ["Koopa Troop", ERA_FOLDER], "d2": ["Koopa Troop"], "e": ["Elsewhere"], "f": ["Bestiary"], "g": []}
     folded = bridge.fold_singletons(fold_pop, scheme)
-    check("fold_singletons: pure — sub-folder to parent, lone group to Elsewhere, Players / Bestiary / era root / Elsewhere / root untouched",
-          folded == {"a": ["Bestiary"], "b": ["Elsewhere"], "c": ["Players"], "d": [ERA_FOLDER], "e": ["Elsewhere"], "f": ["Bestiary"], "g": []}, str(folded))
+    check("fold_singletons: pure — sub-folder (a lone era sub-folder too) to parent, lone group to Elsewhere, Players / Bestiary / Elsewhere / root untouched",
+          folded == {"a": ["Bestiary"], "b": ["Elsewhere"], "c": ["Players"], "d": ["Koopa Troop"], "d2": ["Koopa Troop"], "e": ["Elsewhere"], "f": ["Bestiary"], "g": []}, str(folded))
 
     # identifiers: split repairs, check refuses
     export = {"format": "waluipedia-actors/1", "exportedFrom": "idworld", "folders": [], "actors": [
@@ -351,14 +352,15 @@ rc = org.main(["--check", "--quiet"])
 check("the midlands mirror is organized (organize --check passes)", rc == 0)
 rows = org.plan(str(MIRROR), scheme, org.load_index())
 roots = sorted({r["target"][0] for r in rows})
-check("the real mirror: nothing at the root, every top folder is Players, Bestiary, the era folder or a website group",
-      all(r["target"] for r in rows) and set(roots) <= {"Players", "Bestiary", ERA_FOLDER} | set(scheme["groups"]), str(roots))
+check("the real mirror: nothing at the root, every top folder is Players, Bestiary or a website group (the eras sit under their factions)",
+      all(r["target"] for r in rows) and set(roots) <= {"Players", "Bestiary"} | set(scheme["groups"]), str(roots))
 counts = {}
 for r in rows:
     counts[tuple(r["target"])] = counts.get(tuple(r["target"]), 0) + 1
-check("the real mirror: no Bestiary sub-folder holds a single creature; the 955 BF namesakes (Koopatrol, Peach, Toadsworth) sit in the era folder",
+check("the real mirror: no Bestiary sub-folder holds a single creature; the 955 BF namesakes sit in their factions' era sub-folder (Koopatrol under Koopa Troop; Peach, Toadsworth and the brothers' past selves under Mushroom Regency & Kingdom)",
       all(n >= 2 for p, n in counts.items() if p[0] == "Bestiary" and len(p) > 1)
-      and {r["doc"]["name"] for r in rows if r["target"][0] == ERA_FOLDER} >= {"Koopatrol", "Princess Peach (955 BF)", "Toadsworth the Elder, Royal Chamberlain (955 BF)"}, str(counts))
+      and {r["doc"]["name"] for r in rows if r["target"] == ["Koopa Troop", ERA_FOLDER]} >= {"Koopatrol", "Bowser (955 BF)"}
+      and {r["doc"]["name"] for r in rows if r["target"] == ["Mushroom Regency & Kingdom", ERA_FOLDER]} >= {"Princess Peach (955 BF)", "Toadsworth the Elder, Royal Chamberlain (955 BF)", "Mario (955 BF)", "Luigi (955 BF)"}, str(counts))
 roster = bridge.load_roster(scheme)
 by_id = {r["doc"].get("_id"): r for r in rows}
 check("the real mirror: the twelve roster characters sit in Players with pc tags (basis roster, no filing record)",
@@ -381,11 +383,14 @@ check("the cast packet: every folder coloured per website group, every actor tag
       cast["folders"] and all(f.get("color") for f in cast["folders"])
       and all(a["flags"]["waluipedia-sheets"].get("tags") for a in cast["actors"]) and cast.get("folderStyles"), str([(f["name"], f.get("color")) for f in cast["folders"]]))
 cast_paths = {tuple(a["flags"][MODULE_ID]["folderPath"]) for a in cast["actors"]}
-check("the cast packet: generated sheets file straight into their group (no Waluipedia Cast root), era versions into the era folder",
-      all(len(p) == 1 for p in cast_paths) and (ERA_FOLDER,) in cast_paths and all(p[0] in scheme["groups"] or p[0] == ERA_FOLDER for p in cast_paths) and not any(p[0] == "Waluipedia Cast" for p in cast_paths), str(sorted(cast_paths))[:300])
-check("the cast packet: era versions carry the era colour and the generated + era + group tags",
+check("the cast packet: generated sheets file straight into their group (no Waluipedia Cast root), era versions into their era faction's era sub-folder (Bowser's under Koopa Troop, the brothers' under Mushroom Regency & Kingdom)",
+      all(p[0] in scheme["groups"] and (len(p) == 1 or p[1] == ERA_FOLDER) for p in cast_paths)
+      and ("Koopa Troop", ERA_FOLDER) in cast_paths and ("Mushroom Regency & Kingdom", ERA_FOLDER) in cast_paths
+      and not any(p[0] == "Waluipedia Cast" for p in cast_paths), str(sorted(cast_paths))[:300])
+check("the cast packet: era versions carry the era colour and the generated + era + both groups' tags (Bowser (955 BF): Koopa Troop first, Disaster Inc. kept)",
       all(a["flags"]["waluipedia-sheets"]["color"] == scheme["eras"]["peachs-castle-955"]["color"].upper() and {"generated", "955 BF"} <= set(a["flags"]["waluipedia-sheets"]["tags"])
-          for a in cast["actors"] if a["flags"][MODULE_ID]["folderPath"] == [ERA_FOLDER]))
+          for a in cast["actors"] if a["flags"][MODULE_ID]["folderPath"][-1:] == [ERA_FOLDER])
+      and any(a["flags"]["waluipedia-sheets"]["tags"][:1] == ["Koopa Troop"] and "Disaster Inc." in a["flags"]["waluipedia-sheets"]["tags"] for a in cast["actors"] if a["name"] == "Bowser (955 BF)"))
 
 print(f"organize-actors: {len(oks)} ok, {len(fails)} failed")
 for f in fails:

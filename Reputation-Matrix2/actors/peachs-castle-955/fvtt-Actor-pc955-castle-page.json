@@ -634,8 +634,8 @@
   "flags": {
     "waluipedia-mass-import": {
       "folderPath": [
-        "Peach's Castle 955 BF",
-        "The Court"
+        "Mushroom Regency & Kingdom",
+        "955 BF — Peach's Castle"
       ],
       "source": "tools/build-peachs-castle-955-actors.py"
     }

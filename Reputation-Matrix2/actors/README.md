@@ -202,18 +202,29 @@ folder colours and descriptions into the packet (`folders[].color`,
 (a folder the GM coloured himself keeps its colour). The cast packet's
 group folders are the same folders, coloured the same way.
 
-Two more rules keep the tree worth looking at. **`eras`** names the packets
-of past selves (`peachs-castle-955` → folder *Peach's Castle 955 BF*, era
-label *955 BF*, its own colour): a mirror actor with the same name and type
-as one of theirs — the Koopatrol, the palace guards, Peach and Toadsworth of
-955 BF — is that era's copy and is filed into the era's folders (*The
-Court*, *Bowser's Incursion*) instead of its group; the generated era
-versions (*Bowser (955 BF)* …) go there too. **`minimum`** (2) is the
-smallest folder worth having: the organizer and the builder count every
-folder across everything one import carries (the mirror, the generated cast,
-the era packets) and fold a sub-folder below it into its parent (one ooze
-sits straight under *Bestiary*) and a top-level group below it into
-**`fallback`** (*Elsewhere*). Players, Bestiary itself, the era roots and
+Three more rules keep the tree worth looking at. **`eras`** names the
+packets of past selves and the era **sub-folder** each files into under its
+faction's group folder (`peachs-castle-955` → *955 BF — Peach's Castle*, era
+label *955 BF*, its own colour): the sidebar reads by faction, then by date
+— *Koopa Troop / 1035 BF — Bowser's Castle* and *Koopa Troop / 955 BF —
+Peach's Castle* under the present-day Koopa Troop, the court under *Mushroom
+Regency & Kingdom / 955 BF — Peach's Castle*, Side B under *Fawthful's
+Forces / 1035 BF — Bowser's Castle*. The packet's own `folderPath` flags say
+which faction; a mirror actor with the same name and type as one of theirs —
+the Koopatrol, the palace guards, Peach and Toadsworth of 955 BF — is that
+era's copy and files the same way instead of by its group, and the generated
+era versions go under their era faction (*Bowser (955 BF)* under Koopa
+Troop, the brothers under Mushroom Regency & Kingdom). Foundry sorts a
+folder's sub-folders alphabetically with its actors, so the eras list newest
+first; the present-day actors stay loose above them. **`packets`** names the
+other committed packets the import carries the same way — the Liberated
+Toads cohorts (`liberated-toads` → *Liberated Toads / Pond Patrol*, */ The
+Wardens* …, with the docket's cohort colours as `subfolders`). **`minimum`**
+(2) is the smallest folder worth having: the organizer and the builder count
+every folder across everything one import carries (the mirror, the
+generated cast, the committed packets) and fold a sub-folder below it into
+its parent (one ooze sits straight under *Bestiary*) and a top-level group
+below it into **`fallback`** (*Elsewhere*). Players, Bestiary itself and
 Elsewhere never fold. A creature of a blank or custom type sits straight
 under *Bestiary* too — no *Other* drawer. **`iconFixes`** maps core icon
 paths the GM's Foundry no longer has (renamed between versions; the Sync
@@ -710,8 +721,9 @@ python3 ../../tools/build-peachs-castle-955-actors.py            # write
 python3 ../../tools/build-peachs-castle-955-actors.py --check    # verify
 ```
 
-Every file carries a stable `_id` and a folder path (`Peach's Castle 955 BF /
-The Court` or `/ Bowser's Incursion`), and
+Every file carries a stable `_id` and a folder path — the faction, then the
+era sub-folder: `Mushroom Regency & Kingdom / 955 BF — Peach's Castle` for
+the court, `Koopa Troop / 955 BF — Peach's Castle` for the incursion — and
 [`peachs-castle-955/import.json`](peachs-castle-955/import.json) is the
 combined packet for the mass-import module — one Import, thirty actors in two
 folders, re-importable without duplicates.
@@ -740,8 +752,9 @@ python3 ../../tools/build-bowsers-castle-1035-actors.py --check    # verify
 ```
 
 [`bowsers-castle-1035/import.json`](bowsers-castle-1035/import.json) is the
-combined packet (`Bowser's Castle 1035 BF / <side>`), importable with the
-module's `import-bowsers-castle-1035.js` macro. The GM run-sheet for the
+combined packet (Side A and the remnant under `Koopa Troop / 1035 BF —
+Bowser's Castle`, Side B under `Fawthful's Forces / 1035 BF — Bowser's
+Castle`), importable with the module's `import-bowsers-castle-1035.js` macro. The GM run-sheet for the
 session — the floor stack, the evacuation clock, the dragon weather, the
 Omega swap and the filing order afterwards — is
 [`docs/sessions/bowsers-castle-1035-the-castle-comes-down.md`](../../docs/sessions/bowsers-castle-1035-the-castle-comes-down.md).
@@ -749,3 +762,35 @@ Omega swap and the filing order afterwards — is
 As with 955: the 1035 Bowser form is a scene NPC beside the player
 character, and the 1035 copies of Fawthful, Mimbus, Cackletta and the Jester
 import beside their present-day sheets, never over them.
+
+## The Liberated Toads cohorts — the Pond Patrol docket as statblocks
+
+[`liberated-toads/`](liberated-toads/README.md) holds eighty-nine NPC exports
+generated by `tools/build-liberated-toads-actors.py` from the Pond Patrol
+docket (`data/liberatedToadsSystem.json`, the `#/pond-docket` page): the six
+working cohorts **toad by toad** — Pond Patrol (21), The Wardens (20), The
+Crafters (16), The Menders (13), The Chroniclers (10), The Scouts (3) — and
+a few generic statblocks for the Barrel Survivors (4) and the Unassigned
+(2). The docket's level (1–5) sets the CR, its class definition (militia,
+fighter, artisan, commoner, spy, leader) becomes the feats, the cohort's
+equipment the weapons, and the post itself — *Door and deck watch*, *Speaker
+close escort*, *Propellant and powder*, *Trauma desk* — a feat with the
+docket note (<q>Says halt like a lifestyle.</q>) and a one-line rule. The
+named toads that already have articles and cast sheets (Pondscum,
+Lilystalker, Inkspot, Spearwort, Soothing Moss, Shadowleap …) are skipped,
+not repeated. Tokens are the docket's own role plates
+(`assets/images/toads/roster/field_*.png`) keyed off their white field into
+`portraits/liberated-toads/`.
+
+```bash
+python3 ../../tools/build-liberated-toads-actors.py            # write
+python3 ../../tools/build-liberated-toads-actors.py --check    # verify
+python3 ../../tools/build-liberated-toads-actors.py plates     # re-cut the role plates
+```
+
+Every file files into `Liberated Toads / <cohort>` (the scheme's
+`packets.liberated-toads.subfolders`, coloured like the docket), and
+[`liberated-toads/import.json`](liberated-toads/import.json) is the combined
+packet — the suite folds it into the world's `import.json` like the era
+packets, the module's Sync merges it from GitHub, and
+`import-liberated-toads.js` pulls it alone.

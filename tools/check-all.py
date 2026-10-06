@@ -103,6 +103,11 @@ def main() -> int:
         # line, Fawthful's forces and the remnant at the track (27) from one
         # generator that shares the 955 item factories and icon shelf.
         ("bowsers castle 1035 actors", [py, "tools/build-bowsers-castle-1035-actors.py", "--check"], ROOT),
+        # Liberated Toads cohorts: the Pond Patrol docket's rosters as
+        # statblocks (83 toads of the six working cohorts + 6 generic
+        # survivors) from one generator that shares the 955 item factories;
+        # folders.json's cohort colours are held to the docket's.
+        ("liberated toads actors", [py, "tools/build-liberated-toads-actors.py", "--check"], ROOT),
         # Foundry mass import: the Python bridge (split/combine/link-images/
         # apply/check/install-images), the one-file import packet for the 955
         # roster, and the module zip that the manifest URL downloads.
@@ -115,6 +120,10 @@ def main() -> int:
                                              "Reputation-Matrix2/actors/bowsers-castle-1035",
                                              "--out", "Reputation-Matrix2/actors/bowsers-castle-1035/import.json",
                                              "--world", "bowsers-castle-1035", "--check"], ROOT),
+        ("liberated toads import.json", [py, "tools/foundry-bridge.py", "combine",
+                                         "Reputation-Matrix2/actors/liberated-toads",
+                                         "--out", "Reputation-Matrix2/actors/liberated-toads/import.json",
+                                         "--world", "liberated-toads", "--check"], ROOT),
         ("foundry module zip", [py, "tools/build-foundry-module-zip.py", "--check"], ROOT),
         # Foundry++ studio: sorting the art folder, the manifest, the Data
         # folder links, the version/era helpers — exercised on a throwaway
@@ -135,7 +144,8 @@ def main() -> int:
         ("committed packets (check-packet)", [py, "tools/foundry-bridge.py", "check-packet",
                                               "Reputation-Matrix2/actors/cast/import.json",
                                               "Reputation-Matrix2/actors/peachs-castle-955/import.json",
-                                              "Reputation-Matrix2/actors/bowsers-castle-1035/import.json"], ROOT),
+                                              "Reputation-Matrix2/actors/bowsers-castle-1035/import.json",
+                                              "Reputation-Matrix2/actors/liberated-toads/import.json"], ROOT),
         # The live-world loop: player characters carry character sheets (never
         # NPC statblocks) at ledger XP, the spoils files are scoped to their
         # export, the suite start.py runs passes its read-only check.

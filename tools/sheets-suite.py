@@ -26,8 +26,9 @@ One pass, in order (each step is skipped when there is nothing to do):
             who sits in Players and who carries a character sheet.
   build     ``build-character-sheets.py`` → data/sheets.json + the cast packet.
   combine   actors/worlds/<world>/import.json — ONE packet with everything:
-            the world mirror, the generated cast and the era packets
-            (actors/peachs-castle-955), an actor the world already has by
+            the world mirror, the generated cast, the era packets
+            (actors/peachs-castle-955, actors/bowsers-castle-1035) and the
+            Liberated Toads cohorts (actors/liberated-toads), an actor the world already has by
             name and type left out of the later sources — plus
             players-import.json (the Players folder only, for a quick
             player-sheet refresh). Both are git-ignored build artefacts.
@@ -518,6 +519,7 @@ def packets_info(world, port, packet_files, published_at, digest=None, art_base=
         "github": {"manifest": f"{RAW_BASE}Reputation-Matrix2/actors/worlds/{world}/manifest.json",
                    "cast": f"{RAW_BASE}Reputation-Matrix2/actors/cast/import.json",
                    "era": f"{RAW_BASE}Reputation-Matrix2/actors/peachs-castle-955/import.json",
+                   # every committed packet the import carries besides the cast: the eras and the Liberated Toads cohorts
                    "eras": [f"{RAW_BASE}Reputation-Matrix2/actors/{os.path.relpath(d, ACTORS).replace(os.sep, '/')}/import.json"
                             for d in packet_sources(world) if os.path.dirname(d) == ACTORS and os.path.basename(d) != "cast"]},
     }
@@ -628,10 +630,12 @@ def packet_paths(world):
 
 def packet_sources(world):
     """The trees one import carries, in precedence order: the world mirror,
-    the generated cast, the era packets the folder scheme names."""
+    the generated cast, the committed packets the folder scheme names (the
+    era packets, then `packets` — the Liberated Toads cohorts)."""
     dirs = [os.path.join(WORLDS, world), os.path.join(ACTORS, "cast")]
     scheme = read_json_quiet(os.path.join(ACTORS, "folders.json")) or {}
     dirs += [os.path.join(ACTORS, d) for d in (scheme.get("eras") or {})]
+    dirs += [os.path.join(ACTORS, d) for d in (scheme.get("packets") or {})]
     return [d for d in dirs if os.path.isdir(d)]
 
 

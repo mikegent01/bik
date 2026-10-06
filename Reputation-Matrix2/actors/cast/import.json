@@ -4,19 +4,58 @@
   "exportedFrom": "waluipedia-cast",
   "system": "dnd5e",
   "actorCount": 57,
-  "folderCount": 2,
+  "folderCount": 5,
   "unresolvedFolderActors": 0,
   "folderStyles": {
+    "Koopa Troop": {
+      "color": "#006400",
+      "description": null
+    },
+    "Koopa Troop / 955 BF — Peach's Castle": {
+      "color": "#B8860B",
+      "description": "Highsun 1, 955 BF, Peach's Castle — the past selves (actors/peachs-castle-955) and the generated 955 BF versions of the cast, filed under their factions: the court under Mushroom Regency & Kingdom, the incursion under Koopa Troop."
+    },
     "Liberated Toads": {
       "color": "#87CEEB",
       "description": null
     },
-    "Peach's Castle 955 BF": {
+    "Mushroom Regency & Kingdom": {
+      "color": "#4169E1",
+      "description": null
+    },
+    "Mushroom Regency & Kingdom / 955 BF — Peach's Castle": {
       "color": "#B8860B",
-      "description": "Peach's court and Bowser's incursion as they stood in 955 BF — the past selves (actors/peachs-castle-955) and the generated 955 BF versions of the cast."
+      "description": "Highsun 1, 955 BF, Peach's Castle — the past selves (actors/peachs-castle-955) and the generated 955 BF versions of the cast, filed under their factions: the court under Mushroom Regency & Kingdom, the incursion under Koopa Troop."
     }
   },
   "folders": [
+    {
+      "_id": "2YH0Dht9vnaB3AA0",
+      "name": "Koopa Troop",
+      "type": "Actor",
+      "folder": null,
+      "sorting": "a",
+      "sort": 0,
+      "color": "#006400",
+      "description": null,
+      "path": [
+        "Koopa Troop"
+      ]
+    },
+    {
+      "_id": "ZQSwV61qolj5wGki",
+      "name": "955 BF — Peach's Castle",
+      "type": "Actor",
+      "folder": "2YH0Dht9vnaB3AA0",
+      "sorting": "a",
+      "sort": 0,
+      "color": "#B8860B",
+      "description": "Highsun 1, 955 BF, Peach's Castle — the past selves (actors/peachs-castle-955) and the generated 955 BF versions of the cast, filed under their factions: the court under Mushroom Regency & Kingdom, the incursion under Koopa Troop.",
+      "path": [
+        "Koopa Troop",
+        "955 BF — Peach's Castle"
+      ]
+    },
     {
       "_id": "Wchuzi1HmGETatwK",
       "name": "Liberated Toads",
@@ -31,20 +70,1506 @@
       ]
     },
     {
-      "_id": "zkElJXf3QQJTv7xv",
-      "name": "Peach's Castle 955 BF",
+      "_id": "e5N6gL1SxBUyK7ly",
+      "name": "Mushroom Regency & Kingdom",
       "type": "Actor",
       "folder": null,
       "sorting": "a",
       "sort": 0,
-      "color": "#B8860B",
-      "description": "Peach's court and Bowser's incursion as they stood in 955 BF — the past selves (actors/peachs-castle-955) and the generated 955 BF versions of the cast.",
+      "color": "#4169E1",
+      "description": null,
       "path": [
-        "Peach's Castle 955 BF"
+        "Mushroom Regency & Kingdom"
+      ]
+    },
+    {
+      "_id": "Tgwp6UqOWt8MDcCG",
+      "name": "955 BF — Peach's Castle",
+      "type": "Actor",
+      "folder": "e5N6gL1SxBUyK7ly",
+      "sorting": "a",
+      "sort": 0,
+      "color": "#B8860B",
+      "description": "Highsun 1, 955 BF, Peach's Castle — the past selves (actors/peachs-castle-955) and the generated 955 BF versions of the cast, filed under their factions: the court under Mushroom Regency & Kingdom, the incursion under Koopa Troop.",
+      "path": [
+        "Mushroom Regency & Kingdom",
+        "955 BF — Peach's Castle"
       ]
     }
   ],
   "actors": [
+    {
+      "_id": "NEusRyds29hyk0zJ",
+      "name": "Bowser (955 BF)",
+      "type": "character",
+      "img": "portraits/bowser.jpg",
+      "system": {
+        "currency": {
+          "pp": 0,
+          "gp": 0,
+          "ep": 0,
+          "sp": 0,
+          "cp": 0
+        },
+        "abilities": {
+          "str": {
+            "value": 20,
+            "proficient": 1,
+            "bonuses": {
+              "check": "",
+              "save": ""
+            },
+            "max": null,
+            "check": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            },
+            "save": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            }
+          },
+          "dex": {
+            "value": 10,
+            "proficient": 0,
+            "bonuses": {
+              "check": "",
+              "save": ""
+            },
+            "max": null,
+            "check": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            },
+            "save": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            }
+          },
+          "con": {
+            "value": 18,
+            "proficient": 1,
+            "bonuses": {
+              "check": "",
+              "save": ""
+            },
+            "max": null,
+            "check": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            },
+            "save": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            }
+          },
+          "int": {
+            "value": 9,
+            "proficient": 0,
+            "bonuses": {
+              "check": "",
+              "save": ""
+            },
+            "max": null,
+            "check": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            },
+            "save": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            }
+          },
+          "wis": {
+            "value": 11,
+            "proficient": 0,
+            "bonuses": {
+              "check": "",
+              "save": ""
+            },
+            "max": null,
+            "check": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            },
+            "save": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            }
+          },
+          "cha": {
+            "value": 15,
+            "proficient": 0,
+            "bonuses": {
+              "check": "",
+              "save": ""
+            },
+            "max": null,
+            "check": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            },
+            "save": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            }
+          }
+        },
+        "skills": {
+          "acr": {
+            "value": 0,
+            "ability": "dex",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "ani": {
+            "value": 0,
+            "ability": "wis",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "arc": {
+            "value": 0,
+            "ability": "int",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "ath": {
+            "value": 2,
+            "ability": "str",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "dec": {
+            "value": 0,
+            "ability": "cha",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "his": {
+            "value": 0,
+            "ability": "int",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "ins": {
+            "value": 0,
+            "ability": "wis",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "itm": {
+            "value": 2,
+            "ability": "cha",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "inv": {
+            "value": 0,
+            "ability": "int",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "med": {
+            "value": 0,
+            "ability": "wis",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "nat": {
+            "value": 0,
+            "ability": "int",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "prc": {
+            "value": 0,
+            "ability": "wis",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "prf": {
+            "value": 0,
+            "ability": "cha",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "per": {
+            "value": 0,
+            "ability": "cha",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "rel": {
+            "value": 0,
+            "ability": "int",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "slt": {
+            "value": 0,
+            "ability": "dex",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "ste": {
+            "value": 0,
+            "ability": "dex",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "sur": {
+            "value": 0,
+            "ability": "wis",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          }
+        },
+        "tools": {},
+        "spells": {},
+        "bonuses": {},
+        "resources": {},
+        "favorites": [],
+        "bastion": {
+          "name": "",
+          "description": ""
+        },
+        "attributes": {
+          "ac": {
+            "flat": 17,
+            "calc": "natural",
+            "formula": ""
+          },
+          "hp": {
+            "value": 84,
+            "max": 84,
+            "temp": null,
+            "tempmax": 0,
+            "bonuses": {}
+          },
+          "movement": {
+            "walk": "30",
+            "units": "ft",
+            "hover": false,
+            "burrow": "0",
+            "climb": "0",
+            "fly": "0",
+            "swim": "0",
+            "ignoredDifficultTerrain": []
+          },
+          "senses": {
+            "units": "ft",
+            "ranges": {
+              "darkvision": 0
+            },
+            "special": ""
+          },
+          "init": {
+            "ability": "",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonus": ""
+          },
+          "attunement": {
+            "max": 3
+          },
+          "spellcasting": "",
+          "exhaustion": 0,
+          "inspiration": false,
+          "concentration": {
+            "ability": "",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "save": ""
+            },
+            "limit": 1
+          },
+          "loyalty": {},
+          "death": {
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "success": 0,
+            "failure": 0,
+            "bonuses": {
+              "save": ""
+            }
+          }
+        },
+        "details": {
+          "alignment": "Chaotic Evil",
+          "race": "ozrNiCJr3kbARx7m",
+          "background": "4wS78soR5txiDU8x",
+          "originalClass": "UfdvNRrAvSwKyP6t",
+          "xp": {
+            "value": 34000
+          },
+          "trait": "",
+          "ideal": "",
+          "bond": "",
+          "flaw": "",
+          "appearance": "",
+          "eyes": "",
+          "hair": "",
+          "skin": "",
+          "height": "",
+          "weight": "",
+          "age": "",
+          "gender": "",
+          "faith": "",
+          "biography": {
+            "value": "<p><em>Waluipedia cast sheet — Bowser.</em> Built by <code>tools/build-character-sheets.py</code>, hand-authored from the article. XP ledger: level 8, power rating 14 → a level 8 Fighter player-character sheet for <strong>955 BF</strong> (Bowser, King of the Koopas; never above the ledger level — a past self holds no more experience than the present one). The sovereign who kidnapped princesses and conquered kingdoms, eighty-five years before he held the door for Disaster Inc. — the Koopa Troop at full strength, the castle intact, fire in the throat.. Numbers are a GM-ready reading of the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p><p><strong>The King Who Held the Door</strong> — Koopa Troop (King) / Disaster Inc. (current situation)</p><p>Status: Active — operating in the Shadow Estate; carrying necromantic evidence; royal war chest active; illegal under hostile mandates and still completely unbothered</p><p>Bowser is the King of the Koopa Troop, a giant fire-breathing turtle-dragon who was cast into the Shadowfell during the Planar Fracture alongside Archie Miser. Since then, he has attended a vampire dinner party where he presumably sat wherever he wanted, tackled a vampire lord through a gothic window, bit a giant bat's wing, and most recently held a door shut against an axe-wielding succession claimant while Markop was unconscious—then punched said claimant in the head and picked up a necromancer's wand asking 'Is this a magic wand?' with the innocent curiosity of a child finding a toy. Waluigi has arm-wrestled Bowser and LOST. Waluigi has also competed against Bowser in every sport imaginable. Bowser is not complicated. Bowser is EFFECTIVE. The current party pass identifies Bowser as Disaster Inc.'s blunt-force sovereign: door-holder, threat magnet, and walking siege engine whose honesty remains more reliable than most alliances.</p><h3>Evidence</h3><ul><li><strong>Claws</strong> — “Bowser is a giant turtle who breathes fire, wants things, and takes them.”</li><li><strong>Bowser's Shell Bash</strong> — “When Orangus Cornelius threatened to turn Bowser's shell into a soup bowl, diplomacy ended because YOU DO NOT THREATEN BOWSER'S SHELL.”</li><li><strong>Fire Breath (Recharge 5–6)</strong> — “Bowser is a giant turtle who breathes fire, wants things, and takes them.”</li><li><strong>Extra Attack</strong> — “Bowser operates on simple logic: see problem, hit problem, problem either stops being a problem or gets hit again.”</li><li><strong>The Shell</strong> — “When Orangus Cornelius threatened to turn Bowser's shell into a soup bowl, diplomacy ended because YOU DO NOT THREATEN BOWSER'S SHELL.”</li><li><strong>Indestructible</strong> — “Bowser is the most INDESTRUCTIBLE.”</li><li><strong>Kidnapper of Princesses</strong> — “Bowser is traditionally an ANTAGONIST—kidnapping princesses, conquering kingdoms, generally being the obstacle that heroes overcome.”</li><li><strong>King of the Koopas</strong> — “- Koopa sovereignty: every alliance with Bowser is also a negotiation with a kingdom.”</li></ul><p>Article: <code>#/article/bowser</code> (characters). Site sheet: <code>#/sheets/bowser/955-bf</code>.</p>",
+            "public": ""
+          }
+        },
+        "traits": {
+          "size": "lg",
+          "languages": {
+            "value": [
+              "common"
+            ],
+            "custom": "",
+            "communication": {}
+          },
+          "weaponProf": {
+            "value": [
+              "sim",
+              "mar"
+            ],
+            "custom": "",
+            "mastery": {
+              "value": [],
+              "bonus": []
+            }
+          },
+          "armorProf": {
+            "value": [
+              "lgt",
+              "med",
+              "hvy",
+              "shl"
+            ],
+            "custom": ""
+          },
+          "ci": {
+            "value": [],
+            "custom": "",
+            "bypasses": []
+          },
+          "di": {
+            "value": [],
+            "custom": "",
+            "bypasses": []
+          },
+          "dr": {
+            "value": [],
+            "custom": "",
+            "bypasses": []
+          },
+          "dv": {
+            "value": [],
+            "custom": "",
+            "bypasses": []
+          },
+          "dm": {
+            "amount": {},
+            "bypasses": []
+          }
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "revision": 1,
+          "rules": "2024"
+        }
+      },
+      "prototypeToken": {
+        "name": "Bowser (955 BF)",
+        "displayName": 0,
+        "actorLink": true,
+        "width": 2,
+        "height": 2,
+        "texture": {
+          "src": "portraits/player/fullbody/bowser.png",
+          "anchorX": 0.5,
+          "anchorY": 0.5,
+          "fit": "contain",
+          "scaleX": 1,
+          "scaleY": 1,
+          "tint": "#ffffff",
+          "alphaThreshold": 0.75
+        },
+        "lockRotation": false,
+        "rotation": 0,
+        "alpha": 1,
+        "disposition": 1,
+        "displayBars": 0,
+        "bar1": {
+          "attribute": "attributes.hp"
+        },
+        "bar2": {
+          "attribute": null
+        }
+      },
+      "items": [
+        {
+          "_id": "UfdvNRrAvSwKyP6t",
+          "name": "Fighter",
+          "type": "class",
+          "img": "icons/skills/melee/weapons-crossed-swords-white-blue.webp",
+          "system": {
+            "description": {
+              "value": "<p>Fighter — the class this sheet reads the record as. Levels follow the XP ledger.</p>",
+              "chat": ""
+            },
+            "source": {
+              "custom": "Waluipedia campaign",
+              "revision": 1,
+              "rules": "2024"
+            },
+            "identifier": "fighter",
+            "levels": 8,
+            "hd": {
+              "denomination": "d10",
+              "spent": 0,
+              "additional": ""
+            },
+            "advancement": [],
+            "startingEquipment": [],
+            "properties": [],
+            "primaryAbility": {
+              "value": [],
+              "all": true
+            },
+            "spellcasting": {
+              "progression": "none",
+              "ability": "",
+              "preparation": {
+                "formula": ""
+              }
+            }
+          },
+          "effects": [],
+          "flags": {},
+          "sort": 100000,
+          "ownership": {
+            "default": 0
+          }
+        },
+        {
+          "_id": "T4WkAkEkCIS5KZs6",
+          "name": "Champion",
+          "type": "subclass",
+          "img": "icons/skills/melee/weapons-crossed-swords-white-blue.webp",
+          "system": {
+            "description": {
+              "value": "<p>Champion (Fighter).</p>",
+              "chat": ""
+            },
+            "source": {
+              "custom": "Waluipedia campaign",
+              "revision": 1,
+              "rules": "2024"
+            },
+            "identifier": "champion",
+            "classIdentifier": "fighter",
+            "advancement": [],
+            "spellcasting": {
+              "progression": "none",
+              "ability": "",
+              "preparation": {
+                "formula": ""
+              }
+            }
+          },
+          "effects": [],
+          "flags": {},
+          "sort": 200000,
+          "ownership": {
+            "default": 0
+          }
+        },
+        {
+          "_id": "ozrNiCJr3kbARx7m",
+          "name": "Koopa (King-sized)",
+          "type": "race",
+          "img": "icons/environment/people/group.webp",
+          "system": {
+            "description": {
+              "value": "<p>Koopa (King-sized), as the article files it.</p>",
+              "chat": ""
+            },
+            "source": {
+              "custom": "Waluipedia campaign",
+              "revision": 1,
+              "rules": "2024"
+            },
+            "identifier": "koopa-king-sized",
+            "advancement": [],
+            "movement": {
+              "walk": 30,
+              "units": "ft",
+              "hover": false,
+              "ignoredDifficultTerrain": []
+            },
+            "senses": {
+              "units": "ft",
+              "special": "",
+              "ranges": {
+                "darkvision": null,
+                "blindsight": null,
+                "tremorsense": null,
+                "truesight": null
+              }
+            },
+            "type": {
+              "value": "humanoid",
+              "subtype": ""
+            }
+          },
+          "effects": [],
+          "flags": {},
+          "sort": 300000,
+          "ownership": {
+            "default": 0
+          }
+        },
+        {
+          "_id": "4wS78soR5txiDU8x",
+          "name": "Noble",
+          "type": "background",
+          "img": "icons/sundries/scrolls/scroll-bound-white-tan.webp",
+          "system": {
+            "description": {
+              "value": "<p>Noble — the life the article describes before the table.</p>",
+              "chat": ""
+            },
+            "source": {
+              "custom": "Waluipedia campaign",
+              "revision": 1,
+              "rules": "2024"
+            },
+            "identifier": "noble",
+            "advancement": [],
+            "startingEquipment": []
+          },
+          "effects": [],
+          "flags": {},
+          "sort": 400000,
+          "ownership": {
+            "default": 0
+          }
+        },
+        {
+          "_id": "M7Qb7CZF1H2kmecR",
+          "name": "Claws",
+          "type": "weapon",
+          "img": "icons/creatures/claws/claw-straight-orange.webp",
+          "system": {
+            "description": {
+              "value": "<p>Two swipes of a king's claws; a creature hit by both in one turn is grappled (escape DC 17).</p>",
+              "chat": ""
+            },
+            "source": {
+              "custom": "Waluipedia campaign",
+              "book": "",
+              "page": "",
+              "license": "",
+              "revision": 1,
+              "rules": "2024"
+            },
+            "quantity": 1,
+            "weight": {
+              "value": 0,
+              "units": "lb"
+            },
+            "price": {
+              "value": 0,
+              "denomination": "gp"
+            },
+            "attunement": "",
+            "rarity": "",
+            "identified": true,
+            "cover": null,
+            "range": {
+              "value": null,
+              "long": null,
+              "units": "ft",
+              "reach": null
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "damage": {
+              "versatile": {
+                "number": null,
+                "denomination": null,
+                "bonus": "",
+                "types": [],
+                "custom": {
+                  "enabled": false,
+                  "formula": ""
+                },
+                "scaling": {
+                  "mode": "",
+                  "number": null,
+                  "formula": ""
+                }
+              },
+              "base": {
+                "number": 2,
+                "denomination": 6,
+                "bonus": "",
+                "types": [
+                  "slashing"
+                ],
+                "custom": {
+                  "enabled": false,
+                  "formula": ""
+                },
+                "scaling": {
+                  "mode": "",
+                  "number": null,
+                  "formula": ""
+                }
+              }
+            },
+            "armor": {
+              "value": 10
+            },
+            "hp": {
+              "value": 0,
+              "max": 0,
+              "dt": null,
+              "conditions": ""
+            },
+            "properties": [],
+            "type": {
+              "value": "natural",
+              "baseItem": ""
+            },
+            "container": null,
+            "equipped": true,
+            "proficient": 1,
+            "identifier": "",
+            "attuned": false,
+            "ammunition": {},
+            "crew": {
+              "value": []
+            },
+            "activities": {
+              "dnd5eactivity000": {
+                "_id": "dnd5eactivity000",
+                "type": "attack",
+                "activation": {
+                  "type": "action",
+                  "value": 1,
+                  "condition": "",
+                  "override": false
+                },
+                "consumption": {
+                  "targets": [],
+                  "scaling": {
+                    "allowed": false,
+                    "max": ""
+                  },
+                  "spellSlot": true
+                },
+                "description": {
+                  "chatFlavor": ""
+                },
+                "duration": {
+                  "concentration": false,
+                  "value": "",
+                  "units": "inst",
+                  "special": "",
+                  "override": false
+                },
+                "effects": [],
+                "range": {
+                  "units": "ft",
+                  "special": "",
+                  "override": false
+                },
+                "target": {
+                  "template": {
+                    "count": "",
+                    "contiguous": false,
+                    "type": "",
+                    "size": "",
+                    "width": "",
+                    "height": "",
+                    "units": "ft",
+                    "stationary": false
+                  },
+                  "affects": {
+                    "count": "",
+                    "type": "",
+                    "choice": false,
+                    "special": ""
+                  },
+                  "prompt": true,
+                  "override": false
+                },
+                "uses": {
+                  "spent": 0,
+                  "max": "",
+                  "recovery": []
+                },
+                "attack": {
+                  "ability": "str",
+                  "bonus": "",
+                  "critical": {
+                    "threshold": null
+                  },
+                  "flat": false,
+                  "type": {
+                    "value": "melee",
+                    "classification": "weapon"
+                  }
+                },
+                "damage": {
+                  "critical": {
+                    "bonus": ""
+                  },
+                  "includeBase": true,
+                  "parts": []
+                },
+                "sort": 0,
+                "flags": {},
+                "visibility": {
+                  "level": {},
+                  "requireAttunement": false,
+                  "requireIdentification": false,
+                  "requireMagic": false
+                },
+                "img": null
+              }
+            }
+          },
+          "effects": [],
+          "flags": {},
+          "sort": 500000,
+          "ownership": {
+            "default": 0
+          }
+        },
+        {
+          "_id": "GcvdAgNRQ9W6WIL2",
+          "name": "Bowser's Shell Bash",
+          "type": "weapon",
+          "img": "icons/skills/melee/unarmed-punch-fist.webp",
+          "system": {
+            "description": {
+              "value": "<p>Bowser tucks in and bashes. A Large or smaller target hit by it is pushed 10 feet away.</p>",
+              "chat": ""
+            },
+            "source": {
+              "custom": "Waluipedia campaign",
+              "book": "",
+              "page": "",
+              "license": "",
+              "revision": 1,
+              "rules": "2024"
+            },
+            "quantity": 1,
+            "weight": {
+              "value": 0,
+              "units": "lb"
+            },
+            "price": {
+              "value": 0,
+              "denomination": "gp"
+            },
+            "attunement": "",
+            "rarity": "",
+            "identified": true,
+            "cover": null,
+            "range": {
+              "value": null,
+              "long": null,
+              "units": "ft",
+              "reach": null
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "damage": {
+              "versatile": {
+                "number": null,
+                "denomination": null,
+                "bonus": "",
+                "types": [],
+                "custom": {
+                  "enabled": false,
+                  "formula": ""
+                },
+                "scaling": {
+                  "mode": "",
+                  "number": null,
+                  "formula": ""
+                }
+              },
+              "base": {
+                "number": 2,
+                "denomination": 8,
+                "bonus": "",
+                "types": [
+                  "bludgeoning"
+                ],
+                "custom": {
+                  "enabled": false,
+                  "formula": ""
+                },
+                "scaling": {
+                  "mode": "",
+                  "number": null,
+                  "formula": ""
+                }
+              }
+            },
+            "armor": {
+              "value": 10
+            },
+            "hp": {
+              "value": 0,
+              "max": 0,
+              "dt": null,
+              "conditions": ""
+            },
+            "properties": [],
+            "type": {
+              "value": "natural",
+              "baseItem": ""
+            },
+            "container": null,
+            "equipped": true,
+            "proficient": 1,
+            "identifier": "",
+            "attuned": false,
+            "ammunition": {},
+            "crew": {
+              "value": []
+            },
+            "activities": {
+              "dnd5eactivity000": {
+                "_id": "dnd5eactivity000",
+                "type": "attack",
+                "activation": {
+                  "type": "action",
+                  "value": 1,
+                  "condition": "",
+                  "override": false
+                },
+                "consumption": {
+                  "targets": [],
+                  "scaling": {
+                    "allowed": false,
+                    "max": ""
+                  },
+                  "spellSlot": true
+                },
+                "description": {
+                  "chatFlavor": ""
+                },
+                "duration": {
+                  "concentration": false,
+                  "value": "",
+                  "units": "inst",
+                  "special": "",
+                  "override": false
+                },
+                "effects": [],
+                "range": {
+                  "units": "ft",
+                  "special": "",
+                  "override": false
+                },
+                "target": {
+                  "template": {
+                    "count": "",
+                    "contiguous": false,
+                    "type": "",
+                    "size": "",
+                    "width": "",
+                    "height": "",
+                    "units": "ft",
+                    "stationary": false
+                  },
+                  "affects": {
+                    "count": "",
+                    "type": "",
+                    "choice": false,
+                    "special": ""
+                  },
+                  "prompt": true,
+                  "override": false
+                },
+                "uses": {
+                  "spent": 0,
+                  "max": "",
+                  "recovery": []
+                },
+                "attack": {
+                  "ability": "str",
+                  "bonus": "",
+                  "critical": {
+                    "threshold": null
+                  },
+                  "flat": false,
+                  "type": {
+                    "value": "melee",
+                    "classification": "weapon"
+                  }
+                },
+                "damage": {
+                  "critical": {
+                    "bonus": ""
+                  },
+                  "includeBase": true,
+                  "parts": []
+                },
+                "sort": 0,
+                "flags": {},
+                "visibility": {
+                  "level": {},
+                  "requireAttunement": false,
+                  "requireIdentification": false,
+                  "requireMagic": false
+                },
+                "img": null
+              }
+            }
+          },
+          "effects": [],
+          "flags": {},
+          "sort": 600000,
+          "ownership": {
+            "default": 0
+          }
+        },
+        {
+          "_id": "xi1iQBsjqGsXMMtb",
+          "name": "Fire Breath (Recharge 5–6)",
+          "type": "feat",
+          "img": "icons/magic/fire/explosion-fireball-large-orange.webp",
+          "system": {
+            "description": {
+              "value": "<p>Bowser exhales fire in a 30-foot cone. Each creature in it makes a DC 16 Dexterity saving throw, taking 8d6 fire damage on a failure or half as much on a success. Flammable objects in the cone ignite.</p>",
+              "chat": ""
+            },
+            "type": {
+              "value": "class",
+              "subtype": ""
+            },
+            "activation": {},
+            "duration": {},
+            "target": {},
+            "range": {},
+            "uses": {
+              "spent": 0,
+              "max": "1",
+              "recovery": [
+                {
+                  "period": "recharge",
+                  "formula": "5"
+                }
+              ]
+            },
+            "activities": {},
+            "source": {
+              "custom": "Waluipedia campaign",
+              "book": "",
+              "page": "",
+              "license": "",
+              "revision": 1,
+              "rules": "2024"
+            }
+          },
+          "effects": [],
+          "flags": {},
+          "sort": 700000,
+          "ownership": {
+            "default": 0
+          }
+        },
+        {
+          "_id": "ruZLYFFAS25aHmtS",
+          "name": "Extra Attack",
+          "type": "feat",
+          "img": "icons/skills/melee/strike-slashes-orange.webp",
+          "system": {
+            "description": {
+              "value": "<p>See problem, hit problem: Bowser makes two Claw attacks, or one Claw and one Shell Bash.</p>",
+              "chat": ""
+            },
+            "type": {
+              "value": "class",
+              "subtype": ""
+            },
+            "activation": {},
+            "duration": {},
+            "target": {},
+            "range": {},
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "activities": {},
+            "source": {
+              "custom": "Waluipedia campaign",
+              "book": "",
+              "page": "",
+              "license": "",
+              "revision": 1,
+              "rules": "2024"
+            }
+          },
+          "effects": [],
+          "flags": {},
+          "sort": 800000,
+          "ownership": {
+            "default": 0
+          }
+        },
+        {
+          "_id": "afyeaBr8A1QHVFUU",
+          "name": "The Shell",
+          "type": "feat",
+          "img": "icons/skills/melee/shield-block-gray-orange.webp",
+          "system": {
+            "description": {
+              "value": "<p>As a bonus action Bowser withdraws into his shell: his AC becomes 21 and he has resistance to bludgeoning, piercing and slashing damage until he emerges (another bonus action), but his speed is 0 and he cannot attack. Threaten the shell and he comes out swinging — he emerges for free when a creature within 5 feet attacks him.</p>",
+              "chat": ""
+            },
+            "type": {
+              "value": "class",
+              "subtype": ""
+            },
+            "activation": {},
+            "duration": {},
+            "target": {},
+            "range": {},
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "activities": {},
+            "source": {
+              "custom": "Waluipedia campaign",
+              "book": "",
+              "page": "",
+              "license": "",
+              "revision": 1,
+              "rules": "2024"
+            }
+          },
+          "effects": [],
+          "flags": {},
+          "sort": 900000,
+          "ownership": {
+            "default": 0
+          }
+        },
+        {
+          "_id": "5v9Ei8EjiWEeAG9S",
+          "name": "Indestructible",
+          "type": "feat",
+          "img": "icons/magic/defensive/shield-barrier-flaming-diamond-orange.webp",
+          "system": {
+            "description": {
+              "value": "<p>When Bowser is reduced to 0 hit points but not killed outright, he drops to 1 hit point instead and roars. Once per long rest.</p>",
+              "chat": ""
+            },
+            "type": {
+              "value": "class",
+              "subtype": ""
+            },
+            "activation": {},
+            "duration": {},
+            "target": {},
+            "range": {},
+            "uses": {
+              "spent": 0,
+              "max": "1",
+              "recovery": [
+                {
+                  "period": "lr",
+                  "type": "recoverAll"
+                }
+              ]
+            },
+            "activities": {},
+            "source": {
+              "custom": "Waluipedia campaign",
+              "book": "",
+              "page": "",
+              "license": "",
+              "revision": 1,
+              "rules": "2024"
+            }
+          },
+          "effects": [],
+          "flags": {},
+          "sort": 1000000,
+          "ownership": {
+            "default": 0
+          }
+        },
+        {
+          "_id": "6hABZY2jXwZR2xnu",
+          "name": "Kidnapper of Princesses",
+          "type": "feat",
+          "img": "icons/magic/control/debuff-chains-purple.webp",
+          "system": {
+            "description": {
+              "value": "<p>Bowser's speed is not halved while he grapples or carries a Medium or smaller creature, and he can carry one such creature while flying in the Koopa Clown Car (not on this sheet).</p>",
+              "chat": ""
+            },
+            "type": {
+              "value": "class",
+              "subtype": ""
+            },
+            "activation": {},
+            "duration": {},
+            "target": {},
+            "range": {},
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "activities": {},
+            "source": {
+              "custom": "Waluipedia campaign",
+              "book": "",
+              "page": "",
+              "license": "",
+              "revision": 1,
+              "rules": "2024"
+            }
+          },
+          "effects": [],
+          "flags": {},
+          "sort": 1100000,
+          "ownership": {
+            "default": 0
+          }
+        },
+        {
+          "_id": "sfIOmwQCRDlqlkIy",
+          "name": "King of the Koopas",
+          "type": "feat",
+          "img": "icons/equipment/head/crown-gold-blue.webp",
+          "system": {
+            "description": {
+              "value": "<p>Koopa Troop creatures within 60 feet that can hear Bowser have advantage on saving throws against being frightened, and once per turn Bowser can use a bonus action to let one of them make a weapon attack as a reaction.</p>",
+              "chat": ""
+            },
+            "type": {
+              "value": "class",
+              "subtype": ""
+            },
+            "activation": {},
+            "duration": {},
+            "target": {},
+            "range": {},
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "activities": {},
+            "source": {
+              "custom": "Waluipedia campaign",
+              "book": "",
+              "page": "",
+              "license": "",
+              "revision": 1,
+              "rules": "2024"
+            }
+          },
+          "effects": [],
+          "flags": {},
+          "sort": 1200000,
+          "ownership": {
+            "default": 0
+          }
+        }
+      ],
+      "effects": [],
+      "folder": "ZQSwV61qolj5wGki",
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "waluipedia-mass-import": {
+          "folderPath": [
+            "Koopa Troop",
+            "955 BF — Peach's Castle"
+          ],
+          "source": "tools/build-character-sheets.py"
+        },
+        "waluipedia-sheets": {
+          "characterId": "bowser",
+          "generated": true,
+          "bespoke": true,
+          "role": "boss",
+          "ledger": {
+            "level": 8,
+            "powerLevel": 14
+          },
+          "evidence": [
+            {
+              "feature": "Claws",
+              "quote": "Bowser is a giant turtle who breathes fire, wants things, and takes them.",
+              "source": "article"
+            },
+            {
+              "feature": "Bowser's Shell Bash",
+              "quote": "When Orangus Cornelius threatened to turn Bowser's shell into a soup bowl, diplomacy ended because YOU DO NOT THREATEN BOWSER'S SHELL.",
+              "source": "article"
+            },
+            {
+              "feature": "Fire Breath (Recharge 5–6)",
+              "quote": "Bowser is a giant turtle who breathes fire, wants things, and takes them.",
+              "source": "article"
+            },
+            {
+              "feature": "Extra Attack",
+              "quote": "Bowser operates on simple logic: see problem, hit problem, problem either stops being a problem or gets hit again.",
+              "source": "article"
+            },
+            {
+              "feature": "The Shell",
+              "quote": "When Orangus Cornelius threatened to turn Bowser's shell into a soup bowl, diplomacy ended because YOU DO NOT THREATEN BOWSER'S SHELL.",
+              "source": "article"
+            },
+            {
+              "feature": "Indestructible",
+              "quote": "Bowser is the most INDESTRUCTIBLE.",
+              "source": "article"
+            },
+            {
+              "feature": "Kidnapper of Princesses",
+              "quote": "Bowser is traditionally an ANTAGONIST—kidnapping princesses, conquering kingdoms, generally being the obstacle that heroes overcome.",
+              "source": "article"
+            },
+            {
+              "feature": "King of the Koopas",
+              "quote": "- Koopa sovereignty: every alliance with Bowser is also a negotiation with a kingdom.",
+              "source": "article"
+            }
+          ],
+          "tags": [
+            "Koopa Troop",
+            "pc",
+            "boss",
+            "generated",
+            "955 BF",
+            "Disaster Inc."
+          ],
+          "color": "#B8860B",
+          "pc": {
+            "level": 8,
+            "class": "Fighter",
+            "subclass": "Champion",
+            "cr": 8,
+            "hitDie": "d10",
+            "formula": "8d10 + 32"
+          },
+          "era": {
+            "version": "955-bf",
+            "era": "955 BF",
+            "label": "Bowser, King of the Koopas",
+            "when": "The sovereign who kidnapped princesses and conquered kingdoms, eighty-five years before he held the door for Disaster Inc. — the Koopa Troop at full strength, the castle intact, fire in the throat."
+          }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "compendiumSource": null,
+        "duplicateSource": null
+      }
+    },
     {
       "_id": "w4binvE9r2HpJPWu",
       "name": "4331 T",
@@ -45923,1477 +47448,6 @@
       }
     },
     {
-      "_id": "NEusRyds29hyk0zJ",
-      "name": "Bowser (955 BF)",
-      "type": "character",
-      "img": "portraits/bowser.jpg",
-      "system": {
-        "currency": {
-          "pp": 0,
-          "gp": 0,
-          "ep": 0,
-          "sp": 0,
-          "cp": 0
-        },
-        "abilities": {
-          "str": {
-            "value": 20,
-            "proficient": 1,
-            "bonuses": {
-              "check": "",
-              "save": ""
-            },
-            "max": null,
-            "check": {
-              "roll": {
-                "min": null,
-                "max": null,
-                "mode": 0
-              }
-            },
-            "save": {
-              "roll": {
-                "min": null,
-                "max": null,
-                "mode": 0
-              }
-            }
-          },
-          "dex": {
-            "value": 10,
-            "proficient": 0,
-            "bonuses": {
-              "check": "",
-              "save": ""
-            },
-            "max": null,
-            "check": {
-              "roll": {
-                "min": null,
-                "max": null,
-                "mode": 0
-              }
-            },
-            "save": {
-              "roll": {
-                "min": null,
-                "max": null,
-                "mode": 0
-              }
-            }
-          },
-          "con": {
-            "value": 18,
-            "proficient": 1,
-            "bonuses": {
-              "check": "",
-              "save": ""
-            },
-            "max": null,
-            "check": {
-              "roll": {
-                "min": null,
-                "max": null,
-                "mode": 0
-              }
-            },
-            "save": {
-              "roll": {
-                "min": null,
-                "max": null,
-                "mode": 0
-              }
-            }
-          },
-          "int": {
-            "value": 9,
-            "proficient": 0,
-            "bonuses": {
-              "check": "",
-              "save": ""
-            },
-            "max": null,
-            "check": {
-              "roll": {
-                "min": null,
-                "max": null,
-                "mode": 0
-              }
-            },
-            "save": {
-              "roll": {
-                "min": null,
-                "max": null,
-                "mode": 0
-              }
-            }
-          },
-          "wis": {
-            "value": 11,
-            "proficient": 0,
-            "bonuses": {
-              "check": "",
-              "save": ""
-            },
-            "max": null,
-            "check": {
-              "roll": {
-                "min": null,
-                "max": null,
-                "mode": 0
-              }
-            },
-            "save": {
-              "roll": {
-                "min": null,
-                "max": null,
-                "mode": 0
-              }
-            }
-          },
-          "cha": {
-            "value": 15,
-            "proficient": 0,
-            "bonuses": {
-              "check": "",
-              "save": ""
-            },
-            "max": null,
-            "check": {
-              "roll": {
-                "min": null,
-                "max": null,
-                "mode": 0
-              }
-            },
-            "save": {
-              "roll": {
-                "min": null,
-                "max": null,
-                "mode": 0
-              }
-            }
-          }
-        },
-        "skills": {
-          "acr": {
-            "value": 0,
-            "ability": "dex",
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            },
-            "bonuses": {
-              "check": "",
-              "passive": ""
-            }
-          },
-          "ani": {
-            "value": 0,
-            "ability": "wis",
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            },
-            "bonuses": {
-              "check": "",
-              "passive": ""
-            }
-          },
-          "arc": {
-            "value": 0,
-            "ability": "int",
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            },
-            "bonuses": {
-              "check": "",
-              "passive": ""
-            }
-          },
-          "ath": {
-            "value": 2,
-            "ability": "str",
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            },
-            "bonuses": {
-              "check": "",
-              "passive": ""
-            }
-          },
-          "dec": {
-            "value": 0,
-            "ability": "cha",
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            },
-            "bonuses": {
-              "check": "",
-              "passive": ""
-            }
-          },
-          "his": {
-            "value": 0,
-            "ability": "int",
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            },
-            "bonuses": {
-              "check": "",
-              "passive": ""
-            }
-          },
-          "ins": {
-            "value": 0,
-            "ability": "wis",
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            },
-            "bonuses": {
-              "check": "",
-              "passive": ""
-            }
-          },
-          "itm": {
-            "value": 2,
-            "ability": "cha",
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            },
-            "bonuses": {
-              "check": "",
-              "passive": ""
-            }
-          },
-          "inv": {
-            "value": 0,
-            "ability": "int",
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            },
-            "bonuses": {
-              "check": "",
-              "passive": ""
-            }
-          },
-          "med": {
-            "value": 0,
-            "ability": "wis",
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            },
-            "bonuses": {
-              "check": "",
-              "passive": ""
-            }
-          },
-          "nat": {
-            "value": 0,
-            "ability": "int",
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            },
-            "bonuses": {
-              "check": "",
-              "passive": ""
-            }
-          },
-          "prc": {
-            "value": 0,
-            "ability": "wis",
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            },
-            "bonuses": {
-              "check": "",
-              "passive": ""
-            }
-          },
-          "prf": {
-            "value": 0,
-            "ability": "cha",
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            },
-            "bonuses": {
-              "check": "",
-              "passive": ""
-            }
-          },
-          "per": {
-            "value": 0,
-            "ability": "cha",
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            },
-            "bonuses": {
-              "check": "",
-              "passive": ""
-            }
-          },
-          "rel": {
-            "value": 0,
-            "ability": "int",
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            },
-            "bonuses": {
-              "check": "",
-              "passive": ""
-            }
-          },
-          "slt": {
-            "value": 0,
-            "ability": "dex",
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            },
-            "bonuses": {
-              "check": "",
-              "passive": ""
-            }
-          },
-          "ste": {
-            "value": 0,
-            "ability": "dex",
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            },
-            "bonuses": {
-              "check": "",
-              "passive": ""
-            }
-          },
-          "sur": {
-            "value": 0,
-            "ability": "wis",
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            },
-            "bonuses": {
-              "check": "",
-              "passive": ""
-            }
-          }
-        },
-        "tools": {},
-        "spells": {},
-        "bonuses": {},
-        "resources": {},
-        "favorites": [],
-        "bastion": {
-          "name": "",
-          "description": ""
-        },
-        "attributes": {
-          "ac": {
-            "flat": 17,
-            "calc": "natural",
-            "formula": ""
-          },
-          "hp": {
-            "value": 84,
-            "max": 84,
-            "temp": null,
-            "tempmax": 0,
-            "bonuses": {}
-          },
-          "movement": {
-            "walk": "30",
-            "units": "ft",
-            "hover": false,
-            "burrow": "0",
-            "climb": "0",
-            "fly": "0",
-            "swim": "0",
-            "ignoredDifficultTerrain": []
-          },
-          "senses": {
-            "units": "ft",
-            "ranges": {
-              "darkvision": 0
-            },
-            "special": ""
-          },
-          "init": {
-            "ability": "",
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            },
-            "bonus": ""
-          },
-          "attunement": {
-            "max": 3
-          },
-          "spellcasting": "",
-          "exhaustion": 0,
-          "inspiration": false,
-          "concentration": {
-            "ability": "",
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            },
-            "bonuses": {
-              "save": ""
-            },
-            "limit": 1
-          },
-          "loyalty": {},
-          "death": {
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            },
-            "success": 0,
-            "failure": 0,
-            "bonuses": {
-              "save": ""
-            }
-          }
-        },
-        "details": {
-          "alignment": "Chaotic Evil",
-          "race": "ozrNiCJr3kbARx7m",
-          "background": "4wS78soR5txiDU8x",
-          "originalClass": "UfdvNRrAvSwKyP6t",
-          "xp": {
-            "value": 34000
-          },
-          "trait": "",
-          "ideal": "",
-          "bond": "",
-          "flaw": "",
-          "appearance": "",
-          "eyes": "",
-          "hair": "",
-          "skin": "",
-          "height": "",
-          "weight": "",
-          "age": "",
-          "gender": "",
-          "faith": "",
-          "biography": {
-            "value": "<p><em>Waluipedia cast sheet — Bowser.</em> Built by <code>tools/build-character-sheets.py</code>, hand-authored from the article. XP ledger: level 8, power rating 14 → a level 8 Fighter player-character sheet for <strong>955 BF</strong> (Bowser, King of the Koopas; never above the ledger level — a past self holds no more experience than the present one). The sovereign who kidnapped princesses and conquered kingdoms, eighty-five years before he held the door for Disaster Inc. — the Koopa Troop at full strength, the castle intact, fire in the throat.. Numbers are a GM-ready reading of the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p><p><strong>The King Who Held the Door</strong> — Koopa Troop (King) / Disaster Inc. (current situation)</p><p>Status: Active — operating in the Shadow Estate; carrying necromantic evidence; royal war chest active; illegal under hostile mandates and still completely unbothered</p><p>Bowser is the King of the Koopa Troop, a giant fire-breathing turtle-dragon who was cast into the Shadowfell during the Planar Fracture alongside Archie Miser. Since then, he has attended a vampire dinner party where he presumably sat wherever he wanted, tackled a vampire lord through a gothic window, bit a giant bat's wing, and most recently held a door shut against an axe-wielding succession claimant while Markop was unconscious—then punched said claimant in the head and picked up a necromancer's wand asking 'Is this a magic wand?' with the innocent curiosity of a child finding a toy. Waluigi has arm-wrestled Bowser and LOST. Waluigi has also competed against Bowser in every sport imaginable. Bowser is not complicated. Bowser is EFFECTIVE. The current party pass identifies Bowser as Disaster Inc.'s blunt-force sovereign: door-holder, threat magnet, and walking siege engine whose honesty remains more reliable than most alliances.</p><h3>Evidence</h3><ul><li><strong>Claws</strong> — “Bowser is a giant turtle who breathes fire, wants things, and takes them.”</li><li><strong>Bowser's Shell Bash</strong> — “When Orangus Cornelius threatened to turn Bowser's shell into a soup bowl, diplomacy ended because YOU DO NOT THREATEN BOWSER'S SHELL.”</li><li><strong>Fire Breath (Recharge 5–6)</strong> — “Bowser is a giant turtle who breathes fire, wants things, and takes them.”</li><li><strong>Extra Attack</strong> — “Bowser operates on simple logic: see problem, hit problem, problem either stops being a problem or gets hit again.”</li><li><strong>The Shell</strong> — “When Orangus Cornelius threatened to turn Bowser's shell into a soup bowl, diplomacy ended because YOU DO NOT THREATEN BOWSER'S SHELL.”</li><li><strong>Indestructible</strong> — “Bowser is the most INDESTRUCTIBLE.”</li><li><strong>Kidnapper of Princesses</strong> — “Bowser is traditionally an ANTAGONIST—kidnapping princesses, conquering kingdoms, generally being the obstacle that heroes overcome.”</li><li><strong>King of the Koopas</strong> — “- Koopa sovereignty: every alliance with Bowser is also a negotiation with a kingdom.”</li></ul><p>Article: <code>#/article/bowser</code> (characters). Site sheet: <code>#/sheets/bowser/955-bf</code>.</p>",
-            "public": ""
-          }
-        },
-        "traits": {
-          "size": "lg",
-          "languages": {
-            "value": [
-              "common"
-            ],
-            "custom": "",
-            "communication": {}
-          },
-          "weaponProf": {
-            "value": [
-              "sim",
-              "mar"
-            ],
-            "custom": "",
-            "mastery": {
-              "value": [],
-              "bonus": []
-            }
-          },
-          "armorProf": {
-            "value": [
-              "lgt",
-              "med",
-              "hvy",
-              "shl"
-            ],
-            "custom": ""
-          },
-          "ci": {
-            "value": [],
-            "custom": "",
-            "bypasses": []
-          },
-          "di": {
-            "value": [],
-            "custom": "",
-            "bypasses": []
-          },
-          "dr": {
-            "value": [],
-            "custom": "",
-            "bypasses": []
-          },
-          "dv": {
-            "value": [],
-            "custom": "",
-            "bypasses": []
-          },
-          "dm": {
-            "amount": {},
-            "bypasses": []
-          }
-        },
-        "source": {
-          "custom": "Waluipedia campaign",
-          "revision": 1,
-          "rules": "2024"
-        }
-      },
-      "prototypeToken": {
-        "name": "Bowser (955 BF)",
-        "displayName": 0,
-        "actorLink": true,
-        "width": 2,
-        "height": 2,
-        "texture": {
-          "src": "portraits/player/fullbody/bowser.png",
-          "anchorX": 0.5,
-          "anchorY": 0.5,
-          "fit": "contain",
-          "scaleX": 1,
-          "scaleY": 1,
-          "tint": "#ffffff",
-          "alphaThreshold": 0.75
-        },
-        "lockRotation": false,
-        "rotation": 0,
-        "alpha": 1,
-        "disposition": 1,
-        "displayBars": 0,
-        "bar1": {
-          "attribute": "attributes.hp"
-        },
-        "bar2": {
-          "attribute": null
-        }
-      },
-      "items": [
-        {
-          "_id": "UfdvNRrAvSwKyP6t",
-          "name": "Fighter",
-          "type": "class",
-          "img": "icons/skills/melee/weapons-crossed-swords-white-blue.webp",
-          "system": {
-            "description": {
-              "value": "<p>Fighter — the class this sheet reads the record as. Levels follow the XP ledger.</p>",
-              "chat": ""
-            },
-            "source": {
-              "custom": "Waluipedia campaign",
-              "revision": 1,
-              "rules": "2024"
-            },
-            "identifier": "fighter",
-            "levels": 8,
-            "hd": {
-              "denomination": "d10",
-              "spent": 0,
-              "additional": ""
-            },
-            "advancement": [],
-            "startingEquipment": [],
-            "properties": [],
-            "primaryAbility": {
-              "value": [],
-              "all": true
-            },
-            "spellcasting": {
-              "progression": "none",
-              "ability": "",
-              "preparation": {
-                "formula": ""
-              }
-            }
-          },
-          "effects": [],
-          "flags": {},
-          "sort": 100000,
-          "ownership": {
-            "default": 0
-          }
-        },
-        {
-          "_id": "T4WkAkEkCIS5KZs6",
-          "name": "Champion",
-          "type": "subclass",
-          "img": "icons/skills/melee/weapons-crossed-swords-white-blue.webp",
-          "system": {
-            "description": {
-              "value": "<p>Champion (Fighter).</p>",
-              "chat": ""
-            },
-            "source": {
-              "custom": "Waluipedia campaign",
-              "revision": 1,
-              "rules": "2024"
-            },
-            "identifier": "champion",
-            "classIdentifier": "fighter",
-            "advancement": [],
-            "spellcasting": {
-              "progression": "none",
-              "ability": "",
-              "preparation": {
-                "formula": ""
-              }
-            }
-          },
-          "effects": [],
-          "flags": {},
-          "sort": 200000,
-          "ownership": {
-            "default": 0
-          }
-        },
-        {
-          "_id": "ozrNiCJr3kbARx7m",
-          "name": "Koopa (King-sized)",
-          "type": "race",
-          "img": "icons/environment/people/group.webp",
-          "system": {
-            "description": {
-              "value": "<p>Koopa (King-sized), as the article files it.</p>",
-              "chat": ""
-            },
-            "source": {
-              "custom": "Waluipedia campaign",
-              "revision": 1,
-              "rules": "2024"
-            },
-            "identifier": "koopa-king-sized",
-            "advancement": [],
-            "movement": {
-              "walk": 30,
-              "units": "ft",
-              "hover": false,
-              "ignoredDifficultTerrain": []
-            },
-            "senses": {
-              "units": "ft",
-              "special": "",
-              "ranges": {
-                "darkvision": null,
-                "blindsight": null,
-                "tremorsense": null,
-                "truesight": null
-              }
-            },
-            "type": {
-              "value": "humanoid",
-              "subtype": ""
-            }
-          },
-          "effects": [],
-          "flags": {},
-          "sort": 300000,
-          "ownership": {
-            "default": 0
-          }
-        },
-        {
-          "_id": "4wS78soR5txiDU8x",
-          "name": "Noble",
-          "type": "background",
-          "img": "icons/sundries/scrolls/scroll-bound-white-tan.webp",
-          "system": {
-            "description": {
-              "value": "<p>Noble — the life the article describes before the table.</p>",
-              "chat": ""
-            },
-            "source": {
-              "custom": "Waluipedia campaign",
-              "revision": 1,
-              "rules": "2024"
-            },
-            "identifier": "noble",
-            "advancement": [],
-            "startingEquipment": []
-          },
-          "effects": [],
-          "flags": {},
-          "sort": 400000,
-          "ownership": {
-            "default": 0
-          }
-        },
-        {
-          "_id": "M7Qb7CZF1H2kmecR",
-          "name": "Claws",
-          "type": "weapon",
-          "img": "icons/creatures/claws/claw-straight-orange.webp",
-          "system": {
-            "description": {
-              "value": "<p>Two swipes of a king's claws; a creature hit by both in one turn is grappled (escape DC 17).</p>",
-              "chat": ""
-            },
-            "source": {
-              "custom": "Waluipedia campaign",
-              "book": "",
-              "page": "",
-              "license": "",
-              "revision": 1,
-              "rules": "2024"
-            },
-            "quantity": 1,
-            "weight": {
-              "value": 0,
-              "units": "lb"
-            },
-            "price": {
-              "value": 0,
-              "denomination": "gp"
-            },
-            "attunement": "",
-            "rarity": "",
-            "identified": true,
-            "cover": null,
-            "range": {
-              "value": null,
-              "long": null,
-              "units": "ft",
-              "reach": null
-            },
-            "uses": {
-              "spent": 0,
-              "max": "",
-              "recovery": []
-            },
-            "damage": {
-              "versatile": {
-                "number": null,
-                "denomination": null,
-                "bonus": "",
-                "types": [],
-                "custom": {
-                  "enabled": false,
-                  "formula": ""
-                },
-                "scaling": {
-                  "mode": "",
-                  "number": null,
-                  "formula": ""
-                }
-              },
-              "base": {
-                "number": 2,
-                "denomination": 6,
-                "bonus": "",
-                "types": [
-                  "slashing"
-                ],
-                "custom": {
-                  "enabled": false,
-                  "formula": ""
-                },
-                "scaling": {
-                  "mode": "",
-                  "number": null,
-                  "formula": ""
-                }
-              }
-            },
-            "armor": {
-              "value": 10
-            },
-            "hp": {
-              "value": 0,
-              "max": 0,
-              "dt": null,
-              "conditions": ""
-            },
-            "properties": [],
-            "type": {
-              "value": "natural",
-              "baseItem": ""
-            },
-            "container": null,
-            "equipped": true,
-            "proficient": 1,
-            "identifier": "",
-            "attuned": false,
-            "ammunition": {},
-            "crew": {
-              "value": []
-            },
-            "activities": {
-              "dnd5eactivity000": {
-                "_id": "dnd5eactivity000",
-                "type": "attack",
-                "activation": {
-                  "type": "action",
-                  "value": 1,
-                  "condition": "",
-                  "override": false
-                },
-                "consumption": {
-                  "targets": [],
-                  "scaling": {
-                    "allowed": false,
-                    "max": ""
-                  },
-                  "spellSlot": true
-                },
-                "description": {
-                  "chatFlavor": ""
-                },
-                "duration": {
-                  "concentration": false,
-                  "value": "",
-                  "units": "inst",
-                  "special": "",
-                  "override": false
-                },
-                "effects": [],
-                "range": {
-                  "units": "ft",
-                  "special": "",
-                  "override": false
-                },
-                "target": {
-                  "template": {
-                    "count": "",
-                    "contiguous": false,
-                    "type": "",
-                    "size": "",
-                    "width": "",
-                    "height": "",
-                    "units": "ft",
-                    "stationary": false
-                  },
-                  "affects": {
-                    "count": "",
-                    "type": "",
-                    "choice": false,
-                    "special": ""
-                  },
-                  "prompt": true,
-                  "override": false
-                },
-                "uses": {
-                  "spent": 0,
-                  "max": "",
-                  "recovery": []
-                },
-                "attack": {
-                  "ability": "str",
-                  "bonus": "",
-                  "critical": {
-                    "threshold": null
-                  },
-                  "flat": false,
-                  "type": {
-                    "value": "melee",
-                    "classification": "weapon"
-                  }
-                },
-                "damage": {
-                  "critical": {
-                    "bonus": ""
-                  },
-                  "includeBase": true,
-                  "parts": []
-                },
-                "sort": 0,
-                "flags": {},
-                "visibility": {
-                  "level": {},
-                  "requireAttunement": false,
-                  "requireIdentification": false,
-                  "requireMagic": false
-                },
-                "img": null
-              }
-            }
-          },
-          "effects": [],
-          "flags": {},
-          "sort": 500000,
-          "ownership": {
-            "default": 0
-          }
-        },
-        {
-          "_id": "GcvdAgNRQ9W6WIL2",
-          "name": "Bowser's Shell Bash",
-          "type": "weapon",
-          "img": "icons/skills/melee/unarmed-punch-fist.webp",
-          "system": {
-            "description": {
-              "value": "<p>Bowser tucks in and bashes. A Large or smaller target hit by it is pushed 10 feet away.</p>",
-              "chat": ""
-            },
-            "source": {
-              "custom": "Waluipedia campaign",
-              "book": "",
-              "page": "",
-              "license": "",
-              "revision": 1,
-              "rules": "2024"
-            },
-            "quantity": 1,
-            "weight": {
-              "value": 0,
-              "units": "lb"
-            },
-            "price": {
-              "value": 0,
-              "denomination": "gp"
-            },
-            "attunement": "",
-            "rarity": "",
-            "identified": true,
-            "cover": null,
-            "range": {
-              "value": null,
-              "long": null,
-              "units": "ft",
-              "reach": null
-            },
-            "uses": {
-              "spent": 0,
-              "max": "",
-              "recovery": []
-            },
-            "damage": {
-              "versatile": {
-                "number": null,
-                "denomination": null,
-                "bonus": "",
-                "types": [],
-                "custom": {
-                  "enabled": false,
-                  "formula": ""
-                },
-                "scaling": {
-                  "mode": "",
-                  "number": null,
-                  "formula": ""
-                }
-              },
-              "base": {
-                "number": 2,
-                "denomination": 8,
-                "bonus": "",
-                "types": [
-                  "bludgeoning"
-                ],
-                "custom": {
-                  "enabled": false,
-                  "formula": ""
-                },
-                "scaling": {
-                  "mode": "",
-                  "number": null,
-                  "formula": ""
-                }
-              }
-            },
-            "armor": {
-              "value": 10
-            },
-            "hp": {
-              "value": 0,
-              "max": 0,
-              "dt": null,
-              "conditions": ""
-            },
-            "properties": [],
-            "type": {
-              "value": "natural",
-              "baseItem": ""
-            },
-            "container": null,
-            "equipped": true,
-            "proficient": 1,
-            "identifier": "",
-            "attuned": false,
-            "ammunition": {},
-            "crew": {
-              "value": []
-            },
-            "activities": {
-              "dnd5eactivity000": {
-                "_id": "dnd5eactivity000",
-                "type": "attack",
-                "activation": {
-                  "type": "action",
-                  "value": 1,
-                  "condition": "",
-                  "override": false
-                },
-                "consumption": {
-                  "targets": [],
-                  "scaling": {
-                    "allowed": false,
-                    "max": ""
-                  },
-                  "spellSlot": true
-                },
-                "description": {
-                  "chatFlavor": ""
-                },
-                "duration": {
-                  "concentration": false,
-                  "value": "",
-                  "units": "inst",
-                  "special": "",
-                  "override": false
-                },
-                "effects": [],
-                "range": {
-                  "units": "ft",
-                  "special": "",
-                  "override": false
-                },
-                "target": {
-                  "template": {
-                    "count": "",
-                    "contiguous": false,
-                    "type": "",
-                    "size": "",
-                    "width": "",
-                    "height": "",
-                    "units": "ft",
-                    "stationary": false
-                  },
-                  "affects": {
-                    "count": "",
-                    "type": "",
-                    "choice": false,
-                    "special": ""
-                  },
-                  "prompt": true,
-                  "override": false
-                },
-                "uses": {
-                  "spent": 0,
-                  "max": "",
-                  "recovery": []
-                },
-                "attack": {
-                  "ability": "str",
-                  "bonus": "",
-                  "critical": {
-                    "threshold": null
-                  },
-                  "flat": false,
-                  "type": {
-                    "value": "melee",
-                    "classification": "weapon"
-                  }
-                },
-                "damage": {
-                  "critical": {
-                    "bonus": ""
-                  },
-                  "includeBase": true,
-                  "parts": []
-                },
-                "sort": 0,
-                "flags": {},
-                "visibility": {
-                  "level": {},
-                  "requireAttunement": false,
-                  "requireIdentification": false,
-                  "requireMagic": false
-                },
-                "img": null
-              }
-            }
-          },
-          "effects": [],
-          "flags": {},
-          "sort": 600000,
-          "ownership": {
-            "default": 0
-          }
-        },
-        {
-          "_id": "xi1iQBsjqGsXMMtb",
-          "name": "Fire Breath (Recharge 5–6)",
-          "type": "feat",
-          "img": "icons/magic/fire/explosion-fireball-large-orange.webp",
-          "system": {
-            "description": {
-              "value": "<p>Bowser exhales fire in a 30-foot cone. Each creature in it makes a DC 16 Dexterity saving throw, taking 8d6 fire damage on a failure or half as much on a success. Flammable objects in the cone ignite.</p>",
-              "chat": ""
-            },
-            "type": {
-              "value": "class",
-              "subtype": ""
-            },
-            "activation": {},
-            "duration": {},
-            "target": {},
-            "range": {},
-            "uses": {
-              "spent": 0,
-              "max": "1",
-              "recovery": [
-                {
-                  "period": "recharge",
-                  "formula": "5"
-                }
-              ]
-            },
-            "activities": {},
-            "source": {
-              "custom": "Waluipedia campaign",
-              "book": "",
-              "page": "",
-              "license": "",
-              "revision": 1,
-              "rules": "2024"
-            }
-          },
-          "effects": [],
-          "flags": {},
-          "sort": 700000,
-          "ownership": {
-            "default": 0
-          }
-        },
-        {
-          "_id": "ruZLYFFAS25aHmtS",
-          "name": "Extra Attack",
-          "type": "feat",
-          "img": "icons/skills/melee/strike-slashes-orange.webp",
-          "system": {
-            "description": {
-              "value": "<p>See problem, hit problem: Bowser makes two Claw attacks, or one Claw and one Shell Bash.</p>",
-              "chat": ""
-            },
-            "type": {
-              "value": "class",
-              "subtype": ""
-            },
-            "activation": {},
-            "duration": {},
-            "target": {},
-            "range": {},
-            "uses": {
-              "spent": 0,
-              "max": "",
-              "recovery": []
-            },
-            "activities": {},
-            "source": {
-              "custom": "Waluipedia campaign",
-              "book": "",
-              "page": "",
-              "license": "",
-              "revision": 1,
-              "rules": "2024"
-            }
-          },
-          "effects": [],
-          "flags": {},
-          "sort": 800000,
-          "ownership": {
-            "default": 0
-          }
-        },
-        {
-          "_id": "afyeaBr8A1QHVFUU",
-          "name": "The Shell",
-          "type": "feat",
-          "img": "icons/skills/melee/shield-block-gray-orange.webp",
-          "system": {
-            "description": {
-              "value": "<p>As a bonus action Bowser withdraws into his shell: his AC becomes 21 and he has resistance to bludgeoning, piercing and slashing damage until he emerges (another bonus action), but his speed is 0 and he cannot attack. Threaten the shell and he comes out swinging — he emerges for free when a creature within 5 feet attacks him.</p>",
-              "chat": ""
-            },
-            "type": {
-              "value": "class",
-              "subtype": ""
-            },
-            "activation": {},
-            "duration": {},
-            "target": {},
-            "range": {},
-            "uses": {
-              "spent": 0,
-              "max": "",
-              "recovery": []
-            },
-            "activities": {},
-            "source": {
-              "custom": "Waluipedia campaign",
-              "book": "",
-              "page": "",
-              "license": "",
-              "revision": 1,
-              "rules": "2024"
-            }
-          },
-          "effects": [],
-          "flags": {},
-          "sort": 900000,
-          "ownership": {
-            "default": 0
-          }
-        },
-        {
-          "_id": "5v9Ei8EjiWEeAG9S",
-          "name": "Indestructible",
-          "type": "feat",
-          "img": "icons/magic/defensive/shield-barrier-flaming-diamond-orange.webp",
-          "system": {
-            "description": {
-              "value": "<p>When Bowser is reduced to 0 hit points but not killed outright, he drops to 1 hit point instead and roars. Once per long rest.</p>",
-              "chat": ""
-            },
-            "type": {
-              "value": "class",
-              "subtype": ""
-            },
-            "activation": {},
-            "duration": {},
-            "target": {},
-            "range": {},
-            "uses": {
-              "spent": 0,
-              "max": "1",
-              "recovery": [
-                {
-                  "period": "lr",
-                  "type": "recoverAll"
-                }
-              ]
-            },
-            "activities": {},
-            "source": {
-              "custom": "Waluipedia campaign",
-              "book": "",
-              "page": "",
-              "license": "",
-              "revision": 1,
-              "rules": "2024"
-            }
-          },
-          "effects": [],
-          "flags": {},
-          "sort": 1000000,
-          "ownership": {
-            "default": 0
-          }
-        },
-        {
-          "_id": "6hABZY2jXwZR2xnu",
-          "name": "Kidnapper of Princesses",
-          "type": "feat",
-          "img": "icons/magic/control/debuff-chains-purple.webp",
-          "system": {
-            "description": {
-              "value": "<p>Bowser's speed is not halved while he grapples or carries a Medium or smaller creature, and he can carry one such creature while flying in the Koopa Clown Car (not on this sheet).</p>",
-              "chat": ""
-            },
-            "type": {
-              "value": "class",
-              "subtype": ""
-            },
-            "activation": {},
-            "duration": {},
-            "target": {},
-            "range": {},
-            "uses": {
-              "spent": 0,
-              "max": "",
-              "recovery": []
-            },
-            "activities": {},
-            "source": {
-              "custom": "Waluipedia campaign",
-              "book": "",
-              "page": "",
-              "license": "",
-              "revision": 1,
-              "rules": "2024"
-            }
-          },
-          "effects": [],
-          "flags": {},
-          "sort": 1100000,
-          "ownership": {
-            "default": 0
-          }
-        },
-        {
-          "_id": "sfIOmwQCRDlqlkIy",
-          "name": "King of the Koopas",
-          "type": "feat",
-          "img": "icons/equipment/head/crown-gold-blue.webp",
-          "system": {
-            "description": {
-              "value": "<p>Koopa Troop creatures within 60 feet that can hear Bowser have advantage on saving throws against being frightened, and once per turn Bowser can use a bonus action to let one of them make a weapon attack as a reaction.</p>",
-              "chat": ""
-            },
-            "type": {
-              "value": "class",
-              "subtype": ""
-            },
-            "activation": {},
-            "duration": {},
-            "target": {},
-            "range": {},
-            "uses": {
-              "spent": 0,
-              "max": "",
-              "recovery": []
-            },
-            "activities": {},
-            "source": {
-              "custom": "Waluipedia campaign",
-              "book": "",
-              "page": "",
-              "license": "",
-              "revision": 1,
-              "rules": "2024"
-            }
-          },
-          "effects": [],
-          "flags": {},
-          "sort": 1200000,
-          "ownership": {
-            "default": 0
-          }
-        }
-      ],
-      "effects": [],
-      "folder": "zkElJXf3QQJTv7xv",
-      "ownership": {
-        "default": 0
-      },
-      "flags": {
-        "waluipedia-mass-import": {
-          "folderPath": [
-            "Peach's Castle 955 BF"
-          ],
-          "source": "tools/build-character-sheets.py"
-        },
-        "waluipedia-sheets": {
-          "characterId": "bowser",
-          "generated": true,
-          "bespoke": true,
-          "role": "boss",
-          "ledger": {
-            "level": 8,
-            "powerLevel": 14
-          },
-          "evidence": [
-            {
-              "feature": "Claws",
-              "quote": "Bowser is a giant turtle who breathes fire, wants things, and takes them.",
-              "source": "article"
-            },
-            {
-              "feature": "Bowser's Shell Bash",
-              "quote": "When Orangus Cornelius threatened to turn Bowser's shell into a soup bowl, diplomacy ended because YOU DO NOT THREATEN BOWSER'S SHELL.",
-              "source": "article"
-            },
-            {
-              "feature": "Fire Breath (Recharge 5–6)",
-              "quote": "Bowser is a giant turtle who breathes fire, wants things, and takes them.",
-              "source": "article"
-            },
-            {
-              "feature": "Extra Attack",
-              "quote": "Bowser operates on simple logic: see problem, hit problem, problem either stops being a problem or gets hit again.",
-              "source": "article"
-            },
-            {
-              "feature": "The Shell",
-              "quote": "When Orangus Cornelius threatened to turn Bowser's shell into a soup bowl, diplomacy ended because YOU DO NOT THREATEN BOWSER'S SHELL.",
-              "source": "article"
-            },
-            {
-              "feature": "Indestructible",
-              "quote": "Bowser is the most INDESTRUCTIBLE.",
-              "source": "article"
-            },
-            {
-              "feature": "Kidnapper of Princesses",
-              "quote": "Bowser is traditionally an ANTAGONIST—kidnapping princesses, conquering kingdoms, generally being the obstacle that heroes overcome.",
-              "source": "article"
-            },
-            {
-              "feature": "King of the Koopas",
-              "quote": "- Koopa sovereignty: every alliance with Bowser is also a negotiation with a kingdom.",
-              "source": "article"
-            }
-          ],
-          "tags": [
-            "Peach's Castle 955 BF",
-            "pc",
-            "boss",
-            "generated",
-            "955 BF",
-            "Disaster Inc."
-          ],
-          "color": "#B8860B",
-          "pc": {
-            "level": 8,
-            "class": "Fighter",
-            "subclass": "Champion",
-            "cr": 8,
-            "hitDie": "d10",
-            "formula": "8d10 + 32"
-          },
-          "era": {
-            "version": "955-bf",
-            "era": "955 BF",
-            "label": "Bowser, King of the Koopas",
-            "when": "The sovereign who kidnapped princesses and conquered kingdoms, eighty-five years before he held the door for Disaster Inc. — the Koopa Troop at full strength, the castle intact, fire in the throat."
-          }
-        }
-      },
-      "_stats": {
-        "coreVersion": "14.365",
-        "systemId": "dnd5e",
-        "systemVersion": "5.3.3",
-        "compendiumSource": null,
-        "duplicateSource": null
-      }
-    },
-    {
       "_id": "VdDk9KgwrGooGnjD",
       "name": "Luigi (955 BF)",
       "type": "character",
@@ -48722,14 +48776,15 @@
         }
       ],
       "effects": [],
-      "folder": "zkElJXf3QQJTv7xv",
+      "folder": "Tgwp6UqOWt8MDcCG",
       "ownership": {
         "default": 0
       },
       "flags": {
         "waluipedia-mass-import": {
           "folderPath": [
-            "Peach's Castle 955 BF"
+            "Mushroom Regency & Kingdom",
+            "955 BF — Peach's Castle"
           ],
           "source": "tools/build-character-sheets.py"
         },
@@ -48780,12 +48835,11 @@
             }
           ],
           "tags": [
-            "Peach's Castle 955 BF",
+            "Mushroom Regency & Kingdom",
             "pc",
             "hero",
             "generated",
-            "955 BF",
-            "Mushroom Regency & Kingdom"
+            "955 BF"
           ],
           "color": "#B8860B",
           "pc": {
@@ -50222,14 +50276,15 @@
         }
       ],
       "effects": [],
-      "folder": "zkElJXf3QQJTv7xv",
+      "folder": "Tgwp6UqOWt8MDcCG",
       "ownership": {
         "default": 0
       },
       "flags": {
         "waluipedia-mass-import": {
           "folderPath": [
-            "Peach's Castle 955 BF"
+            "Mushroom Regency & Kingdom",
+            "955 BF — Peach's Castle"
           ],
           "source": "tools/build-character-sheets.py"
         },
@@ -50290,12 +50345,11 @@
             }
           ],
           "tags": [
-            "Peach's Castle 955 BF",
+            "Mushroom Regency & Kingdom",
             "pc",
             "hero",
             "generated",
-            "955 BF",
-            "Mushroom Regency & Kingdom"
+            "955 BF"
           ],
           "color": "#B8860B",
           "pc": {

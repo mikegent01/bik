@@ -1174,7 +1174,7 @@ ERAS = {
         ]),
     ],
     "bowser": [dict(
-        version="955-bf", era="955 BF", label="Bowser, King of the Koopas",
+        version="955-bf", era="955 BF", label="Bowser, King of the Koopas", group="Koopa Troop",
         when="The sovereign who kidnapped princesses and conquered kingdoms, eighty-five years before he held "
              "the door for Disaster Inc. — the Koopa Troop at full strength, the castle intact, fire in the throat.",
         level=8, role="boss", cr=8, align="Chaotic Evil", sc=(20, 10, 18, 9, 11, 15), saves=("str", "con"),
@@ -1406,7 +1406,8 @@ def group_color(group):
 
 
 def era_folder_of(label):
-    """'955 BF' -> "Peach's Castle 955 BF" (the scheme's era folder), else None."""
+    """'955 BF' -> "955 BF — Peach's Castle" (the scheme's era sub-folder; it
+    sits under the faction's group folder), else None."""
     for name, e in BRIDGE.era_folders(FOLDER_SCHEME).items():
         if e.get("era") == label:
             return name
@@ -1427,10 +1428,14 @@ def fold_cast_folders(generated):
     population = {}
     mirror = BRIDGE.world_population()
     mirror_keys = {key for key, _ in mirror}
-    for i, (_, path) in enumerate(mirror):
-        population[f"m{i}"] = path
-    for i, (key, e) in enumerate(BRIDGE.era_actors(FOLDER_SCHEME).items()):
-        if key not in mirror_keys:
+    packets = BRIDGE.era_actors(FOLDER_SCHEME)
+    for i, (key, path) in enumerate(mirror):
+        # a mirror copy of a packet actor counts where the packet (and so the
+        # organizer's next pass) files it, not where the last export found it
+        hit = packets.get(key)
+        population[f"m{i}"] = list(hit["path"]) if hit and not hit.get("generated") else path
+    for i, (key, e) in enumerate(packets.items()):
+        if key not in mirror_keys and not e.get("generated"):
             population[f"e{i}"] = e["path"]
     for slug, doc in generated:
         population[f"c:{slug}"] = list(doc["flags"][MODULE_ID]["folderPath"])
@@ -1906,15 +1911,18 @@ def build_generated(c, xp, party, group, era=None):
                      bio=bio, items=items, di=di, dr=dr, dr_bypass=dr_bypass, ci=ci, disposition=disposition,
                      group=group, evidence=evidence, role=role, level=level, power=power, build=build, pc_lvl=pc_lvl)
         if era:
+            # a past self files under its faction OF THAT ERA (`group` on the
+            # ERAS entry: Bowser (955 BF) under Koopa Troop, not Disaster
+            # Inc.), in the era's sub-folder next to the era packet's actors
             era_folder = era_folder_of(era["era"])
+            era_group = era.get("group") or group
             doc["flags"][SHEETS_FLAG]["era"] = {k: era[k] for k in ("version", "era", "label", "when")}
+            doc["flags"][SHEETS_FLAG]["tags"] = sheet_tags(era_group, "pc", role, None, ("generated", era["era"], group))
             if era_folder:
-                doc["flags"][SHEETS_FLAG]["tags"] = sheet_tags(era_folder, "pc", role, None, ("generated", era["era"], group))
-                doc["flags"][SHEETS_FLAG]["color"] = era_color(era_folder) or group_color(group)
-                doc["flags"][MODULE_ID]["folderPath"] = [era_folder]
+                doc["flags"][SHEETS_FLAG]["color"] = era_color(era_folder) or group_color(era_group)
+                doc["flags"][MODULE_ID]["folderPath"] = [era_group, era_folder]
             else:
-                doc["flags"][SHEETS_FLAG]["tags"] = sheet_tags(group, "pc", role, None, ("generated", era["era"]))
-                doc["flags"][MODULE_ID]["folderPath"] = [group, era["era"]]
+                doc["flags"][MODULE_ID]["folderPath"] = [era_group, era["era"]]
         return doc
     bio = biography(c, level, power, cr, role, evidence, bool(spec))
     doc = npc_doc(slug=cid, c=c, name=c.get("name") or cid, img=img, size=size, sc=sc, saves=saves, trained=trained,

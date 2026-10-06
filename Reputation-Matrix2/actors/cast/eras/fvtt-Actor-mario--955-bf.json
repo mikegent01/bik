@@ -1415,7 +1415,8 @@
   "flags": {
     "waluipedia-mass-import": {
       "folderPath": [
-        "Peach's Castle 955 BF"
+        "Mushroom Regency & Kingdom",
+        "955 BF — Peach's Castle"
       ],
       "source": "tools/build-character-sheets.py"
     },
@@ -1476,12 +1477,11 @@
         }
       ],
       "tags": [
-        "Peach's Castle 955 BF",
+        "Mushroom Regency & Kingdom",
         "pc",
         "hero",
         "generated",
-        "955 BF",
-        "Mushroom Regency & Kingdom"
+        "955 BF"
       ],
       "color": "#B8860B",
       "pc": {

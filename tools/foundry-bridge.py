@@ -66,6 +66,7 @@ import urllib.request
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RM = os.path.join(ROOT, "Reputation-Matrix2")
 MODULE_ID = "waluipedia-mass-import"
+SHEETS_FLAG = "waluipedia-sheets"   # the sheet builder's flag scope (era / tags / colour)
 FORMAT = "waluipedia-actors/1"
 FOUNDRY_ID = re.compile(r"^[A-Za-z0-9]{16}$")
 PLACEHOLDERS = {"", "icons/svg/mystery-man.svg", "icons/svg/item-bag.svg", None}
@@ -251,15 +252,19 @@ def load_folder_scheme(path=DEFAULT_FOLDER_SCHEME):
 def folder_styles(scheme, paths):
     """{"A / B": {"color", "description"}} for every folder chain in `paths`
     (lists of names) the scheme has a colour for: Players, Bestiary and its
-    creature types, the era folders and everything under them, the website
-    groups (top level or under any one parent, e.g. "Imports / Iron Legion")."""
+    creature types, the website groups (top level or under any one parent,
+    e.g. "Imports / Iron Legion"), an era sub-folder under a group ("Koopa
+    Troop / 955 BF — Peach's Castle" wears the era's colour and description)
+    and the sub-folders a committed packet names ("Liberated Toads / Pond
+    Patrol")."""
     if not scheme:
         return {}
     players = scheme.get("players") or {}
     bestiary = scheme.get("bestiary") or {}
     groups = scheme.get("groups") or {}
     types = bestiary.get("types") or {}
-    eras = {e.get("folder"): e for e in (scheme.get("eras") or {}).values() if isinstance(e, dict) and e.get("folder")}
+    eras = era_folders(scheme)
+    subs = packet_subfolders(scheme)
     styles = {}
     for path in paths:
         for i in range(len(path or [])):
@@ -273,12 +278,13 @@ def folder_styles(scheme, paths):
                 style = players
             elif name == bestiary.get("folder") and len(chain) == 1:
                 style = bestiary
-            elif chain[0] in eras:
-                era = eras[chain[0]]
-                style = era if len(chain) == 1 else {"color": era.get("color")}
             elif len(chain) == 2 and chain[0] == bestiary.get("folder"):
                 color = types.get(name.lower())
                 style = {"color": color} if color else None
+            elif len(chain) >= 2 and name in eras and chain[0] != bestiary.get("folder"):
+                style = eras[name]
+            elif key in subs:
+                style = subs[key]
             elif name in groups and len(chain) <= 2 and (len(chain) == 1 or chain[0] != bestiary.get("folder")):
                 style = groups[name]
             if style and (style.get("color") or style.get("description")):
@@ -287,11 +293,41 @@ def folder_styles(scheme, paths):
 
 
 def era_folders(scheme):
-    """{era folder name: {"dir", "era", "color", ...}} from the scheme's `eras`."""
+    """{era sub-folder name: {"dir", "era", "color", ...}} from the scheme's
+    `eras` — the folder each era's actors sit in UNDER their faction's group
+    folder ("955 BF — Peach's Castle" under Koopa Troop and under Mushroom
+    Regency & Kingdom)."""
     out = {}
     for d, e in ((scheme or {}).get("eras") or {}).items():
         if isinstance(e, dict) and e.get("folder"):
             out[e["folder"]] = dict(e, dir=d)
+    return out
+
+
+def packet_dirs(scheme):
+    """[(dir, entry)] for every committed packet the scheme names — the eras
+    first, then `packets` (the Liberated Toads cohorts). `entry["era"]` is
+    the era label for an era packet, None otherwise."""
+    out = []
+    for d, e in ((scheme or {}).get("eras") or {}).items():
+        if isinstance(e, dict) and e.get("folder"):
+            out.append((d, dict(e, dir=d, era=e.get("era"))))
+    for d, e in ((scheme or {}).get("packets") or {}).items():
+        if isinstance(e, dict):
+            out.append((d, dict(e, dir=d, era=None)))
+    return out
+
+
+def packet_subfolders(scheme):
+    """{"Liberated Toads / Pond Patrol": {"color", "description"}} — the
+    sub-folder styles the scheme's `packets` declare."""
+    out = {}
+    for _, e in packet_dirs(scheme):
+        if e.get("era") or not e.get("folder"):
+            continue
+        for name, style in (e.get("subfolders") or {}).items():
+            if isinstance(style, dict):
+                out[f"{e['folder']} / {name}"] = style
     return out
 
 
@@ -305,13 +341,19 @@ def folder_path_of(doc, rel_parts=()):
 
 
 def era_actors(scheme, actors_dir=None):
-    """{(name lower, type): {"path", "folder", "era", "dir", "file"}} for every
-    actor of the era packets the scheme's `eras` name (actors/<dir>/). Their
-    folder paths always start with the era folder."""
+    """{(name lower, type): {"path", "folder", "era", "dir", "file",
+    "generated"}} for every actor of the committed packets the scheme names
+    (`eras` and `packets`, actors/<dir>/) plus the generated era versions of
+    the cast (actors/cast/eras/, `generated` True). The path is the packet's
+    own folderPath flag — an era actor's sits under its faction's group folder
+    ("Koopa Troop", "955 BF — Peach's Castle"); `folder` is the era sub-folder
+    (or the packet's folder) and `era` the era label (None for a packet that
+    is not an era). A mirror actor with the same name and type is that
+    packet's copy and files the same way."""
     actors_dir = actors_dir or os.path.join(RM, "actors")
     out = {}
-    for d, e in era_folders(scheme).items():
-        base = os.path.join(actors_dir, e["dir"])
+    for d, e in packet_dirs(scheme):
+        base = os.path.join(actors_dir, d)
         if not os.path.isdir(base):
             continue
         for p, rel_parts in actor_files([base]):
@@ -319,10 +361,28 @@ def era_actors(scheme, actors_dir=None):
             if doc is None:
                 continue
             path = folder_path_of(doc, rel_parts)
-            if not path or path[0] != d:
-                path = [d] + list(path)
             key = (str(doc.get("name") or "").strip().lower(), doc.get("type"))
-            out.setdefault(key, {"path": path, "folder": d, "era": e.get("era"), "dir": e["dir"], "file": p})
+            out.setdefault(key, {"path": path, "folder": e.get("folder"), "era": e.get("era"), "dir": d, "file": p, "generated": False})
+    by_label = {e.get("era"): e for _, e in packet_dirs(scheme) if e.get("era")}
+    cast_eras = os.path.join(actors_dir, "cast", "eras")
+    if os.path.isdir(cast_eras):
+        for p, rel_parts in actor_files([cast_eras]):
+            doc = load_actor_file(p)
+            if doc is None:
+                continue
+            label = (((doc.get("flags") or {}).get(SHEETS_FLAG) or {}).get("era") or {}).get("era")
+            e = by_label.get(label)
+            if not e:
+                continue
+            # the version's faction, then the era sub-folder — whatever the last
+            # build folded (a sub-folder too small that pass folds into the
+            # faction folder; the caller applies its own fold over the whole
+            # population)
+            path = folder_path_of(doc, rel_parts)
+            if path and e.get("folder") and path[-1] != e["folder"]:
+                path = [path[0], e["folder"]]
+            key = (str(doc.get("name") or "").strip().lower(), doc.get("type"))
+            out.setdefault(key, {"path": path, "folder": e.get("folder"), "era": label, "dir": "cast/eras", "file": p, "generated": True})
     return out
 
 
@@ -352,8 +412,8 @@ def fold_singletons(targets, scheme):
     scheme's `minimum` applied: a sub-folder holding fewer actors than that is
     folded into its parent (Bestiary / Ooze with one ooze -> Bestiary), a
     top-level folder holding fewer into `fallback` (Elsewhere). Never folded:
-    Players (and the `keep` list), Bestiary itself, the era roots, the
-    fallback, and the root. Repeats until stable."""
+    Players (and the `keep` list), Bestiary itself, the fallback, and the
+    root. Repeats until stable."""
     minimum = int((scheme or {}).get("minimum") or 1)
     out = {k: list(v or []) for k, v in targets.items()}
     if minimum <= 1:
@@ -361,7 +421,7 @@ def fold_singletons(targets, scheme):
     players = ((scheme or {}).get("players") or {}).get("folder", "Players")
     bestiary = ((scheme or {}).get("bestiary") or {}).get("folder", "Bestiary")
     fallback = (scheme or {}).get("fallback") or "Elsewhere"
-    exempt_roots = {players, bestiary, fallback, *(scheme or {}).get("keep", []), *era_folders(scheme)}
+    exempt_roots = {players, bestiary, fallback, *(scheme or {}).get("keep", [])}
     for _ in range(8):
         # a folder's population is everything at or below it: a parent whose
         # actors all sit in sub-folders is a container, not a lone actor

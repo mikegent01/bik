@@ -192,27 +192,41 @@ with tempfile.TemporaryDirectory() as tmp:
     check("combine (one dir): two statblocks with one name are two actors — dedupe only runs across sources", alone["actorCount"] == 3 and "omitted" not in alone)
     kept_all, _ = fb.combine([world_dir, era_dir], world="w2", dedupe=False)
     check("combine --keep-duplicates keeps every actor", kept_all["actorCount"] == 4)
-    styles = fb.folder_styles(fb.load_folder_scheme(), [["Peach's Castle 955 BF", "The Court"], ["Peach's Castle 955 BF"]])
-    check("folder_styles: an era folder and its children take the era colour; the description sits on the root only",
-          styles["Peach's Castle 955 BF"]["color"] == "#B8860B" and styles["Peach's Castle 955 BF"]["description"]
-          and styles["Peach's Castle 955 BF / The Court"]["color"] == "#B8860B" and not styles["Peach's Castle 955 BF / The Court"]["description"], str(styles))
+    real_scheme = fb.load_folder_scheme()
+    styles = fb.folder_styles(real_scheme, [["Koopa Troop", "955 BF — Peach's Castle"], ["Mushroom Regency & Kingdom", "955 BF — Peach's Castle"],
+                                            ["Liberated Toads", "Pond Patrol"], ["Bestiary", "955 BF — Peach's Castle"]])
+    check("folder_styles: an era sub-folder under any faction takes the era colour and description, the faction folder its group colour; a packet's sub-folder (Liberated Toads / Pond Patrol) its cohort colour; nothing under Bestiary",
+          styles["Koopa Troop"]["color"] == "#006400"
+          and styles["Koopa Troop / 955 BF — Peach's Castle"]["color"] == "#B8860B" and styles["Koopa Troop / 955 BF — Peach's Castle"]["description"]
+          and styles["Mushroom Regency & Kingdom / 955 BF — Peach's Castle"]["color"] == "#B8860B"
+          and styles["Liberated Toads / Pond Patrol"]["color"] == "#4a9c6d" and styles["Liberated Toads / Pond Patrol"]["description"]
+          and "Bestiary / 955 BF — Peach's Castle" not in styles, str(styles))
+    check("era_folders / packet_dirs / packet_subfolders read the scheme: era sub-folder names, every committed packet dir (eras first, then packets), the cohort sub-folders",
+          set(fb.era_folders(real_scheme)) == {"955 BF — Peach's Castle", "1035 BF — Bowser's Castle"}
+          and [d for d, _ in fb.packet_dirs(real_scheme)] == ["peachs-castle-955", "bowsers-castle-1035", "liberated-toads"]
+          and dict(fb.packet_dirs(real_scheme))["liberated-toads"]["era"] is None and dict(fb.packet_dirs(real_scheme))["peachs-castle-955"]["era"] == "955 BF"
+          and "Liberated Toads / The Wardens" in fb.packet_subfolders(real_scheme), str(fb.packet_dirs(real_scheme)))
     scheme = {"minimum": 2, "fallback": "Elsewhere", "players": {"folder": "Players"}, "bestiary": {"folder": "Bestiary"}, "keep": ["Players"],
               "eras": {"x": {"folder": "Era"}}}
-    pop = {"a": ["Bestiary", "Ooze"], "b": ["Bestiary", "Fey"], "c": ["Bestiary", "Fey"], "d": ["Lonely"], "e": ["Players"], "f": ["Era", "Court"],
-           "g": ["Era"], "h": ["Big", "Deep", "Deeper"], "i": ["Big", "Deep", "Deeper"], "j": ["Big", "Other"], "k": []}
+    pop = {"a": ["Bestiary", "Ooze"], "b": ["Bestiary", "Fey"], "c": ["Bestiary", "Fey"], "d": ["Lonely"], "e": ["Players"], "f": ["Faction", "Era"],
+           "g": ["Faction"], "h": ["Big", "Deep", "Deeper"], "i": ["Big", "Deep", "Deeper"], "j": ["Big", "Other"], "k": []}
     folded = fb.fold_singletons(pop, scheme)
-    check("fold_singletons: a lone sub-folder folds into its parent, a lone top-level folder into the fallback; Players, Bestiary, era roots, the root never fold",
-          folded == {"a": ["Bestiary"], "b": ["Bestiary", "Fey"], "c": ["Bestiary", "Fey"], "d": ["Elsewhere"], "e": ["Players"], "f": ["Era"], "g": ["Era"],
+    check("fold_singletons: a lone sub-folder (an era sub-folder too) folds into its parent, a lone top-level folder into the fallback; Players, Bestiary, the root never fold",
+          folded == {"a": ["Bestiary"], "b": ["Bestiary", "Fey"], "c": ["Bestiary", "Fey"], "d": ["Elsewhere"], "e": ["Players"], "f": ["Faction"], "g": ["Faction"],
                      "h": ["Big", "Deep", "Deeper"], "i": ["Big", "Deep", "Deeper"], "j": ["Big"], "k": []}, str(folded))
     check("fold_singletons: a lone Elsewhere or Bestiary stays; minimum 1 is a no-op; inputs are not mutated",
           fb.fold_singletons({"a": ["Elsewhere"], "b": ["Bestiary"]}, scheme) == {"a": ["Elsewhere"], "b": ["Bestiary"]}
           and fb.fold_singletons(pop, dict(scheme, minimum=1)) == pop and pop["a"] == ["Bestiary", "Ooze"])
-    check("era_actors / world_population read the repo's trees: every era actor keyed by name + type under its own era folder (955 BF court, 1035 BF castle), the midlands mirror by its flags",
-          all(v["path"][0] == v["folder"] and v["era"] in ("955 BF", "1035 BF") for v in fb.era_actors(fb.load_folder_scheme(), REAL_ACTORS).values())
-          and {v["folder"] for v in fb.era_actors(fb.load_folder_scheme(), REAL_ACTORS).values()} == {"Peach's Castle 955 BF", "Bowser's Castle 1035 BF"}
-          and ("omega bowser (1035 bf)", "npc") in fb.era_actors(fb.load_folder_scheme(), REAL_ACTORS)
-          and ("koopatrol", "npc") in fb.era_actors(fb.load_folder_scheme(), REAL_ACTORS) and len(fb.world_population(REAL_ACTORS)) >= 151
-          and all(isinstance(path, list) for _, path in fb.world_population(REAL_ACTORS)))
+    eras = fb.era_actors(real_scheme, REAL_ACTORS)
+    check("era_actors / world_population read the repo's trees: every era actor keyed by name + type under [faction, era sub-folder] (955 BF court under Mushroom Regency & Kingdom, the incursion and 1035 BF line under Koopa Troop), "
+          "the cohort toads under Liberated Toads / <cohort> with no era, the generated past selves flagged generated; the midlands mirror by its flags",
+          all(len(v["path"]) == 2 and v["path"][1] == v["folder"] and v["era"] in ("955 BF", "1035 BF") for v in eras.values() if v["dir"] in ("peachs-castle-955", "bowsers-castle-1035", "cast/eras"))
+          and eras[("koopatrol", "npc")]["path"] == ["Koopa Troop", "955 BF — Peach's Castle"] and eras[("princess peach (955 bf)", "npc")]["path"][0] == "Mushroom Regency & Kingdom"
+          and eras[("omega bowser (1035 bf)", "npc")]["path"] == ["Koopa Troop", "1035 BF — Bowser's Castle"] and eras[("cackletta (1035 bf)", "npc")]["path"][0] == "Fawthful's Forces"
+          and eras[("bowser (955 bf)", "character")]["generated"] and eras[("bowser (955 bf)", "character")]["path"] == ["Koopa Troop", "955 BF — Peach's Castle"]
+          and eras[("sentry t", "npc")]["path"] == ["Liberated Toads", "Pond Patrol"] and eras[("sentry t", "npc")]["era"] is None and not eras[("sentry t", "npc")]["generated"]
+          and len(fb.world_population(REAL_ACTORS)) >= 151
+          and all(isinstance(path, list) for _, path in fb.world_population(REAL_ACTORS)), str({k: v["path"] for k, v in list(eras.items())[:5]}))
 
     # ---- link-images --------------------------------------------------------
     report = fb.link_images([out], write=False, portraits_dir=os.path.join(rm, "portraits"),

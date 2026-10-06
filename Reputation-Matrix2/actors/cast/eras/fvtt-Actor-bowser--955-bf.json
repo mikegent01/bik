@@ -1381,7 +1381,8 @@
   "flags": {
     "waluipedia-mass-import": {
       "folderPath": [
-        "Peach's Castle 955 BF"
+        "Koopa Troop",
+        "955 BF — Peach's Castle"
       ],
       "source": "tools/build-character-sheets.py"
     },
@@ -1437,7 +1438,7 @@
         }
       ],
       "tags": [
-        "Peach's Castle 955 BF",
+        "Koopa Troop",
         "pc",
         "boss",
         "generated",

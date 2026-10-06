@@ -10,8 +10,33 @@ existing ones updated in place (same `_id`), every image path checked, and a
 report. Together with `tools/foundry-bridge.py` this turns "add characters to
 the game" into a loop of *export → edit in the repo → import*.
 
-Module id: `waluipedia-mass-import`, version 1.9.0. Core v12–v14, any game
+Module id: `waluipedia-mass-import`, version 1.9.1. Core v12–v14, any game
 system (built and tested against dnd5e 5.x on core v14).
+
+## 1.9.1 — the sidebar reads by faction, then by date; the Liberated Toads cohorts
+
+The era packets no longer own top-level folders. Every past self files under
+its **faction's** group folder, in an era sub-folder named *year — event*:
+*Koopa Troop / 955 BF — Peach's Castle* (Bowser's incursion), *Mushroom
+Regency & Kingdom / 955 BF — Peach's Castle* (the court), *Koopa Troop / 1035
+BF — Bowser's Castle* (Bowser's line and the remnant at the track),
+*Fawthful's Forces / 1035 BF — Bowser's Castle* (Side B); the generated past
+selves of the cast go the same way (*Bowser (955 BF)* under Koopa Troop, the
+brothers under Mushroom Regency & Kingdom). Foundry sorts a folder's
+sub-folders alphabetically with its actors, so the eras list newest first
+("1035 BF — …" before "955 BF — …"); the present-day actors stay loose in the
+faction folder above them. The next Sync moves the 30 + 3 copies already in
+the world (`tools/organize-actors.py` files them where the packet does) and
+prunes the emptied *Peach's Castle 955 BF* tree.
+
+A fourth repo packet: **Liberated Toads cohorts** (`actors/liberated-toads`,
+89 actors) — the Pond Patrol docket's rosters as statblocks, the six working
+cohorts toad by toad (Sentry T, Protec T, Comba T, Documen T, Magne T,
+Treatmen T, Intel T …; the named toads that already have cast sheets are not
+repeated) and a few generic Barrel Survivors / Unassigned, filed as
+*Liberated Toads / <cohort>* with the docket's cohort colours. The Sync's
+GitHub route merges it like the eras; the macro `import-liberated-toads.js`
+pulls it alone.
 
 ## 1.9 — the art is back in Data; nothing invalid reaches the world; the roster says who is a player character
 
@@ -227,8 +252,9 @@ The repo ships ready-made packets. In the Import dialog they are in the
 | Packet | File in the repo | Raw URL (paste into *URL / Data path*) |
 | --- | --- | --- |
 | **Waluipedia Cast** — every generated character sheet (152: 118 NPCs and 34 main-cast player characters, plus the past selves under *<group> / 955 BF*; folders *Waluipedia Cast / <group>*) | `Reputation-Matrix2/actors/cast/import.json` | `https://raw.githubusercontent.com/mikegent01/bik/gh-pages/Reputation-Matrix2/actors/cast/import.json` |
-| **Peach's Castle 955 BF** — the court + Bowser's incursion (30) | `Reputation-Matrix2/actors/peachs-castle-955/import.json` | `https://raw.githubusercontent.com/mikegent01/bik/gh-pages/Reputation-Matrix2/actors/peachs-castle-955/import.json` |
-| **Bowser's Castle 1035 BF** — Bowser's line, Fawthful's forces, the remnant at the track (27) | `Reputation-Matrix2/actors/bowsers-castle-1035/import.json` | `https://raw.githubusercontent.com/mikegent01/bik/gh-pages/Reputation-Matrix2/actors/bowsers-castle-1035/import.json` |
+| **Peach's Castle 955 BF** — the court + Bowser's incursion (30; folders *Mushroom Regency & Kingdom / 955 BF — Peach's Castle*, *Koopa Troop / 955 BF — Peach's Castle*) | `Reputation-Matrix2/actors/peachs-castle-955/import.json` | `https://raw.githubusercontent.com/mikegent01/bik/gh-pages/Reputation-Matrix2/actors/peachs-castle-955/import.json` |
+| **Bowser's Castle 1035 BF** — Bowser's line, Fawthful's forces, the remnant at the track (27; folders *Koopa Troop / 1035 BF — Bowser's Castle*, *Fawthful's Forces / 1035 BF — Bowser's Castle*) | `Reputation-Matrix2/actors/bowsers-castle-1035/import.json` | `https://raw.githubusercontent.com/mikegent01/bik/gh-pages/Reputation-Matrix2/actors/bowsers-castle-1035/import.json` |
+| **Liberated Toads cohorts** — the Pond Patrol docket's rosters as statblocks: Pond Patrol, Chroniclers, Crafters, Wardens, Menders, Scouts toad by toad + generic Barrel Survivors / Unassigned (89; folders *Liberated Toads / <cohort>*) | `Reputation-Matrix2/actors/liberated-toads/import.json` | `https://raw.githubusercontent.com/mikegent01/bik/gh-pages/Reputation-Matrix2/actors/liberated-toads/import.json` |
 | **Your live world** (`midlands`) — split one file per actor | `Reputation-Matrix2/actors/worlds/midlands/` (a directory, no single file) | import it **as a directory**: link the repo into Data with `python3 tools/foundry-studio.py link` and give the dialog `npc/waluipedia/actors/worlds/midlands` |
 | One character | any `fvtt-Actor-*.json` — also the *Download Foundry JSON* button on `#/sheets/<id>` | the sheet page prints its own *Mass Import URL* |
 
@@ -309,7 +335,7 @@ source** (Configure Settings → Module Settings), so a recurring import is
 | Fix missing images | off | Replace missing image paths with Foundry's placeholders (`icons/svg/mystery-man.svg` / `icons/svg/item-bag.svg`) instead of importing broken links. |
 | Colour folders | on (API `colorFolders`) | New folders take the colour / description the packet carries (`folders[].color`, `folderStyles`); existing folders with no colour are painted; a folder you coloured yourself is never changed. |
 | Repair identifiers | on (API `repairIdentifiers`) | Item identifiers dnd5e would reject are slugified on the way in and listed in the report. |
-| Root folder | empty | Prefix for every folder path, e.g. `Imports / Session 42` → `Imports / Session 42 / Peach's Castle 955 BF / The Court`. |
+| Root folder | empty | Prefix for every folder path, e.g. `Imports / Session 42` → `Imports / Session 42 / Koopa Troop / 955 BF — Peach's Castle`. |
 | Review first | on | Show the review table before importing (see above). Off = import straight away, as 1.0 did. |
 | Dry run | off | Compute and report everything, change nothing. |
 
@@ -318,7 +344,7 @@ source** (Configure Settings → Module Settings), so a recurring import is
 Foundry's `toObject()` only stores a folder **id**, which means nothing in another
 world. This module stores the **path** instead, in
 `flags["waluipedia-mass-import"].folderPath` (an array of names, e.g.
-`["Peach's Castle 955 BF", "The Court"]`), and also ships a `folders` list in the
+`["Koopa Troop", "955 BF — Peach's Castle"]`), and also ships a `folders` list in the
 export. On import the chain is created on demand (existing folders with the same
 name under the same parent are reused). Old exports that only have `folder` ids
 still work: with a matching `folders` list the path is resolved; without one
@@ -366,7 +392,7 @@ the world mirror, the next import swaps them in.
 Mass export → destination “Write into the Foundry Data folder”
    Data/npc/waluipedia/<world>/
       import.json                                  everything, one file
-      Peach's Castle 955 BF/The Court/fvtt-Actor-castle-page-<id>.json
+      Mushroom Regency & Kingdom/955 BF — Peach's Castle/fvtt-Actor-castle-page-<id>.json
       Disaster Inc./fvtt-Actor-remi-<id>.json
       fvtt-Actor-loose-npc-<id>.json               (root of the sidebar)
 
@@ -471,7 +497,7 @@ Macros (ready to paste into a script macro) live in `macros/`:
 code that still records folder paths), `export-to-data-folder.js`,
 `import-all-actors.js`, `import-from-data-folder.js`,
 `import-peachs-castle-955.js`, `import-bowsers-castle-1035.js`,
-`sync-from-waluipedia.js`.
+`import-liberated-toads.js`, `sync-from-waluipedia.js`.
 
 ## The session loop with `tools/foundry-bridge.py`
 

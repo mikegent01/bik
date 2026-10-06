@@ -1218,8 +1218,8 @@
   "flags": {
     "waluipedia-mass-import": {
       "folderPath": [
-        "Peach's Castle 955 BF",
-        "Bowser's Incursion"
+        "Koopa Troop",
+        "955 BF — Peach's Castle"
       ],
       "source": "tools/build-peachs-castle-955-actors.py"
     }

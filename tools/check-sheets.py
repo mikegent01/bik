@@ -230,7 +230,8 @@ def main():
         if (meta.get("counts") or {}).get("eras") != eras:
             problems.append(f"meta.counts.eras {(meta.get('counts') or {}).get('eras')} != {eras} versions indexed")
         # every cast actor files into a folder the scheme knows: a website
-        # group, an era folder, the fallback — never a root of its own
+        # group (an era version under its era faction), the fallback — never
+        # a root of its own
         scheme_path = os.path.join(RM, meta.get("folderScheme") or "actors/folders.json")
         try:
             with open(scheme_path, encoding="utf-8") as fh:
@@ -246,8 +247,12 @@ def main():
             problems.append(f"import.json files cast actors under folders the scheme does not know: {strays[:5]}")
         if any(len(((a.get("flags") or {}).get("waluipedia-mass-import") or {}).get("folderPath") or []) > 2 for a in pk.get("actors") or []):
             problems.append("import.json nests a cast actor deeper than group / era")
+        # a sub-folder of the cast's own is worth having only at the scheme's
+        # minimum; an era sub-folder (Koopa Troop / 955 BF — Peach's Castle) is
+        # shared with the era packet's actors, so one past self there is fine
+        era_subs = {e.get("folder") for e in (scheme.get("eras") or {}).values() if isinstance(e, dict)}
         folders = pk.get("folders") or []
-        small = [f["name"] for f in folders if f.get("path") and len(f["path"]) > 1
+        small = [f["name"] for f in folders if f.get("path") and len(f["path"]) > 1 and f["path"][-1] not in era_subs
                  and sum(1 for a in pk.get("actors") or [] if (((a.get("flags") or {}).get("waluipedia-mass-import") or {}).get("folderPath") or []) == f["path"]) < int(scheme.get("minimum") or 1)]
         if small:
             problems.append(f"import.json keeps sub-folders below the scheme minimum: {small[:5]}")
