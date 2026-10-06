@@ -60,21 +60,29 @@ visible(sheet)  =  sheet.party === true  ||  debugOn()
 already keeps:
 
 1. the **party roster** — `Reputation-Matrix2/actors/folders.json` →
-   `players.roster`: one row per player character (live Foundry id, sheet
-   name, website id, ledger key; Green T `offLedger`), plus
-   `players.companions` (the motorbike, the Steel Defender). This is the one
-   list every tool reads: `is_party`, `match_existing` (the row's live sheet
-   is the article's primary sheet, matched by id — Feyward Dan is not the
-   Liberated Toads' *Dan*), the organizer (roster → Players, tagged `pc`),
-   `promote-player-sheets.py`, the bridge's `check` / `check-packet`;
+   `players.roster`: one row per player character at the table (live Foundry
+   id, sheet name, website id, ledger key) — since 2026-10-06 the seven:
+   Archie, Bowser, Eager, Feyward Dan, Hjumpik, Markop, Remi — plus
+   `players.companions` (the Steel Defender) and `players.retired`, the five
+   no longer played (Green T, Salam, Toad Lee, Waluigi, Wario): still party
+   for the website (their sheets stay public with the company's), nothing
+   else — no Players folder, no `pc` tag, no ledger promotion, no sheet
+   permissions. This is the one list every tool reads: `is_party`,
+   `match_existing` (the row's live sheet is the article's primary sheet,
+   matched by id — Feyward Dan is not the Liberated Toads' *Dan*), the
+   organizer (roster → Players, tagged `pc`; anything else found in Players
+   is filed by the rules), `promote-player-sheets.py`, the bridge's
+   `check` / `check-packet`, and `players.permissions` — who may open which
+   sheet, by Foundry user name, carried to the module as `payload.players`
+   (see `actors/README.md`, *Who may open which sheet*);
 2. the XP ledger's faction — `disaster_inc` or `disaster_inc_allies` in
    `index.html`'s `XP_SUMMARY` (the same table the Characters tab prints);
 3. the article's `affiliation` field naming Disaster Inc.
 
-Eighteen sheets pass: the twelve roster characters (Archie, Bowser, Dan the
-Toad, Eager, Green T, Hjumpik, Markop, Remi, Salam, Toad Lee, Waluigi, Wario)
-and the allies the ledger / affiliation admit (Bones, Mossy, Roger, Ryan,
-Smoking J, Usk). They are grouped under *Disaster Inc.* and each entry
+Eighteen sheets pass: the seven roster characters (Archie, Bowser, Dan the
+Toad, Eager, Hjumpik, Markop, Remi), the five retired ones (Green T, Salam,
+Toad Lee, Waluigi, Wario) and the allies the ledger / affiliation admit
+(Bones, Mossy, Roger, Ryan, Smoking J, Usk). They are grouped under *Disaster Inc.* and each entry
 carries a `partyWhy` saying which fact admitted it. `tools/check-sheets.py`
 fails if the committed flag disagrees with the rule, if a roster character is
 not public or not resolved to its live sheet, or if anyone is party "by sheet

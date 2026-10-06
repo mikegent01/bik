@@ -582,7 +582,7 @@ check('pickDataPath opens a folder picker and writes the choice into the url box
   check('1.9.3: preview — the world is newer (the session): KEPT, the HP roll-back shown, the refile (folder + tags) announced, both leftovers listed as going, no swap, nothing written',
     pre.kept.length === 1 && preRow.fields.join() === 'system.attributes.hp.max,system.attributes.hp.value' && preRow.refile?.folder === 'Disaster Inc.' && preRow.refile.fields.some((f) => f.startsWith('flags.waluipedia-sheets.tags')) && !preRow.refile.fields.includes('system.attributes.hp.max')
     && preRow.embedded.filter((c) => /broken leftover/.test(c)).length === 2 && pre.swaps.length === 0 && eager.updates === 0 && eager.items.invalidDocumentIds.size === 2 && game.folders.contents.every((f) => f.name !== 'Disaster Inc.'), JSON.stringify([pre.kept, pre.swaps, pre.notes]));
-  check('1.9.3: syncPending counts the refile of a kept actor (it is a write) — the question is asked', mod.syncPending(pre).some((l) => /kept but refiled/.test(l)), JSON.stringify(mod.syncPending(pre)));
+  check('1.9.4: syncPending counts the refile of a kept actor (it is a write) — the question is asked', mod.syncPending(pre).some((l) => /kept but refiled/.test(l)), JSON.stringify(mod.syncPending(pre)));
   const before193 = mod.snapshotWorld(game.actors.contents);
   const run = await mod.importPayload(structuredClone(payload193), { checkImages: false });
   const after193 = mod.snapshotWorld(game.actors.contents);
@@ -654,6 +654,96 @@ check('pickDataPath opens a folder picker and writes the choice into the url box
     check('1.9.3: SYNC_DEFAULTS.auto is false and the Sync button no longer promises a sync on load', mod.SYNC_DEFAULTS.auto === false && !/Runs by itself when the world loads/.test(fs.readFileSync(path.join(MOD_DIR, 'scripts/mass-import-core.js'), 'utf8').split('injectButtons')[1] ?? ''));
     check('1.9.3: autoSync with the setting off does nothing', (await mod.autoSync({ delay: 0 })) === null);
   } finally { ui.notifications.info = prevInfo; }
+}
+
+// ------------------------------------------------- 1.9.4: who may open which sheet
+{
+  const W = 'waluipedia-mass-import';
+  const GM = 'GM00000000000000', HJ = 'Hj00000000000000', KE = 'Ke00000000000000', MA = 'Ma00000000000000', OS = 'Os00000000000000', OLD = 'Old0000000000000';
+  const users = [{ id: GM, name: 'Mike', role: 4, isGM: true }, { id: HJ, name: 'Hjumpik', role: 1 }, { id: KE, name: 'keaneu', role: 1 }, { id: MA, name: 'Martir', role: 1 }, { id: OLD, name: 'Oldplayer', role: 1 }];
+  const r1 = mod.resolveUsers(['Hjumpik', 'KEANEU ', 'Oscar'], users);
+  check('1.9.4: resolveUsers matches Foundry user names case-insensitively and trimmed, lists the rest', r1.matched.get('hjumpik')?.id === HJ && r1.matched.get('keaneu')?.id === KE && r1.unmatched.join() === 'Oscar');
+  const gm = new Set([GM]);
+  check('1.9.4: ownershipUpdate is pure — sets the wanted grants, removes a stale player grant with -=id, puts default at 0, never touches a GM, writes nothing when the world agrees',
+    JSON.stringify(mod.ownershipUpdate({ default: 1, [GM]: 3, [OLD]: 3, [HJ]: 2 }, { [HJ]: 3 }, { gmIds: gm })) === JSON.stringify({ default: 0, [`-=${OLD}`]: null, [HJ]: 3 })
+    && mod.ownershipUpdate({ default: 0, [GM]: 3, [HJ]: 3 }, { [HJ]: 3 }, { gmIds: gm }) === null
+    && JSON.stringify(mod.ownershipUpdate({ default: 0 }, { [KE]: 3, [MA]: 2 }, { gmIds: gm })) === JSON.stringify({ [KE]: 3, [MA]: 2 })
+    && mod.ownershipUpdate({ default: 0, 'not-an-id': 3, [OLD]: 0 }, {}, { gmIds: gm }) === null
+    && JSON.stringify(mod.ownershipUpdate({}, { [GM]: 3 }, { gmIds: gm })) === 'null', JSON.stringify(mod.ownershipUpdate({ default: 1, [GM]: 3, [OLD]: 3, [HJ]: 2 }, { [HJ]: 3 }, { gmIds: gm })));
+
+  // the world: Bowser (owned by Hjumpik already, plus an old player), Eager (nobody), the Steel Defender, and an NPC with a player grant
+  game.actors.clear(); game.folders.clear();
+  game.users = new Coll(users.map((u) => [u.id, u]));
+  const mk = (id, name, type, ownership) => Actor.create({ _id: id, name, type, img: 'icons/svg/mystery-man.svg', ownership, system: {}, items: [] }, { keepId: true });
+  const bowser = await mk('9u5pnP0zaqw8AQQv', 'Bowser', 'character', { default: 0, [GM]: 3, [HJ]: 3, [OLD]: 3 });
+  const eagerP = await mk('VudZ3W313Y4FILs0', 'Eager', 'character', { default: 0, [GM]: 3 });
+  const defender = await mk('Q8InPZPmhqhpOY7g', 'Steel Defender', 'npc', { default: 0 });
+  const goomba = await mk('Go00000000000000', 'Goomba', 'npc', { default: 0, [OLD]: 2 });
+  const players = { folder: 'Players', default: 0, users: ['Hjumpik', 'Keaneu', 'Martir', 'Oscar'],
+    roster: [{ actor: '9u5pnP0zaqw8AQQv', name: 'Bowser' }, { actor: 'VudZ3W313Y4FILs0', name: 'Eager' }, { actor: 'wBy4aV2AGHNqT4l1', name: 'Remi' }],
+    companions: [{ actor: 'Q8InPZPmhqhpOY7g', name: 'Steel Defender' }],
+    permissions: { '9u5pnP0zaqw8AQQv': { Hjumpik: 3 }, VudZ3W313Y4FILs0: { Keaneu: 3, Martir: 2 }, wBy4aV2AGHNqT4l1: { Oscar: 3 }, Q8InPZPmhqhpOY7g: { Oscar: 3 } } };
+  const dry = await mod.applyPermissions(players, { dryRun: true });
+  check('1.9.4: applyPermissions (dry run) — Bowser loses the old player\'s grant, Eager gets Keaneu owner + Martir observer, the Steel Defender nothing (Oscar is not in this world → reported, with the names the world has), Remi is not in the world yet, the Goomba\'s player grant is listed, nothing written',
+    dry.changed.map((c) => c.actor).join() === 'Bowser,Eager' && JSON.stringify(dry.changed[0].update) === JSON.stringify({ [`-=${OLD}`]: null }) && dry.changed[0].labels.join() === 'Oldplayer → none'
+    && JSON.stringify(dry.changed[1].update) === JSON.stringify({ [KE]: 3, [MA]: 2 }) && dry.changed[1].labels.join(', ') === 'keaneu → owner, Martir → observer'
+    && dry.unmatched.join() === 'Oscar' && dry.worldUsers.includes('Mike') && dry.missing.map((m) => m.name).join() === 'Remi' && dry.stray.length === 1 && dry.stray[0].actor === 'Goomba' && /Oldplayer \(observer\)/.test(dry.stray[0].users[0])
+    && bowser.updates === 0 && eagerP.updates === 0 && dry.written.length === 0 && dry.dryRun === true, JSON.stringify(dry));
+  const applied = await mod.applyPermissions(players);
+  check('1.9.4: applyPermissions writes exactly that (ownership diffs, render:false), the GM\'s own grant and the Goomba untouched, and a second pass finds nothing to do',
+    applied.written.join() === '9u5pnP0zaqw8AQQv,VudZ3W313Y4FILs0' && bowser.updates === 1 && JSON.stringify(bowser.lastUpdate) === JSON.stringify({ ownership: { [`-=${OLD}`]: null } }) && bowser.lastUpdateOptions?.render === false
+    && eagerP.toObject().ownership[KE] === 3 && eagerP.toObject().ownership[MA] === 2 && eagerP.toObject().ownership[GM] === 3 && goomba.updates === 0
+    && (await mod.applyPermissions(players)).changed.length === 0, JSON.stringify([applied, bowser.toObject().ownership, eagerP.toObject().ownership]));
+  check('1.9.4: applyPermissions without a players block (an old packet, a plain import) is skipped', (await mod.applyPermissions(null)).skipped === true && (await mod.applyPermissions({ roster: [] })).skipped === true);
+  const html = mod.permissionsHtml(dry);
+  check('1.9.4: the summary section lists the changes, the user the world lacks (with the names it has) and the stray grants', /Who may open which sheet \(2 to set\)/.test(html) && /No user named <b>Oscar<\/b>/.test(html) && /Mike, Hjumpik, keaneu, Martir, Oldplayer/.test(html) && /Goomba — Oldplayer \(observer\)/.test(html) && mod.permissionsHtml(null) === '' && mod.permissionsHtml({ skipped: true }) === '');
+  check('1.9.4: syncPending counts the permissions as a pending write', mod.syncPending({ permissions: dry }).join() === '2 sheet permission(s) to set' && mod.syncPending({ permissions: { changed: [] } }).length === 0 && mod.syncPending({}).length === 0);
+  // the packet carries the block: normalizeImport / mergePackets pass it through; the GitHub manifest route too
+  const withPlayers = { format: 'waluipedia-actors/1', actors: [], players };
+  check('1.9.4: normalizeImport keeps the packet\'s players block (and ignores a malformed one); mergePackets takes the first packet that has one', mod.normalizeImport(withPlayers).players === players && mod.normalizeImport({ format: 'waluipedia-actors/1', actors: [], players: { nope: 1 } }).players === null
+    && mod.mergePackets([{ label: 'cast', raw: { format: 'waluipedia-actors/1', actors: [] } }, { label: 'world', raw: withPlayers }]).players === players);
+  // the whole sync: a Data packet with the block → the question counts the permissions, Apply sets them, a kept actor gets them too
+  game.actors.clear(); game.folders.clear();
+  const bowser2 = await mk('9u5pnP0zaqw8AQQv', 'Bowser', 'character', { default: 0, [GM]: 3 });
+  bowser2._data._stats = { modifiedTime: Date.parse('2026-10-06T20:00:00Z') };  // edited at the table after the packet: kept
+  const syncPacket = { format: 'waluipedia-actors/1', exportedFrom: 'midlands', exportedAt: '2026-10-06T12:00:00Z', players,
+    folders: [{ _id: 'Fp1aaaaaaaaaaaaa', name: 'Players', type: 'Actor', folder: null, path: ['Players'] }],
+    actors: [{ _id: '9u5pnP0zaqw8AQQv', name: 'Bowser', type: 'character', img: 'icons/svg/mystery-man.svg', ownership: { default: 0 }, folder: 'Fp1aaaaaaaaaaaaa', _stats: { modifiedTime: Date.parse('2026-10-06T12:00:00Z') },
+      flags: { [W]: { folderPath: ['Players'] } }, system: { attributes: { hp: { max: 99 } } }, items: [] }] };
+  const syncPackets = { format: 'waluipedia-packets/2', world: 'midlands', exportedAt: '2026-10-06T12:00:00Z', publishedAt: '2026-10-06T12:30:00+0000', digest: 'd1gestperms0000000000000000000000000001', packets: { everything: 'import.json', players: 'players-import.json', manifest: 'manifest.json' } };
+  const prevFetchP = globalThis.fetch;
+  globalThis.fetch = async (url, init = {}) => {
+    const key = decodeURI(String(url)).split('?')[0];
+    if ((init.method ?? 'GET') === 'HEAD') return prevFetchP(url, init);
+    if (key === 'npc/waluipedia/midlands/import.json') return { ok: true, status: 200, json: async () => structuredClone(syncPacket) };
+    if (key === 'npc/waluipedia/midlands/packets.json') return { ok: true, status: 200, json: async () => structuredClone(syncPackets) };
+    if (key.startsWith('modules/waluipedia-mass-import/module.json')) return { ok: true, status: 200, json: async () => ({ version: mod.MODULE_VERSION }) };
+    return { ok: false, status: 404 };
+  };
+  const askedP = [];
+  const prevDialog = globalThis.foundry.applications.api;
+  globalThis.foundry.applications.api = { DialogV2: { wait: async (cfg) => {
+    const entry = { title: cfg.window?.title ?? '', content: cfg.content ?? '', actions: (cfg.buttons ?? []).map((b) => b.action) };
+    if (entry.actions.includes('apply')) askedP.push(entry);
+    const b = (cfg.buttons ?? []).find((x) => x.action === 'apply') ?? (cfg.buttons ?? [])[0];
+    return b?.callback ? b.callback({}, { form: null }) : (b?.action ?? null);
+  } } };
+  globalThis.ChatMessage = { create: async (d) => d, getWhisperRecipients: () => [{ id: GM }] };
+  settings.set(`${W}.syncConfirm`, true);
+  try {
+    const rs = await mod.syncFromWaluipedia({ options: { checkImages: false } });
+    check('1.9.4: the sync asks about the permissions alone (Bowser is kept — the world is newer) and Apply sets Hjumpik owner on the kept actor; the permissions are in the report and the summary',
+      askedP.length === 1 && /1 sheet permission\(s\) to set/.test(askedP[0].title) && /Who may open which sheet/.test(askedP[0].content)
+      && rs?.permissions?.written?.join() === '9u5pnP0zaqw8AQQv' && bowser2.toObject().ownership[HJ] === 3 && bowser2.toObject().system.attributes?.hp?.max === undefined
+      && rs.kept.length === 1 && /Who may open which sheet \(1 set\)/.test(mod.syncSummaryHtml(rs)), JSON.stringify([askedP.map((a) => a.title), rs?.permissions, rs?.kept?.length, bowser2.toObject().ownership]));
+    check('1.9.3: a kept actor\'s permission write is not stamped as the sync\'s (its sheet stays the table\'s)', !(mod.readWritten()['9u5pnP0zaqw8AQQv']));
+    const rs2 = await mod.syncFromWaluipedia({ options: { checkImages: false } });
+    check('1.9.4: the next sync finds the permissions in place — identical, no question', rs2?.identical === true && askedP.length === 1, JSON.stringify([rs2?.identical, askedP.length]));
+  } finally {
+    globalThis.fetch = prevFetchP;
+    globalThis.foundry.applications.api = prevDialog;
+    delete game.users;
+  }
 }
 {
   const sheetIndex = JSON.parse(fs.readFileSync(path.resolve('Reputation-Matrix2/data/sheets.json'), 'utf8'));

@@ -62,6 +62,14 @@
  *            does not apply (details.race / .background names another, live
  *            one) is a leftover: deleted, never offered as a swap — and a
  *            packet copy of such a leftover is left out instead of refused.
+ *            1.9.4: who may open which sheet. The packet carries the party
+ *            (payload.players: the roster, the companions, and the grants by
+ *            Foundry USER NAME from actors/folders.json players.permissions);
+ *            the sync resolves the names against game.users and sets exactly
+ *            those grants on the roster and companion actors (default none,
+ *            stale player grants removed, GMs untouched, a name the world
+ *            lacks reported with the names it has, actors outside Players
+ *            only listed). Counted in the question like any other write.
  *
  * Buttons appear in the Actors sidebar header for the GM; the same functions
  * are on game.modules.get("waluipedia-mass-import").api for macros. All Foundry
@@ -71,7 +79,7 @@
 
 export const MODULE_ID = "waluipedia-mass-import";
 /** Must match module.json — Sync compares the two to catch a world still running old code. */
-export const MODULE_VERSION = "1.9.3";
+export const MODULE_VERSION = "1.9.4";
 export const FORMAT = "waluipedia-actors/1";
 export const RAW_BASE = "https://raw.githubusercontent.com/mikegent01/bik/gh-pages/";
 /** The repo's ready-made import-all files (the Import dialog lists them). */
@@ -373,7 +381,9 @@ export function normalizeImport(raw) {
     folderStyles[p.join(" / ")] = { color: f.color ?? null, description: f.description ?? null };
   }
   if (isPlain(raw?.folderStyles)) for (const [k, v] of Object.entries(raw.folderStyles)) if (isPlain(v)) folderStyles[splitPath(k).join(" / ")] = { color: v.color ?? null, description: v.description ?? null };
-  return { meta, folders, entries, folderStyles };
+  // the suite's packets carry the party: the roster, the companions, who may open which sheet (foundry-bridge players_payload)
+  const players = isPlain(raw?.players) && Array.isArray(raw.players.roster) ? raw.players : null;
+  return { meta, folders, entries, folderStyles, players };
 }
 
 async function fetchJson(source) {
@@ -430,6 +440,7 @@ export async function loadManifest(url, { folder = null, onProgress } = {}) {
   const assembled = assembleDirectory(files, { base: "", folderMode: "dirs", world: raw.exportedFrom ?? null });
   assembled.payload.exportedAt = raw.exportedAt ?? null;
   assembled.payload.assembledFrom = url;
+  if (isPlain(raw.players)) assembled.payload.players = raw.players;
   return { raw: assembled.payload, files: files.map((f) => f.path), ignored: [...ignored, ...assembled.ignored], kind: "manifest", exportedAt: raw.exportedAt ?? null };
 }
 
@@ -1202,6 +1213,107 @@ function mergeFlags(existingFlags, incomingFlags) {
   return out;
 }
 
+/* ------------------------------------------------------------ permissions */
+
+export const OWNERSHIP_WORDS = { 0: "none", 1: "limited", 2: "observer", 3: "owner" };
+
+/** Pure: Foundry user NAMES → users (case-insensitive, trimmed). {matched: Map(name lower → user), unmatched: [names]} */
+export function resolveUsers(names, users) {
+  const byName = new Map();
+  for (const u of users ?? []) { const k = String(u?.name ?? "").trim().toLowerCase(); if (k && !byName.has(k)) byName.set(k, u); }
+  const matched = new Map(), unmatched = [];
+  for (const n of names ?? []) {
+    const k = String(n).trim().toLowerCase();
+    if (byName.has(k)) matched.set(k, byName.get(k)); else unmatched.push(n);
+  }
+  return { matched, unmatched };
+}
+
+/**
+ * Pure: the ownership update that gives a roster actor exactly `want`
+ * ({userId: level}) over `defaultLevel` — GM users are never touched (they
+ * own everything anyway), a player grant not in `want` is removed
+ * (`-=<id>`: a stale grant, a user the world no longer has), a grant already
+ * right is not written. null when the world agrees.
+ */
+export function ownershipUpdate(current, want, { gmIds = new Set(), defaultLevel = 0 } = {}) {
+  const cur = isPlain(current) ? current : {};
+  const out = {};
+  if ((cur.default ?? 0) !== defaultLevel) out.default = defaultLevel;
+  for (const [k, v] of Object.entries(cur)) {
+    if (k === "default" || k.startsWith("-=") || gmIds.has(k)) continue;
+    if (!USER_ID.test(k)) continue;  // not an id Foundry would take a deletion for — leave it to the GM
+    if (!(k in want)) { if ((v ?? 0) !== 0) out[`-=${k}`] = null; }
+    else if (v !== want[k]) out[k] = want[k];
+  }
+  for (const [k, v] of Object.entries(want)) if (!(k in cur) && v !== 0 && !gmIds.has(k)) out[k] = v;
+  return Object.keys(out).length ? out : null;
+}
+
+/**
+ * Who may open which sheet — the packet's `players` block (actors/folders.json
+ * players.permissions resolved by the bridge: {actorId: {userName: level}}).
+ * Applied to the roster and the companions only: default 0, exactly the
+ * listed grants, stale player grants removed; GMs untouched. A user name the
+ * world does not have is reported (with the names it does have), never
+ * guessed. Actors outside the roster that carry a player grant are listed,
+ * not changed. `dryRun` computes the same report without writing.
+ */
+export async function applyPermissions(players, { dryRun = false } = {}) {
+  const g = G();
+  const out = { changed: [], unmatched: [], worldUsers: [], stray: [], missing: [], written: [], skipped: false, dryRun: !!dryRun };
+  const perms = players?.permissions;
+  if (!isPlain(perms) || !g.game?.actors) { out.skipped = true; return out; }
+  const users = g.game.users?.contents ?? [...(g.game.users?.values?.() ?? [])];
+  out.worldUsers = users.map((u) => u.name).filter(Boolean);
+  const gmIds = new Set(users.filter((u) => u.isGM || (u.role ?? 0) >= 4).map((u) => u.id));
+  const nameOf = (id) => users.find((u) => u.id === id)?.name ?? id;
+  const names = new Set(Object.values(perms).flatMap((m) => (isPlain(m) ? Object.keys(m) : [])));
+  for (const n of players.users ?? []) names.add(n);
+  const { matched, unmatched } = resolveUsers([...names], users);
+  out.unmatched = unmatched;
+  const rosterIds = [...(players.roster ?? []), ...(players.companions ?? [])].map((r) => r?.actor).filter((id) => USER_ID.test(id ?? ""));
+  const rosterSet = new Set(rosterIds);
+  const defaultLevel = Number.isInteger(players.default) ? players.default : 0;
+  for (const id of rosterIds) {
+    const actor = g.game.actors.get(id);
+    if (!actor) { out.missing.push({ id, name: [...(players.roster ?? []), ...(players.companions ?? [])].find((r) => r?.actor === id)?.name ?? id }); continue; }
+    const want = {};
+    for (const [name, level] of Object.entries(isPlain(perms[id]) ? perms[id] : {})) {
+      const u = matched.get(String(name).trim().toLowerCase());
+      if (u && Number.isInteger(level) && level >= 0 && level <= 3) want[u.id] = level;
+    }
+    const current = (actor.toObject ? actor.toObject() : actor).ownership ?? {};
+    const update = ownershipUpdate(current, want, { gmIds, defaultLevel });
+    if (!update) continue;
+    const labels = Object.entries(update).map(([k, v]) => k === "default" ? `everyone → ${OWNERSHIP_WORDS[v] ?? v}` : (k.startsWith("-=") ? `${nameOf(k.slice(2))} → none` : `${nameOf(k)} → ${OWNERSHIP_WORDS[v] ?? v}`));
+    out.changed.push({ actor: actor.name, id, update, labels });
+    if (!dryRun) {
+      try { await actor.update({ ownership: update }, { render: false }); out.written.push(id); }
+      catch (err) { out.changed[out.changed.length - 1].error = err?.message ?? String(err); console.warn(`[${MODULE_ID}] permissions on ${actor.name}:`, err); }
+    }
+  }
+  for (const actor of (g.game.actors.contents ?? [])) {
+    if (rosterSet.has(actor.id)) continue;
+    const own = (actor.toObject ? actor.toObject() : actor).ownership ?? {};
+    const who = Object.entries(own).filter(([k, v]) => k !== "default" && !k.startsWith("-=") && !gmIds.has(k) && (v ?? 0) > 0).map(([k, v]) => `${nameOf(k)} (${OWNERSHIP_WORDS[v] ?? v})`);
+    if (who.length) out.stray.push({ actor: actor.name, id: actor.id, users: who });
+  }
+  return out;
+}
+
+export function permissionsHtml(p) {
+  if (!p || p.skipped) return "";
+  const li = (list, fmt) => (list.length ? `<ul>${list.map(fmt).join("")}</ul>` : "<p class='notes'>none</p>");
+  const n = p.changed.length;
+  return `<details ${n || p.unmatched.length ? "open" : ""}><summary>Who may open which sheet (${n}${p.dryRun ? " to set" : " set"})</summary>
+    ${li(p.changed, (c) => `<li><b>${escapeHtml(c.actor)}</b> — ${escapeHtml(c.labels.join(", "))}${c.error ? ` <span class="wmi-stale">✘ ${escapeHtml(c.error)}</span>` : ""}</li>`)}
+    ${p.unmatched.length ? `<p class="wmi-stale">⚠ No user named ${p.unmatched.map((u) => `<b>${escapeHtml(u)}</b>`).join(", ")} in this world (it has: ${p.worldUsers.map(escapeHtml).join(", ") || "nobody"}). Their grants were not set — fix the name in actors/folders.json players.permissions (names match case-insensitively) or rename the user.</p>` : ""}
+    ${p.missing.length ? `<p class="notes">Not in this world yet: ${p.missing.map((m) => escapeHtml(m.name)).join(", ")}.</p>` : ""}
+    ${p.stray.length ? `<p class="notes">Player grants outside Players, left as they are: ${p.stray.map((x) => `${escapeHtml(x.actor)} — ${escapeHtml(x.users.join(", "))}`).join("; ")}.</p>` : ""}
+    <p class="notes">The roster and the companions get exactly what actors/folders.json players.permissions says (everyone else: none); a player grant not listed there is removed; GMs are never touched.</p></details>`;
+}
+
 /** The flag namespaces that describe where an actor is filed, not what is on the sheet. */
 export const ORGANISATION_FLAGS = ["waluipedia-sheets", MODULE_ID];
 /**
@@ -1857,10 +1969,11 @@ const nameKey = (a) => `${String(a?.name ?? "").trim().toLowerCase()}\u0000${a?.
 export function mergePackets(packets) {
   const list = packets.filter((p) => p?.raw);
   if (!list.length) throw new Error("nothing to merge");
-  const out = { format: FORMAT, exportedFrom: list[0].raw.exportedFrom ?? null, exportedAt: list[0].raw.exportedAt ?? null, actors: [], folders: [], folderStyles: {}, merged: [] };
+  const out = { format: FORMAT, exportedFrom: list[0].raw.exportedFrom ?? null, exportedAt: list[0].raw.exportedAt ?? null, actors: [], folders: [], folderStyles: {}, merged: [], players: null };
   const seenIds = new Set(), seenKeys = new Set(), seenFolders = new Set();
   for (const p of list) {
-    const { entries, folders, folderStyles } = normalizeImport(p.raw);
+    const { entries, folders, folderStyles, players } = normalizeImport(p.raw);
+    if (players && !out.players) out.players = players;
     let took = 0, left = 0;
     const mine = new Set(); // two "Guard" statblocks within ONE packet are two actors
     for (const e of entries) {
@@ -2092,6 +2205,7 @@ export function syncSummaryHtml(report) {
     <details ${report.failed.length ? "open" : ""}><summary>Failed (${report.failed.length})</summary>${li(report.failed, (r) => `<li>${escapeHtml(r.actor)} — ${escapeHtml(r.error)}</li>`)}</details>
     <details ${kept.length ? "open" : ""}><summary>Kept — the world is newer than the packet (${kept.length})</summary>${li(kept, row)}<p class="notes">These changed in Foundry after the packet's copy was exported and after the sync's own last write (a session). Nothing on the sheet was written; the difference is what the packet would have rolled back. Only the organisation follows the packet — the folder and the website tags ("refiled"). The export loop (Data → suite → repo) brings the world's version into the packet, after which the ledger's XP and the flags apply on top.</p></details>
     <details ${notes.length ? "open" : ""}><summary>Notes for the GM (${notes.length})</summary>${li(notes, (n) => `<li><b>${escapeHtml(n.actor)}</b> — ${escapeHtml(n.note)}</li>`)}</details>
+    ${permissionsHtml(report.permissions)}
     <details><summary>Pending at the table — level-ups the ledger allows (${levelUps.length})</summary>${li(levelUps, (r) => `<li><b>${escapeHtml(r.name)}</b> — ${escapeHtml(r.levelUp)}</li>`)}<p class="notes">Not a change and never applied by the sync: the XP is on the sheet, the level-up happens in dnd5e's own advancement when the player levels up at the table; the export loop then carries it back.</p></details>
     ${repairedHtml(report)}
     <details ${report.missingImages.length ? "open" : ""}><summary>Missing images (${report.missingImages.length})</summary>${li(report.missingImages, (r) => `<li>${escapeHtml(r.actor)} · ${escapeHtml(r.where)} · <code>${escapeHtml(r.path)}</code></li>`)}<p class="notes">Paths the server answered 404 for. Bare file names and <code>modules/…</code> paths come from someone else's Data folder; set the portrait on the sheet or tick <i>fix missing images</i> in Mass import.</p></details>
@@ -2204,6 +2318,8 @@ export async function syncFromWaluipedia(overrides = {}) {
     catch (err) { notify("error", `Sync: ${err.message}`); console.error(`[${MODULE_ID}]`, err); return null; }
     try { await tidyFolders({ merge: s.mergeFolders !== false, prune: s.pruneFolders !== false, dryRun: true, report: preview }); }
     catch (err) { console.warn(`[${MODULE_ID}] folder tidy:`, err); }
+    try { preview.permissions = await applyPermissions(normalizeImport(raw).players, { dryRun: true }); }
+    catch (err) { console.warn(`[${MODULE_ID}] permissions:`, err); preview.permissions = null; }
     preview.preview = true;
     preview.source = used.url; preview.files = loaded.files; preview.ignored = loaded.ignored;
     preview.changes = syncChanges(entries, before, before, preview);
@@ -2229,6 +2345,12 @@ export async function syncFromWaluipedia(overrides = {}) {
   catch (err) { notify("error", `Sync: ${err.message}`); console.error(`[${MODULE_ID}]`, err); return null; }
   try { await tidyFolders({ merge: s.mergeFolders !== false, prune: s.pruneFolders !== false, dryRun: !!options.dryRun, report }); }
   catch (err) { console.warn(`[${MODULE_ID}] folder tidy:`, err); }
+  // who may open which sheet — organisation, like the folder: a kept actor takes it too
+  try {
+    report.permissions = await applyPermissions(normalizeImport(raw).players, { dryRun: !!options.dryRun });
+    const keptIds = new Set((report.kept ?? []).map((k) => k.id));
+    for (const id of report.permissions?.written ?? []) if (!keptIds.has(id) && !report.written.includes(id)) report.written.push(id);
+  } catch (err) { console.warn(`[${MODULE_ID}] permissions:`, err); report.permissions = null; }
   if (!options.dryRun && report.written?.length) { try { await stampWritten(report.written); } catch (err) { /* settings */ } }
   const after = snapshotWorld(worldActors());
   report.source = used.url;
@@ -2245,7 +2367,7 @@ export async function syncFromWaluipedia(overrides = {}) {
   announce(report);
   if (!report.dryRun) await postSyncChat(report);
   const quiet = trigger === "auto" && !asks && !report.failed.length && !report.created.length && !report.replaced.length && !report.notes.length
-    && report.updated.every((u) => u.changed === false) && !report.foldersMerged.length && !report.foldersPruned.length;
+    && report.updated.every((u) => u.changed === false) && !report.foldersMerged.length && !report.foldersPruned.length && !report.permissions?.changed?.length && !report.permissions?.unmatched?.length;
   if (!quiet) await showHtml(report.dryRun ? "Sync — dry run" : "Sync — summary", syncSummaryHtml(report), 660);
   return report;
 }
@@ -2256,6 +2378,7 @@ export function syncPending(preview) {
   const n = (k, list) => { if (list?.length) out.push(`${list.length} ${k}`); };
   n("new", preview.created); n("replaced", preview.replaced); n("changed", changedRows(preview)); n("failed", preview.failed);
   n("kept but refiled (folder / tags only)", (preview.kept ?? []).filter((k) => k.refile));
+  n("sheet permission(s) to set", preview.permissions?.changed);
   n("duplicate folders to merge", preview.foldersMerged); n("empty folders to remove", preview.foldersPruned);
   // swaps and notes are the GM's call, not pending writes: they never raise the question by themselves
   return out;
@@ -2587,6 +2710,7 @@ export const api = {
   loadManifest, isManifest, isSheetIndex, SYNC_DEFAULTS, SYNC_SCOPE_LABEL, MODULE_VERSION,
   worldNewer, statsTime, packetTime, readWritten, saveWritten, stampWritten, SYNC_WRITTEN_SETTING, organisationUpdate, ORGANISATION_FLAGS,
   singletonLeftover, appliedSingletonId, retireAutoSync,
+  resolveUsers, ownershipUpdate, applyPermissions, permissionsHtml, OWNERSHIP_WORDS,
 };
 
 /** "init": the settings. (Called by the loader once the core has arrived — a

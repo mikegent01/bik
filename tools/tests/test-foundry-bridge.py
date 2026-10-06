@@ -440,6 +440,14 @@ check("players_payload — what combine puts in every packet and split in the ma
       [r["name"] for r in block["roster"]] == ["Archie Miser", "Bowser", "Eager", "Feyward Dan", "Hjumpik Deldkur", "Markop Judi", "Remi"] and block["companions"] == [{"actor": "Q8InPZPmhqhpOY7g", "name": "Steel Defender"}]
       and block["default"] == 0 and block["users"] == ["Hjumpik", "Keaneu", "Martir", "Oscar"] and block["permissions"]["wBy4aV2AGHNqT4l1"] == {"Oscar": 3} and block["permissions"]["IlzuThuR8upTtqtF"] == {"Keaneu": 3, "Martir": 2}
       and block["folder"] == "Players" and fb.players_payload({"players": {}}) is None, json.dumps(block))
+bad_block = {"roster": [{"actor": "short", "name": "X"}], "companions": [], "default": 5, "users": ["A"],
+             "permissions": {"9u5pnP0zaqw8AQQv": {"B": 9}, "zzz": "no"}}
+bad_msgs = fb.check_players_block(bad_block, [], "x")
+check("check_players_block (check-packet): the real block passes; a short id, a bad default, a grant outside roster + companions, a user missing from players.users, a level outside 0..3 and a non-mapping are each one error; no block is fine, a malformed one is one error",
+      fb.check_players_block(block, [], "x") == [] and fb.check_players_block(None, [], "x") == []
+      and fb.check_players_block({"nope": 1}, [], "x") == ["x: players block is not {roster: [...], ...}"]
+      and len(bad_msgs) == 7 and all(any(k in m for m in bad_msgs) for k in ("needs a 16-char actor id", "players.default 5", "grants on 9u5pnP0zaqw8AQQv", "missing from players.users", "level 9 is not 0..3", "grants on zzz", "players.permissions[zzz] must map")),
+      "\n".join(bad_msgs))
 check("invalid_ownership: -=default, a non-id key, a level outside -1..3, a non-mapping — on the actor and on its items / effects; a user-id deletion with null is fine",
       [w for w, _ in fb.invalid_ownership({"name": "a", "ownership": {"default": 0, "-=default": None}, "items": [{"name": "Wand", "ownership": {"u1": 3}}, {"name": "Ok", "ownership": {"default": 0, "-=7BMT1Aux3QVtq027": None, "7BMT1Aux3QVtq028": 3}}],
                                                 "effects": [{"name": "Fx", "ownership": {"default": 9}}, {"name": "Bad", "ownership": []}]})] == ["actor", "item 'Wand'", "effect 'Fx'", "effect 'Bad'"]

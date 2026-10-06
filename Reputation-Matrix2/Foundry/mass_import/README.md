@@ -10,8 +10,34 @@ existing ones updated in place (same `_id`), every image path checked, and a
 report. Together with `tools/foundry-bridge.py` this turns "add characters to
 the game" into a loop of *export → edit in the repo → import*.
 
-Module id: `waluipedia-mass-import`, version 1.9.3. Core v12–v14, any game
+Module id: `waluipedia-mass-import`, version 1.9.4. Core v12–v14, any game
 system (built and tested against dnd5e 5.x on core v14).
+
+## 1.9.4 — who may open which sheet
+
+The packet now carries the party: `payload.players` — the roster (the seven
+at the table), the companions (the Steel Defender), and **who may open which
+sheet**, by Foundry **user name** (`actors/folders.json` →
+`players.permissions`, resolved by `tools/foundry-bridge.py`; every packet
+and the world manifest carry it). The sync resolves the names against the
+world's users (case-insensitive) and sets exactly those grants on the roster
+and companion actors: *everyone* none, the listed owners / observers, and
+nothing else — a player grant not in the list (a former player, a user the
+world no longer has) is removed; GM users are never touched. It is counted
+in the question like any other write ("N sheet permission(s) to set") and
+listed in the summary under **Who may open which sheet**. A user name the
+world does not have is reported with the names it does have — fix the name
+in `folders.json` or rename the user; nothing is guessed. Actors outside
+Players that carry a player grant are listed, never changed. A kept actor
+(the world is newer) takes its permissions all the same — they are
+organisation, like the folder.
+
+**Players is the roster's folder.** `players.roster` lost the five who are
+not played any more (Green T, Salam, Toad Lee, Waluigi, Wario —
+`players.retired`); the suite files them by faction (with Disaster Inc.),
+and the sync refiles them in the world. They keep their sheets and stay on
+the website; they are no longer promoted to the ledger's XP, no longer
+tagged `pc`, and get no grants.
 
 ## 1.9.3 — no sync at startup; a kept actor is still filed; leftovers go
 

@@ -176,7 +176,7 @@ result into Foundry (file moves = folder moves, by id). The scheme is
 
 | Folder | Who goes there | Colour |
 | --- | --- | --- |
-| `Players` | the **party roster** — `players.roster` in `folders.json`, one row per player character: live Foundry `actor` id, sheet `name`, website `character` id, `ledger` key (`null` + `offLedger` for Green T) — and the `players.companions` (Wario's Motorbike, the Steel Defender). A roster character found anywhere else is filed here and tagged `pc`; nothing else is: a dnd5e `character` sheet does not make a player character (the GM builds NPCs on them too — Mario, Kirby, Sans). An actor the organizer itself once mis-filed here goes back to its folder; one the GM put here stays, and `check` reports it until the roster has a row or the actor moves | gold |
+| `Players` | the **party roster** — `players.roster` in `folders.json`, one row per player character at the table (2026-10-06: Archie Miser, Bowser, Eager, Feyward Dan, Hjumpik Deldkur, Markop Judi, Remi): live Foundry `actor` id, sheet `name`, website `character` id, `ledger` key — and the `players.companions` (the Steel Defender). A roster character found anywhere else is filed here and tagged `pc`; **nothing else stays here**: a dnd5e `character` sheet does not make a player character (the GM builds NPCs on them too — Mario, Kirby, Sans), and any other actor found in Players is filed by the rules below. The five who are not played any more — Green T, Salam, Toad Lee, Waluigi, Wario — are `players.retired` (for the record and for the website, which still shows their sheets with the party's); they file under `Disaster Inc` with the company, as does Wario's Motorbike (a name rule). They are no longer promoted to the ledger's XP, no longer tagged `pc` and get no sheet permissions | gold |
 | one folder per website group — `Disaster Inc`, `Iron Legion`, `Koopa Troop`, `Mushroom Regency & Kingdom`, `Mages' Guild`, `Shadow Estate & House Corvinarus`, `Fawful's Furious Freaks`, `Overgrown Manor`, `Elsewhere`, … (the builder's `GROUPS`) | an actor the sheet index (`data/sheets.json`) knows — directly or as an *alternate* of an article — goes to its article's group; else a **name rule** (`Goomba`, `Koopa`, `Hammer Bro`, `Magikoopa`, `Shy Guy` → Koopa Troop; `Palace Guard`, `Royal Guard`, `Castle Chambermaid` → Mushroom Regency; `Legionnaire` → Iron Legion; `Corvinarus`, `Onyx` → Shadow Estate; `Fawful`, `Cackletta`, `Midbus` → the Freaks); else a **folder rule** (`A House Divided / Characters of …` → Overgrown Manor) | the site's faction colour (`data/factionColors.json`) |
 | a GM folder that *is* named like a website group (`Iron Legion`) | stays, and is coloured | the group's colour |
 | `Bestiary / ⟨creature type⟩` | everything else — generic statblocks, by `system.details.type.value` (the 14 dnd5e types; `custom`/blank → `Other`) | a shade per type |
@@ -301,12 +301,14 @@ The rule, enforced by the suite's verify step and `check-all`: **every
 roster character** (`folders.json` → `players.roster`, which is where the
 tool reads `LEDGER` / `LEDGER_EXEMPT` / `COMPANIONS` from) **sits under
 `worlds/<world>/Players/` as a `character` sheet, nothing else sits there
-but the companions** (Steel Defender, Wario's Motorbike), and every player
-sheet's `details.xp.value` is the XP ledger's (`const XP_SUMMARY` in
-`index.html`; Green T is exempt — the GM runs him off-ledger at Tea Merchant
-6 / Bard 6, 100000 XP, and the check says so). A `character` sheet that is
-not on the roster is an NPC the GM built that way, and the check fails if it
-sits in Players. The 2026-10-04 export had three players on statblocks; the
+but the companions** (the Steel Defender), and every player sheet's
+`details.xp.value` is the XP ledger's (`const XP_SUMMARY` in `index.html`).
+A `character` sheet that is not on the roster is an NPC the GM built that
+way (or a retired player character — `players.retired`, filed with Disaster
+Inc.), and the check fails if it sits in Players. Since 2026-10-06 the roster
+is the seven at the table; Green T (off-ledger at Tea Merchant 6 / Bard 6),
+Salam, Toad Lee, Waluigi and Wario keep their sheets as they were last
+played and are not promoted any more. The 2026-10-04 export had three players on statblocks; the
 tool rewrote them in place, **under their live ids**, so the module's
 replace-on-type-change (an option the GM ticks since 1.9; it was the default
 then) swapped them in with every token, link and ownership grant intact:
@@ -345,6 +347,40 @@ sheets suite merges them into the world's `import.json` so one Sync brings
 everything). The site renders all of these at
 `#/sheets`; only Disaster Inc. sheets are public there, the rest need debug
 mode — see [`docs/SHEETS_SYSTEM.md`](../../docs/SHEETS_SYSTEM.md).
+
+### Who may open which sheet: `players.permissions`
+
+Sheet ownership is data too. `folders.json` → `players.permissions` says,
+by **Foundry user name** (never a user id — ids differ per world and the
+GM renames nobody for a tool), who owns and who may observe which roster /
+companion actor, by actor **name**:
+
+```json
+"permissions": {
+  "default": "none",
+  "users": {
+    "Hjumpik": { "owner": ["Bowser", "Hjumpik Deldkur"] },
+    "Keaneu":  { "owner": ["Archie Miser", "Eager", "Feyward Dan"] },
+    "Martir":  { "owner": ["Markop Judi"], "observer": ["Eager", "Feyward Dan"] },
+    "Oscar":   { "owner": ["Remi", "Steel Defender"] }
+  }
+}
+```
+
+The bridge resolves it (`load_permissions()`: an unknown actor name, a
+level that is not none / limited / observer / owner, a user listed twice —
+`check` errors) and every packet and the world manifest carry the result as
+`payload.players` (`players_payload()`: roster, companions, `default`, the
+user names, `permissions {actorId: {userName: level}}`). The module (1.9.4)
+resolves the names against the world's users (case-insensitive), sets
+exactly those grants on the roster and companion actors — *everyone* none,
+a player grant not in the list removed, GM users never touched — counts
+them in Sync's question and lists them in the summary; a name the world does
+not have is reported with the names it does have, nothing is guessed; an
+actor outside Players carrying a player grant is listed, never changed. The
+mirror files keep the world's `ownership` as exported (ids), the grants are
+applied in Foundry, so a change here is a `folders.json` edit, a suite pass
+and one Sync.
 
 ## What was repaired
 

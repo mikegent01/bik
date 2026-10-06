@@ -1396,7 +1396,48 @@ def check_packet(path, image_lib=DEFAULT_IMAGE_LIB, strict_images=False, roster=
     for f in folders:
         if isinstance(f, dict) and f.get("folder") and f["folder"] not in folder_ids:
             errors.append(f"{name}: folder {f.get('name')!r} names a parent {f['folder']} the packet does not carry")
+    errors += check_players_block(raw.get("players") if isinstance(raw, dict) else None, actors, name)
     return count, errors, warnings
+
+
+def check_players_block(players, actors, name):
+    """The packet's `players` block (players_payload) — what the module reads to
+    set who may open which sheet. Shape, ids and levels; a grant on an actor
+    the packet does not carry is fine (the world may have it) but one outside
+    the roster + companions is an error (the module would never apply it)."""
+    if players is None:
+        return []
+    out = []
+    if not isinstance(players, dict) or not isinstance(players.get("roster"), list):
+        return [f"{name}: players block is not {{roster: [...], ...}}"]
+    ids = set()
+    for key in ("roster", "companions"):
+        for row in players.get(key) or []:
+            if not isinstance(row, dict) or not FOUNDRY_ID.match(str(row.get("actor") or "")) or not row.get("name"):
+                out.append(f"{name}: players.{key} row {row!r} needs a 16-char actor id and a name")
+            else:
+                ids.add(row["actor"])
+    if players.get("default") not in OWNERSHIP_LEVELS:
+        out.append(f"{name}: players.default {players.get('default')!r} is not an ownership level")
+    users = players.get("users")
+    if not isinstance(users, list) or not all(isinstance(u, str) and u.strip() for u in users):
+        out.append(f"{name}: players.users must be a list of Foundry user names")
+        users = []
+    perms = players.get("permissions")
+    if not isinstance(perms, dict):
+        return out + [f"{name}: players.permissions must map actor id -> {{user name: level}}"]
+    for aid, grants in perms.items():
+        if aid not in ids:
+            out.append(f"{name}: players.permissions grants on {aid}, which is neither roster nor companion")
+        if not isinstance(grants, dict):
+            out.append(f"{name}: players.permissions[{aid}] must map user name -> level")
+            continue
+        for user, level in grants.items():
+            if user not in users:
+                out.append(f"{name}: players.permissions[{aid}] names user {user!r} missing from players.users")
+            if level not in OWNERSHIP_LEVELS or level < 0:
+                out.append(f"{name}: players.permissions[{aid}][{user!r}] level {level!r} is not 0..3")
+    return out
 
 
 # ----------------------------------------------------------- install-images
