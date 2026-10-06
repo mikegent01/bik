@@ -849,7 +849,7 @@ def one_pass(world, write, port, downloads=None, foundry=None, git_sync=False):
     say(f"  {'done' if ok else 'FAILED'}     : {time.time() - t0:.1f}s")
     if write:
         say(f"  sheets   : {u['sheets']}")
-        say(f"  foundry  : Sync runs by itself when the world loads (or Actors sidebar -> Sync): everything, from Data, else {u['everything']}, else GitHub")
+        say(f"  foundry  : Actors sidebar -> Sync (checks first, asks, applies; no sync at startup since module 1.9.3): everything, from Data, else {u['everything']}, else GitHub")
         say(f"  foundry  : the console's first module line must read '[{MODULE_ID}] <version> ready' — from 1.6 a newer install runs after a plain F5; an older world needs Return to Setup -> Launch World, then Ctrl+F5 once")
         say(f"  packet   : {u['everything']}  (everything: world + cast + eras; Mass import → URL if you ever need it by hand)")
         say(f"  packet   : {u['players']}  (the Players folder only)")

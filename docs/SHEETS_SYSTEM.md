@@ -471,14 +471,28 @@ deprecated progress bar is gone — see the module README's *1.4* table.
 closes: *GitHub → suite (pull) → packet → Foundry asks → Apply → the table
 plays → export back → suite → GitHub.*
 
-* **Sync asks.** Every sync — the automatic one at world load or the button
-  — is computed as a dry run against the live world first. Nothing pending:
-  silent, the packet's stamp remembered. Differences: the summary opens as
-  the question, *Apply / Not now / Skip this packet*. An actor whose world
-  `_stats.modifiedTime` is newer than the packet's copy is **kept** (listed
-  under *Kept — the world is newer than the packet*, no write, no question)
-  — a session's edits are never overwritten by a packet built before them;
-  once the export flows back and the packet is rebuilt, the stamps agree.
+* **Sync asks.** Every sync — the Sync button (or, with *Sync: automatic*
+  on, the check at world load; **off since module 1.9.3**: a sync that runs
+  by itself at startup runs its bugs by itself too) — is computed as a dry
+  run against the live world first. Nothing pending: silent, the packet's
+  stamp remembered. Differences: the summary opens as the question, *Apply /
+  Not now / Skip this packet*. An actor whose world `_stats.modifiedTime` is
+  newer than the packet's copy **and** than the sync's own last write of it
+  (world setting `syncWritten`, 1.9.3 — before that every actor the sync had
+  ever written counted as "newer" until the next export loop) is **kept**
+  (listed under *Kept — the world is newer than the packet*, no sheet write,
+  no question) — a session's edits are never overwritten by a packet built
+  before them; once the export flows back and the packet is rebuilt, the
+  stamps agree. A kept actor is still **refiled**: the packet's folder and
+  the suite's flags (tags, folder path) apply, nothing on the sheet does.
+* **Leftovers.** A broken species / background on a character that the
+  sheet does not apply (`system.details.race` / `.background` names another,
+  live item) is a leftover — the archive's "Toad — Eager Variant" beside the
+  Grung the player applied. `split` drops them from the mirror
+  (`manifest.leftoversDropped`; `foundry-bridge.py heal <world_dir>` for a
+  mirror split by an older bridge) and the module deletes them in the world
+  (a note in the summary, the item's data in the console) instead of
+  offering the swap that would remove the applied one.
 * **Export back.** The active GM's client writes the whole world to
   `<Data>/npc/waluipedia/<world>/export/<world>-all-actors.json` two quiet
   minutes after the last change to any actor, item or effect (settings

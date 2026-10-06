@@ -10,8 +10,39 @@ existing ones updated in place (same `_id`), every image path checked, and a
 report. Together with `tools/foundry-bridge.py` this turns "add characters to
 the game" into a loop of *export → edit in the repo → import*.
 
-Module id: `waluipedia-mass-import`, version 1.9.2. Core v12–v14, any game
+Module id: `waluipedia-mass-import`, version 1.9.3. Core v12–v14, any game
 system (built and tested against dnd5e 5.x on core v14).
+
+## 1.9.3 — no sync at startup; a kept actor is still filed; leftovers go
+
+**The sync on load is off.** A sync that runs by itself at startup runs its
+bugs by itself too, so *Sync: automatic* now defaults to off and a world that
+had it on is switched off once (the setting remembers; turn it back on by
+hand and it stays). The **Sync** button in the Actors sidebar does the same
+thing — check first, show the differences, apply on your OK.
+
+**"Kept (world newer)" no longer sticks.** The check compared the world's
+`_stats.modifiedTime` with the packet copy's, and the sync's own writes move
+that stamp — so every actor the sync had ever written counted as "newer than
+the packet" until the next export loop (181 kept, the folder fixes never
+landing). The sync now remembers the world stamp of its own last write per
+actor (world setting `syncWritten`) and an actor is kept only when it changed
+after that too. And a kept actor still takes the **organisation**: the
+packet's folder and the suite's flags (website tags, folder path) say where
+the sheet is filed, not what is on it — "refiled" in the summary, counted in
+the question, never a sheet field.
+
+**Leftovers.** A broken species / background (an identifier dnd5e refuses)
+that the sheet does not apply — `system.details.race` / `.background` names
+another, live one — is a leftover: Eager's and Feyward Dan's archive-made
+Toads beside the Grung the players applied. Repairing it would put a second
+species on the sheet, which dnd5e refuses, so 1.9.2 could only offer the
+swap that removes the Grung. Now the broken copy is deleted (its data goes
+to the console, the summary says so) and a packet copy of such a leftover
+with no advancements is left out instead of refused — no swap button. The
+bridge's `split` drops them from the mirror in the first place
+(`manifest.leftoversDropped`), and `foundry-bridge.py heal <world_dir>` does
+the same for a mirror an older bridge split.
 
 ## 1.9.2 — Fawful's Forces, the first NPC Forge packet
 
@@ -190,7 +221,7 @@ parent collection`. 1.5 answers it the same way 1.4 answered the first one:
 | What you saw | Why | Now |
 | --- | --- | --- |
 | **Which packet?** `players` / `world` / `cast`, three files, 955 BF separate | Scopes. | **Gone.** There is **one packet** — `npc/waluipedia/<world>/import.json`, written by the suite from the world mirror → the generated cast → the 955 BF court (329 actors, 32 coloured folders for *midlands*; a name that is in the world already is not brought in a second time). Sync has nothing to choose and no file to pick; the GitHub fallback fetches the manifest, the cast and the court and merges them the same way. |
-| You have to click | — | **Sync runs by itself when the world loads** (GMs only, setting *Sync by itself*), a few seconds after `ready`, and only when the published packet changed since the last run — otherwise it does nothing and says nothing. The button and the macro still work; the summary opens when something was created, changed, repaired, noted or tidied. |
+| You have to click | — | **Sync** in the Actors sidebar (one click; Shift-click reviews first). *Sync: automatic* — a check a few seconds after `ready`, only when the published packet changed since the last run — exists but is **off since 1.9.3** (a sync that runs by itself at startup runs its bugs by itself too). The macro still works; the summary opens when something was created, changed, repaired, noted or tidied. |
 | `2 FAILED` — Eager (`VudZ3W313Y4FILs0`), Feyward Dan (`IlzuThuR8upTtqtF`): `The _id [218ad632c6e149d9] already exists within the parent collection` | Their world copies hold **invalid embedded documents** — the home-made Toad species, a background, a feat, two pieces of clothing whose identifiers dnd5e refuses. Foundry keeps those out of `actor.items` (they only exist in the source and `invalidDocumentIds`), so the diff never saw them, tried to *create* the repaired copies under the same ids, and the server threw. | The sync reads the **source**, invalid documents included, and **repairs an invalid document with an update** (which dnd5e accepts); if that is refused too it is deleted and created again under its own id. Reported as *n broken items repaired*. |
 | `Only a single Species can be added to a Player Character.` / `… Background …` | Creating a species while the sheet already has one (the Grung / Slave stand-ins the players dropped in while the Toad was broken) is refused by dnd5e — silently, the create resolves without the document. | Repairs go through updates, so this no longer happens for the broken Toads. When a packet really does bring a *second* species/background the refusal is a **note for the GM** (`Notes for the GM` in the summary), never a failure. The summary also lists sheets that end up with two species or two backgrounds — *keep one, delete the stand-in* — until you do. |
 | `Item "VfJl4waJI38BhqP4" does not exist!` × many | The cached copies of Cast-activity spells (`flags.dnd5e.cachedFor`). dnd5e deletes and recreates them whenever a Cast item is touched; the sync was still comparing them and sometimes writing them while the system did the same. | **Cached spells are never written** — excluded on both sides of the diff; an item whose activities change is still updated in a call of its own. |
@@ -215,13 +246,14 @@ The Sync summary gained **Repaired identifiers** and a **Folders** section
 (folder → how many of the synced actors live there, which are new, which were
 coloured).
 
-## Sync — everything, by itself (v1.5; one click since v1.3)
+## Sync — everything, one click (v1.5; by itself only when you say so)
 
-**It runs on its own.** When a GM loads the world the module waits a few
-seconds, looks for the published packet and, if it is not the one it synced
-last time, imports it and opens the summary. Same packet as last time:
-nothing happens, nothing is printed. **Actors sidebar → Sync** does the same
-thing right now (Shift-click = review table first). No file to pick, no URL
+**Actors sidebar → Sync** looks for the published packet, checks it against
+the world, shows the differences and applies them on your OK (Shift-click =
+review table first). Same packet as last time, same world: nothing happens,
+nothing is printed. With *Sync: automatic* on (off since 1.9.3) the same
+check runs a few seconds after a GM loads the world, when the published
+packet is not the one synced last time. No file to pick, no URL
 to paste, no scope to choose: one packet carries **everything** — the world
 mirror, the generated cast, the 955 BF court — in the website's coloured
 folders. It looks in three places, in this order, and uses the first that
@@ -246,7 +278,7 @@ ledger is ahead of the sheet, *Notes for the GM*, the folders touched, the
 module version running vs on disk, and *where it looked*. The same summary is
 whispered to the GMs in chat (one message per sync; not on dry runs).
 
-* **Settings** (Module Settings): *Sync by itself* (on), world (`midlands`),
+* **Settings** (Module Settings): *Sync: automatic* (**off** since 1.9.3), world (`midlands`),
   packet dir in Data (`npc/waluipedia`), launcher URL, GitHub branch
   (`gh-pages`), *Merge duplicate folders* (on), *Remove empty folders* (on),
   review-first (off), *Ask before applying* (on, 1.7), *Export back* (on,
@@ -309,7 +341,7 @@ In the **Actors** sidebar header, next to "Create Actor":
 
 | Button | What it does |
 | --- | --- |
-| **Sync** | Runs by itself when the world loads; the button does it now: find the published packet (Data folder → launcher → GitHub), import everything into coloured folders, repair, tidy folders, summary. Shift-click = review table first. See *Sync — everything, by itself* above. |
+| **Sync** | One click: find the published packet (Data folder → launcher → GitHub), check it against the world, import everything into coloured folders on your OK, repair, tidy folders, summary. Shift-click = review table first. (By itself at world load only with *Sync: automatic* on — off since 1.9.3.) See *Sync — everything, one click* above. |
 | **Mass export** | Dialog: optional folder subtree, optional type filter (character/npc/vehicle/group), and a **destination**: *Download one JSON* (`<world>-all-actors.json`) or *Write into the Foundry Data folder* — a tree under `npc/waluipedia/<world>/` with one file per actor in subfolders mirroring your Actors sidebar, plus `import.json` with everything. |
 | **Mass import** | Dialog: source = **JSON file** from disk, a **repo packet** from the dropdown, a **URL** (GitHub raw works — CORS is open there), or **a path inside your Foundry Data folder** — either one `.json` or **a directory** (📁 button browses; every `.json` under it is read, **subfolders are detected** and become the Actors folders). Then the **review table**. Options below. Prints a report afterwards and logs the full result object to the console. |
 

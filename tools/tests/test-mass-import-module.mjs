@@ -209,7 +209,7 @@ const mod = await import(pathToFileURL(path.join(MOD_DIR, 'scripts/mass-import-c
 check('the core registers nothing by itself (the loader decides when); register() wires init/ready/renderActorDirectory', !Object.keys(hooks).length && mod.register() === true && ['init', 'ready', 'renderActorDirectory'].every((h) => hooks[h]?.length === 1));
 globalThis.Hooks.call('init');
 check('init registers the defaultSource world setting', settings.has('waluipedia-mass-import.defaultSource'));
-check('init registers the sync settings with the documented defaults — automatic on, no scope, folder tidy on, a hidden last-stamp', settings.get('waluipedia-mass-import.syncWorld') === 'midlands' && !settings.has('waluipedia-mass-import.syncScope') && settings.get('waluipedia-mass-import.syncAuto') === true && settings.get('waluipedia-mass-import.syncMergeFolders') === true && settings.get('waluipedia-mass-import.syncPruneFolders') === true && settings.get('waluipedia-mass-import.syncPacketDir') === 'npc/waluipedia' && settings.get('waluipedia-mass-import.syncLauncher') === 'http://127.0.0.1:8765/' && settings.get('waluipedia-mass-import.syncBranch') === 'gh-pages' && settings.get('waluipedia-mass-import.syncReview') === false && settings.get('waluipedia-mass-import.syncLastStamp') === '');
+check('init registers the sync settings with the documented defaults — automatic OFF (1.9.3), no scope, folder tidy on, a hidden last-stamp', settings.get('waluipedia-mass-import.syncWorld') === 'midlands' && !settings.has('waluipedia-mass-import.syncScope') && settings.get('waluipedia-mass-import.syncAuto') === false && settings.get('waluipedia-mass-import.syncWritten') === '' && settings.get('waluipedia-mass-import.syncAutoRetired') === false && settings.get('waluipedia-mass-import.syncMergeFolders') === true && settings.get('waluipedia-mass-import.syncPruneFolders') === true && settings.get('waluipedia-mass-import.syncPacketDir') === 'npc/waluipedia' && settings.get('waluipedia-mass-import.syncLauncher') === 'http://127.0.0.1:8765/' && settings.get('waluipedia-mass-import.syncBranch') === 'gh-pages' && settings.get('waluipedia-mass-import.syncReview') === false && settings.get('waluipedia-mass-import.syncLastStamp') === '');
 check('MODULE_VERSION in the script matches module.json (Sync compares the two to catch a world running old code)', mod.MODULE_VERSION === manifest.version, `${mod.MODULE_VERSION} vs ${manifest.version}`);
 settings.set('waluipedia-mass-import.syncAuto', false); // the automatic sync is exercised on its own below, not mid-test
 globalThis.Hooks.call('ready');
@@ -530,6 +530,131 @@ check('pickDataPath opens a folder picker and writes the choice into the url box
 // changes, summary". The packet is looked for in the Data folder (where the
 // suite publishes it), then on the launcher, then on GitHub via the committed
 // manifest + actor files.
+
+// ------------------------------------------------------------------ 1.9.3
+{
+  const W = 'waluipedia-mass-import';
+  check('1.9.3: worldNewer — the world stamp the sync itself wrote (writtenMs) is not "newer than the packet"; a change after it is; unknown everywhere → the packet applies',
+    mod.worldNewer({ _stats: { modifiedTime: 5000 } }, { _stats: { modifiedTime: 1000 } }) === true
+    && mod.worldNewer({ _stats: { modifiedTime: 5000 } }, { _stats: { modifiedTime: 1000 } }, null, 5000) === false
+    && mod.worldNewer({ _stats: { modifiedTime: 7000 } }, { _stats: { modifiedTime: 1000 } }, null, 5000) === true
+    && mod.worldNewer({ _stats: { modifiedTime: 7000 } }, {}, null, 5000) === true
+    && mod.worldNewer({ _stats: { modifiedTime: 7000 } }, {}, null, null) === false
+    && mod.worldNewer({ _stats: { modifiedTime: 7000 } }, {}, null, 'x') === false);
+  settings.set(`${W}.syncWritten`, '{not json');
+  check('1.9.3: readWritten survives a broken setting (an empty map), saveWritten keeps only actors still in the world', JSON.stringify(mod.readWritten()) === '{}' && JSON.stringify(await mod.saveWritten({ Zz9zzzzzzzzzzzzz: 5, Wa1aaaaaaaaaaaaa: 0 })) === '{}', settings.get(`${W}.syncWritten`));
+  const existingObj = { flags: { 'waluipedia-sheets': { tags: ['pc'], folderPath: ['Players'] }, dnd5e: { x: 1 }, other: { keep: true } } };
+  const incomingFlags = { 'waluipedia-sheets': { tags: ['pc', 'disaster-inc'], folderPath: ['Disaster Inc.'] }, dnd5e: { x: 2 }, [W]: { folderPath: ['Disaster Inc.'] } };
+  const org = mod.organisationUpdate(existingObj, incomingFlags, 'F0lder0000000000');
+  check('1.9.3: organisationUpdate is pure — the folder and the suite\'s own flags (tags, folderPath), never dnd5e\'s or anything on the sheet; null when the world agrees',
+    org.folder === 'F0lder0000000000' && JSON.stringify(org.flags['waluipedia-sheets']) === JSON.stringify({ tags: ['pc', 'disaster-inc'], folderPath: ['Disaster Inc.'] }) && JSON.stringify(org.flags[W]) === JSON.stringify({ folderPath: ['Disaster Inc.'] }) && !('dnd5e' in org.flags) && !('other' in org.flags)
+    && mod.organisationUpdate({ flags: { 'waluipedia-sheets': { tags: ['pc'] } } }, { 'waluipedia-sheets': { tags: ['pc'] }, dnd5e: { x: 9 } }) === null
+    && JSON.stringify(mod.organisationUpdate({ flags: {} }, {}, 'F0lder0000000000')) === '{"folder":"F0lder0000000000"}', JSON.stringify(org));
+
+  // the world after a session: Eager (Grung applied, the archive's broken Toad beside it) filed under Players, edited at the table AFTER the packet's copy
+  game.actors.clear(); game.folders.clear(); refusedSingletons.length = 0;
+  const playersF = await Folder.create({ name: 'Players', type: 'Actor', folder: null });
+  const T_PACKET = Date.parse('2026-10-05T12:00:00Z'), T_SESSION = Date.parse('2026-10-05T20:00:00Z');
+  const eagerWorld = {
+    _id: 'Eg1aaaaaaaaaaaaa', name: 'Eager', type: 'character', folder: playersF.id, img: 'icons/svg/mystery-man.svg',
+    system: { details: { race: 'Gr1aaaaaaaaaaaaa', background: 'Bg1aaaaaaaaaaaaa', xp: { value: 300 } }, attributes: { hp: { max: 24, value: 24 } } },
+    flags: { 'waluipedia-sheets': { tags: ['pc'], folderPath: ['Players'] }, dnd5e: { sheet: 'x' } },
+    items: [
+      { _id: 'Gr1aaaaaaaaaaaaa', name: 'Grung', type: 'race', system: { identifier: 'grung', advancement: [{ type: 'Size' }] } },
+      { _id: 'Td1aaaaaaaaaaaaa', name: 'Toad — Eager Variant', type: 'race', system: { identifier: 'toad-—-eager-variant' } },
+      { _id: 'Bg1aaaaaaaaaaaaa', name: 'Slave', type: 'background', system: { identifier: 'slave' } },
+      { _id: 'Bg2aaaaaaaaaaaaa', name: 'Disaster Inc. Catastrophe Scout', type: 'background', system: { identifier: 'disaster-inc.-catastrophe-scout' } },
+    ],
+  };
+  const eager = await Actor.create(eagerWorld, { keepId: true, keepEmbeddedIds: true });
+  eager._data._stats = { modifiedTime: T_SESSION };
+  check('1.9.3: fixture — the world holds the Grung (applied) and two broken leftovers Foundry could not validate', eager.items.has('Gr1aaaaaaaaaaaaa') && eager.items.invalidDocumentIds.has('Td1aaaaaaaaaaaaa') && eager.items.invalidDocumentIds.has('Bg2aaaaaaaaaaaaa') && mod.appliedSingletonId(eager, 'race') === 'Gr1aaaaaaaaaaaaa' && mod.singletonLeftover(eager, eagerWorld.items[1])?.name === 'Grung' && mod.singletonLeftover(eager, eagerWorld.items[0]) === null && mod.singletonLeftover(eager, eagerWorld.items[3])?.name === 'Slave');
+  // the packet: an OLDER copy (HP 20, exported at noon) that still carries the broken Toad, filed under Disaster Inc. with the website tags
+  const packetEager = structuredClone(eagerWorld);
+  delete packetEager.folder;
+  packetEager.system.attributes.hp = { max: 20, value: 20 };
+  packetEager.flags = { 'waluipedia-sheets': { tags: ['pc', 'disaster-inc'], folderPath: ['Disaster Inc.'] }, dnd5e: { sheet: 'x' }, [W]: { folderPath: ['Disaster Inc.'] } };
+  packetEager.items = packetEager.items.filter((i) => i._id !== 'Bg2aaaaaaaaaaaaa');  // the healed mirror dropped the background; the Toad is still in this older copy
+  packetEager._stats = { modifiedTime: T_PACKET };
+  const payload193 = { format: 'waluipedia-actors/1', exportedAt: '2026-10-05T12:00:00Z', actors: [packetEager] };
+  const pre = await mod.importPayload(structuredClone(payload193), { dryRun: true, checkImages: false });
+  const preRow = pre.kept[0];
+  check('1.9.3: preview — the world is newer (the session): KEPT, the HP roll-back shown, the refile (folder + tags) announced, both leftovers listed as going, no swap, nothing written',
+    pre.kept.length === 1 && preRow.fields.join() === 'system.attributes.hp.max,system.attributes.hp.value' && preRow.refile?.folder === 'Disaster Inc.' && preRow.refile.fields.some((f) => f.startsWith('flags.waluipedia-sheets.tags')) && !preRow.refile.fields.includes('system.attributes.hp.max')
+    && preRow.embedded.filter((c) => /broken leftover/.test(c)).length === 2 && pre.swaps.length === 0 && eager.updates === 0 && eager.items.invalidDocumentIds.size === 2 && game.folders.contents.every((f) => f.name !== 'Disaster Inc.'), JSON.stringify([pre.kept, pre.swaps, pre.notes]));
+  check('1.9.3: syncPending counts the refile of a kept actor (it is a write) — the question is asked', mod.syncPending(pre).some((l) => /kept but refiled/.test(l)), JSON.stringify(mod.syncPending(pre)));
+  const before193 = mod.snapshotWorld(game.actors.contents);
+  const run = await mod.importPayload(structuredClone(payload193), { checkImages: false });
+  const after193 = mod.snapshotWorld(game.actors.contents);
+  const dinc = game.folders.contents.find((f) => f.name === 'Disaster Inc.');
+  const eagerObj = eager.toObject();
+  check('1.9.3: apply — the sheet is left alone (HP 24, world newer) but the actor is REFILED: Disaster Inc. folder, the website tags, the folder path; dnd5e\'s flags untouched',
+    run.kept.length === 1 && eager.folderId === dinc?.id && eagerObj.system.attributes.hp.max === 24 && JSON.stringify(eagerObj.flags['waluipedia-sheets'].tags) === '["pc","disaster-inc"]' && eagerObj.flags['waluipedia-sheets'].folderPath.join() === 'Disaster Inc.' && eagerObj.flags[W].folderPath.join() === 'Disaster Inc.' && eagerObj.flags.dnd5e.sheet === 'x'
+    && eager.updates === 1 && eager.lastUpdate.folder === dinc?.id && !('system' in eager.lastUpdate) && eager.lastUpdateOptions?.render === false, JSON.stringify([eager.lastUpdate, run.kept]));
+  check('1.9.3: apply — both broken leftovers are DELETED from the kept actor (the Toad the old packet still carries, the background it no longer does), the Grung and Slave stay, no swap, two notes',
+    eager.items.invalidDocumentIds.size === 0 && eager.items.has('Gr1aaaaaaaaaaaaa') && eager.items.has('Bg1aaaaaaaaaaaaa') && eager._source.items.length === 2 && run.swaps.length === 0 && run.notes.filter((n) => /removed — a broken copy the sheet never applied/.test(n.note)).length === 2 && run.notes.some((n) => /species is Grung/.test(n.note)) && run.notes.some((n) => /background is Slave/.test(n.note)) && refusedSingletons.length === 0, JSON.stringify([run.notes, eager.embeddedDeletes]));
+  check('1.9.3: a kept actor is not stamped as "written by the sync" (its sheet was not written); the stamp map is empty', !(await mod.readWritten())['Eg1aaaaaaaaaaaaa'] && run.written.length === 0, JSON.stringify([mod.readWritten(), run.written]));
+  const changes = mod.syncChanges([{ data: packetEager, folderPath: ['Disaster Inc.'] }], before193, after193, run);
+  check('1.9.3: the summary row says kept AND refiled → Disaster Inc. (tags)', changes[0]?.status === 'kept' && changes[0].notes.some((n) => /refiled → Disaster Inc\. \(tags\)/.test(n)), JSON.stringify(changes));
+  check('1.9.3: the kept section of the summary explains that only the organisation follows the packet', /Only the organisation follows the packet/.test(mod.syncSummaryHtml(run)));
+
+  // the export loop ran: the packet carries the session's sheet (HP 24, stamp 20:00). Applies, and the sync remembers its own write stamp
+  const packet2 = structuredClone(packetEager);
+  packet2.system.attributes.hp = { max: 24, value: 24 };
+  packet2.items = packet2.items.filter((i) => i._id !== 'Td1aaaaaaaaaaaaa');
+  packet2.system.details.xp.value = 450;  // the ledger moved on
+  packet2._stats = { modifiedTime: T_SESSION };
+  const T_WRITE = T_SESSION + 3600000;
+  const origUpdate = eager.update.bind(eager);
+  eager.update = async (d, o) => { const r = await origUpdate(d, o); eager._data._stats = { modifiedTime: T_WRITE }; return r; };  // Foundry stamps every write
+  const run2 = await mod.importPayload({ ...payload193, exportedAt: '2026-10-05T20:00:00Z', actors: [structuredClone(packet2)] }, { checkImages: false });
+  check('1.9.3: once the packet carries the world\'s stamp the ledger applies (XP 450) — and the world stamp of that write is remembered under the actor id',
+    run2.kept.length === 0 && run2.updated.length === 1 && eager.toObject().system.details.xp.value === 450 && mod.readWritten()['Eg1aaaaaaaaaaaaa'] === T_WRITE && run2.written.join() === 'Eg1aaaaaaaaaaaaa', JSON.stringify([run2.kept, run2.updated.map((u) => u.fields), mod.readWritten()]));
+  // the next packet (XP 500, same world copy otherwise): the world stamp is the sync's own → NOT "newer than the packet" (1.9.2 kept it forever here)
+  const packet3 = structuredClone(packet2); packet3.system.details.xp.value = 500;
+  const run3 = await mod.importPayload({ ...payload193, exportedAt: '2026-10-05T20:00:00Z', actors: [structuredClone(packet3)] }, { checkImages: false });
+  check('1.9.3: the next packet is not held back by the sync\'s own write stamp — XP 500 applies, nothing kept', run3.kept.length === 0 && eager.toObject().system.details.xp.value === 500 && mod.readWritten()['Eg1aaaaaaaaaaaaa'] === T_WRITE, JSON.stringify([run3.kept, mod.readWritten()]));
+  // a real edit at the table after that write → kept again (the sheet), refiled only if the organisation moved
+  await eager.update({ system: { attributes: { hp: { value: 11 } } } });
+  eager._data._stats = { modifiedTime: T_WRITE + 7200000 };
+  const packet4 = structuredClone(packet3); packet4.system.details.xp.value = 550;
+  const run4 = await mod.importPayload({ ...payload193, exportedAt: '2026-10-05T20:00:00Z', actors: [structuredClone(packet4)] }, { checkImages: false });
+  check('1.9.3: an edit at the table after the sync\'s write is kept again (XP stays 500, HP 11 untouched), no refile because the organisation agrees', run4.kept.length === 1 && run4.kept[0].refile === null && eager.toObject().system.details.xp.value === 500 && eager.toObject().system.attributes.hp.value === 11, JSON.stringify(run4.kept));
+  // an actor the world dropped: its stamp is pruned on the next save
+  const stale = mod.readWritten(); stale.Gone000000000000 = 123;
+  check('1.9.3: saveWritten prunes actors no longer in the world', !('Gone000000000000' in (await mod.saveWritten(stale))) && (await mod.saveWritten(stale)).Eg1aaaaaaaaaaaaa === T_WRITE);
+  // stampWritten after the folder tidy: a merged folder moved the actor → the new stamp is the sync's too
+  eager._data._stats = { modifiedTime: T_WRITE + 9000000 };
+  await mod.stampWritten(['Eg1aaaaaaaaaaaaa', 'Nope000000000000']);
+  check('1.9.3: stampWritten re-reads the world stamps of the ids it is given (after the folder tidy moved actors), unknown ids ignored', mod.readWritten().Eg1aaaaaaaaaaaaa === T_WRITE + 9000000 && !('Nope000000000000' in mod.readWritten()));
+
+  // a packet copy of a leftover with NO advancements beside the applied one: left out, no swap; a real alternative WITH advancements still gets the swap
+  const fresh = await Actor.create({ _id: 'Eg2aaaaaaaaaaaaa', name: 'Feyward Dan', type: 'character', system: { details: { race: 'Gr2aaaaaaaaaaaaa' } }, items: [{ _id: 'Gr2aaaaaaaaaaaaa', name: 'Grung', type: 'race', system: { identifier: 'grung' } }] }, { keepId: true, keepEmbeddedIds: true });
+  const danPacket = { _id: 'Eg2aaaaaaaaaaaaa', name: 'Feyward Dan', type: 'character', system: { details: { race: 'Gr2aaaaaaaaaaaaa' } }, items: [
+    { _id: 'Gr2aaaaaaaaaaaaa', name: 'Grung', type: 'race', system: { identifier: 'grung' } },
+    { _id: 'Td2aaaaaaaaaaaaa', name: 'Toad — Feyward Variant', type: 'race', system: { identifier: 'toad-feyward-variant', advancement: [] } },
+  ] };
+  const runDan = await mod.importPayload({ format: 'waluipedia-actors/1', actors: [danPacket] }, { checkImages: false });
+  check('1.9.3: a packet species without advancements beside the one the sheet applies is left out — no refusal, no swap, a note', runDan.swaps.length === 0 && runDan.notes.some((n) => /left out — the packet's copy carries no advancements and the sheet applies Grung/.test(n.note)) && !fresh.items.has('Td2aaaaaaaaaaaaa') && refusedSingletons.length === 0 && !runDan.updated[0].items.changes.some((c) => c.startsWith('+ Toad')), JSON.stringify([runDan.notes, runDan.swaps, runDan.updated[0]?.items.changes]));
+  danPacket.items[1].system.advancement = [{ type: 'Size' }];
+  const runDan2 = await mod.importPayload({ format: 'waluipedia-actors/1', actors: [danPacket] }, { checkImages: false });
+  check('1.9.3: a packet species WITH advancements beside the applied one is still the 1.9.2 swap (the GM decides)', runDan2.swaps.length === 1 && runDan2.swaps[0].label === 'Toad — Feyward Variant [race]' && refusedSingletons.length === 0, JSON.stringify(runDan2.swaps));
+
+  // the sync on load: off by default, a world that had it on is switched off once, on again by hand stays
+  settings.set(`${W}.syncAutoRetired`, false); settings.set(`${W}.syncAuto`, true);
+  const infos193 = []; const prevInfo = ui.notifications.info; ui.notifications.info = (m) => infos193.push(m);
+  try {
+    const first = await mod.retireAutoSync();
+    const offAfterFirst = settings.get(`${W}.syncAuto`) === false && settings.get(`${W}.syncAutoRetired`) === true;
+    const second = await mod.retireAutoSync();
+    settings.set(`${W}.syncAuto`, true);
+    const third = await mod.retireAutoSync();
+    check('1.9.3: retireAutoSync switches a world\'s automatic sync off ONCE (a toast says why), never again — turned on by hand it stays on', first === true && offAfterFirst && second === false && third === false && settings.get(`${W}.syncAuto`) === true && infos193.length === 1 && /no longer runs by itself/.test(infos193[0]), JSON.stringify([first, offAfterFirst, second, third, infos193]));
+    settings.set(`${W}.syncAuto`, false);
+    check('1.9.3: SYNC_DEFAULTS.auto is false and the Sync button no longer promises a sync on load', mod.SYNC_DEFAULTS.auto === false && !/Runs by itself when the world loads/.test(fs.readFileSync(path.join(MOD_DIR, 'scripts/mass-import-core.js'), 'utf8').split('injectButtons')[1] ?? ''));
+    check('1.9.3: autoSync with the setting off does nothing', (await mod.autoSync({ delay: 0 })) === null);
+  } finally { ui.notifications.info = prevInfo; }
+}
 {
   const sheetIndex = JSON.parse(fs.readFileSync(path.resolve('Reputation-Matrix2/data/sheets.json'), 'utf8'));
   let msg = ''; try { mod.normalizeImport(sheetIndex); } catch (e) { msg = e.message; }
