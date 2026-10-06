@@ -1,0 +1,2211 @@
+{
+  "_id": "zrL24JEufRDzeE1O",
+  "name": "Countess Chortlebrass",
+  "type": "npc",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "abilities": {
+      "str": {
+        "value": 16,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "dex": {
+        "value": 10,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "con": {
+        "value": 16,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "int": {
+        "value": 17,
+        "proficient": 1,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "wis": {
+        "value": 13,
+        "proficient": 1,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "cha": {
+        "value": 18,
+        "proficient": 1,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      }
+    },
+    "attributes": {
+      "ac": {
+        "flat": 16,
+        "calc": "natural",
+        "formula": ""
+      },
+      "hp": {
+        "value": 127,
+        "max": 127,
+        "formula": "15d10+45",
+        "temp": null,
+        "tempmax": null
+      },
+      "movement": {
+        "walk": "30",
+        "units": "ft",
+        "hover": false,
+        "burrow": "0",
+        "climb": "20",
+        "fly": "0",
+        "swim": "0",
+        "ignoredDifficultTerrain": []
+      },
+      "senses": {
+        "units": "ft",
+        "ranges": {
+          "darkvision": 60
+        },
+        "special": ""
+      },
+      "init": {
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonus": ""
+      },
+      "attunement": {
+        "max": 3
+      },
+      "spellcasting": "",
+      "exhaustion": 0,
+      "concentration": {
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "save": ""
+        },
+        "limit": 1
+      },
+      "loyalty": {},
+      "hd": {
+        "spent": 0
+      },
+      "death": {
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "success": 0,
+        "failure": 0,
+        "bonuses": {
+          "save": ""
+        }
+      }
+    },
+    "details": {
+      "alignment": "Neutral Evil",
+      "type": {
+        "value": "humanoid",
+        "subtype": "Beanish"
+      },
+      "cr": 7,
+      "biography": {
+        "value": "<p><em>Fawful's Forces packet sheet — Countess Chortlebrass.</em> Built by <code>tools/build-forge-packets.py</code> from the NPC Forge roster <code>data/forge/fawfuls-forces.json</code> (entry <code>countess-chortlebrass</code>): Large humanoid (Beanish), Neutral Evil; CR 7 (proficiency +3, to hit +6 with STR); AC 16 (throne plating), hit points 127 (15d10+45), speed 30 ft., climb 20 ft.. A GM scene kit for the Fawful's Forces article's present (1040 BF), not a filed event; the faction article stays the authority.</p><p>Fawful's headmistress of helms — the Beanish noblewoman who runs the vats under Peach's Castle and decides which prisoners come out as thralls. The Countess took to the Fury Meter's logic better than anyone on the staff: she does not fight, she assigns, and the crown she wears is a rack of Hypno-Helms waiting for heads. The walking throne is her own commission; she has not touched the floor of the castle since the occupation began and regards that as a courtesy to the floor.</p><p>As a boss she is a controller first and a brawler second. The barrage puts helms on the party; the decree turns a party member for a moment; the reconstitution eats the wreckage of every construct the party has already killed. Kill the helms, keep the wrecks away from her, and knock the throne's legs out (40 hit points and under) and she is suddenly a thin woman in a chair. She does not cackle when she loses. She writes names down.</p><p><strong>Role:</strong> controller boss · <strong>tier:</strong> lieutenant · <strong>folder:</strong> Fawful's Furious Freaks / Lieutenants of Fury.</p><h3>Art</h3><p><strong>Awaiting its plate.</strong> The render <code>npc-forge/fawfuls-forces/renders/countess-chortlebrass.png</code> has not been cut yet; run the NPC Forge (or <code>tools/build-forge-packets.py plates fawfuls-forces</code>) and rebuild. Seed 410012. Prompt: <q>Clean cel-shaded cartoon character art in the style of Mario & Luigi RPG concept art, bold dark outlines, flat colours, simple shading. A tall thin lime-green Beanish noblewoman with a long face, half-lidded eyes and a cackling grin, wearing a towering brass crown built from small swirl-visor helmets and a long emerald green gown embroidered with gears, holding a swirl-lens lorgnette, seated on a walking mechanical throne with four brass claw legs, brass pipes and a glowing green boiler behind the seat. Full body, whole figure visible, three-quarter view, centred, isolated on a plain flat solid magenta background (#FF00FF), no floor, no ground shadow, no text, no border.</q></p>",
+        "public": ""
+      }
+    },
+    "traits": {
+      "size": "lg",
+      "languages": {
+        "value": [
+          "common"
+        ],
+        "custom": "Beanish; telepathy 120 ft. with helm-bound creatures",
+        "communication": {
+          "telepathy": {
+            "value": 120,
+            "units": "ft"
+          }
+        }
+      },
+      "ci": {
+        "value": [
+          "charmed"
+        ],
+        "custom": ""
+      },
+      "di": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dr": {
+        "value": [
+          "psychic"
+        ],
+        "custom": "",
+        "bypasses": []
+      },
+      "dv": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dm": {
+        "amount": {},
+        "bypasses": []
+      },
+      "important": true
+    },
+    "skills": {
+      "acr": {
+        "value": 0,
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ani": {
+        "value": 0,
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "arc": {
+        "value": 0,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ath": {
+        "value": 0,
+        "ability": "str",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "dec": {
+        "value": 1,
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "his": {
+        "value": 0,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ins": {
+        "value": 1,
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "itm": {
+        "value": 1,
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "inv": {
+        "value": 0,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "med": {
+        "value": 0,
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "nat": {
+        "value": 0,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "prc": {
+        "value": 0,
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "prf": {
+        "value": 0,
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "per": {
+        "value": 1,
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "rel": {
+        "value": 0,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "slt": {
+        "value": 0,
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ste": {
+        "value": 0,
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "sur": {
+        "value": 0,
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      }
+    },
+    "source": {
+      "custom": "Waluipedia campaign",
+      "revision": 1,
+      "rules": "2024"
+    },
+    "currency": {
+      "pp": 0,
+      "gp": 0,
+      "ep": 0,
+      "sp": 0,
+      "cp": 0
+    },
+    "bonuses": {},
+    "tools": {},
+    "spells": {},
+    "resources": {
+      "legact": {
+        "max": 2,
+        "spent": 0
+      },
+      "legres": {
+        "max": 1,
+        "spent": 0
+      },
+      "lair": {
+        "value": false,
+        "initiative": null,
+        "inside": false
+      }
+    }
+  },
+  "prototypeToken": {
+    "name": "Countess Chortlebrass",
+    "displayName": 0,
+    "actorLink": false,
+    "width": 2,
+    "height": 2,
+    "texture": {
+      "src": "icons/svg/mystery-man.svg",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "scaleX": 1,
+      "scaleY": 1,
+      "tint": "#ffffff",
+      "alphaThreshold": 0.75
+    },
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "attributes.hp"
+    },
+    "bar2": {
+      "attribute": null
+    }
+  },
+  "items": [
+    {
+      "_id": "Eq1sfVEQ0NUACAj5",
+      "name": "Multiattack",
+      "type": "feat",
+      "img": "icons/skills/melee/strike-slashes-orange.webp",
+      "system": {
+        "description": {
+          "value": "<p>The Countess makes two Throne Claw attacks, or one Throne Claw attack and uses Fawful's Decree.</p>",
+          "chat": ""
+        },
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "activation": {},
+        "duration": {},
+        "target": {},
+        "range": {},
+        "uses": {
+          "spent": 0,
+          "max": "",
+          "recovery": []
+        },
+        "activities": {
+          "JVHKERY5RwYD5z2D": {
+            "_id": "JVHKERY5RwYD5z2D",
+            "type": "utility",
+            "name": "",
+            "img": null,
+            "sort": 0,
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "roll": {
+              "prompt": false,
+              "visible": false,
+              "name": "",
+              "formula": ""
+            }
+          }
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "nZ5utlMvibM8REb0",
+      "name": "Throne Claw",
+      "type": "weapon",
+      "img": "icons/creatures/claws/claw-curved-jagged-yellow.webp",
+      "system": {
+        "description": {
+          "value": "<p><em>Melee Weapon Attack:</em> reach 10 ft., one target. <em>Hit:</em> 2d10 + 3 slashing damage.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "attunement": "",
+        "rarity": "",
+        "identified": true,
+        "cover": null,
+        "range": {
+          "value": null,
+          "long": null,
+          "units": "ft",
+          "reach": 10
+        },
+        "uses": {
+          "spent": 0,
+          "max": "",
+          "recovery": []
+        },
+        "damage": {
+          "versatile": {
+            "number": null,
+            "denomination": null,
+            "bonus": "",
+            "types": [],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "base": {
+            "number": 2,
+            "denomination": 10,
+            "bonus": "",
+            "types": [
+              "slashing"
+            ],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          }
+        },
+        "armor": {
+          "value": 10
+        },
+        "hp": {
+          "value": 0,
+          "max": 0,
+          "dt": null,
+          "conditions": ""
+        },
+        "properties": [
+          "rch"
+        ],
+        "type": {
+          "value": "natural",
+          "baseItem": ""
+        },
+        "container": null,
+        "equipped": true,
+        "proficient": null,
+        "identifier": "",
+        "attuned": false,
+        "ammunition": {},
+        "crew": {
+          "value": []
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "attack",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "units": "ft",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "attack": {
+              "ability": "str",
+              "bonus": "",
+              "critical": {
+                "threshold": null
+              },
+              "flat": false,
+              "type": {
+                "value": "melee",
+                "classification": "weapon"
+              }
+            },
+            "damage": {
+              "critical": {
+                "bonus": ""
+              },
+              "includeBase": true,
+              "parts": []
+            },
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null
+          }
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "xHYCRKYgByacSBhg",
+      "name": "Fawful's Decree",
+      "type": "feat",
+      "img": "icons/magic/control/hypnosis-mesmerism-swirl.webp",
+      "system": {
+        "description": {
+          "value": "<p>The Countess fixes one creature she can see within 60 feet that can hear her with the lorgnette. The target must succeed on a DC 15 Wisdom saving throw or be charmed by her until the end of her next turn; while charmed this way it immediately uses its reaction to move up to its speed and make one weapon attack against a creature of her choice. A creature that succeeds is immune to her Decree for 24 hours.</p>",
+          "chat": ""
+        },
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "activation": {},
+        "duration": {},
+        "target": {},
+        "range": {},
+        "uses": {
+          "spent": 0,
+          "max": "",
+          "recovery": []
+        },
+        "activities": {
+          "juv0HcWP7ZS9ngkF": {
+            "_id": "juv0HcWP7ZS9ngkF",
+            "type": "save",
+            "name": "",
+            "img": null,
+            "sort": 0,
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "value": "60",
+              "units": "ft",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "1",
+                "type": "creature",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "save": {
+              "ability": [
+                "wis"
+              ],
+              "dc": {
+                "calculation": "",
+                "formula": "15"
+              }
+            },
+            "damage": {
+              "parts": [],
+              "onSave": "none",
+              "critical": {
+                "allow": false
+              }
+            }
+          }
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "aaBqbBc0lGJYjPmn",
+      "name": "Helm Barrage",
+      "type": "feat",
+      "img": "icons/equipment/head/helm-armored-tech-heavy.webp",
+      "system": {
+        "description": {
+          "value": "<p><em>Recharge 5–6.</em> The crown flings helms. Up to three creatures she can see within 30 feet must each succeed on a DC 15 Dexterity saving throw or take 2d6 bludgeoning damage as a Hypno-Helm lands on them: place a <strong>Hypno-Helm</strong> (this packet) attached to each creature that failed; it has latched on and the creature must make the helm's DC 13 Wisdom saving throw against Fawful's Voice at once. Helms that miss land in an empty space within 5 feet of their target and act on the Countess's initiative.</p>",
+          "chat": ""
+        },
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "activation": {},
+        "duration": {},
+        "target": {},
+        "range": {},
+        "uses": {
+          "spent": 0,
+          "max": "1",
+          "recovery": [
+            {
+              "period": "recharge",
+              "formula": "5"
+            }
+          ]
+        },
+        "activities": {
+          "7Pcc32Y6kp10GYmd": {
+            "_id": "7Pcc32Y6kp10GYmd",
+            "type": "save",
+            "name": "",
+            "img": null,
+            "sort": 0,
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [
+                {
+                  "type": "itemUses",
+                  "value": "1",
+                  "target": "",
+                  "scaling": {}
+                }
+              ],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "value": "30",
+              "units": "ft",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "3",
+                "type": "creature",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "save": {
+              "ability": [
+                "dex"
+              ],
+              "dc": {
+                "calculation": "",
+                "formula": "15"
+              }
+            },
+            "damage": {
+              "parts": [
+                {
+                  "number": 2,
+                  "denomination": 6,
+                  "bonus": "",
+                  "types": [
+                    "bludgeoning"
+                  ],
+                  "custom": {
+                    "enabled": false,
+                    "formula": ""
+                  },
+                  "scaling": {
+                    "mode": "",
+                    "number": null,
+                    "formula": ""
+                  }
+                }
+              ],
+              "onSave": "none",
+              "critical": {
+                "allow": false
+              }
+            }
+          }
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "kb5XDAebGWxRHyjp",
+      "name": "Throne Stomp",
+      "type": "feat",
+      "img": "icons/creatures/magical/construct-iron-stomping-yellow.webp",
+      "system": {
+        "description": {
+          "value": "<p>The throne rears and slams down. Each creature within 10 feet of the Countess must make a DC 15 Dexterity saving throw, taking 3d8 bludgeoning damage and falling prone on a failed save, or half as much damage on a successful one.</p>",
+          "chat": ""
+        },
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "activation": {},
+        "duration": {},
+        "target": {},
+        "range": {},
+        "uses": {
+          "spent": 0,
+          "max": "",
+          "recovery": []
+        },
+        "activities": {
+          "lnKplkAUr4Vupaqt": {
+            "_id": "lnKplkAUr4Vupaqt",
+            "type": "save",
+            "name": "",
+            "img": null,
+            "sort": 0,
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "radius",
+                "size": "10",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "creature",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "save": {
+              "ability": [
+                "dex"
+              ],
+              "dc": {
+                "calculation": "",
+                "formula": "15"
+              }
+            },
+            "damage": {
+              "parts": [
+                {
+                  "number": 3,
+                  "denomination": 8,
+                  "bonus": "",
+                  "types": [
+                    "bludgeoning"
+                  ],
+                  "custom": {
+                    "enabled": false,
+                    "formula": ""
+                  },
+                  "scaling": {
+                    "mode": "",
+                    "number": null,
+                    "formula": ""
+                  }
+                }
+              ],
+              "onSave": "half",
+              "critical": {
+                "allow": false
+              }
+            }
+          }
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 500000,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "uHYTu5r6uM5cCXDR",
+      "name": "Cackling Fit",
+      "type": "feat",
+      "img": "icons/magic/sonic/scream-wail-shout-teal.webp",
+      "system": {
+        "description": {
+          "value": "<p><em>Recharge 6.</em> The Countess laughs and every helm in the room laughs with her. Each creature within 30 feet that can hear her must make a DC 15 Wisdom saving throw, taking 4d6 psychic damage and losing its reaction until the end of its next turn on a failed save, or half as much damage on a successful one. Constructs and helm-bound creatures are unaffected.</p>",
+          "chat": ""
+        },
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "activation": {},
+        "duration": {},
+        "target": {},
+        "range": {},
+        "uses": {
+          "spent": 0,
+          "max": "1",
+          "recovery": [
+            {
+              "period": "recharge",
+              "formula": "6"
+            }
+          ]
+        },
+        "activities": {
+          "xnQxMp7F5Kn4bEfz": {
+            "_id": "xnQxMp7F5Kn4bEfz",
+            "type": "save",
+            "name": "",
+            "img": null,
+            "sort": 0,
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [
+                {
+                  "type": "itemUses",
+                  "value": "1",
+                  "target": "",
+                  "scaling": {}
+                }
+              ],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "radius",
+                "size": "30",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "creature",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "save": {
+              "ability": [
+                "wis"
+              ],
+              "dc": {
+                "calculation": "",
+                "formula": "15"
+              }
+            },
+            "damage": {
+              "parts": [
+                {
+                  "number": 4,
+                  "denomination": 6,
+                  "bonus": "",
+                  "types": [
+                    "psychic"
+                  ],
+                  "custom": {
+                    "enabled": false,
+                    "formula": ""
+                  },
+                  "scaling": {
+                    "mode": "",
+                    "number": null,
+                    "formula": ""
+                  }
+                }
+              ],
+              "onSave": "half",
+              "critical": {
+                "allow": false
+              }
+            }
+          }
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 600000,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "VNye4ReqAOCWke3n",
+      "name": "Mechanical Reconstitution",
+      "type": "feat",
+      "img": "icons/tools/hand/wrench-mechanical-heal-blue.webp",
+      "system": {
+        "description": {
+          "value": "<p><em>Bonus action, 3/Day.</em> The throne's boiler eats a destroyed Fawful construct within 30 feet (the wreck is consumed). The Countess regains 15 hit points and her Helm Barrage recharges.</p>",
+          "chat": ""
+        },
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "activation": {},
+        "duration": {},
+        "target": {},
+        "range": {},
+        "uses": {
+          "spent": 0,
+          "max": "3",
+          "recovery": [
+            {
+              "period": "day",
+              "type": "recoverAll"
+            }
+          ]
+        },
+        "activities": {
+          "insx5w1kvOXocdPN": {
+            "_id": "insx5w1kvOXocdPN",
+            "type": "utility",
+            "name": "",
+            "img": null,
+            "sort": 0,
+            "activation": {
+              "type": "bonus",
+              "value": 1,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [
+                {
+                  "type": "itemUses",
+                  "value": "1",
+                  "target": "",
+                  "scaling": {}
+                }
+              ],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "value": "30",
+              "units": "ft",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "roll": {
+              "prompt": false,
+              "visible": false,
+              "name": "",
+              "formula": ""
+            }
+          }
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 700000,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "SUEetHuNnuQSmh57",
+      "name": "Scuttle",
+      "type": "feat",
+      "img": "icons/skills/movement/figure-running-gray.webp",
+      "system": {
+        "description": {
+          "value": "<p><em>Legendary action (1).</em> The throne scuttles up to 15 feet without provoking opportunity attacks.</p>",
+          "chat": ""
+        },
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "activation": {},
+        "duration": {},
+        "target": {},
+        "range": {},
+        "uses": {
+          "spent": 0,
+          "max": "",
+          "recovery": []
+        },
+        "activities": {
+          "niwFKogfurUNjSJh": {
+            "_id": "niwFKogfurUNjSJh",
+            "type": "utility",
+            "name": "",
+            "img": null,
+            "sort": 0,
+            "activation": {
+              "type": "legendary",
+              "value": 1,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [
+                {
+                  "type": "attribute",
+                  "value": "1",
+                  "target": "resources.legact.value",
+                  "scaling": {}
+                }
+              ],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "roll": {
+              "prompt": false,
+              "visible": false,
+              "name": "",
+              "formula": ""
+            }
+          }
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 800000,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "ftjSMGzaFSjyHbqA",
+      "name": "Claw",
+      "type": "feat",
+      "img": "icons/creatures/claws/claw-curved-jagged-yellow.webp",
+      "system": {
+        "description": {
+          "value": "<p><em>Legendary action (1).</em> The Countess makes one Throne Claw attack.</p>",
+          "chat": ""
+        },
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "activation": {},
+        "duration": {},
+        "target": {},
+        "range": {},
+        "uses": {
+          "spent": 0,
+          "max": "",
+          "recovery": []
+        },
+        "activities": {
+          "EmUkfxX28gNEFBcg": {
+            "_id": "EmUkfxX28gNEFBcg",
+            "type": "utility",
+            "name": "",
+            "img": null,
+            "sort": 0,
+            "activation": {
+              "type": "legendary",
+              "value": 1,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [
+                {
+                  "type": "attribute",
+                  "value": "1",
+                  "target": "resources.legact.value",
+                  "scaling": {}
+                }
+              ],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "roll": {
+              "prompt": false,
+              "visible": false,
+              "name": "",
+              "formula": ""
+            }
+          }
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 900000,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "TbUL5DK19WAxIqvM",
+      "name": "Decree (Costs 2 Actions)",
+      "type": "feat",
+      "img": "icons/magic/control/hypnosis-mesmerism-swirl.webp",
+      "system": {
+        "description": {
+          "value": "<p><em>Legendary action (2).</em> The Countess uses Fawful's Decree.</p>",
+          "chat": ""
+        },
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "activation": {},
+        "duration": {},
+        "target": {},
+        "range": {},
+        "uses": {
+          "spent": 0,
+          "max": "",
+          "recovery": []
+        },
+        "activities": {
+          "A3b0PiUUxHgGVCJz": {
+            "_id": "A3b0PiUUxHgGVCJz",
+            "type": "utility",
+            "name": "",
+            "img": null,
+            "sort": 0,
+            "activation": {
+              "type": "legendary",
+              "value": 2,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [
+                {
+                  "type": "attribute",
+                  "value": "2",
+                  "target": "resources.legact.value",
+                  "scaling": {}
+                }
+              ],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "roll": {
+              "prompt": false,
+              "visible": false,
+              "name": "",
+              "formula": ""
+            }
+          }
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 1000000,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "XgVFeeU45yqDyVfp",
+      "name": "Headmistress of Helms",
+      "type": "feat",
+      "img": "icons/magic/control/control-influence-crown-yellow.webp",
+      "system": {
+        "description": {
+          "value": "<p>The Countess's crown is built of Hypno-Helms and her mind is her own; she can't be charmed, and any creature charmed by a Hypno-Helm within 120 feet of her is charmed by her too and obeys her telepathic orders over the helm's.</p>",
+          "chat": ""
+        },
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "activation": {},
+        "duration": {},
+        "target": {},
+        "range": {},
+        "uses": {
+          "spent": 0,
+          "max": "",
+          "recovery": []
+        },
+        "activities": {},
+        "source": {
+          "custom": "Waluipedia campaign",
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 1100000,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "82gdPUTQHIkGWzkm",
+      "name": "Throne-Borne",
+      "type": "feat",
+      "img": "icons/commodities/tech/gear-wheels-double-steel.webp",
+      "system": {
+        "description": {
+          "value": "<p>The Countess rides a walking mechanical throne; the statblock is the pair. She can't be knocked prone while the throne stands, and the throne lets her climb. When she is reduced to 40 hit points or fewer the throne's legs buckle: her speed drops to 10 feet and she loses Throne Stomp and the Scuttle legendary action.</p>",
+          "chat": ""
+        },
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "activation": {},
+        "duration": {},
+        "target": {},
+        "range": {},
+        "uses": {
+          "spent": 0,
+          "max": "",
+          "recovery": []
+        },
+        "activities": {},
+        "source": {
+          "custom": "Waluipedia campaign",
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 1200000,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "kaRk1AM6duHFyBLK",
+      "name": "Legendary Resistance (1/Day)",
+      "type": "feat",
+      "img": "icons/magic/defensive/shield-barrier-flaming-diamond-orange.webp",
+      "system": {
+        "description": {
+          "value": "<p>If the Countess fails a saving throw, she can choose to succeed instead.</p>",
+          "chat": ""
+        },
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "activation": {},
+        "duration": {},
+        "target": {},
+        "range": {},
+        "uses": {
+          "spent": 0,
+          "max": "",
+          "recovery": []
+        },
+        "activities": {
+          "9eWFmkdTErfI2mwD": {
+            "_id": "9eWFmkdTErfI2mwD",
+            "type": "utility",
+            "name": "",
+            "img": null,
+            "sort": 0,
+            "activation": {
+              "type": "special",
+              "value": null,
+              "condition": "fails a saving throw",
+              "override": false
+            },
+            "consumption": {
+              "targets": [
+                {
+                  "type": "attribute",
+                  "value": "1",
+                  "target": "resources.legres.value",
+                  "scaling": {}
+                }
+              ],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "roll": {
+              "prompt": false,
+              "visible": false,
+              "name": "",
+              "formula": ""
+            }
+          }
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 1300000,
+      "ownership": {
+        "default": 0
+      }
+    }
+  ],
+  "effects": [],
+  "folder": null,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "waluipedia-mass-import": {
+      "folderPath": [
+        "Fawful's Furious Freaks",
+        "Lieutenants of Fury"
+      ],
+      "source": "tools/build-forge-packets.py"
+    },
+    "waluipedia-sheets": {
+      "tags": [
+        "fawful",
+        "beanish",
+        "humanoid",
+        "lieutenant",
+        "boss",
+        "controller",
+        "large"
+      ],
+      "color": "#32CD32",
+      "faction": "fawful_forces",
+      "forge": {
+        "roster": "data/forge/fawfuls-forces.json",
+        "entry": "countess-chortlebrass",
+        "seed": 410012
+      },
+      "art": "pending"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.365",
+    "systemId": "dnd5e",
+    "systemVersion": "5.3.3",
+    "compendiumSource": null,
+    "duplicateSource": null
+  }
+}

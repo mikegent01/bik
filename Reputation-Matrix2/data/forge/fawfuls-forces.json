@@ -1,0 +1,599 @@
+{
+  "format": "waluipedia-forge-roster/1",
+  "packet": "fawfuls-forces",
+  "name": "Fawful's Forces",
+  "title": "The Cackling Menace's garrison — the machines and the beans the party meets inside Peach's Castle",
+  "faction": "fawful_forces",
+  "group": "Fawful's Furious Freaks",
+  "color": "#32CD32",
+  "disposition": -1,
+  "file_prefix": "fvtt-Actor-ff-",
+  "portraits": "portraits/fawfuls-forces",
+  "renders": "npc-forge/fawfuls-forces/renders",
+  "source": "data/factions.json → fawful_forces (The Cackling Menace: Peach's Castle occupied, Bramblehaven fallen, the Fury Meter — minions, traps, Fawful-Bots and energy surges, Fury-Bots and the castle's main cannon, then the whole castle as a weapon; \"mechanize, mutate\")",
+  "style": "Clean cel-shaded cartoon character art in the style of Mario & Luigi RPG concept art, bold dark outlines, flat colours, simple shading.",
+  "framing": "Full body, whole figure visible, three-quarter view, centred, isolated on a plain flat solid magenta background (#FF00FF), no floor, no ground shadow, no text, no border.",
+  "negative": "photorealistic, 3d render, blurry, cropped, cut off, multiple characters, text, watermark, signature, border, frame, ground shadow, floor, background scenery, gradient background",
+  "background": "#FF00FF",
+  "render_size": [1408, 768],
+  "plate_size": 512,
+  "subfolders": {
+    "Machines of Fury": {"color": "#7CFC00", "description": "Fawful's constructs by Fury Meter tier — the wind-up Chortle-Bots, the intake drones and sprayers, the riveted Fury-Bots and the cannon-crawlers that follow when the meter climbs."},
+    "The Bean Garrison": {"color": "#9ACD32", "description": "The Beanish troops and vat-work of the occupation: garrison troopers, vial-flingers, the Furybean brutes and the helm-bound Toads they drag along."},
+    "Lieutenants of Fury": {"color": "#228B22", "description": "The two officers who keep the Fury Meter fed — Maestro Mustardo of the cannon crews and Countess Chortlebrass, headmistress of helms."}
+  },
+  "entries": [
+    {
+      "id": "chortle-bot",
+      "name": "Chortle-Bot",
+      "folder": "Machines of Fury",
+      "tier": "Fawful-Bot",
+      "role": "swarm skirmisher",
+      "type": "construct",
+      "subtype": "Fawful-Bot",
+      "size": "sm",
+      "alignment": "Unaligned",
+      "cr": 0.5,
+      "abilities": [10, 14, 12, 3, 8, 5],
+      "saves": [],
+      "skills": {},
+      "ac": 13,
+      "ac_words": "tin plating",
+      "hp": 18,
+      "hp_formula": "4d6+4",
+      "speed": {"walk": 30},
+      "senses": {"darkvision": 60},
+      "languages": {"value": [], "custom": "understands Beanish but only chortles"},
+      "di": ["poison", "psychic"],
+      "dr": [],
+      "dv": ["thunder"],
+      "ci": ["charmed", "exhaustion", "frightened", "paralyzed", "petrified", "poisoned"],
+      "traits": [
+        {"name": "Chortling Chorus", "icon": "grin", "text": "The Chortle-Bot has advantage on attack rolls while at least two other Chortle-Bots are within 10 feet of it; the giggling synchronises."},
+        {"name": "Wind-Up Key", "icon": "key", "text": "A creature within 5 feet of the Chortle-Bot can use an action to make a DC 12 Dexterity (Sleight of Hand) check to yank the key out of its back. On a success the Chortle-Bot is incapacitated until the end of its next turn and drops anything it is holding."}
+      ],
+      "attacks": [
+        {"name": "Spark-Prod", "icon": "sparks", "kind": "melee", "ability": "dex", "wtype": "natural", "reach": 5, "dmg": [1, 4, "piercing"], "extra": [[1, 4, "lightning"]], "props": ["fin"], "text": "<p><em>Melee Weapon Attack:</em> reach 5 ft., one target. <em>Hit:</em> 1d4 + 2 piercing damage plus 1d4 lightning damage.</p>"}
+      ],
+      "actions": [
+        {"name": "Giggle Overload", "icon": "zap", "activation": "special", "condition": "when the Chortle-Bot drops to 0 hit points", "save": {"ability": "dex", "dc": 10, "dmg": [[1, 6, "lightning"]], "half": false, "range": "self", "template": {"type": "radius", "size": 5}}, "text": "<p>When the Chortle-Bot drops to 0 hit points its laugh-capacitor bursts. Each creature within 5 feet of it must succeed on a DC 10 Dexterity saving throw or take 1d6 lightning damage.</p>"}
+      ],
+      "multiattack": null,
+      "look": "A small round lime-green tin robot shaped like a bean with a huge toothy grin, two round yellow glowing eyes, a brass wind-up key in its back, short stubby brass legs and arms, holding a sparking brass prod.",
+      "seed": 410001,
+      "plate": "chortle-bot",
+      "token_size": 1,
+      "bio": [
+        "<p>The cheapest thing Fawful builds and the thing he builds most of. A Chortle-Bot is a tin bean on legs with a laugh-capacitor where a mind should be: it giggles when it walks, giggles when it stabs, and giggles loudest when a dozen of them have found something to stab together. The faction article's Fury Meter puts \"Fawful-Bots\" on the third rung, after the minions and the traps — these are the first Fawful-Bots, the ones the occupation turns loose in the castle's corridors by the crate.</p>",
+        "<p>Alone, one is a nuisance that a Palace Guard can kick over. The danger is the chorus — three or more within ten feet of each other start timing their swings to the laugh — and the burst at the end, which has cost more than one careless boot a toe. The wind-up key is the joke Fawful never fixed: he thinks nobody will get close enough to use it.</p>"
+      ],
+      "tags": ["fawful", "construct", "fawful-bot", "swarm"]
+    },
+    {
+      "id": "intake-drone",
+      "name": "Intake Drone",
+      "folder": "Machines of Fury",
+      "tier": "Fawful-Bot",
+      "role": "flying grabber",
+      "type": "construct",
+      "subtype": "Fawful-Bot",
+      "size": "sm",
+      "alignment": "Unaligned",
+      "cr": 1,
+      "abilities": [12, 15, 12, 4, 10, 5],
+      "saves": [],
+      "skills": {"prc": 1},
+      "ac": 13,
+      "ac_words": "brass shell",
+      "hp": 27,
+      "hp_formula": "6d6+6",
+      "speed": {"walk": 10, "fly": 40, "hover": true},
+      "senses": {"darkvision": 60},
+      "languages": {"value": [], "custom": "understands Beanish but can't speak"},
+      "di": ["poison", "psychic"],
+      "dr": [],
+      "dv": [],
+      "ci": ["charmed", "exhaustion", "frightened", "paralyzed", "petrified", "poisoned", "prone"],
+      "traits": [
+        {"name": "Siphon", "icon": "vortex", "text": "A creature grappled by the Intake Drone takes 1d6 bludgeoning damage at the start of each of the drone's turns as the funnel chews at it, and the drone can fly while carrying a grappled Small or smaller creature."},
+        {"name": "Jam the Funnel", "icon": "jaw", "text": "A creature grappled by the drone, or within 5 feet of its funnel, can use an action to stuff something solid into the intake with a successful DC 12 Dexterity check. The drone takes 2d6 bludgeoning damage, releases anything it is grappling, and can't use Slurp until the end of its next turn."}
+      ],
+      "attacks": [
+        {"name": "Ram", "icon": "strike", "kind": "melee", "ability": "dex", "wtype": "natural", "reach": 5, "dmg": [1, 6, "bludgeoning"], "extra": [], "props": ["fin"], "text": "<p><em>Melee Weapon Attack:</em> reach 5 ft., one target. <em>Hit:</em> 1d6 + 2 bludgeoning damage.</p>"}
+      ],
+      "actions": [
+        {"name": "Slurp", "icon": "funnel", "activation": "action", "save": {"ability": "str", "dc": 12, "dmg": [], "half": false, "range": 15, "affects": {"count": 1, "type": "creature"}}, "text": "<p>The drone points its funnel at one creature it can see within 15 feet. The target must succeed on a DC 12 Strength saving throw or be pulled up to 10 feet straight toward the drone. If the pull ends with the target within 5 feet of the drone, the target is grappled (escape DC 12) — Medium or smaller only — and the drone's Siphon trait applies.</p>"}
+      ],
+      "multiattack": null,
+      "look": "A round brass and olive-green flying robot with a huge dark vacuum funnel for a mouth, a single red glowing lens eye, four small propeller rotors on brass arms, and crackling blue electricity under it instead of legs.",
+      "seed": 410002,
+      "plate": "intake-drone",
+      "token_size": 1,
+      "bio": [
+        "<p>The vacuum intake is the oldest trick in the Beanish playbook — the 1035 BF record has it on the head of Fawful's own double — and the Intake Drone is that trick given rotors. It drifts along the castle's ceilings, hums, and then hauls whatever it fancies ten feet across the floor and into the funnel. The occupation uses them as retrievers: a drone brings the Countess a prisoner the way a dog brings a stick.</p>",
+        "<p>Fight it like a grab, not a monster. The pull is the whole statblock; break the grapple, or jam the funnel with a helmet, a chair leg, a Chortle-Bot, and it wheezes and backs off for a turn. Rangers and anyone with a reach weapon do well against them; anyone fighting on a balcony does not.</p>"
+      ],
+      "tags": ["fawful", "construct", "fawful-bot", "flying"]
+    },
+    {
+      "id": "mustard-sprayer",
+      "name": "Mustard Sprayer",
+      "folder": "Machines of Fury",
+      "tier": "Fawful-Bot",
+      "role": "area controller",
+      "type": "construct",
+      "subtype": "Fawful-Bot",
+      "size": "med",
+      "alignment": "Unaligned",
+      "cr": 2,
+      "abilities": [14, 10, 14, 3, 8, 3],
+      "saves": [],
+      "skills": {},
+      "ac": 14,
+      "ac_words": "riveted tank plating",
+      "hp": 39,
+      "hp_formula": "6d8+12",
+      "speed": {"walk": 20},
+      "senses": {"darkvision": 60},
+      "languages": {"value": [], "custom": "understands Beanish but can't speak"},
+      "di": ["poison", "psychic"],
+      "dr": ["acid"],
+      "dv": ["fire"],
+      "ci": ["charmed", "exhaustion", "frightened", "paralyzed", "petrified", "poisoned"],
+      "traits": [
+        {"name": "Mustarded", "icon": "slime", "text": "A creature coated by the sprayer is <strong>mustarded</strong> until it or an ally uses an action to wipe it off (or it is doused in water). While mustarded a creature has disadvantage on Dexterity (Stealth) checks, Fawful's constructs have advantage on attack rolls against it (the sensors smell it), and the first time it takes fire damage the mustard flares for an extra 1d6 fire damage."},
+        {"name": "Pressurised Tank", "icon": "boom", "text": "When the sprayer drops to 0 hit points its tank bursts. Each creature within 10 feet of it must succeed on a DC 12 Dexterity saving throw or take 2d6 acid damage and become mustarded."}
+      ],
+      "attacks": [
+        {"name": "Nozzle Whack", "icon": "club", "kind": "melee", "ability": "str", "wtype": "natural", "reach": 5, "dmg": [1, 8, "bludgeoning"], "extra": [], "props": [], "text": "<p><em>Melee Weapon Attack:</em> reach 5 ft., one target. <em>Hit:</em> 1d8 + 2 bludgeoning damage.</p>"},
+        {"name": "Splatter", "icon": "acid", "kind": "ranged", "ability": "dex", "wtype": "natural", "range": [30, 60], "dmg": [1, 6, "acid"], "extra": [], "props": [], "text": "<p><em>Ranged Weapon Attack:</em> range 30/60 ft., one target. <em>Hit:</em> 1d6 acid damage and the target is mustarded.</p>"}
+      ],
+      "actions": [
+        {"name": "Mustard of Doom", "icon": "acid_pool", "activation": "action", "uses": ["recharge", 5], "save": {"ability": "dex", "dc": 12, "dmg": [[3, 6, "acid"]], "half": true, "range": "self", "template": {"type": "line", "size": 15, "width": 5}}, "text": "<p><em>Recharge 5–6.</em> The sprayer vents a 15-foot line of boiling mustard 5 feet wide. Each creature in the line must make a DC 12 Dexterity saving throw, taking 3d6 acid damage on a failed save or half as much on a successful one. A creature that fails is mustarded.</p>"}
+      ],
+      "multiattack": null,
+      "look": "A squat round green robot on tank treads with a grinning face plate, a big mustard-yellow pressure tank on its back with brass pipes and gauges, a long brass hose arm ending in a nozzle dripping yellow mustard, yellow splashes on its body.",
+      "seed": 410003,
+      "plate": "mustard-sprayer",
+      "token_size": 1,
+      "bio": [
+        "<p>Fawful's hatred of mustard is a matter of record — the rants are quoted in the faction article — and the Mustard Sprayer is the revenge he took on it: a boiler of the stuff on treads, aimed at other people. It is slow and it is loud, and that is the point; a Sprayer is sent down a corridor first so that whatever is waiting at the end of it will be coated and easy for the drones to smell.</p>",
+        "<p>The tank is the weak point and the trap. Fire takes it apart quickly (it is vulnerable) and takes everyone standing next to it along for the ride, mustarded. Wipe the coat off before the Fury-Bots arrive; they hit a mustarded target far more often than a clean one.</p>"
+      ],
+      "tags": ["fawful", "construct", "fawful-bot", "area"]
+    },
+    {
+      "id": "hypno-helm",
+      "name": "Hypno-Helm",
+      "folder": "Machines of Fury",
+      "tier": "Fawful-Bot",
+      "role": "controller",
+      "type": "construct",
+      "subtype": "Fawful-Bot",
+      "size": "tiny",
+      "alignment": "Unaligned",
+      "cr": 2,
+      "abilities": [6, 16, 14, 6, 12, 10],
+      "saves": [],
+      "skills": {"ste": 1},
+      "ac": 14,
+      "ac_words": "helmet shell",
+      "hp": 36,
+      "hp_formula": "8d4+16",
+      "speed": {"walk": 30, "climb": 30},
+      "senses": {"darkvision": 60},
+      "languages": {"value": [], "custom": "speaks Beanish and Common in Fawful's voice"},
+      "di": ["poison", "psychic"],
+      "dr": [],
+      "dv": [],
+      "ci": ["charmed", "exhaustion", "frightened", "paralyzed", "petrified", "poisoned", "prone"],
+      "traits": [
+        {"name": "Fawful's Voice", "icon": "hypno", "text": "A creature the helm is attached to and has charmed hears Fawful's voice in its own head. At the start of each of the host's turns the helm chooses how the host moves and what action it takes (the host can't take bonus actions or reactions the helm doesn't ask for). The host can repeat the DC 13 Wisdom saving throw at the end of each of its turns; on a success it is no longer charmed until the end of its next turn, but the helm stays attached and may try again. A host that takes damage from the helm's side has advantage on its next save."},
+        {"name": "Riding the Host", "icon": "hold", "text": "While attached, the helm moves with the host and has three-quarters cover from everyone but the host. An attack roll against the attached helm that misses by 4 or less hits the host instead. The helm comes off when it drops to 0 hit points or when a creature within 5 feet of the host uses an action to tear it off with a successful DC 13 Strength (Athletics) check (the host can't do this itself while charmed). When it comes off, the host takes 1d6 psychic damage as the swirl stops and is no longer charmed."}
+      ],
+      "attacks": [
+        {"name": "Latch On", "icon": "jaw", "kind": "melee", "ability": "dex", "wtype": "natural", "reach": 5, "dmg": [1, 4, "bludgeoning"], "extra": [], "props": ["fin"], "text": "<p><em>Melee Weapon Attack:</em> reach 5 ft., one Medium or smaller creature. <em>Hit:</em> 1d4 + 3 bludgeoning damage and the helm clamps onto the target's head. The target must succeed on a DC 13 Wisdom saving throw (with advantage if it is already wearing a helmet) or be charmed by the helm while it is attached (see Fawful's Voice). The helm can be attached to only one creature at a time.</p>"}
+      ],
+      "actions": [
+        {"name": "Swirl Flash", "icon": "eye", "activation": "action", "uses": ["recharge", 5], "save": {"ability": "wis", "dc": 13, "dmg": [], "half": false, "range": "self", "template": {"type": "radius", "size": 15}}, "text": "<p><em>Recharge 5–6.</em> The visor spins. Each creature within 15 feet of the helm that can see it must succeed on a DC 13 Wisdom saving throw or be incapacitated until the end of its next turn, giggling helplessly. A creature that is charmed by a Hypno-Helm automatically fails.</p>"}
+      ],
+      "multiattack": null,
+      "look": "A green dome-shaped robotic helmet with a glowing hypnotic spiral visor on the front, a brass funnel on top, a thin antenna with a red bulb, walking on four thin brass spider legs with little claws.",
+      "seed": 410004,
+      "plate": "hypno-helm",
+      "token_size": 1,
+      "bio": [
+        "<p>The helm is the same make as the one Fawful's double wore at Bowser's Castle in 1035 BF, miniaturised and given legs. The faction article lists the occupation's second verb as \"mutate\"; this is the first — a crawling helmet that hunts a head, clamps on, and starts giving orders in Fawful's voice. The Vat-Warped Thralls in the Bean Garrison folder are what a Hypno-Helm looks like a month later.</p>",
+        "<p>Expect it to go for the party's biggest hitter. The host's friends have three choices: knock the helm off (an action, Athletics), hit it off (attacks that miss narrowly hit the friend), or knock the friend out of the fight until the save sticks. Tearing it off hurts; leaving it on hurts more.</p>"
+      ],
+      "tags": ["fawful", "construct", "fawful-bot", "controller"]
+    },
+    {
+      "id": "fury-bot",
+      "name": "Fury-Bot",
+      "folder": "Machines of Fury",
+      "tier": "Fury-Bot",
+      "role": "front-line brute",
+      "type": "construct",
+      "subtype": "Fury-Bot",
+      "size": "med",
+      "alignment": "Unaligned",
+      "cr": 3,
+      "abilities": [16, 10, 16, 4, 10, 6],
+      "saves": [],
+      "skills": {},
+      "ac": 15,
+      "ac_words": "riveted plating and shield",
+      "hp": 52,
+      "hp_formula": "7d8+21",
+      "speed": {"walk": 25},
+      "senses": {"darkvision": 60},
+      "languages": {"value": [], "custom": "understands Beanish but can't speak"},
+      "di": ["poison", "psychic"],
+      "dr": [],
+      "dv": [],
+      "ci": ["charmed", "exhaustion", "frightened", "paralyzed", "petrified", "poisoned"],
+      "traits": [
+        {"name": "I HAVE FURY!", "icon": "muscle", "text": "While the Fury Meter stands at the Fury-Bot tier or higher (the GM's call — it does for as long as Fawful holds the castle), the Fury-Bot deals an extra 2 damage with its Drill and can't take the Disengage action. It must move toward the nearest hostile creature it can see each turn if it can."},
+        {"name": "Siege Monster", "icon": "hammer", "text": "The Fury-Bot deals double damage to objects and structures."}
+      ],
+      "attacks": [
+        {"name": "Drill", "icon": "drill", "kind": "melee", "ability": "str", "wtype": "natural", "reach": 5, "dmg": [2, 8, "piercing"], "extra": [], "props": [], "text": "<p><em>Melee Weapon Attack:</em> reach 5 ft., one target. <em>Hit:</em> 2d8 + 3 piercing damage (+2 while enraged by the Fury Meter). If the Fury-Bot moved at least 20 feet straight toward the target immediately before the attack, the drill bites for an extra 2d8 piercing damage and the target is pushed 5 feet away.</p>"},
+        {"name": "Shield Bash", "icon": "shield", "kind": "melee", "ability": "str", "wtype": "natural", "reach": 5, "dmg": [1, 6, "bludgeoning"], "extra": [], "props": [], "text": "<p><em>Melee Weapon Attack:</em> reach 5 ft., one target. <em>Hit:</em> 1d6 + 3 bludgeoning damage, and if the target is Medium or smaller it must succeed on a DC 13 Strength saving throw or be knocked prone.</p>"}
+      ],
+      "actions": [
+        {"name": "Shield Guard", "icon": "kite", "activation": "reaction", "condition": "when a creature within 5 feet of the Fury-Bot is hit by an attack", "text": "<p>The Fury-Bot swings its riveted shield in front of an ally within 5 feet that has just been hit by an attack. The ally gains a +3 bonus to AC against that attack, which may cause it to miss.</p>"}
+      ],
+      "multiattack": "The Fury-Bot makes two attacks: one with its Drill and one with its Shield Bash.",
+      "look": "A heavy green and brass robot on tank treads, round armoured body with a glowing red eye lens, a big spinning steel drill for the right arm, a round riveted brass shield with an angry grinning face for the left arm, brass pipes and rivets.",
+      "seed": 410005,
+      "plate": "fury-bot",
+      "token_size": 1,
+      "bio": [
+        "<p>The Fury Meter's fourth rung, in the faction article's own words: \"Fury-Bots and the castle's main cannon\". Where a Chortle-Bot is tin, a Fury-Bot is boilerplate — a drill, a shield with a grin riveted onto it, and a governor that only has one setting. The occupation uses them as door-openers and as the wall that stands in front of the Bean Garrison when the garrison is reloading.</p>",
+        "<p>It is not clever. It will charge the nearest thing, drill it, and keep drilling; the extra damage on a straight 20-foot run is how it kills, so fight it in tight corners, around furniture, or with something prone on the floor between you. The shield guard reaction means the thing standing <em>behind</em> a Fury-Bot is harder to hit than it looks.</p>"
+      ],
+      "tags": ["fawful", "construct", "fury-bot", "brute"]
+    },
+    {
+      "id": "boom-crawler",
+      "name": "Boom-Crawler",
+      "folder": "Machines of Fury",
+      "tier": "Fury-Bot",
+      "role": "artillery",
+      "type": "construct",
+      "subtype": "Fury-Bot",
+      "size": "lg",
+      "alignment": "Unaligned",
+      "cr": 4,
+      "abilities": [18, 8, 16, 3, 10, 3],
+      "saves": [],
+      "skills": {},
+      "ac": 14,
+      "ac_words": "cast-iron barrel housing",
+      "hp": 68,
+      "hp_formula": "8d10+24",
+      "speed": {"walk": 30, "climb": 20},
+      "senses": {"darkvision": 60},
+      "languages": {"value": [], "custom": "understands Beanish but can't speak"},
+      "di": ["poison", "psychic"],
+      "dr": ["fire"],
+      "dv": [],
+      "ci": ["charmed", "exhaustion", "frightened", "paralyzed", "petrified", "poisoned"],
+      "traits": [
+        {"name": "Siege Monster", "icon": "hammer", "text": "The Boom-Crawler deals double damage to objects and structures."},
+        {"name": "Overheat", "icon": "boom", "text": "After the crawler fires its Fury Cannon it vents until the end of its next turn: a creature that starts its turn within 5 feet of it takes 1d6 fire damage, and attack rolls against the crawler have advantage."},
+        {"name": "Jam the Barrel", "icon": "halt", "text": "A creature within 5 feet of the muzzle can use an action to make a DC 15 Dexterity (Sleight of Hand) or Strength (Athletics) check to jam the barrel. On a success the next time the crawler fires its Fury Cannon the shot misfires: it detonates on the crawler instead, dealing 4d8 fire damage to it (its resistance applies), and the cannon can't fire again until a creature spends one minute clearing it."}
+      ],
+      "attacks": [
+        {"name": "Stomp", "icon": "stomp", "kind": "melee", "ability": "str", "wtype": "natural", "reach": 10, "dmg": [2, 8, "bludgeoning"], "extra": [], "props": [], "text": "<p><em>Melee Weapon Attack:</em> reach 10 ft., one target. <em>Hit:</em> 2d8 + 4 bludgeoning damage.</p>"}
+      ],
+      "actions": [
+        {"name": "Fury Cannon", "icon": "cannon", "activation": "action", "uses": ["recharge", 5], "save": {"ability": "dex", "dc": 14, "dmg": [[5, 8, "fire"]], "half": true, "range": 120, "template": {"type": "radius", "size": 15}}, "text": "<p><em>Recharge 5–6.</em> The crawler fires a shell at a point it can see within 120 feet. Each creature within 15 feet of that point must make a DC 14 Dexterity saving throw, taking 5d8 fire damage on a failed save or half as much on a successful one. Nonmagical objects and structures in the area take double damage. The crawler then overheats (see Overheat).</p>"}
+      ],
+      "multiattack": "The Boom-Crawler makes two Stomp attacks.",
+      "look": "A large cannon-shaped robot: a big dark green iron cannon barrel body with brass bands and rivets, a single round yellow eye on the breech, six jointed brass spider legs, a lit sparking fuse on top, small puffs of smoke.",
+      "seed": 410006,
+      "plate": "boom-crawler",
+      "token_size": 2,
+      "bio": [
+        "<p>A piece of the castle's main cannon that learned to walk. The Boom-Crawler is what the Fury Meter means when the article says the whole castle becomes a weapon — not one gun on the roof but a dozen smaller ones on legs, crawling along the galleries and firing down into the courtyards. Each is crewed by nothing; the fuse lights itself.</p>",
+        "<p>Treat it as a siege encounter. The shell is the threat, the recharge is the rhythm, and the vent after each shot is the opening: it is slow, hot and easy to hit for a round. A brave hand on the muzzle can jam the barrel and let the crawler blow its own breech. Keep the party spread so one shell never catches three.</p>"
+      ],
+      "tags": ["fawful", "construct", "fury-bot", "artillery", "large"]
+    },
+    {
+      "id": "garrison-trooper",
+      "name": "Beanish Garrison Trooper",
+      "folder": "The Bean Garrison",
+      "tier": "minion",
+      "role": "line infantry",
+      "type": "humanoid",
+      "subtype": "Beanish",
+      "size": "sm",
+      "alignment": "Lawful Evil",
+      "cr": 0.5,
+      "abilities": [11, 14, 14, 10, 10, 8],
+      "saves": [],
+      "skills": {"prc": 1},
+      "ac": 14,
+      "ac_words": "garrison coat (padded) and cap",
+      "hp": 16,
+      "hp_formula": "3d6+6",
+      "speed": {"walk": 30},
+      "senses": {},
+      "languages": {"value": ["common"], "custom": "Beanish"},
+      "di": [],
+      "dr": [],
+      "dv": [],
+      "ci": [],
+      "traits": [
+        {"name": "Garrison Drill", "icon": "shield", "text": "The trooper has a +1 bonus to AC while another Beanish Garrison Trooper is within 5 feet of it; they are drilled to stand close."},
+        {"name": "\"I HAVE FURY!\"", "icon": "shout", "text": "The first time the trooper is reduced to half its hit points or fewer it shouts the garrison's war cry: it has advantage on its next attack roll before the end of its next turn, and every Fawful construct within 30 feet that can hear it may move 5 feet as a reaction."}
+      ],
+      "attacks": [
+        {"name": "Spark-Lance", "icon": "spear", "kind": "melee", "ability": "dex", "wtype": "martialM", "reach": 10, "dmg": [1, 8, "piercing"], "extra": [[1, 4, "lightning"]], "props": ["rch", "fin"], "text": "<p><em>Melee Weapon Attack:</em> reach 10 ft., one target. <em>Hit:</em> 1d8 + 2 piercing damage plus 1d4 lightning damage.</p>"}
+      ],
+      "actions": [
+        {"name": "Spark Discharge", "icon": "bolt", "activation": "action", "uses": [1, "day"], "save": {"ability": "dex", "dc": 12, "dmg": [[2, 6, "lightning"]], "half": true, "range": 30, "affects": {"count": 1, "type": "creature"}}, "text": "<p><em>1/Day.</em> The trooper vents the lance's charge at one creature it can see within 30 feet. The target must make a DC 12 Dexterity saving throw, taking 2d6 lightning damage on a failed save or half as much on a successful one. The lance deals no lightning damage with its melee attacks until the trooper finishes a short rest.</p>"}
+      ],
+      "multiattack": null,
+      "look": "A small lime-green bean-shaped humanoid soldier with a wide grin and round eyes, wearing a dark green military uniform coat with belt and a peaked officer's cap with a spiral badge, brown boots, holding a long brass spark-lance polearm crackling with blue electricity.",
+      "seed": 410007,
+      "plate": "garrison-trooper",
+      "token_size": 1,
+      "bio": [
+        "<p>The beans who came with Fawful and the beans who joined him once the castle fell — the garrison is both, in one coat. The faction article's first Fury Meter rung is plainly \"minions\", and a trooper is that: a spark-lance, a cap with a swirl on it, a chant they are drilled to shout at the first drop of blood. They hold doors, walk prisoners and stand in front of the vats.</p>",
+        "<p>In numbers they are an infantry line with reach; alone they fold. The war cry is the thing to watch — it moves every construct in earshot a step closer — so a party that wants a quiet corridor silences the trooper first.</p>"
+      ],
+      "tags": ["fawful", "beanish", "humanoid", "minion"]
+    },
+    {
+      "id": "vial-flinger",
+      "name": "Vial-Flinger",
+      "folder": "The Bean Garrison",
+      "tier": "specialist",
+      "role": "alchemist skirmisher",
+      "type": "humanoid",
+      "subtype": "Beanish",
+      "size": "sm",
+      "alignment": "Neutral Evil",
+      "cr": 2,
+      "abilities": [9, 15, 12, 14, 11, 10],
+      "saves": [],
+      "skills": {"arc": 1, "slt": 1},
+      "ac": 13,
+      "ac_words": "leather apron",
+      "hp": 31,
+      "hp_formula": "7d6+7",
+      "speed": {"walk": 30},
+      "senses": {},
+      "languages": {"value": ["common"], "custom": "Beanish"},
+      "di": [],
+      "dr": ["acid"],
+      "dv": [],
+      "ci": [],
+      "traits": [
+        {"name": "Bandolier", "icon": "flask_yellow", "text": "The flinger carries a bandolier of vat-brewed vials. Each special vial (Snare Gel, Fury Fizz, Smoke Vial) is a separate use tracked on its own action; a creature that searches the body finds 1d4 intact Mustard Flasks (2d6 acid, thrown 20/60)."}
+      ],
+      "attacks": [
+        {"name": "Mustard Flask", "icon": "acid", "kind": "ranged", "ability": "dex", "wtype": "simpleR", "range": [20, 60], "dmg": [2, 6, "acid"], "extra": [], "props": ["thr"], "text": "<p><em>Ranged Weapon Attack:</em> range 20/60 ft., one target. <em>Hit:</em> 2d6 acid damage and the target is <strong>mustarded</strong> (disadvantage on Stealth checks, Fawful's constructs have advantage on attack rolls against it, and the first fire damage it takes flares for an extra 1d6) until it or an ally uses an action to wipe it off.</p>"},
+        {"name": "Bean-Knife", "icon": "dagger", "kind": "melee", "ability": "dex", "wtype": "simpleM", "reach": 5, "dmg": [1, 4, "piercing"], "extra": [], "props": ["fin", "lgt"], "text": "<p><em>Melee Weapon Attack:</em> reach 5 ft., one target. <em>Hit:</em> 1d4 + 2 piercing damage.</p>"}
+      ],
+      "actions": [
+        {"name": "Snare Gel", "icon": "snare", "activation": "action", "uses": [2, "day"], "save": {"ability": "dex", "dc": 13, "dmg": [], "half": false, "range": 30, "affects": {"count": 1, "type": "creature"}}, "text": "<p><em>2/Day.</em> The flinger lobs a vial of green gel at a creature it can see within 30 feet. The target must succeed on a DC 13 Dexterity saving throw or be restrained by hardening gel until it escapes (DC 13 Strength check as an action, or 5 fire damage to the gel).</p>"},
+        {"name": "Fury Fizz", "icon": "flask_red", "activation": "bonus", "uses": [2, "day"], "range": 30, "text": "<p><em>2/Day, bonus action.</em> The flinger throws a red fizzing vial to one ally it can see within 30 feet. A Beanish ally gains 10 temporary hit points and deals +2 damage with its attacks until the end of its next turn; a Fawful construct regains 10 hit points instead.</p>"},
+        {"name": "Smoke Vial", "icon": "smoke_green", "activation": "reaction", "uses": [1, "day"], "condition": "when the flinger is hit by an attack", "text": "<p><em>1/Day, reaction.</em> When it is hit by an attack the flinger drops a smoke vial at its feet: a 10-foot-radius sphere centred on it is heavily obscured until the start of its next turn, and it immediately moves up to 15 feet without provoking opportunity attacks.</p>"}
+      ],
+      "multiattack": null,
+      "look": "A small lime-green bean-shaped humanoid alchemist with a toothy grin, wearing a green pith helmet with brass goggles, a stained brown leather apron over a dark coat, a bandolier of coloured potion vials across the chest, brown boots, holding up a glowing flask.",
+      "seed": 410008,
+      "plate": "vial-flinger",
+      "token_size": 1,
+      "bio": [
+        "<p>Every vat needs a bean to stir it. The Vial-Flingers are the garrison's chemists — the ones who brew the mustard for the sprayers, the gel for the snares and the red fizz that keeps a Furybean on its feet — and when the alarm sounds they come out of the cellars with the bandolier still on. They fight from the back, behind the troopers and the Fury-Bots, and throw.</p>",
+        "<p>Kill the flinger early or the fight goes on longer than it should: a fizz on a construct is ten hit points back, and a snare on a cleric is a round without healing. They are soft, they hate melee, and the smoke trick works once.</p>"
+      ],
+      "tags": ["fawful", "beanish", "humanoid", "alchemist", "support"]
+    },
+    {
+      "id": "furybean-brute",
+      "name": "Furybean Brute",
+      "folder": "The Bean Garrison",
+      "tier": "vat-work",
+      "role": "mutated brute",
+      "type": "humanoid",
+      "subtype": "Beanish, vat-warped",
+      "size": "med",
+      "alignment": "Chaotic Evil",
+      "cr": 3,
+      "abilities": [18, 10, 16, 5, 8, 6],
+      "saves": [],
+      "skills": {"ath": 1},
+      "ac": 13,
+      "ac_words": "thick vat hide",
+      "hp": 60,
+      "hp_formula": "8d8+24",
+      "speed": {"walk": 30},
+      "senses": {"darkvision": 60},
+      "languages": {"value": [], "custom": "Beanish (a few words, mostly FURY)"},
+      "di": [],
+      "dr": [],
+      "dv": ["cold"],
+      "ci": [],
+      "traits": [
+        {"name": "Vat Regeneration", "icon": "heart_green", "text": "The brute regains 5 hit points at the start of each of its turns if it has at least 1 hit point and has taken no cold damage since the end of its last turn. The vat growth hates the cold."},
+        {"name": "Vat-Grown Bulk", "icon": "muscle", "text": "The brute counts as Large for the purpose of grappling and of being grappled, pushed or knocked prone, and can grapple two creatures at once, one in each hand."},
+        {"name": "Tantrum", "icon": "shout", "text": "The first time the brute is reduced to half its hit points or fewer, it can use its reaction to make one Slam attack against each creature within 5 feet of it."}
+      ],
+      "attacks": [
+        {"name": "Slam", "icon": "fist", "kind": "melee", "ability": "str", "wtype": "natural", "reach": 5, "dmg": [2, 6, "bludgeoning"], "extra": [], "props": [], "text": "<p><em>Melee Weapon Attack:</em> reach 5 ft., one target. <em>Hit:</em> 2d6 + 4 bludgeoning damage.</p>"},
+        {"name": "Grab", "icon": "chains", "kind": "melee", "ability": "str", "wtype": "natural", "reach": 5, "dmg": [1, 6, "bludgeoning"], "extra": [], "props": [], "text": "<p><em>Melee Weapon Attack:</em> reach 5 ft., one Medium or smaller creature. <em>Hit:</em> 1d6 + 4 bludgeoning damage and the target is grappled (escape DC 14). The brute can hold two creatures this way.</p>"}
+      ],
+      "actions": [
+        {"name": "Hurl", "icon": "spin", "activation": "action", "save": {"ability": "dex", "dc": 14, "dmg": [[2, 6, "bludgeoning"]], "half": false, "range": 20, "affects": {"count": 1, "type": "creature"}}, "text": "<p>The brute throws a creature it is grappling up to 20 feet in a straight line. The thrown creature lands prone and takes 2d6 bludgeoning damage; if it lands on another creature, that creature must succeed on a DC 14 Dexterity saving throw or take the same damage and fall prone too.</p>"}
+      ],
+      "multiattack": "The Furybean Brute makes two attacks: two Slams, or one Slam and one Grab.",
+      "look": "A huge hulking lime-green bean-shaped brute with bulging muscles, green vein patterns, an enormous furious open mouth full of teeth, tiny angry eyes, wearing torn mustard-yellow overalls with brass buckles and brown boots, fists clenched.",
+      "seed": 410009,
+      "plate": "furybean-brute",
+      "token_size": 1,
+      "bio": [
+        "<p>\"Mutate\" is the faction article's word; the garrison's is \"the vats\". A Furybean started as a trooper who volunteered, or did not, for a week in the green tanks under the kitchens, and came out twice the size with a vocabulary of one word. They are kept behind the Fury-Bots until something needs lifting, throwing or breaking, and then they are let go.</p>",
+        "<p>The regeneration is the fight: five a turn, forever, unless the party brings cold. Anything frosty — a spell, a wand, a bucket of the castle's own ice-house — shuts it off for a round and the brute is suddenly a big slow bag of hit points. Expect it to grab a small party member and throw them at a large one.</p>"
+      ],
+      "tags": ["fawful", "beanish", "humanoid", "mutant", "brute"]
+    },
+    {
+      "id": "vat-warped-thrall",
+      "name": "Vat-Warped Thrall",
+      "folder": "The Bean Garrison",
+      "tier": "vat-work",
+      "role": "helm-bound captive",
+      "type": "humanoid",
+      "subtype": "Toad, helm-bound",
+      "size": "sm",
+      "alignment": "Unaligned (charmed)",
+      "cr": 2,
+      "abilities": [15, 10, 16, 7, 6, 5],
+      "saves": [],
+      "skills": {},
+      "ac": 12,
+      "ac_words": "vine-knit skin",
+      "hp": 39,
+      "hp_formula": "6d6+18",
+      "speed": {"walk": 25},
+      "senses": {},
+      "languages": {"value": ["common"], "custom": "but speaks only in Fawful's phrases"},
+      "di": [],
+      "dr": [],
+      "dv": [],
+      "ci": ["frightened"],
+      "traits": [
+        {"name": "Helm-Bound", "icon": "helm_tech", "text": "A Hypno-Helm is fused to the thrall's cap. The thrall is charmed by Fawful's Forces, can't be charmed by anyone else, and obeys the nearest Beanish officer or Hypno-Helm it can hear. It takes no damage from the helm's removal — it is past that."},
+        {"name": "Someone's Neighbour", "icon": "mushroom", "text": "The thrall is a citizen of Toad Town under there. A creature within 5 feet can use an action to pry the fused helm loose with a successful DC 15 Strength (Athletics) or Dexterity (Sleight of Hand) check, with advantage if the thrall is grappled, restrained or incapacitated. When the helm comes off the thrall falls prone and is incapacitated for 1 minute, then wakes as a commoner with no memory of the vats and the vines wither over the following day. Reducing the thrall to 0 hit points kills the citizen; a creature that chooses to knock it out instead may do so."},
+        {"name": "Vine-Knit", "icon": "vine", "text": "The vat vines hold the thrall together: it has advantage on saving throws against being knocked prone, and while it has at least 1 hit point it regains 3 hit points at the start of its turn unless it took fire damage since the end of its last turn."}
+      ],
+      "attacks": [
+        {"name": "Wrench", "icon": "wrench", "kind": "melee", "ability": "str", "wtype": "simpleM", "reach": 5, "dmg": [1, 8, "bludgeoning"], "extra": [], "props": [], "text": "<p><em>Melee Weapon Attack:</em> reach 5 ft., one target. <em>Hit:</em> 1d8 + 2 bludgeoning damage.</p>"},
+        {"name": "Vine Lash", "icon": "vine", "kind": "melee", "ability": "str", "wtype": "natural", "reach": 10, "dmg": [1, 6, "slashing"], "extra": [], "props": ["rch"], "text": "<p><em>Melee Weapon Attack:</em> reach 10 ft., one target. <em>Hit:</em> 1d6 + 2 slashing damage and, if the target is Medium or smaller, it is grappled by the vines (escape DC 12) and pulled 5 feet toward the thrall.</p>"}
+      ],
+      "actions": [],
+      "multiattack": "The thrall makes two attacks: one with its Wrench and one with its Vine Lash.",
+      "look": "A small Toad person with a red and white spotted mushroom cap, a green Hypno-Helm visor with a glowing hypnotic spiral fused over the eyes, a blank slack expression, a blue vest and white trousers, thorny green vines growing over the arms and legs, holding a brass wrench.",
+      "seed": 410010,
+      "plate": "vat-warped-thrall",
+      "token_size": 1,
+      "bio": [
+        "<p>The occupation's worst habit. A Toad taken in the castle or the town, fitted with a Hypno-Helm, left in the vats until the vines took and the helm no longer needed to talk. The faction article says Fawful's forces \"mechanize, mutate\"; the thrall is the second word done to a person. The garrison uses them as porters, as sappers and, when a fight starts, as the thing between the party and the Beanish officer.</p>",
+        "<p>This is the moral encounter in the packet, and the sheet says so. A thrall can be freed in the middle of a fight by anyone willing to spend an action and a good roll on the helm instead of the wrench; a thrall can also be killed, and that is a citizen of Toad Town dead, which the Peach Loyalists and the Toads will hear about. Fire stops the vine healing; nothing else does.</p>"
+      ],
+      "tags": ["fawful", "toad", "humanoid", "captive", "charmed"]
+    },
+    {
+      "id": "maestro-mustardo",
+      "name": "Maestro Mustardo",
+      "folder": "Lieutenants of Fury",
+      "tier": "lieutenant",
+      "role": "artillery officer",
+      "type": "humanoid",
+      "subtype": "Beanish",
+      "size": "sm",
+      "alignment": "Lawful Evil",
+      "cr": 5,
+      "abilities": [10, 13, 14, 16, 12, 15],
+      "saves": ["dex", "int"],
+      "skills": {"arc": 1, "prc": 1, "prf": 1},
+      "ac": 15,
+      "ac_words": "apron of armour plates (breastplate)",
+      "hp": 82,
+      "hp_formula": "15d6+30",
+      "speed": {"walk": 30},
+      "senses": {},
+      "languages": {"value": ["common"], "custom": "Beanish"},
+      "di": [],
+      "dr": ["acid", "fire"],
+      "dv": [],
+      "ci": [],
+      "traits": [
+        {"name": "Condiment Conductor", "icon": "music", "text": "Fawful constructs within 30 feet of the Maestro that can hear his baton add 1 to their attack rolls; he keeps the tempo."},
+        {"name": "Mustard Suit", "icon": "mustard", "text": "The Maestro's coat and apron are soaked, lined and pressurised with his own product: he has resistance to acid and fire damage and is permanently, cheerfully mustarded (constructs smell him too; they are drilled not to care)."},
+        {"name": "Fury Rising", "icon": "nuke", "text": "The first time the Maestro is reduced to half his hit points or fewer, the Fury Meter ticks: every Fawful construct within 60 feet of him regains 10 hit points and deals +2 damage with its attacks for the rest of the fight, and his Cannon Call recharges if it was spent."}
+      ],
+      "attacks": [
+        {"name": "Sauce Shot", "icon": "acid", "kind": "ranged", "ability": "dex", "wtype": "martialR", "range": [30, 90], "dmg": [2, 8, "acid"], "extra": [], "props": [], "text": "<p><em>Ranged Weapon Attack:</em> range 30/90 ft., one target. <em>Hit:</em> 2d8 + 1 acid damage from the backpack hose and the target is <strong>mustarded</strong> (disadvantage on Stealth checks, Fawful's constructs have advantage on attack rolls against it, and the first fire damage it takes flares for an extra 1d6) until it or an ally uses an action to wipe it off.</p>"},
+        {"name": "Fuse-Baton", "icon": "baton", "kind": "melee", "ability": "dex", "wtype": "simpleM", "reach": 5, "dmg": [1, 6, "bludgeoning"], "extra": [[2, 6, "fire"]], "props": ["fin"], "text": "<p><em>Melee Weapon Attack:</em> reach 5 ft., one target. <em>Hit:</em> 1d6 + 1 bludgeoning damage plus 2d6 fire damage from the lit fuse.</p>"}
+      ],
+      "actions": [
+        {"name": "Cannon Call", "icon": "cannon", "activation": "action", "uses": [1, "day"], "save": {"ability": "dex", "dc": 15, "dmg": [[8, 6, "fire"]], "half": true, "range": 300, "template": {"type": "radius", "size": 20}}, "text": "<p><em>1/Day (recharges with Fury Rising).</em> The Maestro blows a whistle and points the baton at a point he can see within 300 feet; the castle's main cannon answers at the start of his next turn (the GM marks the point now). When it lands, each creature within 20 feet of the point must make a DC 15 Dexterity saving throw, taking 8d6 fire damage on a failed save or half as much on a successful one. Structures in the area take double damage. If the Maestro is killed or silenced before the shot lands, it lands anyway.</p>"},
+        {"name": "Drone Tempo", "icon": "cog", "activation": "bonus", "range": 60, "text": "<p><em>Bonus action.</em> One Fawful construct within 60 feet that can hear the Maestro uses its reaction to move up to its speed or make one weapon attack.</p>"},
+        {"name": "Not the Apron!", "icon": "acid_pool", "activation": "reaction", "condition": "when the Maestro is hit by a melee attack", "save": {"ability": "dex", "dc": 15, "dmg": [[2, 6, "acid"]], "half": false, "range": 5, "affects": {"count": 1, "type": "creature"}}, "text": "<p><em>Reaction.</em> When a creature within 5 feet hits the Maestro with a melee attack, a tank on his back vents at it: the attacker must succeed on a DC 15 Dexterity saving throw or take 2d6 acid damage and become mustarded.</p>"}
+      ],
+      "multiattack": "The Maestro makes two attacks: two Sauce Shots, or one Sauce Shot and one Fuse-Baton.",
+      "look": "A small lime-green bean-shaped Beanish officer with a monocle and a mad grin, wearing a mustard-yellow long military coat with brass epaulettes over an apron made of armour plates, a tall chef-general's hat with a brass cannon badge, holding up a conductor's baton that is a lit sparking fuse, with a backpack of mustard tanks and hoses, conducting pose.",
+      "seed": 410011,
+      "plate": "maestro-mustardo",
+      "token_size": 1,
+      "bio": [
+        "<p>Master of the castle's cannon crews and, by his own appointment, of its kitchens. Mustardo was a Beanish artillery sergeant who understood two things about his lord — that Fawful hates mustard, and that Fawful loves fury — and built a career on serving both: the Mustard Sprayers are his recipe, the Boom-Crawlers are his drill, and the main cannon fires when his whistle says so. He conducts a battle like an overture, baton lit.</p>",
+        "<p>As a fight he is a support piece who hurts. The cannon call is announced a round early — the party sees the marker, and the question is whether they can move everyone and still finish him. Bloodying him makes everything around him worse (Fury Rising), so either burst him down from full or pull him away from his machines first. He surrenders only in the sense that he keeps talking.</p>"
+      ],
+      "tags": ["fawful", "beanish", "humanoid", "lieutenant", "officer", "boss"]
+    },
+    {
+      "id": "countess-chortlebrass",
+      "name": "Countess Chortlebrass",
+      "folder": "Lieutenants of Fury",
+      "tier": "lieutenant",
+      "role": "controller boss",
+      "type": "humanoid",
+      "subtype": "Beanish",
+      "size": "lg",
+      "alignment": "Neutral Evil",
+      "cr": 7,
+      "abilities": [16, 10, 16, 17, 13, 18],
+      "saves": ["int", "wis", "cha"],
+      "skills": {"dec": 1, "ins": 1, "itm": 1, "per": 1},
+      "ac": 16,
+      "ac_words": "throne plating",
+      "hp": 127,
+      "hp_formula": "15d10+45",
+      "speed": {"walk": 30, "climb": 20},
+      "senses": {"darkvision": 60},
+      "languages": {"value": ["common"], "custom": "Beanish; telepathy 120 ft. with helm-bound creatures", "telepathy": 120},
+      "di": [],
+      "dr": ["psychic"],
+      "dv": [],
+      "ci": ["charmed"],
+      "resources": {"legact": 2, "legres": 1},
+      "traits": [
+        {"name": "Headmistress of Helms", "icon": "crown", "text": "The Countess's crown is built of Hypno-Helms and her mind is her own; she can't be charmed, and any creature charmed by a Hypno-Helm within 120 feet of her is charmed by her too and obeys her telepathic orders over the helm's."},
+        {"name": "Throne-Borne", "icon": "gears", "text": "The Countess rides a walking mechanical throne; the statblock is the pair. She can't be knocked prone while the throne stands, and the throne lets her climb. When she is reduced to 40 hit points or fewer the throne's legs buckle: her speed drops to 10 feet and she loses Throne Stomp and the Scuttle legendary action."},
+        {"name": "Legendary Resistance (1/Day)", "icon": "ward", "text": "If the Countess fails a saving throw, she can choose to succeed instead.", "resource": "legres"}
+      ],
+      "attacks": [
+        {"name": "Throne Claw", "icon": "claw_jag", "kind": "melee", "ability": "str", "wtype": "natural", "reach": 10, "dmg": [2, 10, "slashing"], "extra": [], "props": ["rch"], "text": "<p><em>Melee Weapon Attack:</em> reach 10 ft., one target. <em>Hit:</em> 2d10 + 3 slashing damage.</p>"}
+      ],
+      "actions": [
+        {"name": "Fawful's Decree", "icon": "hypno", "activation": "action", "save": {"ability": "wis", "dc": 15, "dmg": [], "half": false, "range": 60, "affects": {"count": 1, "type": "creature"}}, "text": "<p>The Countess fixes one creature she can see within 60 feet that can hear her with the lorgnette. The target must succeed on a DC 15 Wisdom saving throw or be charmed by her until the end of her next turn; while charmed this way it immediately uses its reaction to move up to its speed and make one weapon attack against a creature of her choice. A creature that succeeds is immune to her Decree for 24 hours.</p>"},
+        {"name": "Helm Barrage", "icon": "helm_tech", "activation": "action", "uses": ["recharge", 5], "save": {"ability": "dex", "dc": 15, "dmg": [[2, 6, "bludgeoning"]], "half": false, "range": 30, "affects": {"count": 3, "type": "creature"}}, "text": "<p><em>Recharge 5–6.</em> The crown flings helms. Up to three creatures she can see within 30 feet must each succeed on a DC 15 Dexterity saving throw or take 2d6 bludgeoning damage as a Hypno-Helm lands on them: place a <strong>Hypno-Helm</strong> (this packet) attached to each creature that failed; it has latched on and the creature must make the helm's DC 13 Wisdom saving throw against Fawful's Voice at once. Helms that miss land in an empty space within 5 feet of their target and act on the Countess's initiative.</p>"},
+        {"name": "Throne Stomp", "icon": "stomp", "activation": "action", "save": {"ability": "dex", "dc": 15, "dmg": [[3, 8, "bludgeoning"]], "half": true, "range": "self", "template": {"type": "radius", "size": 10}}, "text": "<p>The throne rears and slams down. Each creature within 10 feet of the Countess must make a DC 15 Dexterity saving throw, taking 3d8 bludgeoning damage and falling prone on a failed save, or half as much damage on a successful one.</p>"},
+        {"name": "Cackling Fit", "icon": "scream", "activation": "action", "uses": ["recharge", 6], "save": {"ability": "wis", "dc": 15, "dmg": [[4, 6, "psychic"]], "half": true, "range": "self", "template": {"type": "radius", "size": 30}}, "text": "<p><em>Recharge 6.</em> The Countess laughs and every helm in the room laughs with her. Each creature within 30 feet that can hear her must make a DC 15 Wisdom saving throw, taking 4d6 psychic damage and losing its reaction until the end of its next turn on a failed save, or half as much damage on a successful one. Constructs and helm-bound creatures are unaffected.</p>"},
+        {"name": "Mechanical Reconstitution", "icon": "heal_wrench", "activation": "bonus", "uses": [3, "day"], "range": 30, "text": "<p><em>Bonus action, 3/Day.</em> The throne's boiler eats a destroyed Fawful construct within 30 feet (the wreck is consumed). The Countess regains 15 hit points and her Helm Barrage recharges.</p>"},
+        {"name": "Scuttle", "icon": "run", "activation": "legendary", "cost": 1, "text": "<p><em>Legendary action (1).</em> The throne scuttles up to 15 feet without provoking opportunity attacks.</p>"},
+        {"name": "Claw", "icon": "claw_jag", "activation": "legendary", "cost": 1, "text": "<p><em>Legendary action (1).</em> The Countess makes one Throne Claw attack.</p>"},
+        {"name": "Decree (Costs 2 Actions)", "icon": "hypno", "activation": "legendary", "cost": 2, "text": "<p><em>Legendary action (2).</em> The Countess uses Fawful's Decree.</p>"}
+      ],
+      "multiattack": "The Countess makes two Throne Claw attacks, or one Throne Claw attack and uses Fawful's Decree.",
+      "look": "A tall thin lime-green Beanish noblewoman with a long face, half-lidded eyes and a cackling grin, wearing a towering brass crown built from small swirl-visor helmets and a long emerald green gown embroidered with gears, holding a swirl-lens lorgnette, seated on a walking mechanical throne with four brass claw legs, brass pipes and a glowing green boiler behind the seat.",
+      "seed": 410012,
+      "plate": "countess-chortlebrass",
+      "token_size": 2,
+      "bio": [
+        "<p>Fawful's headmistress of helms — the Beanish noblewoman who runs the vats under Peach's Castle and decides which prisoners come out as thralls. The Countess took to the Fury Meter's logic better than anyone on the staff: she does not fight, she assigns, and the crown she wears is a rack of Hypno-Helms waiting for heads. The walking throne is her own commission; she has not touched the floor of the castle since the occupation began and regards that as a courtesy to the floor.</p>",
+        "<p>As a boss she is a controller first and a brawler second. The barrage puts helms on the party; the decree turns a party member for a moment; the reconstitution eats the wreckage of every construct the party has already killed. Kill the helms, keep the wrecks away from her, and knock the throne's legs out (40 hit points and under) and she is suddenly a thin woman in a chair. She does not cackle when she loses. She writes names down.</p>"
+      ],
+      "tags": ["fawful", "beanish", "humanoid", "lieutenant", "boss", "controller", "large"]
+    }
+  ]
+}

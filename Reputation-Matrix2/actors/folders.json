@@ -173,6 +173,15 @@
         "Barrel Survivors": {"color": "#8b7355", "description": "The original 150 trafficked toads — the heart of the movement, as generic statblocks."},
         "The Unassigned": {"color": "#7f8c8d", "description": "New arrivals, recovering members, those between assignments — generic statblocks."}
       }
+    },
+    "fawfuls-forces": {
+      "folder": "Fawful's Furious Freaks",
+      "description": "Fawful's Forces as a fighting packet (actors/fawfuls-forces, built by tools/build-forge-packets.py from the NPC Forge roster data/forge/fawfuls-forces.json): the constructs of the Fury Meter, the Beanish garrison and its vat-work, and the two lieutenants. Filed under the GM's Fawful group; one sub-folder per tier.",
+      "subfolders": {
+        "Machines of Fury": {"color": "#7CFC00", "description": "Fawful's constructs by Fury Meter tier — the wind-up Chortle-Bots, the intake drones and sprayers, the riveted Fury-Bots and the cannon-crawlers that follow when the meter climbs."},
+        "The Bean Garrison": {"color": "#9ACD32", "description": "The Beanish troops and vat-work of the occupation: garrison troopers, vial-flingers, the Furybean brutes and the helm-bound Toads they drag along."},
+        "Lieutenants of Fury": {"color": "#228B22", "description": "The two officers who keep the Fury Meter fed — Maestro Mustardo of the cannon crews and Countess Chortlebrass, headmistress of helms."}
+      }
     }
   },
   "nameRules": {
