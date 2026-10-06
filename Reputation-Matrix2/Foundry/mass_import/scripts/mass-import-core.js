@@ -61,7 +61,7 @@
 
 export const MODULE_ID = "waluipedia-mass-import";
 /** Must match module.json — Sync compares the two to catch a world still running old code. */
-export const MODULE_VERSION = "1.9.1";
+export const MODULE_VERSION = "1.9.2";
 export const FORMAT = "waluipedia-actors/1";
 export const RAW_BASE = "https://raw.githubusercontent.com/mikegent01/bik/gh-pages/";
 /** The repo's ready-made import-all files (the Import dialog lists them). */
@@ -70,6 +70,7 @@ export const KNOWN_PACKETS = [
   { id: "peachs-castle-955", label: "Peach's Castle 955 BF — the court + Bowser's incursion (30)", path: "Reputation-Matrix2/actors/peachs-castle-955/import.json" },
   { id: "bowsers-castle-1035", label: "Bowser's Castle 1035 BF — the castle comes down: Bowser's line, Fawthful's forces, the remnant at the track (27)", path: "Reputation-Matrix2/actors/bowsers-castle-1035/import.json" },
   { id: "liberated-toads", label: "Liberated Toads cohorts — the Pond Patrol docket's rosters as statblocks: six working cohorts toad by toad, generic survivors (89), filed Liberated Toads / <cohort>", path: "Reputation-Matrix2/actors/liberated-toads/import.json" },
+  { id: "fawfuls-forces", label: "Fawful's Forces — the Fury Meter's machines, the Bean Garrison and two lieutenants to fight inside Peach's Castle (12, CR 1/2–7), filed Fawful's Furious Freaks / <tier>", path: "Reputation-Matrix2/actors/fawfuls-forces/import.json" },
 ];
 export const packetUrl = (p) => RAW_BASE + p.path;
 const PLACEHOLDER_ACTOR = "icons/svg/mystery-man.svg";
@@ -1671,7 +1672,8 @@ export function syncCandidates(s = {}) {
       extras: [{ label: "cast", url: `${raw}Reputation-Matrix2/actors/cast/import.json` },
                { label: "era", url: `${raw}Reputation-Matrix2/actors/peachs-castle-955/import.json` },
                { label: "era", url: `${raw}Reputation-Matrix2/actors/bowsers-castle-1035/import.json` },
-               { label: "packet", url: `${raw}Reputation-Matrix2/actors/liberated-toads/import.json` }] },
+               { label: "packet", url: `${raw}Reputation-Matrix2/actors/liberated-toads/import.json` },
+               { label: "packet", url: `${raw}Reputation-Matrix2/actors/fawfuls-forces/import.json` }] },
   ];
 }
 

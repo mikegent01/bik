@@ -28,7 +28,8 @@ One pass, in order (each step is skipped when there is nothing to do):
   combine   actors/worlds/<world>/import.json — ONE packet with everything:
             the world mirror, the generated cast, the era packets
             (actors/peachs-castle-955, actors/bowsers-castle-1035) and the
-            Liberated Toads cohorts (actors/liberated-toads), an actor the world already has by
+            committed packets actors/folders.json names (the Liberated Toads
+            cohorts, Fawful's Forces), an actor the world already has by
             name and type left out of the later sources — plus
             players-import.json (the Players folder only, for a quick
             player-sheet refresh). Both are git-ignored build artefacts.
@@ -631,7 +632,7 @@ def packet_paths(world):
 def packet_sources(world):
     """The trees one import carries, in precedence order: the world mirror,
     the generated cast, the committed packets the folder scheme names (the
-    era packets, then `packets` — the Liberated Toads cohorts)."""
+    era packets, then `packets` — the Liberated Toads cohorts, Fawful's Forces)."""
     dirs = [os.path.join(WORLDS, world), os.path.join(ACTORS, "cast")]
     scheme = read_json_quiet(os.path.join(ACTORS, "folders.json")) or {}
     dirs += [os.path.join(ACTORS, d) for d in (scheme.get("eras") or {})]

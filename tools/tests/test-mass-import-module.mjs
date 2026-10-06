@@ -24,7 +24,7 @@ check('v1.6: the entry Foundry loads is a tiny loader — it imports mass-import
 check('every manifest file exists', [...manifest.esmodules, ...manifest.styles].every((f) => fs.existsSync(path.join(MOD_DIR, f))));
 check('compatibility spans v12..v14', Number(manifest.compatibility.minimum) <= 12 && Number(manifest.compatibility.verified) >= 14);
 check('manifest + download URLs point at the module folder / zip', manifest.manifest.endsWith('/mass_import/module.json') && manifest.download.endsWith('/mass_import.zip'));
-for (const m of ['export-all-actors.js', 'import-all-actors.js', 'import-peachs-castle-955.js', 'import-bowsers-castle-1035.js', 'import-liberated-toads.js', 'import-from-data-folder.js', 'export-to-data-folder.js', 'sync-from-waluipedia.js']) {
+for (const m of ['export-all-actors.js', 'import-all-actors.js', 'import-peachs-castle-955.js', 'import-bowsers-castle-1035.js', 'import-liberated-toads.js', 'import-fawfuls-forces.js', 'import-from-data-folder.js', 'export-to-data-folder.js', 'sync-from-waluipedia.js']) {
   const src = fs.readFileSync(path.join(MOD_DIR, 'macros', m), 'utf8');
   const wrapped = spawnSync(process.execPath, ['-e', 'new Function("game","ui","foundry", "return (async()=>{" + process.argv[1] + "})()")', src], { encoding: 'utf8' });
   check(`macro ${m} parses as a script macro body`, wrapped.status === 0, wrapped.stderr.trim());
@@ -543,7 +543,7 @@ check('pickDataPath opens a folder picker and writes the choice into the url box
     && cands[0].url === 'npc/waluipedia/midlands/import.json' && cands[0].info === 'npc/waluipedia/midlands/packets.json'
     && cands[1].url === 'http://127.0.0.1:8765/Reputation-Matrix2/actors/worlds/midlands/import.json'
     && cands[2].url === 'https://raw.githubusercontent.com/mikegent01/bik/gh-pages/Reputation-Matrix2/actors/worlds/midlands/manifest.json' && cands[2].manifest === true
-    && cands[2].extras.map((x) => x.label).join() === 'cast,era,era,packet' && cands[2].extras[1].url.endsWith('/peachs-castle-955/import.json') && cands[2].extras[2].url.endsWith('/bowsers-castle-1035/import.json') && cands[2].extras[3].url.endsWith('/liberated-toads/import.json') && !('scope' in mod.SYNC_DEFAULTS), JSON.stringify(cands));
+    && cands[2].extras.map((x) => x.label).join() === 'cast,era,era,packet,packet' && cands[2].extras[1].url.endsWith('/peachs-castle-955/import.json') && cands[2].extras[2].url.endsWith('/bowsers-castle-1035/import.json') && cands[2].extras[3].url.endsWith('/liberated-toads/import.json') && cands[2].extras[4].url.endsWith('/fawfuls-forces/import.json') && !('scope' in mod.SYNC_DEFAULTS), JSON.stringify(cands));
   const cc = mod.syncCandidates({ branch: 'main' });
   check('the branch is honoured on every GitHub URL', cc[2].url.includes('/bik/main/') && cc[2].extras.every((x) => x.url.includes('/bik/main/')));
 

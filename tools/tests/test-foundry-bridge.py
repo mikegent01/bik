@@ -203,7 +203,7 @@ with tempfile.TemporaryDirectory() as tmp:
           and "Bestiary / 955 BF — Peach's Castle" not in styles, str(styles))
     check("era_folders / packet_dirs / packet_subfolders read the scheme: era sub-folder names, every committed packet dir (eras first, then packets), the cohort sub-folders",
           set(fb.era_folders(real_scheme)) == {"955 BF — Peach's Castle", "1035 BF — Bowser's Castle"}
-          and [d for d, _ in fb.packet_dirs(real_scheme)] == ["peachs-castle-955", "bowsers-castle-1035", "liberated-toads"]
+          and [d for d, _ in fb.packet_dirs(real_scheme)] == ["peachs-castle-955", "bowsers-castle-1035", "liberated-toads", "fawfuls-forces"]
           and dict(fb.packet_dirs(real_scheme))["liberated-toads"]["era"] is None and dict(fb.packet_dirs(real_scheme))["peachs-castle-955"]["era"] == "955 BF"
           and "Liberated Toads / The Wardens" in fb.packet_subfolders(real_scheme), str(fb.packet_dirs(real_scheme)))
     scheme = {"minimum": 2, "fallback": "Elsewhere", "players": {"folder": "Players"}, "bestiary": {"folder": "Bestiary"}, "keep": ["Players"],
