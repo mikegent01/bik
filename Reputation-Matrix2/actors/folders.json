@@ -7,25 +7,36 @@
     "folder": "Players",
     "color": "#D4A017",
     "description": "The party's own character sheets (the suite keeps them at the ledger level).",
-    "rosterNote": "WHO IS A PLAYER CHARACTER. The roster — not the dnd5e sheet type — decides: the GM builds plenty of NPCs on character sheets (Mario, Kirby, Sans) and they are not the party. `actor` is the live Foundry id in the world mirror, `character` the website article id (data/characters.json), `ledger` the XP ledger row (XP_SUMMARY in index.html; null = off-ledger, say why in `offLedger`). Every tool reads this list: build-character-sheets (party = roster + Disaster Inc. affiliation; the roster's live file is the article's primary sheet), organize-actors (the pc tag and the Players folder), promote-player-sheets (ledger XP), foundry-bridge check / check-packet (anything else in Players is an error). `companions` are the NPC-typed actors allowed in Players (a mount, a construct).",
+    "rosterNote": "WHO IS A PLAYER CHARACTER. The roster — not the dnd5e sheet type — decides: the GM builds plenty of NPCs on character sheets (Mario, Kirby, Sans) and they are not the party. `actor` is the live Foundry id in the world mirror, `character` the website article id (data/characters.json), `ledger` the XP ledger row (XP_SUMMARY in index.html; null = off-ledger, say why in `offLedger`). Every tool reads this list: build-character-sheets (party = roster + Disaster Inc. affiliation; the roster's live file is the article's primary sheet), organize-actors (the pc tag and the Players folder), promote-player-sheets (ledger XP), foundry-bridge check / check-packet (anything else in Players is an error). `companions` are the NPC-typed actors allowed in Players (a mount, a construct). `retired` keeps the rows of former player characters for the record — no tool reads them as players (they file by faction like anyone else). `permissions` says who may open which sheet (its own note).",
     "roster": [
       {"actor": "pi25oGpjW0lCFtuF", "name": "Archie Miser", "character": "archie_miser", "ledger": "archie_miser"},
       {"actor": "9u5pnP0zaqw8AQQv", "name": "Bowser", "character": "bowser", "ledger": "bowser"},
       {"actor": "VudZ3W313Y4FILs0", "name": "Eager", "character": "eager", "ledger": "eager"},
       {"actor": "IlzuThuR8upTtqtF", "name": "Feyward Dan", "character": "dan_the_toad", "ledger": "dan_the_toad"},
-      {"actor": "mj7kizwZ5R7FtGg6", "name": "Green T", "character": "green_t", "ledger": null, "offLedger": "the GM runs him as Tea Merchant 6 / Bard 6 at 100000 XP; the ledger (level 5, 12500 XP) is not applied"},
       {"actor": "Qir5aDX8bkL5lt1c", "name": "Hjumpik Deldkur", "character": "hjumpik", "ledger": "hjumpik"},
       {"actor": "le5OCgY5x5nnKvkt", "name": "Markop Judi", "character": "markop", "ledger": "markop"},
-      {"actor": "wBy4aV2AGHNqT4l1", "name": "Remi", "character": "remi_akamatsu_full_backstory", "ledger": "remi_akamatsu_full_backstory"},
-      {"actor": "2TkQ7lDU0DJBrx9J", "name": "Salam", "character": "salam", "ledger": "salam"},
-      {"actor": "mEqlzuZoafEdiApl", "name": "Toad Lee", "character": "toad_lee", "ledger": "toad_lee"},
-      {"actor": "BmWNDwbxPQHU3Bbn", "name": "Waluigi", "character": "waluigi", "ledger": "waluigi"},
-      {"actor": "dEhGeFofEfnIG24J", "name": "Wario", "character": "wario", "ledger": "wario"}
+      {"actor": "wBy4aV2AGHNqT4l1", "name": "Remi", "character": "remi_akamatsu_full_backstory", "ledger": "remi_akamatsu_full_backstory"}
+    ],
+    "retired": [
+      {"actor": "mj7kizwZ5R7FtGg6", "name": "Green T", "character": "green_t", "note": "2026-10-06: not played at the table; filed by faction like any other actor (the GM runs him as Tea Merchant 6 / Bard 6 at 100000 XP)"},
+      {"actor": "2TkQ7lDU0DJBrx9J", "name": "Salam", "character": "salam", "note": "2026-10-06: not played at the table; filed by faction"},
+      {"actor": "mEqlzuZoafEdiApl", "name": "Toad Lee", "character": "toad_lee", "note": "2026-10-06: not played at the table; filed by faction"},
+      {"actor": "BmWNDwbxPQHU3Bbn", "name": "Waluigi", "character": "waluigi", "note": "2026-10-06: not played at the table; filed by faction"},
+      {"actor": "dEhGeFofEfnIG24J", "name": "Wario", "character": "wario", "note": "2026-10-06: not played at the table; filed by faction (the Motorbike goes with him)"}
     ],
     "companions": [
-      {"actor": "y1amANPSbK9exY41", "name": "Wario's Motorbike"},
       {"actor": "Q8InPZPmhqhpOY7g", "name": "Steel Defender"}
-    ]
+    ],
+    "permissions": {
+      "note": "WHO MAY OPEN WHICH SHEET. Keyed by Foundry USER NAME (matched case-insensitively at sync time — the module looks the names up in game.users and reports a name this world does not have); the values are roster / companion actor NAMES. owner = 3, observer = 2, limited = 1. Every roster and companion actor gets exactly these grants (default 0, a player grant not listed here is removed); actors outside Players are never touched, a player grant found on one is reported. tools/foundry-bridge.py combine carries the resolved block in the packet (payload.players), check validates it.",
+      "default": 0,
+      "users": {
+        "Hjumpik": {"owner": ["Bowser", "Hjumpik Deldkur"]},
+        "Keaneu": {"owner": ["Archie Miser", "Eager", "Feyward Dan"]},
+        "Martir": {"owner": ["Markop Judi"], "observer": ["Eager", "Feyward Dan"]},
+        "Oscar": {"owner": ["Remi", "Steel Defender"]}
+      }
+    }
   },
   "bestiary": {
     "folder": "Bestiary",
@@ -222,6 +233,9 @@
       "fawful",
       "cackletta",
       "midbus"
+    ],
+    "Disaster Inc.": [
+      "wario's motorbike"
     ]
   },
   "folderRules": {

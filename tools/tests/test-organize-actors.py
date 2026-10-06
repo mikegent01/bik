@@ -133,6 +133,10 @@ with tempfile.TemporaryDirectory() as tmp:
          "file": "actors/worlds/testworld/A House Divided/Characters of the Ruined Manor/fvtt-Actor-aemenor-A1aaaaaaaaaaaaaa.json"},
         {"id": "green_t", "name": "Green T", "source": "live", "kind": "pc", "group": "Disaster Inc.", "party": True,
          "file": "actors/worlds/testworld/fvtt-Actor-green-t-G1aaaaaaaaaaaaaa.json"},
+        {"id": "bowser", "name": "Bowser", "source": "live", "kind": "pc", "group": "Disaster Inc.", "party": True,
+         "file": "actors/worlds/testworld/fvtt-Actor-bowser-P1aaaaaaaaaaaaaa.json"},
+        {"id": "waluigi", "name": "Waluigi", "source": "live", "kind": "npc", "group": "Disaster Inc.", "party": True,
+         "file": "actors/worlds/testworld/Players/fvtt-Actor-waluigi-W2aaaaaaaaaaaaaa.json"},
         {"id": "usk", "name": "Usk", "source": "live", "kind": "npc", "group": "Disaster Inc.", "party": True,
          "file": "actors/worlds/testworld/fvtt-Actor-usk-U1aaaaaaaaaaaaaa.json"},
         {"id": "luigi", "name": "Luigi", "source": "generated", "kind": "npc", "group": "Mushroom Regency & Kingdom", "file": "actors/cast/fvtt-Actor-luigi.json",
@@ -151,9 +155,12 @@ with tempfile.TemporaryDirectory() as tmp:
     write(world, "A House Divided/Characters of the Feyward Manor", actor("Saedia", "S1aaaaaaaaaaaaaa", ctype="fey", folder_path=["A House Divided", "Characters of the Feyward Manor"]))
     write(world, "A House Divided/Creatures of the Feyward Manor", actor("Satyr Bard", "B1aaaaaaaaaaaaaa", ctype="fey", folder_path=["A House Divided", "Creatures of the Feyward Manor"]))
     write(world, "Iron Legion", actor("Guard", "I1aaaaaaaaaaaaaa", folder_path=["Iron Legion"]))
-    write(world, "Players", actor("Waluigi", "W1aaaaaaaaaaaaaa", typ="character", folder_path=["Players"]))
-    write(world, "Players", actor("Wario's Motorbike", "M1aaaaaaaaaaaaaa", ctype="construct", folder_path=["Players"]))
-    write(world, "", actor("Green T", "G1aaaaaaaaaaaaaa", typ="character"))
+    write(world, "Players", actor("Remi", "W1aaaaaaaaaaaaaa", typ="character", folder_path=["Players"]))
+    write(world, "Players", actor("Steel Defender", "M1aaaaaaaaaaaaaa", ctype="construct", folder_path=["Players"]))
+    write(world, "Players", actor("Wario's Motorbike", "M2aaaaaaaaaaaaaa", ctype="construct", folder_path=["Players"]))  # left Players with Wario (a name rule files it)
+    write(world, "Players", actor("Waluigi", "W2aaaaaaaaaaaaaa", typ="character", folder_path=["Players"]))  # retired from the roster: not a player any more
+    write(world, "", actor("Green T", "G1aaaaaaaaaaaaaa", typ="character"))  # retired too, found at the root
+    write(world, "", actor("Bowser", "P1aaaaaaaaaaaaaa", typ="character"))
     write(world, "", actor("Usk", "U1aaaaaaaaaaaaaa"))
     write(world, "", actor("Luigi", "L1aaaaaaaaaaaaaa"))
     write(world, "", actor("Goomba (Conscript Infantry)", "K1aaaaaaaaaaaaaa"))
@@ -174,7 +181,7 @@ with tempfile.TemporaryDirectory() as tmp:
     rc = org.main(ARGS + ["--quiet"])
     check("the pass exits 0", rc == 0)
 
-    where = {i: find(world, i) for i in ["A1aaaaaaaaaaaaaa", "S1aaaaaaaaaaaaaa", "B1aaaaaaaaaaaaaa", "I1aaaaaaaaaaaaaa", "W1aaaaaaaaaaaaaa", "M1aaaaaaaaaaaaaa",
+    where = {i: find(world, i) for i in ["A1aaaaaaaaaaaaaa", "S1aaaaaaaaaaaaaa", "B1aaaaaaaaaaaaaa", "I1aaaaaaaaaaaaaa", "W1aaaaaaaaaaaaaa", "M1aaaaaaaaaaaaaa", "M2aaaaaaaaaaaaaa", "W2aaaaaaaaaaaaaa", "P1aaaaaaaaaaaaaa",
                                          "G1aaaaaaaaaaaaaa", "U1aaaaaaaaaaaaaa", "L1aaaaaaaaaaaaaa", "K1aaaaaaaaaaaaaa", "E1aaaaaaaaaaaaaa", "X1aaaaaaaaaaaaaa", "Y1aaaaaaaaaaaaaa"]}
     rel = {i: p.relative_to(world).parent.as_posix() for i, p in where.items()}
     fp = {i: read(p)["flags"][MODULE_ID]["folderPath"] for i, p in where.items()}
@@ -182,8 +189,10 @@ with tempfile.TemporaryDirectory() as tmp:
     check("folder rule files the manor's named cast (Saedia → Overgrown Manor)", rel["S1aaaaaaaaaaaaaa"] == "Overgrown Manor")
     check("generic creatures go to Bestiary / <type> (Satyr Bard → Bestiary / Fey)", rel["B1aaaaaaaaaaaaaa"] == "Bestiary/Fey" and fp["B1aaaaaaaaaaaaaa"] == ["Bestiary", "Fey"])
     check("a GM folder named like a website group stays (Guard in Iron Legion)", rel["I1aaaaaaaaaaaaaa"] == "Iron Legion")
-    check("Players is never re-filed (Waluigi, the motorbike)", rel["W1aaaaaaaaaaaaaa"] == "Players" and rel["M1aaaaaaaaaaaaaa"] == "Players")
-    check("a party character found at the root is filed into Players (Green T)", rel["G1aaaaaaaaaaaaaa"] == "Players")
+    check("the roster's own stay in Players (Remi by name on a character sheet; the Steel Defender, a companion)", rel["W1aaaaaaaaaaaaaa"] == "Players" and rel["M1aaaaaaaaaaaaaa"] == "Players")
+    check("a roster character found at the root is filed into Players (Bowser)", rel["P1aaaaaaaaaaaaaa"] == "Players")
+    check("players.retired: a former player character LEAVES Players — Waluigi and Green T file under their website group (Disaster Inc., the party's company), Wario's Motorbike by the name rule",
+          rel["W2aaaaaaaaaaaaaa"] == "Disaster Inc" and rel["G1aaaaaaaaaaaaaa"] == "Disaster Inc" and rel["M2aaaaaaaaaaaaaa"] == "Disaster Inc", str((rel["W2aaaaaaaaaaaaaa"], rel["G1aaaaaaaaaaaaaa"], rel["M2aaaaaaaaaaaaaa"])))
     check("a party NPC goes to the website group, not Players (Usk → Disaster Inc.)", rel["U1aaaaaaaaaaaaaa"] == "Disaster Inc" and fp["U1aaaaaaaaaaaaaa"] == ["Disaster Inc."])
     check("an index alternate counts as a website match (Luigi → Mushroom Regency & Kingdom)", rel["L1aaaaaaaaaaaaaa"] == "Mushroom Regency & Kingdom")
     check("name rules file the troops (Goomba → Koopa Troop)", rel["K1aaaaaaaaaaaaaa"] == "Koopa Troop")
@@ -197,17 +206,20 @@ with tempfile.TemporaryDirectory() as tmp:
           rel2["C1aaaaaaaaaaaaaa"] == "Dreamland" and tags2["C1aaaaaaaaaaaaaa"][:2] == ["Dreamland", "npc"], str((rel2, tags2)))
     check("1.9: an actor the organizer itself once filed into Players (the old 'character sheet = pc' rule) goes back where it came from",
           rel2["N1aaaaaaaaaaaaaa"] == "Iron Legion" and "pc" not in tags2["N1aaaaaaaaaaaaaa"], str((rel2["N1aaaaaaaaaaaaaa"], tags2["N1aaaaaaaaaaaaaa"])))
-    check("1.9: an actor the GM put in Players stays (kept, tagged npc) — the bridge check is what reports it",
-          rel2["Z1aaaaaaaaaaaaaa"] == "Players" and tags2["Z1aaaaaaaaaaaaaa"][:2] == ["Players", "npc"], str((rel2["Z1aaaaaaaaaaaaaa"], tags2["Z1aaaaaaaaaaaaaa"])))
-    check("1.9: the roster names the player characters by live id (12 rows, every one with a website id; Green T off-ledger) and the companions (the motorbike, the Steel Defender)",
-          len(scheme["players"]["roster"]) == 12 and all(r.get("actor") and r.get("character") and r.get("name") for r in scheme["players"]["roster"])
-          and sum(1 for r in scheme["players"]["roster"] if r.get("ledger") is None) == 1 and {c["name"] for c in scheme["players"]["companions"]} == {"Wario's Motorbike", "Steel Defender"})
+    check("1.9.3: an actor the GM put in Players does not stay — Players is the roster's folder (Sans, whom no rule knows, goes to the fallback group, tagged npc)",
+          rel2["Z1aaaaaaaaaaaaaa"] == scheme["fallback"] and tags2["Z1aaaaaaaaaaaaaa"][1] == "npc" and "Players" not in rel2["Z1aaaaaaaaaaaaaa"], str((rel2["Z1aaaaaaaaaaaaaa"], tags2["Z1aaaaaaaaaaaaaa"])))
+    check("1.9.3: the roster names the SEVEN player characters by live id (every one with a website id and a ledger row), one companion (the Steel Defender), five retired rows with notes, and the permissions by Foundry user name",
+          len(scheme["players"]["roster"]) == 7 and all(r.get("actor") and r.get("character") and r.get("name") and r.get("ledger") for r in scheme["players"]["roster"])
+          and {c["name"] for c in scheme["players"]["companions"]} == {"Steel Defender"}
+          and [r["name"] for r in scheme["players"]["retired"]] == ["Green T", "Salam", "Toad Lee", "Waluigi", "Wario"] and all(r.get("note") for r in scheme["players"]["retired"])
+          and sorted(scheme["players"]["permissions"]["users"]) == ["Hjumpik", "Keaneu", "Martir", "Oscar"])
 
     sheets = {i: read(p)["flags"]["waluipedia-sheets"] for i, p in where.items()}
     check("tags: website group, kind, role, creature type, origin folder", sheets["A1aaaaaaaaaaaaaa"]["tags"] == ["Iron Legion", "npc", "officer", "humanoid", "A House Divided"], str(sheets["A1aaaaaaaaaaaaaa"]["tags"]))
     check("tags: Bestiary creatures", sheets["B1aaaaaaaaaaaaaa"]["tags"] == ["Bestiary", "npc", "fey", "A House Divided"], str(sheets["B1aaaaaaaaaaaaaa"]["tags"]))
-    check("tags: a party NPC is tagged party; a PC is group + pc", "party" in sheets["U1aaaaaaaaaaaaaa"]["tags"] and sheets["G1aaaaaaaaaaaaaa"]["tags"] == ["Disaster Inc.", "pc"], str(sheets["G1aaaaaaaaaaaaaa"]["tags"]))
-    check("tags: kept Players actors are tagged too (the motorbike)", sheets["M1aaaaaaaaaaaaaa"]["tags"] == ["Players", "npc", "construct"], str(sheets["M1aaaaaaaaaaaaaa"]["tags"]))
+    check("tags: a party NPC is tagged party; a PC is group + pc; a retired player character is party but npc", "party" in sheets["U1aaaaaaaaaaaaaa"]["tags"] and sheets["P1aaaaaaaaaaaaaa"]["tags"] == ["Disaster Inc.", "pc"]
+          and sheets["G1aaaaaaaaaaaaaa"]["tags"][:2] == ["Disaster Inc.", "npc"] and "party" in sheets["G1aaaaaaaaaaaaaa"]["tags"], str((sheets["P1aaaaaaaaaaaaaa"]["tags"], sheets["G1aaaaaaaaaaaaaa"]["tags"])))
+    check("tags: kept Players actors are tagged too (the Steel Defender)", sheets["M1aaaaaaaaaaaaaa"]["tags"] == ["Players", "npc", "construct"], str(sheets["M1aaaaaaaaaaaaaa"]["tags"]))
     check("colour: the folder's colour on the actor (Iron Legion grey, Bestiary / Fey orchid, Players gold)",
           sheets["A1aaaaaaaaaaaaaa"]["color"] == scheme["groups"]["Iron Legion"]["color"].upper()
           and sheets["B1aaaaaaaaaaaaaa"]["color"] == scheme["bestiary"]["types"]["fey"].upper()
@@ -215,7 +227,7 @@ with tempfile.TemporaryDirectory() as tmp:
     check("the placement is recorded with its basis and origin", sheets["B1aaaaaaaaaaaaaa"]["organized"] == {"path": ["Bestiary", "Fey"], "basis": "bestiary", "from": ["A House Divided", "Creatures of the Feyward Manor"]}
           and sheets["A1aaaaaaaaaaaaaa"]["organized"]["basis"] == "website" and "organized" not in sheets["W1aaaaaaaaaaaaaa"], str(sheets["B1aaaaaaaaaaaaaa"].get("organized")))
     man = read(world / "manifest.json")
-    check("manifest follows the moves", man["actorCount"] == 16 and "Bestiary / Fey" in man["folders"] and any(r["file"] == "Bestiary/Fey/" + where["B1aaaaaaaaaaaaaa"].name for r in man["actors"]) and man["exportedFrom"] == "testworld")
+    check("manifest follows the moves", man["actorCount"] == 19 and "Bestiary / Fey" in man["folders"] and any(r["file"] == "Bestiary/Fey/" + where["B1aaaaaaaaaaaaaa"].name for r in man["actors"]) and man["exportedFrom"] == "testworld")
 
     before = {p: p.read_text(encoding="utf-8") for p in world.rglob("*.json")}
     rc = org.main(ARGS + ["--check", "--quiet"])
@@ -363,8 +375,8 @@ check("the real mirror: no Bestiary sub-folder holds a single creature; the 955 
       and {r["doc"]["name"] for r in rows if r["target"] == ["Mushroom Regency & Kingdom", ERA_FOLDER]} >= {"Princess Peach (955 BF)", "Toadsworth the Elder, Royal Chamberlain (955 BF)", "Mario (955 BF)", "Luigi (955 BF)"}, str(counts))
 roster = bridge.load_roster(scheme)
 by_id = {r["doc"].get("_id"): r for r in rows}
-check("the real mirror: the twelve roster characters sit in Players with pc tags (basis roster, no filing record)",
-      len(roster["rows"]) == 12 and all(by_id.get(a) and "pc" in by_id[a]["tags"] and by_id[a]["target"] == ["Players"] and by_id[a]["basis"] == "roster" for a in roster["ids"]),
+check("the real mirror: the seven roster characters sit in Players with pc tags (basis roster, no filing record)",
+      len(roster["rows"]) == 7 and all(by_id.get(a) and "pc" in by_id[a]["tags"] and by_id[a]["target"] == ["Players"] and by_id[a]["basis"] == "roster" for a in roster["ids"]),
       str([(a, by_id.get(a, {}).get("target"), by_id.get(a, {}).get("tags")) for a in roster["ids"]]))
 check("the real mirror: nobody else is a pc — the GM's character-sheet NPCs (Kirby, Sans, Mario) are tagged npc and filed by the rules, not into Players",
       not any("pc" in r["tags"] for r in rows if r["doc"].get("_id") not in roster["ids"])

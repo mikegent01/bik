@@ -1160,16 +1160,26 @@
     },
     "waluipedia-mass-import": {
       "folderPath": [
-        "Players"
+        "Disaster Inc."
       ]
     },
     "waluipedia-sheets": {
       "tags": [
-        "Players",
+        "Disaster Inc.",
         "npc",
-        "construct"
+        "construct",
+        "Players"
       ],
-      "color": "#D4A017"
+      "color": "#D4A017",
+      "organized": {
+        "path": [
+          "Disaster Inc."
+        ],
+        "basis": "name-rule",
+        "from": [
+          "Players"
+        ]
+      }
     }
   },
   "_stats": {

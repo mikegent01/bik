@@ -2380,10 +2380,10 @@
       "title": "The Giant from the Children's Table",
       "sheetName": "Green T",
       "source": "live",
-      "file": "actors/worlds/midlands/Players/fvtt-Actor-green-t-mj7kizwZ5R7FtGg6.json",
+      "file": "actors/worlds/midlands/Disaster Inc/fvtt-Actor-green-t-mj7kizwZ5R7FtGg6.json",
       "alternates": [],
       "party": true,
-      "partyWhy": "party roster (actors/folders.json)",
+      "partyWhy": "former player character (actors/folders.json players.retired)",
       "group": "Disaster Inc.",
       "portrait": "portraits/green_t.png",
       "ledger": {
@@ -5692,7 +5692,7 @@
       "title": "The Liberated Toad Who Escaped the Roof / Salem Eye-Shot Alias",
       "sheetName": "Salam",
       "source": "live",
-      "file": "actors/worlds/midlands/Players/fvtt-Actor-salam-2TkQ7lDU0DJBrx9J.json",
+      "file": "actors/worlds/midlands/Disaster Inc/fvtt-Actor-salam-2TkQ7lDU0DJBrx9J.json",
       "alternates": [
         {
           "file": "actors/fvtt-Actor-salam-2TkQ7lDU0DJBrx9J.json",
@@ -5702,7 +5702,7 @@
         }
       ],
       "party": true,
-      "partyWhy": "party roster (actors/folders.json)",
+      "partyWhy": "former player character (actors/folders.json players.retired)",
       "group": "Disaster Inc.",
       "portrait": "portraits/salam_grove_fallen.png",
       "ledger": {
@@ -7730,7 +7730,7 @@
       "title": "The Defenestrated Diplomat",
       "sheetName": "Toad Lee",
       "source": "live",
-      "file": "actors/worlds/midlands/Players/fvtt-Actor-toad-lee-mEqlzuZoafEdiApl.json",
+      "file": "actors/worlds/midlands/Disaster Inc/fvtt-Actor-toad-lee-mEqlzuZoafEdiApl.json",
       "alternates": [
         {
           "file": "actors/fvtt-Actor-toad-lee-mEqlzuZoafEdiApl.json",
@@ -7740,7 +7740,7 @@
         }
       ],
       "party": true,
-      "partyWhy": "party roster (actors/folders.json)",
+      "partyWhy": "former player character (actors/folders.json players.retired)",
       "group": "Disaster Inc.",
       "portrait": "portraits/toad_lee.png",
       "ledger": {
@@ -9839,7 +9839,7 @@
       "title": "The Great and Underappreciated",
       "sheetName": "Waluigi",
       "source": "live",
-      "file": "actors/worlds/midlands/Players/fvtt-Actor-waluigi-BmWNDwbxPQHU3Bbn.json",
+      "file": "actors/worlds/midlands/Disaster Inc/fvtt-Actor-waluigi-BmWNDwbxPQHU3Bbn.json",
       "alternates": [
         {
           "file": "actors/fvtt-Actor-waluigi-BmWNDwbxPQHU3Bbn.json",
@@ -9849,7 +9849,7 @@
         }
       ],
       "party": true,
-      "partyWhy": "party roster (actors/folders.json)",
+      "partyWhy": "former player character (actors/folders.json players.retired)",
       "group": "Disaster Inc.",
       "portrait": "portraits/waluigi.jpg",
       "ledger": {
@@ -9918,7 +9918,7 @@
       "title": "The Explosive Accountant",
       "sheetName": "Wario",
       "source": "live",
-      "file": "actors/worlds/midlands/Players/fvtt-Actor-wario-dEhGeFofEfnIG24J.json",
+      "file": "actors/worlds/midlands/Disaster Inc/fvtt-Actor-wario-dEhGeFofEfnIG24J.json",
       "alternates": [
         {
           "file": "actors/fvtt-Actor-wario-dEhGeFofEfnIG24J.json",
@@ -9928,7 +9928,7 @@
         }
       ],
       "party": true,
-      "partyWhy": "party roster (actors/folders.json)",
+      "partyWhy": "former player character (actors/folders.json players.retired)",
       "group": "Disaster Inc.",
       "portrait": "portraits/wario.jpg",
       "ledger": {

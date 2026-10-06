@@ -113,6 +113,80 @@
       "applied": "Grung"
     }
   ],
+  "players": {
+    "folder": "Players",
+    "roster": [
+      {
+        "actor": "pi25oGpjW0lCFtuF",
+        "name": "Archie Miser"
+      },
+      {
+        "actor": "9u5pnP0zaqw8AQQv",
+        "name": "Bowser"
+      },
+      {
+        "actor": "VudZ3W313Y4FILs0",
+        "name": "Eager"
+      },
+      {
+        "actor": "IlzuThuR8upTtqtF",
+        "name": "Feyward Dan"
+      },
+      {
+        "actor": "Qir5aDX8bkL5lt1c",
+        "name": "Hjumpik Deldkur"
+      },
+      {
+        "actor": "le5OCgY5x5nnKvkt",
+        "name": "Markop Judi"
+      },
+      {
+        "actor": "wBy4aV2AGHNqT4l1",
+        "name": "Remi"
+      }
+    ],
+    "companions": [
+      {
+        "actor": "Q8InPZPmhqhpOY7g",
+        "name": "Steel Defender"
+      }
+    ],
+    "default": 0,
+    "users": [
+      "Hjumpik",
+      "Keaneu",
+      "Martir",
+      "Oscar"
+    ],
+    "permissions": {
+      "9u5pnP0zaqw8AQQv": {
+        "Hjumpik": 3
+      },
+      "IlzuThuR8upTtqtF": {
+        "Keaneu": 3,
+        "Martir": 2
+      },
+      "Q8InPZPmhqhpOY7g": {
+        "Oscar": 3
+      },
+      "Qir5aDX8bkL5lt1c": {
+        "Hjumpik": 3
+      },
+      "VudZ3W313Y4FILs0": {
+        "Keaneu": 3,
+        "Martir": 2
+      },
+      "le5OCgY5x5nnKvkt": {
+        "Martir": 3
+      },
+      "pi25oGpjW0lCFtuF": {
+        "Keaneu": 3
+      },
+      "wBy4aV2AGHNqT4l1": {
+        "Oscar": 3
+      }
+    }
+  },
   "unresolvedFolderIds": {},
   "note": "",
   "actors": [
@@ -615,6 +689,12 @@
       "file": "Disaster Inc/fvtt-Actor-bones-fFKZDy00hhMH2quo.json"
     },
     {
+      "name": "Green T",
+      "type": "character",
+      "_id": "mj7kizwZ5R7FtGg6",
+      "file": "Disaster Inc/fvtt-Actor-green-t-mj7kizwZ5R7FtGg6.json"
+    },
+    {
       "name": "Roger",
       "type": "npc",
       "_id": "V9bi7u8dep3GGSrX",
@@ -625,6 +705,12 @@
       "type": "npc",
       "_id": "gty769WQ2e9bUUgh",
       "file": "Disaster Inc/fvtt-Actor-ryan-gty769WQ2e9bUUgh.json"
+    },
+    {
+      "name": "Salam",
+      "type": "character",
+      "_id": "2TkQ7lDU0DJBrx9J",
+      "file": "Disaster Inc/fvtt-Actor-salam-2TkQ7lDU0DJBrx9J.json"
     },
     {
       "name": "Smoking J",
@@ -639,6 +725,12 @@
       "file": "Disaster Inc/fvtt-Actor-steel-defender-Q8InPZPmhqhpOY7g.json"
     },
     {
+      "name": "Toad Lee",
+      "type": "character",
+      "_id": "mEqlzuZoafEdiApl",
+      "file": "Disaster Inc/fvtt-Actor-toad-lee-mEqlzuZoafEdiApl.json"
+    },
+    {
       "name": "Usk",
       "type": "npc",
       "_id": "I8HET6eCUvhMILDP",
@@ -649,6 +741,24 @@
       "type": "npc",
       "_id": "numGvhXBimwHEO3d",
       "file": "Disaster Inc/fvtt-Actor-usk-shattered-numGvhXBimwHEO3d.json"
+    },
+    {
+      "name": "Waluigi",
+      "type": "character",
+      "_id": "BmWNDwbxPQHU3Bbn",
+      "file": "Disaster Inc/fvtt-Actor-waluigi-BmWNDwbxPQHU3Bbn.json"
+    },
+    {
+      "name": "Wario",
+      "type": "character",
+      "_id": "dEhGeFofEfnIG24J",
+      "file": "Disaster Inc/fvtt-Actor-wario-dEhGeFofEfnIG24J.json"
+    },
+    {
+      "name": "Wario's Motorbike",
+      "type": "npc",
+      "_id": "y1amANPSbK9exY41",
+      "file": "Disaster Inc/fvtt-Actor-warios-motorbike-y1amANPSbK9exY41.json"
     },
     {
       "name": "King Dedede",
@@ -1569,12 +1679,6 @@
       "file": "Players/fvtt-Actor-feyward-dan-IlzuThuR8upTtqtF.json"
     },
     {
-      "name": "Green T",
-      "type": "character",
-      "_id": "mj7kizwZ5R7FtGg6",
-      "file": "Players/fvtt-Actor-green-t-mj7kizwZ5R7FtGg6.json"
-    },
-    {
       "name": "Hjumpik Deldkur",
       "type": "character",
       "_id": "Qir5aDX8bkL5lt1c",
@@ -1591,36 +1695,6 @@
       "type": "character",
       "_id": "wBy4aV2AGHNqT4l1",
       "file": "Players/fvtt-Actor-remi-wBy4aV2AGHNqT4l1.json"
-    },
-    {
-      "name": "Salam",
-      "type": "character",
-      "_id": "2TkQ7lDU0DJBrx9J",
-      "file": "Players/fvtt-Actor-salam-2TkQ7lDU0DJBrx9J.json"
-    },
-    {
-      "name": "Toad Lee",
-      "type": "character",
-      "_id": "mEqlzuZoafEdiApl",
-      "file": "Players/fvtt-Actor-toad-lee-mEqlzuZoafEdiApl.json"
-    },
-    {
-      "name": "Waluigi",
-      "type": "character",
-      "_id": "BmWNDwbxPQHU3Bbn",
-      "file": "Players/fvtt-Actor-waluigi-BmWNDwbxPQHU3Bbn.json"
-    },
-    {
-      "name": "Wario",
-      "type": "character",
-      "_id": "dEhGeFofEfnIG24J",
-      "file": "Players/fvtt-Actor-wario-dEhGeFofEfnIG24J.json"
-    },
-    {
-      "name": "Wario's Motorbike",
-      "type": "npc",
-      "_id": "y1amANPSbK9exY41",
-      "file": "Players/fvtt-Actor-warios-motorbike-y1amANPSbK9exY41.json"
     },
     {
       "name": "Chief Thornpaw",

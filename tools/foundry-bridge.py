@@ -262,7 +262,12 @@ def load_roster(scheme=None):
     players = (scheme or {}).get("players") or {}
     rows = [r for r in (players.get("roster") or []) if isinstance(r, dict) and (r.get("actor") or r.get("name"))]
     comps = [r for r in (players.get("companions") or []) if isinstance(r, dict) and (r.get("actor") or r.get("name"))]
+    retired = [r for r in (players.get("retired") or []) if isinstance(r, dict) and (r.get("actor") or r.get("name"))]
     return {
+        "scheme": scheme or {},
+        # former player characters: not players (they file by faction, no ledger promotion,
+        # no permissions) — the website still shows their sheets with the party's
+        "retired": {r["character"]: r for r in retired if r.get("character")},
         "folder": players.get("folder") or "Players",
         "rows": rows,
         "ids": {r["actor"]: r for r in rows if r.get("actor")},
@@ -270,6 +275,93 @@ def load_roster(scheme=None):
         "names": {str(r.get("name") or "").strip().lower(): r for r in rows if r.get("name")},
         "companions": {r["actor"] for r in comps if r.get("actor")},
         "companion_names": {str(r.get("name") or "").strip().lower() for r in comps if r.get("name")},
+    }
+
+
+PERMISSION_NAMES = {"none": 0, "limited": 1, "observer": 2, "owner": 3}  # the words actors/folders.json players.permissions uses
+
+
+def load_permissions(scheme=None, roster=None):
+    """players.permissions — who may open which sheet, by Foundry USER NAME:
+
+        {"default": 0, "users": {"Keaneu": {"owner": ["Archie Miser", "Eager"], "observer": [...]}, ...}}
+
+    -> {"default": 0, "users": {name: {actor id: level}}, "actors": {actor id: {name: level}},
+        "names": [user names], "problems": [...]}. Actor names resolve against the
+    roster and the companions (case-insensitive); anything else is a problem
+    (check reports it) and is left out. Empty maps when the scheme has none."""
+    scheme = load_folder_scheme() if scheme is None else scheme
+    roster = load_roster(scheme) if roster is None else roster
+    block = ((scheme or {}).get("players") or {}).get("permissions") or {}
+    out = {"default": 0, "users": {}, "actors": {}, "names": [], "problems": []}
+    if not isinstance(block, dict):
+        out["problems"].append("players.permissions must be an object")
+        return out
+    default = block.get("default", 0)
+    if default not in (0, 1, 2, 3):
+        out["problems"].append(f"players.permissions.default must be 0–3, not {default!r}")
+        default = 0
+    out["default"] = default
+    by_name = {}
+    for r in roster.get("rows") or []:
+        if r.get("actor") and r.get("name"):
+            by_name[str(r["name"]).strip().lower()] = r["actor"]
+    comp_rows = ((scheme or {}).get("players") or {}).get("companions") or []
+    for r in comp_rows:
+        if isinstance(r, dict) and r.get("actor") and r.get("name"):
+            by_name[str(r["name"]).strip().lower()] = r["actor"]
+    users = block.get("users") or {}
+    if not isinstance(users, dict):
+        out["problems"].append("players.permissions.users must be an object keyed by Foundry user name")
+        users = {}
+    for user, grants in users.items():
+        user = str(user).strip()
+        if not user:
+            out["problems"].append("players.permissions.users: an empty user name")
+            continue
+        if user.lower() in {n.lower() for n in out["names"]}:
+            out["problems"].append(f"players.permissions.users: {user} is listed twice (names match case-insensitively)")
+            continue
+        out["names"].append(user)
+        mine = out["users"].setdefault(user, {})
+        if not isinstance(grants, dict):
+            out["problems"].append(f"players.permissions.users.{user} must be an object of level: [actor names]")
+            continue
+        for level_name, names in grants.items():
+            level = PERMISSION_NAMES.get(str(level_name).strip().lower())
+            if level is None:
+                out["problems"].append(f"players.permissions.users.{user}: unknown level {level_name!r} (owner / observer / limited / none)")
+                continue
+            for name in (names if isinstance(names, list) else [names]):
+                aid = by_name.get(str(name).strip().lower())
+                if not aid:
+                    out["problems"].append(f"players.permissions.users.{user}: {name!r} is not on the roster or a companion (actors/folders.json players.roster / companions)")
+                    continue
+                if aid in mine and mine[aid] != level:
+                    out["problems"].append(f"players.permissions.users.{user}: {name} is granted twice with different levels ({mine[aid]} and {level})")
+                    continue
+                mine[aid] = level
+                out["actors"].setdefault(aid, {})[user] = level
+    return out
+
+
+def players_payload(scheme=None, roster=None, permissions=None):
+    """The `players` block a packet carries for the module: the roster and the
+    companions (live ids + names), the permissions resolved to actor ids, the
+    user names involved. None when the scheme has no roster."""
+    scheme = load_folder_scheme() if scheme is None else scheme
+    roster = load_roster(scheme) if roster is None else roster
+    if not roster.get("rows"):
+        return None
+    permissions = load_permissions(scheme, roster) if permissions is None else permissions
+    players = (scheme or {}).get("players") or {}
+    return {
+        "folder": roster["folder"],
+        "roster": [{"actor": r.get("actor"), "name": r.get("name")} for r in roster["rows"]],
+        "companions": [{"actor": r.get("actor"), "name": r.get("name")} for r in (players.get("companions") or []) if isinstance(r, dict)],
+        "default": permissions["default"],
+        "users": list(permissions["names"]),
+        "permissions": {aid: dict(grants) for aid, grants in sorted(permissions["actors"].items())},
     }
 
 
@@ -683,6 +775,7 @@ def split(export_path, out_dir, flat=False, prune=False):
         "folders": sorted({p for p in paths if p}),
         "identifiersRepaired": [{"actor": a, "item": i, "key": k, "from": b, "to": t} for a, i, k, b, t in repaired],
         "leftoversDropped": [{"actor": a, "item": i, "type": t, "applied": l} for a, i, t, l in dropped],
+        "players": players_payload(),
         "unresolvedFolderIds": dict(sorted(unresolved.items())),
         "note": ("" if not unresolved else
                  f"{sum(unresolved.values())} actor(s) carry a folder id this export gives no name for; "
@@ -841,6 +934,9 @@ def _combine_payload(rows, scheme, world, omitted):
         "folders": folders,
         "actors": actors,
     }
+    players = players_payload(scheme)
+    if players:
+        payload["players"] = players  # the roster, the companions, who may open which sheet (the module applies it)
     if omitted:
         payload["omitted"] = omitted
     return payload, dupes
@@ -1253,6 +1349,12 @@ def check_docs(docs, image_lib=DEFAULT_IMAGE_LIB, strict_images=False, roster=No
             warnings.append(f"{rel}: {len(unknown_here)} image path(s) the repo cannot see (GM uploads?) e.g. {unknown_here[0]}")
     if unknown:
         warnings.append(f"{len(set(unknown))} distinct image path(s) outside the repo, system and modules — the module's import-time image check verifies them in Foundry")
+    # who may open which sheet: the scheme's permissions must resolve (a name
+    # that is not on the roster, an unknown level) — the module applies them
+    if roster and roster.get("rows") and roster.get("scheme") is not None:
+        perms = load_permissions(roster["scheme"], roster)
+        for problem in perms["problems"]:
+            errors.append(f"actors/folders.json: {problem}")
     return count, errors, warnings
 
 

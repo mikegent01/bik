@@ -4342,13 +4342,25 @@
       },
       "tags": [
         "Disaster Inc.",
-        "pc"
+        "npc",
+        "humanoid",
+        "party",
+        "Players"
       ],
-      "color": "#D4A017"
+      "color": "#D4A017",
+      "organized": {
+        "path": [
+          "Disaster Inc."
+        ],
+        "basis": "website",
+        "from": [
+          "Players"
+        ]
+      }
     },
     "waluipedia-mass-import": {
       "folderPath": [
-        "Players"
+        "Disaster Inc."
       ]
     }
   },

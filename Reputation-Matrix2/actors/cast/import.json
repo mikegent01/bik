@@ -50376,5 +50376,79 @@
         "duplicateSource": null
       }
     }
-  ]
+  ],
+  "players": {
+    "folder": "Players",
+    "roster": [
+      {
+        "actor": "pi25oGpjW0lCFtuF",
+        "name": "Archie Miser"
+      },
+      {
+        "actor": "9u5pnP0zaqw8AQQv",
+        "name": "Bowser"
+      },
+      {
+        "actor": "VudZ3W313Y4FILs0",
+        "name": "Eager"
+      },
+      {
+        "actor": "IlzuThuR8upTtqtF",
+        "name": "Feyward Dan"
+      },
+      {
+        "actor": "Qir5aDX8bkL5lt1c",
+        "name": "Hjumpik Deldkur"
+      },
+      {
+        "actor": "le5OCgY5x5nnKvkt",
+        "name": "Markop Judi"
+      },
+      {
+        "actor": "wBy4aV2AGHNqT4l1",
+        "name": "Remi"
+      }
+    ],
+    "companions": [
+      {
+        "actor": "Q8InPZPmhqhpOY7g",
+        "name": "Steel Defender"
+      }
+    ],
+    "default": 0,
+    "users": [
+      "Hjumpik",
+      "Keaneu",
+      "Martir",
+      "Oscar"
+    ],
+    "permissions": {
+      "9u5pnP0zaqw8AQQv": {
+        "Hjumpik": 3
+      },
+      "IlzuThuR8upTtqtF": {
+        "Keaneu": 3,
+        "Martir": 2
+      },
+      "Q8InPZPmhqhpOY7g": {
+        "Oscar": 3
+      },
+      "Qir5aDX8bkL5lt1c": {
+        "Hjumpik": 3
+      },
+      "VudZ3W313Y4FILs0": {
+        "Keaneu": 3,
+        "Martir": 2
+      },
+      "le5OCgY5x5nnKvkt": {
+        "Martir": 3
+      },
+      "pi25oGpjW0lCFtuF": {
+        "Keaneu": 3
+      },
+      "wBy4aV2AGHNqT4l1": {
+        "Oscar": 3
+      }
+    }
+  }
 }

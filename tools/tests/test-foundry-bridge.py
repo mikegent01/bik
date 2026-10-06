@@ -402,18 +402,44 @@ with tempfile.TemporaryDirectory() as tmp:
 
 # ---- 1.9: the party roster, embedded ownership, art by URL — what check / check-packet refuse -----------------
 roster = fb.load_roster()
-check("load_roster reads actors/folders.json players.roster: 12 player characters by live id, website id and name; two companions",
-      len(roster["rows"]) == 12 and len(roster["ids"]) == 12 and roster["ids"].get("9u5pnP0zaqw8AQQv", {}).get("character") == "bowser"
-      and roster["characters"]["dan_the_toad"]["actor"] == "IlzuThuR8upTtqtF" and roster["names"]["green t"]["ledger"] is None
-      and roster["companions"] == {"y1amANPSbK9exY41", "Q8InPZPmhqhpOY7g"} and roster["folder"] == "Players", json.dumps({k: (len(v) if hasattr(v, "__len__") else v) for k, v in roster.items()}))
+check("load_roster reads actors/folders.json players.roster: the SEVEN player characters by live id, website id and name; one companion (the Steel Defender); the five retired ones are not players",
+      len(roster["rows"]) == 7 and len(roster["ids"]) == 7 and roster["ids"].get("9u5pnP0zaqw8AQQv", {}).get("character") == "bowser"
+      and roster["characters"]["dan_the_toad"]["actor"] == "IlzuThuR8upTtqtF" and "green t" not in roster["names"] and "waluigi" not in roster["names"] and "wario" not in roster["names"]
+      and "salam" not in roster["names"] and "toad lee" not in roster["names"] and sorted(roster["names"]) == ["archie miser", "bowser", "eager", "feyward dan", "hjumpik deldkur", "markop judi", "remi"]
+      and roster["companions"] == {"Q8InPZPmhqhpOY7g"} and roster["folder"] == "Players"
+      and [r["name"] for r in roster["scheme"]["players"]["retired"]] == ["Green T", "Salam", "Toad Lee", "Waluigi", "Wario"], json.dumps({k: (len(v) if hasattr(v, "__len__") else v) for k, v in roster.items()}))
 check("roster_row: by live id whatever the sheet type; by name only for a character sheet (the Liberated Toads' NPC 'Dan' is not Feyward Dan; an NPC statblock named Bowser is not the player's)",
       fb.roster_row({"_id": "9u5pnP0zaqw8AQQv", "name": "Bowser", "type": "npc"}, roster)["character"] == "bowser"
       and fb.roster_row({"_id": "zzzzzzzzzzzzzzzz", "name": "Bowser", "type": "character"}, roster)["character"] == "bowser"
       and fb.roster_row({"_id": "zzzzzzzzzzzzzzzz", "name": "Bowser", "type": "npc"}, roster) is None
       and fb.roster_row({"_id": "brg7b4npoBbXuB65", "name": "Dan", "type": "npc"}, roster) is None
       and fb.roster_row({"_id": "RSw8hpjH7kIEjAmm", "name": "Kirby", "type": "character"}, roster) is None)
-check("is_companion: the motorbike and the Steel Defender by id or name", fb.is_companion({"_id": "y1amANPSbK9exY41", "name": "x", "type": "npc"}, roster)
-      and fb.is_companion({"_id": "zzzzzzzzzzzzzzzz", "name": "Steel Defender", "type": "npc"}, roster) and not fb.is_companion({"_id": "zzzzzzzzzzzzzzzz", "name": "Kirby", "type": "npc"}, roster))
+check("is_companion: the Steel Defender by id or name; Wario's Motorbike left Players with Wario", fb.is_companion({"_id": "Q8InPZPmhqhpOY7g", "name": "x", "type": "npc"}, roster)
+      and fb.is_companion({"_id": "zzzzzzzzzzzzzzzz", "name": "Steel Defender", "type": "npc"}, roster) and not fb.is_companion({"_id": "zzzzzzzzzzzzzzzz", "name": "Kirby", "type": "npc"}, roster)
+      and not fb.is_companion({"_id": "y1amANPSbK9exY41", "name": "Wario's Motorbike", "type": "vehicle"}, roster))
+perms = fb.load_permissions()
+check("load_permissions resolves actors/folders.json players.permissions — Foundry user names → roster actor ids and levels: Hjumpik owns Bowser + Hjumpik Deldkur; Keaneu owns Archie, Eager, Feyward Dan; Martir owns Markop and observes Eager + Dan; Oscar owns Remi + the Steel Defender; nothing else; no problems",
+      perms["problems"] == [] and perms["default"] == 0 and perms["names"] == ["Hjumpik", "Keaneu", "Martir", "Oscar"]
+      and perms["users"]["Hjumpik"] == {"9u5pnP0zaqw8AQQv": 3, "Qir5aDX8bkL5lt1c": 3}
+      and perms["users"]["Keaneu"] == {"pi25oGpjW0lCFtuF": 3, "VudZ3W313Y4FILs0": 3, "IlzuThuR8upTtqtF": 3}
+      and perms["users"]["Martir"] == {"le5OCgY5x5nnKvkt": 3, "VudZ3W313Y4FILs0": 2, "IlzuThuR8upTtqtF": 2}
+      and perms["users"]["Oscar"] == {"wBy4aV2AGHNqT4l1": 3, "Q8InPZPmhqhpOY7g": 3}
+      and perms["actors"]["VudZ3W313Y4FILs0"] == {"Keaneu": 3, "Martir": 2} and len(perms["actors"]) == 8, json.dumps(perms))
+bad_scheme = {"players": {"folder": "Players", "roster": [{"actor": "9u5pnP0zaqw8AQQv", "name": "Bowser"}], "companions": [{"actor": "Q8InPZPmhqhpOY7g", "name": "Steel Defender"}],
+                          "permissions": {"default": 7, "users": {"Hjumpik": {"owner": ["Bowser", "Nobody"], "king": ["Bowser"]}, "hjumpik": {"owner": ["Bowser"]}, " ": {"owner": ["Bowser"]},
+                                                                   "Oscar": {"owner": ["steel defender"], "observer": ["Steel Defender"]}, "Martir": "Bowser"}}}}
+bad_perms = fb.load_permissions(bad_scheme, fb.load_roster(bad_scheme))
+check("load_permissions reports what it cannot use — a default outside 0–3, an unknown level, a name not on the roster, a user listed twice (case), an empty user, a grant twice with two levels, a non-object — and keeps the rest (names match case-insensitively)",
+      bad_perms["default"] == 0 and bad_perms["users"]["Hjumpik"] == {"9u5pnP0zaqw8AQQv": 3} and bad_perms["users"]["Oscar"] == {"Q8InPZPmhqhpOY7g": 3}
+      and bad_perms["names"] == ["Hjumpik", "Oscar", "Martir"] and len(bad_perms["problems"]) == 7
+      and all(any(needle in p for p in bad_perms["problems"]) for needle in (
+          "default must be 0–3, not 7", "'Nobody' is not on the roster", "unknown level 'king'", "hjumpik is listed twice",
+          "an empty user name", "Steel Defender is granted twice with different levels (3 and 2)", "users.Martir must be an object")), json.dumps(bad_perms["problems"]))
+block = fb.players_payload()
+check("players_payload — what combine puts in every packet and split in the manifest: the roster (7) and companions (1) with live ids, default 0, the user names, permissions by actor id",
+      [r["name"] for r in block["roster"]] == ["Archie Miser", "Bowser", "Eager", "Feyward Dan", "Hjumpik Deldkur", "Markop Judi", "Remi"] and block["companions"] == [{"actor": "Q8InPZPmhqhpOY7g", "name": "Steel Defender"}]
+      and block["default"] == 0 and block["users"] == ["Hjumpik", "Keaneu", "Martir", "Oscar"] and block["permissions"]["wBy4aV2AGHNqT4l1"] == {"Oscar": 3} and block["permissions"]["IlzuThuR8upTtqtF"] == {"Keaneu": 3, "Martir": 2}
+      and block["folder"] == "Players" and fb.players_payload({"players": {}}) is None, json.dumps(block))
 check("invalid_ownership: -=default, a non-id key, a level outside -1..3, a non-mapping — on the actor and on its items / effects; a user-id deletion with null is fine",
       [w for w, _ in fb.invalid_ownership({"name": "a", "ownership": {"default": 0, "-=default": None}, "items": [{"name": "Wand", "ownership": {"u1": 3}}, {"name": "Ok", "ownership": {"default": 0, "-=7BMT1Aux3QVtq027": None, "7BMT1Aux3QVtq028": 3}}],
                                                 "effects": [{"name": "Fx", "ownership": {"default": 9}}, {"name": "Bad", "ownership": []}]})] == ["actor", "item 'Wand'", "effect 'Fx'", "effect 'Bad'"]
@@ -429,7 +455,7 @@ with tempfile.TemporaryDirectory() as tmp:
                dict(actor("Bowser", "9u5pnP0zaqw8AQQv", typ="npc", img="http://127.0.0.1:8765/Reputation-Matrix2/portraits/bowser.png",
                           items=[{"_id": "kmqLJuIrEf2KPqwc", "name": "Wand", "type": "loot", "img": "icons/svg/item-bag.svg", "ownership": {"-=default": None}, "system": {"identifier": "bad—id"}}],
                           flags={"waluipedia-mass-import": {"folderPath": ["Koopa Troop"]}})),
-               actor("Wario's Motorbike", "y1amANPSbK9exY41", flags={"waluipedia-mass-import": {"folderPath": ["Players"]}}),
+               actor("Steel Defender", "Q8InPZPmhqhpOY7g", flags={"waluipedia-mass-import": {"folderPath": ["Players"]}}),
                actor("Sans", "zzzzzzzzzzzzzzzz", typ="character", flags={"waluipedia-mass-import": {"folderPath": ["Snowdin Bone-Line"]}}),
            ]}
     bad_path = os.path.join(tmp, "import.json")
@@ -438,7 +464,7 @@ with tempfile.TemporaryDirectory() as tmp:
     n, errs, warns = fb.check_packet(bad_path)
     text = "\n".join(errs)
     check("check-packet: a non-roster actor in Players is an ERROR (a character sheet does not make a player character) — the companion and a character-sheet NPC elsewhere are not",
-          n == 4 and "Kirby sits in Players but is not on the party roster" in text and "Motorbike" not in text and "Sans" not in text, text)
+          n == 4 and "Kirby sits in Players but is not on the party roster" in text and "Steel Defender" not in text and "Sans" not in text, text)
     check("check-packet: a roster character on an NPC sheet, an item identifier dnd5e rejects, an ownership deletion Foundry refuses, art by URL, a folder with an unknown parent — all errors; the roster character outside Players a warning",
           "Bowser is on the party roster but is a 'npc' sheet" in text and "'bad—id' is not letters/digits/-/_" in text and "ownership key '-=default'" in text
           and "names art by URL" in text and "folder 'Orphan' names a parent" in text and any("sits in Koopa Troop, not Players" in w for w in warns), text)
@@ -450,7 +476,7 @@ with tempfile.TemporaryDirectory() as tmp:
     check("check-packet refuses a packet of another format, and names a file outside the repo by its basename", fb.check_packet(os.path.join(tmp, "stale.json"))[1] == ["stale.json: format 'waluipedia-actors/0' is not waluipedia-actors/1"])
     good = {"format": fb.FORMAT, "folders": [{"_id": "F1aaaaaaaaaaaaaa", "name": "Players", "folder": None}],
             "actors": [actor("Bowser", "9u5pnP0zaqw8AQQv", typ="character", flags={"waluipedia-mass-import": {"folderPath": ["Players"]}}),
-                       actor("Wario's Motorbike", "y1amANPSbK9exY41", flags={"waluipedia-mass-import": {"folderPath": ["Players"]}}),
+                       actor("Steel Defender", "Q8InPZPmhqhpOY7g", flags={"waluipedia-mass-import": {"folderPath": ["Players"]}}),
                        actor("Sans", "zzzzzzzzzzzzzzzz", typ="character", flags={"waluipedia-mass-import": {"folderPath": ["Snowdin Bone-Line"]}})]}
     good_path = os.path.join(tmp, "good.json")
     with open(good_path, "w", encoding="utf-8") as fh:

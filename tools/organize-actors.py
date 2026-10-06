@@ -224,10 +224,9 @@ def classify(doc, rel_parts, scheme, index, basename="", eras=None, roster=None)
         return [players], "roster", facts
     if cur and cur[0] in keep:
         facts["group"] = (hit or {}).get("group") if hit else None
-        org = ((doc.get("flags") or {}).get(SHEETS_FLAG) or {}).get("organized")
-        own_doing = isinstance(org, dict) and isinstance(org.get("path"), list) and [str(p) for p in org["path"]] == cur
-        if cur[0] == players and not companion and own_doing:
-            pass  # the organizer filed a non-party actor into Players (the old "character sheet = pc" rule): file it properly below
+        if cur[0] == players and not companion:
+            pass  # Players is the roster's folder and nothing else stays there: a non-roster actor (the old
+            #      "character sheet = pc" filing, a player character the roster retired) files properly below
         else:
             return cur, "keep", facts
     era = (eras or {}).get((name.strip().lower(), doc.get("type")))
@@ -484,6 +483,17 @@ def refresh_manifest(world_dir, write):
     new["folders"] = sorted(folders)
     new["actors"] = actors
     new["actorCount"] = len(actors)
+    # the roster, the companions and who may open which sheet travel with the
+    # manifest too (split writes it; the module's GitHub route reads it here)
+    players = BRIDGE.players_payload() if hasattr(BRIDGE, "players_payload") else None
+    if players:
+        if "players" not in new:  # keep split's key order: before unresolvedFolderIds
+            items = list(new.items())
+            at = next((i for i, (k, _) in enumerate(items) if k == "unresolvedFolderIds"), len(items))
+            items.insert(at, ("players", players))
+            new = dict(items)
+        else:
+            new["players"] = players
     if new == manifest:
         return False
     if write:

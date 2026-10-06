@@ -1343,6 +1343,8 @@ def is_party(c, xp, sheet_kind=None):
     it and ignored."""
     if c["id"] in ROSTER["characters"]:
         return True, "party roster (actors/folders.json)"
+    if c["id"] in (ROSTER.get("retired") or {}):
+        return True, "former player character (actors/folders.json players.retired)"
     e = xp.get(c["id"]) or {}
     if (e.get("faction") or "") in PARTY_FACTIONS:
         return True, "ledger faction " + e["faction"]
