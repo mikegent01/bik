@@ -41,6 +41,12 @@ ROOT = os.path.dirname(HERE)
 RM = os.path.join(ROOT, "Reputation-Matrix2")
 CELLS = os.path.join(RM, "assets", "images", "toads", "roster")
 CELL_GLOB = "toad_*.png"
+RENDERS = os.path.join(RM, "assets", "images", "toads", "renders")
+# A cell whose figure shares the field's colour (Toad ie Foxx: the cap's white is the same
+# tone as the inner field, so any distance key eats the cap) is cut from a chroma render
+# under renders/ instead; its cell is then derived from the plate (Toad on cream), never
+# the other way round.
+CUT_FROM_RENDER = {"toad_73_toad_ie_foxx.png"}
 PLATES = os.path.realpath(os.path.join(RM, "portraits", "liberated-toads", "roster"))  # root `portraits` is a symlink
 REL_PLATES = "portraits/liberated-toads/roster"
 SMALL_PX = 300  # a plate below this is the website's small cell, not a bad cut — reported, not failed
@@ -93,11 +99,22 @@ def verify(mtp, path):
     return why, {"size": [w, h], "border_clear": round(clear, 3), "small": max(w, h) < SMALL_PX, "halo": halo}
 
 
+def cut_source(cell):
+    """What the cutter keys: the chroma render for the cells a flat key cannot separate
+    from their figure, the cell itself for everyone else."""
+    name = os.path.basename(cell)
+    if name in CUT_FROM_RENDER:
+        render = os.path.join(RENDERS, name)
+        if os.path.exists(render):
+            return render
+    return cell
+
+
 def cut_to_bytes(mtp, cell):
     """Cut into memory (a temp file the cutter writes, read back) — the same bytes every time for the same cell."""
     with tempfile.TemporaryDirectory() as td:
         tmp = os.path.join(td, os.path.basename(cell))
-        facts = mtp.cut(cell, tmp)
+        facts = mtp.cut(cut_source(cell), tmp)
         with open(tmp, "rb") as fh:
             data = fh.read()
     return data, facts
