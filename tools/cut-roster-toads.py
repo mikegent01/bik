@@ -44,6 +44,10 @@ CELL_GLOB = "toad_*.png"
 PLATES = os.path.realpath(os.path.join(RM, "portraits", "liberated-toads", "roster"))  # root `portraits` is a symlink
 REL_PLATES = "portraits/liberated-toads/roster"
 SMALL_PX = 300  # a plate below this is the website's small cell, not a bad cut — reported, not failed
+HALO_PX = 400   # semi-transparent field-coloured pixels hugging the cut: the cream halo a
+                # flat-field key leaves when it does not un-matte its blend band (0 on most
+                # clean cuts, under 300 where the figure's own white cap anti-aliases, over a
+                # thousand on the pre-un-matte plates)
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
@@ -83,7 +87,10 @@ def verify(mtp, path):
     if flat:
         why.append("a flat field is still there %s" % (flat,))
     why += mtp.background_audit(path)
-    return why, {"size": [w, h], "border_clear": round(clear, 3), "small": max(w, h) < SMALL_PX}
+    halo = mtp.fringe_count(path)
+    if halo > HALO_PX:
+        why.append("a light halo hugs the cut (%d px) — re-cut the plate" % halo)
+    return why, {"size": [w, h], "border_clear": round(clear, 3), "small": max(w, h) < SMALL_PX, "halo": halo}
 
 
 def cut_to_bytes(mtp, cell):

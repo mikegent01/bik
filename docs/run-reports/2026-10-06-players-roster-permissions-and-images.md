@@ -284,3 +284,44 @@ plates`, `actor image audit`, `actor images` — run for the first time.
   table's to make in Foundry; the XP is already on the sheet.
 * **47 small plates** — the website's 180 px roster cells are usable tokens and
   soft portraits; a bigger cell would want a re-render, not a re-cut.
+
+## 9. Addendum (same day): the cream halo — the "white outline" in Foundry
+
+**Report from the table:** many Liberated Toads still show a white outline in Foundry —
+sidebar thumbnails and map/ATB tokens alike (two screenshots attached to the request).
+
+**What it actually was.** The fields were keyed away, but a flat-field cut only despilled
+*chroma* keys: the anti-aliased blend band between the cream field (rgb 247,244,234) and the
+figure kept the field's colour at partial alpha. On magenta that band is invisible; on
+Foundry's dark chrome and maps it is a cream halo hugging every silhouette. Measured with the
+new `fringe_count()` (semi-transparent pixels within 30 of the field colour, within 2 px of
+transparency): 73 of 75 roster plates carried it, median 161 px, worst 1411 px; 18 of the 19
+toad full-body token plates too — and those full-body plates are exactly what the merged
+packet puts in `prototypeToken.texture.src`, which is why the map tokens glowed as well.
+
+**The fix.**
+- `tools/make-token-plates.py` — a flat-field cut now un-mattes its blend band (the field's
+  colour is divided out of the band's RGB) and lets coverage fall to zero at the field, so
+  the edge keeps the figure's colour only. New verb `defringe PATH…` repairs plates that were
+  cut before this existed, touching only the ring next to transparency (a ghost's or a glow's
+  interior translucency is art and stays). New `fringe_count()` measures the halo.
+- `tools/cut-roster-toads.py` — `--check` now fails a plate whose halo exceeds `HALO_PX`
+  (400: clean cuts score 0, a white cap's own anti-aliasing stays under 300, the pre-un-matte
+  plates scored up to 1411), so this cannot regress quietly.
+- All 75 roster plates re-cut (`--force`); the four twin full-body plates
+  (`toad_axie/freaza/regan/transparen_t`) overwritten in place with the new cuts, keeping the
+  byte-identical pairs dedupe protects; the other 15 toad full-body plates defringed in place
+  (worst band 2737 px → halo 0).
+
+**Verification.** `cut-roster-toads --check`: 75 current, 0 problems. Halos now 0 on most
+plates, worst 297 (Eager — his cap is genuinely that white; neutral colour, checked by eye on
+Foundry-dark next to the old plate). `test-make-token-plates` 73 passed, `test-cut-roster-toads`
+113 passed, `dedupe-images --check` still keeps the 8 protected copies, `audit-actor-images
+--strict` unchanged (the one stock action icon, not actor art). Side-by-side composites on
+Foundry-dark: old plates show the cream rim on caps, ghillie fuzz and weapon edges; the new
+cuts are neutral and tight.
+
+**In Foundry.** Art ships by copy: publish/install again (or Sync + reload after the suite has
+copied the new files into the world's Data folder) and both the sidebar thumbnails (`img`) and
+the tokens (`prototypeToken.texture.src`) pick the repaired plates up. The website's 180 px
+cells keep their cream field by design — the site shows cards, not tokens.

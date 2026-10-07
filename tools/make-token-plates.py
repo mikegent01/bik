@@ -365,9 +365,26 @@ def cut(src, dst, key="auto", hard_tol=None, soft_tol=None):
     alpha = arr[:, :, 3].astype(float)
     alpha[bg] = 0
     ramp = np.clip((dist - hard_tol) / max(1.0, soft_tol - hard_tol), 0.0, 1.0)
-    alpha[band] = np.minimum(alpha[band], 255.0 * (0.25 + 0.75 * ramp[band]))
+    chroma = isinstance(key, str)
+    if chroma:
+        alpha[band] = np.minimum(alpha[band], 255.0 * (0.25 + 0.75 * ramp[band]))
+    else:
+        # A flat field's band holds a field/figure MIX at partial alpha; left as-is the
+        # plate keeps a cream halo that reads as a white outline on a dark map. Take the
+        # field out of the colour (un-matte) and let coverage fall to zero at the field.
+        alpha[band] = 255.0 * ramp[band]
     out = arr.copy()
-    if isinstance(key, str):  # despill the edge (the band and 3 px in): pull the key channels down to the others
+    if not chroma:
+        live = band & (alpha >= 1)
+        af = np.clip(alpha, 1.0, 255.0) / 255.0
+        for ch in range(3):
+            c = out[:, :, ch].astype(float)
+            fixed = np.clip((c - (1.0 - af) * kc[ch]) / af, 0, 255)
+            out[:, :, ch] = np.where(live, fixed, c).astype(np.int32)
+        dead = band & (alpha < 1)
+        for ch in range(3):
+            out[:, :, ch][dead] = kc[ch]
+    if chroma:  # despill the edge (the band and 3 px in): pull the key channels down to the others
         ring = band.copy()
         for _ in range(3):
             grown = ring | bg
@@ -395,6 +412,70 @@ def cut(src, dst, key="auto", hard_tol=None, soft_tol=None):
     fw, fh, clear, _ = plate_facts(dst)
     return {"src": src, "dst": dst, "key": key if isinstance(key, str) else "flat %s" % (kc,), "figure": (w, h), "size": (fw, fh),
             "border_clear": round(clear, 3), "keyed": round(float(bg.mean()), 3)}
+
+
+def defringe(path, key=None, hard_tol=30, soft_tol=70):
+    """Repair, in place, a plate that was cut from a flat field before the cut un-matted
+    its blend band: the band still carries the field's colour at partial alpha, which on a
+    dark background is a cream halo around the figure. Only the ring next to transparency
+    is touched (interior translucency — a ghost, a glow — is art and stays). Returns facts."""
+    from PIL import Image
+    np = _np()
+    im = Image.open(path).convert("RGBA")
+    arr = np.asarray(im).astype(np.int32)
+    rgb, alpha = arr[:, :, :3], arr[:, :, 3].astype(float)
+    clear = alpha <= 12
+    if key is None:
+        seen = rgb[clear & (rgb.sum(axis=2) > 0)]
+        key = tuple(int(x) for x in np.median(seen, axis=0)) if len(seen) else (247, 244, 234)
+    near = clear
+    for _ in range(2):
+        grown = near.copy()
+        for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1), (1, 1), (-1, -1), (1, -1), (-1, 1)):
+            grown |= np.roll(np.roll(near, dy, axis=0), dx, axis=1)
+        near = grown
+    dist = np.sqrt(((rgb - np.array(key, dtype=np.int32)) ** 2).sum(axis=2).astype(float))
+    band = (alpha > 12) & near & (dist <= soft_tol)
+    if not band.any():
+        return {"path": path, "key": key, "fixed": 0}
+    ramp = np.clip((dist - hard_tol) / max(1.0, soft_tol - hard_tol), 0.0, 1.0)
+    out_alpha = np.where(band, 255.0 * ramp, alpha)
+    live = band & (out_alpha >= 1)
+    af = np.clip(out_alpha, 1.0, 255.0) / 255.0
+    out = arr.copy()
+    for ch in range(3):
+        c = out[:, :, ch].astype(float)
+        fixed = np.clip((c - (1.0 - af) * key[ch]) / af, 0, 255)
+        out[:, :, ch] = np.where(live, fixed, c).astype(np.int32)
+    dead = band & (out_alpha < 1)
+    for ch in range(3):
+        out[:, :, ch][dead] = key[ch]
+    out[:, :, 3] = out_alpha.astype(np.int32)
+    Image.fromarray(out.clip(0, 255).astype(np.uint8), "RGBA").save(path, optimize=True)
+    return {"path": path, "key": key, "fixed": int(band.sum())}
+
+
+def fringe_count(path, tol=30):
+    """Semi-transparent pixels hugging transparency that still carry the FIELD's colour —
+    the cream halo a flat-field cut leaves when it does not un-matte its blend band. A
+    figure's own translucency (a ghost, a glow) is another colour and does not count;
+    zero on a clean plate. Used by --check style gates."""
+    np = _np()
+    from PIL import Image
+    a = np.asarray(Image.open(path).convert("RGBA")).astype(np.int32)
+    al, rgb = a[:, :, 3], a[:, :, :3]
+    clear = al <= 12
+    seen = rgb[clear & (rgb.sum(axis=2) > 0)]
+    key = np.median(seen, axis=0) if len(seen) else np.array([247, 244, 234])
+    dist = np.sqrt(((rgb - key.astype(np.int32)) ** 2).sum(axis=2).astype(float))
+    semi = (al > 12) & (al < 250) & (dist <= tol)
+    near = clear.copy()
+    for _ in range(2):
+        grown = near.copy()
+        for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            grown |= np.roll(near, dy, axis=0) | np.roll(near, dx, axis=1)
+        near = grown
+    return int((semi & near).sum())
 
 
 # ---------------------------------------------------------------- plan ----
@@ -1032,6 +1113,22 @@ def cmd_heal(a):
             fixed += 1
             print(f"  {cid:<36} {n} px changed")
     print(f"heal: {fixed} plate(s) touched of {len(ids)}")
+
+
+def cmd_defringe(a):
+    key = tuple(a.key) if a.key else None
+    touched = 0
+    for p in a.paths:
+        path = p if os.path.exists(p) else os.path.join(RM, p)
+        if not os.path.isfile(path):
+            print(f"  {p}: no such file")
+            continue
+        before = fringe_count(path)
+        facts = defringe(path, key=key)
+        touched += 1
+        print(f"  {os.path.basename(path):<34} key {facts['key']}  band {facts['fixed']:5d} px  fringe {before} -> {fringe_count(path)}")
+    print(f"defringe: {touched} plate(s) touched of {len(a.paths)}")
+    return 0
     return 0
 
 
@@ -1681,6 +1778,7 @@ def main(argv=None):
     p = sub.add_parser("check"); p.add_argument("--check", action="store_true")
     p = sub.add_parser("pixel"); p.add_argument("--ids", nargs="*")
     p = sub.add_parser("heal"); p.add_argument("--ids", nargs="*"); p.add_argument("--key", choices=list(KEYS))
+    p = sub.add_parser("defringe"); p.add_argument("paths", nargs="+"); p.add_argument("--key", nargs=3, type=int, metavar=("R", "G", "B"))
     p = sub.add_parser("render"); p.add_argument("--url", default=None); p.add_argument("--workflow"); p.add_argument("--tier", type=int)
     p.add_argument("--model", choices=["auto", "qwen21", "qwen-edit"], default="auto"); p.add_argument("--resolution", type=int); p.add_argument("--opaque", action="store_true")
     p.add_argument("--full", action="store_true", help="the hands-off run: every tier, keep the best attempt when none passes QC, draw the reference-less from the record; review in git")
@@ -1690,7 +1788,7 @@ def main(argv=None):
     p.add_argument("--unet"); p.add_argument("--clip"); p.add_argument("--vae"); p.add_argument("--lora"); p.add_argument("--steps", type=int); p.add_argument("--date")
     p = sub.add_parser("sheet"); p.add_argument("--out", required=True); p.add_argument("--ids", nargs="*"); p.add_argument("--cell", type=int, default=160); p.add_argument("--cols", type=int, default=10)
     a = ap.parse_args(argv)
-    return {"plan": cmd_plan, "cut": cmd_cut, "apply": cmd_apply, "drop": cmd_drop, "check": cmd_check, "sheet": cmd_sheet, "pixel": cmd_pixel, "heal": cmd_heal, "render": cmd_render}[a.cmd](a)
+    return {"plan": cmd_plan, "cut": cmd_cut, "apply": cmd_apply, "drop": cmd_drop, "check": cmd_check, "sheet": cmd_sheet, "pixel": cmd_pixel, "heal": cmd_heal, "defringe": cmd_defringe, "render": cmd_render}[a.cmd](a)
 
 
 if __name__ == "__main__":
