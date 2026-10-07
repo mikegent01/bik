@@ -1238,6 +1238,74 @@
         "duplicateSource": null,
         "exportSource": null
       }
+    },
+    {
+      "_id": "keg2Q1Ghq6AK2QnS",
+      "name": "Kamek’s Misread Seal Rubbing",
+      "type": "loot",
+      "img": "icons/sundries/documents/document-bound-white-tan.webp",
+      "system": {
+        "description": {
+          "value": "<p>A rubbing of ancient seal markings that Kamek apparently interpreted as “for me” instead of “do not open the god-worm prison.”</p><ul><li>Contains ancient seal notation.</li><li>Demonstrates catastrophic wizard confidence.</li><li>Useful as evidence in arguments about signage.</li></ul><p><em>On the record:</em> trial evidence / research scrap.</p><blockquote>The greatest wizard in Koopa history versus a label. The label lost first, then everyone else did. — W.</blockquote><p><em>Waluipedia inventory <code>kamek_seal_rubbing</code>, held by Kamek. Mechanics as the table rules them; the archive records custody.</em></p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia inventory — Catastrophic Scholarship",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "identifier": "kameks-misread-seal-rubbing",
+        "quantity": 1,
+        "weight": {
+          "value": 1,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "properties": [],
+        "rarity": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "effects": [],
+      "flags": {
+        "waluipedia": {
+          "inventoryItem": "kamek_seal_rubbing",
+          "holder": "kamek",
+          "event": null,
+          "filedOn": "2026-10-06",
+          "note": "trial evidence / research scrap"
+        },
+        "scene-packer": {
+          "hash": "b2f4139271d29c89b581bc602eeb115c9f6604d7"
+        }
+      },
+      "folder": null,
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      },
+      "sort": 0,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791261801793,
+        "modifiedTime": 1791261801793,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      }
     }
   ],
   "effects": [],
@@ -1317,7 +1385,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791171679013,
-    "modifiedTime": 1791172239719,
+    "modifiedTime": 1791325780885,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

@@ -17290,7 +17290,20 @@
       },
       "folder": null,
       "ownership": {
-        "default": 0
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      },
+      "sort": 0,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791261801683,
+        "modifiedTime": 1791324172884,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
       }
     },
     {
@@ -17342,7 +17355,20 @@
       },
       "folder": null,
       "ownership": {
-        "default": 0
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      },
+      "sort": 0,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791261801683,
+        "modifiedTime": 1791324172884,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
       }
     },
     {
@@ -17381,7 +17407,6 @@
         "equipped": false,
         "rarity": "",
         "cover": null,
-        "crewed": false,
         "uses": {
           "max": "",
           "recovery": [],
@@ -17408,7 +17433,10 @@
           "value": "trinket",
           "baseItem": ""
         },
-        "activities": {}
+        "activities": {},
+        "crew": {
+          "value": []
+        }
       },
       "effects": [],
       "flags": {
@@ -17422,7 +17450,20 @@
       },
       "folder": null,
       "ownership": {
-        "default": 0
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      },
+      "sort": 0,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791261801683,
+        "modifiedTime": 1791324172884,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
       }
     },
     {
@@ -17461,7 +17502,6 @@
         "equipped": false,
         "rarity": "",
         "cover": null,
-        "crewed": false,
         "uses": {
           "max": "",
           "recovery": [],
@@ -17488,7 +17528,10 @@
           "value": "trinket",
           "baseItem": ""
         },
-        "activities": {}
+        "activities": {},
+        "crew": {
+          "value": []
+        }
       },
       "effects": [],
       "flags": {
@@ -17502,7 +17545,20 @@
       },
       "folder": null,
       "ownership": {
-        "default": 0
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      },
+      "sort": 0,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791261801684,
+        "modifiedTime": 1791324172884,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
       }
     },
     {
@@ -17554,7 +17610,20 @@
       },
       "folder": null,
       "ownership": {
-        "default": 0
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      },
+      "sort": 0,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791261801684,
+        "modifiedTime": 1791324172884,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
       }
     },
     {
@@ -17606,7 +17675,20 @@
       },
       "folder": null,
       "ownership": {
-        "default": 0
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      },
+      "sort": 0,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791261801684,
+        "modifiedTime": 1791324172884,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
       }
     },
     {
@@ -17645,7 +17727,6 @@
         "equipped": false,
         "rarity": "",
         "cover": null,
-        "crewed": false,
         "uses": {
           "max": "",
           "recovery": [],
@@ -17672,7 +17753,10 @@
           "value": "clothing",
           "baseItem": ""
         },
-        "activities": {}
+        "activities": {},
+        "crew": {
+          "value": []
+        }
       },
       "effects": [],
       "flags": {
@@ -17686,7 +17770,20 @@
       },
       "folder": null,
       "ownership": {
-        "default": 0
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      },
+      "sort": 0,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791261801685,
+        "modifiedTime": 1791324172884,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
       }
     }
   ],

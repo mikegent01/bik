@@ -731,6 +731,9 @@
         "basis": "bestiary",
         "from": []
       }
+    },
+    "midi-qol": {
+      "onUseMacroParts": {}
     }
   },
   "_stats": {
@@ -738,7 +741,7 @@
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
     "createdTime": 1791175318308,
-    "modifiedTime": 1791175318308,
+    "modifiedTime": 1791261789681,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "compendiumSource": null,
     "duplicateSource": null,

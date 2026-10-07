@@ -652,7 +652,7 @@
         "value": "",
         "public": ""
       },
-      "race": "sCxUWoCkQo9o7KeU",
+      "race": "4b8eb918a8d24833",
       "background": "Dimensional Escapee / Oathbound Survivor",
       "originalClass": "y7l5pkLwSvPqL7Ba",
       "xp": {
@@ -1034,65 +1034,6 @@
       "sort": 30000,
       "_id": "02b67d17ce6b4491",
       "img": "icons/magic/perception/third-eye-blue-red.webp",
-      "_stats": {
-        "coreVersion": "14.367",
-        "systemId": "dnd5e",
-        "systemVersion": "5.3.3",
-        "createdTime": 1788730632136,
-        "modifiedTime": 1788730632136,
-        "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
-      },
-      "ownership": {
-        "default": 0
-      }
-    },
-    {
-      "name": "Wild Surge — Unstable Aura",
-      "type": "feat",
-      "system": {
-        "description": {
-          "value": "<p>When Dan casts a spell or crosses a planar boundary, the GM may introduce a harmless or dangerous Feyward complication: color inversion, a misplaced door, involuntary apology, or a brief duplicate shadow.</p>",
-          "chat": ""
-        },
-        "source": {
-          "custom": "Waluipedia campaign",
-          "rules": "2014",
-          "revision": 1
-        },
-        "identifier": "wild-surge-unstable-aura",
-        "properties": [],
-        "activities": {},
-        "uses": {
-          "spent": 0,
-          "recovery": []
-        },
-        "advancement": {},
-        "crewed": false,
-        "enchant": {},
-        "prerequisites": {
-          "items": [],
-          "repeatable": false
-        },
-        "requirements": "",
-        "type": {
-          "value": "",
-          "subtype": ""
-        }
-      },
-      "flags": {
-        "bik": {
-          "source": "Feyward Dan player-character dossier",
-          "ledgerLinked": true
-        }
-      },
-      "effects": [],
-      "folder": null,
-      "sort": 40000,
-      "_id": "e6cbf8b57a504da9",
-      "img": "icons/magic/holy/barrier-shield-winged-blue.webp",
       "_stats": {
         "coreVersion": "14.367",
         "systemId": "dnd5e",
@@ -12348,144 +12289,6 @@
       }
     },
     {
-      "_id": "sCxUWoCkQo9o7KeU",
-      "name": "Grung",
-      "type": "race",
-      "system": {
-        "description": {
-          "value": "<div>\n\t\t\t\t<table class=\"ve-w-100 ve-summary stripe-even\">\n\t\t\t\t<tbody><tr>\n\t\t\t\t\t<th class=\"ve-col-4 ve-text-center\">Ability Scores</th>\n\t\t\t\t\t<th class=\"ve-col-4 ve-text-center\">Size</th>\n\t\t\t\t\t<th class=\"ve-col-4 ve-text-center\">Speed</th>\n\t\t\t\t</tr>\n\t\t\t\t<tr>\n\t\t\t\t\t<td class=\"ve-text-center\"></td>\n\t\t\t\t\t<td class=\"ve-text-center\">Small</td>\n\t\t\t\t\t<td class=\"ve-text-center\">30 ft., Climb 30 ft.</td>\n\t\t\t\t</tr>\n\t\t\t</tbody></table>\n\t\t\t\t<div class=\"ve-mt-2\"><p>@UUID[Actor.YDfvgm2dGArNeEsE.Item.oiJAAtw2gelcaEz6]{Amphibious}</p><p>@UUID[Actor.YDfvgm2dGArNeEsE.Item.uSPfauhfEGJK95Tv]{Poison Resilience}</p><p>@UUID[Actor.YDfvgm2dGArNeEsE.Item.PM0Jtm4S1JPj1Z1B]{Poisonous Skin}</p><p>@UUID[Actor.YDfvgm2dGArNeEsE.Item.e0qWDgv32okaA3ow]{Standing Leap}</p></div>\n\t\t\t\t\n\t\t\t</div>",
-          "chat": ""
-        },
-        "source": {
-          "custom": "",
-          "book": "DGB",
-          "page": "",
-          "license": "",
-          "rules": "2014",
-          "revision": 1
-        },
-        "movement": {
-          "climb": "30",
-          "walk": "30",
-          "units": "ft",
-          "hover": false,
-          "ignoredDifficultTerrain": []
-        },
-        "type": {
-          "value": "humanoid",
-          "subtype": "Grung",
-          "custom": ""
-        },
-        "senses": {
-          "ranges": {
-            "darkvision": null,
-            "blindsight": null,
-            "truesight": null,
-            "tremorsense": null
-          },
-          "units": "ft",
-          "special": ""
-        },
-        "advancement": {
-          "d9oGlA0II6QkmN3s": {
-            "_id": "d9oGlA0II6QkmN3s",
-            "type": "Size",
-            "configuration": {
-              "sizes": [
-                "sm"
-              ]
-            },
-            "value": {
-              "size": "sm"
-            },
-            "level": 0,
-            "title": "",
-            "flags": {},
-            "hint": ""
-          },
-          "Iam4oqfCqaC5FyYV": {
-            "_id": "Iam4oqfCqaC5FyYV",
-            "type": "Trait",
-            "configuration": {
-              "mode": "default",
-              "allowReplacements": false,
-              "grants": [],
-              "choices": []
-            },
-            "level": 0,
-            "title": "Damage Resistances",
-            "value": {
-              "chosen": [
-                "dr:poison"
-              ]
-            },
-            "flags": {},
-            "hint": ""
-          },
-          "eyPmuOyy33T2Nuvm": {
-            "_id": "eyPmuOyy33T2Nuvm",
-            "type": "ItemGrant",
-            "level": 0,
-            "title": "Features",
-            "icon": "modules/plutonium/media/icon/family-tree.svg",
-            "configuration": {
-              "items": [],
-              "optional": false,
-              "spell": {
-                "ability": [
-                  ""
-                ],
-                "uses": {
-                  "max": "",
-                  "per": "",
-                  "requireSlot": false
-                },
-                "prepared": 0
-              }
-            },
-            "value": {
-              "added": {
-                "oiJAAtw2gelcaEz6": "Actor.YDfvgm2dGArNeEsE.Item.oiJAAtw2gelcaEz6",
-                "uSPfauhfEGJK95Tv": "Actor.YDfvgm2dGArNeEsE.Item.uSPfauhfEGJK95Tv",
-                "PM0Jtm4S1JPj1Z1B": "Actor.YDfvgm2dGArNeEsE.Item.PM0Jtm4S1JPj1Z1B",
-                "e0qWDgv32okaA3ow": "Actor.YDfvgm2dGArNeEsE.Item.e0qWDgv32okaA3ow"
-              }
-            },
-            "flags": {},
-            "hint": ""
-          }
-        },
-        "identifier": "grung"
-      },
-      "effects": [],
-      "flags": {
-        "plutonium": {
-          "page": "races.html",
-          "source": "detect-greater-balance",
-          "hash": "grung_detect-greater-balance",
-          "propDroppable": "race",
-          "isDirectImport": true
-        }
-      },
-      "img": "modules/plutonium/media/icon/family-tree.svg",
-      "_stats": {
-        "systemVersion": "5.3.3",
-        "coreVersion": "14.367",
-        "systemId": "dnd5e",
-        "createdTime": 1788730632136,
-        "modifiedTime": 1789782380720,
-        "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
-      },
-      "folder": null,
-      "sort": 0,
-      "ownership": {
-        "default": 0
-      }
-    },
-    {
       "_id": "kJMcIrA0wBmpNmRA",
       "name": "The Hard Road",
       "type": "feat",
@@ -12813,6 +12616,133 @@
         "duplicateSource": null,
         "exportSource": null
       }
+    },
+    {
+      "name": "Wild Surge — Unstable Aura",
+      "type": "feat",
+      "system": {
+        "description": {
+          "value": "<p>When Dan casts a spell or crosses a planar boundary, the GM may introduce a harmless or dangerous Feyward complication: color inversion, a misplaced door, involuntary apology, or a brief duplicate shadow.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "wild-surge-unstable-aura",
+        "properties": [],
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": []
+        },
+        "advancement": {},
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "flags": {
+        "bik": {
+          "source": "Feyward Dan player-character dossier",
+          "ledgerLinked": true
+        },
+        "scene-packer": {
+          "hash": "e818bedf0d679f1e7460a90ff621fe5caec1a64e"
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 40000,
+      "_id": "e6cbf8b57a504da9",
+      "img": "icons/magic/holy/barrier-shield-winged-blue.webp",
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791324172696,
+        "modifiedTime": 1791324172696,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      }
+    },
+    {
+      "name": "Toad — Feyward Variant",
+      "type": "race",
+      "system": {
+        "description": {
+          "value": "<p>Medium Toad. The Feyward variant is a parallel-reality survivor. No ancestry memories are assumed to be shared with Original Dan.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "toad-feyward-variant",
+        "advancement": {},
+        "movement": {
+          "units": "ft",
+          "hover": false,
+          "ignoredDifficultTerrain": []
+        },
+        "senses": {
+          "ranges": {
+            "blindsight": null,
+            "darkvision": null,
+            "tremorsense": null,
+            "truesight": null
+          },
+          "units": "ft",
+          "special": ""
+        },
+        "type": {
+          "value": "humanoid"
+        }
+      },
+      "flags": {
+        "bik": {
+          "source": "Feyward Dan player-character dossier",
+          "ledgerLinked": true
+        },
+        "scene-packer": {
+          "hash": "719fcb01521746a1487261ba3ca2835b82614353"
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 10000,
+      "_id": "4b8eb918a8d24833",
+      "img": "icons/creatures/amphibians/frog-confused-green-blue.webp",
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791324194219,
+        "modifiedTime": 1791324194219,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      }
     }
   ],
   "effects": [
@@ -13022,7 +12952,7 @@
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
     "createdTime": 1788730632136,
-    "modifiedTime": 1791171683715,
+    "modifiedTime": 1791324194389,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "compendiumSource": null,
     "duplicateSource": null,

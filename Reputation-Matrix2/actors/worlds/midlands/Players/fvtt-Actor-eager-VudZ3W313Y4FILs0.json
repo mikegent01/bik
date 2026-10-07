@@ -673,8 +673,8 @@
         "value": "",
         "public": ""
       },
-      "race": "sctSWwZ7EHsxJlwW",
-      "background": "fN1FAHmzHWPx6Ky5",
+      "race": "d5c6b4b8da1e46c8",
+      "background": "5f606a64c6bb43f3",
       "originalClass": "DyOqiLm0phacVrFy",
       "xp": {
         "value": 4860
@@ -966,65 +966,6 @@
     "prependAdjective": false
   },
   "items": [
-    {
-      "name": "Fighting Style — Archery",
-      "type": "feat",
-      "system": {
-        "description": {
-          "value": "<p>Eager is trained to use ranged weapons under pressure. Gain the standard Archery fighting-style bonus when using a ranged weapon.</p>",
-          "chat": ""
-        },
-        "source": {
-          "custom": "Waluipedia campaign",
-          "rules": "2014",
-          "revision": 1
-        },
-        "identifier": "fighting-style-archery",
-        "properties": [],
-        "activities": {},
-        "uses": {
-          "spent": 0,
-          "recovery": []
-        },
-        "advancement": {},
-        "crewed": false,
-        "enchant": {},
-        "prerequisites": {
-          "items": [],
-          "repeatable": false
-        },
-        "requirements": "",
-        "type": {
-          "value": "",
-          "subtype": ""
-        }
-      },
-      "flags": {
-        "bik": {
-          "source": "Eager player-character dossier",
-          "ledgerLinked": true
-        }
-      },
-      "effects": [],
-      "folder": null,
-      "sort": 180000,
-      "_id": "218ad632c6e149d9",
-      "img": "icons/skills/ranged/person-archery-bow-attack-orange.webp",
-      "_stats": {
-        "coreVersion": "14.367",
-        "systemId": "dnd5e",
-        "systemVersion": "5.3.3",
-        "createdTime": 1788730470211,
-        "modifiedTime": 1788730470211,
-        "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
-      },
-      "ownership": {
-        "default": 0
-      }
-    },
     {
       "name": "Second Wind",
       "type": "feat",
@@ -2569,494 +2510,6 @@
       }
     },
     {
-      "name": "Dead Person's Shoes",
-      "type": "equipment",
-      "img": "icons/equipment/feet/shoes-leather-simple-brown.webp",
-      "system": {
-        "description": {
-          "value": "<p>Shoes Eager found in the chess room and wore during the Shadow Estate chase. He said it felt wrong. He wore them anyway.</p>",
-          "chat": ""
-        },
-        "source": {
-          "custom": "",
-          "book": "SRD 5.1",
-          "page": "",
-          "license": "CC-BY-4.0",
-          "revision": 1,
-          "rules": "2014"
-        },
-        "quantity": 1,
-        "weight": {
-          "value": 4,
-          "units": "lb"
-        },
-        "price": {
-          "value": 2,
-          "denomination": "gp"
-        },
-        "attunement": "",
-        "rarity": "",
-        "identified": true,
-        "cover": null,
-        "uses": {
-          "max": "",
-          "recovery": [],
-          "spent": 0
-        },
-        "armor": {
-          "value": null,
-          "dex": null
-        },
-        "hp": {
-          "value": 0,
-          "max": 0,
-          "dt": null,
-          "conditions": ""
-        },
-        "speed": {
-          "value": null,
-          "conditions": "",
-          "units": "ft"
-        },
-        "strength": null,
-        "type": {
-          "value": "clothing",
-          "baseItem": ""
-        },
-        "unidentified": {
-          "description": ""
-        },
-        "container": null,
-        "properties": [],
-        "equipped": false,
-        "proficient": null,
-        "activities": {
-          "dnd5eactivity000": {
-            "_id": "dnd5eactivity000",
-            "type": "utility",
-            "activation": {
-              "type": "",
-              "value": null,
-              "condition": "",
-              "override": false
-            },
-            "consumption": {
-              "targets": [],
-              "scaling": {
-                "allowed": false,
-                "max": ""
-              },
-              "spellSlot": true
-            },
-            "description": {
-              "chatFlavor": ""
-            },
-            "duration": {
-              "concentration": false,
-              "value": "",
-              "units": "inst",
-              "special": "",
-              "override": false
-            },
-            "effects": [],
-            "range": {
-              "units": "self",
-              "special": "",
-              "override": false
-            },
-            "target": {
-              "template": {
-                "count": "",
-                "contiguous": false,
-                "type": "",
-                "size": "",
-                "width": "",
-                "height": "",
-                "units": "ft",
-                "stationary": false
-              },
-              "affects": {
-                "count": "",
-                "type": "",
-                "choice": false,
-                "special": ""
-              },
-              "prompt": true,
-              "override": false
-            },
-            "uses": {
-              "spent": 0,
-              "max": "",
-              "recovery": []
-            },
-            "roll": {
-              "formula": "",
-              "name": "",
-              "prompt": false,
-              "visible": false
-            },
-            "sort": 0,
-            "flags": {},
-            "visibility": {
-              "level": {},
-              "requireAttunement": false,
-              "requireIdentification": false,
-              "requireMagic": false
-            },
-            "img": null,
-            "useConditionText": "",
-            "useConditionReason": "",
-            "effectConditionText": "",
-            "macroData": {
-              "name": "",
-              "command": ""
-            },
-            "ignoreTraits": {
-              "idi": false,
-              "idr": false,
-              "idv": false,
-              "ida": false,
-              "idm": false
-            },
-            "midiProperties": {
-              "ignoreTraits": [],
-              "triggeredActivityId": "none",
-              "triggeredActivityConditionText": "",
-              "triggeredActivityTargets": "targets",
-              "triggeredActivityRollAs": "self",
-              "triggeredActivityConsume": true,
-              "triggeredActivityConfigure": true,
-              "autoConsume": false,
-              "forceConsumeDialog": "default",
-              "forceRollDialog": "default",
-              "forceDamageDialog": "default",
-              "confirmTargets": "default",
-              "autoTargetType": "any",
-              "autoTargetAction": "default",
-              "automationOnly": false,
-              "otherActivityCompatible": true,
-              "otherActivityAsParentType": true,
-              "identifier": "",
-              "displayActivityName": false,
-              "rollMode": "default",
-              "chooseEffects": false,
-              "toggleEffect": false,
-              "ignoreFullCover": false,
-              "removeChatButtons": "default",
-              "magicEffect": false,
-              "magicDamage": false,
-              "noConcentrationCheck": false,
-              "skipConcentrationCheck": false,
-              "autoCEEffects": "default"
-            },
-            "isOverTimeFlag": false,
-            "overTimeProperties": {
-              "saveRemoves": true,
-              "rollAs": "target",
-              "preRemoveConditionText": "",
-              "postRemoveConditionText": ""
-            },
-            "regionBehavior": {
-              "enabled": false,
-              "dispositionFilter": -1,
-              "excludeSource": true,
-              "oncePerTurn": true,
-              "wallRestriction": "none",
-              "regionVisibility": 2,
-              "attachToken": "default",
-              "rules": []
-            },
-            "regionLight": {
-              "enabled": false,
-              "dim": 0,
-              "bright": 0,
-              "color": null,
-              "alpha": 0.5,
-              "luminosity": 0.5,
-              "animationType": "",
-              "animationSpeed": 5,
-              "animationIntensity": 5
-            },
-            "otherActivityId": "none",
-            "otherActivityAsParentType": true
-          }
-        },
-        "identifier": "dead-persons-shoes",
-        "attuned": false,
-        "crew": {
-          "value": []
-        }
-      },
-      "effects": [],
-      "folder": "aJgMxnZED9XdoN2W",
-      "sort": 180000,
-      "flags": {
-        "bik": {
-          "source": "Eager player-character dossier",
-          "ledgerLinked": true
-        }
-      },
-      "_stats": {
-        "compendiumSource": "Compendium.dnd5e.items.Item.SsAmWV6YBqeOFihT",
-        "duplicateSource": null,
-        "exportSource": null,
-        "coreVersion": "14.367",
-        "systemId": "dnd5e",
-        "systemVersion": "5.3.3",
-        "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "modifiedTime": 1788730470211,
-        "createdTime": 1788730470211
-      },
-      "_id": "0e651b48faa5496b",
-      "ownership": {
-        "default": 0
-      }
-    },
-    {
-      "name": "Dead Person's Pants",
-      "type": "equipment",
-      "img": "icons/equipment/leg/pants-breeches-leather-brown.webp",
-      "system": {
-        "description": {
-          "value": "<p>Pants Eager acquired during the Shadow Estate chase. Markop observed that Eager was wearing a dead man's clothing; Eager replied that pants are important.</p>",
-          "chat": ""
-        },
-        "source": {
-          "custom": "",
-          "book": "SRD 5.1",
-          "page": "",
-          "license": "CC-BY-4.0",
-          "revision": 1,
-          "rules": "2014"
-        },
-        "quantity": 1,
-        "weight": {
-          "value": 4,
-          "units": "lb"
-        },
-        "price": {
-          "value": 2,
-          "denomination": "gp"
-        },
-        "attunement": "",
-        "rarity": "",
-        "identified": true,
-        "cover": null,
-        "uses": {
-          "max": "",
-          "recovery": [],
-          "spent": 0
-        },
-        "armor": {
-          "value": null,
-          "dex": null
-        },
-        "hp": {
-          "value": 0,
-          "max": 0,
-          "dt": null,
-          "conditions": ""
-        },
-        "speed": {
-          "value": null,
-          "conditions": "",
-          "units": "ft"
-        },
-        "strength": null,
-        "type": {
-          "value": "clothing",
-          "baseItem": ""
-        },
-        "unidentified": {
-          "description": ""
-        },
-        "container": null,
-        "properties": [],
-        "equipped": false,
-        "proficient": null,
-        "activities": {
-          "dnd5eactivity000": {
-            "_id": "dnd5eactivity000",
-            "type": "utility",
-            "activation": {
-              "type": "",
-              "value": null,
-              "condition": "",
-              "override": false
-            },
-            "consumption": {
-              "targets": [],
-              "scaling": {
-                "allowed": false,
-                "max": ""
-              },
-              "spellSlot": true
-            },
-            "description": {
-              "chatFlavor": ""
-            },
-            "duration": {
-              "concentration": false,
-              "value": "",
-              "units": "inst",
-              "special": "",
-              "override": false
-            },
-            "effects": [],
-            "range": {
-              "units": "self",
-              "special": "",
-              "override": false
-            },
-            "target": {
-              "template": {
-                "count": "",
-                "contiguous": false,
-                "type": "",
-                "size": "",
-                "width": "",
-                "height": "",
-                "units": "ft",
-                "stationary": false
-              },
-              "affects": {
-                "count": "",
-                "type": "",
-                "choice": false,
-                "special": ""
-              },
-              "prompt": true,
-              "override": false
-            },
-            "uses": {
-              "spent": 0,
-              "max": "",
-              "recovery": []
-            },
-            "roll": {
-              "formula": "",
-              "name": "",
-              "prompt": false,
-              "visible": false
-            },
-            "sort": 0,
-            "flags": {},
-            "visibility": {
-              "level": {},
-              "requireAttunement": false,
-              "requireIdentification": false,
-              "requireMagic": false
-            },
-            "img": null,
-            "useConditionText": "",
-            "useConditionReason": "",
-            "effectConditionText": "",
-            "macroData": {
-              "name": "",
-              "command": ""
-            },
-            "ignoreTraits": {
-              "idi": false,
-              "idr": false,
-              "idv": false,
-              "ida": false,
-              "idm": false
-            },
-            "midiProperties": {
-              "ignoreTraits": [],
-              "triggeredActivityId": "none",
-              "triggeredActivityConditionText": "",
-              "triggeredActivityTargets": "targets",
-              "triggeredActivityRollAs": "self",
-              "triggeredActivityConsume": true,
-              "triggeredActivityConfigure": true,
-              "autoConsume": false,
-              "forceConsumeDialog": "default",
-              "forceRollDialog": "default",
-              "forceDamageDialog": "default",
-              "confirmTargets": "default",
-              "autoTargetType": "any",
-              "autoTargetAction": "default",
-              "automationOnly": false,
-              "otherActivityCompatible": true,
-              "otherActivityAsParentType": true,
-              "identifier": "",
-              "displayActivityName": false,
-              "rollMode": "default",
-              "chooseEffects": false,
-              "toggleEffect": false,
-              "ignoreFullCover": false,
-              "removeChatButtons": "default",
-              "magicEffect": false,
-              "magicDamage": false,
-              "noConcentrationCheck": false,
-              "skipConcentrationCheck": false,
-              "autoCEEffects": "default"
-            },
-            "isOverTimeFlag": false,
-            "overTimeProperties": {
-              "saveRemoves": true,
-              "rollAs": "target",
-              "preRemoveConditionText": "",
-              "postRemoveConditionText": ""
-            },
-            "regionBehavior": {
-              "enabled": false,
-              "dispositionFilter": -1,
-              "excludeSource": true,
-              "oncePerTurn": true,
-              "wallRestriction": "none",
-              "regionVisibility": 2,
-              "attachToken": "default",
-              "rules": []
-            },
-            "regionLight": {
-              "enabled": false,
-              "dim": 0,
-              "bright": 0,
-              "color": null,
-              "alpha": 0.5,
-              "luminosity": 0.5,
-              "animationType": "",
-              "animationSpeed": 5,
-              "animationIntensity": 5
-            },
-            "otherActivityId": "none",
-            "otherActivityAsParentType": true
-          }
-        },
-        "identifier": "dead-persons-pants",
-        "attuned": false,
-        "crew": {
-          "value": []
-        }
-      },
-      "effects": [],
-      "folder": "aJgMxnZED9XdoN2W",
-      "sort": 180000,
-      "flags": {
-        "bik": {
-          "source": "Eager player-character dossier",
-          "ledgerLinked": true
-        }
-      },
-      "_stats": {
-        "compendiumSource": "Compendium.dnd5e.items.Item.SsAmWV6YBqeOFihT",
-        "duplicateSource": null,
-        "exportSource": null,
-        "coreVersion": "14.367",
-        "systemId": "dnd5e",
-        "systemVersion": "5.3.3",
-        "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "modifiedTime": 1788730470211,
-        "createdTime": 1788730470211
-      },
-      "_id": "112a26e0d2784628",
-      "ownership": {
-        "default": 0
-      }
-    },
-    {
       "_id": "XQpleqth8huCj2jk",
       "name": "The Hard Road",
       "type": "feat",
@@ -3113,133 +2566,6 @@
         "systemId": "dnd5e",
         "createdTime": 1788730470211,
         "modifiedTime": 1788730470211,
-        "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
-      },
-      "folder": null,
-      "sort": 0,
-      "ownership": {
-        "default": 0
-      }
-    },
-    {
-      "_id": "fN1FAHmzHWPx6Ky5",
-      "name": "Slave",
-      "type": "background",
-      "system": {
-        "description": {
-          "value": "<div><div class=\"ve-rd__b  ve-rd__b--1\"><p>For some significant portion of your life, you have been someone else's property. This part of your life happened either by abduction, as punishment for a crime, sworn to a debt of life, or you were born into it. How did you become a slave? Are you a slave or a freeman? Who was your master and where are they? What were the conditions of your slavery? What did you do as a slave? Were you treated well, or were you abused? How much privilege or freedom did you experience, and was this granted to you, or taken by you? How would you treat your master after your servitude? Can you ever really leave your background behind you? Do you really even need to escape, or will you remain a slave for the rest of your journey? Do you have the willpower to create slavery-free actions, or has your background tainted your history and the actions that you can take later in your career? What would you do with your slaves?</p></div><hr><div class=\"ve-rd__b  ve-rd__b--1\"><p><i>This background intentionally undershoots the mechanical precedent and guidelines laid out in the PHB and DMG, providing fewer proficiency opportunities and gear- most distinctly, lacking any role play items whatsoever. Additionally, the feature deliberately introduces more problems and threats to the PC, offering only one limited circumstance in which their past may be useful to them. The intention is that this background function somewhat like a \"hard-mode\" option- as a slave, you are specifically disadvantaged by your lack of opportunities in your earlier life. This manifests as a reduction of mechanically relevant options in play.</i></p><ul class=\"ve-rd__list ve-rd__list-hang-notitle\"><li class=\"ve-rd__li \"><p class=\"ve-rd__p-list-item\" data-roll-name-ancestor=\"Skill Proficiencies\"><span class=\"ve-bold ve-rd__list-item-name\">Skill Proficiencies.</span> &amp;Reference[skill=Performance] or &amp;Reference[skill=Survival].</p></li><li class=\"ve-rd__li \"><p class=\"ve-rd__p-list-item\" data-roll-name-ancestor=\"Tool Proficiencies\"><span class=\"ve-bold ve-rd__list-item-name\">Tool Proficiencies.</span> You have proficiency with any one <a href=\"https://5e.tools/items.html#blankhash,flsttype:tools=1\">tool</a> entry with a value no greater than 15gp.</p></li><li class=\"ve-rd__li \"><p class=\"ve-rd__p-list-item\" data-roll-name-ancestor=\"Languages Proficiencies\"><span class=\"ve-bold ve-rd__list-item-name\">Languages Proficiencies.</span> None.</p></li><li class=\"ve-rd__li \"><p class=\"ve-rd__p-list-item\" data-roll-name-ancestor=\"Equipment\"><span class=\"ve-bold ve-rd__list-item-name\">Equipment.</span> One <a href=\"https://5e.tools/items.html#blankhash,flsttype:tools=1\">tool</a> you are proficient with, or one <a href=\"https://5e.tools/items.html#blankhash,flstmiscellaneous:mundane=1,flsttype:melee%20weapon=1~simple%20weapon=1\">simple melee weapon</a>, a set of <a href=\"https://5e.tools/items.html#blankhash,flstmiscellaneous:mundane=1,fbsr:clothes\">clothes</a> appropriate to your master's status and your slave purpose, and a small @item[pouch|phb] containing 1gp.</p></li></ul><div data-roll-name-ancestor=\"Feature: The Hard Road\" class=\"ve-rd__b  ve-rd__b--named ve-rd__b--2\"><h3 class=\"ve-rd__h ve-rd__h--2\" data-title-index=\"1\"> <span class=\"entry-title-inner \">Feature: The Hard Road</span></h3> <p>Slaves face great difficulty everywhere they go. Escaped slaves are often on the run if not from their former owners, then certainly from the law. Few are educated or have any practical experience to make a way for themselves. Most have limited social skills which give away their social status. Slavers may notice freemen as \"unclaimed property\" and try to \"claim\" them as slaves. People sense a sort of \"inferiority\" about slaves and freemen, and they will likely either ignore you or boss you around. Many freemen turn to crime to make ends meet and so anyone who doesn't assume you a slave immediately, will likely assume that you are a criminal. If you can ever really leave the slavery mindset knowing what it's like to be a slave, then you can pose as a slave with little difficulty and without raising much suspicion. People seem to do things in front of you that they would normally only do when they are alone.</p></div><div data-roll-name-ancestor=\"Purpose\" class=\"ve-rd__b  ve-rd__b--named ve-rd__b--2\"><h3 class=\"ve-rd__h ve-rd__h--2\" data-title-index=\"2\"> <span class=\"entry-title-inner \">Purpose</span></h3> <p>A slave is set to a task by their master for a reason– their purpose for even being alive.</p><table class=\"ve-w-100 ve-rd__table  stripe-odd-table\"><thead><tr><th class=\"ve-rd__th ve-col-1 ve-text-center \" data-rd-isroller=\"true\">[[/r d8]]</th><th class=\"ve-rd__th ve-col-11 \" data-rd-isroller=\"false\">Purpose</th></tr></thead><tbody><tr><td class=\"ve-rd__th ve-col-1 ve-text-center \" data-roll-min=\"1\" data-roll-max=\"1\">1</td><td class=\"ve-rd__th ve-col-11 \">I existed to do hard labor, such as mining or construction.</td></tr><tr><td class=\"ve-rd__th ve-col-1 ve-text-center \" data-roll-min=\"2\" data-roll-max=\"2\">2</td><td class=\"ve-rd__th ve-col-11 \">I existed for someone else's amusement, entertainment, or recreation.</td></tr><tr><td class=\"ve-rd__th ve-col-1 ve-text-center \" data-roll-min=\"3\" data-roll-max=\"3\">3</td><td class=\"ve-rd__th ve-col-11 \">I existed to serve some dedicated menial task, such as cooking or cleaning.</td></tr><tr><td class=\"ve-rd__th ve-col-1 ve-text-center \" data-roll-min=\"4\" data-roll-max=\"4\">4</td><td class=\"ve-rd__th ve-col-11 \">I existed as the personal servant of a given person, family, or group.</td></tr><tr><td class=\"ve-rd__th ve-col-1 ve-text-center \" data-roll-min=\"5\" data-roll-max=\"5\">5</td><td class=\"ve-rd__th ve-col-11 \">I existed to fulfill the tasks of some professional assistant, such as a furnace operator for a smithy.</td></tr><tr><td class=\"ve-rd__th ve-col-1 ve-text-center \" data-roll-min=\"6\" data-roll-max=\"6\">6</td><td class=\"ve-rd__th ve-col-11 \">I existed to serve the function of an inanimate object, such as a signpost or furniture, or to operate such things, like opening and closing a specific door all day long.</td></tr><tr><td class=\"ve-rd__th ve-col-1 ve-text-center \" data-roll-min=\"7\" data-roll-max=\"7\">7</td><td class=\"ve-rd__th ve-col-11 \">I existed to fight and die in the place of someone else, as a soldier or bodyguard.</td></tr><tr><td class=\"ve-rd__th ve-col-1 ve-text-center \" data-roll-min=\"8\" data-roll-max=\"8\">8</td><td class=\"ve-rd__th ve-col-11 \">I existed to serve all, as an untouchable-a slave to even other slaves.</td></tr></tbody></table></div><div data-roll-name-ancestor=\"Suggested Characteristics\" class=\"ve-rd__b  ve-rd__b--named ve-rd__b--2\"><h3 class=\"ve-rd__h ve-rd__h--2\" data-title-index=\"3\"> <span class=\"entry-title-inner \">Suggested Characteristics</span></h3> <p><b>Slaves</b> belong to their masters and cannot openly make the decisions that they want to, their destiny is defined by the wills of their masters. You may be a \"star\" slave and actually make a statement to your master, or your life may be nothing more than serving a pointless end. If you are an unlucky slave, then your life will be for nothing more than fighting a lost campaign or treating a person with no power as an exemplar. If you are a lucky slave then maybe you can see escape without slaughter, or even talk to your clients and perform some subterfuge. Escaped slaves exist in an awkward situation where they are lost/stolen property which they are guilty of stealing/kidnapping themselves. Life as an escaped slave is extremely difficult, and hiding your past may require intuitively practicing skills you would normally never have learned as a slave.</p><p>A <b>freeman</b> is a person who was a slave but has been freed by legitimate means. Most freemen are actually convicts who were put to slave labor in a work prison as their punishment. Alternatively, some slaves escape via criminal means and become legitimate exiles in another land, where their former status of slave is meaningless. Many freemen rise from old servile rebellions, or from counter-slavery laws passed by gentler rulers. A rare few are granted their freedom willingly by their masters. This is so extremely uncommon, most people don't even imagine it as an option. Freemen face almost as many challenges as escaped slaves, but have no reason to hide their past, aside from personal shame.</p><p>Being a slave actually makes things harder for you. It is an impediment to be overcome.</p><table class=\"ve-w-100 ve-rd__table  stripe-odd-table\"><thead><tr><th class=\"ve-rd__th ve-col-1 ve-text-center \" data-rd-isroller=\"true\">[[/r d8]]</th><th class=\"ve-rd__th ve-col-11 \" data-rd-isroller=\"false\">Personality Trait</th></tr></thead><tbody><tr><td class=\"ve-rd__th ve-col-1 ve-text-center \" data-roll-min=\"1\" data-roll-max=\"1\">1</td><td class=\"ve-rd__th ve-col-11 \">No matter how bad things get, I never complain-I've seen worse.</td></tr><tr><td class=\"ve-rd__th ve-col-1 ve-text-center \" data-roll-min=\"2\" data-roll-max=\"2\">2</td><td class=\"ve-rd__th ve-col-11 \">I do not say anything unless someone says something to me.</td></tr><tr><td class=\"ve-rd__th ve-col-1 ve-text-center \" data-roll-min=\"3\" data-roll-max=\"3\">3</td><td class=\"ve-rd__th ve-col-11 \">I call everyone \"Master\" and \"Lord\" without thinking about it.</td></tr><tr><td class=\"ve-rd__th ve-col-1 ve-text-center \" data-roll-min=\"4\" data-roll-max=\"4\">4</td><td class=\"ve-rd__th ve-col-11 \">I try to hide as much of my body as possible.</td></tr><tr><td class=\"ve-rd__th ve-col-1 ve-text-center \" data-roll-min=\"5\" data-roll-max=\"5\">5</td><td class=\"ve-rd__th ve-col-11 \">I tend to disappear in a crowded room, becoming part of the backdrop with ease.</td></tr><tr><td class=\"ve-rd__th ve-col-1 ve-text-center \" data-roll-min=\"6\" data-roll-max=\"6\">6</td><td class=\"ve-rd__th ve-col-11 \">I am terrified of ropes, chains, and whips.</td></tr><tr><td class=\"ve-rd__th ve-col-1 ve-text-center \" data-roll-min=\"7\" data-roll-max=\"7\">7</td><td class=\"ve-rd__th ve-col-11 \">I do all kinds of basic chores and errands for those around me out of habit.</td></tr><tr><td class=\"ve-rd__th ve-col-1 ve-text-center \" data-roll-min=\"8\" data-roll-max=\"8\">8</td><td class=\"ve-rd__th ve-col-11 \">I am haunted by confusing memories and dreams about my life before slavery.</td></tr></tbody></table><table class=\"ve-w-100 ve-rd__table  stripe-odd-table\"><thead><tr><th class=\"ve-rd__th ve-col-1 ve-text-center \" data-rd-isroller=\"true\">[[/r d6]]</th><th class=\"ve-rd__th ve-col-11 \" data-rd-isroller=\"false\">Ideal</th></tr></thead><tbody><tr><td class=\"ve-rd__th ve-col-1 ve-text-center \" data-roll-min=\"1\" data-roll-max=\"1\">1</td><td class=\"ve-rd__th ve-col-11 \"><b>Equality.</b> We all bleed red, we all suffer together. (Good)</td></tr><tr><td class=\"ve-rd__th ve-col-1 ve-text-center \" data-roll-min=\"2\" data-roll-max=\"2\">2</td><td class=\"ve-rd__th ve-col-11 \"><b>Apathy.</b> I only think about what is within my power. Anything else is just circumstance. (Neutral)</td></tr><tr><td class=\"ve-rd__th ve-col-1 ve-text-center \" data-roll-min=\"3\" data-roll-max=\"3\">3</td><td class=\"ve-rd__th ve-col-11 \"><b>Spite.</b> Those who would own others shall belong to me. (Evil)</td></tr><tr><td class=\"ve-rd__th ve-col-1 ve-text-center \" data-roll-min=\"4\" data-roll-max=\"4\">4</td><td class=\"ve-rd__th ve-col-11 \"><b>Status Quo.</b> Status is defined by clear rules which are the foundation of civilization. (Lawful)</td></tr><tr><td class=\"ve-rd__th ve-col-1 ve-text-center \" data-roll-min=\"5\" data-roll-max=\"5\">5</td><td class=\"ve-rd__th ve-col-11 \"><b>Indifference.</b> People are just people-who they are matters more than what they are. (Neutral)</td></tr><tr><td class=\"ve-rd__th ve-col-1 ve-text-center \" data-roll-min=\"6\" data-roll-max=\"6\">6</td><td class=\"ve-rd__th ve-col-11 \"><b>Freedom Fighter.</b> All slaves must be freed- by law, by coin, by shadow, or by blade. (Chaotic)</td></tr></tbody></table><table class=\"ve-w-100 ve-rd__table  stripe-odd-table\"><thead><tr><th class=\"ve-rd__th ve-col-1 ve-text-center \" data-rd-isroller=\"true\">[[/r d6]]</th><th class=\"ve-rd__th ve-col-11 \" data-rd-isroller=\"false\">Bond</th></tr></thead><tbody><tr><td class=\"ve-rd__th ve-col-1 ve-text-center \" data-roll-min=\"1\" data-roll-max=\"1\">1</td><td class=\"ve-rd__th ve-col-11 \">I dream of returning to my homeland or family.</td></tr><tr><td class=\"ve-rd__th ve-col-1 ve-text-center \" data-roll-min=\"2\" data-roll-max=\"2\">2</td><td class=\"ve-rd__th ve-col-11 \">All I have left of my former life is this trinket.</td></tr><tr><td class=\"ve-rd__th ve-col-1 ve-text-center \" data-roll-min=\"3\" data-roll-max=\"3\">3</td><td class=\"ve-rd__th ve-col-11 \">My identity as a slave is marked on my body permanently as scars or tattoos.</td></tr><tr><td class=\"ve-rd__th ve-col-1 ve-text-center \" data-roll-min=\"4\" data-roll-max=\"4\">4</td><td class=\"ve-rd__th ve-col-11 \">I am in love with someone who is not a slave, possibly in my master's house.</td></tr><tr><td class=\"ve-rd__th ve-col-1 ve-text-center \" data-roll-min=\"5\" data-roll-max=\"5\">5</td><td class=\"ve-rd__th ve-col-11 \">I know many secrets thanks to my innocuous presence in intimate social environments.</td></tr><tr><td class=\"ve-rd__th ve-col-1 ve-text-center \" data-roll-min=\"6\" data-roll-max=\"6\">6</td><td class=\"ve-rd__th ve-col-11 \">I heard a story about some grand place, and deeply want to go there.</td></tr></tbody></table><table class=\"ve-w-100 ve-rd__table  stripe-odd-table\"><thead><tr><th class=\"ve-rd__th ve-col-1 ve-text-center \" data-rd-isroller=\"true\">[[/r d8]]</th><th class=\"ve-rd__th ve-col-11 \" data-rd-isroller=\"false\">Flaw</th></tr></thead><tbody><tr><td class=\"ve-rd__th ve-col-1 ve-text-center \" data-roll-min=\"1\" data-roll-max=\"1\">1</td><td class=\"ve-rd__th ve-col-11 \">I secretly liked being a slave.</td></tr><tr><td class=\"ve-rd__th ve-col-1 ve-text-center \" data-roll-min=\"2\" data-roll-max=\"2\">2</td><td class=\"ve-rd__th ve-col-11 \">My former master, or the law, will stop at nothing to have me executed.</td></tr><tr><td class=\"ve-rd__th ve-col-1 ve-text-center \" data-roll-min=\"3\" data-roll-max=\"3\">3</td><td class=\"ve-rd__th ve-col-11 \">I do not share my things with friends, and I will fight to keep personal belongings within my full control.</td></tr><tr><td class=\"ve-rd__th ve-col-1 ve-text-center \" data-roll-min=\"4\" data-roll-max=\"4\">4</td><td class=\"ve-rd__th ve-col-11 \">As a defense mechanism, I lie and misdirect everyone around me, and steal and hide anything I can.</td></tr><tr><td class=\"ve-rd__th ve-col-1 ve-text-center \" data-roll-min=\"5\" data-roll-max=\"5\">5</td><td class=\"ve-rd__th ve-col-11 \">I always say the truth when asked, even by an enemy.</td></tr><tr><td class=\"ve-rd__th ve-col-1 ve-text-center \" data-roll-min=\"6\" data-roll-max=\"6\">6</td><td class=\"ve-rd__th ve-col-11 \">When I am told to do something by an enemy, I might do it.</td></tr><tr><td class=\"ve-rd__th ve-col-1 ve-text-center \" data-roll-min=\"7\" data-roll-max=\"7\">7</td><td class=\"ve-rd__th ve-col-11 \">I cannot stop myself from reveling in material pleasures.</td></tr><tr><td class=\"ve-rd__th ve-col-1 ve-text-center \" data-roll-min=\"8\" data-roll-max=\"8\">8</td><td class=\"ve-rd__th ve-col-11 \">I am a coward.</td></tr></tbody></table></div></div><div class=\"ve-mt-2\"><p>@UUID[Actor.eVeUHoAZMEUI2scR.Item.XQpleqth8huCj2jk]{The Hard Road}</p></div></div>",
-          "chat": ""
-        },
-        "source": {
-          "custom": "",
-          "book": "D&D Wiki",
-          "page": "",
-          "license": "",
-          "rules": "2014",
-          "revision": 1
-        },
-        "wealth": "",
-        "advancement": {
-          "3WF6janj2PPmExoo": {
-            "_id": "3WF6janj2PPmExoo",
-            "type": "Trait",
-            "configuration": {
-              "mode": "default",
-              "allowReplacements": false,
-              "grants": [],
-              "choices": [
-                {
-                  "count": 1,
-                  "pool": [
-                    "skills:prf",
-                    "skills:sur"
-                  ]
-                }
-              ]
-            },
-            "level": 0,
-            "title": "Skills",
-            "value": {
-              "chosen": [
-                "skills:prf"
-              ]
-            },
-            "flags": {},
-            "hint": ""
-          },
-          "oNYX6YMuwLLtax4z": {
-            "_id": "oNYX6YMuwLLtax4z",
-            "type": "Trait",
-            "configuration": {
-              "mode": "default",
-              "allowReplacements": false,
-              "grants": [],
-              "choices": []
-            },
-            "level": 0,
-            "title": "Tool Proficiencies",
-            "value": {
-              "chosen": [
-                "tool:art:leatherworker"
-              ]
-            },
-            "flags": {},
-            "hint": ""
-          },
-          "gCkIE3GhhiRgRnq2": {
-            "_id": "gCkIE3GhhiRgRnq2",
-            "type": "ItemGrant",
-            "level": 0,
-            "title": "Features",
-            "icon": "https://1.bp.blogspot.com/-I5t3lnx-HM0/UmhK7OmYVpI/AAAAAAAAAuo/A5NBrlkS9k4/s1600/Iron+Ring+Slaves.jpg",
-            "configuration": {
-              "items": [],
-              "optional": false,
-              "spell": {
-                "ability": [
-                  ""
-                ],
-                "uses": {
-                  "max": "",
-                  "per": "",
-                  "requireSlot": false
-                },
-                "prepared": 0
-              }
-            },
-            "value": {
-              "added": {
-                "XQpleqth8huCj2jk": "Actor.eVeUHoAZMEUI2scR.Item.XQpleqth8huCj2jk",
-                "wBDYisJ3GdzWIscg": "Actor.eVeUHoAZMEUI2scR.Item.wBDYisJ3GdzWIscg"
-              }
-            },
-            "flags": {},
-            "hint": ""
-          }
-        },
-        "identifier": "slave",
-        "startingEquipment": []
-      },
-      "flags": {
-        "plutonium": {
-          "page": "backgrounds.html",
-          "source": "dndwiki-bestbackgrounds",
-          "hash": "slave_dndwiki-bestbackgrounds",
-          "propDroppable": "background",
-          "isDirectImport": true
-        }
-      },
-      "effects": [],
-      "img": "https://1.bp.blogspot.com/-I5t3lnx-HM0/UmhK7OmYVpI/AAAAAAAAAuo/A5NBrlkS9k4/s1600/Iron+Ring+Slaves.jpg",
-      "_stats": {
-        "systemVersion": "5.3.3",
-        "coreVersion": "14.367",
-        "systemId": "dnd5e",
-        "createdTime": 1788730470211,
-        "modifiedTime": 1789782379772,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -3741,144 +3067,6 @@
         "systemId": "dnd5e",
         "createdTime": 1788730470211,
         "modifiedTime": 1788730470211,
-        "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
-      },
-      "folder": null,
-      "sort": 0,
-      "ownership": {
-        "default": 0
-      }
-    },
-    {
-      "_id": "sctSWwZ7EHsxJlwW",
-      "name": "Grung",
-      "type": "race",
-      "system": {
-        "description": {
-          "value": "<div>\n\t\t\t\t<table class=\"ve-w-100 ve-summary stripe-even\">\n\t\t\t\t<tbody><tr>\n\t\t\t\t\t<th class=\"ve-col-4 ve-text-center\">Ability Scores</th>\n\t\t\t\t\t<th class=\"ve-col-4 ve-text-center\">Size</th>\n\t\t\t\t\t<th class=\"ve-col-4 ve-text-center\">Speed</th>\n\t\t\t\t</tr>\n\t\t\t\t<tr>\n\t\t\t\t\t<td class=\"ve-text-center\"></td>\n\t\t\t\t\t<td class=\"ve-text-center\">Small</td>\n\t\t\t\t\t<td class=\"ve-text-center\">30 ft., Climb 30 ft.</td>\n\t\t\t\t</tr>\n\t\t\t</tbody></table>\n\t\t\t\t<div class=\"ve-mt-2\"><p>@UUID[Actor.eVeUHoAZMEUI2scR.Item.mZ4S1EDL2EqclISq]{Amphibious}</p><p>@UUID[Actor.eVeUHoAZMEUI2scR.Item.vPfQCIVosy9EAayS]{Poison Resilience}</p><p>@UUID[Actor.eVeUHoAZMEUI2scR.Item.gkD8iwAIf40C6bJS]{Poisonous Skin}</p><p>@UUID[Actor.eVeUHoAZMEUI2scR.Item.wKao2UFEOVKKU73p]{Standing Leap}</p></div>\n\t\t\t\t\n\t\t\t</div>",
-          "chat": ""
-        },
-        "source": {
-          "custom": "",
-          "book": "DGB",
-          "page": "",
-          "license": "",
-          "rules": "2014",
-          "revision": 1
-        },
-        "movement": {
-          "climb": "30",
-          "walk": "30",
-          "units": "ft",
-          "hover": false,
-          "ignoredDifficultTerrain": []
-        },
-        "type": {
-          "value": "humanoid",
-          "subtype": "Grung",
-          "custom": ""
-        },
-        "senses": {
-          "ranges": {
-            "darkvision": null,
-            "blindsight": null,
-            "truesight": null,
-            "tremorsense": null
-          },
-          "units": "ft",
-          "special": ""
-        },
-        "advancement": {
-          "ilIBfueXqcDCRyhO": {
-            "_id": "ilIBfueXqcDCRyhO",
-            "type": "Size",
-            "configuration": {
-              "sizes": [
-                "sm"
-              ]
-            },
-            "value": {
-              "size": "sm"
-            },
-            "level": 0,
-            "title": "",
-            "flags": {},
-            "hint": ""
-          },
-          "EuYVrcedMSyGcbGb": {
-            "_id": "EuYVrcedMSyGcbGb",
-            "type": "Trait",
-            "configuration": {
-              "mode": "default",
-              "allowReplacements": false,
-              "grants": [],
-              "choices": []
-            },
-            "level": 0,
-            "title": "Damage Resistances",
-            "value": {
-              "chosen": [
-                "dr:poison"
-              ]
-            },
-            "flags": {},
-            "hint": ""
-          },
-          "6Qzkt7Erfx6yVEc0": {
-            "_id": "6Qzkt7Erfx6yVEc0",
-            "type": "ItemGrant",
-            "level": 0,
-            "title": "Features",
-            "icon": "modules/plutonium/media/icon/family-tree.svg",
-            "configuration": {
-              "items": [],
-              "optional": false,
-              "spell": {
-                "ability": [
-                  ""
-                ],
-                "uses": {
-                  "max": "",
-                  "per": "",
-                  "requireSlot": false
-                },
-                "prepared": 0
-              }
-            },
-            "value": {
-              "added": {
-                "mZ4S1EDL2EqclISq": "Actor.eVeUHoAZMEUI2scR.Item.mZ4S1EDL2EqclISq",
-                "vPfQCIVosy9EAayS": "Actor.eVeUHoAZMEUI2scR.Item.vPfQCIVosy9EAayS",
-                "gkD8iwAIf40C6bJS": "Actor.eVeUHoAZMEUI2scR.Item.gkD8iwAIf40C6bJS",
-                "wKao2UFEOVKKU73p": "Actor.eVeUHoAZMEUI2scR.Item.wKao2UFEOVKKU73p"
-              }
-            },
-            "flags": {},
-            "hint": ""
-          }
-        },
-        "identifier": "grung"
-      },
-      "effects": [],
-      "flags": {
-        "plutonium": {
-          "page": "races.html",
-          "source": "detect-greater-balance",
-          "hash": "grung_detect-greater-balance",
-          "propDroppable": "race",
-          "isDirectImport": true
-        }
-      },
-      "img": "modules/plutonium/media/icon/family-tree.svg",
-      "_stats": {
-        "systemVersion": "5.3.3",
-        "coreVersion": "14.367",
-        "systemId": "dnd5e",
-        "createdTime": 1788730470211,
-        "modifiedTime": 1789782379947,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -12104,7 +11292,690 @@
       },
       "folder": null,
       "ownership": {
-        "default": 0
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      },
+      "sort": 0,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791261801435,
+        "modifiedTime": 1791324171852,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      }
+    },
+    {
+      "name": "Fighting Style — Archery",
+      "type": "feat",
+      "system": {
+        "description": {
+          "value": "<p>Eager is trained to use ranged weapons under pressure. Gain the standard Archery fighting-style bonus when using a ranged weapon.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "fighting-style-archery",
+        "properties": [],
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": []
+        },
+        "advancement": {},
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "flags": {
+        "bik": {
+          "source": "Eager player-character dossier",
+          "ledgerLinked": true
+        },
+        "scene-packer": {
+          "hash": "aae9a721fe9b12d61bbaea4230152ce814a76f29"
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 180000,
+      "_id": "218ad632c6e149d9",
+      "img": "icons/skills/ranged/person-archery-bow-attack-orange.webp",
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791324171992,
+        "modifiedTime": 1791324171992,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      }
+    },
+    {
+      "name": "Dead Person's Shoes",
+      "type": "equipment",
+      "img": "icons/equipment/feet/shoes-leather-simple-brown.webp",
+      "system": {
+        "description": {
+          "value": "<p>Shoes Eager found in the chess room and wore during the Shadow Estate chase. He said it felt wrong. He wore them anyway.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "revision": 1,
+          "rules": "2014"
+        },
+        "quantity": 1,
+        "weight": {
+          "value": 4,
+          "units": "lb"
+        },
+        "price": {
+          "value": 2,
+          "denomination": "gp"
+        },
+        "attunement": "",
+        "rarity": "",
+        "identified": true,
+        "cover": null,
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "armor": {
+          "value": null,
+          "dex": null
+        },
+        "hp": {
+          "value": 0,
+          "max": 0,
+          "dt": null,
+          "conditions": ""
+        },
+        "speed": {
+          "value": null,
+          "conditions": "",
+          "units": "ft"
+        },
+        "strength": null,
+        "type": {
+          "value": "clothing",
+          "baseItem": ""
+        },
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "properties": [],
+        "equipped": false,
+        "proficient": null,
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "",
+              "value": null,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true
+          }
+        },
+        "identifier": "dead-persons-shoes",
+        "attuned": false,
+        "crew": {
+          "value": []
+        }
+      },
+      "effects": [],
+      "folder": "aJgMxnZED9XdoN2W",
+      "sort": 180000,
+      "flags": {
+        "bik": {
+          "source": "Eager player-character dossier",
+          "ledgerLinked": true
+        },
+        "scene-packer": {
+          "hash": "72b1a747fff291bb275f58fb33a2a7c830d2a890"
+        }
+      },
+      "_stats": {
+        "compendiumSource": "Compendium.dnd5e.items.Item.SsAmWV6YBqeOFihT",
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791324172231,
+        "createdTime": 1791324172231
+      },
+      "_id": "0e651b48faa5496b",
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      }
+    },
+    {
+      "name": "Dead Person's Pants",
+      "type": "equipment",
+      "img": "icons/equipment/leg/pants-breeches-leather-brown.webp",
+      "system": {
+        "description": {
+          "value": "<p>Pants Eager acquired during the Shadow Estate chase. Markop observed that Eager was wearing a dead man's clothing; Eager replied that pants are important.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "revision": 1,
+          "rules": "2014"
+        },
+        "quantity": 1,
+        "weight": {
+          "value": 4,
+          "units": "lb"
+        },
+        "price": {
+          "value": 2,
+          "denomination": "gp"
+        },
+        "attunement": "",
+        "rarity": "",
+        "identified": true,
+        "cover": null,
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "armor": {
+          "value": null,
+          "dex": null
+        },
+        "hp": {
+          "value": 0,
+          "max": 0,
+          "dt": null,
+          "conditions": ""
+        },
+        "speed": {
+          "value": null,
+          "conditions": "",
+          "units": "ft"
+        },
+        "strength": null,
+        "type": {
+          "value": "clothing",
+          "baseItem": ""
+        },
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "properties": [],
+        "equipped": false,
+        "proficient": null,
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "",
+              "value": null,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true
+          }
+        },
+        "identifier": "dead-persons-pants",
+        "attuned": false,
+        "crew": {
+          "value": []
+        }
+      },
+      "effects": [],
+      "folder": "aJgMxnZED9XdoN2W",
+      "sort": 180000,
+      "flags": {
+        "bik": {
+          "source": "Eager player-character dossier",
+          "ledgerLinked": true
+        },
+        "scene-packer": {
+          "hash": "818f025fe15561b1b3fbc3313f861eb7a3586153"
+        }
+      },
+      "_stats": {
+        "compendiumSource": "Compendium.dnd5e.items.Item.SsAmWV6YBqeOFihT",
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1791324172461,
+        "createdTime": 1791324172461
+      },
+      "_id": "112a26e0d2784628",
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      }
+    },
+    {
+      "name": "Disaster Inc. Catastrophe Scout",
+      "type": "background",
+      "system": {
+        "description": {
+          "value": "<p>A field background for rescue, perimeter work, survival, and following the party into places that have already begun to collapse.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "disaster-inc-catastrophe-scout",
+        "advancement": {},
+        "startingEquipment": []
+      },
+      "flags": {
+        "bik": {
+          "source": "Eager player-character dossier",
+          "ledgerLinked": true
+        },
+        "scene-packer": {
+          "hash": "c9dce661e6f1d31945eb239053d7bb6582d27fe3"
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 180000,
+      "_id": "5f606a64c6bb43f3",
+      "img": "icons/environment/wilderness/terrain-forest-gray.webp",
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791324194881,
+        "modifiedTime": 1791324194881,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      }
+    },
+    {
+      "name": "Toad — Eager Variant",
+      "type": "race",
+      "system": {
+        "description": {
+          "value": "<p>Eager's ancestry is unconfirmed. Use Medium Toad as the table-facing interpretation without inventing a family or planar origin.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "toad-eager-variant",
+        "advancement": {},
+        "movement": {
+          "units": "ft",
+          "hover": false,
+          "ignoredDifficultTerrain": []
+        },
+        "senses": {
+          "ranges": {
+            "blindsight": null,
+            "darkvision": null,
+            "tremorsense": null,
+            "truesight": null
+          },
+          "units": "ft",
+          "special": ""
+        },
+        "type": {
+          "value": "humanoid"
+        }
+      },
+      "flags": {
+        "bik": {
+          "source": "Eager player-character dossier",
+          "ledgerLinked": true
+        },
+        "scene-packer": {
+          "hash": "7b6765277de8e7d25a6607e711aeb99e219810ef"
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 180000,
+      "_id": "d5c6b4b8da1e46c8",
+      "img": "icons/creatures/amphibians/frog-water-teal.webp",
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791324195500,
+        "modifiedTime": 1791324195500,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
       }
     }
   ],
@@ -12225,7 +12096,7 @@
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
     "createdTime": 1788730470211,
-    "modifiedTime": 1791171683597,
+    "modifiedTime": 1791324195667,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "compendiumSource": null,
     "duplicateSource": null,

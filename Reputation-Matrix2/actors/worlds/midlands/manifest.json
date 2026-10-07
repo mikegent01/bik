@@ -1,14 +1,21 @@
 {
   "format": "waluipedia-actors/1",
   "exportedFrom": "midlands",
-  "exportedAt": "2026-10-05T04:44:18.077Z",
+  "exportedAt": "2026-10-06T22:32:47.984Z",
   "system": "dnd5e",
   "systemVersion": "5.3.3",
   "coreVersion": "14.367",
-  "exportedBy": "waluipedia-mass-import 1.7.0 (update Actor)",
-  "lastSync": null,
+  "exportedBy": "waluipedia-mass-import 1.9.2 (update Actor)",
+  "lastSync": {
+    "applied": {
+      "stamp": "data:076d03b0003793e06b683b1462b7c6e8d28f7809",
+      "at": "2026-10-06T22:29:49.391Z",
+      "exportedAt": "2026-10-06T22:05:42.988Z"
+    },
+    "seen": "data:076d03b0003793e06b683b1462b7c6e8d28f7809"
+  },
   "source": "midlands-all-actors.json",
-  "actorCount": 329,
+  "actorCount": 511,
   "folders": [
     "Bestiary",
     "Bestiary / Beast",
@@ -22,12 +29,25 @@
     "Dreamland",
     "Elsewhere",
     "Fawful's Furious Freaks",
+    "Fawful's Furious Freaks / Lieutenants of Fury",
+    "Fawful's Furious Freaks / Machines of Fury",
+    "Fawful's Furious Freaks / The Bean Garrison",
     "Fawthful's Forces",
+    "Fawthful's Forces / 1035 BF — Bowser's Castle",
     "Iron Legion",
     "Koopa Troop",
+    "Koopa Troop / 1035 BF — Bowser's Castle",
     "Koopa Troop / 955 BF — Peach's Castle",
     "Kremling Krew & the Black Sugar Pirates",
     "Liberated Toads",
+    "Liberated Toads / Barrel Survivors",
+    "Liberated Toads / Pond Patrol",
+    "Liberated Toads / The Chroniclers",
+    "Liberated Toads / The Crafters",
+    "Liberated Toads / The Menders",
+    "Liberated Toads / The Scouts",
+    "Liberated Toads / The Unassigned",
+    "Liberated Toads / The Wardens",
     "Mages' Guild",
     "Mushroom Regency & Kingdom",
     "Mushroom Regency & Kingdom / 955 BF — Peach's Castle",
@@ -42,77 +62,8 @@
     "Trinity Academy",
     "Wario's Enterprise & WarioWare"
   ],
-  "identifiersRepaired": [
-    {
-      "actor": "Eager",
-      "item": "Toad — Eager Variant",
-      "key": "identifier",
-      "from": "toad-—-eager-variant",
-      "to": "toad-eager-variant"
-    },
-    {
-      "actor": "Eager",
-      "item": "Disaster Inc. Catastrophe Scout",
-      "key": "identifier",
-      "from": "disaster-inc.-catastrophe-scout",
-      "to": "disaster-inc-catastrophe-scout"
-    },
-    {
-      "actor": "Eager",
-      "item": "Fighting Style — Archery",
-      "key": "identifier",
-      "from": "fighting-style-—-archery",
-      "to": "fighting-style-archery"
-    },
-    {
-      "actor": "Eager",
-      "item": "Dead Person's Shoes",
-      "key": "identifier",
-      "from": "dead-person's-shoes",
-      "to": "dead-persons-shoes"
-    },
-    {
-      "actor": "Eager",
-      "item": "Dead Person's Pants",
-      "key": "identifier",
-      "from": "dead-person's-pants",
-      "to": "dead-persons-pants"
-    },
-    {
-      "actor": "Feyward Dan",
-      "item": "Toad — Feyward Variant",
-      "key": "identifier",
-      "from": "toad-—-feyward-variant",
-      "to": "toad-feyward-variant"
-    },
-    {
-      "actor": "Feyward Dan",
-      "item": "Wild Surge — Unstable Aura",
-      "key": "identifier",
-      "from": "wild-surge-—-unstable-aura",
-      "to": "wild-surge-unstable-aura"
-    }
-  ],
-  "leftoversDropped": [
-    {
-      "actor": "Eager",
-      "item": "Toad — Eager Variant",
-      "type": "race",
-      "applied": "Grung"
-    },
-    {
-      "actor": "Eager",
-      "item": "Disaster Inc. Catastrophe Scout",
-      "type": "background",
-      "applied": "Slave"
-    },
-    {
-      "actor": "Feyward Dan",
-      "item": "Toad — Feyward Variant",
-      "type": "race",
-      "applied": "Grung"
-    }
-  ],
+  "identifiersRepaired": [],
+  "leftoversDropped": [],
   "players": {
     "folder": "Players",
     "roster": [
@@ -917,6 +868,78 @@
       "file": "Elsewhere/fvtt-Actor-the-unknown-assassin-3NhTtNgIWqkPVctf.json"
     },
     {
+      "name": "Countess Chortlebrass",
+      "type": "npc",
+      "_id": "zrL24JEufRDzeE1O",
+      "file": "Fawful's Furious Freaks/Lieutenants of Fury/fvtt-Actor-countess-chortlebrass-zrL24JEufRDzeE1O.json"
+    },
+    {
+      "name": "Maestro Mustardo",
+      "type": "npc",
+      "_id": "ZAuifjjcm35xzLuo",
+      "file": "Fawful's Furious Freaks/Lieutenants of Fury/fvtt-Actor-maestro-mustardo-ZAuifjjcm35xzLuo.json"
+    },
+    {
+      "name": "Boom-Crawler",
+      "type": "npc",
+      "_id": "b9I5MFY2gBAnkYjn",
+      "file": "Fawful's Furious Freaks/Machines of Fury/fvtt-Actor-boom-crawler-b9I5MFY2gBAnkYjn.json"
+    },
+    {
+      "name": "Chortle-Bot",
+      "type": "npc",
+      "_id": "vegNuVxGM3oV1gRo",
+      "file": "Fawful's Furious Freaks/Machines of Fury/fvtt-Actor-chortle-bot-vegNuVxGM3oV1gRo.json"
+    },
+    {
+      "name": "Fury-Bot",
+      "type": "npc",
+      "_id": "8h9pH2hU64fBw92u",
+      "file": "Fawful's Furious Freaks/Machines of Fury/fvtt-Actor-fury-bot-8h9pH2hU64fBw92u.json"
+    },
+    {
+      "name": "Hypno-Helm",
+      "type": "npc",
+      "_id": "C0Tap0kz1vMGcobY",
+      "file": "Fawful's Furious Freaks/Machines of Fury/fvtt-Actor-hypno-helm-C0Tap0kz1vMGcobY.json"
+    },
+    {
+      "name": "Intake Drone",
+      "type": "npc",
+      "_id": "hm8GM4WLQUFBOXFT",
+      "file": "Fawful's Furious Freaks/Machines of Fury/fvtt-Actor-intake-drone-hm8GM4WLQUFBOXFT.json"
+    },
+    {
+      "name": "Mustard Sprayer",
+      "type": "npc",
+      "_id": "yGs669o9zm4621U2",
+      "file": "Fawful's Furious Freaks/Machines of Fury/fvtt-Actor-mustard-sprayer-yGs669o9zm4621U2.json"
+    },
+    {
+      "name": "Beanish Garrison Trooper",
+      "type": "npc",
+      "_id": "1pZK1vZtoOqj6Z6I",
+      "file": "Fawful's Furious Freaks/The Bean Garrison/fvtt-Actor-beanish-garrison-trooper-1pZK1vZtoOqj6Z6I.json"
+    },
+    {
+      "name": "Furybean Brute",
+      "type": "npc",
+      "_id": "gA276g4CCp26rN9i",
+      "file": "Fawful's Furious Freaks/The Bean Garrison/fvtt-Actor-furybean-brute-gA276g4CCp26rN9i.json"
+    },
+    {
+      "name": "Vat-Warped Thrall",
+      "type": "npc",
+      "_id": "g85dcbqNhlhROj1K",
+      "file": "Fawful's Furious Freaks/The Bean Garrison/fvtt-Actor-vat-warped-thrall-g85dcbqNhlhROj1K.json"
+    },
+    {
+      "name": "Vial-Flinger",
+      "type": "npc",
+      "_id": "aGgcV7BBSsyKW3lR",
+      "file": "Fawful's Furious Freaks/The Bean Garrison/fvtt-Actor-vial-flinger-aGgcV7BBSsyKW3lR.json"
+    },
+    {
       "name": "Cackletta, the Beanbean Witch",
       "type": "npc",
       "_id": "v2nBQtjAmgp2jJyv",
@@ -933,6 +956,96 @@
       "type": "npc",
       "_id": "pzYkmjtf2FAvFcdz",
       "file": "Fawful's Furious Freaks/fvtt-Actor-midbus-the-blizzard-fist-pzYkmjtf2FAvFcdz.json"
+    },
+    {
+      "name": "Cackletta (1035 BF)",
+      "type": "npc",
+      "_id": "ZvWD6ot26rEEvY0R",
+      "file": "Fawthful's Forces/1035 BF — Bowser's Castle/fvtt-Actor-cackletta-1035-bf-ZvWD6ot26rEEvY0R.json"
+    },
+    {
+      "name": "Cackletta Imp",
+      "type": "npc",
+      "_id": "RXeQuaKJZS4iWyGP",
+      "file": "Fawthful's Forces/1035 BF — Bowser's Castle/fvtt-Actor-cackletta-imp-RXeQuaKJZS4iWyGP.json"
+    },
+    {
+      "name": "Chain-Puller Goomba (Traitor)",
+      "type": "npc",
+      "_id": "Y1s9GtLqwhMmXGpv",
+      "file": "Fawthful's Forces/1035 BF — Bowser's Castle/fvtt-Actor-chain-puller-goomba-traitor-Y1s9GtLqwhMmXGpv.json"
+    },
+    {
+      "name": "Clockwork Fawthful Soldier",
+      "type": "npc",
+      "_id": "tt0laLEA7OL9lmb2",
+      "file": "Fawthful's Forces/1035 BF — Bowser's Castle/fvtt-Actor-clockwork-fawthful-soldier-tt0laLEA7OL9lmb2.json"
+    },
+    {
+      "name": "Corrupted Beanbean Guard",
+      "type": "npc",
+      "_id": "6Xwc5GUCcS8nTaHd",
+      "file": "Fawthful's Forces/1035 BF — Bowser's Castle/fvtt-Actor-corrupted-beanbean-guard-6Xwc5GUCcS8nTaHd.json"
+    },
+    {
+      "name": "Defected Magikoopa",
+      "type": "npc",
+      "_id": "mAhHtMgIreOr6rtN",
+      "file": "Fawthful's Forces/1035 BF — Bowser's Castle/fvtt-Actor-defected-magikoopa-mAhHtMgIreOr6rtN.json"
+    },
+    {
+      "name": "Fawthful (1035 BF)",
+      "type": "npc",
+      "_id": "Rsrn8EqySeRBowTS",
+      "file": "Fawthful's Forces/1035 BF — Bowser's Castle/fvtt-Actor-fawthful-1035-bf-Rsrn8EqySeRBowTS.json"
+    },
+    {
+      "name": "Fawthful Drone",
+      "type": "npc",
+      "_id": "Iosdxkl4la9iaBAE",
+      "file": "Fawthful's Forces/1035 BF — Bowser's Castle/fvtt-Actor-fawthful-drone-Iosdxkl4la9iaBAE.json"
+    },
+    {
+      "name": "Hypnotised Soldier (Koopa)",
+      "type": "npc",
+      "_id": "MflRhezMoSvR9ptM",
+      "file": "Fawthful's Forces/1035 BF — Bowser's Castle/fvtt-Actor-hypnotised-soldier-koopa-MflRhezMoSvR9ptM.json"
+    },
+    {
+      "name": "Masked Fawthful Scout",
+      "type": "npc",
+      "_id": "XlR7YBMBSTxkipig",
+      "file": "Fawthful's Forces/1035 BF — Bowser's Castle/fvtt-Actor-masked-fawthful-scout-XlR7YBMBSTxkipig.json"
+    },
+    {
+      "name": "Mimbus (1035 BF)",
+      "type": "npc",
+      "_id": "IUWQDxc6NrCgAHYa",
+      "file": "Fawthful's Forces/1035 BF — Bowser's Castle/fvtt-Actor-mimbus-1035-bf-IUWQDxc6NrCgAHYa.json"
+    },
+    {
+      "name": "Red-Armband Koopa (Traitor)",
+      "type": "npc",
+      "_id": "dG4C354xptKWa0oy",
+      "file": "Fawthful's Forces/1035 BF — Bowser's Castle/fvtt-Actor-red-armband-koopa-traitor-dG4C354xptKWa0oy.json"
+    },
+    {
+      "name": "The Jester (Goomba) (1035 BF)",
+      "type": "npc",
+      "_id": "8frF1dd7q4JrOCkO",
+      "file": "Fawthful's Forces/1035 BF — Bowser's Castle/fvtt-Actor-the-jester-goomba-1035-bf-8frF1dd7q4JrOCkO.json"
+    },
+    {
+      "name": "The Supplied Dragon",
+      "type": "npc",
+      "_id": "4jl3koEhSeUZZaCH",
+      "file": "Fawthful's Forces/1035 BF — Bowser's Castle/fvtt-Actor-the-supplied-dragon-4jl3koEhSeUZZaCH.json"
+    },
+    {
+      "name": "The Switch Hag",
+      "type": "npc",
+      "_id": "4wNpwCPTI50gc46m",
+      "file": "Fawthful's Forces/1035 BF — Bowser's Castle/fvtt-Actor-the-switch-hag-4wNpwCPTI50gc46m.json"
     },
     {
       "name": "Fawthful",
@@ -1053,6 +1166,78 @@
       "type": "npc",
       "_id": "NBW2gNE6ws5ClMip",
       "file": "Iron Legion/fvtt-Actor-warol-creeton-NBW2gNE6ws5ClMip.json"
+    },
+    {
+      "name": "Bob-omb of the Tunnel Crew",
+      "type": "npc",
+      "_id": "4hjEft2Um6j50Qqi",
+      "file": "Koopa Troop/1035 BF — Bowser's Castle/fvtt-Actor-bob-omb-of-the-tunnel-crew-4hjEft2Um6j50Qqi.json"
+    },
+    {
+      "name": "Ed",
+      "type": "npc",
+      "_id": "fg74Qa57nQ2oBtAK",
+      "file": "Koopa Troop/1035 BF — Bowser's Castle/fvtt-Actor-ed-fg74Qa57nQ2oBtAK.json"
+    },
+    {
+      "name": "Fred",
+      "type": "npc",
+      "_id": "8DSgXEzKEiQu5jDW",
+      "file": "Koopa Troop/1035 BF — Bowser's Castle/fvtt-Actor-fred-8DSgXEzKEiQu5jDW.json"
+    },
+    {
+      "name": "Hammer Bro of the Line",
+      "type": "npc",
+      "_id": "WGmojQ5gk2hy45Bv",
+      "file": "Koopa Troop/1035 BF — Bowser's Castle/fvtt-Actor-hammer-bro-of-the-line-WGmojQ5gk2hy45Bv.json"
+    },
+    {
+      "name": "Koopa Killer Killa",
+      "type": "npc",
+      "_id": "O2BKyWPhorFAbBb2",
+      "file": "Koopa Troop/1035 BF — Bowser's Castle/fvtt-Actor-koopa-killer-killa-O2BKyWPhorFAbBb2.json"
+    },
+    {
+      "name": "Loyal Goomba (Belt Hauler)",
+      "type": "npc",
+      "_id": "1guGa1kCGS01q5Yo",
+      "file": "Koopa Troop/1035 BF — Bowser's Castle/fvtt-Actor-loyal-goomba-belt-hauler-1guGa1kCGS01q5Yo.json"
+    },
+    {
+      "name": "Loyal Koopa Troopa (Shell Wall)",
+      "type": "npc",
+      "_id": "kwtGYBeUH71j1wdO",
+      "file": "Koopa Troop/1035 BF — Bowser's Castle/fvtt-Actor-loyal-koopa-troopa-shell-wall-kwtGYBeUH71j1wdO.json"
+    },
+    {
+      "name": "Loyal Magikoopa (Block Transport)",
+      "type": "npc",
+      "_id": "BsipU6qzSJ9DVpUd",
+      "file": "Koopa Troop/1035 BF — Bowser's Castle/fvtt-Actor-loyal-magikoopa-block-transport-BsipU6qzSJ9DVpUd.json"
+    },
+    {
+      "name": "Omega Bowser (1035 BF)",
+      "type": "npc",
+      "_id": "PqtdAL7dgbfyXLbQ",
+      "file": "Koopa Troop/1035 BF — Bowser's Castle/fvtt-Actor-omega-bowser-1035-bf-PqtdAL7dgbfyXLbQ.json"
+    },
+    {
+      "name": "Sir Frankfurt",
+      "type": "npc",
+      "_id": "d8ENsgz3bIxmmi1l",
+      "file": "Koopa Troop/1035 BF — Bowser's Castle/fvtt-Actor-sir-frankfurt-d8ENsgz3bIxmmi1l.json"
+    },
+    {
+      "name": "The Goomba Who Took His Chances",
+      "type": "npc",
+      "_id": "vNwjV8SzLsbFWAQm",
+      "file": "Koopa Troop/1035 BF — Bowser's Castle/fvtt-Actor-the-goomba-who-took-his-chances-vNwjV8SzLsbFWAQm.json"
+    },
+    {
+      "name": "Wounded Defender",
+      "type": "npc",
+      "_id": "SdxXZ21VTFsU3bpi",
+      "file": "Koopa Troop/1035 BF — Bowser's Castle/fvtt-Actor-wounded-defender-SdxXZ21VTFsU3bpi.json"
     },
     {
       "name": "Bob-omb Sapper",
@@ -1187,16 +1372,604 @@
       "file": "Kremling Krew & the Black Sugar Pirates/fvtt-Actor-king-k-rool-ApMapT7GARCZJqOu.json"
     },
     {
+      "name": "Barrel Survivor",
+      "type": "npc",
+      "_id": "OwmyDkahtIuVGbji",
+      "file": "Liberated Toads/Barrel Survivors/fvtt-Actor-barrel-survivor-OwmyDkahtIuVGbji.json"
+    },
+    {
+      "name": "Barrel Survivor, Deck Voice",
+      "type": "npc",
+      "_id": "meVyOowlrzZgvLep",
+      "file": "Liberated Toads/Barrel Survivors/fvtt-Actor-barrel-survivor-deck-voice-meVyOowlrzZgvLep.json"
+    },
+    {
+      "name": "Barrel Survivor, Kitchen Hand",
+      "type": "npc",
+      "_id": "89wRXc4H8TPMF9w7",
+      "file": "Liberated Toads/Barrel Survivors/fvtt-Actor-barrel-survivor-kitchen-hand-89wRXc4H8TPMF9w7.json"
+    },
+    {
+      "name": "Barrel Survivor, Story Keeper",
+      "type": "npc",
+      "_id": "BgCpj9ad4D57huXH",
+      "file": "Liberated Toads/Barrel Survivors/fvtt-Actor-barrel-survivor-story-keeper-BgCpj9ad4D57huXH.json"
+    },
+    {
+      "name": "Acolyte",
+      "type": "npc",
+      "_id": "9yZGJh6lK5jU7LHo",
+      "file": "Liberated Toads/Pond Patrol/fvtt-Actor-acolyte-9yZGJh6lK5jU7LHo.json"
+    },
+    {
+      "name": "Adjacen T",
+      "type": "npc",
+      "_id": "aETNsvDv3N7IiPRi",
+      "file": "Liberated Toads/Pond Patrol/fvtt-Actor-adjacen-t-aETNsvDv3N7IiPRi.json"
+    },
+    {
+      "name": "Barnkeep",
+      "type": "npc",
+      "_id": "Yr4duaYVEIwbwkGu",
+      "file": "Liberated Toads/Pond Patrol/fvtt-Actor-barnkeep-Yr4duaYVEIwbwkGu.json"
+    },
+    {
+      "name": "Capi T",
+      "type": "npc",
+      "_id": "Mbpo4Rr271WRxgyR",
+      "file": "Liberated Toads/Pond Patrol/fvtt-Actor-capi-t-Mbpo4Rr271WRxgyR.json"
+    },
+    {
+      "name": "Confidant T",
+      "type": "npc",
+      "_id": "zEjv1UF8joOwAqhx",
+      "file": "Liberated Toads/Pond Patrol/fvtt-Actor-confidant-t-zEjv1UF8joOwAqhx.json"
+    },
+    {
+      "name": "Conscript T",
+      "type": "npc",
+      "_id": "0nHcic3mCTUcQZOb",
+      "file": "Liberated Toads/Pond Patrol/fvtt-Actor-conscript-t-0nHcic3mCTUcQZOb.json"
+    },
+    {
+      "name": "Detachment T",
+      "type": "npc",
+      "_id": "bL1DjMNwOUgxgpE2",
+      "file": "Liberated Toads/Pond Patrol/fvtt-Actor-detachment-t-bL1DjMNwOUgxgpE2.json"
+    },
+    {
+      "name": "Granite",
+      "type": "npc",
+      "_id": "pXkXjeC7Cc014Fpc",
+      "file": "Liberated Toads/Pond Patrol/fvtt-Actor-granite-pXkXjeC7Cc014Fpc.json"
+    },
+    {
+      "name": "Healhand",
+      "type": "npc",
+      "_id": "agNgiaSjfaRMXpm1",
+      "file": "Liberated Toads/Pond Patrol/fvtt-Actor-healhand-agNgiaSjfaRMXpm1.json"
+    },
+    {
+      "name": "Motionpass",
+      "type": "npc",
+      "_id": "9JgcKexlUBv2orCB",
+      "file": "Liberated Toads/Pond Patrol/fvtt-Actor-motionpass-9JgcKexlUBv2orCB.json"
+    },
+    {
+      "name": "Nightwatch",
+      "type": "npc",
+      "_id": "irvkLUSd0xiYcsnY",
+      "file": "Liberated Toads/Pond Patrol/fvtt-Actor-nightwatch-irvkLUSd0xiYcsnY.json"
+    },
+    {
+      "name": "Notable",
+      "type": "npc",
+      "_id": "YjKyf38cPbCTGwgf",
+      "file": "Liberated Toads/Pond Patrol/fvtt-Actor-notable-YjKyf38cPbCTGwgf.json"
+    },
+    {
+      "name": "Pearl",
+      "type": "npc",
+      "_id": "dSqTdqCVJmLqHLr5",
+      "file": "Liberated Toads/Pond Patrol/fvtt-Actor-pearl-dSqTdqCVJmLqHLr5.json"
+    },
+    {
+      "name": "Pilo T",
+      "type": "npc",
+      "_id": "uGlq8eHNBWjrGFBJ",
+      "file": "Liberated Toads/Pond Patrol/fvtt-Actor-pilo-t-uGlq8eHNBWjrGFBJ.json"
+    },
+    {
+      "name": "Protec T",
+      "type": "npc",
+      "_id": "Pwi0uGwyyRmYJog1",
+      "file": "Liberated Toads/Pond Patrol/fvtt-Actor-protec-t-Pwi0uGwyyRmYJog1.json"
+    },
+    {
+      "name": "Sailmender",
+      "type": "npc",
+      "_id": "faLSh4G62SbIIaDX",
+      "file": "Liberated Toads/Pond Patrol/fvtt-Actor-sailmender-faLSh4G62SbIIaDX.json"
+    },
+    {
+      "name": "Sentry T",
+      "type": "npc",
+      "_id": "YMh5PQbHha8iFZKd",
+      "file": "Liberated Toads/Pond Patrol/fvtt-Actor-sentry-t-YMh5PQbHha8iFZKd.json"
+    },
+    {
+      "name": "Stewhand",
+      "type": "npc",
+      "_id": "D2ZJCNA9ulPISKP1",
+      "file": "Liberated Toads/Pond Patrol/fvtt-Actor-stewhand-D2ZJCNA9ulPISKP1.json"
+    },
+    {
+      "name": "Superintendent T",
+      "type": "npc",
+      "_id": "Vi2e5LiVXUvdynO9",
+      "file": "Liberated Toads/Pond Patrol/fvtt-Actor-superintendent-t-Vi2e5LiVXUvdynO9.json"
+    },
+    {
+      "name": "Toadwise",
+      "type": "npc",
+      "_id": "GbDMT4OPdgKhZKDB",
+      "file": "Liberated Toads/Pond Patrol/fvtt-Actor-toadwise-GbDMT4OPdgKhZKDB.json"
+    },
+    {
+      "name": "Warran T",
+      "type": "npc",
+      "_id": "zvIppWa04v1fQzX2",
+      "file": "Liberated Toads/Pond Patrol/fvtt-Actor-warran-t-zvIppWa04v1fQzX2.json"
+    },
+    {
+      "name": "Accoun T",
+      "type": "npc",
+      "_id": "nCnqXNnFjs402j7y",
+      "file": "Liberated Toads/The Chroniclers/fvtt-Actor-accoun-t-nCnqXNnFjs402j7y.json"
+    },
+    {
+      "name": "Archivis T",
+      "type": "npc",
+      "_id": "itDe5oYtqSgAJqVm",
+      "file": "Liberated Toads/The Chroniclers/fvtt-Actor-archivis-t-itDe5oYtqSgAJqVm.json"
+    },
+    {
+      "name": "Barrelman",
+      "type": "npc",
+      "_id": "VDXpTiE8QY4YveMW",
+      "file": "Liberated Toads/The Chroniclers/fvtt-Actor-barrelman-VDXpTiE8QY4YveMW.json"
+    },
+    {
+      "name": "Documen T",
+      "type": "npc",
+      "_id": "1DkAHUn8asj7HHhT",
+      "file": "Liberated Toads/The Chroniclers/fvtt-Actor-documen-t-1DkAHUn8asj7HHhT.json"
+    },
+    {
+      "name": "Emigrant T",
+      "type": "npc",
+      "_id": "EQUKBPNbPWgrqtEl",
+      "file": "Liberated Toads/The Chroniclers/fvtt-Actor-emigrant-t-EQUKBPNbPWgrqtEl.json"
+    },
+    {
+      "name": "Index T",
+      "type": "npc",
+      "_id": "5PWYwPXc1uQYIB8m",
+      "file": "Liberated Toads/The Chroniclers/fvtt-Actor-index-t-5PWYwPXc1uQYIB8m.json"
+    },
+    {
+      "name": "Notar T",
+      "type": "npc",
+      "_id": "lD5JToYgsrxkY4Hs",
+      "file": "Liberated Toads/The Chroniclers/fvtt-Actor-notar-t-lD5JToYgsrxkY4Hs.json"
+    },
+    {
+      "name": "Occupant T",
+      "type": "npc",
+      "_id": "jUhxZj0A0fVp7xzT",
+      "file": "Liberated Toads/The Chroniclers/fvtt-Actor-occupant-t-jUhxZj0A0fVp7xzT.json"
+    },
+    {
+      "name": "Softhand",
+      "type": "npc",
+      "_id": "YufzI47WQloUxBLN",
+      "file": "Liberated Toads/The Chroniclers/fvtt-Actor-softhand-YufzI47WQloUxBLN.json"
+    },
+    {
+      "name": "Staccato T",
+      "type": "npc",
+      "_id": "vkJk74CcVDl8Efmr",
+      "file": "Liberated Toads/The Chroniclers/fvtt-Actor-staccato-t-vkJk74CcVDl8Efmr.json"
+    },
+    {
+      "name": "Adept",
+      "type": "npc",
+      "_id": "Ca73XQeqb6QEWm1u",
+      "file": "Liberated Toads/The Crafters/fvtt-Actor-adept-Ca73XQeqb6QEWm1u.json"
+    },
+    {
+      "name": "Bracke T",
+      "type": "npc",
+      "_id": "PZS4e6aysdB57y5m",
+      "file": "Liberated Toads/The Crafters/fvtt-Actor-bracke-t-PZS4e6aysdB57y5m.json"
+    },
+    {
+      "name": "Carpslow",
+      "type": "npc",
+      "_id": "iGQkd2p3Vy3tuEs7",
+      "file": "Liberated Toads/The Crafters/fvtt-Actor-carpslow-iGQkd2p3Vy3tuEs7.json"
+    },
+    {
+      "name": "Circui T",
+      "type": "npc",
+      "_id": "1Yo6KPwZr9yBj08I",
+      "file": "Liberated Toads/The Crafters/fvtt-Actor-circui-t-1Yo6KPwZr9yBj08I.json"
+    },
+    {
+      "name": "Direct T",
+      "type": "npc",
+      "_id": "LBaiL9sbC6rN3MzF",
+      "file": "Liberated Toads/The Crafters/fvtt-Actor-direct-t-LBaiL9sbC6rN3MzF.json"
+    },
+    {
+      "name": "Equipmen T",
+      "type": "npc",
+      "_id": "4oqjesytE6TcTI8q",
+      "file": "Liberated Toads/The Crafters/fvtt-Actor-equipmen-t-4oqjesytE6TcTI8q.json"
+    },
+    {
+      "name": "Fieldmouse",
+      "type": "npc",
+      "_id": "uAih5cAWeWeTJ3hc",
+      "file": "Liberated Toads/The Crafters/fvtt-Actor-fieldmouse-uAih5cAWeWeTJ3hc.json"
+    },
+    {
+      "name": "Governmen T",
+      "type": "npc",
+      "_id": "OYhhu2GmcHBBWZEU",
+      "file": "Liberated Toads/The Crafters/fvtt-Actor-governmen-t-OYhhu2GmcHBBWZEU.json"
+    },
+    {
+      "name": "Magne T",
+      "type": "npc",
+      "_id": "FAIth8ocKwFQr4Na",
+      "file": "Liberated Toads/The Crafters/fvtt-Actor-magne-t-FAIth8ocKwFQr4Na.json"
+    },
+    {
+      "name": "Nightcap T",
+      "type": "npc",
+      "_id": "2M6OwqJlMOTmDocK",
+      "file": "Liberated Toads/The Crafters/fvtt-Actor-nightcap-t-2M6OwqJlMOTmDocK.json"
+    },
+    {
+      "name": "Resident T",
+      "type": "npc",
+      "_id": "bRzWME9JuoDa6adD",
+      "file": "Liberated Toads/The Crafters/fvtt-Actor-resident-t-bRzWME9JuoDa6adD.json"
+    },
+    {
+      "name": "Rocke T",
+      "type": "npc",
+      "_id": "ZxwRQV8z3COzgLgr",
+      "file": "Liberated Toads/The Crafters/fvtt-Actor-rocke-t-ZxwRQV8z3COzgLgr.json"
+    },
+    {
+      "name": "Shadowkeep",
+      "type": "npc",
+      "_id": "1phag41xkBXsGy1d",
+      "file": "Liberated Toads/The Crafters/fvtt-Actor-shadowkeep-1phag41xkBXsGy1d.json"
+    },
+    {
+      "name": "Socke T",
+      "type": "npc",
+      "_id": "HZjN3nyyKAPfPxhj",
+      "file": "Liberated Toads/The Crafters/fvtt-Actor-socke-t-HZjN3nyyKAPfPxhj.json"
+    },
+    {
+      "name": "Stigma T",
+      "type": "npc",
+      "_id": "GjEYFdyzsEmaiYDd",
+      "file": "Liberated Toads/The Crafters/fvtt-Actor-stigma-t-GjEYFdyzsEmaiYDd.json"
+    },
+    {
+      "name": "Wrestler",
+      "type": "npc",
+      "_id": "2RvL9SOKaTHzEvwh",
+      "file": "Liberated Toads/The Crafters/fvtt-Actor-wrestler-2RvL9SOKaTHzEvwh.json"
+    },
+    {
+      "name": "Agremen T",
+      "type": "npc",
+      "_id": "8FNSHSzuv2KUr0dn",
+      "file": "Liberated Toads/The Menders/fvtt-Actor-agremen-t-8FNSHSzuv2KUr0dn.json"
+    },
+    {
+      "name": "Alderbrook",
+      "type": "npc",
+      "_id": "BzKQYs0mgxn8OMvd",
+      "file": "Liberated Toads/The Menders/fvtt-Actor-alderbrook-BzKQYs0mgxn8OMvd.json"
+    },
+    {
+      "name": "Daywatch",
+      "type": "npc",
+      "_id": "lzTMRWYuI3zQYcfI",
+      "file": "Liberated Toads/The Menders/fvtt-Actor-daywatch-lzTMRWYuI3zQYcfI.json"
+    },
+    {
+      "name": "Elemen T",
+      "type": "npc",
+      "_id": "CsGyAwSgjuzRaJQY",
+      "file": "Liberated Toads/The Menders/fvtt-Actor-elemen-t-CsGyAwSgjuzRaJQY.json"
+    },
+    {
+      "name": "Insistent T",
+      "type": "npc",
+      "_id": "NSnISJsclw6aBO8R",
+      "file": "Liberated Toads/The Menders/fvtt-Actor-insistent-t-NSnISJsclw6aBO8R.json"
+    },
+    {
+      "name": "Pathfind T",
+      "type": "npc",
+      "_id": "t21z2AZ1DA7tWeXF",
+      "file": "Liberated Toads/The Menders/fvtt-Actor-pathfind-t-t21z2AZ1DA7tWeXF.json"
+    },
+    {
+      "name": "Patien T",
+      "type": "npc",
+      "_id": "Z3zmLIXz9qqjNpRn",
+      "file": "Liberated Toads/The Menders/fvtt-Actor-patien-t-Z3zmLIXz9qqjNpRn.json"
+    },
+    {
+      "name": "Pebble",
+      "type": "npc",
+      "_id": "avkRnMv0BWMJi3dv",
+      "file": "Liberated Toads/The Menders/fvtt-Actor-pebble-avkRnMv0BWMJi3dv.json"
+    },
+    {
+      "name": "Resilien T",
+      "type": "npc",
+      "_id": "HChIOuRtE4rfCMxU",
+      "file": "Liberated Toads/The Menders/fvtt-Actor-resilien-t-HChIOuRtE4rfCMxU.json"
+    },
+    {
+      "name": "Shielded",
+      "type": "npc",
+      "_id": "PD9TVTQAdTUiVliA",
+      "file": "Liberated Toads/The Menders/fvtt-Actor-shielded-PD9TVTQAdTUiVliA.json"
+    },
+    {
+      "name": "Swif T",
+      "type": "npc",
+      "_id": "gtLd0nsaKgLqxqDM",
+      "file": "Liberated Toads/The Menders/fvtt-Actor-swif-t-gtLd0nsaKgLqxqDM.json"
+    },
+    {
+      "name": "Treatmen T",
+      "type": "npc",
+      "_id": "j15nHPy4VE0iRKW4",
+      "file": "Liberated Toads/The Menders/fvtt-Actor-treatmen-t-j15nHPy4VE0iRKW4.json"
+    },
+    {
+      "name": "Volva T",
+      "type": "npc",
+      "_id": "WyvSPrRXZRCbq2Io",
+      "file": "Liberated Toads/The Menders/fvtt-Actor-volva-t-WyvSPrRXZRCbq2Io.json"
+    },
+    {
+      "name": "Intel T",
+      "type": "npc",
+      "_id": "uIxc0OryxtbJ1Y6X",
+      "file": "Liberated Toads/The Scouts/fvtt-Actor-intel-t-uIxc0OryxtbJ1Y6X.json"
+    },
+    {
+      "name": "Recon T",
+      "type": "npc",
+      "_id": "kRewYlBbpqLF7Irc",
+      "file": "Liberated Toads/The Scouts/fvtt-Actor-recon-t-kRewYlBbpqLF7Irc.json"
+    },
+    {
+      "name": "Sigint T",
+      "type": "npc",
+      "_id": "tZ2jdESGDAPOrpqZ",
+      "file": "Liberated Toads/The Scouts/fvtt-Actor-sigint-t-tZ2jdESGDAPOrpqZ.json"
+    },
+    {
+      "name": "Unassigned Toad, New Arrival",
+      "type": "npc",
+      "_id": "DrMfvg4Ug5piVhxe",
+      "file": "Liberated Toads/The Unassigned/fvtt-Actor-unassigned-toad-new-arrival-DrMfvg4Ug5piVhxe.json"
+    },
+    {
+      "name": "Unassigned Toad, Spare Hands",
+      "type": "npc",
+      "_id": "UkYWNMNxm8Xswr0X",
+      "file": "Liberated Toads/The Unassigned/fvtt-Actor-unassigned-toad-spare-hands-UkYWNMNxm8Xswr0X.json"
+    },
+    {
+      "name": "Assaul T",
+      "type": "npc",
+      "_id": "j9g8xlJ6g0FVlTYb",
+      "file": "Liberated Toads/The Wardens/fvtt-Actor-assaul-t-j9g8xlJ6g0FVlTYb.json"
+    },
+    {
+      "name": "Bramble",
+      "type": "npc",
+      "_id": "x3QlA4NyVdxEygLm",
+      "file": "Liberated Toads/The Wardens/fvtt-Actor-bramble-x3QlA4NyVdxEygLm.json"
+    },
+    {
+      "name": "Comba T",
+      "type": "npc",
+      "_id": "NsPMlfl0rcgOye7v",
+      "file": "Liberated Toads/The Wardens/fvtt-Actor-comba-t-NsPMlfl0rcgOye7v.json"
+    },
+    {
+      "name": "Command T",
+      "type": "npc",
+      "_id": "DliY8C7Xa7sSrsYC",
+      "file": "Liberated Toads/The Wardens/fvtt-Actor-command-t-DliY8C7Xa7sSrsYC.json"
+    },
+    {
+      "name": "Defen T",
+      "type": "npc",
+      "_id": "R3AdGNrjzvWuN3ik",
+      "file": "Liberated Toads/The Wardens/fvtt-Actor-defen-t-R3AdGNrjzvWuN3ik.json"
+    },
+    {
+      "name": "Deposi T",
+      "type": "npc",
+      "_id": "HNWLqwOUBfFPAaNO",
+      "file": "Liberated Toads/The Wardens/fvtt-Actor-deposi-t-HNWLqwOUBfFPAaNO.json"
+    },
+    {
+      "name": "Dry",
+      "type": "npc",
+      "_id": "zwC5V7kJUdUduhZD",
+      "file": "Liberated Toads/The Wardens/fvtt-Actor-dry-zwC5V7kJUdUduhZD.json"
+    },
+    {
+      "name": "Elint T",
+      "type": "npc",
+      "_id": "fKOXWJWZsSD07mUP",
+      "file": "Liberated Toads/The Wardens/fvtt-Actor-elint-t-fKOXWJWZsSD07mUP.json"
+    },
+    {
+      "name": "Ivyclimb",
+      "type": "npc",
+      "_id": "rhfSUsgIw3ErcttZ",
+      "file": "Liberated Toads/The Wardens/fvtt-Actor-ivyclimb-rhfSUsgIw3ErcttZ.json"
+    },
+    {
+      "name": "Orbit T",
+      "type": "npc",
+      "_id": "vKePKjogOpDQgo3x",
+      "file": "Liberated Toads/The Wardens/fvtt-Actor-orbit-t-vKePKjogOpDQgo3x.json"
+    },
+    {
+      "name": "Ordinarykeep",
+      "type": "npc",
+      "_id": "yy3KiMnGXCmwDtAN",
+      "file": "Liberated Toads/The Wardens/fvtt-Actor-ordinarykeep-yy3KiMnGXCmwDtAN.json"
+    },
+    {
+      "name": "Packet T",
+      "type": "npc",
+      "_id": "emeIzVbEmKqwM8p5",
+      "file": "Liberated Toads/The Wardens/fvtt-Actor-packet-t-emeIzVbEmKqwM8p5.json"
+    },
+    {
+      "name": "Paintmaster",
+      "type": "npc",
+      "_id": "OoVekZwWI8JOUkjG",
+      "file": "Liberated Toads/The Wardens/fvtt-Actor-paintmaster-OoVekZwWI8JOUkjG.json"
+    },
+    {
+      "name": "Regimen T",
+      "type": "npc",
+      "_id": "BvXAjdJqtDIgGXJj",
+      "file": "Liberated Toads/The Wardens/fvtt-Actor-regimen-t-BvXAjdJqtDIgGXJj.json"
+    },
+    {
+      "name": "Silversmith",
+      "type": "npc",
+      "_id": "ZJmz8k6beK1q0lMa",
+      "file": "Liberated Toads/The Wardens/fvtt-Actor-silversmith-ZJmz8k6beK1q0lMa.json"
+    },
+    {
+      "name": "Slateface",
+      "type": "npc",
+      "_id": "yePHOpu2Zmn6XvUT",
+      "file": "Liberated Toads/The Wardens/fvtt-Actor-slateface-yePHOpu2Zmn6XvUT.json"
+    },
+    {
+      "name": "Targe T",
+      "type": "npc",
+      "_id": "n57yCkBGLH0NL56g",
+      "file": "Liberated Toads/The Wardens/fvtt-Actor-targe-t-n57yCkBGLH0NL56g.json"
+    },
+    {
+      "name": "Veter T",
+      "type": "npc",
+      "_id": "LzJLBA60xvCkrHNn",
+      "file": "Liberated Toads/The Wardens/fvtt-Actor-veter-t-LzJLBA60xvCkrHNn.json"
+    },
+    {
+      "name": "Volunteer",
+      "type": "npc",
+      "_id": "p7Ta2A5HWP3VzvGa",
+      "file": "Liberated Toads/The Wardens/fvtt-Actor-volunteer-p7Ta2A5HWP3VzvGa.json"
+    },
+    {
+      "name": "Whitesmith",
+      "type": "npc",
+      "_id": "Tiaa4zdW1wF8aM5l",
+      "file": "Liberated Toads/The Wardens/fvtt-Actor-whitesmith-Tiaa4zdW1wF8aM5l.json"
+    },
+    {
+      "name": "4331 T",
+      "type": "npc",
+      "_id": "w4binvE9r2HpJPWu",
+      "file": "Liberated Toads/fvtt-Actor-4331-t-w4binvE9r2HpJPWu.json"
+    },
+    {
+      "name": "Anne Ari T",
+      "type": "npc",
+      "_id": "oAcspg6r2k8sPOoH",
+      "file": "Liberated Toads/fvtt-Actor-anne-ari-t-oAcspg6r2k8sPOoH.json"
+    },
+    {
+      "name": "Axie",
+      "type": "npc",
+      "_id": "cPwES1kCsf71n14K",
+      "file": "Liberated Toads/fvtt-Actor-axie-cPwES1kCsf71n14K.json"
+    },
+    {
+      "name": "Barie",
+      "type": "npc",
+      "_id": "b1sfCjeJAzSYZou8",
+      "file": "Liberated Toads/fvtt-Actor-barie-b1sfCjeJAzSYZou8.json"
+    },
+    {
+      "name": "Bearr",
+      "type": "npc",
+      "_id": "it66FVv55koCFwFh",
+      "file": "Liberated Toads/fvtt-Actor-bearr-it66FVv55koCFwFh.json"
+    },
+    {
+      "name": "Bion",
+      "type": "npc",
+      "_id": "PgWiAxDz39WLURz6",
+      "file": "Liberated Toads/fvtt-Actor-bion-PgWiAxDz39WLURz6.json"
+    },
+    {
+      "name": "Bluey",
+      "type": "npc",
+      "_id": "ExZQm7rZ1qkoWikd",
+      "file": "Liberated Toads/fvtt-Actor-bluey-ExZQm7rZ1qkoWikd.json"
+    },
+    {
       "name": "Bully T",
       "type": "npc",
       "_id": "rWMqIY1SsWNqKKUK",
       "file": "Liberated Toads/fvtt-Actor-bully-t-rWMqIY1SsWNqKKUK.json"
     },
     {
+      "name": "Caerk",
+      "type": "npc",
+      "_id": "HNDnUmZYH36plbAa",
+      "file": "Liberated Toads/fvtt-Actor-caerk-HNDnUmZYH36plbAa.json"
+    },
+    {
       "name": "Captain Fernback",
       "type": "npc",
       "_id": "esMxfuFIqZeJIvgT",
       "file": "Liberated Toads/fvtt-Actor-captain-fernback-esMxfuFIqZeJIvgT.json"
+    },
+    {
+      "name": "Crai Yellow",
+      "type": "npc",
+      "_id": "tndLKeUGA9MqYJ4O",
+      "file": "Liberated Toads/fvtt-Actor-crai-yellow-tndLKeUGA9MqYJ4O.json"
     },
     {
       "name": "Creek",
@@ -1223,10 +1996,34 @@
       "file": "Liberated Toads/fvtt-Actor-forgemaster-ironspore-iFLA4RcrA2wrP36w.json"
     },
     {
+      "name": "Freaza",
+      "type": "npc",
+      "_id": "eLxkXCPICERjSvf6",
+      "file": "Liberated Toads/fvtt-Actor-freaza-eLxkXCPICERjSvf6.json"
+    },
+    {
+      "name": "Gearspore",
+      "type": "npc",
+      "_id": "vZdJqRZ6mieFSsgB",
+      "file": "Liberated Toads/fvtt-Actor-gearspore-vZdJqRZ6mieFSsgB.json"
+    },
+    {
       "name": "Geek T",
       "type": "npc",
       "_id": "ZGRpotcGIQn2GdE8",
       "file": "Liberated Toads/fvtt-Actor-geek-t-ZGRpotcGIQn2GdE8.json"
+    },
+    {
+      "name": "Gentlepad",
+      "type": "npc",
+      "_id": "jnkWsEsYmfGnNfoV",
+      "file": "Liberated Toads/fvtt-Actor-gentlepad-jnkWsEsYmfGnNfoV.json"
+    },
+    {
+      "name": "Hammerling",
+      "type": "npc",
+      "_id": "teHBUacJt9aPWbCI",
+      "file": "Liberated Toads/fvtt-Actor-hammerling-teHBUacJt9aPWbCI.json"
     },
     {
       "name": "Healer Mistpetal",
@@ -1235,10 +2032,142 @@
       "file": "Liberated Toads/fvtt-Actor-healer-mistpetal-S0fgv4G6ggZctvdE.json"
     },
     {
+      "name": "Hustion Gold",
+      "type": "npc",
+      "_id": "08UKwFafJ8QrTzKL",
+      "file": "Liberated Toads/fvtt-Actor-hustion-gold-08UKwFafJ8QrTzKL.json"
+    },
+    {
+      "name": "Inkspot",
+      "type": "npc",
+      "_id": "PuzdKv0KwbPL7P3m",
+      "file": "Liberated Toads/fvtt-Actor-inkspot-PuzdKv0KwbPL7P3m.json"
+    },
+    {
+      "name": "Kila T",
+      "type": "npc",
+      "_id": "qlyfz1l3GeDQH7lk",
+      "file": "Liberated Toads/fvtt-Actor-kila-t-qlyfz1l3GeDQH7lk.json"
+    },
+    {
+      "name": "Kit T",
+      "type": "npc",
+      "_id": "K1hd2nVYC7CoGaOR",
+      "file": "Liberated Toads/fvtt-Actor-kit-t-K1hd2nVYC7CoGaOR.json"
+    },
+    {
+      "name": "Kyo",
+      "type": "npc",
+      "_id": "RJyiKm8Ou4XHzbkO",
+      "file": "Liberated Toads/fvtt-Actor-kyo-RJyiKm8Ou4XHzbkO.json"
+    },
+    {
+      "name": "Lilystalker",
+      "type": "npc",
+      "_id": "SWyJuKdId1eUm3sh",
+      "file": "Liberated Toads/fvtt-Actor-lilystalker-SWyJuKdId1eUm3sh.json"
+    },
+    {
+      "name": "Lualu Green",
+      "type": "npc",
+      "_id": "lCdhG6uRrk23xR6t",
+      "file": "Liberated Toads/fvtt-Actor-lualu-green-lCdhG6uRrk23xR6t.json"
+    },
+    {
+      "name": "Lucky T",
+      "type": "npc",
+      "_id": "A44Bo5wkaofd61oF",
+      "file": "Liberated Toads/fvtt-Actor-lucky-t-A44Bo5wkaofd61oF.json"
+    },
+    {
+      "name": "Mechal",
+      "type": "npc",
+      "_id": "VnCbYpz0anRSJgEj",
+      "file": "Liberated Toads/fvtt-Actor-mechal-VnCbYpz0anRSJgEj.json"
+    },
+    {
+      "name": "Naners",
+      "type": "npc",
+      "_id": "qtBBYfLbdtMo6PeM",
+      "file": "Liberated Toads/fvtt-Actor-naners-qtBBYfLbdtMo6PeM.json"
+    },
+    {
+      "name": "Nat",
+      "type": "npc",
+      "_id": "0rwRI29LAYQg8bsX",
+      "file": "Liberated Toads/fvtt-Actor-nat-0rwRI29LAYQg8bsX.json"
+    },
+    {
+      "name": "Necro",
+      "type": "npc",
+      "_id": "1BfZgOemyHSpgShH",
+      "file": "Liberated Toads/fvtt-Actor-necro-1BfZgOemyHSpgShH.json"
+    },
+    {
       "name": "Nerd T",
       "type": "npc",
       "_id": "gPKTZG7Sq98eOMHI",
       "file": "Liberated Toads/fvtt-Actor-nerd-t-gPKTZG7Sq98eOMHI.json"
+    },
+    {
+      "name": "Oiqie",
+      "type": "npc",
+      "_id": "A0pg2pEmyxTH8Fle",
+      "file": "Liberated Toads/fvtt-Actor-oiqie-A0pg2pEmyxTH8Fle.json"
+    },
+    {
+      "name": "Oliver P",
+      "type": "npc",
+      "_id": "wO1vSGLaYdhjKN2v",
+      "file": "Liberated Toads/fvtt-Actor-oliver-p-wO1vSGLaYdhjKN2v.json"
+    },
+    {
+      "name": "Perot",
+      "type": "npc",
+      "_id": "VXGmUDXH244Gji3e",
+      "file": "Liberated Toads/fvtt-Actor-perot-VXGmUDXH244Gji3e.json"
+    },
+    {
+      "name": "Poe White",
+      "type": "npc",
+      "_id": "T076PAalzBdK2usH",
+      "file": "Liberated Toads/fvtt-Actor-poe-white-T076PAalzBdK2usH.json"
+    },
+    {
+      "name": "Pondscum",
+      "type": "npc",
+      "_id": "KA4LxI1POTOxTWfp",
+      "file": "Liberated Toads/fvtt-Actor-pondscum-KA4LxI1POTOxTWfp.json"
+    },
+    {
+      "name": "Quillback",
+      "type": "npc",
+      "_id": "EzletDmLjYImZsQL",
+      "file": "Liberated Toads/fvtt-Actor-quillback-EzletDmLjYImZsQL.json"
+    },
+    {
+      "name": "Ratie",
+      "type": "npc",
+      "_id": "weNR7D6d0yY71nOy",
+      "file": "Liberated Toads/fvtt-Actor-ratie-weNR7D6d0yY71nOy.json"
+    },
+    {
+      "name": "Rawra",
+      "type": "npc",
+      "_id": "JjJWRRoEKojJ1kOG",
+      "file": "Liberated Toads/fvtt-Actor-rawra-JjJWRRoEKojJ1kOG.json"
+    },
+    {
+      "name": "Rchie Iser",
+      "type": "npc",
+      "_id": "m6pKMXhNAn4DI5CS",
+      "file": "Liberated Toads/fvtt-Actor-rchie-iser-m6pKMXhNAn4DI5CS.json"
+    },
+    {
+      "name": "Regan",
+      "type": "npc",
+      "_id": "gPxSCOGUAgCoATpk",
+      "file": "Liberated Toads/fvtt-Actor-regan-gPxSCOGUAgCoATpk.json"
     },
     {
       "name": "Rodger",
@@ -1247,10 +2176,40 @@
       "file": "Liberated Toads/fvtt-Actor-rodger-EBdW8EJuLC5bXbm7.json"
     },
     {
+      "name": "Sally Silver",
+      "type": "npc",
+      "_id": "Yxp4tLRWY5IiBLJH",
+      "file": "Liberated Toads/fvtt-Actor-sally-silver-Yxp4tLRWY5IiBLJH.json"
+    },
+    {
       "name": "Scribe Dewdrop",
       "type": "npc",
       "_id": "chy1e2RUzvWVgmZZ",
       "file": "Liberated Toads/fvtt-Actor-scribe-dewdrop-chy1e2RUzvWVgmZZ.json"
+    },
+    {
+      "name": "Shadowleap",
+      "type": "npc",
+      "_id": "vw4Ic7Ynkj2j6Cgf",
+      "file": "Liberated Toads/fvtt-Actor-shadowleap-vw4Ic7Ynkj2j6Cgf.json"
+    },
+    {
+      "name": "Shieldback",
+      "type": "npc",
+      "_id": "2rxG4KD7Gz8iNZXc",
+      "file": "Liberated Toads/fvtt-Actor-shieldback-2rxG4KD7Gz8iNZXc.json"
+    },
+    {
+      "name": "Slinat",
+      "type": "npc",
+      "_id": "JOk3z135MNUb2kTO",
+      "file": "Liberated Toads/fvtt-Actor-slinat-JOk3z135MNUb2kTO.json"
+    },
+    {
+      "name": "Soothing Moss",
+      "type": "npc",
+      "_id": "M6aRowDaTAzuO7rU",
+      "file": "Liberated Toads/fvtt-Actor-soothing-moss-M6aRowDaTAzuO7rU.json"
     },
     {
       "name": "Speaker L",
@@ -1265,6 +2224,54 @@
       "file": "Liberated Toads/fvtt-Actor-speaker-rivers-GsqXgwNIjFm4SCi4.json"
     },
     {
+      "name": "Spearwort",
+      "type": "npc",
+      "_id": "XmB3P30ldi78Y5jX",
+      "file": "Liberated Toads/fvtt-Actor-spearwort-XmB3P30ldi78Y5jX.json"
+    },
+    {
+      "name": "Speki",
+      "type": "npc",
+      "_id": "SX1AZHvY59NB1iRd",
+      "file": "Liberated Toads/fvtt-Actor-speki-SX1AZHvY59NB1iRd.json"
+    },
+    {
+      "name": "Spik",
+      "type": "npc",
+      "_id": "AkpSk5Us4T2LJf25",
+      "file": "Liberated Toads/fvtt-Actor-spik-AkpSk5Us4T2LJf25.json"
+    },
+    {
+      "name": "Spoky",
+      "type": "npc",
+      "_id": "gWZyGtj6OSLXTZgK",
+      "file": "Liberated Toads/fvtt-Actor-spoky-gWZyGtj6OSLXTZgK.json"
+    },
+    {
+      "name": "Spoolo",
+      "type": "npc",
+      "_id": "54HaJzkQo6lQhq1I",
+      "file": "Liberated Toads/fvtt-Actor-spoolo-54HaJzkQo6lQhq1I.json"
+    },
+    {
+      "name": "Spork",
+      "type": "npc",
+      "_id": "kSBOHq3z90P1ebf4",
+      "file": "Liberated Toads/fvtt-Actor-spork-kSBOHq3z90P1ebf4.json"
+    },
+    {
+      "name": "Swig",
+      "type": "npc",
+      "_id": "I8jzBjJalRIPe0ei",
+      "file": "Liberated Toads/fvtt-Actor-swig-I8jzBjJalRIPe0ei.json"
+    },
+    {
+      "name": "Tally",
+      "type": "npc",
+      "_id": "9TuXY4caS0VUfYWT",
+      "file": "Liberated Toads/fvtt-Actor-tally-9TuXY4caS0VUfYWT.json"
+    },
+    {
       "name": "Teacher T",
       "type": "npc",
       "_id": "xm3iKy9QX6WGqKtS",
@@ -1277,10 +2284,46 @@
       "file": "Liberated Toads/fvtt-Actor-the-mole-5ms4Zxwz8vJvVEbn.json"
     },
     {
+      "name": "Toad ie Foxx",
+      "type": "npc",
+      "_id": "q2VmDdERZ9yDcp9l",
+      "file": "Liberated Toads/fvtt-Actor-toad-ie-foxx-q2VmDdERZ9yDcp9l.json"
+    },
+    {
+      "name": "Transparen T",
+      "type": "npc",
+      "_id": "iNepAkAKriHWB1Nt",
+      "file": "Liberated Toads/fvtt-Actor-transparen-t-iNepAkAKriHWB1Nt.json"
+    },
+    {
+      "name": "Unidentified Spore (#69)",
+      "type": "npc",
+      "_id": "Ybpvqk0Dxrh0Dvgr",
+      "file": "Liberated Toads/fvtt-Actor-unidentified-spore-69-Ybpvqk0Dxrh0Dvgr.json"
+    },
+    {
       "name": "Warden Thornshell",
       "type": "npc",
       "_id": "4cYoQj5v78O8laKZ",
       "file": "Liberated Toads/fvtt-Actor-warden-thornshell-4cYoQj5v78O8laKZ.json"
+    },
+    {
+      "name": "Wavey",
+      "type": "npc",
+      "_id": "HXdh0VX9WFXGCdxW",
+      "file": "Liberated Toads/fvtt-Actor-wavey-HXdh0VX9WFXGCdxW.json"
+    },
+    {
+      "name": "Whispertail",
+      "type": "npc",
+      "_id": "XLp2lcSQD2Ov0BnU",
+      "file": "Liberated Toads/fvtt-Actor-whispertail-XLp2lcSQD2Ov0BnU.json"
+    },
+    {
+      "name": "Zahue T Black",
+      "type": "npc",
+      "_id": "h61wBPqcx8cedQfX",
+      "file": "Liberated Toads/fvtt-Actor-zahue-t-black-h61wBPqcx8cedQfX.json"
     },
     {
       "name": "Commander G",

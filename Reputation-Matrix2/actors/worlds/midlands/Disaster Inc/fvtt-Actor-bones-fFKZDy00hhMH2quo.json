@@ -1680,7 +1680,6 @@
         "equipped": false,
         "rarity": "",
         "cover": null,
-        "crewed": false,
         "uses": {
           "max": "",
           "recovery": [],
@@ -1707,7 +1706,10 @@
           "value": "trinket",
           "baseItem": ""
         },
-        "activities": {}
+        "activities": {},
+        "crew": {
+          "value": []
+        }
       },
       "effects": [],
       "flags": {
@@ -1717,11 +1719,27 @@
           "event": null,
           "filedOn": "2026-10-06",
           "note": "used in Aegis infiltration"
+        },
+        "scene-packer": {
+          "hash": "07653c592fb7825025f18ff389328f0f462dd189"
         }
       },
       "folder": null,
       "ownership": {
-        "default": 0
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      },
+      "sort": 0,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791261800352,
+        "modifiedTime": 1791261800353,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
       }
     }
   ],
@@ -1813,7 +1831,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791171676142,
-    "modifiedTime": 1791172239048,
+    "modifiedTime": 1791325778685,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

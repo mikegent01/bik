@@ -11,9 +11,9 @@
     "counts": {
       "characters": 255,
       "sheets": 249,
-      "generated": 54,
+      "generated": 0,
       "eras": 3,
-      "existing": 195,
+      "existing": 249,
       "party": 18,
       "skipped": 6
     },
@@ -1433,7 +1433,7 @@
       "classes": [
         "Paladin 3"
       ],
-      "species": "Grung",
+      "species": "Toad — Feyward Variant",
       "versions": []
     },
     {
@@ -1760,7 +1760,7 @@
       "classes": [
         "Rogue 4"
       ],
-      "species": "Grung",
+      "species": "Toad — Eager Variant",
       "versions": []
     },
     {
@@ -2311,9 +2311,16 @@
       "name": "The Goomba Who Took His Chances",
       "title": "He Would Take His Chances",
       "sheetName": "The Goomba Who Took His Chances",
-      "source": "era",
-      "file": "actors/bowsers-castle-1035/fvtt-Actor-bc1035-goomba-who-took-his-chances.json",
-      "alternates": [],
+      "source": "live",
+      "file": "actors/worlds/midlands/Koopa Troop/1035 BF — Bowser's Castle/fvtt-Actor-the-goomba-who-took-his-chances-vNwjV8SzLsbFWAQm.json",
+      "alternates": [
+        {
+          "file": "actors/bowsers-castle-1035/fvtt-Actor-bc1035-goomba-who-took-his-chances.json",
+          "name": "The Goomba Who Took His Chances",
+          "source": "era",
+          "kind": "npc"
+        }
+      ],
       "party": false,
       "partyWhy": "",
       "group": "Koopa Troop",
@@ -2418,9 +2425,16 @@
       "name": "Ed (Hammer Bro)",
       "title": "The One Who Remembered Who Builds Switches",
       "sheetName": "Ed",
-      "source": "era",
-      "file": "actors/bowsers-castle-1035/fvtt-Actor-bc1035-hammer-bro-ed.json",
-      "alternates": [],
+      "source": "live",
+      "file": "actors/worlds/midlands/Koopa Troop/1035 BF — Bowser's Castle/fvtt-Actor-ed-fg74Qa57nQ2oBtAK.json",
+      "alternates": [
+        {
+          "file": "actors/bowsers-castle-1035/fvtt-Actor-bc1035-hammer-bro-ed.json",
+          "name": "Ed",
+          "source": "era",
+          "kind": "npc"
+        }
+      ],
       "party": false,
       "partyWhy": "",
       "group": "Koopa Troop",
@@ -2452,9 +2466,16 @@
       "name": "Fred (Hammer Bro)",
       "title": "The One Who Asked About the Switch",
       "sheetName": "Fred",
-      "source": "era",
-      "file": "actors/bowsers-castle-1035/fvtt-Actor-bc1035-hammer-bro-fred.json",
-      "alternates": [],
+      "source": "live",
+      "file": "actors/worlds/midlands/Koopa Troop/1035 BF — Bowser's Castle/fvtt-Actor-fred-8DSgXEzKEiQu5jDW.json",
+      "alternates": [
+        {
+          "file": "actors/bowsers-castle-1035/fvtt-Actor-bc1035-hammer-bro-fred.json",
+          "name": "Fred",
+          "source": "era",
+          "kind": "npc"
+        }
+      ],
       "party": false,
       "partyWhy": "",
       "group": "Koopa Troop",
@@ -2996,7 +3017,7 @@
       "hp": 10,
       "speed": "30",
       "size": "med",
-      "items": 6,
+      "items": 7,
       "ac": 12,
       "level": 2,
       "classes": [
@@ -3300,9 +3321,16 @@
       "name": "Koopa Killer Killa",
       "title": "The Boss Nobody Appointed",
       "sheetName": "Koopa Killer Killa",
-      "source": "era",
-      "file": "actors/bowsers-castle-1035/fvtt-Actor-bc1035-koopa-killer-killa.json",
-      "alternates": [],
+      "source": "live",
+      "file": "actors/worlds/midlands/Koopa Troop/1035 BF — Bowser's Castle/fvtt-Actor-koopa-killer-killa-O2BKyWPhorFAbBb2.json",
+      "alternates": [
+        {
+          "file": "actors/bowsers-castle-1035/fvtt-Actor-bc1035-koopa-killer-killa.json",
+          "name": "Koopa Killer Killa",
+          "source": "era",
+          "kind": "npc"
+        }
+      ],
       "party": false,
       "partyWhy": "",
       "group": "Koopa Troop",
@@ -3683,7 +3711,7 @@
       "hp": 37,
       "speed": "35",
       "size": "med",
-      "items": 10,
+      "items": 11,
       "ac": 14,
       "level": 5,
       "classes": [
@@ -4574,7 +4602,7 @@
       "hp": 27,
       "speed": "25",
       "size": "sm",
-      "items": 9,
+      "items": 10,
       "ac": 13,
       "level": 4,
       "classes": [
@@ -5986,9 +6014,16 @@
       "name": "Sir Frankfurt",
       "title": "The Tenth of Twenty-Four",
       "sheetName": "Sir Frankfurt",
-      "source": "era",
-      "file": "actors/bowsers-castle-1035/fvtt-Actor-bc1035-sir-frankfurt.json",
-      "alternates": [],
+      "source": "live",
+      "file": "actors/worlds/midlands/Koopa Troop/1035 BF — Bowser's Castle/fvtt-Actor-sir-frankfurt-d8ENsgz3bIxmmi1l.json",
+      "alternates": [
+        {
+          "file": "actors/bowsers-castle-1035/fvtt-Actor-bc1035-sir-frankfurt.json",
+          "name": "Sir Frankfurt",
+          "source": "era",
+          "kind": "npc"
+        }
+      ],
       "party": false,
       "partyWhy": "",
       "group": "Koopa Troop",
@@ -6111,7 +6146,7 @@
       "hp": 21,
       "speed": "25",
       "size": "sm",
-      "items": 7,
+      "items": 8,
       "ac": 12,
       "level": 3,
       "classes": [
@@ -6559,9 +6594,16 @@
       "name": "The Supplied Dragon",
       "title": "The Contract That Broke the Wall",
       "sheetName": "The Supplied Dragon",
-      "source": "era",
-      "file": "actors/bowsers-castle-1035/fvtt-Actor-bc1035-the-supplied-dragon.json",
-      "alternates": [],
+      "source": "live",
+      "file": "actors/worlds/midlands/Fawthful's Forces/1035 BF — Bowser's Castle/fvtt-Actor-the-supplied-dragon-4jl3koEhSeUZZaCH.json",
+      "alternates": [
+        {
+          "file": "actors/bowsers-castle-1035/fvtt-Actor-bc1035-the-supplied-dragon.json",
+          "name": "The Supplied Dragon",
+          "source": "era",
+          "kind": "npc"
+        }
+      ],
       "party": false,
       "partyWhy": "",
       "group": "Fawthful's Forces",
@@ -6593,9 +6635,16 @@
       "name": "The Switch Hag",
       "title": "'I Could Have Sworn It Was the Door'",
       "sheetName": "The Switch Hag",
-      "source": "era",
-      "file": "actors/bowsers-castle-1035/fvtt-Actor-bc1035-the-switch-hag.json",
-      "alternates": [],
+      "source": "live",
+      "file": "actors/worlds/midlands/Fawthful's Forces/1035 BF — Bowser's Castle/fvtt-Actor-the-switch-hag-4wNpwCPTI50gc46m.json",
+      "alternates": [
+        {
+          "file": "actors/bowsers-castle-1035/fvtt-Actor-bc1035-the-switch-hag.json",
+          "name": "The Switch Hag",
+          "source": "era",
+          "kind": "npc"
+        }
+      ],
       "party": false,
       "partyWhy": "",
       "group": "Rakasha & the Feywild",
@@ -6797,8 +6846,8 @@
       "name": "4331 T",
       "title": "Speaker River Follower — calculator",
       "sheetName": "4331 T",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_4331_t.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-4331-t-w4binvE9r2HpJPWu.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -6808,20 +6857,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "civilian",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Club",
-          "quote": "Speaker River Follower — calculator",
-          "source": "title"
-        },
-        {
-          "feature": "As Filed",
-          "quote": "Speaker River Follower — calculator",
-          "source": "title"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 10,
@@ -6845,8 +6880,8 @@
       "name": "Anne Ari T",
       "title": "Speaker L Followers — bug  jar",
       "sheetName": "Anne Ari T",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_anne_ari_t.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-anne-ari-t-oAcspg6r2k8sPOoH.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -6856,20 +6891,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "civilian",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Club",
-          "quote": "Speaker L Followers — bug  jar",
-          "source": "title"
-        },
-        {
-          "feature": "As Filed",
-          "quote": "Speaker L Followers — bug  jar",
-          "source": "title"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 10,
@@ -6893,8 +6914,8 @@
       "name": "Axie",
       "title": "Pond Patrol — long axe",
       "sheetName": "Axie",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_axie.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-axie-cPwES1kCsf71n14K.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -6904,20 +6925,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "soldier",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Axe",
-          "quote": "Pond Patrol — long axe",
-          "source": "article"
-        },
-        {
-          "feature": "As Filed",
-          "quote": "Pond Patrol — long axe",
-          "source": "title"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 15,
@@ -6941,8 +6948,8 @@
       "name": "Barie",
       "title": "Speaker River Follower — bite",
       "sheetName": "Barie",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_barie.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-barie-b1sfCjeJAzSYZou8.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -6952,20 +6959,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "soldier",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Bite",
-          "quote": "Speaker River Follower — bite",
-          "source": "article"
-        },
-        {
-          "feature": "As Filed",
-          "quote": "Speaker River Follower — bite",
-          "source": "title"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 15,
@@ -6989,8 +6982,8 @@
       "name": "Bearr",
       "title": "Pond Patrol — spear",
       "sheetName": "Bearr",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_bearr.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-bearr-it66FVv55koCFwFh.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -7000,20 +6993,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "soldier",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Spear",
-          "quote": "Pond Patrol — spear",
-          "source": "article"
-        },
-        {
-          "feature": "As Filed",
-          "quote": "Pond Patrol — spear",
-          "source": "title"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 15,
@@ -7037,8 +7016,8 @@
       "name": "Bion",
       "title": "Pond Patrol — two axes",
       "sheetName": "Bion",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_bion.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-bion-PgWiAxDz39WLURz6.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -7048,20 +7027,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "soldier",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Axe",
-          "quote": "Pond Patrol — two axes",
-          "source": "article"
-        },
-        {
-          "feature": "As Filed",
-          "quote": "Pond Patrol — two axes",
-          "source": "title"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 15,
@@ -7085,8 +7050,8 @@
       "name": "Bluey",
       "title": "Pond Patrol — sling shot",
       "sheetName": "Bluey",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_bluey.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-bluey-ExZQm7rZ1qkoWikd.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -7096,20 +7061,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "soldier",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Sling",
-          "quote": "Bluey fights with a slingshot; cap colour blue; seen in the field.",
-          "source": "article"
-        },
-        {
-          "feature": "As Filed",
-          "quote": "Pond Patrol — sling shot",
-          "source": "title"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 15,
@@ -7133,8 +7084,8 @@
       "name": "Caerk",
       "title": "Speaker L Followers — baking tools",
       "sheetName": "Caerk",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_caerk.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-caerk-HNDnUmZYH36plbAa.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -7144,20 +7095,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "civilian",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Club",
-          "quote": "Speaker L Followers — baking tools",
-          "source": "title"
-        },
-        {
-          "feature": "As Filed",
-          "quote": "Speaker L Followers — baking tools",
-          "source": "title"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 10,
@@ -7181,8 +7118,8 @@
       "name": "Crai Yellow",
       "title": "Lillypads — lightning",
       "sheetName": "Crai Yellow",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_crai_yellow.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-crai-yellow-tndLKeUGA9MqYJ4O.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -7192,25 +7129,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "caster",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Staff",
-          "quote": "Lillypads — lightning",
-          "source": "title"
-        },
-        {
-          "feature": "Spellcasting",
-          "quote": "Lillypads — lightning",
-          "source": "title"
-        },
-        {
-          "feature": "As Filed",
-          "quote": "Lillypads — lightning",
-          "source": "title"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 9,
@@ -7234,8 +7152,8 @@
       "name": "Freaza",
       "title": "Pond Patrol — scoped pistol",
       "sheetName": "Freaza",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_freaza.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-freaza-eLxkXCPICERjSvf6.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -7245,20 +7163,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "soldier",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Pistol",
-          "quote": "Pond Patrol — scoped pistol",
-          "source": "article"
-        },
-        {
-          "feature": "As Filed",
-          "quote": "Pond Patrol — scoped pistol",
-          "source": "title"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 15,
@@ -7282,8 +7186,8 @@
       "name": "Gearspore",
       "title": "High Command — spinning gears",
       "sheetName": "Gearspore",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_gearspore.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-gearspore-vZdJqRZ6mieFSsgB.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -7293,25 +7197,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "caster",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Staff",
-          "quote": "High Command — spinning gears",
-          "source": "title"
-        },
-        {
-          "feature": "Grasping Growth",
-          "quote": "Gearspore is roster entry #47 of the Liberated Toads: High Command (Tier 3 — Leaders).",
-          "source": "article"
-        },
-        {
-          "feature": "Spellcasting",
-          "quote": "High Command — spinning gears",
-          "source": "title"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 9,
@@ -7335,8 +7220,8 @@
       "name": "Gentlepad",
       "title": "Medics United — long healing tounge",
       "sheetName": "Gentlepad",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_gentlepad.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-gentlepad-jnkWsEsYmfGnNfoV.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -7346,20 +7231,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "healer",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Dagger",
-          "quote": "Medics United — long healing tounge",
-          "source": "title"
-        },
-        {
-          "feature": "Field Medicine",
-          "quote": "Medics United — long healing tounge",
-          "source": "article"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 9,
@@ -7383,8 +7254,8 @@
       "name": "Hammerling",
       "title": "Overseers — hammer",
       "sheetName": "Hammerling",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_hammerling.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-hammerling-teHBUacJt9aPWbCI.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -7394,20 +7265,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "officer",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Hammer",
-          "quote": "Overseers — hammer",
-          "source": "article"
-        },
-        {
-          "feature": "Leadership",
-          "quote": "Hammerling is roster entry #48 of the Liberated Toads: Overseers (Tier 3 — Leaders).",
-          "source": "article"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 15,
@@ -7431,8 +7288,8 @@
       "name": "Hustion Gold",
       "title": "Lillypads — midas touch",
       "sheetName": "Hustion Gold",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_hustion_gold.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-hustion-gold-08UKwFafJ8QrTzKL.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -7442,25 +7299,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "caster",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Staff",
-          "quote": "Lillypads — midas touch",
-          "source": "title"
-        },
-        {
-          "feature": "Spellcasting",
-          "quote": "Lillypads — midas touch",
-          "source": "title"
-        },
-        {
-          "feature": "As Filed",
-          "quote": "Lillypads — midas touch",
-          "source": "title"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 9,
@@ -7484,8 +7322,8 @@
       "name": "Toad ie Foxx",
       "title": "Speaker River Follower — fox tail",
       "sheetName": "Toad ie Foxx",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_ie_foxx.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-toad-ie-foxx-q2VmDdERZ9yDcp9l.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -7495,20 +7333,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "soldier",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Club",
-          "quote": "Toad ie Foxx fights with a tail swung like a club; cap colour forest; listed, not yet seen in the field.",
-          "source": "article"
-        },
-        {
-          "feature": "As Filed",
-          "quote": "Speaker River Follower — fox tail",
-          "source": "title"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 15,
@@ -7532,8 +7356,8 @@
       "name": "Inkspot",
       "title": "High Command — ink/ squid",
       "sheetName": "Inkspot",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_inkspot.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-inkspot-PuzdKv0KwbPL7P3m.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -7543,25 +7367,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "caster",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Staff",
-          "quote": "High Command — ink/ squid",
-          "source": "title"
-        },
-        {
-          "feature": "Spellcasting",
-          "quote": "High Command — ink/ squid",
-          "source": "title"
-        },
-        {
-          "feature": "As Filed",
-          "quote": "High Command — ink/ squid",
-          "source": "title"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 9,
@@ -7585,8 +7390,8 @@
       "name": "Kila T",
       "title": "Speaker L Followers — knifes",
       "sheetName": "Kila T",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_kila_t.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-kila-t-qlyfz1l3GeDQH7lk.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -7596,20 +7401,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "rogue",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Dagger",
-          "quote": "Speaker L Followers — knifes",
-          "source": "article"
-        },
-        {
-          "feature": "As Filed",
-          "quote": "Speaker L Followers — knifes",
-          "source": "title"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 10,
@@ -7633,8 +7424,8 @@
       "name": "Kit T",
       "title": "Medics United — breath/healing breath",
       "sheetName": "Kit T",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_kit_t.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-kit-t-K1hd2nVYC7CoGaOR.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -7644,20 +7435,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "healer",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Dagger",
-          "quote": "Medics United — breath/healing breath",
-          "source": "title"
-        },
-        {
-          "feature": "Field Medicine",
-          "quote": "Medics United — breath/healing breath",
-          "source": "article"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 9,
@@ -7681,8 +7458,8 @@
       "name": "Kyo",
       "title": "Pond Patrol — fishing spear",
       "sheetName": "Kyo",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_kyo.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-kyo-RJyiKm8Ou4XHzbkO.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -7692,20 +7469,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "soldier",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Spear",
-          "quote": "Pond Patrol — fishing spear",
-          "source": "article"
-        },
-        {
-          "feature": "As Filed",
-          "quote": "Pond Patrol — fishing spear",
-          "source": "title"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 15,
@@ -7773,8 +7536,8 @@
       "name": "Lilystalker",
       "title": "Pond Patrol — scoped sniper",
       "sheetName": "Lilystalker",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_lilystalker.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-lilystalker-SWyJuKdId1eUm3sh.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -7784,20 +7547,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "soldier",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Rifle",
-          "quote": "Lilystalker fights with a scoped sniper rifle; cap colour forest; listed, not yet seen in the field.",
-          "source": "article"
-        },
-        {
-          "feature": "As Filed",
-          "quote": "Pond Patrol — scoped sniper",
-          "source": "title"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 15,
@@ -7821,8 +7570,8 @@
       "name": "Lualu Green",
       "title": "Lillypads — grass overgrowth",
       "sheetName": "Lualu Green",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_lualu_green.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-lualu-green-lCdhG6uRrk23xR6t.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -7832,25 +7581,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "caster",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Staff",
-          "quote": "Lillypads — grass overgrowth",
-          "source": "title"
-        },
-        {
-          "feature": "Grasping Growth",
-          "quote": "Lillypads — grass overgrowth",
-          "source": "article"
-        },
-        {
-          "feature": "Spellcasting",
-          "quote": "Lillypads — grass overgrowth",
-          "source": "title"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 9,
@@ -7874,8 +7604,8 @@
       "name": "Lucky T",
       "title": "Pond Patrol — sword and shield",
       "sheetName": "Lucky T",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_lucky_t.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-lucky-t-A44Bo5wkaofd61oF.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -7885,20 +7615,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "soldier",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Sabre",
-          "quote": "Pond Patrol — sword and shield",
-          "source": "article"
-        },
-        {
-          "feature": "Iron Discipline",
-          "quote": "Pond Patrol — sword and shield",
-          "source": "article"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 15,
@@ -7922,8 +7638,8 @@
       "name": "Mechal",
       "title": "Pond Patrol — huge improvised rock sword",
       "sheetName": "Mechal",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_mechal.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-mechal-VnCbYpz0anRSJgEj.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -7933,20 +7649,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "soldier",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Sabre",
-          "quote": "Pond Patrol — huge improvised rock sword",
-          "source": "article"
-        },
-        {
-          "feature": "As Filed",
-          "quote": "Pond Patrol — huge improvised rock sword",
-          "source": "title"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 15,
@@ -7970,8 +7672,8 @@
       "name": "Naners",
       "title": "Pond Patrol — crossbow",
       "sheetName": "Naners",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_naners.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-naners-qtBBYfLbdtMo6PeM.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -7981,20 +7683,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "soldier",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Crossbow",
-          "quote": "Pond Patrol — crossbow",
-          "source": "article"
-        },
-        {
-          "feature": "As Filed",
-          "quote": "Pond Patrol — crossbow",
-          "source": "title"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 15,
@@ -8018,8 +7706,8 @@
       "name": "Nat",
       "title": "Speaker L Followers — bug spray",
       "sheetName": "Nat",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_nat.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-nat-0rwRI29LAYQg8bsX.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -8029,20 +7717,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "civilian",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Club",
-          "quote": "Speaker L Followers — bug spray",
-          "source": "title"
-        },
-        {
-          "feature": "As Filed",
-          "quote": "Speaker L Followers — bug spray",
-          "source": "title"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 10,
@@ -8066,8 +7740,8 @@
       "name": "Necro",
       "title": "Student Union — necromancy",
       "sheetName": "Necro",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_necro.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-necro-1BfZgOemyHSpgShH.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -8077,20 +7751,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "caster",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Staff",
-          "quote": "Student Union — necromancy",
-          "source": "title"
-        },
-        {
-          "feature": "Guild Spellcasting",
-          "quote": "The Class of T — one student per school of magic.",
-          "source": "article"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 9,
@@ -8114,8 +7774,8 @@
       "name": "Oiqie",
       "title": "Pond Patrol — ball and chain",
       "sheetName": "Oiqie",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_oiqie.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-oiqie-A0pg2pEmyxTH8Fle.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -8125,20 +7785,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "soldier",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Mace",
-          "quote": "Oiqie fights with a ball and chain — a flail; cap colour purple; seen in the field.",
-          "source": "article"
-        },
-        {
-          "feature": "As Filed",
-          "quote": "Pond Patrol — ball and chain",
-          "source": "title"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 15,
@@ -8162,8 +7808,8 @@
       "name": "Oliver P",
       "title": "Lillypads — pink gas",
       "sheetName": "Oliver P",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_oliver_p.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-oliver-p-wO1vSGLaYdhjKN2v.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -8173,25 +7819,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "caster",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Staff",
-          "quote": "Lillypads — pink gas",
-          "source": "title"
-        },
-        {
-          "feature": "Spellcasting",
-          "quote": "Lillypads — pink gas",
-          "source": "title"
-        },
-        {
-          "feature": "As Filed",
-          "quote": "Lillypads — pink gas",
-          "source": "title"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 9,
@@ -8215,8 +7842,8 @@
       "name": "Perot",
       "title": "Speaker L Followers — crossbow",
       "sheetName": "Perot",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_perot.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-perot-VXGmUDXH244Gji3e.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -8226,20 +7853,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "soldier",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Crossbow",
-          "quote": "Speaker L Followers — crossbow",
-          "source": "article"
-        },
-        {
-          "feature": "As Filed",
-          "quote": "Speaker L Followers — crossbow",
-          "source": "title"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 15,
@@ -8263,8 +7876,8 @@
       "name": "Poe White",
       "title": "Lillypads — brightness",
       "sheetName": "Poe White",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_poe_white.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-poe-white-T076PAalzBdK2usH.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -8274,25 +7887,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "caster",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Staff",
-          "quote": "Lillypads — brightness",
-          "source": "title"
-        },
-        {
-          "feature": "Spellcasting",
-          "quote": "Lillypads — brightness",
-          "source": "title"
-        },
-        {
-          "feature": "As Filed",
-          "quote": "Lillypads — brightness",
-          "source": "title"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 9,
@@ -8316,8 +7910,8 @@
       "name": "Pondscum",
       "title": "High Command — rifle ranged weapon",
       "sheetName": "Pondscum",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_pondscum.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-pondscum-KA4LxI1POTOxTWfp.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -8327,20 +7921,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "officer",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Rifle",
-          "quote": "High Command — rifle ranged weapon",
-          "source": "article"
-        },
-        {
-          "feature": "Leadership",
-          "quote": "High Command — rifle ranged weapon",
-          "source": "article"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 15,
@@ -8364,8 +7944,8 @@
       "name": "Quillback",
       "title": "High Command — feathers",
       "sheetName": "Quillback",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_quillback.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-quillback-EzletDmLjYImZsQL.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -8375,25 +7955,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "caster",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Staff",
-          "quote": "High Command — feathers",
-          "source": "title"
-        },
-        {
-          "feature": "Spellcasting",
-          "quote": "High Command — feathers",
-          "source": "title"
-        },
-        {
-          "feature": "As Filed",
-          "quote": "High Command — feathers",
-          "source": "title"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 9,
@@ -8417,8 +7978,8 @@
       "name": "Ratie",
       "title": "Speaker River Follower — bricks",
       "sheetName": "Ratie",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_ratie.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-ratie-weNR7D6d0yY71nOy.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -8428,20 +7989,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "civilian",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Club",
-          "quote": "Speaker River Follower — bricks",
-          "source": "title"
-        },
-        {
-          "feature": "As Filed",
-          "quote": "Speaker River Follower — bricks",
-          "source": "title"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 10,
@@ -8465,8 +8012,8 @@
       "name": "Rawra",
       "title": "Pond Patrol — ship anchor",
       "sheetName": "Rawra",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_rawra.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-rawra-JjJWRRoEKojJ1kOG.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -8476,20 +8023,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "soldier",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Maul",
-          "quote": "Rawra fights with a ship's anchor swung like a maul; cap colour blue; seen in the field.",
-          "source": "article"
-        },
-        {
-          "feature": "As Filed",
-          "quote": "Pond Patrol — ship anchor",
-          "source": "title"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 15,
@@ -8513,8 +8046,8 @@
       "name": "Rchie Iser",
       "title": "Speaker L Followers — eye beams",
       "sheetName": "Rchie Iser",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_rchie_iser.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-rchie-iser-m6pKMXhNAn4DI5CS.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -8524,25 +8057,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "caster",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Staff",
-          "quote": "Speaker L Followers — eye beams",
-          "source": "title"
-        },
-        {
-          "feature": "Spellcasting",
-          "quote": "Speaker L Followers — eye beams",
-          "source": "title"
-        },
-        {
-          "feature": "As Filed",
-          "quote": "Speaker L Followers — eye beams",
-          "source": "title"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 9,
@@ -8566,8 +8080,8 @@
       "name": "Regan",
       "title": "Pond Patrol — winged spear",
       "sheetName": "Regan",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_regan.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-regan-gPxSCOGUAgCoATpk.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -8577,20 +8091,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "soldier",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Spear",
-          "quote": "Pond Patrol — winged spear",
-          "source": "article"
-        },
-        {
-          "feature": "As Filed",
-          "quote": "Pond Patrol — winged spear",
-          "source": "title"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 15,
@@ -8614,8 +8114,8 @@
       "name": "Sally Silver",
       "title": "Lillypads — lead weapons",
       "sheetName": "Sally Silver",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_sally_silver.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-sally-silver-Yxp4tLRWY5IiBLJH.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -8625,25 +8125,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "caster",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Staff",
-          "quote": "Lillypads — lead weapons",
-          "source": "title"
-        },
-        {
-          "feature": "Spellcasting",
-          "quote": "Lillypads — lead weapons",
-          "source": "title"
-        },
-        {
-          "feature": "As Filed",
-          "quote": "Lillypads — lead weapons",
-          "source": "title"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 9,
@@ -8667,8 +8148,8 @@
       "name": "Shadowleap",
       "title": "Speaker River Follower — smoke grenade",
       "sheetName": "Shadowleap",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_shadowleap.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-shadowleap-vw4Ic7Ynkj2j6Cgf.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -8678,20 +8159,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "rogue",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Dagger",
-          "quote": "Speaker River Follower — smoke grenade",
-          "source": "title"
-        },
-        {
-          "feature": "As Filed",
-          "quote": "Speaker River Follower — smoke grenade",
-          "source": "title"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 10,
@@ -8715,8 +8182,8 @@
       "name": "Shieldback",
       "title": "Speaker L Followers — riot shield",
       "sheetName": "Shieldback",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_shieldback.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-shieldback-2rxG4KD7Gz8iNZXc.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -8726,20 +8193,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "soldier",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Club",
-          "quote": "Shieldback fights with a riot shield and a baton; cap colour steel; listed, not yet seen in the field.",
-          "source": "article"
-        },
-        {
-          "feature": "Iron Discipline",
-          "quote": "Speaker L Followers — riot shield",
-          "source": "article"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 15,
@@ -8763,8 +8216,8 @@
       "name": "Slinat",
       "title": "Pond Patrol — yo-yo slingshot",
       "sheetName": "Slinat",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_slinat.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-slinat-JOk3z135MNUb2kTO.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -8774,20 +8227,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "soldier",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Sling",
-          "quote": "Pond Patrol — yo-yo slingshot",
-          "source": "article"
-        },
-        {
-          "feature": "As Filed",
-          "quote": "Pond Patrol — yo-yo slingshot",
-          "source": "title"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 15,
@@ -8811,8 +8250,8 @@
       "name": "Soothing Moss",
       "title": "Deputies — aroma",
       "sheetName": "Soothing Moss",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_soothing_moss.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-soothing-moss-M6aRowDaTAzuO7rU.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -8822,20 +8261,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "healer",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Dagger",
-          "quote": "Deputies — aroma",
-          "source": "title"
-        },
-        {
-          "feature": "As Filed",
-          "quote": "Deputies — aroma",
-          "source": "title"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 9,
@@ -8859,8 +8284,8 @@
       "name": "Spearwort",
       "title": "Overseers — vines/ pointy vine spears",
       "sheetName": "Spearwort",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_spearwort.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-spearwort-XmB3P30ldi78Y5jX.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -8870,20 +8295,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "officer",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Spear",
-          "quote": "Overseers — vines/ pointy vine spears",
-          "source": "article"
-        },
-        {
-          "feature": "Leadership",
-          "quote": "Spearwort is roster entry #49 of the Liberated Toads: Overseers (Tier 3 — Leaders).",
-          "source": "article"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 15,
@@ -8907,8 +8318,8 @@
       "name": "Speki",
       "title": "Spore 5 — spore sight",
       "sheetName": "Speki",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_speki.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-speki-SX1AZHvY59NB1iRd.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -8918,20 +8329,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "monster",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Claws",
-          "quote": "Spore 5 — spore sight",
-          "source": "title"
-        },
-        {
-          "feature": "Grasping Growth",
-          "quote": "Spore 5 — spore sight",
-          "source": "article"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 16,
@@ -8955,8 +8352,8 @@
       "name": "Spik",
       "title": "Spore 5 — spore touch",
       "sheetName": "Spik",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_spik.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-spik-AkpSk5Us4T2LJf25.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -8966,20 +8363,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "monster",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Claws",
-          "quote": "Spore 5 — spore touch",
-          "source": "title"
-        },
-        {
-          "feature": "Grasping Growth",
-          "quote": "Spore 5 — spore touch",
-          "source": "article"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 16,
@@ -9003,8 +8386,8 @@
       "name": "Spoky",
       "title": "Pond Patrol — rock stick",
       "sheetName": "Spoky",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_spoky.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-spoky-gWZyGtj6OSLXTZgK.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -9014,20 +8397,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "soldier",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Club",
-          "quote": "Spoky fights with a rock on a stick — a club; cap colour purple; seen in the field.",
-          "source": "article"
-        },
-        {
-          "feature": "As Filed",
-          "quote": "Pond Patrol — rock stick",
-          "source": "title"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 15,
@@ -9051,8 +8420,8 @@
       "name": "Spoolo",
       "title": "Spore 5 — spore hearing",
       "sheetName": "Spoolo",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_spoolo.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-spoolo-54HaJzkQo6lQhq1I.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -9062,20 +8431,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "monster",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Claws",
-          "quote": "Spore 5 — spore hearing",
-          "source": "title"
-        },
-        {
-          "feature": "Grasping Growth",
-          "quote": "Spore 5 — spore hearing",
-          "source": "article"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 16,
@@ -9099,8 +8454,8 @@
       "name": "Spork",
       "title": "Spore 5 — spore breath",
       "sheetName": "Spork",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_spork.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-spork-kSBOHq3z90P1ebf4.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -9110,20 +8465,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "monster",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Claws",
-          "quote": "Spore 5 — spore breath",
-          "source": "title"
-        },
-        {
-          "feature": "Grasping Growth",
-          "quote": "Spore 5 — spore breath",
-          "source": "article"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 16,
@@ -9147,8 +8488,8 @@
       "name": "Swig",
       "title": "Pond Patrol — yo-yo ship anchor",
       "sheetName": "Swig",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_swig.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-swig-I8jzBjJalRIPe0ei.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -9158,20 +8499,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "soldier",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Maul",
-          "quote": "Swig fights with a ship's anchor swung like a maul; cap colour blue; seen in the field.",
-          "source": "article"
-        },
-        {
-          "feature": "As Filed",
-          "quote": "Pond Patrol — yo-yo ship anchor",
-          "source": "title"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 15,
@@ -9195,8 +8522,8 @@
       "name": "Tally",
       "title": "Student Union — transmutation",
       "sheetName": "Tally",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_tally.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-tally-9TuXY4caS0VUfYWT.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -9206,20 +8533,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "caster",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Staff",
-          "quote": "Student Union — transmutation",
-          "source": "title"
-        },
-        {
-          "feature": "Guild Spellcasting",
-          "quote": "The Class of T — one student per school of magic.",
-          "source": "article"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 9,
@@ -9243,8 +8556,8 @@
       "name": "Transparen T",
       "title": "Student Union — illusion",
       "sheetName": "Transparen T",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_transparen_t.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-transparen-t-iNepAkAKriHWB1Nt.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -9254,20 +8567,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "caster",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Staff",
-          "quote": "Student Union — illusion",
-          "source": "title"
-        },
-        {
-          "feature": "Guild Spellcasting",
-          "quote": "The Class of T — one student per school of magic.",
-          "source": "article"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 9,
@@ -9291,8 +8590,8 @@
       "name": "Unidentified Spore (#69)",
       "title": "Spore 5 — unidentified",
       "sheetName": "Unidentified Spore (#69)",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_unidentified_spore_69.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-unidentified-spore-69-Ybpvqk0Dxrh0Dvgr.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -9302,20 +8601,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "monster",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Claws",
-          "quote": "Spore 5 — unidentified",
-          "source": "title"
-        },
-        {
-          "feature": "Grasping Growth",
-          "quote": "Spore 5 — unidentified",
-          "source": "article"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 16,
@@ -9339,8 +8624,8 @@
       "name": "Wavey",
       "title": "Speaker L Followers — can control water",
       "sheetName": "Wavey",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_wavey.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-wavey-HXdh0VX9WFXGCdxW.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -9350,25 +8635,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "caster",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Staff",
-          "quote": "Speaker L Followers — can control water",
-          "source": "title"
-        },
-        {
-          "feature": "Spellcasting",
-          "quote": "Speaker L Followers — can control water",
-          "source": "title"
-        },
-        {
-          "feature": "As Filed",
-          "quote": "Speaker L Followers — can control water",
-          "source": "title"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 9,
@@ -9392,8 +8658,8 @@
       "name": "Whispertail",
       "title": "Deputies — spiky tail",
       "sheetName": "Whispertail",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_whispertail.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-whispertail-XLp2lcSQD2Ov0BnU.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -9403,20 +8669,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "officer",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Club",
-          "quote": "Whispertail fights with a tail swung like a club; cap colour taupe; listed, not yet seen in the field.",
-          "source": "article"
-        },
-        {
-          "feature": "Leadership",
-          "quote": "Whispertail is roster entry #54 of the Liberated Toads: Deputies (Tier 4 — High Command (army leadership)).",
-          "source": "article"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 15,
@@ -9440,8 +8692,8 @@
       "name": "Zahue T Black",
       "title": "Lillypads — darkness",
       "sheetName": "Zahue T Black",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-toad_zahue_t_black.json",
+      "source": "live",
+      "file": "actors/worlds/midlands/Liberated Toads/fvtt-Actor-zahue-t-black-h61wBPqcx8cedQfX.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -9451,25 +8703,6 @@
         "level": null,
         "powerLevel": null
       },
-      "role": "caster",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Staff",
-          "quote": "Lillypads — darkness",
-          "source": "title"
-        },
-        {
-          "feature": "Spellcasting",
-          "quote": "Lillypads — darkness",
-          "source": "title"
-        },
-        {
-          "feature": "As Filed",
-          "quote": "Lillypads — darkness",
-          "source": "title"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 9,

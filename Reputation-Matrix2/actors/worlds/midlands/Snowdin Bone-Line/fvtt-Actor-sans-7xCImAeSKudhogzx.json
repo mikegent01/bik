@@ -536,7 +536,7 @@
       "gender": "",
       "faith": "",
       "biography": {
-        "value": "<p><em>Waluipedia cast sheet — Sans.</em> Built by <code>tools/build-character-sheets.py</code>, hand-authored from the article. no XP ledger entry; archetype default → a level 1 Rogue player-character sheet (a player may take this seat; the authored CR 1 stands in where the ledger is silent). Numbers are a GM-ready reading of the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p><p><strong>The Skeleton of Snowdin</strong> — The Monster Underground — Snowdin Perimeter Watch</p><p>Status: Active — oathbound witness to the Mount Ebott extraction and terminology correction</p><p>Sans is a mysterious and surprisingly laid-back skeleton living in Snowdin Town. Clad in a blue hooded cloak and possessing eye sockets that radiate a quiet intensity, he is one of the few individuals in the underground civilization who appears completely unphased by the arrival of surface dwellers. He is observant, enjoys good food, and seems to hold a position of informal but significant authority in Snowdin. He provided initial hospitality to Dracule Mihawk and the Legionary Agent, even sharing a casserole with them. He is a central member of the Snowdin Bone-Line, an extended household documented in the Sans Family registry. He is a central member of the Snowdin Bone-Line, an extended household documented in the Sans Family registry.</p><h3>Evidence</h3><ul><li><strong>Bone Toss</strong> — “He is a central member of the Snowdin Bone-Line, an extended household documented in the Sans Family registry.”</li><li><strong>Shortcut</strong> — “He is known to appear at the end of a road before anyone saw him walk it, and to treat locked doors as scheduling disagreements.”</li><li><strong>Lazy on the Surface</strong> — “The three descriptions are, the household has noticed, exactly the same shape as the man himself: lazy on the surface, exact underneath, and impossible to tell apart from a joke until the joke has already saved you.”</li><li><strong>One Hit Point, Really</strong> — “His voice is described as smooth like winter wind, and he carries himself with a lazy confidence that suggests he is far more dangerous—or at least more informed—than he lets on.”</li></ul><p>Article: <code>#/article/sans</code> (characters). Site sheet: <code>#/sheets/sans</code>.</p>",
+        "value": "<p><em>Waluipedia cast sheet — Sans.</em> Built by <code>tools/build-character-sheets.py</code>, hand-authored from the article. no XP ledger entry; archetype default → a level 1 Rogue player-character sheet (a player may take this seat; the authored CR 1 stands in where the ledger is silent). Numbers are a GM-ready reading of the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p><p><strong>The Skeleton of Snowdin</strong> — The Monster Underground — Snowdin Perimeter Watch</p><p>Status: Active — oathbound witness to the Mount Ebott extraction and terminology correction</p><p>Sans is a mysterious and surprisingly laid-back skeleton living in Snowdin Town. Clad in a blue hooded cloak and possessing eye sockets that radiate a quiet intensity, he is one of the few individuals in the underground civilization who appears completely unphased by the arrival of surface dwellers. He is observant, enjoys good food, and seems to hold a position of informal but significant authority in Snowdin. He provided initial hospitality to Dracule Mihawk and the Legionary Agent, even sharing a casserole with them. He is a central member of the Snowdin Bone-Line, an extended household documented in the Sans Family registry. He is a central member of the Snowdin Bone-Line, an extended household documented in the Sans Family registry.</p><h3>Evidence</h3><ul><li><p><strong>Bone Toss</strong> — “He is a central member of the Snowdin Bone-Line, an extended household documented in the Sans Family registry.”</p></li><li><p><strong>Shortcut</strong> — “He is known to appear at the end of a road before anyone saw him walk it, and to treat locked doors as scheduling disagreements.”</p></li><li><p><strong>Lazy on the Surface</strong> — “The three descriptions are, the household has noticed, exactly the same shape as the man himself: lazy on the surface, exact underneath, and impossible to tell apart from a joke until the joke has already saved you.”</p></li><li><p><strong>One Hit Point, Really</strong> — “His voice is described as smooth like winter wind, and he carries himself with a lazy confidence that suggests he is far more dangerous—or at least more informed—than he lets on.”</p></li></ul><p>Article: <code>#/article/sans</code> (characters). Site sheet: <code>#/sheets/sans</code>.</p>",
         "public": ""
       }
     },
@@ -1373,6 +1373,9 @@
     },
     "midi-qol": {
       "onUseMacroParts": {}
+    },
+    "dnd5e": {
+      "showTokenPortrait": true
     }
   },
   "_stats": {
@@ -1382,7 +1385,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791171687275,
-    "modifiedTime": 1791172241355,
+    "modifiedTime": 1791325787935,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

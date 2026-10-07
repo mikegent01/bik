@@ -1695,10 +1695,78 @@
         "duplicateSource": null,
         "exportSource": null
       }
+    },
+    {
+      "_id": "oymPZjjJexUIVuv8",
+      "name": "Poltergust",
+      "type": "loot",
+      "img": "icons/containers/bags/pouch-leather-brown-green.webp",
+      "system": {
+        "description": {
+          "value": "<p>Luigi’s ghost-capture apparatus, built from E. Gadd paratechnology. It turns fear into procedure: strobe, suction, containment, screaming optional but common.</p><ul><li>Captures and contains spectral entities.</li><li>Uses strobe functions to disrupt animated or ghostly threats.</li><li>Counts as Technique when Luigi operates it; not Arcane XP by default.</li></ul><p><em>Obtained:</em> Issued/trained through Professor E. Gadd’s ghost-research legacy and Luigi’s long-running ghost-hunting work.</p><p><em>On the record:</em> signature equipment / active field device.</p><blockquote>A vacuum cleaner became one of the most important supernatural containment tools in history. Waluigi hates that Luigi makes this believable. — W.</blockquote><p><em>Waluipedia inventory <code>poltergust</code>, held by Luigi — filed from <code>the_waiting_room_testimony</code>. Mechanics as the table rules them; the archive records custody.</em></p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia inventory — Signature Device",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "identifier": "poltergust",
+        "quantity": 1,
+        "weight": {
+          "value": 1,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "properties": [],
+        "rarity": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "effects": [],
+      "flags": {
+        "waluipedia": {
+          "inventoryItem": "poltergust",
+          "holder": "luigi",
+          "event": "the_waiting_room_testimony",
+          "filedOn": "2026-10-06",
+          "note": "signature equipment / active field device"
+        },
+        "scene-packer": {
+          "hash": "7b098ba8d1e3bb143cfada156c5cd9acbb425786"
+        }
+      },
+      "folder": null,
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      },
+      "sort": 0,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791261802045,
+        "modifiedTime": 1791261802045,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      }
     }
   ],
   "effects": [],
-  "folder": "khjVG7Y8S9IOVDnn",
+  "folder": "Og9SjlhO4GeG3hkC",
   "ownership": {
     "default": 0,
     "7BMT1Aux3QVtq027": 3
@@ -1789,7 +1857,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791171680555,
-    "modifiedTime": 1791172240179,
+    "modifiedTime": 1791325785030,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

@@ -4997,8 +4997,7 @@
         "Disaster Inc.",
         "npc",
         "humanoid",
-        "party",
-        "Players"
+        "party"
       ],
       "color": "#D4A017",
       "organized": {
@@ -5006,9 +5005,7 @@
           "Disaster Inc."
         ],
         "basis": "website",
-        "from": [
-          "Players"
-        ]
+        "from": []
       }
     }
   },
