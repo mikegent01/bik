@@ -355,3 +355,35 @@ shipping cells.
 in `--check`), packets and mirror carry plates everywhere, 150 + 80 + 67 + 99 checks green in
 the touched suites. **In Foundry:** Sync once more (the packet now says plate) and the white
 chips and discs go with the halo; nothing else in the world changes.
+
+## 11. Addendum (round 3): one full-body portrait per toad, and the studio full run
+
+**Toad ie Foxx (`toad_73`).** His "cut up face" was not a bad cut of a good source: the
+cell's inner field and the cap's white are the *same tone*, so any distance key's border
+flood walks from the field across the anti-aliased silhouette into the cap and eats a
+crescent out of it (11.8k of 26k figure pixels survived the default key). No tolerance
+separates them — the render itself is ambiguous. Fix: a magenta-background render of the
+same sticker (image edit, character untouched) now lives at
+`assets/images/toads/renders/toad_73_toad_ie_foxx.png`; `cut-roster-toads` keys that render
+for this one cell (`CUT_FROM_RENDER`), and his cream cell is derived from the plate (Toad on
+cream), never the other way round. New plate: 947 px, border 100% clear, no holes, halo 0.
+
+**The single-plate refactor.** `portraits/player/fullbody/toad_*.png` was a second cut of
+the same stickers: tokens linked it while portraits linked the roster plate, so the two
+could disagree and the wrong one could win (the white chips and the halo rode both paths).
+Now the numbered roster plate — already a full-body cut — is the one portrait a Liberated
+Toad has: 18 duplicate files deleted (`toad_lee` keeps his, a retired PC with no roster
+twin), `characters.json` `fullBody` and the mirror's token textures repointed at the plate,
+`combine()` remaps any old world export still pointing at the deleted twin
+(`fullbody_twin`), and the site index was rebuilt. `dedupe-images` keeps protecting the
+cells and the plates; nothing links the deleted paths (0 refs left).
+
+**The GUI / full run.** The GUI you remembered is `tools/token-plate-studio.py`
+(`python tools/token-plate-studio.py`, opens http://127.0.0.1:8766) — three panes
+(reference / render / plate), tolerance sliders for the flat key, Accept writes the plate
+through the same code path as the batch. It talks to your Comfy Desktop render server, so a
+full re-render run happens on your machine: queue the toads, Accept each plate. For cuts
+that need no new render (every cell-derived toad), the headless full run is
+`python3 tools/cut-roster-toads.py --force` — it re-cuts all 75 from their sources and
+`--check` then verifies every plate on disk. After either run: the suite publishes, Foundry
+Sync picks the plates up.
