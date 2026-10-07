@@ -387,3 +387,27 @@ that need no new render (every cell-derived toad), the headless full run is
 `python3 tools/cut-roster-toads.py --force` — it re-cuts all 75 from their sources and
 `--check` then verifies every plate on disk. After either run: the suite publishes, Foundry
 Sync picks the plates up.
+
+## 12. Addendum (round 4): the Forge grows its own rosters and collects its own art
+
+The forge loop was faction → drafted roster → renders → plates → packet, with one way in
+(a drafted roster) and one way for art to arrive (drag & drop onto the page). Expanded
+(`6dd90bf`), all of it tested (46 ok):
+
+- **Roster from the website.** `npc-forge.py collect <packet> --from-site [--match TEXT]`
+  reads `data/characters.json`: articles with prose that no roster claims yet become
+  entries — the article's summary + description become the `look`, so the render recipe
+  writes itself; `site` is kept on the entry so collecting twice never duplicates. The
+  page has the same collector ("Collect roster from the website", match + limit + framing).
+- **Roster from the suite's own input.** `draft <packet> --input rows.json` and
+  `collect <packet> --input rows.json`: rows carry name, look, tier, folder, framing,
+  seed, site — the suite builds a roster without a faction at all.
+- **"Make full body image" is an option.** Framing presets `fullbody` / `bust` / `head`
+  (`FRAMINGS` in build-forge-packets) can be set per entry, per collect, per draft;
+  `prompt_for` and `render_job` honour them (an entry's own `prompt` still wins).
+- **Auto-collect the AI's output.** `ingest <packet> --dir FOLDER [--watch]` files and
+  cuts any PNG that lands in a folder (Comfy's output, Downloads, wherever the model
+  writes) matching a pending job by entry id or name slug — no drag & drop; the page's
+  "Auto-collect renders from folder" button calls the same code.
+- **Prompts on demand.** `prompt <packet> [ids]` (and `GET /api/prompts`) prints the exact
+  recipe — prompt, negative, seed, canvas, target file — for whatever image model asks.
