@@ -16,6 +16,11 @@ land in the folder.
     python3 tools/npc-forge.py                         # the page (http://127.0.0.1:8768/)
     python3 tools/npc-forge.py --list                  # rosters and their art state
     python3 tools/npc-forge.py draft <packet> --faction koopa_troop --name "Koopa Troop" --count 8
+    python3 tools/npc-forge.py draft <packet> --name "X" --input rows.json   # the suite builds its own roster
+    python3 tools/npc-forge.py collect <packet> --from-site [--match TEXT]   # grow it from the website's articles
+    python3 tools/npc-forge.py collect <packet> --input rows.json [--tier 1] [--framing fullbody|bust|head]
+    python3 tools/npc-forge.py ingest <packet> --dir FOLDER [--watch]  # auto-collect the AI's output, no drag & drop
+    python3 tools/npc-forge.py prompt <packet> [ids]   # the recipe any image model asks for
     python3 tools/npc-forge.py run <packet> [--only-missing] [--steps render,cut,build]
     python3 tools/npc-forge.py cut <packet>            # cut the renders in the folder (no Comfy needed)
     python3 tools/npc-forge.py handoff <packet>        # write npc-forge/<packet>/handoff.md + jobs.jsonl
@@ -30,6 +35,7 @@ import importlib.util
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
 import threading
@@ -219,7 +225,125 @@ class Forge:
         return {"factions": sorted(out, key=lambda x: x["name"] or ""), "groups": {g: v.get("color") for g, v in groups.items() if isinstance(v, dict)},
                 "rosters": [os.path.splitext(os.path.basename(p))[0] for p in self.bfp.roster_paths()]}
 
-    def draft(self, packet, name, faction=None, group=None, color=None, plan=None, subfolders=None, style=None, title=None):
+    def _tier_entry(self, eid, name, folder, tier, look, seed, faction=None, roster_name=None, framing=None):
+        """A draft statblock at `tier` with the given look — the shape both `draft`
+        (templated plan) and `collect` (website articles, input rows) file."""
+        t = TIERS.get(str(tier)) or TIERS["1"]
+        officer = t["cr"] >= 5
+        dmg_n, dmg_d = t["dmg"]
+        entry = {
+            "id": eid, "name": name, "folder": folder, "tier": "officer" if officer else str(tier), "role": "draft — write me",
+            "type": "humanoid", "subtype": "", "size": "med", "alignment": "Unaligned", "cr": t["cr"],
+            "abilities": list(t["abilities"]), "saves": [], "skills": {}, "ac": t["ac"], "ac_words": "draft", "hp": t["hp"], "hp_formula": t["hp_formula"],
+            "speed": {"walk": 30}, "senses": {}, "languages": {"value": ["common"], "custom": ""}, "di": [], "dr": [], "dv": [], "ci": [],
+            "traits": [], "attacks": [{"name": "Weapon", "icon": "strike", "kind": "melee", "ability": "str", "wtype": "natural", "reach": 5,
+                                        "dmg": [dmg_n, dmg_d, "slashing"], "extra": [], "props": [],
+                                        "text": f"<p><em>Melee Weapon Attack:</em> reach 5 ft., one target. <em>Hit:</em> {dmg_n}d{dmg_d} + {max(0, (t['abilities'][0] - 10) // 2)} slashing damage.</p>"}],
+            "actions": [],
+            "multiattack": f"The creature makes {t['attacks']} attacks." if t["attacks"] > 1 else None,
+            "look": look,
+            "seed": seed, "plate": eid, "token_size": 1,
+            "bio": [f"<p><strong>Draft.</strong> Drafted by the NPC Forge for {roster_name or name}" + (f" (faction <code>{faction}</code>)" if faction else "") +
+                    "; the numbers are the tier template until someone writes the real statblock, the look is a placeholder until the render says otherwise.</p>"],
+            "tags": [slugify(roster_name or name), "draft"],
+        }
+        if framing:
+            entry["framing"] = framing
+        return entry
+
+    # ---------------------------------------------------- roster inputs --
+    def site_candidates(self, match=None):
+        """Website articles the roster can collect: they have prose to render and
+        no forge roster claims them yet (by id or by `site`)."""
+        arts = read_json(os.path.join(self.bfp.RM, "data", "characters.json"), []) or []
+        taken = set()
+        for r in self.rosters():
+            for e in r.get("entries") or []:
+                taken.add(e.get("id"))
+                taken.add(e.get("site"))
+        out = []
+        for a in arts:
+            aid = a.get("id") or ""
+            if not aid or aid in taken:
+                continue
+            where = f"{a.get('affiliation') or ''} {a.get('title') or ''}".lower()
+            if match and match.lower() not in where:
+                continue
+            look = " ".join(str(a[k]) for k in ("summary", "description") if a.get(k))[:600].strip()
+            if not look:
+                continue
+            out.append({"site": aid, "name": a.get("name") or aid, "affiliation": a.get("affiliation") or "",
+                        "status": a.get("status") or "", "look": look})
+        return out
+
+    def collect(self, packet, rows, tier="1", folder=None, framing=None):
+        """Grow an existing roster from input rows — website candidates
+        (`{"site": id, "name":…, "look":…}`) or hand-written ones. Ids are
+        slugified; rows already in the roster are skipped, never duplicated."""
+        path = os.path.join(self.bfp.ROSTERS, packet + ".json")
+        r = self.bfp.load_roster(path)
+        entries = r.setdefault("entries", [])
+        have = {e["id"] for e in entries} | {e.get("site") for e in entries}
+        subs = list((r.get("subfolders") or {}) or [None])
+        added = []
+        for i, row in enumerate(rows, 1):
+            eid = slugify(row.get("id") or row.get("site") or row.get("name") or "")
+            if not eid or eid in have:
+                continue
+            have.add(eid)
+            e = self._tier_entry(eid, row.get("name") or eid.replace("-", " ").title(),
+                                 row.get("folder") or folder or subs[0], row.get("tier") or tier,
+                                 row.get("look") or "", int(row.get("seed") or 520000 + i),
+                                 faction=r.get("faction"), roster_name=r.get("name"),
+                                 framing=row.get("framing") or framing)
+            if row.get("site"):
+                e["site"] = row["site"]
+                e["bio"] = [f"<p>Collected from the website article <code>{row['site']}</code> by the NPC Forge; the look is the article's own prose.</p>"]
+                e["role"] = f"site article — {row.get('status') or 'written'}"
+            entries.append(e)
+            added.append(eid)
+        if added:
+            write_json(path, r)
+        return {"packet": packet, "added": added, "entries": len(entries)}
+
+    def ingest(self, directory, packet=None, cut=True):
+        """Auto-collect renders that landed in a folder — Comfy's output, the
+        Downloads folder, anywhere an image model wrote files — instead of
+        dragging them onto the page. Files match pending jobs by entry id
+        (`<id>.png`, `<id>-<seed>.png`, `<name-slug>-*`) or by the exact render
+        file name; the newest match wins and is cut straight away."""
+        if not directory or not os.path.isdir(directory):
+            raise FileNotFoundError(f"no such folder: {directory}")
+        got = []
+        for r in self.rosters():
+            if r.get("error") or (packet and r["packet"] != packet):
+                continue
+            roster = self.bfp.find_roster(r["packet"])
+            for e in roster["entries"]:
+                dst = self.bfp.render_file(roster, e)
+                if os.path.exists(dst):
+                    continue
+                slug = slugify(e["name"])
+                cands = []
+                for f in os.listdir(directory):
+                    if not f.lower().endswith((".png", ".jpg", ".jpeg", ".webp")):
+                        continue
+                    stem = re.sub(r"\.(png|jpe?g|webp)$", "", f, flags=re.I)
+                    if f == os.path.basename(dst) or stem == e["id"] or stem.startswith(e["id"] + "-") or (slug and stem.startswith(slug + "-")):
+                        cands.append(os.path.join(directory, f))
+                if not cands:
+                    continue
+                src = max(cands, key=os.path.getmtime)
+                os.makedirs(os.path.dirname(dst), exist_ok=True)
+                shutil.copyfile(src, dst)
+                item = {"packet": r["packet"], "id": e["id"], "render": rel(dst), "from": rel(src)}
+                if cut:
+                    facts = self.cut_one(roster, e)
+                    item.update({"plate": rel(self.bfp.plate_file(roster, e)), "border_clear": facts.get("border_clear")})
+                got.append(item)
+        return got
+
+    def draft(self, packet, name, faction=None, group=None, color=None, plan=None, subfolders=None, style=None, title=None, rows=None, framing=None):
         """A new roster with templated entries for a faction — a packet that
         imports today and gets its real numbers, names and looks written in
         the roster afterwards."""
@@ -234,31 +358,32 @@ class Forge:
         subs = subfolders or {"Rank and File": {"color": color, "description": f"The {name} as the party meets them — drafted by the NPC Forge."},
                               "Officers": {"color": color, "description": f"Those who give the orders in the {name}."}}
         sub_names = list(subs)
-        plan = [str(p) for p in (plan or DEFAULT_PLAN)]
         summary = (f or {}).get("summary") or ""
+        tier_default = "1"
         entries = []
-        for i, tier in enumerate(plan, 1):
+        if rows:
+            # the suite's own input: names, looks, tiers, folders, framing — from a
+            # file, from the website collector, from the page
+            for i, row in enumerate(rows, 1):
+                eid = slugify(row.get("id") or row.get("site") or row.get("name") or f"{packet}-{i}")
+                officer = (TIERS.get(str(row.get("tier") or tier_default)) or TIERS["1"])["cr"] >= 5
+                folder = row.get("folder") or (sub_names[-1] if officer and len(sub_names) > 1 else sub_names[0])
+                e = self._tier_entry(eid, row.get("name") or eid.replace("-", " ").title(), folder,
+                                     row.get("tier") or tier_default, row.get("look") or "",
+                                     int(row.get("seed") or 520000 + i), faction=faction, roster_name=name,
+                                     framing=row.get("framing") or framing)
+                if row.get("site"):
+                    e["site"] = row["site"]
+                    e["bio"] = [f"<p>Collected from the website article <code>{row['site']}</code> by the NPC Forge; the look is the article's own prose.</p>"]
+                entries.append(e)
+        for i, tier in enumerate(plan if not rows else [], 1):
             t = TIERS.get(tier) or TIERS["1"]
             officer = t["cr"] >= 5
             folder = sub_names[-1] if officer and len(sub_names) > 1 else sub_names[0]
             eid = f"draft-{i:02d}"
-            dmg_n, dmg_d = t["dmg"]
-            entries.append({
-                "id": eid, "name": f"{name} draft {i}", "folder": folder, "tier": "officer" if officer else "draft", "role": "draft — write me",
-                "type": "humanoid", "subtype": "", "size": "med", "alignment": "Unaligned", "cr": t["cr"],
-                "abilities": list(t["abilities"]), "saves": [], "skills": {}, "ac": t["ac"], "ac_words": "draft", "hp": t["hp"], "hp_formula": t["hp_formula"],
-                "speed": {"walk": 30}, "senses": {}, "languages": {"value": ["common"], "custom": ""}, "di": [], "dr": [], "dv": [], "ci": [],
-                "traits": [], "attacks": [{"name": "Weapon", "icon": "strike", "kind": "melee", "ability": "str", "wtype": "natural", "reach": 5,
-                                            "dmg": [dmg_n, dmg_d, "slashing"], "extra": [], "props": [],
-                                            "text": f"<p><em>Melee Weapon Attack:</em> reach 5 ft., one target. <em>Hit:</em> {dmg_n}d{dmg_d} + {max(0, (t['abilities'][0] - 10) // 2)} slashing damage.</p>"}],
-                "actions": [],
-                "multiattack": f"The creature makes {t['attacks']} attacks." if t["attacks"] > 1 else None,
-                "look": f"A member of {name}: {summary[:160]}".strip() if summary else f"A member of {name}, in the faction's colours and gear.",
-                "seed": 500000 + i, "plate": eid, "token_size": 1,
-                "bio": [f"<p><strong>Draft.</strong> Drafted by the NPC Forge for {name}" + (f" (faction <code>{faction}</code>)" if faction else "") +
-                        "; the numbers are the tier template until someone writes the real statblock, the look is a placeholder until the render says otherwise.</p>"],
-                "tags": [slugify(name), "draft"],
-            })
+            look = f"A member of {name}: {summary[:160]}".strip() if summary else f"A member of {name}, in the faction's colours and gear."
+            entries.append(self._tier_entry(eid, f"{name} draft {i}", folder, tier, look, 500000 + i,
+                                            faction=faction, roster_name=name, framing=framing))
         roster = {
             "format": self.bfp.FORMAT, "packet": packet, "name": name, "title": title or f"{name} — drafted by the NPC Forge",
             "faction": faction, "group": group, "color": color, "disposition": -1, "file_prefix": f"fvtt-Actor-{packet}-",
@@ -584,6 +709,15 @@ class Handler(BaseHTTPRequestHandler):
             if u.path == "/api/jobs":
                 r = f.bfp.find_roster(q.get("packet", ""))
                 return self._send(200, {"jobs": [f.bfp.render_job(r, e) for e in r["entries"]]})
+            if u.path == "/api/site":
+                return self._send(200, {"candidates": f.site_candidates(q.get("match") or None)})
+            if u.path == "/api/prompts":
+                r = f.bfp.find_roster(q.get("packet", ""))
+                ids = (q.get("ids") or "").split(",") if q.get("ids") else None
+                return self._send(200, {"prompts": [{"id": e["id"], "name": e["name"], "prompt": f.bfp.prompt_for(r, e),
+                                                     "negative": e.get("negative") or r.get("negative") or "",
+                                                     "seed": e.get("seed"), "render": rel(f.bfp.render_file(r, e))}
+                                                    for e in r["entries"] if not ids or e["id"] in ids]})
             return self._send(404, {"error": "no route " + u.path})
         except (KeyError, FileNotFoundError) as exc:
             return self._send(404, {"error": str(exc)})
@@ -609,7 +743,16 @@ class Handler(BaseHTTPRequestHandler):
                 return self._send(200, f.start_comfy())
             if path == "/api/draft":
                 return self._send(200, f.draft(body["packet"], body["name"], faction=body.get("faction"), group=body.get("group"), color=body.get("color"),
-                                               plan=body.get("plan"), subfolders=body.get("subfolders"), style=body.get("style"), title=body.get("title")))
+                                               plan=body.get("plan"), subfolders=body.get("subfolders"), style=body.get("style"), title=body.get("title"),
+                                               rows=body.get("rows"), framing=body.get("framing")))
+            if path == "/api/collect":
+                rows = body.get("rows")
+                if rows is None and body.get("fromSite") is not None:
+                    rows = f.site_candidates(body.get("fromSite") or None)[: int(body.get("limit") or 8)]
+                return self._send(200, f.collect(body["packet"], rows or [], tier=body.get("tier") or "1",
+                                                 folder=body.get("folder"), framing=body.get("framing")))
+            if path == "/api/ingest":
+                return self._send(200, {"collected": f.ingest(body.get("dir") or "", packet=body.get("packet"), cut=body.get("cut", True))})
             if path == "/api/entry":
                 return self._send(200, f.save_entry(body["packet"], body["id"], body.get("fields") or {}))
             if path == "/api/roster":
@@ -643,9 +786,32 @@ def make_server(forge, host="127.0.0.1", port=PORT):
 
 # -------------------------------------------------------------------- cli --
 
+def watch_loop(forge, directory, packet=None, interval=6):
+    """Keep collecting renders from `directory` as they land — the headless twin of
+    the page's auto-collect: an image model (or Comfy, or a download) writes a file
+    that matches a pending job, and it is filed and cut without anyone dragging."""
+    seen = set()
+    print(f"watching {directory} for renders of pending jobs (Ctrl+C stops)")
+    while True:
+        time.sleep(interval)
+        try:
+            for it in forge.ingest(directory, packet=packet):
+                key = (it["packet"], it["id"])
+                if key in seen:
+                    continue
+                seen.add(key)
+                print(f"  collected {it['id']} ({it['packet']}) ← {it['from']} → {it.get('plate') or it['render']}")
+        except KeyboardInterrupt:
+            print(f"stopped — {len(seen)} render(s) collected")
+            return
+        except Exception as exc:  # noqa: BLE001 — a bad folder must not kill the watch
+            print(f"  ingest: {type(exc).__name__}: {exc}")
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description="NPC Forge — faction → roster → renders → token plates → Foundry packet")
-    ap.add_argument("command", nargs="?", default="serve", choices=["serve", "draft", "run", "cut", "build", "handoff"])
+    ap.add_argument("command", nargs="?", default="serve",
+                    choices=["serve", "draft", "collect", "ingest", "prompt", "run", "cut", "build", "handoff"])
     ap.add_argument("packet", nargs="?")
     ap.add_argument("--list", action="store_true", help="rosters and their art state, then exit")
     ap.add_argument("--host", default="127.0.0.1")
@@ -657,6 +823,15 @@ def main(argv=None):
     ap.add_argument("--group", default=None, help="draft: the Foundry group folder (default: the faction's group)")
     ap.add_argument("--count", type=int, default=None, help="draft: how many entries (default plan: %s)" % ",".join(DEFAULT_PLAN))
     ap.add_argument("--plan", default=None, help="draft: tiers, e.g. 0.5,0.5,1,2,3,5")
+    ap.add_argument("--input", default=None, help="draft/collect: roster input file (a JSON list of rows: name, look, tier, folder, framing, seed, site)")
+    ap.add_argument("--from-site", action="store_true", help="collect: take the rows from the website's articles (--match filters them)")
+    ap.add_argument("--match", default=None, help="collect --from-site / site candidates: only articles whose affiliation/title contains this")
+    ap.add_argument("--limit", type=int, default=None, help="collect --from-site: how many candidates at most")
+    ap.add_argument("--tier", default=None, help="collect: default tier for rows that don't name one")
+    ap.add_argument("--folder", default=None, help="collect: default subfolder for rows that don't name one")
+    ap.add_argument("--framing", default=None, help="draft/collect: framing preset (fullbody, bust, head) or a sentence of your own")
+    ap.add_argument("--dir", default=None, help="ingest: the folder to collect renders from (Comfy output, Downloads, …)")
+    ap.add_argument("--watch", action="store_true", help="ingest: keep collecting from --dir until Ctrl+C")
     ap.add_argument("--ids", default=None, help="run/cut: only these entry ids (comma-separated)")
     ap.add_argument("--all", action="store_true", help="run/cut: redo entries that already have art")
     ap.add_argument("--steps", default="render,cut,build", help="run: which steps (render,cut,build)")
@@ -677,11 +852,54 @@ def main(argv=None):
     if a.command == "draft":
         if not a.packet or not a.name:
             ap.error("draft needs <packet> and --name")
+        rows = None
+        if a.input:
+            loaded = read_json(a.input, [])
+            rows = loaded if isinstance(loaded, list) else (loaded.get("rows") or loaded.get("entries") or [])
         plan = a.plan.split(",") if a.plan else (DEFAULT_PLAN[:a.count] if a.count and a.count <= len(DEFAULT_PLAN) else
                                                  (DEFAULT_PLAN + ["2"] * (a.count - len(DEFAULT_PLAN)) if a.count else None))
-        r = forge.draft(a.packet, a.name, faction=a.faction, group=a.group, plan=plan)
+        r = forge.draft(a.packet, a.name, faction=a.faction, group=a.group, plan=plan, rows=rows, framing=a.framing)
         print(f"drafted data/forge/{r['packet']}.json with {r['counts']['entries']} entries under {r['group']!r}; "
               f"write the looks, then `npc-forge.py run {r['packet']}` or `handoff {r['packet']}`")
+        return 0
+    if a.command == "collect":
+        if not a.packet:
+            ap.error("collect needs <packet>")
+        if a.input:
+            loaded = read_json(a.input, [])
+            rows = loaded if isinstance(loaded, list) else (loaded.get("rows") or loaded.get("entries") or [])
+        elif a.from_site:
+            rows = forge.site_candidates(a.match)[: a.limit] if a.limit else forge.site_candidates(a.match)
+        else:
+            ap.error("collect needs --from-site or --input FILE")
+        out = forge.collect(a.packet, rows, tier=a.tier or "1", folder=a.folder, framing=a.framing)
+        print(f"collect: {len(out['added'])} new entr(ies) in data/forge/{a.packet}.json ({out['entries']} total): "
+              + (", ".join(out["added"]) or "nothing new — every candidate was already in the roster"))
+        return 0
+    if a.command == "ingest":
+        if not a.dir:
+            ap.error("ingest needs --dir FOLDER")
+        if a.watch:
+            watch_loop(forge, a.dir, packet=a.packet)
+            return 0
+        out = forge.ingest(a.dir, packet=a.packet)
+        for it in out:
+            print(f"  collected {it['id']} ({it['packet']}) ← {it['from']} → {it.get('plate') or it['render']}")
+        print(f"ingest: {len(out)} render(s) collected and cut" + ("" if out else " — nothing in that folder matched a pending job"))
+        return 0
+    if a.command == "prompt":
+        if not a.packet:
+            ap.error("prompt needs <packet>")
+        r = forge.bfp.find_roster(a.packet)
+        ids = [s.strip() for s in a.ids.split(",")] if a.ids else None
+        for e in r["entries"]:
+            if ids and e["id"] not in ids:
+                continue
+            print(f"{e['id']}  {e['name']}")
+            print(f"  prompt:   {forge.bfp.prompt_for(r, e)}")
+            print(f"  negative: {e.get('negative') or r.get('negative') or ''}")
+            print(f"  seed: {e.get('seed')}  canvas: {'x'.join(str(v) for v in (e.get('render_size') or r.get('render_size') or [1408, 768]))}"
+                  f"  → {rel(forge.bfp.render_file(r, e))}")
         return 0
     if a.command in ("run", "cut", "build", "handoff"):
         if not a.packet:

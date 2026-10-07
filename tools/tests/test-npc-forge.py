@@ -121,6 +121,7 @@ try:
     except RuntimeError:
         check("save_entry refuses a folder the roster lacks", True)
 
+
     # a synthetic render: a figure on a flat magenta field
     from PIL import Image, ImageDraw
     im = Image.new("RGB", (704, 384), (255, 0, 255))
@@ -191,6 +192,15 @@ try:
     state = json.loads(body)
     check("GET /api/state: connection, rosters with counts and art state, the tier table", st == 200 and state["connection"]["connected"] is False
           and any(r["packet"] == "test-troop" and r["counts"]["plates"] == 1 for r in state["rosters"]) and "7" in state["tiers"])
+    st, body = req("GET", "/api/site?match=Koopa")
+    check("GET /api/site: collected articles drop off the candidate list", st == 200 and json.loads(body)["candidates"] == [], body)
+    st, body = req("POST", "/api/collect", {"packet": "test-troop", "fromSite": "Koopa", "limit": 4})
+    check("POST /api/collect fromSite: nothing new to add, and it says so", st == 200 and json.loads(body)["added"] == [], body)
+    st, body = req("GET", "/api/prompts?packet=test-troop&ids=draft-03")
+    pr = json.loads(body)["prompts"]
+    check("GET /api/prompts hands any image model the recipe — prompt, negative, seed, target file",
+          st == 200 and len(pr) == 1 and pr[0]["id"] == "draft-03" and "A member of Koopa Test" in pr[0]["prompt"]
+          and pr[0]["render"].endswith("renders/draft-03.png") and pr[0]["seed"] > 0, body)
     st, body = req("GET", "/")
     check("GET /: the page", st == 200 and b"NPC Forge" in body)
     st, body = req("GET", "/file?p=../../etc/passwd")
@@ -207,6 +217,42 @@ try:
     check("GET /api/jobs: the render jobs", st == 200 and len(json.loads(body)["jobs"]) == 3)
     st, body = req("POST", "/api/draft", {"packet": "second", "name": "Second", "plan": ["1"]})
     check("POST /api/draft makes a roster", st == 200 and os.path.exists(os.path.join(sb, "data", "forge", "second.json")))
+    # ---- roster inputs: the website collector, input rows, auto-collect ----
+    from PIL import Image as _Image, ImageDraw as _ImageDraw
+    site = os.path.join(sb, "data", "characters.json")
+    os.makedirs(os.path.dirname(site), exist_ok=True)
+    json.dump([
+        {"id": "hat-koopa", "name": "Hat Koopa", "affiliation": "Koopa Test (hat division)", "summary": "A koopa whose hat is very large.", "description": "The hat keeps growing."},
+        {"id": "draft-01", "name": "Already in the roster", "affiliation": "Koopa Test", "summary": "a taken id"},
+        {"id": "shell-others", "name": "Elsewhere", "affiliation": "Somewhere Else", "summary": "does not match"},
+    ], open(site, "w", encoding="utf-8"))
+    cands = forge.site_candidates("Koopa Test")
+    check("site_candidates: website articles with prose that no roster claims, filtered by affiliation",
+          [c["site"] for c in cands] == ["hat-koopa"] and cands[0]["look"].startswith("A koopa whose hat"), cands)
+    out = forge.collect("test-troop", cands, tier="1", framing="bust")
+    got = json.load(open(rpath, encoding="utf-8"))
+    new = got["entries"][-1]
+    check("collect: the article becomes a roster entry — site id kept, look is the article's prose, framing preset applied",
+          out["added"] == ["hat-koopa"] and new["site"] == "hat-koopa" and new["look"].startswith("A koopa whose hat")
+          and new["framing"] == "bust" and bfp.prompt_for(got, new).endswith(bfp.FRAMINGS["bust"]), new)
+    check("collect twice adds nothing (entry ids and site ids both dedupe)", forge.collect("test-troop", cands)["added"] == [])
+    drafted2 = forge.draft("input-troop", "Input Troop", rows=[{"name": "Row One", "look": "A drawn row.", "tier": "2", "framing": "head"},
+                                                               {"site": "row-two", "name": "Row Two", "look": "Another row."}])
+    irow = json.load(open(os.path.join(sb, "data", "forge", "input-troop.json"), encoding="utf-8"))
+    check("draft with rows: the suite builds its own roster from its input (tiers, framing, site)",
+          drafted2["counts"]["entries"] == 2 and [e["cr"] for e in irow["entries"]] == [2, 1]
+          and irow["entries"][0]["framing"] == "head" and irow["entries"][1]["site"] == "row-two", irow["entries"])
+    drop = os.path.join(tmp, "ai-output")
+    os.makedirs(drop, exist_ok=True)
+    fig = _Image.new("RGB", (704, 384), (255, 0, 255))
+    _ImageDraw.Draw(fig).ellipse((272, 60, 432, 220), fill=(90, 200, 60), outline=(20, 20, 20), width=4)
+    fig.save(os.path.join(drop, "draft-03-7.png"))
+    fig.save(os.path.join(drop, "unrelated-42.png"))
+    gotc = forge.ingest(drop, packet="test-troop")
+    check("ingest: a render that lands in a folder is collected and cut for the pending job it matches — no drag & drop",
+          [g["id"] for g in gotc] == ["draft-03"] and os.path.exists(os.path.join(sb, "npc-forge", "test-troop", "renders", "draft-03.png"))
+          and os.path.exists(os.path.join(sb, "portraits", "test-troop", "draft-03.png")), gotc)
+    check("ingest again collects nothing (the job is no longer pending)", forge.ingest(drop, packet="test-troop") == [])
     srv.shutdown()
 finally:
     shutil.rmtree(tmp, ignore_errors=True)

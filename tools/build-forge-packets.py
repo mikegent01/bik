@@ -172,16 +172,30 @@ def token_path(roster, entry):
 def prompt_for(roster, entry):
     """The render recipe: house style + the entry's look + the framing that
     keys cleanly. One sentence each so the Forge and the user's own Comfy
-    workflow produce the same picture from the same seed."""
+    workflow produce the same picture from the same seed. An entry may name a
+    FRAMINGS preset (`fullbody`, `bust`, `head`) or carry its own framing
+    sentence; `prompt` overrides everything."""
     if entry.get("prompt"):
         return entry["prompt"]
-    return " ".join(p.strip() for p in (roster.get("style"), entry.get("look"), roster.get("framing")) if p and p.strip())
+    framing = entry.get("framing") or roster.get("framing") or ""
+    framing = FRAMINGS.get(framing, framing)
+    return " ".join(p.strip() for p in (roster.get("style"), entry.get("look"), framing) if p and p.strip())
+
+
+# Framing presets an entry (or the Forge page's "make full body / bust"
+# option) can name instead of spelling the sentence out.
+FRAMINGS = {
+    "fullbody": "Full body, whole figure visible, three-quarter view, centred, isolated on a plain flat solid magenta background (#FF00FF), no floor, no ground shadow, no text, no border.",
+    "bust": "Bust, head and shoulders, centred, isolated on a plain flat solid magenta background (#FF00FF), no floor, no ground shadow, no text, no border.",
+    "head": "Head shot, face centred, isolated on a plain flat solid magenta background (#FF00FF), no text, no border.",
+}
 
 
 def render_job(roster, entry):
-    w, h = roster.get("render_size") or [1408, 768]
+    w, h = entry.get("render_size") or roster.get("render_size") or [1408, 768]
     return {"id": entry["id"], "name": entry["name"], "packet": roster["packet"],
             "prompt": prompt_for(roster, entry),
+            "framing": FRAMINGS.get(entry.get("framing"), entry.get("framing")) or roster.get("framing"),
             "negative": entry.get("negative") or roster.get("negative") or "",
             "seed": int(entry.get("seed") or 0), "width": int(w), "height": int(h),
             "background": roster.get("background") or "#FF00FF",

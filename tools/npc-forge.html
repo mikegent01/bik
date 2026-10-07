@@ -75,8 +75,22 @@
         <label>Name</label><input id="nfName" placeholder="Koopa Troop patrols">
         <label>Foundry group folder</label><select id="nfGroup"></select>
         <label>Plan (CR per entry)</label><input id="nfPlan" value="0.5,0.5,1,2,2,3,4,5">
+        <label>Framing</label><select id="nfFraming"><option value="">full body (roster default)</option><option value="fullbody">full body</option><option value="bust">bust</option><option value="head">head shot</option></select>
         <div class="hint">Drafts templated statblocks per tier (they import today) with placeholder looks; write the real roster in <code>data/forge/&lt;packet&gt;.json</code> and the looks right here. The group and sub-folders are added to <code>actors/folders.json</code>.</div>
         <button type="submit" class="primary">Draft roster</button>
+      </form>
+    </details>
+    <details open>
+      <summary>Roster inputs &amp; auto-collect…</summary>
+      <form class="new" id="inputForm" onsubmit="return false">
+        <label>Website match</label><input id="siteMatch" placeholder="e.g. Iron Legion (blank = every article)">
+        <label>At most</label><input id="siteLimit" type="number" value="8" min="1" max="40">
+        <label>Framing for new entries</label><select id="inFraming"><option value="">roster default</option><option value="fullbody">make full body</option><option value="bust">bust</option><option value="head">head shot</option></select>
+        <button id="btnCollectSite" class="primary">Collect roster from the website</button>
+        <div class="hint">Adds website articles that have prose and no forge entry yet — the article's summary + description become the entry's look, so the render recipe writes itself.</div>
+        <label>Render folder</label><input id="ingestDir" placeholder="folder the image model writes to">
+        <button id="btnIngest">Auto-collect renders from folder</button>
+        <div class="hint">Files <i>and cuts</i> every PNG in that folder matching a pending job (by entry id or name) — no drag &amp; drop. Headless twin: <code>npc-forge.py ingest &lt;packet&gt; --dir … --watch</code>. Prompts for any image model: <code>npc-forge.py prompt &lt;packet&gt;</code>.</div>
       </form>
     </details>
     <h2>How it flows</h2>
@@ -267,9 +281,22 @@ $("#newForm").onsubmit = async (ev) => {
   ev.preventDefault();
   try {
     const plan = $("#nfPlan").value.split(",").map((s) => s.trim()).filter(Boolean);
-    const r = await api("/api/draft", {packet: $("#nfPacket").value, name: $("#nfName").value, faction: $("#nfFaction").value || null, group: $("#nfGroup").value || null, plan});
+    const r = await api("/api/draft", {packet: $("#nfPacket").value, name: $("#nfName").value, faction: $("#nfFaction").value || null, group: $("#nfGroup").value || null, plan, framing: $("#nfFraming").value || null});
     selected = r.packet; localStorage.setItem("forge.packet", selected);
     await refresh(); setStatus(`drafted ${r.path} — write the looks, then Run loop`);
+  } catch (x) { alert(x.message); }
+};
+$("#btnCollectSite").onclick = async () => {
+  if (!selected) return alert("pick or draft a roster first");
+  try {
+    const o = await api("/api/collect", {packet: selected, fromSite: $("#siteMatch").value.trim(), limit: +$("#siteLimit").value || 8, framing: $("#inFraming").value || null});
+    await refresh(); setStatus(`collected ${o.added.length} entr(ies): ${o.added.join(", ") || "nothing new"}`);
+  } catch (x) { alert(x.message); }
+};
+$("#btnIngest").onclick = async () => {
+  try {
+    const o = await api("/api/ingest", {dir: $("#ingestDir").value.trim(), packet: selected || null});
+    await refresh(); setStatus(o.collected.length ? `collected + cut ${o.collected.map((c) => c.id).join(", ")}` : "nothing in that folder matched a pending job");
   } catch (x) { alert(x.message); }
 };
 refresh().then(loadFactions).catch((x) => { $("#work").innerHTML = `<p class="err">${esc(x.message)}</p>`; });
