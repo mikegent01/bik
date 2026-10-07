@@ -62,7 +62,8 @@
  *            does not apply (details.race / .background names another, live
  *            one) is a leftover: deleted, never offered as a swap — and a
  *            packet copy of such a leftover is left out instead of refused.
- *            1.9.4: who may open which sheet. The packet carries the party
+ *            1.9.4: who may open which sheet. The live world's packet carries
+ *            the party — and so does the manifest the GitHub merge starts from
  *            (payload.players: the roster, the companions, and the grants by
  *            Foundry USER NAME from actors/folders.json players.permissions);
  *            the sync resolves the names against game.users and sets exactly
@@ -381,7 +382,10 @@ export function normalizeImport(raw) {
     folderStyles[p.join(" / ")] = { color: f.color ?? null, description: f.description ?? null };
   }
   if (isPlain(raw?.folderStyles)) for (const [k, v] of Object.entries(raw.folderStyles)) if (isPlain(v)) folderStyles[splitPath(k).join(" / ")] = { color: v.color ?? null, description: v.description ?? null };
-  // the suite's packets carry the party: the roster, the companions, who may open which sheet (foundry-bridge players_payload)
+  // The party: the roster, the companions, who may open which sheet (foundry-bridge players_payload).
+  // The LIVE world's packet carries it, and so does the manifest the GitHub merge starts from
+  // (actors/folders.json players.world); an era packet's committed import.json does not, so a roster
+  // edit never churns a historical packet. A packet without the block simply sets no permissions.
   const players = isPlain(raw?.players) && Array.isArray(raw.players.roster) ? raw.players : null;
   return { meta, folders, entries, folderStyles, players };
 }
