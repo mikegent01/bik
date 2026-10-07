@@ -2,7 +2,7 @@
   "_id": "M6aRowDaTAzuO7rU",
   "name": "Soothing Moss",
   "type": "npc",
-  "img": "assets/images/toads/roster/toad_51_soothing_moss.png",
+  "img": "portraits/liberated-toads/roster/toad_51_soothing_moss.png",
   "system": {
     "abilities": {
       "str": {
@@ -580,7 +580,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "assets/images/toads/roster/toad_51_soothing_moss.png",
+      "src": "portraits/liberated-toads/roster/toad_51_soothing_moss.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",

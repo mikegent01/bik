@@ -894,6 +894,23 @@ def combine(dirs, folder_prefix=None, world=None, ignore_dirs=False, scheme=None
     return payload, dupes
 
 
+ROSTER_CELLS = "assets/images/toads/roster/"
+ROSTER_PLATES = "portraits/liberated-toads/roster/"
+
+
+def roster_plate(path):
+    """A Liberated Toads roster cell (the website's card art, a Toad on a cream field) has
+    a transparent twin under portraits/liberated-toads/roster/<same name>. Actor art is the
+    plate, never the cell — the cell's cream field is the white rectangle a token shows on
+    a dark map. The website keeps the cell. Returns the plate path, or None."""
+    path = (path or "").replace("\\", "/")
+    name = path.rsplit("/", 1)[-1]
+    if ROSTER_CELLS not in path or not name.startswith("toad_") or not name.endswith(".png"):
+        return None
+    plate = ROSTER_PLATES + name
+    return plate if os.path.exists(os.path.join(RM, plate)) else None
+
+
 def _combine_row(doc, rel_parts, path, prefix, ignore_dirs):
     """(folder path or None, name, id, doc, file) — the folder comes from the
     folderPath flag, else from the directory the file sits in."""
@@ -930,6 +947,13 @@ def _combine_payload(rows, scheme, world, omitted):
     unresolved = 0
     for fpath, name, aid, doc, path in rows:
         doc = copy.deepcopy(doc)
+        plate = roster_plate(doc.get("img"))
+        if plate:
+            doc["img"] = plate          # a roster cell is the website's cream card, never actor art
+        tok = (doc.get("prototypeToken") or {}).get("texture") or {}
+        plate = roster_plate(tok.get("src"))
+        if plate:
+            tok["src"] = plate
         if fpath is None:
             unresolved += 1  # keep doc["folder"] as exported
         else:

@@ -2,7 +2,7 @@
   "_id": "tndLKeUGA9MqYJ4O",
   "name": "Crai Yellow",
   "type": "npc",
-  "img": "assets/images/toads/roster/toad_59_crai_yellow.png",
+  "img": "portraits/liberated-toads/roster/toad_59_crai_yellow.png",
   "system": {
     "abilities": {
       "str": {
@@ -580,7 +580,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "assets/images/toads/roster/toad_59_crai_yellow.png",
+      "src": "portraits/liberated-toads/roster/toad_59_crai_yellow.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",

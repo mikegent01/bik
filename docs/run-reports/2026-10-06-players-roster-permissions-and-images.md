@@ -325,3 +325,33 @@ cuts are neutral and tight.
 copied the new files into the world's Data folder) and both the sidebar thumbnails (`img`) and
 the tokens (`prototypeToken.texture.src`) pick the repaired plates up. The website's 180 px
 cells keep their cream field by design — the site shows cards, not tokens.
+
+## 10. Addendum (same day, round 2): the white rectangles were the cells themselves
+
+The world export committed to the branch between rounds (`a7aa172 "files"`) showed the second
+half of the problem: the live world's Liberated Toad actors carry `img =
+assets/images/toads/roster/toad_*.png` — the website's cream **cells**, not the plates. A cell
+is a Toad on a cream rectangle; as a sidebar thumbnail that rectangle is exactly the white
+rounded chip in the screenshot, and clipped round on the battle card it is the white disc.
+The merged packet took the mirror's paths verbatim, so even a re-Sync would have kept
+shipping cells.
+
+**The fix.**
+- `tools/foundry-bridge.py` — `combine()` now runs every actor portrait and token texture
+  through a new `roster_plate()`: a roster cell becomes its transparent plate in the packet
+  (the website keeps the cell). 54 toad portraits and 36 tokens in the merged packet moved
+  from cell to plate; `players-import.json` inherits the fix.
+- The mirror record itself was repointed in place (54 actor files), so the site's live sheets
+  and the audit read plates; `audit-actor-images --strict` is back to its single stock-icon
+  note, and the rebuilt `data/sheets.json` index carries plate portraits.
+- Tests: `test-foundry-bridge.py` gained a combine check (a world export pointing at a cell
+  comes out pointing at the plate, portrait and token); `test-sheets-suite.py`'s export-back
+  fixture now outranks the committed repo-root export instead of a fixed date (the live
+  export's stamp had overtaken it); `test-sheets-page.mjs` follows 4331 T into the live world
+  — its generated sheet retired when the toad was imported, so the evidence-quote check moved
+  to Mario's 955 BF version, which still renders them.
+
+**State after both rounds:** 75 roster plates and 19 toad token plates cut clean (halo gate
+in `--check`), packets and mirror carry plates everywhere, 150 + 80 + 67 + 99 checks green in
+the touched suites. **In Foundry:** Sync once more (the packet now says plate) and the white
+chips and discs go with the halo; nothing else in the world changes.

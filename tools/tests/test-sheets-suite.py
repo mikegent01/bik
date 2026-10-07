@@ -25,6 +25,7 @@ import json
 import os
 import shutil
 import subprocess
+from datetime import datetime, timedelta
 import sys
 import tempfile
 import threading
@@ -81,11 +82,17 @@ with tempfile.TemporaryDirectory() as tmp:
     check("export_back_dir is <Data>/npc/waluipedia/<world>/export (what the module writes to); None without a Data folder",
           back == os.path.join(data, "npc", "waluipedia", "midlands", "export") and suite.export_back_dir(None, "midlands") is None)
     os.makedirs(back)
+    # the fake export-back has to outrank whatever export the repo root carries (the
+    # committed mirror's own export moves forward every time the GM's world does)
+    root_new = suite.find_exports("midlands", downloads="")
+    back_stamp = "2026-10-06T09:00:00.000Z"
+    if root_new:
+        back_stamp = (datetime.fromisoformat(root_new[0][1].replace("Z", "+00:00")) + timedelta(days=1)).strftime("%Y-%m-%dT%H:%M:%S.000Z")
     with open(os.path.join(back, "midlands-all-actors.json"), "w", encoding="utf-8") as fh:
-        json.dump({"format": "waluipedia-actors/1", "exportedFrom": "midlands", "exportedAt": "2026-10-06T09:00:00.000Z", "exportedBy": "waluipedia-mass-import 1.7.0 (update Actor)", "actors": []}, fh)
+        json.dump({"format": "waluipedia-actors/1", "exportedFrom": "midlands", "exportedAt": back_stamp, "exportedBy": "waluipedia-mass-import 1.7.0 (update Actor)", "actors": []}, fh)
     found2 = suite.find_exports("midlands", downloads=tmp, extra_dirs=[back])
     check("find_exports with the export-back folder: the module's newer export comes first, Downloads after, a missing folder is ignored",
-          found2 and found2[0][0] == os.path.join(back, "midlands-all-actors.json") and found2[0][1] == "2026-10-06T09:00:00.000Z"
+          found2 and found2[0][0] == os.path.join(back, "midlands-all-actors.json") and found2[0][1] == back_stamp
           and [os.path.basename(p) for p, _ in found2[1:] if p.startswith(tmp) and "export" not in p] == ["midlands-all-actors (1).json", "midlands-all-actors.json"]
           and suite.find_exports("midlands", downloads=tmp, extra_dirs=[os.path.join(tmp, "nope")]) == found)
 check("a newer export is stale against the mirror; the same stamp is not; no manifest is always stale",

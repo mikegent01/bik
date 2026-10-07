@@ -2,7 +2,7 @@
   "_id": "EzletDmLjYImZsQL",
   "name": "Quillback",
   "type": "npc",
-  "img": "assets/images/toads/roster/toad_46_quillback.png",
+  "img": "portraits/liberated-toads/roster/toad_46_quillback.png",
   "system": {
     "abilities": {
       "str": {

@@ -2,7 +2,7 @@
   "_id": "iNepAkAKriHWB1Nt",
   "name": "Transparen T",
   "type": "npc",
-  "img": "assets/images/toads/roster/toad_38_transparen_t.png",
+  "img": "portraits/liberated-toads/roster/toad_38_transparen_t.png",
   "system": {
     "abilities": {
       "str": {

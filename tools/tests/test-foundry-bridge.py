@@ -150,6 +150,23 @@ with tempfile.TemporaryDirectory() as tmp:
     check("combine points each actor at its synthetic folder id", by_name["Remi"]["folder"] == leaf["_id"] and by_name["Salam"]["folder"] is None)
     check("combine folder ids are stable and 16 chars", fb.FOUNDRY_ID.match(leaf["_id"]) and leaf["folder"] == fb.sid("folder", "Party"))
     check("combine reports no duplicates here", dupes == [])
+    # a world export whose toads still point at the website's cream cells: the packet
+    # carries the transparent plates, or every token in Foundry shows a white rectangle
+    celldir = os.path.join(tmp, "celly")
+    os.makedirs(celldir)
+    os.makedirs(os.path.join(fb.RM, "portraits", "liberated-toads", "roster"), exist_ok=True)
+    with open(os.path.join(fb.RM, "portraits", "liberated-toads", "roster", "toad_18_axie.png"), "wb") as fh:
+        fh.write(b"\x89PNG\r\n\x1a\n")   # the plate twin the remap looks for (fb.RM is the sandbox here)
+    celly = actor("Celltoad", "C1aaaaaaaaaaaaaa")
+    celly["img"] = "assets/images/toads/roster/toad_18_axie.png"
+    celly.setdefault("prototypeToken", {})["texture"] = {"src": "assets/images/toads/roster/toad_18_axie.png"}
+    with open(os.path.join(celldir, "fvtt-Actor-celltoad-C1aaaaaaaaaaaaaa.json"), "w", encoding="utf-8") as fh:
+        json.dump(celly, fh)
+    cp, _ = fb.combine([celldir])
+    ca = next(a for a in cp["actors"] if a["name"] == "Celltoad")
+    check("combine swaps a roster cell for its transparent plate (portrait and token)",
+          ca["img"] == "portraits/liberated-toads/roster/toad_18_axie.png"
+          and ca["prototypeToken"]["texture"]["src"] == "portraits/liberated-toads/roster/toad_18_axie.png")
     payload2, _ = fb.combine([out])
     check("combine is deterministic", json.dumps(payload) == json.dumps(payload2))
     prefixed, _ = fb.combine([out], folder_prefix="Imports / Session 42")
