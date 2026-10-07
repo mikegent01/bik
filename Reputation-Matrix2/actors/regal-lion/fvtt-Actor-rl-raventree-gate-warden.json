@@ -1,0 +1,1085 @@
+{
+  "_id": "8y8NdVnuDP0bJUzU",
+  "name": "Raventree Gate Warden",
+  "type": "npc",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "abilities": {
+      "str": {
+        "value": 17,
+        "proficient": 1,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "dex": {
+        "value": 10,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "con": {
+        "value": 16,
+        "proficient": 1,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "int": {
+        "value": 10,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "wis": {
+        "value": 12,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "cha": {
+        "value": 9,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      }
+    },
+    "attributes": {
+      "ac": {
+        "flat": 18,
+        "calc": "natural",
+        "formula": ""
+      },
+      "hp": {
+        "value": 52,
+        "max": 52,
+        "formula": "7d8+21",
+        "temp": null,
+        "tempmax": null
+      },
+      "movement": {
+        "walk": "30",
+        "units": "ft",
+        "hover": false,
+        "burrow": "0",
+        "climb": "0",
+        "fly": "0",
+        "swim": "0",
+        "ignoredDifficultTerrain": []
+      },
+      "senses": {
+        "units": "ft",
+        "ranges": {
+          "darkvision": 0
+        },
+        "special": ""
+      },
+      "init": {
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonus": ""
+      },
+      "attunement": {
+        "max": 3
+      },
+      "spellcasting": "",
+      "exhaustion": 0,
+      "concentration": {
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "save": ""
+        },
+        "limit": 1
+      },
+      "loyalty": {},
+      "hd": {
+        "spent": 0
+      },
+      "death": {
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "success": 0,
+        "failure": 0,
+        "bonuses": {
+          "save": ""
+        }
+      }
+    },
+    "details": {
+      "alignment": "Lawful Neutral",
+      "type": {
+        "value": "humanoid",
+        "subtype": "human"
+      },
+      "cr": 2,
+      "biography": {
+        "value": "<p><em>The Regal Lion packet sheet — Raventree Gate Warden.</em> Built by <code>tools/build-forge-packets.py</code> from the NPC Forge roster <code>data/forge/regal-lion.json</code> (entry <code>raventree-gate-warden</code>): Medium humanoid (human), Lawful Neutral; CR 2 (proficiency +2, to hit +5 with STR); AC 18 (plate mail & iron door-shield), hit points 52 (7d8+21), speed 30 ft.. A GM scene kit for the The Regal Lion article's present (1040 BF), not a filed event; the faction article stays the authority.</p><p>Guarding the heavy iron portcullises that divide the manor's material corridors from the overgrown fey ruins.</p><p><strong>Role:</strong> heavy gatekeeper · <strong>tier:</strong> Portcullis Sentinel · <strong>folder:</strong> Iron Legion / Manor Wardens.</p><h3>Art</h3><p><strong>Awaiting its plate.</strong> The render <code>npc-forge/regal-lion/renders/raventree-gate-warden.png</code> has not been cut yet; run the NPC Forge (or <code>tools/build-forge-packets.py plates regal-lion</code>) and rebuild. Seed 610009. Prompt: <q>Clean cel-shaded character art in the style of dark fantasy military concept art, bold dark outlines, polished steel and gold lion crest heraldry, dark navy blue and crimson surcoats, cold iron plate, flat colours, crisp shading. A hulking, broad-shouldered gatekeeper in heavy riveted plate armor with a large keyring at his hip, holding a massive iron slab tower shield and a heavy squared-head warhammer. Full body, whole figure visible, three-quarter view, centred, isolated on a plain flat solid magenta background (#FF00FF), no floor, no ground shadow, no text, no border.</q></p>",
+        "public": ""
+      }
+    },
+    "traits": {
+      "size": "med",
+      "languages": {
+        "value": [
+          "common"
+        ],
+        "custom": "",
+        "communication": {}
+      },
+      "ci": {
+        "value": [],
+        "custom": ""
+      },
+      "di": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dr": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dv": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dm": {
+        "amount": {},
+        "bypasses": []
+      },
+      "important": false
+    },
+    "skills": {
+      "acr": {
+        "value": 0,
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ani": {
+        "value": 0,
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "arc": {
+        "value": 0,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ath": {
+        "value": 5,
+        "ability": "str",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "dec": {
+        "value": 0,
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "his": {
+        "value": 0,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ins": {
+        "value": 0,
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "itm": {
+        "value": 0,
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "inv": {
+        "value": 0,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "med": {
+        "value": 0,
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "nat": {
+        "value": 0,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "prc": {
+        "value": 3,
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "prf": {
+        "value": 0,
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "per": {
+        "value": 0,
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "rel": {
+        "value": 0,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "slt": {
+        "value": 0,
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ste": {
+        "value": 0,
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "sur": {
+        "value": 0,
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      }
+    },
+    "source": {
+      "custom": "Waluipedia campaign",
+      "revision": 1,
+      "rules": "2024"
+    },
+    "currency": {
+      "pp": 0,
+      "gp": 0,
+      "ep": 0,
+      "sp": 0,
+      "cp": 0
+    },
+    "bonuses": {},
+    "tools": {},
+    "spells": {},
+    "resources": {}
+  },
+  "prototypeToken": {
+    "name": "Raventree Gate Warden",
+    "displayName": 0,
+    "actorLink": false,
+    "width": 1,
+    "height": 1,
+    "texture": {
+      "src": "icons/svg/mystery-man.svg",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "scaleX": 1,
+      "scaleY": 1,
+      "tint": "#ffffff",
+      "alphaThreshold": 0.75
+    },
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "attributes.hp"
+    },
+    "bar2": {
+      "attribute": null
+    }
+  },
+  "items": [
+    {
+      "_id": "4X7I5Mcz8Hfa2hb7",
+      "name": "Multiattack",
+      "type": "feat",
+      "img": "icons/skills/melee/strike-slashes-orange.webp",
+      "system": {
+        "description": {
+          "value": "<p><p>The Gate Warden makes two attacks with his Heavy Iron Warhammer.</p></p>",
+          "chat": ""
+        },
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "activation": {},
+        "duration": {},
+        "target": {},
+        "range": {},
+        "uses": {
+          "spent": 0,
+          "max": "",
+          "recovery": []
+        },
+        "activities": {
+          "uk4dGWiCupiV9ggl": {
+            "_id": "uk4dGWiCupiV9ggl",
+            "type": "utility",
+            "name": "",
+            "img": null,
+            "sort": 0,
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "roll": {
+              "prompt": false,
+              "visible": false,
+              "name": "",
+              "formula": ""
+            }
+          }
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "gyVJRqygqJ3CLWaa",
+      "name": "Heavy Iron Warhammer",
+      "type": "weapon",
+      "img": "icons/weapons/hammers/hammer-war-spiked.webp",
+      "system": {
+        "description": {
+          "value": "<p><em>Melee Weapon Attack:</em> reach 5 ft., one target. <em>Hit:</em> 1d8 + 3 bludgeoning damage, or 1d10 + 3 if used two-handed.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "attunement": "",
+        "rarity": "",
+        "identified": true,
+        "cover": null,
+        "range": {
+          "value": null,
+          "long": null,
+          "units": "ft",
+          "reach": 5
+        },
+        "uses": {
+          "spent": 0,
+          "max": "",
+          "recovery": []
+        },
+        "damage": {
+          "versatile": {
+            "number": null,
+            "denomination": null,
+            "bonus": "",
+            "types": [],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "base": {
+            "number": 1,
+            "denomination": 8,
+            "bonus": "",
+            "types": [
+              "bludgeoning"
+            ],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          }
+        },
+        "armor": {
+          "value": 10
+        },
+        "hp": {
+          "value": 0,
+          "max": 0,
+          "dt": null,
+          "conditions": ""
+        },
+        "properties": [
+          "ver"
+        ],
+        "type": {
+          "value": "martialM",
+          "baseItem": ""
+        },
+        "container": null,
+        "equipped": true,
+        "proficient": null,
+        "identifier": "",
+        "attuned": false,
+        "ammunition": {},
+        "crew": {
+          "value": []
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "attack",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "units": "ft",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "attack": {
+              "ability": "str",
+              "bonus": "",
+              "critical": {
+                "threshold": null
+              },
+              "flat": false,
+              "type": {
+                "value": "melee",
+                "classification": "weapon"
+              }
+            },
+            "damage": {
+              "critical": {
+                "bonus": ""
+              },
+              "includeBase": true,
+              "parts": []
+            },
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null
+          }
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "6xUDdSzTaUonL4Hv",
+      "name": "Portcullis Slam",
+      "type": "feat",
+      "img": "icons/creatures/magical/construct-iron-stomping-yellow.webp",
+      "system": {
+        "description": {
+          "value": "<p>The warden slams his door-sized shield into a creature within 5 feet. The target must make a DC 13 Strength saving throw or take 2d6 bludgeoning damage and be pinned prone until the warden moves.</p>",
+          "chat": ""
+        },
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "activation": {},
+        "duration": {},
+        "target": {},
+        "range": {},
+        "uses": {
+          "spent": 0,
+          "max": "",
+          "recovery": []
+        },
+        "activities": {
+          "sQaZW3SDf05ZOzrl": {
+            "_id": "sQaZW3SDf05ZOzrl",
+            "type": "save",
+            "name": "",
+            "img": null,
+            "sort": 0,
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "value": "5 ft",
+              "units": "ft",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "save": {
+              "ability": [
+                "str"
+              ],
+              "dc": {
+                "calculation": "",
+                "formula": "13"
+              }
+            },
+            "damage": {
+              "parts": [
+                {
+                  "number": 2,
+                  "denomination": 6,
+                  "bonus": "",
+                  "types": [
+                    "bludgeoning"
+                  ],
+                  "custom": {
+                    "enabled": false,
+                    "formula": ""
+                  },
+                  "scaling": {
+                    "mode": "",
+                    "number": null,
+                    "formula": ""
+                  }
+                }
+              ],
+              "onSave": "none",
+              "critical": {
+                "allow": false
+              }
+            }
+          }
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "XHSUoONgOTOPHwKd",
+      "name": "Gatekeeper's Stand",
+      "type": "feat",
+      "img": "icons/skills/melee/shield-block-gray-orange.webp",
+      "system": {
+        "description": {
+          "value": "<p>The warden cannot be pushed, pulled, or knocked prone while conscious and standing.</p>",
+          "chat": ""
+        },
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "activation": {},
+        "duration": {},
+        "target": {},
+        "range": {},
+        "uses": {
+          "spent": 0,
+          "max": "",
+          "recovery": []
+        },
+        "activities": {},
+        "source": {
+          "custom": "Waluipedia campaign",
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      }
+    }
+  ],
+  "effects": [],
+  "folder": null,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "waluipedia-mass-import": {
+      "folderPath": [
+        "Iron Legion",
+        "Manor Wardens"
+      ],
+      "source": "tools/build-forge-packets.py"
+    },
+    "waluipedia-sheets": {
+      "tags": [
+        "regal-lion",
+        "gatekeeper",
+        "sentinel",
+        "humanoid"
+      ],
+      "color": "#DAA520",
+      "faction": "iron_legion",
+      "forge": {
+        "roster": "data/forge/regal-lion.json",
+        "entry": "raventree-gate-warden",
+        "seed": 610009
+      },
+      "art": "pending"
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.365",
+    "systemId": "dnd5e",
+    "systemVersion": "5.3.3",
+    "compendiumSource": null,
+    "duplicateSource": null
+  }
+}

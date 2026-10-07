@@ -1,13 +1,13 @@
 {
-  "_id": "eO3Xfl4cZPIl1D2G",
-  "name": "Thornbury",
+  "_id": "AxRAf8GKFGYrLmAB",
+  "name": "Regal Lion Armored Pride-Beast",
   "type": "npc",
-  "img": "portraits/regal-lion/thornbury.png",
+  "img": "portraits/regal-lion/regal-war-lion.png",
   "system": {
     "abilities": {
       "str": {
-        "value": 10,
-        "proficient": 0,
+        "value": 19,
+        "proficient": 1,
         "bonuses": {
           "check": "",
           "save": ""
@@ -29,7 +29,7 @@
         }
       },
       "dex": {
-        "value": 16,
+        "value": 15,
         "proficient": 1,
         "bonuses": {
           "check": "",
@@ -52,7 +52,7 @@
         }
       },
       "con": {
-        "value": 12,
+        "value": 17,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -75,8 +75,8 @@
         }
       },
       "int": {
-        "value": 13,
-        "proficient": 1,
+        "value": 4,
+        "proficient": 0,
         "bonuses": {
           "check": "",
           "save": ""
@@ -121,7 +121,7 @@
         }
       },
       "cha": {
-        "value": 12,
+        "value": 9,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -146,19 +146,19 @@
     },
     "attributes": {
       "ac": {
-        "flat": 14,
+        "flat": 15,
         "calc": "natural",
         "formula": ""
       },
       "hp": {
-        "value": 27,
-        "max": 27,
-        "formula": "5d8 + 5",
+        "value": 68,
+        "max": 68,
+        "formula": "8d10+24",
         "temp": null,
         "tempmax": null
       },
       "movement": {
-        "walk": "30",
+        "walk": "50",
         "units": "ft",
         "hover": false,
         "burrow": "0",
@@ -170,7 +170,7 @@
       "senses": {
         "units": "ft",
         "ranges": {
-          "darkvision": 0
+          "darkvision": 60
         },
         "special": ""
       },
@@ -215,44 +215,24 @@
         "bonuses": {
           "save": ""
         }
-      },
-      "price": {
-        "value": null,
-        "denomination": "gp"
-      },
-      "spell": {
-        "level": 0
       }
     },
     "details": {
-      "alignment": "Neutral",
+      "alignment": "Unaligned",
       "type": {
-        "value": "humanoid",
-        "subtype": "human"
+        "value": "beast",
+        "subtype": "lion"
       },
-      "cr": 1,
+      "cr": 4,
       "biography": {
-        "value": "<p><em>Waluipedia cast sheet \u2014 Thornbury.</em> Built by <code>tools/build-character-sheets.py</code>, generated from the article's own words. XP ledger: level 2, power rating 5 \u2192 CR 1 as a operative. Numbers are a GM-ready reading of the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p><p><strong>The Quartermaster Spy Who Itemized The Apocalypse</strong> \u2014 Mages' Guild</p><p>Status: Active \u2014 operating with the Mages' Guild, recently ear-dragged, still tracking receipts somehow</p><p>Thornbury is a stuffy, penny-pinching Mages' Guild operative who charged Archie 2,000 gold for a broken rope. He later brought Archie and Bones rubber duckies for a bubble bath, only to be dragged away by the ear by a disgruntled noblewoman. He left behind a notebook proving he was spying on the party the entire time. Waluigi has zero respect for a spy who is defeated by a bath time interruption. Thornbury is the Mages' Guild operative who proves that evil does not always arrive with a death ray, a monologue, or even decent posture. Sometimes evil arrives with a ledger, a rope, and a reimbursement policy. He accompanied Agent L, Luigi, and Archie through the ruined manor while secretly gathering intelligence on the party, cataloguing environmental anomalies, pocketing suspicious rings, uncovering hidden stashes, and charging Archie 2,062 gold pieces and 5 silver for breaking a single rope. He is a field spy, quartermaster, scavenger, emergency supplier, expense auditor, and apparently a man who believes no supernatural catastrophe is too urgent for itemized billing. He brought practical supplies to dangerous situations, helped navigate the manor, provided rope, potions, a Sending scroll, and a tensor box, and then managed to undermine all professional credibility by getting caught taking a heated luxury bath while soldiers suffered outside. Byscilla Danos dragged him away by the ear like an embarrassing child, and in his haste he left behind field notes proving he had been spying on everyone the entire time. Waluigi despises nearly everything about Thornbury on principle. Unfortunately, historical accuracy requires admitting that the man is actually COMPETENT, which is infuriating. WAH.</p><h3>Evidence</h3><ul><li><strong>Dagger</strong> \u2014 \u201cThe Quartermaster Spy Who Itemized The Apocalypse\u201d</li><li><strong>Hidden in Plain Sight</strong> \u2014 \u201cHis field pack was notably well-stocked: - Adventurer's basics: bedroll, mess kit, tinderbox, torches, rations, waterskin - Healer's kit with multiple uses remaining - Two potions of healing - One potion of invisibility\u201d</li><li><strong>Sneak Attack</strong> \u2014 \u201cHe is not the one making strategic decisions about planar fractures, expendable assets, or assassination cover-ups.\u201d</li><li><strong>Silver Tongue</strong> \u2014 \u201cShe did not negotiate.\u201d</li></ul><p>Article: <code>#/article/thornbury</code> (characters). Site sheet: <code>#/sheets/thornbury</code>.</p>",
+        "value": "<p><em>The Regal Lion packet sheet — Regal Lion Armored Pride-Beast.</em> Built by <code>tools/build-forge-packets.py</code> from the NPC Forge roster <code>data/forge/regal-lion.json</code> (entry <code>regal-war-lion</code>): Large beast (lion), Unaligned; CR 4 (proficiency +2, to hit +6 with STR); AC 15 (polished steel barding), hit points 68 (8d10+24), speed 50 ft.. A GM scene kit for the The Regal Lion article's present (1040 BF), not a filed event; the faction article stays the authority.</p><p>The living heraldry of the Regal Lion. Massive pride-lions bred and trained in royal kennels, fitted with segmented steel barding to flush intruders out of the manor's courtyard gardens.</p><p><strong>Role:</strong> armored pouncer · <strong>tier:</strong> War Beast · <strong>folder:</strong> Iron Legion / Heavy Beasts & Auxiliaries.</p><h3>Art</h3><p>Token plate <code>portraits/regal-lion/regal-war-lion.png</code> — NPC Forge render, seed 610011, cut from a flat #FF00FF field. Prompt: <q>Clean cel-shaded character art in the style of dark fantasy military concept art, bold dark outlines, polished steel and gold lion crest heraldry, dark navy blue and crimson surcoats, cold iron plate, flat colours, crisp shading. A gigantic, muscular war lion clad in gleaming ornate steel plate barding and a golden chamfron helmet with a sweeping mane. Fierce golden eyes, sharp steel-sheathed claws, three-quarter view standing proud. Full body, whole figure visible, three-quarter view, centred, isolated on a plain flat solid magenta background (#FF00FF), no floor, no ground shadow, no text, no border.</q></p>",
         "public": ""
-      },
-      "ideal": "",
-      "bond": "",
-      "flaw": "",
-      "race": null,
-      "habitat": {
-        "value": [],
-        "custom": ""
-      },
-      "treasure": {
-        "value": []
       }
     },
     "traits": {
-      "size": "med",
+      "size": "lg",
       "languages": {
-        "value": [
-          "common"
-        ],
+        "value": [],
         "custom": "",
         "communication": {}
       },
@@ -322,7 +302,7 @@
         }
       },
       "ath": {
-        "value": 0,
+        "value": 6,
         "ability": "str",
         "roll": {
           "min": null,
@@ -335,7 +315,7 @@
         }
       },
       "dec": {
-        "value": 1,
+        "value": 0,
         "ability": "cha",
         "roll": {
           "min": null,
@@ -426,7 +406,7 @@
         }
       },
       "prc": {
-        "value": 1,
+        "value": 3,
         "ability": "wis",
         "roll": {
           "min": null,
@@ -478,7 +458,7 @@
         }
       },
       "slt": {
-        "value": 1,
+        "value": 0,
         "ability": "dex",
         "roll": {
           "min": null,
@@ -491,7 +471,7 @@
         }
       },
       "ste": {
-        "value": 2,
+        "value": 4,
         "ability": "dex",
         "roll": {
           "min": null,
@@ -529,58 +509,19 @@
       "sp": 0,
       "cp": 0
     },
-    "bonuses": {
-      "mwak": {
-        "attack": "",
-        "damage": ""
-      },
-      "rwak": {
-        "attack": "",
-        "damage": ""
-      },
-      "msak": {
-        "attack": "",
-        "damage": ""
-      },
-      "rsak": {
-        "attack": "",
-        "damage": ""
-      },
-      "abilities": {
-        "check": "",
-        "save": "",
-        "skill": ""
-      },
-      "spell": {
-        "dc": ""
-      }
-    },
+    "bonuses": {},
     "tools": {},
     "spells": {},
-    "resources": {
-      "legact": {
-        "max": 0,
-        "spent": 0
-      },
-      "legres": {
-        "max": 0,
-        "spent": 0
-      },
-      "lair": {
-        "value": false,
-        "initiative": null,
-        "inside": false
-      }
-    }
+    "resources": {}
   },
   "prototypeToken": {
-    "name": "Thornbury",
+    "name": "Regal Lion Armored Pride-Beast",
     "displayName": 0,
     "actorLink": false,
-    "width": 1,
-    "height": 1,
+    "width": 2,
+    "height": 2,
     "texture": {
-      "src": "portraits/regal-lion/thornbury.png",
+      "src": "portraits/regal-lion/regal-war-lion.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -592,88 +533,140 @@
     "lockRotation": false,
     "rotation": 0,
     "alpha": 1,
-    "disposition": 0,
+    "disposition": -1,
     "displayBars": 0,
     "bar1": {
       "attribute": "attributes.hp"
     },
     "bar2": {
       "attribute": null
-    },
-    "depth": 1,
-    "light": {
-      "negative": false,
-      "priority": 0,
-      "alpha": 0.5,
-      "angle": 360,
-      "bright": 0,
-      "color": null,
-      "coloration": 1,
-      "dim": 0,
-      "attenuation": 0.5,
-      "luminosity": 0.5,
-      "saturation": 0,
-      "contrast": 0,
-      "shadows": 0,
-      "animation": {
-        "type": null,
-        "speed": 5,
-        "intensity": 5,
-        "reverse": false
-      },
-      "darkness": {
-        "min": 0,
-        "max": 1
-      }
-    },
-    "sight": {
-      "enabled": false,
-      "range": 0,
-      "angle": 360,
-      "visionMode": "basic",
-      "color": null,
-      "attenuation": 0.1,
-      "brightness": 0,
-      "saturation": 0,
-      "contrast": 0
-    },
-    "detectionModes": {},
-    "occludable": {
-      "radius": 0
-    },
-    "ring": {
-      "enabled": false,
-      "colors": {
-        "ring": null,
-        "background": null
-      },
-      "effects": 1,
-      "subject": {
-        "scale": 1,
-        "texture": null
-      }
-    },
-    "turnMarker": {
-      "mode": 1,
-      "animation": null,
-      "src": null,
-      "disposition": false
-    },
-    "movementAction": null,
-    "flags": {},
-    "randomImg": false,
-    "appendNumber": false,
-    "prependAdjective": false
+    }
   },
   "items": [
     {
-      "_id": "BqHagY55kpcXmypc",
-      "name": "Dagger",
-      "type": "weapon",
-      "img": "icons/weapons/daggers/dagger-simple-black.webp",
+      "_id": "JmkQKS108zUyJEis",
+      "name": "Multiattack",
+      "type": "feat",
+      "img": "icons/skills/melee/strike-slashes-orange.webp",
       "system": {
         "description": {
-          "value": "<p>Dagger; melee weapon attack.</p>",
+          "value": "<p><p>The War Lion makes two Bladed Claw Strike attacks.</p></p>",
+          "chat": ""
+        },
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "activation": {},
+        "duration": {},
+        "target": {},
+        "range": {},
+        "uses": {
+          "spent": 0,
+          "max": "",
+          "recovery": []
+        },
+        "activities": {
+          "tOoPARA1KPXSey8b": {
+            "_id": "tOoPARA1KPXSey8b",
+            "type": "utility",
+            "name": "",
+            "img": null,
+            "sort": 0,
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "roll": {
+              "prompt": false,
+              "visible": false,
+              "name": "",
+              "formula": ""
+            }
+          }
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "9ZdPPb1m7tJXkJoS",
+      "name": "Bladed Claw Strike",
+      "type": "weapon",
+      "img": "icons/creatures/claws/claw-straight-orange.webp",
+      "system": {
+        "description": {
+          "value": "<p><em>Melee Weapon Attack:</em> reach 5 ft., one target. <em>Hit:</em> 2d6 + 4 slashing damage.</p>",
           "chat": ""
         },
         "source": {
@@ -698,10 +691,10 @@
         "identified": true,
         "cover": null,
         "range": {
-          "value": 20,
-          "long": 60,
+          "value": null,
+          "long": null,
           "units": "ft",
-          "reach": null
+          "reach": 5
         },
         "uses": {
           "spent": 0,
@@ -725,11 +718,11 @@
             }
           },
           "base": {
-            "number": 1,
-            "denomination": 4,
+            "number": 2,
+            "denomination": 6,
             "bonus": "",
             "types": [
-              "piercing"
+              "slashing"
             ],
             "custom": {
               "enabled": false,
@@ -751,13 +744,9 @@
           "dt": null,
           "conditions": ""
         },
-        "properties": [
-          "fin",
-          "lgt",
-          "thr"
-        ],
+        "properties": [],
         "type": {
-          "value": "simpleM",
+          "value": "natural",
           "baseItem": ""
         },
         "container": null,
@@ -829,7 +818,7 @@
               "recovery": []
             },
             "attack": {
-              "ability": "dex",
+              "ability": "str",
               "bonus": "",
               "critical": {
                 "threshold": null
@@ -855,190 +844,27 @@
               "requireIdentification": false,
               "requireMagic": false
             },
-            "img": null,
-            "useConditionText": "",
-            "useConditionReason": "",
-            "effectConditionText": "",
-            "otherActivityId": null,
-            "macroData": {
-              "name": "",
-              "command": ""
-            },
-            "ignoreTraits": {
-              "idi": false,
-              "idr": false,
-              "idv": false,
-              "ida": false,
-              "idm": false
-            },
-            "midiProperties": {
-              "ignoreTraits": [],
-              "triggeredActivityId": "none",
-              "triggeredActivityConditionText": "",
-              "triggeredActivityTargets": "targets",
-              "triggeredActivityRollAs": "self",
-              "triggeredActivityConsume": true,
-              "triggeredActivityConfigure": true,
-              "autoConsume": false,
-              "forceConsumeDialog": "default",
-              "forceRollDialog": "default",
-              "forceDamageDialog": "default",
-              "confirmTargets": "default",
-              "autoTargetType": "any",
-              "autoTargetAction": "default",
-              "automationOnly": false,
-              "otherActivityCompatible": true,
-              "otherActivityAsParentType": true,
-              "identifier": "",
-              "displayActivityName": false,
-              "rollMode": "default",
-              "chooseEffects": false,
-              "toggleEffect": false,
-              "ignoreFullCover": false,
-              "removeChatButtons": "default",
-              "magicEffect": false,
-              "magicDamage": false,
-              "noConcentrationCheck": false,
-              "skipConcentrationCheck": false,
-              "autoCEEffects": "default"
-            },
-            "isOverTimeFlag": false,
-            "overTimeProperties": {
-              "saveRemoves": true,
-              "rollAs": "target",
-              "preRemoveConditionText": "",
-              "postRemoveConditionText": ""
-            },
-            "regionBehavior": {
-              "enabled": false,
-              "dispositionFilter": -1,
-              "excludeSource": true,
-              "oncePerTurn": true,
-              "wallRestriction": "none",
-              "regionVisibility": 2,
-              "attachToken": "default",
-              "rules": []
-            },
-            "regionLight": {
-              "enabled": false,
-              "dim": 0,
-              "bright": 0,
-              "color": null,
-              "alpha": 0.5,
-              "luminosity": 0.5,
-              "animationType": "",
-              "animationSpeed": 5,
-              "animationIntensity": 5
-            },
-            "otherActivityAsParentType": true,
-            "attackMode": "oneHanded",
-            "ammunition": "",
-            "otherActivityUuid": "",
-            "attackRollPerTarget": "default",
-            "fumbleThreshold": 1
+            "img": null
           }
-        },
-        "unidentified": {
-          "description": ""
         }
-      },
-      "effects": [],
-      "flags": {},
-      "sort": 100000,
-      "ownership": {
-        "default": 0
-      },
-      "folder": null,
-      "_stats": {
-        "coreVersion": "14.367",
-        "systemId": "dnd5e",
-        "systemVersion": "5.3.3",
-        "createdTime": 1791171680324,
-        "modifiedTime": 1791171680324,
-        "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
-      }
-    },
-    {
-      "_id": "VbcjJcGpRmMBIXap",
-      "name": "Hidden in Plain Sight",
-      "type": "feat",
-      "img": "icons/magic/perception/shadow-stealth-eyes-purple.webp",
-      "system": {
-        "description": {
-          "value": "<p>Advantage on Dexterity (Stealth) checks, and a Deception check made to pass as someone else is made with advantage while the disguise holds.</p>",
-          "chat": ""
-        },
-        "type": {
-          "value": "monster",
-          "subtype": ""
-        },
-        "uses": {
-          "spent": 0,
-          "max": "",
-          "recovery": []
-        },
-        "activities": {},
-        "source": {
-          "custom": "Waluipedia campaign",
-          "book": "",
-          "page": "",
-          "license": "",
-          "revision": 1,
-          "rules": "2024"
-        },
-        "advancement": {},
-        "identifier": "",
-        "crewed": false,
-        "enchant": {},
-        "prerequisites": {
-          "items": [],
-          "repeatable": false
-        },
-        "properties": [],
-        "requirements": ""
       },
       "effects": [],
       "flags": {},
       "sort": 200000,
       "ownership": {
         "default": 0
-      },
-      "folder": null,
-      "_stats": {
-        "coreVersion": "14.367",
-        "systemId": "dnd5e",
-        "systemVersion": "5.3.3",
-        "createdTime": 1791171680324,
-        "modifiedTime": 1791171680324,
-        "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
       }
     },
     {
-      "_id": "bQgkH52hJ2hbYeaR",
-      "name": "Sneak Attack",
-      "type": "feat",
-      "img": "icons/weapons/daggers/dagger-simple-black.webp",
+      "_id": "lTeAsBUu5hGofnyG",
+      "name": "Crushing Jaws",
+      "type": "weapon",
+      "img": "icons/creatures/abilities/mouth-teeth-fire-orange.webp",
       "system": {
         "description": {
-          "value": "<p>Once per turn, deals an extra 1d6 damage with a weapon attack against a creature it has advantage against, or that is within 5 feet of one of its allies.</p>",
+          "value": "<p><em>Melee Weapon Attack:</em> reach 5 ft., one target. <em>Hit:</em> 2d8 + 4 piercing damage.</p>",
           "chat": ""
         },
-        "type": {
-          "value": "monster",
-          "subtype": ""
-        },
-        "uses": {
-          "spent": 0,
-          "max": "",
-          "recovery": []
-        },
-        "activities": {},
         "source": {
           "custom": "Waluipedia campaign",
           "book": "",
@@ -1047,50 +873,328 @@
           "revision": 1,
           "rules": "2024"
         },
-        "advancement": {},
-        "identifier": "",
-        "crewed": false,
-        "enchant": {},
-        "prerequisites": {
-          "items": [],
-          "repeatable": false
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "attunement": "",
+        "rarity": "",
+        "identified": true,
+        "cover": null,
+        "range": {
+          "value": null,
+          "long": null,
+          "units": "ft",
+          "reach": 5
+        },
+        "uses": {
+          "spent": 0,
+          "max": "",
+          "recovery": []
+        },
+        "damage": {
+          "versatile": {
+            "number": null,
+            "denomination": null,
+            "bonus": "",
+            "types": [],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "base": {
+            "number": 2,
+            "denomination": 8,
+            "bonus": "",
+            "types": [
+              "piercing"
+            ],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          }
+        },
+        "armor": {
+          "value": 10
+        },
+        "hp": {
+          "value": 0,
+          "max": 0,
+          "dt": null,
+          "conditions": ""
         },
         "properties": [],
-        "requirements": ""
+        "type": {
+          "value": "natural",
+          "baseItem": ""
+        },
+        "container": null,
+        "equipped": true,
+        "proficient": null,
+        "identifier": "",
+        "attuned": false,
+        "ammunition": {},
+        "crew": {
+          "value": []
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "attack",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "units": "ft",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "attack": {
+              "ability": "str",
+              "bonus": "",
+              "critical": {
+                "threshold": null
+              },
+              "flat": false,
+              "type": {
+                "value": "melee",
+                "classification": "weapon"
+              }
+            },
+            "damage": {
+              "critical": {
+                "bonus": ""
+              },
+              "includeBase": true,
+              "parts": []
+            },
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null
+          }
+        }
       },
       "effects": [],
       "flags": {},
       "sort": 300000,
       "ownership": {
         "default": 0
-      },
-      "folder": null,
-      "_stats": {
-        "coreVersion": "14.367",
-        "systemId": "dnd5e",
-        "systemVersion": "5.3.3",
-        "createdTime": 1791171680324,
-        "modifiedTime": 1791171680324,
-        "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
       }
     },
     {
-      "_id": "QUBy7E8OTGcrpOdD",
-      "name": "Silver Tongue",
+      "_id": "w0dYuIh6wODAcPW7",
+      "name": "Pride Roar",
       "type": "feat",
-      "img": "icons/skills/social/diplomacy-handshake-yellow.webp",
+      "img": "icons/magic/sonic/scream-wail-shout-teal.webp",
       "system": {
         "description": {
-          "value": "<p>Advantage on Charisma (Persuasion) and (Deception) checks made to broker, stall or sell. Once per day it can make one hostile creature treat it as indifferent for 1 minute (DC 12 Wisdom save negates).</p>",
+          "value": "<p>The armored lion lets out a deafening territorial roar. Each enemy within 30 feet must succeed on a DC 13 Wisdom saving throw or become frightened for 1 minute (save ends at end of turn).</p>",
           "chat": ""
         },
         "type": {
           "value": "monster",
           "subtype": ""
         },
+        "activation": {},
+        "duration": {},
+        "target": {},
+        "range": {},
+        "uses": {
+          "spent": 0,
+          "max": "",
+          "recovery": []
+        },
+        "activities": {
+          "3xaVUpojeEEdLdOE": {
+            "_id": "3xaVUpojeEEdLdOE",
+            "type": "save",
+            "name": "",
+            "img": null,
+            "sort": 0,
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "radius",
+                "size": "30",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "creature",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "save": {
+              "ability": [
+                "wis"
+              ],
+              "dc": {
+                "calculation": "",
+                "formula": "13"
+              }
+            },
+            "damage": {
+              "parts": [],
+              "onSave": "none",
+              "critical": {
+                "allow": false
+              }
+            }
+          }
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "5idXU4sUp4KqTSva",
+      "name": "Pounce",
+      "type": "feat",
+      "img": "icons/magic/nature/wolf-paw-glow-large-teal-blue.webp",
+      "system": {
+        "description": {
+          "value": "<p>If the lion moves at least 20 feet straight toward a creature and hits it with a Bladed Claw on the same turn, that target must succeed on a DC 14 Strength saving throw or be knocked prone. If the target is prone, the lion can make one Crushing Jaws bite attack as a bonus action.</p>",
+          "chat": ""
+        },
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "activation": {},
+        "duration": {},
+        "target": {},
+        "range": {},
         "uses": {
           "spent": 0,
           "max": "",
@@ -1104,130 +1208,50 @@
           "license": "",
           "revision": 1,
           "rules": "2024"
-        },
-        "advancement": {},
-        "identifier": "",
-        "crewed": false,
-        "enchant": {},
-        "prerequisites": {
-          "items": [],
-          "repeatable": false
-        },
-        "properties": [],
-        "requirements": ""
+        }
       },
       "effects": [],
       "flags": {},
-      "sort": 400000,
+      "sort": 500000,
       "ownership": {
         "default": 0
-      },
-      "folder": null,
-      "_stats": {
-        "coreVersion": "14.367",
-        "systemId": "dnd5e",
-        "systemVersion": "5.3.3",
-        "createdTime": 1791171680324,
-        "modifiedTime": 1791171680324,
-        "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
       }
     }
   ],
   "effects": [],
-  "folder": "Cdp9oOZJz8mNmOmh",
+  "folder": null,
   "ownership": {
-    "default": 0,
-    "7BMT1Aux3QVtq027": 3
+    "default": 0
   },
   "flags": {
     "waluipedia-mass-import": {
       "folderPath": [
-        "Mages' Guild"
+        "Iron Legion",
+        "Heavy Beasts & Auxiliaries"
       ],
-      "source": "tools/build-character-sheets.py"
+      "source": "tools/build-forge-packets.py"
     },
     "waluipedia-sheets": {
-      "characterId": "thornbury",
-      "generated": true,
-      "bespoke": false,
-      "role": "rogue",
-      "ledger": {
-        "level": 2,
-        "powerLevel": 5
-      },
-      "evidence": [
-        {
-          "feature": "Dagger",
-          "quote": "The Quartermaster Spy Who Itemized The Apocalypse",
-          "source": "title"
-        },
-        {
-          "feature": "Hidden in Plain Sight",
-          "quote": "His field pack was notably well-stocked: - Adventurer's basics: bedroll, mess kit, tinderbox, torches, rations, waterskin - Healer's kit with multiple uses remaining - Two potions of healing - One potion of invisibility",
-          "source": "article"
-        },
-        {
-          "feature": "Sneak Attack",
-          "quote": "He is not the one making strategic decisions about planar fractures, expendable assets, or assassination cover-ups.",
-          "source": "article"
-        },
-        {
-          "feature": "Silver Tongue",
-          "quote": "She did not negotiate.",
-          "source": "article"
-        }
-      ],
       "tags": [
-        "Mages' Guild",
-        "npc",
-        "humanoid"
+        "regal-lion",
+        "beast",
+        "large",
+        "lion"
       ],
-      "color": "#8A2BE2",
-      "organized": {
-        "path": [
-          "Mages' Guild"
-        ],
-        "basis": "gm-group",
-        "from": null
-      }
-    },
-    "scene-packer": {
-      "hash": "2e13be899b81eee7304c75afd0bc55f5128f3b5d"
-    },
-    "midi-qol": {
-      "onUseMacroParts": {}
-    },
-    "5e-npc-combat-automation": {
-      "aiProfile": {
-        "archetypes": [
-          "assassin",
-          "pack-hunter"
-        ],
-        "reasons": [
-          "Sneak Attack detected",
-          "Keyword \"pack\" in name/biography \u2192 pack-hunter",
-          "Keyword \"spy\" in name/biography \u2192 assassin"
-        ],
-        "confidence": 1,
-        "version": 3,
-        "timestamp": 1791175337048,
-        "manuallyOverridden": false
+      "color": "#DAA520",
+      "faction": "iron_legion",
+      "forge": {
+        "roster": "data/forge/regal-lion.json",
+        "entry": "regal-war-lion",
+        "seed": 610011
       }
     }
   },
   "_stats": {
-    "coreVersion": "14.367",
+    "coreVersion": "14.365",
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
     "compendiumSource": null,
-    "duplicateSource": null,
-    "createdTime": 1791171680324,
-    "modifiedTime": 1791325784776,
-    "lastModifiedBy": "7BMT1Aux3QVtq027",
-    "exportSource": null
-  },
-  "sort": 0
+    "duplicateSource": null
+  }
 }
