@@ -95,13 +95,17 @@ for name in plates[:3] + plates[-3:]:
 # --------------------------------------- the cast builder prefers the plate
 bcs_src = open(os.path.join(ROOT, "tools", "build-character-sheets.py"), encoding="utf-8").read()
 check("def roster_plate(" in bcs_src and "roster_plate(im) or im" in bcs_src and "roster_plate(fb) or fb" in bcs_src, "build-character-sheets.py routes a roster cell to its plate for the portrait and the token")
-cast_dir = os.path.join(RM, "actors", "cast")
 import json  # noqa: E402
+import glob  # noqa: E402
+# every actor record the repo commits — the cast folder and the live world's mirror —
+# carries the transparent plate, never the website's cream cell (the toads live in the
+# world mirror since the GM imported them; the cast folder may hold none of them at all)
+actor_files = [os.path.join(RM, "actors", "cast", f) for f in os.listdir(os.path.join(RM, "actors", "cast"))
+               if f.endswith(".json") and f != "import.json"]
+actor_files += glob.glob(os.path.join(RM, "actors", "worlds", "*", "**", "fvtt-Actor-*.json"), recursive=True)
 cells_in_cast, plates_in_cast = 0, 0
-for f in os.listdir(cast_dir):
-    if not f.endswith(".json") or f == "import.json":
-        continue
-    doc = json.load(open(os.path.join(cast_dir, f), encoding="utf-8"))
+for path in actor_files:
+    doc = json.load(open(path, encoding="utf-8"))
     for pth in (doc.get("img"), ((doc.get("prototypeToken") or {}).get("texture") or {}).get("src")):
         if not isinstance(pth, str):
             continue
@@ -109,8 +113,8 @@ for f in os.listdir(cast_dir):
             cells_in_cast += 1
         if pth.startswith("portraits/liberated-toads/roster/"):
             plates_in_cast += 1
-            check(os.path.exists(os.path.join(RM, pth)), f"{f}: the plate it carries exists ({pth})")
-check(cells_in_cast == 0 and plates_in_cast >= 54, f"the generated cast carries plates, never cream cells ({plates_in_cast} plate refs, {cells_in_cast} cell refs)")
+            check(os.path.exists(os.path.join(RM, pth)), f"{os.path.basename(path)}: the plate it carries exists ({pth})")
+check(cells_in_cast == 0 and plates_in_cast >= 54, f"the committed actors carry plates, never cream cells ({plates_in_cast} plate refs, {cells_in_cast} cell refs)")
 site = json.load(open(os.path.join(RM, "data", "characters.json"), encoding="utf-8"))
 chars = site if isinstance(site, list) else (site.get("characters") or site.get("items") or [])
 check(any("assets/images/toads/roster/toad_" in (c.get("image") or "") for c in chars), "the website still shows the roster cells (characters.json untouched)")

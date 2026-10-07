@@ -215,12 +215,13 @@ hj_real = next((c for c in real["changes"] if c["match"]["_id"] == "Qir5aDX8bkL5
 hj_names = [i["name"] for i in (hj_real or {}).get("addItems", [])]
 mirror_hj = json.loads((ROOT / "Reputation-Matrix2" / "actors" / "worlds" / "midlands" / "Players" / "fvtt-Actor-hjumpik-deldkur-Qir5aDX8bkL5lt1c.json").read_text(encoding="utf-8"))
 flagged = sorted((i.get("flags") or {}).get("waluipedia", {}).get("inventoryItem") for i in mirror_hj["items"] if (i.get("flags") or {}).get("waluipedia", {}).get("inventoryItem"))
-check("Feyward spoils: the generated file gives Hjumpik the OC Soul Ring, the Raventree Signet Ring, Morel's key, Steely's fragments, the Book of Revised History, "
-      "the library card and the onesie — and the mirror carries them flagged",
-      {"The OC Soul Ring", "The Raventree Signet Ring", "Mystic Morel’s Feyward Key", "Steely’s Rusted Fragments", "The Book of Revised History",
-       "Woodfellow Library Card", "Hjumpik’s Wolf-Pelt Onesie"} <= set(hj_names)
-      and {"oc_soul_ring", "raventree_signet_ring", "morel_feyward_key", "steely_rusted_fragments", "book_of_revised_history",
-           "woodfellow_library_card", "hjumpik_wolf_pelt_onesie"} <= set(flagged), json.dumps([hj_names, flagged]))
+SPOIL_IDS = {"oc_soul_ring", "raventree_signet_ring", "morel_feyward_key", "steely_rusted_fragments",
+             "book_of_revised_history", "woodfellow_library_card", "hjumpik_wolf_pelt_onesie"}
+filed_hj = {k.split("/", 1)[1] for k in real.get("filed", {}) if k.startswith("Qir5aDX8bkL5lt1c/")}
+check("Feyward spoils: Hjumpik's seven are either still offered by the changes file or filed as applied — and the mirror carries them flagged",
+      ({"The OC Soul Ring", "The Raventree Signet Ring", "Mystic Morel’s Feyward Key", "Steely’s Rusted Fragments", "The Book of Revised History",
+        "Woodfellow Library Card", "Hjumpik’s Wolf-Pelt Onesie"} <= set(hj_names) or SPOIL_IDS <= filed_hj)
+      and SPOIL_IDS <= set(flagged), json.dumps([hj_names, flagged, sorted(filed_hj)]))
 check("every generated icon is in the image library and every generated item has the inventory flag",
       all(i["img"] in S.load_library() and i["flags"]["waluipedia"]["inventoryItem"] for c in real["changes"] for i in c["addItems"]))
 # 1.9: a write pass that changes nothing leaves the file's bytes AND mtime alone (the suite's --watch keys on mtimes and re-ran itself every pass)
