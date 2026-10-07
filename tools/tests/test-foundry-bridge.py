@@ -193,6 +193,13 @@ with tempfile.TemporaryDirectory() as tmp:
     check("combine (one dir): two statblocks with one name are two actors — dedupe only runs across sources", alone["actorCount"] == 3 and "omitted" not in alone)
     kept_all, _ = fb.combine([world_dir, era_dir], world="w2", dedupe=False)
     check("combine --keep-duplicates keeps every actor", kept_all["actorCount"] == 4)
+    check("combine carries the party block (players_payload) with the LIVE world's packet and with a combine that names no world — never with an era packet's, whose import.json is committed and checked (a roster or permission edit must not churn it)",
+          "players" not in merged and "players" not in alone and "players" not in kept_all
+          and fb.combine([world_dir, era_dir], world=fb.live_world())[0]["players"]["folder"] == "Players"
+          and fb.combine([world_dir, era_dir])[0]["players"]["users"] == ["Hjumpik", "Keaneu", "Martir", "Oscar"]
+          and fb.live_world() == fb.load_folder_scheme()["players"]["world"] == fb.LIVE_WORLD == "midlands"
+          and fb.live_world({"players": {"world": "ebott"}}) == "ebott" and fb.live_world({}) == fb.LIVE_WORLD,
+          json.dumps({"live": fb.live_world(), "era": sorted(merged), "live packet": sorted(fb.combine([world_dir], world="midlands")[0])}))
     real_scheme = fb.load_folder_scheme()
     styles = fb.folder_styles(real_scheme, [["Koopa Troop", "955 BF — Peach's Castle"], ["Mushroom Regency & Kingdom", "955 BF — Peach's Castle"],
                                             ["Liberated Toads", "Pond Patrol"], ["Bestiary", "955 BF — Peach's Castle"]])
@@ -436,7 +443,7 @@ check("load_permissions reports what it cannot use — a default outside 0–3, 
           "default must be 0–3, not 7", "'Nobody' is not on the roster", "unknown level 'king'", "hjumpik is listed twice",
           "an empty user name", "Steel Defender is granted twice with different levels (3 and 2)", "users.Martir must be an object")), json.dumps(bad_perms["problems"]))
 block = fb.players_payload()
-check("players_payload — what combine puts in every packet and split in the manifest: the roster (7) and companions (1) with live ids, default 0, the user names, permissions by actor id",
+check("players_payload — what combine puts in the live world's packet and split in the world manifest: the roster (7) and companions (1) with live ids, default 0, the user names, permissions by actor id",
       [r["name"] for r in block["roster"]] == ["Archie Miser", "Bowser", "Eager", "Feyward Dan", "Hjumpik Deldkur", "Markop Judi", "Remi"] and block["companions"] == [{"actor": "Q8InPZPmhqhpOY7g", "name": "Steel Defender"}]
       and block["default"] == 0 and block["users"] == ["Hjumpik", "Keaneu", "Martir", "Oscar"] and block["permissions"]["wBy4aV2AGHNqT4l1"] == {"Oscar": 3} and block["permissions"]["IlzuThuR8upTtqtF"] == {"Keaneu": 3, "Martir": 2}
       and block["folder"] == "Players" and fb.players_payload({"players": {}}) is None, json.dumps(block))

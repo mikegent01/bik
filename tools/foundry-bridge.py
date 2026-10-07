@@ -89,6 +89,13 @@ OWNERSHIP_LEVELS = {-1, 0, 1, 2, 3}
 # art by URL (the 1.8 scheme): a loopback host is wrong on every machine but the GM's
 LOOPBACK_URL = re.compile(r"^https?://(127\.0\.0\.1|localhost|\[::1\]|0\.0\.0\.0)(:\d+)?/", re.I)
 DEFAULT_FOLDER_SCHEME = os.path.join(RM, "actors", "folders.json")
+# The world the party is played in (actors/worlds/<world>). `combine` puts the
+# party block (players_payload) in that world's packet only — folders.json
+# players.world overrides this when the table moves. An era packet
+# (actors/peachs-castle-955 and friends) is a record of a past table with no
+# players of its own, and its import.json IS committed and checked, so a roster
+# or permission edit must not churn five historical packets.
+LIVE_WORLD = "midlands"
 
 DEFAULT_PORTRAITS = os.path.join(RM, "portraits")
 DEFAULT_CHARACTERS = os.path.join(RM, "data", "characters.json")
@@ -343,6 +350,15 @@ def load_permissions(scheme=None, roster=None):
                 mine[aid] = level
                 out["actors"].setdefault(aid, {})[user] = level
     return out
+
+
+def live_world(scheme=None):
+    """The world the party is played in — actors/folders.json players.world,
+    else LIVE_WORLD. `combine` carries the party block for that world's packet
+    (and for a combine that names no world at all) and for nothing else."""
+    scheme = load_folder_scheme() if scheme is None else scheme
+    name = str(((scheme or {}).get("players") or {}).get("world") or "").strip()
+    return name or LIVE_WORLD
 
 
 def players_payload(scheme=None, roster=None, permissions=None):
@@ -843,7 +859,10 @@ def combine(dirs, folder_prefix=None, world=None, ignore_dirs=False, scheme=None
     its copy of a 955 BF guard, the era packet's copy is left out and listed
     under `omitted`. Duplicates *within* one dir are kept (two different
     "Guard" statblocks are two actors). `art_base`: repo art becomes URLs
-    there (see art_url)."""
+    there (see art_url). `world`: the packet's exportedFrom; the party block
+    (players_payload — the roster, the companions, who may open which sheet)
+    rides only with the live world's packet or with a combine that names no
+    world, never with an era packet's committed import.json."""
     prefix = [p.strip() for p in str(folder_prefix or "").split("/") if p.strip()]
     scheme = load_folder_scheme() if scheme is None else scheme
     dedupe = (len(dirs) > 1) if dedupe is None else bool(dedupe)
@@ -934,7 +953,7 @@ def _combine_payload(rows, scheme, world, omitted):
         "folders": folders,
         "actors": actors,
     }
-    players = players_payload(scheme)
+    players = players_payload(scheme) if world in (None, live_world(scheme)) else None
     if players:
         payload["players"] = players  # the roster, the companions, who may open which sheet (the module applies it)
     if omitted:
@@ -1631,7 +1650,9 @@ def main(argv=None):
     p.add_argument("dirs", nargs="+")
     p.add_argument("--out", required=True)
     p.add_argument("--folder", default=None, help="prefix every folderPath, e.g. \"Imports / Session 42\"")
-    p.add_argument("--world", default=None, help="exportedFrom value")
+    p.add_argument("--world", default=None,
+                   help="exportedFrom value; combine carries the party block (players_payload) only for the live world "
+                        f"(actors/folders.json players.world, else {LIVE_WORLD!r}) or when no world is named — an era packet's committed import.json never churns with the roster")
     p.add_argument("--ignore-dirs", action="store_true", help="only use the folderPath flag, never the directory path")
     p.add_argument("--keep-duplicates", action="store_true", help="with several dirs: keep every actor even when a later dir repeats a name + type of an earlier one")
     p.add_argument("--art-base", default=None, metavar="URL", help="repo art becomes URLs under this base (the archive's own server, e.g. http://192.168.1.20:8765/) instead of Data paths")

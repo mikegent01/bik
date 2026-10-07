@@ -18,8 +18,12 @@ system (built and tested against dnd5e 5.x on core v14).
 The packet now carries the party: `payload.players` — the roster (the seven
 at the table), the companions (the Steel Defender), and **who may open which
 sheet**, by Foundry **user name** (`actors/folders.json` →
-`players.permissions`, resolved by `tools/foundry-bridge.py`; every packet
-and the world manifest carry it). The sync resolves the names against the
+`players.permissions`, resolved by `tools/foundry-bridge.py`). The live
+world's packet carries it, and so does the world manifest the GitHub merge
+starts from (`actors/folders.json players.world`, `midlands`); an era
+packet's committed `import.json` does not, so a roster or permission edit
+never churns a historical packet. Whichever packet Sync lands on, the block
+reaches it. The sync resolves the names against the
 world's users (case-insensitive) and sets exactly those grants on the roster
 and companion actors: *everyone* none, the listed owners / observers, and
 nothing else — a player grant not in the list (a former player, a user the

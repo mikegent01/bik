@@ -369,9 +369,15 @@ companion actor, by actor **name**:
 
 The bridge resolves it (`load_permissions()`: an unknown actor name, a
 level that is not none / limited / observer / owner, a user listed twice —
-`check` errors) and every packet and the world manifest carry the result as
-`payload.players` (`players_payload()`: roster, companions, `default`, the
-user names, `permissions {actorId: {userName: level}}`). The module (1.9.4)
+`check` errors) and the result travels as `payload.players`
+(`players_payload()`: roster, companions, `default`, the user names,
+`permissions {actorId: {userName: level}}`) — in the LIVE world's packet
+(`folders.json` → `players.world`, `midlands`; the bridge's `LIVE_WORLD` is
+the fallback) and in the world manifest `split` writes
+beside the mirror, which is what the module's GitHub merge starts from. An
+era packet's committed `import.json` never carries it: those files are
+history and are checked byte-for-byte, so a roster or permission edit must
+not churn five of them. The module (1.9.4)
 resolves the names against the world's users (case-insensitive), sets
 exactly those grants on the roster and companion actors — *everyone* none,
 a player grant not in the list removed, GM users never touched — counts
