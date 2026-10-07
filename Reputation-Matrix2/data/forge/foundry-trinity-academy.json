@@ -1,0 +1,278 @@
+{
+  "format": "waluipedia-forge-roster/1",
+  "packet": "foundry-trinity-academy",
+  "name": "Trinity Academy",
+  "title": "Trinity Academy — existing NPCs from Foundry world midlands",
+  "faction": null,
+  "group": "Trinity Academy",
+  "color": "#F08080",
+  "disposition": -1,
+  "file_prefix": "fvtt-Actor-foundry-trinity-academy-",
+  "portraits": "portraits/foundry-trinity-academy",
+  "renders": "npc-forge/foundry-trinity-academy/renders",
+  "source": "Foundry world mirror: actors/worlds/midlands/Trinity Academy",
+  "foundry_source": {
+    "world": "midlands",
+    "group": "Trinity Academy"
+  },
+  "style_preset": "gritty",
+  "style": "Gritty dark fantasy illustration, heavy inked comic linework, cross-hatching, textured parchment paper, muted desaturated palette, semi-realistic proportions, detailed character concept art.",
+  "framing": "Full body, whole figure visible, three-quarter view, centred, isolated on a plain flat solid magenta background (#FF00FF), no floor, no ground shadow, no text, no border.",
+  "negative": "photorealistic, 3d render, blurry, cropped, cut off, multiple characters, text, watermark, signature, border, frame, ground shadow, floor, background scenery, gradient background",
+  "background": "#FF00FF",
+  "render_size": [
+    1408,
+    768
+  ],
+  "plate_size": 512,
+  "subfolders": {
+    "General": {
+      "color": "#F08080",
+      "description": "Existing Foundry folder under Trinity Academy."
+    }
+  },
+  "entries": [
+    {
+      "id": "asa-hanko",
+      "name": "Asa Hanko",
+      "folder": "General",
+      "tier": "student",
+      "role": "student",
+      "cr": 0,
+      "type": "humanoid",
+      "size": "med",
+      "token_size": 1,
+      "look": "Asa Hanko is the student the advisor had to look twice at to place, and the one who did the most damage to his lesson plan. Hanko asked what SCHALE was, asked what the acronym actually meant, asked what Sectors 7 through 12 were, asked about the Equestrian liaison seen walking the school, and asked whether the class would be armed. Every significant disclosure in the filing exists because Hanko would not let a term pass unexplained. ## The newcomer's advantage\n\nHanko spends the first part of the session confused and says so — *what the hell? is this really the right place?* — and that confusio",
+      "seed": 600001,
+      "source_actor": "worlds/midlands/Trinity Academy/fvtt-Actor-asa-hanko-etsvd5AIulgvZpgL.json",
+      "source_actor_id": "etsvd5AIulgvZpgL",
+      "source_folder_path": [
+        "Trinity Academy"
+      ],
+      "source_img": "Reputation-Matrix2/portraits/asa_hanko.png",
+      "base_image": "Reputation-Matrix2/portraits/asa_hanko.png",
+      "source_has_img": true,
+      "site": "asa_hanko"
+    },
+    {
+      "id": "asagao-hanae",
+      "name": "Asagao Hanae",
+      "folder": "General",
+      "tier": "student",
+      "role": "student",
+      "cr": 0,
+      "type": "humanoid",
+      "size": "med",
+      "token_size": 1,
+      "look": "Hanae answers roll call in a whisper with her fingers trembling, asks to be taken care of, and spends most of the session pulling her sleeve over her knuckles. She is also, on the evidence of her own notebook, the only person in the building who has independently audited the SCHALE briefing material and found gaps in it. ## The volume\n\nEverything Hanae says is delivered at a volume the record repeatedly describes as barely existing. *I-I'm here… Sensei…* — barely above a whisper. *P-Please take care of me…* — fingers trembling, eyes on the floor, sleeve pulled over the knuckles.\n\nShe held the",
+      "seed": 600002,
+      "source_actor": "worlds/midlands/Trinity Academy/fvtt-Actor-asagao-hanae-ielQaxMp8TkP2shz.json",
+      "source_actor_id": "ielQaxMp8TkP2shz",
+      "source_folder_path": [
+        "Trinity Academy"
+      ],
+      "source_img": "Reputation-Matrix2/portraits/asagao_hanae.png",
+      "base_image": "Reputation-Matrix2/portraits/asagao_hanae.png",
+      "source_has_img": true,
+      "site": "asagao_hanae"
+    },
+    {
+      "id": "ibaragi-yoshimi",
+      "name": "Ibaragi Yoshimi",
+      "folder": "General",
+      "tier": "student",
+      "role": "student",
+      "cr": 0,
+      "type": "humanoid",
+      "size": "med",
+      "token_size": 1,
+      "look": "Yoshimi sits in the middle row with her arms crossed tight, flinches when her own name is read, and goes red when anyone looks at her directly. Her contribution to the session was to refuse the alliance, refuse group uniforms, and then produce a crumpled SCHALE pamphlet from her bag and announce that she had finished page six — the only student in the room who had done the reading. ## The flinch\n\nThe roll call reached her name and the record catches a sharp intake of breath from the middle row. When the advisor glanced up she was hunched in her seat *like she's trying to physically shrink hers",
+      "seed": 600003,
+      "source_actor": "worlds/midlands/Trinity Academy/fvtt-Actor-ibaragi-yoshimi-HF8EZ4uCnqh6jnDE.json",
+      "source_actor_id": "HF8EZ4uCnqh6jnDE",
+      "source_folder_path": [
+        "Trinity Academy"
+      ],
+      "source_img": "Reputation-Matrix2/portraits/ibaragi_yoshimi.png",
+      "base_image": "Reputation-Matrix2/portraits/ibaragi_yoshimi.png",
+      "source_has_img": true,
+      "site": "ibaragi_yoshimi"
+    },
+    {
+      "id": "iochi-mari",
+      "name": "Iochi Mari",
+      "folder": "General",
+      "tier": "student",
+      "role": "student",
+      "cr": 0,
+      "type": "humanoid",
+      "size": "med",
+      "token_size": 1,
+      "look": "Mari is the student who welcomed the advisor formally, offered the Sisterhood Club's help before being asked, and then quietly got the classroom under control when shouting had failed. She sits with good posture, laces her fingers on the desk, and tucks a strand of hair behind her ear before she says anything that matters. She is also the person who translated SCHALE into plain language for the students who were too embarrassed to admit they did not understand it. ## The competence\n\nWhen the advisor lost the room — chairs scraping, one student spinning on a desk, another delivering a monologue",
+      "seed": 600004,
+      "source_actor": "worlds/midlands/Trinity Academy/fvtt-Actor-iochi-mari-4k9AoOCRdjEYmOSZ.json",
+      "source_actor_id": "4k9AoOCRdjEYmOSZ",
+      "source_folder_path": [
+        "Trinity Academy"
+      ],
+      "source_img": "Reputation-Matrix2/portraits/iochi_mari.png",
+      "base_image": "Reputation-Matrix2/portraits/iochi_mari.png",
+      "source_has_img": true,
+      "site": "iochi_mari"
+    },
+    {
+      "id": "kenzaki-tsurugi",
+      "name": "Kenzaki Tsurugi",
+      "folder": "General",
+      "tier": "student",
+      "role": "student",
+      "cr": 0,
+      "type": "humanoid",
+      "size": "med",
+      "token_size": 1,
+      "look": "Tsurugi occupies the back row with her arms crossed and her legs on the desk, laughs a low *keheh* at things nobody else finds funny, and watches the advisor rather than the chaos. She is the only student who challenged the idea of arming the class — and the only one the advisor then revealed was already armed. ## The posture\n\nLegs kicked up on the desk, arms crossed, chin angled down, dark hair across one eye. The record describes her eyes as sharp enough to cut glass and her attention as a predator sizing up whether something is worth the effort of killing. She did not raise her hand at roll",
+      "seed": 600005,
+      "source_actor": "worlds/midlands/Trinity Academy/fvtt-Actor-kenzaki-tsurugi-TSvhFLjJf6caMC5v.json",
+      "source_actor_id": "TSvhFLjJf6caMC5v",
+      "source_folder_path": [
+        "Trinity Academy"
+      ],
+      "source_img": "Reputation-Matrix2/portraits/kenzaki_tsurugi.png",
+      "base_image": "Reputation-Matrix2/portraits/kenzaki_tsurugi.png",
+      "source_has_img": true,
+      "site": "kenzaki_tsurugi"
+    },
+    {
+      "id": "kurimura-airi",
+      "name": "Kurimura Airi",
+      "folder": "General",
+      "tier": "student",
+      "role": "student",
+      "cr": 0,
+      "type": "humanoid",
+      "size": "med",
+      "token_size": 1,
+      "look": "Airi sits by the window, keeps chocolate in her desk drawer, and is the social connective tissue of Classroom 2-B. She welcomed the new advisor, briefed the newcomer on what was normal, gave the advisor a chocolate mint, then carried another one to the back of the room for the student nobody else was talking to. Her enthusiasm is constant and occasionally deafening, and it is also the only thing in the room that reliably crosses the seating politics. Waluigi wants to make a case for Airi, because the transcript makes her easy to underestimate and the transcript is wrong.\n\n## What she actually",
+      "seed": 600006,
+      "source_actor": "worlds/midlands/Trinity Academy/fvtt-Actor-kurimura-airi-huswnWgj5sVttodH.json",
+      "source_actor_id": "huswnWgj5sVttodH",
+      "source_folder_path": [
+        "Trinity Academy"
+      ],
+      "source_img": "Reputation-Matrix2/portraits/kurimura_airi.png",
+      "base_image": "Reputation-Matrix2/portraits/kurimura_airi.png",
+      "source_has_img": true,
+      "site": "kurimura_airi"
+    },
+    {
+      "id": "lord-verity",
+      "name": "Lord Verity",
+      "folder": "General",
+      "tier": "student",
+      "role": "student",
+      "cr": 0,
+      "type": "humanoid",
+      "size": "med",
+      "token_size": 1,
+      "look": "Lord Verity wears an oversized hoodie as a cape, stands in front of the fluorescent lights so he throws a silhouette, and has twice demanded that the classroom kneel before him. He is also the student whose voice cracked when he learned the class was attached to SCHALE, and who asked — quietly, for once — whether that meant everyone in the room was part of it. ## The performance\n\nHe stands on or in front of furniture. He slams a fist into his palm. He positions himself deliberately in front of the light bank so that he is backlit. The hoodie is a cape and the record is generous enough to call",
+      "seed": 600007,
+      "source_actor": "worlds/midlands/Trinity Academy/fvtt-Actor-lord-verity-urt5E5kx6fpiYJtI.json",
+      "source_actor_id": "urt5E5kx6fpiYJtI",
+      "source_folder_path": [
+        "Trinity Academy"
+      ],
+      "source_img": "Reputation-Matrix2/portraits/lord_verity.png",
+      "base_image": "Reputation-Matrix2/portraits/lord_verity.png",
+      "source_has_img": true,
+      "site": "lord_verity"
+    },
+    {
+      "id": "misono-mika",
+      "name": "Misono Mika",
+      "folder": "General",
+      "tier": "student",
+      "role": "student",
+      "cr": 0,
+      "type": "humanoid",
+      "size": "med",
+      "token_size": 1,
+      "look": "Mika arrived in Classroom 2-B roughly ten seconds before anyone had processed that the door had opened, slammed both palms on the advisor's desk hard enough to rattle the pencil holder, and asked whether getting there first made her his favourite student. She then claimed the desk directly across from his and sat in it with deliberate, princess-like posture. Her halo spins faster when she is excited, which is most of the time. ## The entrance\n\nPink hair bouncing, skidding to a stop, both palms down on the desk, halo spinning above her head like an excited top. *SENSEI! I got here first! Does t",
+      "seed": 600008,
+      "source_actor": "worlds/midlands/Trinity Academy/fvtt-Actor-misono-mika-Z5cW7cBLXsb1wzY2.json",
+      "source_actor_id": "Z5cW7cBLXsb1wzY2",
+      "source_folder_path": [
+        "Trinity Academy"
+      ],
+      "source_img": "Reputation-Matrix2/portraits/misono_mika.png",
+      "base_image": "Reputation-Matrix2/portraits/misono_mika.png",
+      "source_has_img": true,
+      "site": "misono_mika"
+    },
+    {
+      "id": "sensei",
+      "name": "Sensei",
+      "folder": "General",
+      "tier": "scholar",
+      "role": "scholar",
+      "cr": 0.125,
+      "type": "humanoid",
+      "size": "med",
+      "token_size": 1,
+      "look": "Sensei is the advisor assigned to Classroom 2-B, and the first adult in this campaign's record to tell the students what they are actually enrolled in. He introduced himself as the glue holding the operation together, ran a roll call, and — when a student asked a direct question — confirmed that the class is attached to SCHALE operations. He is not the students' friend and does not try to be. He is the person who answers the question.\n\nHis method is volume and posture rather than authority he actually possesses. He defused a student's declaration of lordship by thanking him for his cooperation",
+      "seed": 600009,
+      "source_actor": "worlds/midlands/Trinity Academy/fvtt-Actor-sensei-9TVPzldU8IQgjKnr.json",
+      "source_actor_id": "9TVPzldU8IQgjKnr",
+      "source_folder_path": [
+        "Trinity Academy"
+      ],
+      "source_img": "Reputation-Matrix2/portraits/sensei.png",
+      "base_image": "Reputation-Matrix2/portraits/sensei.png",
+      "source_has_img": true,
+      "site": "sensei"
+    },
+    {
+      "id": "shaggy",
+      "name": "Shaggy",
+      "folder": "General",
+      "tier": "student",
+      "role": "student",
+      "cr": 0,
+      "type": "humanoid",
+      "size": "med",
+      "token_size": 1,
+      "look": "Shaggy slouches, crouches behind his desk to avoid roll call, bounces one leg hard enough to vibrate the furniture, and contributes to the session mainly by admitting he does not understand things. That admission is the most valuable thing anyone says: he has been at Trinity for years and nobody ever explained SCHALE to him, which reframes the entire disclosure from a briefing into an indictment. ## The roll call\n\nHis name was read into dead silence. The advisor scanned the room and observed that they were either missing Shaggy or he was hiding behind the sleeping student in the back row. A ha",
+      "seed": 600010,
+      "source_actor": "worlds/midlands/Trinity Academy/fvtt-Actor-shaggy-BUyDXVKZzwTNF7To.json",
+      "source_actor_id": "BUyDXVKZzwTNF7To",
+      "source_folder_path": [
+        "Trinity Academy"
+      ],
+      "source_img": "Reputation-Matrix2/portraits/shaggy.png",
+      "base_image": "Reputation-Matrix2/portraits/shaggy.png",
+      "source_has_img": true,
+      "site": "shaggy"
+    },
+    {
+      "id": "shirasu-azusa",
+      "name": "Shirasu Azusa",
+      "folder": "General",
+      "tier": "student",
+      "role": "student",
+      "cr": 0,
+      "type": "humanoid",
+      "size": "med",
+      "token_size": 1,
+      "look": "Azusa sits in the far corner, as far from everyone else as a desk allows, with her posture straight, her pen aligned parallel to her notebook's edge, and her expression unreadable. She answers roll call with a nod barely large enough to register. She is also the only student in the room who reacted to the word SCHALE with something other than excitement, because she is the only one who has been on the receiving end of it. ## The corner\n\nHer desk is angled slightly away from the rest of the class — the record compares it to a ship positioned to leave port at a moment's notice. Hands folded. Not",
+      "seed": 600011,
+      "source_actor": "worlds/midlands/Trinity Academy/fvtt-Actor-shirasu-azusa-2RElWDHnQmbpCmLf.json",
+      "source_actor_id": "2RElWDHnQmbpCmLf",
+      "source_folder_path": [
+        "Trinity Academy"
+      ],
+      "source_img": "Reputation-Matrix2/portraits/shirasu_azusa.png",
+      "base_image": "Reputation-Matrix2/portraits/shirasu_azusa.png",
+      "source_has_img": true,
+      "site": "shirasu_azusa"
+    }
+  ]
+}

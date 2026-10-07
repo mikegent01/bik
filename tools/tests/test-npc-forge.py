@@ -368,6 +368,75 @@ try:
     check("Framing preset: prompt ends with fullbody framing text",
           bfp.prompt_for(tt_roster, tt_entry).endswith(bfp.FRAMINGS["fullbody"]), bfp.prompt_for(tt_roster, tt_entry))
 
+    # ---- Gritty style & Base Reference Image tests ----
+    check("style_preset_for: Trinity Academy maps to gritty", bfp.style_preset_for("Trinity Academy") == "gritty")
+    check("style_preset_for: Iron Legion maps to gritty", bfp.style_preset_for("Iron Legion") == "gritty")
+    check("style_preset_for: Koopa Troop maps to cartoon", bfp.style_preset_for("Koopa Troop") == "cartoon")
+    check("style_preset_for: Mages' Guild maps to painterly", bfp.style_preset_for("Mages' Guild") == "painterly")
+
+    # Seed Trinity Academy in the test world
+    trin_dir = os.path.join(sb, "actors", "worlds", "forge-test", "Trinity Academy", "General")
+    os.makedirs(trin_dir, exist_ok=True)
+    trin_art = os.path.join(sb, "portraits", "asa_hanko.png")
+    os.makedirs(os.path.dirname(trin_art), exist_ok=True)
+    _Image.new("RGBA", (8, 8), (50, 50, 50, 255)).save(trin_art)
+    trin_actor = {
+        "_id": "trinity123456789", "name": "Asa Hanko", "type": "npc", "img": "portraits/asa_hanko.png",
+        "prototypeToken": {"name": "Asa Hanko", "width": 1, "height": 1, "texture": {"src": "portraits/asa_hanko.png"}},
+        "system": {"details": {"cr": 0, "type": {"value": "humanoid", "subtype": "student"},
+                               "biography": {"value": "<p>A quiet student from Trinity Academy.</p>"}},
+                   "traits": {"size": "med"}},
+        "flags": {"waluipedia-mass-import": {"folderPath": ["Trinity Academy", "General"]},
+                  "waluipedia-sheets": {"characterId": "asa_hanko", "tags": ["Trinity Academy", "npc"]}},
+    }
+    json.dump(trin_actor, open(os.path.join(trin_dir, "fvtt-Actor-asa-hanko.json"), "w", encoding="utf-8"), indent=2)
+
+    # Import Trinity Academy to verify art style is gritty, not cartoon
+    st, body = req("POST", "/api/import-foundry", {"group": "Trinity Academy", "packet": "foundry-trinity-test"})
+    trin_res = json.loads(body)
+    check("import_foundry for Trinity Academy: chooses gritty art style, NOT cartoon Mario",
+          st == 200 and trin_res.get("style_preset") == "gritty" and "Gritty dark fantasy" in trin_res.get("style", "")
+          and "Mario & Luigi" not in trin_res.get("style", ""), trin_res.get("style"))
+
+    # Check base reference image resolution on imported entry
+    trin_entry = next((e for e in trin_res["entries"] if "hanko" in e["id"]), trin_res["entries"][0])
+    check("import_foundry: entry has base reference image set from source portrait",
+          trin_entry.get("has_base_img") and bool(trin_entry.get("base_img")), trin_entry)
+
+    # Reference-conditioned prompt verification
+    prompt_ref = bfp.prompt_for(trin_res, trin_entry, with_reference=True)
+    check("prompt_for(with_reference=True): includes <image1> and keeps character likeness",
+          "<image1>" in prompt_ref and "Keep exactly the same face" in prompt_ref, prompt_ref)
+
+    # Base image upload, clear, and reset
+    fake_png = b"\x89PNG\r\n\x1a\n" + b"\x00" * 32
+    conn = http.client.HTTPConnection("127.0.0.1", port)
+    conn.request("POST", "/api/upload-base?packet=foundry-trinity-test&id=" + trin_entry["id"], body=fake_png)
+    resp = conn.getresponse()
+    up_base_body = json.loads(resp.read())
+    check("POST /api/upload-base: saves custom base reference image and updates entry",
+          resp.status == 200 and "refs" in up_base_body.get("base_image", ""), up_base_body)
+
+    st, body = req("POST", "/api/clear-base", {"packet": "foundry-trinity-test", "id": trin_entry["id"]})
+    clr_base_body = json.loads(body)
+    check("POST /api/clear-base: clears base image for text-only rendering",
+          st == 200 and clr_base_body.get("base_image") is None, clr_base_body)
+
+    st, body = req("POST", "/api/reset-base", {"packet": "foundry-trinity-test", "id": trin_entry["id"]})
+    rst_base_body = json.loads(body)
+    check("POST /api/reset-base: resets base image back to source portrait",
+          st == 200 and bool(rst_base_body.get("base_image")), rst_base_body)
+
+    # Adopt existing full-body sprite if available
+    fb_dir = os.path.join(sb, "portraits", "player", "fullbody")
+    os.makedirs(fb_dir, exist_ok=True)
+    test_sprite_path = os.path.join(fb_dir, trin_entry["id"] + ".png")
+    open(test_sprite_path, "wb").write(fake_png)
+    st, body = req("POST", "/api/use-fullbody", {"packet": "foundry-trinity-test", "id": trin_entry["id"]})
+    adopt_res = json.loads(body)
+    check("POST /api/use-fullbody: adopts existing full-body sprite into packet",
+          st == 200 and adopt_res["count"] == 1, adopt_res)
+
     srv.shutdown()
 finally:
     shutil.rmtree(tmp, ignore_errors=True)

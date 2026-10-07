@@ -266,6 +266,7 @@ function renderWork() {
     </div>
     <div class="bar">
       <button id="run" class="primary" ${job && job.alive ? "disabled" : ""}>Run loop</button>
+      <button id="btnBatchAdopt" ${job && job.alive ? "disabled" : ""} title="Adopt existing full-body sprites from portraits/player/fullbody/ for all entries that have one">Batch Adopt Sprites</button>
       <button id="btnBatchRemoveBg" ${job && job.alive ? "disabled" : ""} title="Step 2: Remove background for all renders in roster">Batch Remove BG</button>
       <button id="btnBatchReplace" ${job && job.alive ? "disabled" : ""} class="primary" title="Step 5 & 6: Replace current images on Website and Foundry for all cut sprites">Batch Replace Images</button>
       <button id="build" ${job && job.alive ? "disabled" : ""}>Build actors</button>
@@ -288,7 +289,19 @@ function renderWork() {
       <div class="log" id="log">${job ? esc(job.log.join("\n")) : ""}</div>
     </div>
     <details><summary>Recipe (style · framing · negative) — edits are saved to the roster</summary>
-      <label class="hint">style</label><textarea id="rStyle">${esc(r.style || "")}</textarea>
+      <div class="bar" style="margin-bottom:8px">
+        <label>Style family:
+          <select id="rStylePreset">
+            <option value="gritty" ${r.style_preset === "gritty" ? "selected" : ""}>Gritty Inked / Dark Fantasy (Trinity, Iron Legion, Wario)</option>
+            <option value="painterly" ${r.style_preset === "painterly" ? "selected" : ""}>Painterly Dark (Merric, Archie, Mossy)</option>
+            <option value="anime" ${r.style_preset === "anime" ? "selected" : ""}>Anime Cel (Remi)</option>
+            <option value="cartoon" ${r.style_preset === "cartoon" ? "selected" : ""}>Cartoon Cel (Mario &amp; Luigi, Toads)</option>
+            <option value="custom" ${r.style_preset === "custom" ? "selected" : ""}>Custom</option>
+          </select>
+        </label>
+        <span class="muted" style="font-size:12px">Matches the character's faction/shelf</span>
+      </div>
+      <label class="hint">style prompt</label><textarea id="rStyle">${esc(r.style || "")}</textarea>
       <label class="hint">framing (roster default)</label><textarea id="rFraming">${esc(r.framing || "")}</textarea>
       <label class="hint">negative</label><textarea id="rNegative">${esc(r.negative || "")}</textarea>
       <div class="bar"><label>canvas <input id="rW" type="number" value="${r.render_size[0]}" style="width:70px"> × <input id="rH" type="number" value="${r.render_size[1]}" style="width:70px"></label>
@@ -298,6 +311,26 @@ function renderWork() {
   const cards = $("#cards");
   for (const e of r.entries) cards.appendChild(card(r, e, job && job.alive));
   $("#run").onclick = () => startRun(r, steps());
+  const STYLE_MAP = {
+    "gritty": "Gritty dark fantasy illustration, heavy inked comic linework, cross-hatching, textured parchment paper, muted desaturated palette, semi-realistic proportions, detailed character concept art.",
+    "painterly": "Moody painterly digital concept art, dark fantasy archive plate, loose detailed brushwork, atmospheric cinematic lighting, textured oil painting surface.",
+    "anime": "Clean anime cel shading, crisp linework, vibrant flat colours, modern anime concept art.",
+    "cartoon": "Clean cel-shaded cartoon character art in the style of Mario & Luigi RPG concept art, bold dark outlines, flat colours, simple shading."
+  };
+  $("#rStylePreset").onchange = (ev) => {
+    const val = ev.target.value;
+    if (STYLE_MAP[val]) {
+      $("#rStyle").value = STYLE_MAP[val];
+    }
+  };
+  $("#btnBatchAdopt").onclick = async () => {
+    try {
+      setStatus("adopting existing full-body sprites…");
+      const o = await api("/api/use-fullbody", {packet: r.packet});
+      setStatus(`✓ Adopted ${o.count} existing full-body sprite(s)!`);
+      await refresh();
+    } catch (x) { setStatus(x.message, true); }
+  };
   $("#btnBatchRemoveBg").onclick = async () => {
     try { setStatus("removing backgrounds…"); const o = await api("/api/remove-bg", {packet: r.packet}); setStatus(`background removed for ${o.count} entr(ies) → ready to review/replace`); await refresh(); } catch (x) { setStatus(x.message, true); }
   };
@@ -313,7 +346,7 @@ function renderWork() {
   $("#btnPrompts").onclick = () => openPromptsModal(r);
   $("#stop").onclick = () => api("/api/stop", {});
   $("#saveRecipe").onclick = async () => {
-    try { await api("/api/roster", {packet: r.packet, fields: {style: $("#rStyle").value, framing: $("#rFraming").value, negative: $("#rNegative").value,
+    try { await api("/api/roster", {packet: r.packet, fields: {style: $("#rStyle").value, style_preset: $("#rStylePreset").value, framing: $("#rFraming").value, negative: $("#rNegative").value,
       render_size: [+$("#rW").value || 1408, +$("#rH").value || 768], plate_size: +$("#rPlate").value || 512}}); setStatus("recipe saved"); await refresh(); } catch (x) { setStatus(x.message, true); }
   };
 }
@@ -330,17 +363,17 @@ function setStatus(t, bad) { const s = $("#status"); if (s) { s.textContent = t;
 function card(r, e, busy) {
   const d = document.createElement("div");
   d.className = "card";
-  const currentArt = e.source_img || e.site_img;
-  const currentHtml = currentArt ? `<img src="${fileUrl(currentArt, true)}" alt="Current">` : `<span>none</span>`;
+  const baseArt = e.base_img || e.source_img || e.site_img;
+  const baseHtml = baseArt ? `<img src="${fileUrl(baseArt, true)}" alt="Base reference">` : `<span>none</span>`;
   const renderHtml = e.render ? `<img src="${fileUrl(e.render, true)}" alt="Render">` : `<span>none</span>`;
   const plateHtml = e.plate ? `<img src="${fileUrl(e.plate, true)}" alt="Sprite">` : `<span>none</span>`;
   const canRender = state.connection.connected && state.connection.can_render;
 
   d.innerHTML = `
     <div class="art-review">
-      <div class="thumb-slot" title="Current art (Foundry/Website) — click to view">
-        <div class="pic ${currentArt ? 'has-art' : ''}" data-view="current">${currentHtml}</div>
-        <small>Current</small>
+      <div class="thumb-slot" title="Base reference image (portrait/source) used for rendering — click to view">
+        <div class="pic ${baseArt ? 'has-art' : ''}" data-view="base">${baseHtml}</div>
+        <small>Base Image</small>
       </div>
       <div class="thumb-slot" title="AI Render (on background) — click to view">
         <div class="pic ${e.render ? 'has-art' : ''}" data-view="render">${renderHtml}</div>
@@ -355,7 +388,7 @@ function card(r, e, busy) {
       <div class="card-head">
         <h3>${esc(e.name)}</h3>
         <div class="badges">
-          <span class="badge ${currentArt ? "on" : ""}">current</span>
+          <span class="badge ${baseArt ? "on" : ""}" title="Base reference image">${baseArt ? "base: " + esc(e.base_image_name || "ref") : "no base"}</span>
           <span class="badge ${e.render ? "on" : ""}">render</span>
           <span class="badge ${e.plate ? "on" : ""}">sprite</span>
           <span class="badge ${e.actor ? "on" : ""}">actor</span>
@@ -373,24 +406,69 @@ function card(r, e, busy) {
           </select>
         </label>
         <button data-make-fullbody class="btn-xs" title="Make full body image framing preset">Make full body</button>
+        ${e.existing_fullbody && !e.plate ? `<button data-use-fullbody class="btn-xs primary" title="Adopt established sprite from portraits/player/fullbody/">Adopt existing sprite</button>` : ''}
       </div>
       <textarea data-look placeholder="look — what the Forge draws">${esc(e.look)}</textarea>
       <div class="workflow-tools">
-        <button data-render ${busy || !canRender ? "disabled" : ""} title="Step 1: Render or regenerate this character">1. Render</button>
-        <button data-cut ${busy || (!e.render && !currentArt) ? "disabled" : ""} title="Step 2: Remove background and create transparent sprite">2. Remove BG</button>
-        <button data-replace ${busy || !e.plate ? "disabled" : ""} class="primary" title="Step 5: Replace current image on Website and Foundry">3. Replace image</button>
+        <button data-render ${busy || !canRender ? "disabled" : ""} title="${baseArt ? 'Step 1: Render character using base reference image' : 'Step 1: Render character from text prompt'}">1. Render${baseArt ? ' (ref)' : ''}</button>
+        <button data-cut ${busy || (!e.render && !baseArt) ? "disabled" : ""} title="Step 2: Remove background and create transparent sprite">2. Remove BG</button>
+        <button data-replace ${busy || !e.plate ? "disabled" : ""} class="primary" title="Step 3: Replace current image on Website and Foundry">3. Replace image</button>
       </div>
       <div class="sub-tools">
         <button data-save class="btn-xs">Save look</button>
         <button data-prompt class="btn-xs" title="Copy full prompt for AI">Copy prompt</button>
-        <label class="badge" style="cursor:pointer">Upload <input type="file" accept="image/png,image/webp,image/jpeg" data-upload hidden></label>
+        <label class="badge" style="cursor:pointer" title="Upload custom base image for this character">Set Base <input type="file" accept="image/png,image/webp,image/jpeg" data-upload-base hidden></label>
+        ${baseArt ? `<button data-clear-base class="btn-xs" title="Clear base image (render purely from text prompt)">Clear base</button>` : ''}
+        ${e.base_img && e.source_img && e.base_img !== e.source_img ? `<button data-reset-base class="btn-xs" title="Reset base image to original source portrait">Reset base</button>` : ''}
+        <label class="badge" style="cursor:pointer" title="Upload finished render">Upload Render <input type="file" accept="image/png,image/webp,image/jpeg" data-upload hidden></label>
       </div>
     </div>`;
 
   const view = (p) => { if (!p) return; $("#viewerImg").src = fileUrl(p, true); $("#viewer").style.display = "flex"; };
-  $("[data-view='current']", d).onclick = () => view(currentArt);
+  $("[data-view='base']", d).onclick = () => view(baseArt);
   $("[data-view='render']", d).onclick = () => view(e.render);
   $("[data-view='plate']", d).onclick = () => view(e.plate);
+
+  if ($("[data-use-fullbody]", d)) {
+    $("[data-use-fullbody]", d).onclick = async () => {
+      try {
+        setStatus(`${e.name}: adopting existing full-body sprite…`);
+        await api("/api/use-fullbody", {packet: r.packet, id: e.id});
+        setStatus(`✓ ${e.name}: adopted existing sprite!`);
+        await refresh();
+      } catch (x) { setStatus(x.message, true); }
+    };
+  }
+  if ($("[data-upload-base]", d)) {
+    $("[data-upload-base]", d).onchange = async (ev) => {
+      const f = ev.target.files[0]; if (!f) return;
+      try {
+        setStatus(`${e.name}: uploading base image ${f.name}…`);
+        const resp = await fetch(`/api/upload-base?packet=${encodeURIComponent(r.packet)}&id=${encodeURIComponent(e.id)}`, {method: "POST", body: await f.arrayBuffer()});
+        const j = await resp.json(); if (!resp.ok) throw new Error(j.error);
+        setStatus(`✓ ${e.name}: base image set to ${f.name}`);
+        await refresh();
+      } catch (x) { setStatus(x.message, true); }
+    };
+  }
+  if ($("[data-clear-base]", d)) {
+    $("[data-clear-base]", d).onclick = async () => {
+      try {
+        await api("/api/clear-base", {packet: r.packet, id: e.id});
+        setStatus(`${e.name}: base image cleared (will render text-to-image)`);
+        await refresh();
+      } catch (x) { setStatus(x.message, true); }
+    };
+  }
+  if ($("[data-reset-base]", d)) {
+    $("[data-reset-base]", d).onclick = async () => {
+      try {
+        await api("/api/reset-base", {packet: r.packet, id: e.id});
+        setStatus(`${e.name}: base image reset to original portrait`);
+        await refresh();
+      } catch (x) { setStatus(x.message, true); }
+    };
+  }
 
   $("[data-make-fullbody]", d).onclick = async () => {
     try {
@@ -476,7 +554,9 @@ async function openPromptsModal(r) {
     const data = await api("/api/prompts?packet=" + encodeURIComponent(r.packet), undefined, "GET");
     const lines = [];
     for (const p of data.prompts || []) {
-      lines.push(`### ${p.name} (${p.id})\nFraming: ${p.framing}\nSeed: ${p.seed}\nPrompt: ${p.prompt}\nNegative: ${p.negative}\nRender: ${p.render}\n`);
+      lines.push(`### ${p.name} (${p.id})\n` +
+                 (p.base_image ? `Base Image: ${p.base_image}\n` : `Base Image: (none — text-to-image)\n`) +
+                 `Framing: ${p.framing}\nSeed: ${p.seed}\nPrompt: ${p.prompt}\nNegative: ${p.negative}\nRender: ${p.render}\n`);
     }
     $("#promptsBody").textContent = lines.join("\n");
     $("#promptsStatus").textContent = `${data.prompts.length} prompt(s) ready`;

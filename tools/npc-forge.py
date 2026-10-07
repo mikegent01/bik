@@ -171,6 +171,171 @@ class Forge:
                 v["inputs"]["latent_image"] = ["456", 0]
         return wf
 
+    def ref_workflow(self, width, height, steps=None, cfg=None, resolution=None):
+        """The builtin Qwen-Image-2.1 graph with reference image (LoadImage wired
+        into TextEncodeQwenImage21 images.image_1) for reference-conditioned rendering."""
+        m = self.mtp
+        wf = m.workflow_tune(m.BUILTIN_QWEN21, steps=steps, cfg=cfg, resolution=resolution, models=self.models, engine="qwen21",
+                             cache=self.comfy.has_node("QwenImage21Cache"))
+        return wf
+
+    def resolve_base_image_path(self, roster, entry):
+        """Find the local filesystem path to the base reference image for an entry."""
+        if entry.get("base_image") in ("none", "None", "") or entry.get("no_base_image"):
+            return None
+        candidates = []
+        if entry.get("base_image"):
+            candidates.append(entry["base_image"])
+        if entry.get("source_img"):
+            candidates.append(entry["source_img"])
+        if entry.get("site_img"):
+            candidates.append(entry["site_img"])
+
+        articles = read_json(os.path.join(self.bfp.RM, "data", "characters.json"), []) or []
+        art = None
+        eid = entry.get("id") or ""
+        for a in articles:
+            if not isinstance(a, dict):
+                continue
+            if entry.get("site") and a.get("id") == entry["site"]:
+                art = a
+                break
+            if a.get("id") in (eid, eid.replace("-", "_")):
+                art = a
+                break
+            if slugify(a.get("name") or "") == slugify(entry.get("name") or ""):
+                art = a
+                break
+        if art:
+            if art.get("image"):
+                candidates.append(art["image"])
+            if art.get("fullBody"):
+                candidates.append(art["fullBody"])
+
+        site_id = (art.get("id") if art else entry.get("site")) or ""
+        for name in (eid, eid.replace("-", "_"), site_id, site_id.replace("-", "_")):
+            if name:
+                candidates.extend([
+                    f"portraits/{name}.png", f"portraits/{name}.jpg", f"portraits/{name}.webp",
+                    f"portraits/player/fullbody/{name}.png",
+                    f"Reputation-Matrix2/portraits/{name}.png", f"Reputation-Matrix2/portraits/{name}.jpg",
+                ])
+
+        for c in candidates:
+            if not c or not isinstance(c, str):
+                continue
+            c = c.replace("\\", "/").lstrip("/")
+            for prefix in (ROOT, self.bfp.RM, os.path.join(self.bfp.RM, "portraits")):
+                p = os.path.realpath(os.path.join(prefix, *c.split("/"))) if not os.path.isabs(c) else c
+                if os.path.isfile(p):
+                    return p
+        return None
+
+    def find_existing_fullbody(self, entry, art=None):
+        """Check if an established transparent full-body plate exists in portraits/player/fullbody."""
+        eid = entry.get("id") or ""
+        site_id = (art.get("id") if art else entry.get("site")) or ""
+        names = [eid, eid.replace("-", "_")]
+        if site_id:
+            names.extend([site_id, site_id.replace("-", "_")])
+        if art and art.get("name"):
+            names.append(slugify(art["name"]))
+        fb_dir = os.path.join(self.bfp.RM, "portraits", "player", "fullbody")
+        for name in names:
+            if not name:
+                continue
+            p = os.path.join(fb_dir, f"{name}.png")
+            if os.path.isfile(p):
+                return p
+        if art and art.get("fullBody"):
+            p = os.path.join(self.bfp.RM, *art["fullBody"].replace("\\", "/").split("/"))
+            if os.path.isfile(p):
+                return p
+        return None
+
+    def use_fullbody(self, packet, entry_id=None, ids=None):
+        """Adopt existing full-body sprite plates from portraits/player/fullbody into
+        the roster's portraits folder, updating the plate files and building Foundry packet."""
+        roster = self.bfp.find_roster(packet)
+        target_ids = set()
+        if entry_id:
+            target_ids.add(entry_id)
+        if ids:
+            target_ids.update(ids)
+        entries = roster.get("entries") or []
+        articles = read_json(os.path.join(self.bfp.RM, "data", "characters.json"), []) or []
+        articles_by_id = {a.get("id"): a for a in articles if isinstance(a, dict) and a.get("id")}
+        adopted = []
+        for e in entries:
+            if target_ids and e["id"] not in target_ids:
+                continue
+            art = articles_by_id.get(e.get("site")) or articles_by_id.get(e["id"]) or articles_by_id.get(e["id"].replace("-", "_"))
+            if not art:
+                slug_name = slugify(e.get("name") or "")
+                for a in articles:
+                    if isinstance(a, dict) and slugify(a.get("name") or "") == slug_name:
+                        art = a
+                        break
+            fb = self.find_existing_fullbody(e, art)
+            if fb and os.path.isfile(fb):
+                dst = self.bfp.plate_file(roster, e)
+                os.makedirs(os.path.dirname(dst), exist_ok=True)
+                shutil.copyfile(fb, dst)
+                adopted.append({"id": e["id"], "plate": rel(dst), "source": rel(fb)})
+        if adopted:
+            self.build(roster)
+        return {"packet": packet, "adopted": adopted, "count": len(adopted)}
+
+    def upload_base(self, packet, entry_id, data):
+        """Save an uploaded image as the character's base reference image."""
+        if not data:
+            raise RuntimeError("no image data received")
+        roster = self.bfp.find_roster(packet)
+        target = next((e for e in roster.get("entries", []) if e["id"] == entry_id), None)
+        if not target:
+            raise KeyError(f"entry {entry_id!r} not found in {packet}")
+        refs_dir = os.path.join(self.bfp.RM, "npc-forge", packet, "refs")
+        os.makedirs(refs_dir, exist_ok=True)
+        ext = ".png"
+        if data.startswith(b"\xff\xd8"):
+            ext = ".jpg"
+        elif data.startswith(b"RIFF") and b"WEBP" in data[:16]:
+            ext = ".webp"
+        dest = os.path.join(refs_dir, f"{entry_id}-base{ext}")
+        with open(dest, "wb") as fh:
+            fh.write(data)
+        rel_path = rel(dest)
+        target["base_image"] = rel_path
+        target.pop("no_base_image", None)
+        r_path = os.path.join(self.bfp.ROSTERS, packet + ".json")
+        write_json(r_path, roster)
+        return {"base_image": rel_path, "packet": packet, "id": entry_id}
+
+    def clear_base(self, packet, entry_id):
+        """Clear base reference image so the character renders via text-to-image only."""
+        roster = self.bfp.find_roster(packet)
+        target = next((e for e in roster.get("entries", []) if e["id"] == entry_id), None)
+        if not target:
+            raise KeyError(f"entry {entry_id!r} not found in {packet}")
+        target["base_image"] = "none"
+        target["no_base_image"] = True
+        r_path = os.path.join(self.bfp.ROSTERS, packet + ".json")
+        write_json(r_path, roster)
+        return {"base_image": None, "packet": packet, "id": entry_id}
+
+    def reset_base(self, packet, entry_id):
+        """Reset base reference image to the character's original source/site image."""
+        roster = self.bfp.find_roster(packet)
+        target = next((e for e in roster.get("entries", []) if e["id"] == entry_id), None)
+        if not target:
+            raise KeyError(f"entry {entry_id!r} not found in {packet}")
+        target.pop("base_image", None)
+        target.pop("no_base_image", None)
+        r_path = os.path.join(self.bfp.ROSTERS, packet + ".json")
+        write_json(r_path, roster)
+        base_src = self.resolve_base_image_path(roster, target)
+        return {"base_image": rel(base_src) if base_src else None, "packet": packet, "id": entry_id}
+
     # ------------------------------------------------------------ rosters --
     def rosters(self):
         out = []
@@ -205,6 +370,8 @@ class Forge:
             if not art:
                 art = articles_by_id.get(e["id"])
             if not art:
+                art = articles_by_id.get(e["id"].replace("-", "_"))
+            if not art:
                 slug_name = slugify(e.get("name") or "")
                 for a in articles:
                     if isinstance(a, dict) and slugify(a.get("name") or "") == slug_name:
@@ -213,6 +380,13 @@ class Forge:
             if art and not site_id:
                 site_id = art.get("id")
             site_img = self._foundry_image(art.get("image") or art.get("fullBody")) if art else None
+
+            # Resolve base image and existing fullbody plate
+            base_src = self.resolve_base_image_path(r, e)
+            base_img_rel = rel(base_src) if base_src else None
+            existing_fb = self.find_existing_fullbody(e, art)
+            existing_fb_rel = rel(existing_fb) if existing_fb else None
+
             framing = e.get("framing") or r.get("framing") or "fullbody"
             framing_preset = "fullbody" if "fullbody" in str(framing).lower() or framing == self.bfp.FRAMINGS.get("fullbody") else (
                 "bust" if "bust" in str(framing).lower() or framing == self.bfp.FRAMINGS.get("bust") else (
@@ -223,24 +397,33 @@ class Forge:
                 "id": e["id"], "name": e["name"], "folder": e.get("folder"), "tier": e.get("tier"), "role": e.get("role"),
                 "cr": e.get("cr"), "type": e.get("type"), "size": e.get("size"), "seed": e.get("seed"), "look": e.get("look") or "",
                 "framing": framing, "framing_preset": framing_preset, "site": site_id,
-                "prompt": self.bfp.prompt_for(r, e), "token_size": e.get("token_size") or 1,
+                "prompt": self.bfp.prompt_for(r, e, with_reference=bool(base_img_rel)),
+                "prompt_t2i": self.bfp.prompt_for(r, e, with_reference=False),
+                "token_size": e.get("token_size") or 1,
                 "render": rel(render) if os.path.exists(render) else None,
                 "plate": rel(plate) if os.path.exists(plate) else None,
                 "source_img": source_img, "source_has_img": bool(e.get("source_has_img") or site_img),
                 "site_img": site_img,
+                "base_img": base_img_rel, "has_base_img": bool(base_img_rel),
+                "base_image_name": os.path.basename(base_src) if base_src else None,
+                "existing_fullbody": existing_fb_rel,
                 "replaced": bool(e.get("replaced")), "replaced_at": e.get("replaced_at"),
                 "actor": os.path.exists(os.path.join(actors_dir, f"{prefix}{e['id']}.json")) or source_exists,
             })
+        style_preset = r.get("style_preset") or self.bfp.detect_style_preset(r.get("style")) or self.bfp.style_preset_for(r.get("group") or r.get("faction") or "") or "custom"
         return {"packet": r["packet"], "name": r.get("name"), "title": r.get("title"), "faction": r.get("faction"), "group": r.get("group"),
                 "foundry_source": r.get("foundry_source"),
                 "color": r.get("color"), "subfolders": r.get("subfolders") or {}, "render_size": r.get("render_size") or [1408, 768],
-                "plate_size": r.get("plate_size") or 512, "style": r.get("style"), "framing": r.get("framing"), "negative": r.get("negative"),
+                "plate_size": r.get("plate_size") or 512, "style": r.get("style"), "style_preset": style_preset,
+                "style_presets": self.bfp.STYLE_PRESETS,
+                "framing": r.get("framing"), "negative": r.get("negative"),
                 "path": rel(os.path.join(self.bfp.ROSTERS, r["packet"] + ".json")),
                 "renders_dir": rel(self.bfp.packet_paths(r)[2]), "portraits_dir": rel(self.bfp.packet_paths(r)[1]), "actors_dir": rel(actors_dir),
                 "entries": entries,
                 "counts": {"entries": len(entries), "rendered": sum(1 for e in entries if e["render"]),
                            "plates": sum(1 for e in entries if e["plate"]), "actors": sum(1 for e in entries if e["actor"]),
-                           "replaced": sum(1 for e in entries if e["replaced"])}}
+                           "replaced": sum(1 for e in entries if e["replaced"]),
+                           "with_base": sum(1 for e in entries if e["has_base_img"])}}
 
     def factions(self):
         scheme = read_json(FOLDER_SCHEME, {}) or {}
@@ -351,6 +534,8 @@ class Forge:
         roster_path = os.path.join(self.bfp.ROSTERS, packet + ".json")
         if os.path.exists(roster_path):
             raise RuntimeError(f"data/forge/{packet}.json exists — choose another packet id")
+        style_key = self.bfp.style_preset_for(group)
+        default_style = self.bfp.STYLE_PRESETS.get(style_key, self.bfp.STYLE_PRESETS["gritty"])
 
         articles = read_json(os.path.join(self.bfp.RM, "data", "characters.json"), []) or []
         articles_by_id = {a.get("id"): a for a in articles if isinstance(a, dict) and a.get("id")}
@@ -408,6 +593,7 @@ class Forge:
                 look = f"{name}, a {subtype or actor_type or 'fantasy'} creature in {group}."
             width = (doc.get("prototypeToken") or {}).get("width") or 1
             height = (doc.get("prototypeToken") or {}).get("height") or 1
+            source_img = self._foundry_image(doc.get("img"))
             entry = {
                 "id": eid, "name": name, "folder": folder, "tier": sheet_flags.get("role") or "Foundry NPC",
                 "role": sheet_flags.get("role") or "Existing Foundry NPC", "cr": details.get("cr") or 0,
@@ -415,7 +601,8 @@ class Forge:
                 "look": look, "seed": 600000 + index,
                 "source_actor": row["relative_path"], "source_actor_id": foundry_id,
                 "source_folder_path": list(row["folder_path"]),
-                "source_img": self._foundry_image(doc.get("img")),
+                "source_img": source_img,
+                "base_image": source_img,
                 "source_has_img": bool(doc.get("img") and doc.get("img") != self.bfp.PENDING_IMG),
             }
             if site_id:
@@ -430,7 +617,8 @@ class Forge:
             "renders": f"npc-forge/{packet}/renders",
             "source": f"Foundry world mirror: actors/worlds/{world}/{group}",
             "foundry_source": {"world": world, "group": group},
-            "style": "Clean cel-shaded cartoon character art in the style of Mario & Luigi RPG concept art, bold dark outlines, flat colours, simple shading.",
+            "style_preset": style_key,
+            "style": default_style,
             "framing": self.bfp.FRAMINGS["fullbody"],
             "negative": "photorealistic, 3d render, blurry, cropped, cut off, multiple characters, text, watermark, signature, border, frame, ground shadow, floor, background scenery, gradient background",
             "background": "#FF00FF", "render_size": [1408, 768], "plate_size": 512,
@@ -605,12 +793,15 @@ class Forge:
             look = f"A member of {name}: {summary[:160]}".strip() if summary else f"A member of {name}, in the faction's colours and gear."
             entries.append(self._tier_entry(eid, f"{name} draft {i}", folder, tier, look, 500000 + i,
                                             faction=faction, roster_name=name, framing=framing))
+        style_preset = self.bfp.style_preset_for(group or faction or name)
+        default_style = self.bfp.STYLE_PRESETS.get(style_preset, self.bfp.STYLE_PRESETS["gritty"])
         roster = {
             "format": self.bfp.FORMAT, "packet": packet, "name": name, "title": title or f"{name} — drafted by the NPC Forge",
             "faction": faction, "group": group, "color": color, "disposition": -1, "file_prefix": f"fvtt-Actor-{packet}-",
             "portraits": f"portraits/{packet}", "renders": f"npc-forge/{packet}/renders",
             "source": f"data/factions.json → {faction}" if faction else "drafted by hand",
-            "style": style or "Clean cel-shaded cartoon character art in the style of Mario & Luigi RPG concept art, bold dark outlines, flat colours, simple shading.",
+            "style_preset": style_preset,
+            "style": style or default_style,
             "framing": "Full body, whole figure visible, three-quarter view, centred, isolated on a plain flat solid magenta background (#FF00FF), no floor, no ground shadow, no text, no border.",
             "negative": "photorealistic, 3d render, blurry, cropped, cut off, multiple characters, text, watermark, signature, border, frame, ground shadow, floor, background scenery, gradient background",
             "background": "#FF00FF", "render_size": [1408, 768], "plate_size": 512,
@@ -652,6 +843,16 @@ class Forge:
                         continue
                     if k == "folder" and v not in (r.get("subfolders") or {}):
                         raise RuntimeError(f"folder {v!r} is not one of the roster's sub-folders")
+                    if k == "framing":
+                        v = self.bfp.FRAMINGS.get(v, v)
+                    if k == "base_image" and v in ("none", "None", ""):
+                        e["base_image"] = "none"
+                        e["no_base_image"] = True
+                        continue
+                    if k == "base_image" and v == "reset":
+                        e.pop("base_image", None)
+                        e.pop("no_base_image", None)
+                        continue
                     e[k] = v
                 write_json(path, r)
                 return self.roster_view(r)
@@ -659,7 +860,7 @@ class Forge:
 
     def save_roster_fields(self, packet, fields):
         r = self.bfp.find_roster(packet)
-        for k in ("style", "framing", "negative", "render_size", "plate_size", "name", "title", "color"):
+        for k in ("style", "style_preset", "framing", "negative", "render_size", "plate_size", "name", "title", "color"):
             if k in fields:
                 r[k] = fields[k]
         write_json(os.path.join(self.bfp.ROSTERS, packet + ".json"), r)
@@ -695,16 +896,35 @@ class Forge:
         rdir = self.bfp.packet_paths(roster)[2]
         os.makedirs(rdir, exist_ok=True)
         w, h = roster.get("render_size") or [1408, 768]
-        wf = self.t2i_workflow(w, h, steps=steps, cfg=cfg, resolution=resolution)
-        prompt = self.bfp.prompt_for(roster, entry)
+        base_src = self.resolve_base_image_path(roster, entry)
         negative = entry.get("negative") or roster.get("negative") or self.mtp.NEGATIVE
         seed = int(seed if seed is not None else (entry.get("seed") or 1))
         dst = self.bfp.render_file(roster, entry)
+
+        if base_src and os.path.isfile(base_src):
+            self._log(job, f"{entry['id']}: using base reference image {rel(base_src)}")
+            ref_png = os.path.join(rdir, f"{entry['id']}.ref.png")
+            try:
+                self.mtp.prep_reference(base_src, ref_png, "magenta", full_body=False, size=(w, h), plan="biped")
+            except Exception as exc:
+                self._log(job, f"{entry['id']}: prep_reference fallback ({exc})")
+                shutil.copyfile(base_src, ref_png)
+            upload_name = f"npc-forge-{roster['packet']}-{entry['id']}.png"
+            image_name = self.comfy.upload(ref_png, upload_name)
+            wf = self.ref_workflow(w, h, steps=steps, cfg=cfg, resolution=resolution)
+            prompt = self.bfp.prompt_for(roster, entry, with_reference=True)
+        else:
+            self._log(job, f"{entry['id']}: no base image — generating text-to-image")
+            wf = self.t2i_workflow(w, h, steps=steps, cfg=cfg, resolution=resolution)
+            prompt = self.bfp.prompt_for(roster, entry, with_reference=False)
+            image_name = ""
+
         for attempt in range(retries + 1):
             if self.stop_flag:
                 return None
-            filled = self.mtp.workflow_fill(wf, prompt, "", f"npc-forge/{roster['packet']}/{entry['id']}", seed + attempt, negative=negative)
-            self._log(job, f"{entry['id']}: rendering seed {seed + attempt} ({w}x{h})")
+            filled = self.mtp.workflow_fill(wf, prompt, image_name, f"npc-forge/{roster['packet']}/{entry['id']}", seed + attempt, negative=negative)
+            ref_tag = f" with ref {image_name}" if image_name else ""
+            self._log(job, f"{entry['id']}: rendering seed {seed + attempt} ({w}x{h}){ref_tag}")
             try_path = dst if attempt == 0 else dst[:-4] + f".try{attempt}.png"
             self.comfy.run(filled, try_path, timeout=900)
             why = self.qc(try_path)
@@ -1142,11 +1362,22 @@ class Handler(BaseHTTPRequestHandler):
             if u.path == "/api/prompts":
                 r = f.bfp.find_roster(q.get("packet", ""))
                 ids = (q.get("ids") or "").split(",") if q.get("ids") else None
-                return self._send(200, {"prompts": [{"id": e["id"], "name": e["name"], "prompt": f.bfp.prompt_for(r, e),
-                                                     "negative": e.get("negative") or r.get("negative") or "",
-                                                     "framing": e.get("framing") or r.get("framing") or "fullbody",
-                                                     "seed": e.get("seed"), "render": rel(f.bfp.render_file(r, e))}
-                                                    for e in r["entries"] if not ids or e["id"] in ids]})
+                out_prompts = []
+                for e in r["entries"]:
+                    if ids and e["id"] not in ids:
+                        continue
+                    base_src = f.resolve_base_image_path(r, e)
+                    out_prompts.append({
+                        "id": e["id"], "name": e["name"],
+                        "prompt": f.bfp.prompt_for(r, e, with_reference=bool(base_src)),
+                        "prompt_t2i": f.bfp.prompt_for(r, e, with_reference=False),
+                        "negative": e.get("negative") or r.get("negative") or "",
+                        "framing": e.get("framing") or r.get("framing") or "fullbody",
+                        "seed": e.get("seed"), "render": rel(f.bfp.render_file(r, e)),
+                        "base_image": rel(base_src) if base_src else None,
+                        "has_base_image": bool(base_src),
+                    })
+                return self._send(200, {"prompts": out_prompts})
             return self._send(404, {"error": "no route " + u.path})
         except (KeyError, FileNotFoundError) as exc:
             return self._send(404, {"error": str(exc)})
@@ -1162,10 +1393,18 @@ class Handler(BaseHTTPRequestHandler):
         try:
             if path == "/api/upload-render":
                 return self._send(200, f.import_render(q["packet"], q["id"], raw, cut=q.get("cut", "1") != "0"))
+            if path == "/api/upload-base":
+                return self._send(200, f.upload_base(q["packet"], q["id"], raw))
             try:
                 body = json.loads(raw.decode("utf-8") or "{}")
             except ValueError:
                 return self._send(400, {"error": "bad JSON"})
+            if path == "/api/clear-base":
+                return self._send(200, f.clear_base(body["packet"], body["id"]))
+            if path == "/api/reset-base":
+                return self._send(200, f.reset_base(body["packet"], body["id"]))
+            if path == "/api/use-fullbody":
+                return self._send(200, f.use_fullbody(body["packet"], entry_id=body.get("id"), ids=body.get("ids")))
             if path == "/api/connect":
                 return self._send(200, f.connect(body.get("url") or None))
             if path == "/api/start-comfy":

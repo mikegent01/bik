@@ -208,17 +208,86 @@ def token_path(roster, entry):
     return PENDING_IMG
 
 
-def prompt_for(roster, entry):
+STYLE_PRESETS = {
+    "gritty": "Gritty dark fantasy illustration, heavy inked comic linework, cross-hatching, textured parchment paper, muted desaturated palette, semi-realistic proportions, detailed character concept art.",
+    "painterly": "Moody painterly digital concept art, dark fantasy archive plate, loose detailed brushwork, atmospheric cinematic lighting, textured oil painting surface.",
+    "anime": "Clean anime cel shading, crisp linework, vibrant flat colours, modern anime concept art.",
+    "cartoon": "Clean cel-shaded cartoon character art in the style of Mario & Luigi RPG concept art, bold dark outlines, flat colours, simple shading.",
+}
+
+GROUP_STYLES = {
+    "trinity academy": "gritty",
+    "millennium science school": "gritty",
+    "iron legion": "gritty",
+    "gamma division": "gritty",
+    "shadow estate & house corvinarus": "gritty",
+    "dark shores": "gritty",
+    "wario's enterprise & warioware": "gritty",
+    "disaster inc.": "gritty",
+    "mages' guild": "painterly",
+    "rakasha & the feywild": "painterly",
+    "overgrown manor": "painterly",
+    "koopa troop": "cartoon",
+    "peach loyalists": "cartoon",
+    "mushroom regency & kingdom": "cartoon",
+    "fawful's furious freaks": "cartoon",
+    "fawthful's forces": "cartoon",
+    "nintendo mania studio": "cartoon",
+    "liberated toads": "cartoon",
+}
+
+
+def style_preset_for(group_or_faction):
+    if not group_or_faction:
+        return "gritty"
+    k = str(group_or_faction).strip().lower()
+    if k in GROUP_STYLES:
+        return GROUP_STYLES[k]
+    for name, preset in GROUP_STYLES.items():
+        if name in k or k in name:
+            return preset
+    return "gritty"
+
+
+def detect_style_preset(style_text):
+    if not style_text:
+        return None
+    st = style_text.lower()
+    if "gritty" in st or "inked comic" in st or "cross-hatching" in st or "dark fantasy" in st:
+        return "gritty"
+    if "painterly" in st or "brushwork" in st:
+        return "painterly"
+    if "anime" in st and "mario" not in st:
+        return "anime"
+    if "mario" in st or "cartoon" in st or "toad" in st:
+        return "cartoon"
+    return None
+
+
+REFERENCE_INSTRUCTION = (
+    "Show the character from <image1> whole, facing the viewer, nothing cropped. "
+    "Keep exactly the same face, facial features, hair, eyes, colours, wardrobe and art style as <image1>. "
+    "<image1> is the reference portrait: draw the complete full-body figure from head to toe, legs and feet clearly visible to match."
+)
+
+
+def prompt_for(roster, entry, with_reference=False):
     """The render recipe: house style + the entry's look + the framing that
-    keys cleanly. One sentence each so the Forge and the user's own Comfy
-    workflow produce the same picture from the same seed. An entry may name a
-    FRAMINGS preset (`fullbody`, `bust`, `head`) or carry its own framing
-    sentence; `prompt` overrides everything."""
+    keys cleanly. When `with_reference=True`, includes reference instruction
+    referencing <image1>."""
     if entry.get("prompt"):
         return entry["prompt"]
     framing = entry.get("framing") or roster.get("framing") or ""
     framing = FRAMINGS.get(framing, framing)
-    return " ".join(p.strip() for p in (roster.get("style"), entry.get("look"), framing) if p and p.strip())
+    style = entry.get("style") or roster.get("style") or STYLE_PRESETS["gritty"]
+    parts = [style]
+    if with_reference:
+        parts.append(REFERENCE_INSTRUCTION)
+    if entry.get("look"):
+        parts.append(entry["look"])
+    if framing:
+        parts.append(framing)
+    return " ".join(p.strip() for p in parts if p and p.strip())
 
 
 # Framing presets an entry (or the Forge page's "make full body / bust"

@@ -10,32 +10,119 @@
     "description": "The party's own character sheets (the suite keeps them at the ledger level).",
     "rosterNote": "WHO IS A PLAYER CHARACTER. The roster — not the dnd5e sheet type — decides: the GM builds plenty of NPCs on character sheets (Mario, Kirby, Sans) and they are not the party. `actor` is the live Foundry id in the world mirror, `character` the website article id (data/characters.json), `ledger` the XP ledger row (XP_SUMMARY in index.html; null = off-ledger, say why in `offLedger`). Every tool reads this list: build-character-sheets (party = roster + Disaster Inc. affiliation; the roster's live file is the article's primary sheet), organize-actors (the pc tag and the Players folder), promote-player-sheets (ledger XP), foundry-bridge check / check-packet (anything else in Players is an error). `companions` are the NPC-typed actors allowed in Players (a mount, a construct). `retired` keeps the rows of former player characters for the record — no tool reads them as players (they file by faction like anyone else). `permissions` says who may open which sheet (its own note). `world` is the world this party is played in (actors/worlds/<world>, the export's `exportedFrom`): tools/foundry-bridge.py combine carries this block — the roster, the companions and the permissions — in that world's packet (and in a combine that names no world), never in an era packet's committed import.json, so a roster or permission edit does not churn five historical packets; the bridge's LIVE_WORLD is the fallback when `world` is absent. The module reads the block from whichever packet Sync lands on (the live world's import.json, or the world manifest it merges on GitHub — split writes it there too).",
     "roster": [
-      {"actor": "pi25oGpjW0lCFtuF", "name": "Archie Miser", "character": "archie_miser", "ledger": "archie_miser"},
-      {"actor": "9u5pnP0zaqw8AQQv", "name": "Bowser", "character": "bowser", "ledger": "bowser"},
-      {"actor": "VudZ3W313Y4FILs0", "name": "Eager", "character": "eager", "ledger": "eager"},
-      {"actor": "IlzuThuR8upTtqtF", "name": "Feyward Dan", "character": "dan_the_toad", "ledger": "dan_the_toad"},
-      {"actor": "Qir5aDX8bkL5lt1c", "name": "Hjumpik Deldkur", "character": "hjumpik", "ledger": "hjumpik"},
-      {"actor": "le5OCgY5x5nnKvkt", "name": "Markop Judi", "character": "markop", "ledger": "markop"},
-      {"actor": "wBy4aV2AGHNqT4l1", "name": "Remi", "character": "remi_akamatsu_full_backstory", "ledger": "remi_akamatsu_full_backstory"}
+      {
+        "actor": "pi25oGpjW0lCFtuF",
+        "name": "Archie Miser",
+        "character": "archie_miser",
+        "ledger": "archie_miser"
+      },
+      {
+        "actor": "9u5pnP0zaqw8AQQv",
+        "name": "Bowser",
+        "character": "bowser",
+        "ledger": "bowser"
+      },
+      {
+        "actor": "VudZ3W313Y4FILs0",
+        "name": "Eager",
+        "character": "eager",
+        "ledger": "eager"
+      },
+      {
+        "actor": "IlzuThuR8upTtqtF",
+        "name": "Feyward Dan",
+        "character": "dan_the_toad",
+        "ledger": "dan_the_toad"
+      },
+      {
+        "actor": "Qir5aDX8bkL5lt1c",
+        "name": "Hjumpik Deldkur",
+        "character": "hjumpik",
+        "ledger": "hjumpik"
+      },
+      {
+        "actor": "le5OCgY5x5nnKvkt",
+        "name": "Markop Judi",
+        "character": "markop",
+        "ledger": "markop"
+      },
+      {
+        "actor": "wBy4aV2AGHNqT4l1",
+        "name": "Remi",
+        "character": "remi_akamatsu_full_backstory",
+        "ledger": "remi_akamatsu_full_backstory"
+      }
     ],
     "retired": [
-      {"actor": "mj7kizwZ5R7FtGg6", "name": "Green T", "character": "green_t", "note": "2026-10-06: not played at the table; filed by faction like any other actor (the GM runs him as Tea Merchant 6 / Bard 6 at 100000 XP)"},
-      {"actor": "2TkQ7lDU0DJBrx9J", "name": "Salam", "character": "salam", "note": "2026-10-06: not played at the table; filed by faction"},
-      {"actor": "mEqlzuZoafEdiApl", "name": "Toad Lee", "character": "toad_lee", "note": "2026-10-06: not played at the table; filed by faction"},
-      {"actor": "BmWNDwbxPQHU3Bbn", "name": "Waluigi", "character": "waluigi", "note": "2026-10-06: not played at the table; filed by faction"},
-      {"actor": "dEhGeFofEfnIG24J", "name": "Wario", "character": "wario", "note": "2026-10-06: not played at the table; filed by faction (the Motorbike goes with him)"}
+      {
+        "actor": "mj7kizwZ5R7FtGg6",
+        "name": "Green T",
+        "character": "green_t",
+        "note": "2026-10-06: not played at the table; filed by faction like any other actor (the GM runs him as Tea Merchant 6 / Bard 6 at 100000 XP)"
+      },
+      {
+        "actor": "2TkQ7lDU0DJBrx9J",
+        "name": "Salam",
+        "character": "salam",
+        "note": "2026-10-06: not played at the table; filed by faction"
+      },
+      {
+        "actor": "mEqlzuZoafEdiApl",
+        "name": "Toad Lee",
+        "character": "toad_lee",
+        "note": "2026-10-06: not played at the table; filed by faction"
+      },
+      {
+        "actor": "BmWNDwbxPQHU3Bbn",
+        "name": "Waluigi",
+        "character": "waluigi",
+        "note": "2026-10-06: not played at the table; filed by faction"
+      },
+      {
+        "actor": "dEhGeFofEfnIG24J",
+        "name": "Wario",
+        "character": "wario",
+        "note": "2026-10-06: not played at the table; filed by faction (the Motorbike goes with him)"
+      }
     ],
     "companions": [
-      {"actor": "Q8InPZPmhqhpOY7g", "name": "Steel Defender"}
+      {
+        "actor": "Q8InPZPmhqhpOY7g",
+        "name": "Steel Defender"
+      }
     ],
     "permissions": {
       "note": "WHO MAY OPEN WHICH SHEET. Keyed by Foundry USER NAME (matched case-insensitively at sync time — the module looks the names up in game.users and reports a name this world does not have); the values are roster / companion actor NAMES. owner = 3, observer = 2, limited = 1. Every roster and companion actor gets exactly these grants (default 0, a player grant not listed here is removed); actors outside Players are never touched, a player grant found on one is reported. tools/foundry-bridge.py combine carries the resolved block in the packet (payload.players), check validates it.",
       "default": 0,
       "users": {
-        "Hjumpik": {"owner": ["Bowser", "Hjumpik Deldkur"]},
-        "Keaneu": {"owner": ["Archie Miser", "Eager", "Feyward Dan"]},
-        "Martir": {"owner": ["Markop Judi"], "observer": ["Eager", "Feyward Dan"]},
-        "Oscar": {"owner": ["Remi", "Steel Defender"]}
+        "Hjumpik": {
+          "owner": [
+            "Bowser",
+            "Hjumpik Deldkur"
+          ]
+        },
+        "Keaneu": {
+          "owner": [
+            "Archie Miser",
+            "Eager",
+            "Feyward Dan"
+          ]
+        },
+        "Martir": {
+          "owner": [
+            "Markop Judi"
+          ],
+          "observer": [
+            "Eager",
+            "Feyward Dan"
+          ]
+        },
+        "Oscar": {
+          "owner": [
+            "Remi",
+            "Steel Defender"
+          ]
+        }
       }
     }
   },
@@ -176,23 +263,110 @@
       "folder": "Liberated Toads",
       "description": "The Pond Patrol docket's cohort rosters as statblocks (actors/liberated-toads): the six working cohorts toad by toad, the Barrel Survivors and the Unassigned as generic toads. One sub-folder per cohort; colours and purposes from data/liberatedToadsSystem.json.",
       "subfolders": {
-        "Pond Patrol": {"color": "#4a9c6d", "description": "Security, enforcement of Speaker L's decrees, protection of the Cohort — Captain Fernback's patrol."},
-        "The Chroniclers": {"color": "#c9a227", "description": "Record keeping, intelligence analysis, education, history preservation — Scribe Dewdrop's desks."},
-        "The Crafters": {"color": "#cd7f32", "description": "Equipment maintenance, construction, repairs, supply management — Forgemaster Ironspore's shops."},
-        "The Wardens": {"color": "#c94a4a", "description": "Combat operations, defense, external threats, prisoner management — Warden Thornshell's line."},
-        "The Menders": {"color": "#27ae60", "description": "Medical care, psychological support, recovery assistance — Healer Mistpetal's wards."},
-        "The Scouts": {"color": "#9b59b6", "description": "Reconnaissance, infiltration, information gathering, early warning — leaderless since the mole."},
-        "Barrel Survivors": {"color": "#8b7355", "description": "The original 150 trafficked toads — the heart of the movement, as generic statblocks."},
-        "The Unassigned": {"color": "#7f8c8d", "description": "New arrivals, recovering members, those between assignments — generic statblocks."}
+        "Pond Patrol": {
+          "color": "#4a9c6d",
+          "description": "Security, enforcement of Speaker L's decrees, protection of the Cohort — Captain Fernback's patrol."
+        },
+        "The Chroniclers": {
+          "color": "#c9a227",
+          "description": "Record keeping, intelligence analysis, education, history preservation — Scribe Dewdrop's desks."
+        },
+        "The Crafters": {
+          "color": "#cd7f32",
+          "description": "Equipment maintenance, construction, repairs, supply management — Forgemaster Ironspore's shops."
+        },
+        "The Wardens": {
+          "color": "#c94a4a",
+          "description": "Combat operations, defense, external threats, prisoner management — Warden Thornshell's line."
+        },
+        "The Menders": {
+          "color": "#27ae60",
+          "description": "Medical care, psychological support, recovery assistance — Healer Mistpetal's wards."
+        },
+        "The Scouts": {
+          "color": "#9b59b6",
+          "description": "Reconnaissance, infiltration, information gathering, early warning — leaderless since the mole."
+        },
+        "Barrel Survivors": {
+          "color": "#8b7355",
+          "description": "The original 150 trafficked toads — the heart of the movement, as generic statblocks."
+        },
+        "The Unassigned": {
+          "color": "#7f8c8d",
+          "description": "New arrivals, recovering members, those between assignments — generic statblocks."
+        }
       }
     },
     "fawfuls-forces": {
       "folder": "Fawful's Furious Freaks",
       "description": "Fawful's Forces as a fighting packet (actors/fawfuls-forces, built by tools/build-forge-packets.py from the NPC Forge roster data/forge/fawfuls-forces.json): the constructs of the Fury Meter, the Beanish garrison and its vat-work, and the two lieutenants. Filed under the GM's Fawful group; one sub-folder per tier.",
       "subfolders": {
-        "Machines of Fury": {"color": "#7CFC00", "description": "Fawful's constructs by Fury Meter tier — the wind-up Chortle-Bots, the intake drones and sprayers, the riveted Fury-Bots and the cannon-crawlers that follow when the meter climbs."},
-        "The Bean Garrison": {"color": "#9ACD32", "description": "The Beanish troops and vat-work of the occupation: garrison troopers, vial-flingers, the Furybean brutes and the helm-bound Toads they drag along."},
-        "Lieutenants of Fury": {"color": "#228B22", "description": "The two officers who keep the Fury Meter fed — Maestro Mustardo of the cannon crews and Countess Chortlebrass, headmistress of helms."}
+        "Machines of Fury": {
+          "color": "#7CFC00",
+          "description": "Fawful's constructs by Fury Meter tier — the wind-up Chortle-Bots, the intake drones and sprayers, the riveted Fury-Bots and the cannon-crawlers that follow when the meter climbs."
+        },
+        "The Bean Garrison": {
+          "color": "#9ACD32",
+          "description": "The Beanish troops and vat-work of the occupation: garrison troopers, vial-flingers, the Furybean brutes and the helm-bound Toads they drag along."
+        },
+        "Lieutenants of Fury": {
+          "color": "#228B22",
+          "description": "The two officers who keep the Fury Meter fed — Maestro Mustardo of the cannon crews and Countess Chortlebrass, headmistress of helms."
+        }
+      }
+    },
+    "iron-legion": {
+      "folder": "Iron Legion",
+      "description": "The Iron Cordon Brigade (actors/iron-legion, built by tools/build-forge-packets.py from data/forge/iron-legion.json): border patrol units, surveillance machines, and magitek combat automata deployed along contested Midlands war borders.",
+      "subfolders": {
+        "Cordon Command": {
+          "color": "#6C757D",
+          "description": "Command officers, protocol commissars, and reconnaissance lieutenants directing cordon operations."
+        },
+        "Frontline Patrol": {
+          "color": "#ADB5BD",
+          "description": "Heavy shock legionnaires, trench sappers, and syringe combat chirurgeons enforcing the border cordon."
+        },
+        "Surveillance & Recon": {
+          "color": "#8A96A3",
+          "description": "Star-bit scanning drones, medical support skitter-bots, and clockwork tracking hounds monitoring anomalous border crossings."
+        },
+        "Magitek Automata": {
+          "color": "#495057",
+          "description": "Heavy pacification constructs, bipedal sentry striders, and tracked barricade deployers."
+        }
+      }
+    },
+    "regal-lion": {
+      "folder": "Iron Legion",
+      "description": "The Regal Lion — Raventree Manor Occupation Force (actors/regal-lion, built by tools/build-forge-packets.py from data/forge/regal-lion.json): Byscilla Danos's field command, knightly sentries, manor gatekeepers, and heavy war beasts holding the fractured estate.",
+      "subfolders": {
+        "Manor Command": {
+          "color": "#B8860B",
+          "description": "Byscilla Danos and operational officers directing the containment and survey of Raventree Manor."
+        },
+        "Regal Lion Knights": {
+          "color": "#DAA520",
+          "description": "Sworn knights, halberdiers, and arbalests of the Regal Lion maintaining the estate perimeter."
+        },
+        "Manor Wardens": {
+          "color": "#8B7355",
+          "description": "Greenhouse sentries, gatekeepers, and goblin scouts watching the grounds and rust-monster nests."
+        },
+        "Heavy Beasts & Auxiliaries": {
+          "color": "#800000",
+          "description": "Armored pride-lions, gate-breaker ogres, and heavy iron colossi guarding the courtyard and gates."
+        }
+      }
+    },
+    "foundry-trinity-academy": {
+      "folder": "Trinity Academy",
+      "description": "Trinity Academy (actors/foundry-trinity-academy, built by tools/build-forge-packets.py from the NPC Forge roster data/forge/foundry-trinity-academy.json).",
+      "subfolders": {
+        "General": {
+          "color": "#F08080",
+          "description": "Existing Foundry folder under Trinity Academy."
+        }
       }
     },
     "iron-legion": {
