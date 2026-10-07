@@ -194,6 +194,28 @@
         "The Bean Garrison": {"color": "#9ACD32", "description": "The Beanish troops and vat-work of the occupation: garrison troopers, vial-flingers, the Furybean brutes and the helm-bound Toads they drag along."},
         "Lieutenants of Fury": {"color": "#228B22", "description": "The two officers who keep the Fury Meter fed — Maestro Mustardo of the cannon crews and Countess Chortlebrass, headmistress of helms."}
       }
+    },
+    "iron-legion": {
+      "folder": "Iron Legion",
+      "description": "The Iron Cordon Brigade (actors/iron-legion, built by tools/build-forge-packets.py from data/forge/iron-legion.json): border patrol units, surveillance machines, and magitek combat automata deployed along contested Midlands war borders.",
+      "subfolders": {
+        "Cordon Command": {
+          "color": "#6C757D",
+          "description": "Command officers, protocol commissars, and reconnaissance lieutenants directing cordon operations."
+        },
+        "Frontline Patrol": {
+          "color": "#ADB5BD",
+          "description": "Heavy shock legionnaires, trench sappers, and syringe combat chirurgeons enforcing the border cordon."
+        },
+        "Surveillance & Recon": {
+          "color": "#8A96A3",
+          "description": "Star-bit scanning drones, medical support skitter-bots, and clockwork tracking hounds monitoring anomalous border crossings."
+        },
+        "Magitek Automata": {
+          "color": "#495057",
+          "description": "Heavy pacification constructs, bipedal sentry striders, and tracked barricade deployers."
+        }
+      }
     }
   },
   "nameRules": {
