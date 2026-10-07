@@ -580,7 +580,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "portraits/player/fullbody/toad_freaza.png",
+      "src": "portraits/liberated-toads/roster/toad_19_freaza.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",

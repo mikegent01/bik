@@ -911,6 +911,30 @@ def roster_plate(path):
     return plate if os.path.exists(os.path.join(RM, plate)) else None
 
 
+_ROSTER_TWINS = None
+
+
+def roster_twins():
+    """toad_<name>.png -> portraits/liberated-toads/roster/toad_<nn>_<name>.png: the numbered
+    plate is the one full-body portrait a Liberated Toad has (the unnumbered second cut under
+    portraits/player/fullbody/ was deleted in the single-plate refactor)."""
+    global _ROSTER_TWINS
+    if _ROSTER_TWINS is None:
+        d = os.path.join(RM, ROSTER_PLATES)
+        _ROSTER_TWINS = {re.sub(r"^toad_\d+_", "toad_", f): ROSTER_PLATES + f
+                         for f in os.listdir(d) if f.startswith("toad_")} if os.path.isdir(d) else {}
+    return _ROSTER_TWINS
+
+
+def fullbody_twin(path):
+    """Where an old world export still points a toad at the deleted fullbody twin."""
+    path = (path or "").replace("\\", "/")
+    name = path.rsplit("/", 1)[-1]
+    if not path.startswith("portraits/player/fullbody/toad_") or not name.endswith(".png"):
+        return None
+    return roster_twins().get(name)
+
+
 def _combine_row(doc, rel_parts, path, prefix, ignore_dirs):
     """(folder path or None, name, id, doc, file) — the folder comes from the
     folderPath flag, else from the directory the file sits in."""
@@ -947,11 +971,11 @@ def _combine_payload(rows, scheme, world, omitted):
     unresolved = 0
     for fpath, name, aid, doc, path in rows:
         doc = copy.deepcopy(doc)
-        plate = roster_plate(doc.get("img"))
+        plate = roster_plate(doc.get("img")) or fullbody_twin(doc.get("img"))
         if plate:
             doc["img"] = plate          # a roster cell is the website's cream card, never actor art
         tok = (doc.get("prototypeToken") or {}).get("texture") or {}
-        plate = roster_plate(tok.get("src"))
+        plate = roster_plate(tok.get("src")) or fullbody_twin(tok.get("src"))
         if plate:
             tok["src"] = plate
         if fpath is None:

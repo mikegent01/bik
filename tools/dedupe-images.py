@@ -53,8 +53,8 @@ IMAGE_ROOTS = ("Reputation-Matrix2/portraits", "Reputation-Matrix2/assets", "Rep
 PROTECTED_DIRS = {
     "Reputation-Matrix2/assets/images/toads/roster": "liberated toads' roster art — never modified",
     # one plate per roster cell, cut and verified by tools/cut-roster-toads.py
-    # (its --check fails on a missing plate); four of them came out byte-identical
-    # to the full-body plate the same toad already had in portraits/player/fullbody/
+    # (its --check fails on a missing plate); since the single-plate refactor this
+    # numbered plate is the one full-body portrait a Liberated Toad has everywhere
     "Reputation-Matrix2/portraits/liberated-toads/roster":
         "a roster plate tools/cut-roster-toads.py cuts and verifies — one per cell, never deleted here",
 }
