@@ -13,6 +13,7 @@ Import dialog lists it.
 Reputation-Matrix2/data/forge/<packet>.json          the roster (source — write this)
 Reputation-Matrix2/npc-forge/<packet>/renders/<id>.png   raw renders (1408×768 on flat magenta)
 Reputation-Matrix2/npc-forge/<packet>/handoff.md + jobs.jsonl   the brief for whoever draws elsewhere
+Reputation-Matrix2/npc-forge/<packet>/review.json + replacements.json  human review gate and publish audit
 Reputation-Matrix2/portraits/<packet>/<id>.png       cut 512-px RGBA token plates
 Reputation-Matrix2/actors/<packet>/fvtt-Actor-*.json + import.json   the packet (generated — never hand-edit)
 Reputation-Matrix2/actors/folders.json  packets.<packet>   where Foundry files it (group + sub-folders)
@@ -29,20 +30,42 @@ machines, the Bean Garrison and two lieutenants, CR 1/2–7 — see
 | `python3 tools/npc-forge.py` | the page at <http://127.0.0.1:8768/> (the control panel's **NPC Forge** button does this) |
 | `python3 tools/npc-forge.py --list` | rosters and their art state |
 | `python3 tools/npc-forge.py draft <packet> --faction <id> --name "…" [--plan 0.5,1,2,5]` | a new roster for a faction with templated statblocks per tier (they import today) and placeholder looks |
-| `python3 tools/npc-forge.py run <packet> [--all] [--random-seeds] [--steps render,cut,build]` | the loop on Comfy: render every entry without art, cut, rebuild |
+| `python3 tools/npc-forge.py run <packet> [--all] [--batch 8] [--random-seeds] [--steps render,cut,build]` | the loop on Comfy: render a bounded batch, cut, rebuild |
 | `python3 tools/npc-forge.py cut <packet>` | cut whatever renders are in the folder and rebuild (no Comfy needed) |
+| `python3 tools/npc-forge.py ingest <packet> --dir <folder> [--watch]` | recursively collect matching AI output from a folder, then cut it — no drag-and-drop |
+| `python3 tools/npc-forge.py review <packet> --ids id --status accepted` | record the human review gate after background removal |
+| `python3 tools/npc-forge.py replace <packet> --ids id --website fullBody [--batch 8]` | publish accepted full-body plates to `characters.json` and matching Foundry actor copies |
 | `python3 tools/npc-forge.py handoff <packet>` | write `handoff.md` + `jobs.jsonl` for the entries without a render |
 | `python3 tools/build-forge-packets.py [<packet>] [--check] [--list]` | the generator alone (what `check-all` runs) |
 | `python3 tools/build-forge-packets.py plates <packet> [--force]` | the cut alone |
 | `python3 tools/build-forge-packets.py prompts <packet>` | the render jobs as JSON lines |
 
-**On the page:** pick a roster (or *New roster from a faction…*), tick the
-steps, press **Run loop**. Each card shows the plate (or the render, or
-"no art yet"), the look (editable — *Save look* writes it to the roster),
-the seed, and per-entry buttons: *Render this one*, *Cut*, *Copy prompt*,
-and a drop target — drag a finished PNG onto a card and it becomes that
-entry's render and is cut on the spot. *Build actors* rebuilds the packet;
-*Hand-off brief* writes the brief and opens it.
+**On the page:** pick a roster (or *New roster from a faction…*), choose a
+batch size, tick the steps, and press **Run loop**. Each card shows the plate
+(or render, or "no art yet"), the look (editable — *Save look* writes it to
+the roster), the seed, and the review state. The deliberate image pipeline is:
+
+1. **Generate or collect** a full-body candidate. Comfy output can be collected
+   recursively from the configured folder (or with `ingest --watch`); the
+   hand-off `jobs.jsonl` still carries prompt, negative, seed and canvas for
+   another image model.
+2. **Remove background** with *Remove background*. This creates a transparent
+   token plate but does not publish it.
+3. **Review manually** in the card viewer. *Accept review* is a separate gate;
+   a new render returns the entry to `cut`.
+4. **Replace website + Foundry** only after acceptance. The safe default updates
+   the article's `fullBody`; the selector can also update `image`, both fields,
+   or Foundry only. `replacements.json` records the previous paths and every
+   actor copy changed.
+
+*Regenerate* makes a new candidate, *Copy prompt* exposes the exact recipe,
+and *Publish accepted batch* applies the selected batch size. *Build actors*
+rebuilds a roster packet without publishing website art; *Hand-off brief*
+writes the brief and opens it. The **Website + Foundry asset inventory** reads
+all `characters.json` articles plus committed/root/live-world actor assets, so
+missing full-body sprites are visible even when no Forge roster exists yet.
+Select a Foundry group there to make an art roster from committed actors when a
+live-world export is not available.
 
 **Comfy:** the Forge talks to ComfyUI at `COMFY_URL`, else the first of
 127.0.0.1 ports 8188, 8000, 8189, 8190 that answers (Comfy Desktop's default
@@ -125,7 +148,12 @@ be pulled alone, and bump the module.
   with real alpha is accepted as is.
 - **The roster is the source; the actors are generated.** Edit
   `data/forge/<packet>.json` (or the looks on the page), never the actor
-  files; `--check` catches a stale packet.
+  files; `--check` catches a stale packet. The explicit **Replace** action is
+  the exception: it is an auditable asset publication and records old paths in
+  `npc-forge/<packet>/replacements.json`.
+- **A cut is not an acceptance.** Background removal is technical; a human
+  must mark the plate `accepted` before website or Foundry references change.
+  Regenerating the same entry invalidates the old review.
 - **Drafts are playable.** `draft` writes tier templates (CR 1/2 … 7: AC, HP,
   one attack, multiattack from CR 2) so a new faction can be on the table
   the same evening and get its real statblocks written afterwards.

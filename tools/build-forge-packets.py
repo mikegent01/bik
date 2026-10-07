@@ -163,25 +163,29 @@ def render_file(roster, entry):
 
 
 def source_actor_path(entry):
-    """Resolve a Foundry-imported roster entry to its source actor in the
-    world mirror. Imported rosters may point only inside actors/worlds — never
-    to an arbitrary file — and the path is relative to actors/ so the suite's
-    sandbox tests and a moved checkout behave the same way."""
+    """Resolve a Foundry-imported roster entry to a checked-in actor JSON.
+
+    Live-world mirrors are the normal source, but the Forge's asset review can
+    also import a committed packet/root actor.  Both are still confined to the
+    repository's ``actors/`` tree; an absolute path or a path such as
+    ``../../data`` is never accepted.
+    """
     source = entry.get("source_actor")
     if not source:
         return None
     if not isinstance(source, str) or os.path.isabs(source):
-        raise ValueError("source_actor must be a relative path under actors/worlds")
+        raise ValueError("source_actor must be a relative path under actors")
     source = source.replace("\\", "/")
     actors = os.path.realpath(ACTORS_ROOT)
-    worlds = os.path.realpath(os.path.join(actors, "worlds"))
     path = os.path.realpath(os.path.join(actors, *source.split("/")))
     try:
-        inside_worlds = os.path.commonpath((worlds, path)) == worlds
+        inside_actors = os.path.commonpath((actors, path)) == actors
     except ValueError:
-        inside_worlds = False
-    if not inside_worlds:
-        raise ValueError("source_actor must point inside actors/worlds")
+        inside_actors = False
+    if not inside_actors:
+        raise ValueError("source_actor must point inside actors")
+    if os.path.basename(path) in {"folders.json", "import.json"} or not path.endswith(".json"):
+        raise ValueError("source_actor must be an actor JSON, not a manifest")
     if not os.path.isfile(path):
         raise FileNotFoundError(path)
     return path

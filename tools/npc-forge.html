@@ -39,6 +39,18 @@
   .badges { display:flex; gap:4px; flex-wrap:wrap; margin:4px 0; }
   .badge { font-size:11px; padding:1px 6px; border-radius:8px; border:1px solid var(--line); color:var(--dim); }
   .badge.on { border-color:var(--ok); color:var(--ok); }
+  .badge.review-cut { border-color:var(--warn); color:var(--warn); }
+  .badge.review-accepted, .badge.review-replaced { border-color:var(--ok); color:var(--ok); }
+  .inventory { max-height:260px; overflow:auto; border:1px solid var(--line); border-radius:8px; padding:7px; background:#111318; }
+  .inventory-row { display:grid; grid-template-columns:42px 1fr auto; gap:8px; padding:5px 2px; border-bottom:1px solid var(--line); font-size:12px; align-items:center; }
+  .inventory-row:last-child { border-bottom:0; }
+  .inventory-row img { width:40px; height:40px; object-fit:contain; border-radius:5px; background:#252a31; cursor:pointer; }
+  .inventory-row small { color:var(--dim); display:block; }
+  .review-tools { display:flex; gap:5px; flex-wrap:wrap; align-items:center; margin-top:5px; }
+  .review-tools select { font-size:12px; padding:3px 5px; }
+  .card .current { color:var(--dim); font-size:11px; margin-top:3px; }
+  .card .tools button.replace { border-color:var(--warn); }
+  .card .tools button.accept { border-color:var(--ok); }
   .card .tools { display:flex; gap:6px; flex-wrap:wrap; margin-top:6px; }
   .card .tools button { padding:3px 8px; font-size:12px; }
   .card.full { grid-column: 1 / -1; grid-template-columns: 1fr; }
@@ -96,6 +108,8 @@
       <form class="new" id="inputForm" onsubmit="return false">
         <label>Website match</label><input id="siteMatch" placeholder="e.g. Iron Legion (blank = every article)">
         <label>At most</label><input id="siteLimit" type="number" value="8" min="1" max="40">
+        <label>Batch size (render / publish)</label><input id="batchSize" type="number" value="8" min="1" max="200">
+        <label>Website field when publishing</label><select id="websiteField"><option value="fullBody">full body token only (safe)</option><option value="both">portrait + full body</option><option value="image">portrait only</option><option value="none">Foundry only</option></select>
         <label>Framing for new entries</label><select id="inFraming"><option value="">roster default</option><option value="fullbody">make full body</option><option value="bust">bust</option><option value="head">head shot</option></select>
         <button id="btnCollectSite" class="primary">Collect roster from the website</button>
         <div class="hint">Adds website articles that have prose and no forge entry yet — the article's summary + description become the entry's look, so the render recipe writes itself.</div>
@@ -103,6 +117,13 @@
         <button id="btnIngest">Auto-collect renders from folder</button>
         <div class="hint">Files <i>and cuts</i> every PNG in that folder matching a pending job (by entry id or name) — no drag &amp; drop. Headless twin: <code>npc-forge.py ingest &lt;packet&gt; --dir … --watch</code>. Prompts for any image model: <code>npc-forge.py prompt &lt;packet&gt;</code>.</div>
       </form>
+    </details>
+    <details open>
+      <summary>Website + Foundry asset inventory <span id="assetCount" class="muted"></span></summary>
+      <div class="hint">Read-only map of <code>characters.json</code>, committed actor packets, root actors and the live-world mirror. Select a roster entry below to review it; nothing is replaced until you explicitly accept and publish.</div>
+      <div class="bar"><input id="assetMatch" placeholder="filter name or article id" style="width:100%"><button id="btnAssets">Refresh inventory</button></div>
+      <div class="bar"><select id="assetGroup" style="flex:1"><option value="">select a Foundry group</option></select><button id="btnImportAssetGroup">Make art roster from repo group</button></div>
+      <div id="inventory" class="inventory"><span class="muted">Loading…</span></div>
     </details>
     <h2>How it flows</h2>
     <div class="hint">1 · pick or draft a roster · 2 · <b>Run loop</b> renders every entry without art on your Comfy (Qwen-Image-2.1), cuts the plate, rebuilds the actors · 3 · commit <code>data/forge</code>, <code>npc-forge/&lt;packet&gt;/renders</code>, <code>portraits/&lt;packet&gt;</code>, <code>actors/&lt;packet&gt;</code> — the suite's Sync carries the packet into Foundry.<br><br>No GPU here? <b>Hand-off brief</b> writes the prompts and file names; drop the finished PNGs on the cards (or into the renders folder) and press <b>Cut + build</b>.</div>
@@ -131,6 +152,7 @@ async function refresh() {
   renderRosters();
   renderFoundryImport();
   renderWork();
+  loadAssets().catch((x) => { const box = $("#inventory"); if (box) box.innerHTML = `<span class="err">${esc(x.message)}</span>`; });
   if (state.job && state.job.alive && !poll) poll = setInterval(tick, 1200);
 }
 function renderComfy(c) {
@@ -195,6 +217,30 @@ function renderFoundryImport() {
 $("#foundryPacket").addEventListener("input", () => { foundryPacketEdited = true; });
 function current() { return state.rosters.find((r) => r.packet === selected && !r.error); }
 
+async function loadAssets() {
+  const box = $("#inventory"); if (!box) return;
+  const match = $("#assetMatch")?.value.trim() || "";
+  const q = match ? "?match=" + encodeURIComponent(match) : "";
+  const data = await api("/api/assets" + q);
+  $("#assetCount").textContent = `(${data.counts.assets} assets · ${data.counts.missing_fullbody} missing full body)`;
+  const groupSelect = $("#assetGroup");
+  if (groupSelect) {
+    const previous = groupSelect.value;
+    groupSelect.innerHTML = '<option value="">select a Foundry group</option>' + data.groups.map((g) => `<option value="${esc(g.name)}">${esc(g.name)} · ${g.count} (${g.missing} missing)</option>`).join("");
+    if (data.groups.some((g) => g.name === previous)) groupSelect.value = previous;
+  }
+  const rows = data.assets.slice(0, 120);
+  const assetPath = (p) => p && !/^https?:/i.test(p) ? fileUrl(p.startsWith("Reputation-Matrix2/") ? p : "Reputation-Matrix2/" + p, true) : p;
+  box.innerHTML = rows.length ? rows.map((a) => {
+    const status = a.website_fullbody_exists ? "full body ready" : "needs full body";
+    const actor = a.actor_path ? "Foundry: " + a.actor_path : "website article only";
+    const thumb = a.website_fullbody || a.website_image;
+    const pic = thumb ? `<img src="${esc(assetPath(thumb))}" alt="" onerror="this.style.display='none'" onclick="$(\'#viewerImg\').src=this.src;$(\'#viewer\').style.display='flex';event.stopPropagation()">` : '<span class="muted">—</span>';
+    return `<div class="inventory-row">${pic}<div><b>${esc(a.name)}</b><small>${esc(a.site || "—")} · ${esc(a.group)} · ${esc(actor)}</small></div><span class="badge ${a.website_fullbody_exists ? "on" : "warn"}">${status}</span></div>`;
+  }).join("") : '<span class="muted">No matching website or Foundry assets.</span>';
+  if (data.assets.length > rows.length) box.insertAdjacentHTML("beforeend", `<small class="muted">Showing ${rows.length} of ${data.assets.length}; filter to review a smaller set.</small>`);
+}
+
 function renderWork() {
   const r = current();
   const w = $("#work");
@@ -212,6 +258,7 @@ function renderWork() {
       <label><input type="checkbox" id="stCut" checked> cut</label>
       <label><input type="checkbox" id="stBuild" checked> build</label>
       <label><input type="checkbox" id="onlyMissing" checked> only entries without a Forge render</label>
+      <label>batch <input id="runBatch" type="number" value="${$("#batchSize")?.value || 8}" min="1" max="200" style="width:54px" title="At most this many roster entries per run"></label>
       <label>seeds <select id="seedMode"><option value="roster">from the roster</option><option value="random">roll new (written back)</option></select></label>
       <label>retries <input id="retries" type="number" value="1" min="0" max="4" style="width:52px"></label>
       <label>steps <input id="sampSteps" type="number" placeholder="25" min="4" max="60" style="width:60px"></label>
@@ -222,6 +269,7 @@ function renderWork() {
       <button id="cutBuild" ${job && job.alive ? "disabled" : ""}>Cut + build</button>
       <button id="build" ${job && job.alive ? "disabled" : ""}>Build actors</button>
       <button id="handoff">Hand-off brief</button>
+      <button id="replaceBatch" class="replace" title="Publish accepted plates, limited by batch size">Publish accepted batch</button>
       <button id="jobsJson" title="The render jobs as JSON lines (prompts, seeds, sizes, file names)">Jobs JSON</button>
       <button id="stop" class="danger" ${job && job.alive ? "" : "disabled"}>Stop</button>
       <span id="status" class="muted"></span>
@@ -244,6 +292,7 @@ function renderWork() {
   $("#cutBuild").onclick = () => startRun(r, ["cut", "build"]);
   $("#build").onclick = async () => { try { setStatus("building…"); const o = await api("/api/build", {packet: r.packet}); setStatus(`built ${o.actors} actors → ${o.import}` + (o.pending.length ? ` (${o.pending.length} awaiting art)` : "")); await refresh(); } catch (x) { setStatus(x.message, true); } };
   $("#handoff").onclick = async () => { try { const o = await api("/api/handoff", {packet: r.packet, only_missing: $("#onlyMissing").checked}); setStatus(`wrote ${o.handoff} (${o.count} jobs)`); window.open(fileUrl(o.handoff, true)); } catch (x) { setStatus(x.message, true); } };
+  $("#replaceBatch").onclick = async () => { try { const o = await api("/api/replace-batch", {packet: r.packet, website: $("#websiteField")?.value || "fullBody", also_foundry: true, batch: +($("#runBatch")?.value || $("#batchSize")?.value || 8)}); setStatus(`published ${o.replaced.length}; ${o.skipped.length} still need review or art`); await refresh(); } catch (x) { setStatus(x.message, true); } };
   $("#jobsJson").onclick = () => window.open("/api/jobs?packet=" + encodeURIComponent(r.packet));
   $("#stop").onclick = () => api("/api/stop", {});
   $("#saveRecipe").onclick = async () => {
@@ -265,13 +314,16 @@ function card(r, e, busy) {
     <div>
       <h3>${esc(e.name)}</h3>
       <div class="meta">CR ${esc(crText(e.cr))} · ${esc(e.type)} · ${esc(e.folder)}${e.tier ? " · " + esc(e.tier) : ""}${e.token_size > 1 ? " · " + e.token_size + "×" + e.token_size : ""}</div>
-      <div class="badges"><span class="badge ${e.render ? "on" : ""}">render</span><span class="badge ${e.plate ? "on" : ""}">plate</span><span class="badge ${e.actor ? "on" : ""}">actor</span><span class="badge">seed ${esc(e.seed)}</span></div>
+      <div class="badges"><span class="badge ${e.render ? "on" : ""}">render</span><span class="badge ${e.plate ? "on" : ""}">transparent plate</span><span class="badge ${e.actor ? "on" : ""}">actor</span><span class="badge review-${esc(e.review || "pending")}">${esc(e.review || "pending")}</span><span class="badge">seed ${esc(e.seed)}</span></div>
+      <div class="current">${e.site ? `website article <code>${esc(e.site)}</code> · current full body is ${e.source_img ? "shown below" : "tracked in the inventory"}` : "not linked to a website article yet"}</div>
       <textarea data-look placeholder="look — what the Forge draws">${esc(e.look)}</textarea>
       <div class="tools">
         <button data-save>Save look</button>
-        <button data-render ${busy || !(state.connection.connected && state.connection.can_render) ? "disabled" : ""}>Render this one</button>
-        <button data-cut ${busy || !e.render ? "disabled" : ""}>Cut</button>
-        <label class="badge" style="cursor:pointer">drop/upload render <input type="file" accept="image/png,image/webp,image/jpeg" data-upload hidden></label>
+        <button data-render ${busy || !(state.connection.connected && state.connection.can_render) ? "disabled" : ""}>Regenerate</button>
+        <button data-cut ${busy || !e.render ? "disabled" : ""}>Remove background</button>
+        <button data-accept class="accept" ${busy || !e.plate ? "disabled" : ""}>Accept review</button>
+        <button data-replace class="replace" ${busy || !e.plate || e.review !== "accepted" ? "disabled" : ""}>Replace website + Foundry</button>
+        <label class="badge" style="cursor:pointer">collect render <input type="file" accept="image/png,image/webp,image/jpeg" data-upload hidden></label>
         <button data-prompt title="Copy the full prompt">Copy prompt</button>
       </div>
     </div>`;
@@ -279,7 +331,9 @@ function card(r, e, busy) {
   $(".pic", d).onclick = () => { if (e.plate) view(e.plate); else if (e.render) view(e.render); else if (e.source_img) view(e.source_img); };
   $("[data-save]", d).onclick = async () => { try { await api("/api/entry", {packet: r.packet, id: e.id, fields: {look: $("[data-look]", d).value}}); setStatus(`${e.name}: look saved`); await refresh(); } catch (x) { setStatus(x.message, true); } };
   $("[data-render]", d).onclick = () => startRun(r, ["render", "cut", "build"], [e.id], false);
-  $("[data-cut]", d).onclick = () => startRun(r, ["cut", "build"], [e.id], false);
+  $("[data-cut]", d).onclick = async () => { try { setStatus(`${e.name}: removing background…`); const o = await api("/api/cut", {packet: r.packet, id: e.id}); setStatus(`${e.name}: transparent plate ready — review it before replacing` + (o.audit?.length ? " · AUDIT " + JSON.stringify(o.audit) : "")); await refresh(); } catch (x) { setStatus(x.message, true); } };
+  $("[data-accept]", d).onclick = async () => { try { await api("/api/review", {packet: r.packet, id: e.id, status: "accepted"}); setStatus(`${e.name}: accepted for publishing`); await refresh(); } catch (x) { setStatus(x.message, true); } };
+  $("[data-replace]", d).onclick = async () => { try { const field = $("#websiteField")?.value || "fullBody"; const o = await api("/api/replace", {packet: r.packet, id: e.id, website: field, also_foundry: true}); setStatus(`${e.name}: ${o.website ? "website and " : ""}${o.foundry} Foundry actor(s) updated`); await refresh(); } catch (x) { setStatus(x.message, true); } };
   $("[data-prompt]", d).onclick = async () => { try { await navigator.clipboard.writeText(e.prompt); setStatus("prompt copied"); } catch { prompt("Prompt", e.prompt); } };
   $("[data-upload]", d).onchange = async (ev) => {
     const f = ev.target.files[0]; if (!f) return;
@@ -299,6 +353,7 @@ function crText(cr) { return cr === 0.5 ? "1/2" : cr === 0.25 ? "1/4" : cr === 0
 async function startRun(r, stepsWanted, ids, onlyMissing) {
   try {
     const body = {packet: r.packet, steps: stepsWanted, ids: ids || null, only_missing: onlyMissing === undefined ? $("#onlyMissing").checked : onlyMissing,
+      batch: +($("#runBatch")?.value || $("#batchSize")?.value || 0) || null,
       seed_mode: $("#seedMode") ? $("#seedMode").value : "roster", retries: +($("#retries")?.value || 1),
       sampler_steps: +($("#sampSteps")?.value) || null, cfg: $("#cfg")?.value ? +$("#cfg").value : null};
     const j = await api("/api/run", body);
@@ -364,6 +419,14 @@ $("#btnIngest").onclick = async () => {
     await refresh(); setStatus(o.collected.length ? `collected + cut ${o.collected.map((c) => c.id).join(", ")}` : "nothing in that folder matched a pending job");
   } catch (x) { alert(x.message); }
 };
+$("#btnAssets").onclick = () => loadAssets().catch((x) => { $("#inventory").innerHTML = `<span class="err">${esc(x.message)}</span>`; });
+$("#btnImportAssetGroup").onclick = async () => {
+  const group = $("#assetGroup").value;
+  if (!group) return alert("select a Foundry group first");
+  const packet = "foundry-" + group.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  try { const r = await api("/api/import-foundry", {group, packet, source: "repo", world: state.foundry.world}); selected = r.packet; localStorage.setItem("forge.packet", selected); await refresh(); setStatus(`loaded ${r.counts.entries} committed Foundry actors from ${group}; review their new full-body plates before publishing`); } catch (x) { alert(x.message); }
+};
+$("#assetMatch").addEventListener("keydown", (ev) => { if (ev.key === "Enter") loadAssets(); });
 refresh().then(loadFactions).catch((x) => { $("#work").innerHTML = `<p class="err">${esc(x.message)}</p>`; });
 </script>
 </body>
