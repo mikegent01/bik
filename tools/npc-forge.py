@@ -187,6 +187,8 @@ class Forge:
         actors_dir, _, _ = self.bfp.packet_paths(r)
         prefix = r.get("file_prefix") or f"fvtt-Actor-{r['packet']}-"
         entries = []
+        articles = read_json(os.path.join(self.bfp.RM, "data", "characters.json"), []) or []
+        articles_by_id = {a.get("id"): a for a in articles if isinstance(a, dict) and a.get("id")}
         for e in r.get("entries") or []:
             render, plate = self.bfp.render_file(r, e), self.bfp.plate_file(r, e)
             source_exists = False
@@ -198,13 +200,35 @@ class Forge:
             source_img = e.get("source_img")
             if source_img and not os.path.isfile(os.path.join(ROOT, *source_img.split("/"))):
                 source_img = None
+            site_id = e.get("site")
+            art = articles_by_id.get(site_id) if site_id else None
+            if not art:
+                art = articles_by_id.get(e["id"])
+            if not art:
+                slug_name = slugify(e.get("name") or "")
+                for a in articles:
+                    if isinstance(a, dict) and slugify(a.get("name") or "") == slug_name:
+                        art = a
+                        break
+            if art and not site_id:
+                site_id = art.get("id")
+            site_img = self._foundry_image(art.get("image") or art.get("fullBody")) if art else None
+            framing = e.get("framing") or r.get("framing") or "fullbody"
+            framing_preset = "fullbody" if "fullbody" in str(framing).lower() or framing == self.bfp.FRAMINGS.get("fullbody") else (
+                "bust" if "bust" in str(framing).lower() or framing == self.bfp.FRAMINGS.get("bust") else (
+                    "head" if "head" in str(framing).lower() or framing == self.bfp.FRAMINGS.get("head") else "custom"
+                )
+            )
             entries.append({
                 "id": e["id"], "name": e["name"], "folder": e.get("folder"), "tier": e.get("tier"), "role": e.get("role"),
                 "cr": e.get("cr"), "type": e.get("type"), "size": e.get("size"), "seed": e.get("seed"), "look": e.get("look") or "",
+                "framing": framing, "framing_preset": framing_preset, "site": site_id,
                 "prompt": self.bfp.prompt_for(r, e), "token_size": e.get("token_size") or 1,
                 "render": rel(render) if os.path.exists(render) else None,
                 "plate": rel(plate) if os.path.exists(plate) else None,
-                "source_img": source_img, "source_has_img": bool(e.get("source_has_img")),
+                "source_img": source_img, "source_has_img": bool(e.get("source_has_img") or site_img),
+                "site_img": site_img,
+                "replaced": bool(e.get("replaced")), "replaced_at": e.get("replaced_at"),
                 "actor": os.path.exists(os.path.join(actors_dir, f"{prefix}{e['id']}.json")) or source_exists,
             })
         return {"packet": r["packet"], "name": r.get("name"), "title": r.get("title"), "faction": r.get("faction"), "group": r.get("group"),
@@ -215,7 +239,8 @@ class Forge:
                 "renders_dir": rel(self.bfp.packet_paths(r)[2]), "portraits_dir": rel(self.bfp.packet_paths(r)[1]), "actors_dir": rel(actors_dir),
                 "entries": entries,
                 "counts": {"entries": len(entries), "rendered": sum(1 for e in entries if e["render"]),
-                           "plates": sum(1 for e in entries if e["plate"]), "actors": sum(1 for e in entries if e["actor"])}}
+                           "plates": sum(1 for e in entries if e["plate"]), "actors": sum(1 for e in entries if e["actor"]),
+                           "replaced": sum(1 for e in entries if e["replaced"])}}
 
     def factions(self):
         scheme = read_json(FOLDER_SCHEME, {}) or {}
@@ -463,7 +488,9 @@ class Forge:
             if not look:
                 continue
             out.append({"site": aid, "name": a.get("name") or aid, "affiliation": a.get("affiliation") or "",
-                        "status": a.get("status") or "", "look": look})
+                        "status": a.get("status") or "", "look": look,
+                        "image": self._foundry_image(a.get("image")),
+                        "fullBody": self._foundry_image(a.get("fullBody"))})
         return out
 
     def collect(self, packet, rows, tier="1", folder=None, framing=None):
@@ -490,6 +517,10 @@ class Forge:
                 e["site"] = row["site"]
                 e["bio"] = [f"<p>Collected from the website article <code>{row['site']}</code> by the NPC Forge; the look is the article's own prose.</p>"]
                 e["role"] = f"site article — {row.get('status') or 'written'}"
+            src_img = row.get("source_img") or row.get("image") or row.get("fullBody")
+            if src_img:
+                e["source_img"] = src_img
+                e["source_has_img"] = True
             entries.append(e)
             added.append(eid)
         if added:
@@ -710,13 +741,210 @@ class Forge:
                 os.remove(tmp)
         return why
 
-    def cut_one(self, roster, entry, job=None):
-        src, dst = self.bfp.render_file(roster, entry), self.bfp.plate_file(roster, entry)
-        facts = self.bfp.cut_plate(src, dst, size=int(roster.get("plate_size") or 512))
+    def cut_one(self, roster, entry, job=None, key="auto"):
+        render_path = self.bfp.render_file(roster, entry)
+        source_img = entry.get("source_img")
+        source_path = os.path.join(ROOT, *source_img.split("/")) if source_img else None
+        src = render_path if os.path.isfile(render_path) else (source_path if source_path and os.path.isfile(source_path) else None)
+        if not src:
+            raise FileNotFoundError(f"no render or source image found for {entry['id']}")
+        dst = self.bfp.plate_file(roster, entry)
+        facts = self.bfp.cut_plate(src, dst, size=int(roster.get("plate_size") or 512), key=key)
         if job:
             self._log(job, f"{entry['id']}: plate {rel(dst)} — figure {facts['figure'][0]}x{facts['figure'][1]}, border clear {facts['border_clear']}, healed {facts.get('healed', 0)} px"
                            + (f"  AUDIT {facts['audit']}" if facts.get("audit") else ""))
         return facts
+
+    def remove_bg(self, packet, entry_id=None, ids=None, key="auto", job=None):
+        """Step 2 of the asset pipeline: remove background from render or source image
+        to produce a transparent 512px full-body sprite plate."""
+        roster = self.bfp.find_roster(packet)
+        target_ids = set()
+        if entry_id:
+            target_ids.add(entry_id)
+        if ids:
+            target_ids.update(ids)
+        entries = roster.get("entries") or []
+        to_cut = [e for e in entries if e["id"] in target_ids] if target_ids else [
+            e for e in entries if os.path.isfile(self.bfp.render_file(roster, e)) or (e.get("source_img") and os.path.isfile(os.path.join(ROOT, *e["source_img"].split("/"))))
+        ]
+        results = []
+        for e in to_cut:
+            try:
+                facts = self.cut_one(roster, e, job=job, key=key)
+                dst = self.bfp.plate_file(roster, e)
+                results.append({"id": e["id"], "plate": rel(dst), "border_clear": facts.get("border_clear"),
+                                "healed": facts.get("healed", 0), "audit": facts.get("audit")})
+            except Exception as exc:  # noqa: BLE001
+                if job:
+                    self._log(job, f"{e['id']}: remove-bg failed: {exc}")
+                results.append({"id": e["id"], "error": str(exc)})
+        return {"packet": packet, "cut": results, "count": sum(1 for r in results if "plate" in r)}
+
+    def replace_one(self, roster, entry, replace_website=True, replace_foundry=True, replace_lead=True, replace_file=False):
+        """Replace the current image on the website and in Foundry with the
+        cut full-body usable sprite plate."""
+        packet = roster["packet"]
+        plate_path = self.bfp.plate_file(roster, entry)
+        if not os.path.isfile(plate_path):
+            render_path = self.bfp.render_file(roster, entry)
+            source_img = entry.get("source_img")
+            source_path = os.path.join(ROOT, *source_img.split("/")) if source_img else None
+            src = render_path if os.path.isfile(render_path) else (source_path if source_path and os.path.isfile(source_path) else None)
+            if src:
+                self.bfp.cut_plate(src, plate_path, size=int(roster.get("plate_size") or 512))
+            else:
+                raise FileNotFoundError(f"cannot replace art for {entry['id']}: no plate or render available to cut")
+
+        token_rel = f"{(roster.get('portraits') or 'portraits/' + packet).rstrip('/')}/{entry.get('plate') or entry['id']}.png"
+        results = {"id": entry["id"], "plate": token_rel, "website": None, "foundry": []}
+
+        # 1. Replace website assets in characters.json
+        if replace_website:
+            chars_path = os.path.join(self.bfp.RM, "data", "characters.json")
+            if os.path.isfile(chars_path):
+                chars = read_json(chars_path, []) or []
+                target = None
+                target_site = entry.get("site")
+                for c in chars:
+                    if not isinstance(c, dict):
+                        continue
+                    if target_site and c.get("id") == target_site:
+                        target = c
+                        break
+                    if c.get("id") == entry["id"]:
+                        target = c
+                        break
+                    if slugify(c.get("name") or "") == slugify(entry.get("name") or ""):
+                        target = c
+                        break
+                if target:
+                    target["fullBody"] = token_rel
+                    target["fullBodyCaption"] = (f"Full-body token plate — {target.get('name', entry['name'])} whole on a transparent field; "
+                                                f"NPC Forge on {time.strftime('%Y-%m-%d')} for the table's token.")
+                    if replace_lead:
+                        old_img = target.get("image")
+                        if old_img and old_img != token_rel:
+                            alts = target.setdefault("imageAlternates", [])
+                            alt_srcs = [a if isinstance(a, str) else a.get("src") for a in alts]
+                            if old_img not in alt_srcs:
+                                alts.append({"src": old_img, "caption": target.get("imageCaption") or "Original portrait."})
+                        target["image"] = token_rel
+                    write_json(chars_path, chars)
+                    results["website"] = target["id"]
+
+        # 2. Replace Foundry actor in world mirror and packet
+        if replace_foundry:
+            foundry_updated = []
+            # A) Source actor in world mirror
+            if entry.get("source_actor"):
+                try:
+                    src_actor_file = self.bfp.source_actor_path(entry)
+                    if os.path.isfile(src_actor_file):
+                        doc = read_json(src_actor_file)
+                        if isinstance(doc, dict):
+                            doc["img"] = token_rel
+                            proto = doc.setdefault("prototypeToken", {})
+                            proto.setdefault("texture", {})["src"] = token_rel
+                            sheets = (doc.get("flags") or {}).get(self.bfp.SHEETS_FLAG) or {}
+                            if isinstance(sheets, dict) and sheets.get("art") == "pending":
+                                sheets.pop("art", None)
+                            write_json(src_actor_file, doc)
+                            foundry_updated.append(rel(src_actor_file))
+                except Exception as exc:
+                    print(f"  replace: source actor update error: {exc}")
+
+            # B) Packet actor in Reputation-Matrix2/actors/<packet>/
+            actors_dir = self.bfp.packet_paths(roster)[0]
+            prefix = roster.get("file_prefix") or f"fvtt-Actor-{packet}-"
+            packet_actor_file = os.path.join(actors_dir, f"{prefix}{entry['id']}.json")
+            if os.path.isfile(packet_actor_file):
+                pdoc = read_json(packet_actor_file)
+                if isinstance(pdoc, dict):
+                    pdoc["img"] = token_rel
+                    proto = pdoc.setdefault("prototypeToken", {})
+                    proto.setdefault("texture", {})["src"] = token_rel
+                    sheets = (pdoc.get("flags") or {}).get(self.bfp.SHEETS_FLAG) or {}
+                    if isinstance(sheets, dict) and sheets.get("art") == "pending":
+                        sheets.pop("art", None)
+                    write_json(packet_actor_file, pdoc)
+                    foundry_updated.append(rel(packet_actor_file))
+
+            # C) If not source_actor, check live world mirror for actor matching ID or name
+            world = (roster.get("foundry_source") or {}).get("world") or self._foundry_world()[0]
+            world_dir = os.path.join(self.bfp.ACTORS_ROOT, "worlds", world)
+            if os.path.isdir(world_dir) and not entry.get("source_actor"):
+                for base, _dirs, files in os.walk(world_dir):
+                    for fn in files:
+                        if fn.endswith(".json") and fn.startswith("fvtt-Actor-"):
+                            fp = os.path.join(base, fn)
+                            wdoc = read_json(fp)
+                            if isinstance(wdoc, dict) and (wdoc.get("_id") == entry.get("source_actor_id") or slugify(wdoc.get("name") or "") == slugify(entry.get("name") or "")):
+                                wdoc["img"] = token_rel
+                                proto = wdoc.setdefault("prototypeToken", {})
+                                proto.setdefault("texture", {})["src"] = token_rel
+                                sheets = (wdoc.get("flags") or {}).get(self.bfp.SHEETS_FLAG) or {}
+                                if isinstance(sheets, dict) and sheets.get("art") == "pending":
+                                    sheets.pop("art", None)
+                                write_json(fp, wdoc)
+                                foundry_updated.append(rel(fp))
+                                break
+
+            # D) If replace_file is True and source_img exists under portraits/, overwrite it with new sprite
+            if replace_file and entry.get("source_img"):
+                try:
+                    source_full = os.path.realpath(os.path.join(ROOT, *entry["source_img"].split("/")))
+                    rm_portraits = os.path.realpath(os.path.join(self.bfp.RM, "portraits"))
+                    if source_full.startswith(rm_portraits + os.sep) and os.path.isfile(source_full):
+                        shutil.copyfile(plate_path, source_full)
+                        foundry_updated.append(f"file: {rel(source_full)}")
+                except Exception as exc:
+                    print(f"  replace: file overwrite error: {exc}")
+
+            results["foundry"] = foundry_updated
+
+        # 3. Mark entry as replaced in the roster
+        entry["replaced"] = True
+        entry["replaced_at"] = time.strftime("%Y-%m-%d %H:%M:%S")
+        r_path = os.path.join(self.bfp.ROSTERS, packet + ".json")
+        write_json(r_path, roster)
+
+        return results
+
+    def replace(self, packet, id=None, ids=None, replace_website=True, replace_foundry=True, replace_lead=True, replace_file=False):
+        """Batch or single replacement of current assets on the website and Foundry."""
+        roster = self.bfp.find_roster(packet)
+        target_ids = set()
+        if id:
+            target_ids.add(id)
+        if ids:
+            target_ids.update(ids)
+        entries = roster.get("entries") or []
+        if not target_ids:
+            # Batch mode: replace all entries that have plates or renders
+            to_replace = [e for e in entries if os.path.isfile(self.bfp.plate_file(roster, e)) or os.path.isfile(self.bfp.render_file(roster, e))]
+        else:
+            to_replace = [e for e in entries if e["id"] in target_ids]
+
+        replaced = []
+        for e in to_replace:
+            res = self.replace_one(roster, e, replace_website=replace_website, replace_foundry=replace_foundry,
+                                   replace_lead=replace_lead, replace_file=replace_file)
+            replaced.append(res)
+
+        # Rebuild packet to ensure actors/<packet>/import.json is up-to-date
+        self.build(roster)
+
+        # If any source actors in a world mirror were updated, re-combine world import.json if available
+        world = (roster.get("foundry_source") or {}).get("world")
+        if world:
+            world_dir = os.path.join(self.bfp.ACTORS_ROOT, "worlds", world)
+            world_out = os.path.join(world_dir, "import.json")
+            if os.path.isdir(world_dir) and os.path.isfile(world_out):
+                cmd = [sys.executable, os.path.join(HERE, "foundry-bridge.py"), "combine", rel(world_dir), "--out", rel(world_out), "--world", world]
+                subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, encoding="utf-8", errors="replace")
+
+        return {"packet": packet, "replaced": replaced, "count": len(replaced)}
 
     def build(self, roster, job=None):
         lib = self.bfp.P955.load_image_lib()
@@ -789,6 +1017,14 @@ class Forge:
                         self.build(self.bfp.find_roster(packet), job)
                     except Exception as exc:  # noqa: BLE001
                         self._log(job, f"build: {exc}")
+                        ok = False
+                if "replace" in steps and not self.stop_flag:
+                    try:
+                        rep_ids = [e["id"] for e in want]
+                        rep_res = self.replace(packet, ids=rep_ids)
+                        self._log(job, f"replace: updated {rep_res['count']} art asset(s) in website & Foundry")
+                    except Exception as exc:  # noqa: BLE001
+                        self._log(job, f"replace: {exc}")
                         ok = False
             finally:
                 job["ok"] = ok
@@ -908,6 +1144,7 @@ class Handler(BaseHTTPRequestHandler):
                 ids = (q.get("ids") or "").split(",") if q.get("ids") else None
                 return self._send(200, {"prompts": [{"id": e["id"], "name": e["name"], "prompt": f.bfp.prompt_for(r, e),
                                                      "negative": e.get("negative") or r.get("negative") or "",
+                                                     "framing": e.get("framing") or r.get("framing") or "fullbody",
                                                      "seed": e.get("seed"), "render": rel(f.bfp.render_file(r, e))}
                                                     for e in r["entries"] if not ids or e["id"] in ids]})
             return self._send(404, {"error": "no route " + u.path})
@@ -956,6 +1193,14 @@ class Handler(BaseHTTPRequestHandler):
                                              only_missing=body.get("only_missing", True), seed_mode=body.get("seed_mode", "roster"),
                                              sampler_steps=body.get("sampler_steps"), cfg=body.get("cfg"), resolution=body.get("resolution"),
                                              retries=int(body.get("retries", 1)), record_seed=body.get("record_seed", True)))
+            if path in ("/api/remove-bg", "/api/cut"):
+                return self._send(200, f.remove_bg(body["packet"], entry_id=body.get("id"), ids=body.get("ids"), key=body.get("key", "auto")))
+            if path == "/api/replace":
+                return self._send(200, f.replace(body["packet"], id=body.get("id"), ids=body.get("ids"),
+                                                 replace_website=body.get("replace_website", True),
+                                                 replace_foundry=body.get("replace_foundry", True),
+                                                 replace_lead=body.get("replace_lead", True),
+                                                 replace_file=body.get("replace_file", False)))
             if path == "/api/stop":
                 return self._send(200, f.stop())
             if path == "/api/build":
@@ -1005,10 +1250,10 @@ def watch_loop(forge, directory, packet=None, interval=6):
 def main(argv=None):
     ap = argparse.ArgumentParser(description="NPC Forge — faction → roster → renders → token plates → Foundry packet")
     ap.add_argument("command", nargs="?", default="serve",
-                    choices=["serve", "draft", "collect", "ingest", "prompt", "run", "cut", "build", "handoff"])
+                    choices=["serve", "draft", "collect", "ingest", "prompt", "run", "cut", "build", "handoff", "replace", "remove-bg"])
     ap.add_argument("packet", nargs="?")
     ap.add_argument("--list", action="store_true", help="rosters and their art state, then exit")
-    ap.add_argument("--host", default="127.0.0.1")
+    ap.add_argument("--host", default="0.0.0.0")
     ap.add_argument("--port", type=int, default=PORT)
     ap.add_argument("--url", default=None, help="ComfyUI server (default: COMFY_URL, else probe 127.0.0.1 ports 8188, 8000, 8189, 8190)")
     ap.add_argument("--no-browser", action="store_true")
@@ -1031,6 +1276,9 @@ def main(argv=None):
     ap.add_argument("--steps", default="render,cut,build", help="run: which steps (render,cut,build)")
     ap.add_argument("--random-seeds", action="store_true", help="run: roll new seeds instead of the roster's (the seed used is written back)")
     ap.add_argument("--retries", type=int, default=1)
+    ap.add_argument("--no-website", action="store_true", help="replace: do not update characters.json")
+    ap.add_argument("--no-foundry", action="store_true", help="replace: do not update Foundry actors")
+    ap.add_argument("--no-lead", action="store_true", help="replace: do not overwrite lead article image (only set fullBody)")
     a = ap.parse_args(argv)
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -1120,6 +1368,24 @@ def main(argv=None):
             print(job["log"][shown])
             shown += 1
         return 0 if job["ok"] else 1
+    if a.command == "replace":
+        if not a.packet:
+            ap.error("replace needs <packet>")
+        ids = [s.strip() for s in a.ids.split(",")] if a.ids else None
+        res = forge.replace(a.packet, ids=ids, replace_website=not a.no_website,
+                            replace_foundry=not a.no_foundry, replace_lead=not a.no_lead)
+        print(f"replace: {res['count']} entr(ies) updated in website and Foundry for packet {a.packet}")
+        for r in res["replaced"]:
+            print(f"  {r['id']}: plate {r['plate']} -> website {r['website'] or 'none'}, foundry: {', '.join(r['foundry']) if r['foundry'] else 'none'}")
+        return 0
+    if a.command == "remove-bg":
+        if not a.packet:
+            ap.error("remove-bg needs <packet>")
+        ids = [s.strip() for s in a.ids.split(",")] if a.ids else None
+        res = forge.remove_bg(a.packet, ids=ids)
+        print(f"remove-bg: cut {res['count']} entr(ies) into transparent plates")
+        forge.build(forge.bfp.find_roster(a.packet))
+        return 0
     info = forge.connect()
     srv = make_server(forge, a.host, a.port)
     where = "http://%s:%d/" % ("127.0.0.1" if a.host in ("0.0.0.0", "") else a.host, srv.server_address[1])

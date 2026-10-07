@@ -311,6 +311,63 @@ try:
           and "art" not in packet_actor["flags"]["waluipedia-sheets"] and source_after == legacy, packet_actor)
     st, body = req("POST", "/api/import-foundry", {"group": "Koopa Troop", "packet": "foundry-koopa-test"})
     check("Foundry import refuses to overwrite a Forge roster", st == 409 and b"choose another packet id" in body, body)
+
+    # ---- Step 4: Background removal (remove-bg / cut) ----
+    raw_render = os.path.join(sb, "npc-forge", "foundry-koopa-test", "renders", "retained-guard.png")
+    os.makedirs(os.path.dirname(raw_render), exist_ok=True)
+    fig2 = _Image.new("RGB", (704, 384), (255, 0, 255))
+    _ImageDraw.Draw(fig2).rectangle((280, 50, 420, 250), fill=(50, 180, 50))
+    fig2.save(raw_render)
+    st, body = req("POST", "/api/remove-bg", {"packet": "foundry-koopa-test", "id": "retained-guard"})
+    bg_res = json.loads(body)
+    check("POST /api/remove-bg: removes background from render into a transparent plate",
+          st == 200 and bg_res["count"] == 1 and bg_res["cut"][0]["id"] == "retained-guard"
+          and os.path.isfile(new_plate), bg_res)
+
+    # ---- Step 5 & 6: Replace current image on Website and Foundry ----
+    # Seed characters.json with a matching character article for retained-guard
+    site_chars = json.load(open(site, encoding="utf-8"))
+    site_chars.append({
+        "id": "retained-guard", "name": "Retained Guard", "affiliation": "Koopa Troop",
+        "image": "portraits/current-guard.png", "summary": "A faithful guard."
+    })
+    json.dump(site_chars, open(site, "w", encoding="utf-8"), indent=2)
+
+    st, body = req("POST", "/api/replace", {"packet": "foundry-koopa-test", "id": "retained-guard",
+                                           "replace_website": True, "replace_foundry": True, "replace_lead": True})
+    rep_res = json.loads(body)
+    site_after = json.load(open(site, encoding="utf-8"))
+    site_guard = next((c for c in site_after if c["id"] == "retained-guard"), {})
+    source_after_replace = json.load(open(source_file, encoding="utf-8"))
+    packet_after_replace = json.load(open(os.path.join(sb, "actors", "foundry-koopa-test", "fvtt-Actor-foundry-koopa-test-retained-guard.json"), encoding="utf-8"))
+    roster_after_replace = json.load(open(os.path.join(sb, "data", "forge", "foundry-koopa-test.json"), encoding="utf-8"))
+
+    expected_plate_rel = "portraits/foundry-koopa-test/retained-guard.png"
+    check("POST /api/replace: replaces current image on the website (characters.json fullBody + lead image)",
+          st == 200 and rep_res["count"] == 1 and rep_res["replaced"][0]["website"] == "retained-guard"
+          and site_guard.get("fullBody") == expected_plate_rel and site_guard.get("image") == expected_plate_rel
+          and any("current-guard.png" in str(a) for a in site_guard.get("imageAlternates", [])), site_guard)
+    check("POST /api/replace: replaces the actor in Foundry (source mirror and packet actor wear the full body sprite)",
+          source_after_replace["img"] == expected_plate_rel
+          and source_after_replace["prototypeToken"]["texture"]["src"] == expected_plate_rel
+          and packet_after_replace["img"] == expected_plate_rel
+          and packet_after_replace["prototypeToken"]["texture"]["src"] == expected_plate_rel
+          and roster_after_replace["entries"][0].get("replaced") is True, source_after_replace)
+
+    # Batch replacement setting
+    st, body = req("POST", "/api/replace", {"packet": "foundry-koopa-test", "replace_website": True, "replace_foundry": True})
+    batch_res = json.loads(body)
+    check("Batch replace: runs across all entries with plates when no specific id is given",
+          st == 200 and batch_res["count"] == 1, batch_res)
+
+    # Framing presets: "make full body image"
+    st, body = req("POST", "/api/entry", {"packet": "test-troop", "id": "draft-01", "fields": {"framing": "make full body image"}})
+    check("Framing preset: 'make full body image' alias accepted via save_entry", st == 200)
+    tt_roster = bfp.find_roster("test-troop")
+    tt_entry = tt_roster["entries"][0]
+    check("Framing preset: prompt ends with fullbody framing text",
+          bfp.prompt_for(tt_roster, tt_entry).endswith(bfp.FRAMINGS["fullbody"]), bfp.prompt_for(tt_roster, tt_entry))
+
     srv.shutdown()
 finally:
     shutil.rmtree(tmp, ignore_errors=True)

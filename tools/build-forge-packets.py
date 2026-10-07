@@ -225,6 +225,9 @@ def prompt_for(roster, entry):
 # option) can name instead of spelling the sentence out.
 FRAMINGS = {
     "fullbody": "Full body, whole figure visible, three-quarter view, centred, isolated on a plain flat solid magenta background (#FF00FF), no floor, no ground shadow, no text, no border.",
+    "full body": "Full body, whole figure visible, three-quarter view, centred, isolated on a plain flat solid magenta background (#FF00FF), no floor, no ground shadow, no text, no border.",
+    "make full body": "Full body, whole figure visible, three-quarter view, centred, isolated on a plain flat solid magenta background (#FF00FF), no floor, no ground shadow, no text, no border.",
+    "make full body image": "Full body, whole figure visible, three-quarter view, centred, isolated on a plain flat solid magenta background (#FF00FF), no floor, no ground shadow, no text, no border.",
     "bust": "Bust, head and shoulders, centred, isolated on a plain flat solid magenta background (#FF00FF), no floor, no ground shadow, no text, no border.",
     "head": "Head shot, face centred, isolated on a plain flat solid magenta background (#FF00FF), no text, no border.",
 }
