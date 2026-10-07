@@ -81,6 +81,17 @@
       </form>
     </details>
     <details open>
+      <summary>Import NPCs from Foundry folders… <span id="foundryCount" class="muted"></span></summary>
+      <form class="new" id="foundryImportForm" onsubmit="return false">
+        <label>World mirror</label><div id="foundryWorld" class="hint">Scanning…</div>
+        <label>Foundry group</label><select id="foundryGroup"></select>
+        <label>Forge packet id</label><input id="foundryPacket" placeholder="foundry-koopa-troop">
+        <div id="foundryInfo" class="hint"></div>
+        <button id="btnImportFoundry" class="primary">Load this folder as an art roster</button>
+        <div class="hint">Reads NPCs from <code>actors/worlds/&lt;world&gt;</code>. Nothing is imported on startup. A later Build keeps each Foundry sheet, stats and folder path; only a newly cut token plate changes the actor art.</div>
+      </form>
+    </details>
+    <details open>
       <summary>Roster inputs &amp; auto-collect…</summary>
       <form class="new" id="inputForm" onsubmit="return false">
         <label>Website match</label><input id="siteMatch" placeholder="e.g. Iron Legion (blank = every article)">
@@ -118,6 +129,7 @@ async function refresh() {
   state = await api("/api/state");
   renderComfy(state.connection);
   renderRosters();
+  renderFoundryImport();
   renderWork();
   if (state.job && state.job.alive && !poll) poll = setInterval(tick, 1200);
 }
@@ -144,6 +156,43 @@ function renderRosters() {
   }
   if (!selected && state.rosters.length && !state.rosters[0].error) { selected = state.rosters[0].packet; renderRosters(); }
 }
+let foundryPacketEdited = false;
+function renderFoundryImport() {
+  const source = state && state.foundry;
+  const select = $("#foundryGroup");
+  if (!select) return;
+  const previous = select.value;
+  select.innerHTML = "";
+  for (const group of (source && source.groups) || []) {
+    const option = document.createElement("option");
+    option.value = group.name;
+    option.textContent = `${group.name} · ${group.count} NPC${group.count === 1 ? "" : "s"}`;
+    option.dataset.packet = group.packet;
+    select.appendChild(option);
+  }
+  $("#foundryWorld").textContent = source ? `${source.world} · ${source.path}` : "No world mirror found";
+  const groups = (source && source.groups) || [];
+  const totalNpcs = groups.reduce((sum, group) => sum + group.count, 0);
+  $("#foundryCount").textContent = groups.length ? `(${groups.length} folders · ${totalNpcs} NPCs)` : "(none found)";
+  if (!groups.length) {
+    $("#foundryInfo").textContent = "No NPC actors found in the configured world mirror. Run Foundry Sync/export first.";
+    $("#btnImportFoundry").disabled = true;
+    $("#foundryPacket").value = "";
+    return;
+  }
+  select.value = groups.some((g) => g.name === previous) ? previous : groups[0].name;
+  const group = groups.find((g) => g.name === select.value) || groups[0];
+  $("#foundryInfo").textContent = `${group.count} NPCs in ${group.folders.join(" · ")}. Creates a separate art roster; nothing reaches Foundry until you Build/import, and existing actor IDs are preserved.`;
+  $("#btnImportFoundry").disabled = false;
+  if (!foundryPacketEdited) $("#foundryPacket").value = group.packet;
+  select.onchange = () => {
+    const chosen = groups.find((g) => g.name === select.value);
+    $("#foundryInfo").textContent = chosen ? `${chosen.count} NPCs in ${chosen.folders.join(" · ")}. Creates a separate art roster; nothing reaches Foundry until you Build/import, and existing actor IDs are preserved.` : "";
+    foundryPacketEdited = false;
+    $("#foundryPacket").value = chosen ? chosen.packet : "";
+  };
+}
+$("#foundryPacket").addEventListener("input", () => { foundryPacketEdited = true; });
 function current() { return state.rosters.find((r) => r.packet === selected && !r.error); }
 
 function renderWork() {
@@ -152,14 +201,17 @@ function renderWork() {
   if (!r) { w.innerHTML = '<p class="muted">Pick a roster on the left, or draft one from a faction.</p>'; return; }
   const job = state.job && state.job.packet === r.packet ? state.job : null;
   const canRender = state.connection.connected && state.connection.can_render;
+  const folderInfo = r.foundry_source
+    ? `Foundry source <b>${esc(r.foundry_source.world)}/${esc(r.foundry_source.group)}</b> · original folder paths preserved`
+    : `Foundry folder <b>${esc(r.group)}</b> / ${Object.keys(r.subfolders).map(esc).join(" · ")}`;
   w.innerHTML = `
     <h2>${esc(r.name)} <span class="muted" style="text-transform:none;letter-spacing:0">— ${esc(r.title || "")}</span></h2>
-    <div class="hint">roster <code>${esc(r.path)}</code> · renders <code>${esc(r.renders_dir)}/</code> · plates <code>${esc(r.portraits_dir)}/</code> · actors <code>${esc(r.actors_dir)}/</code> · Foundry folder <b>${esc(r.group)}</b> / ${Object.keys(r.subfolders).map(esc).join(" · ")}</div>
+    <div class="hint">roster <code>${esc(r.path)}</code> · renders <code>${esc(r.renders_dir)}/</code> · plates <code>${esc(r.portraits_dir)}/</code> · actors <code>${esc(r.actors_dir)}/</code> · ${folderInfo}</div>
     <div class="bar">
       <label><input type="checkbox" id="stRender" ${canRender ? "checked" : "disabled"}> render</label>
       <label><input type="checkbox" id="stCut" checked> cut</label>
       <label><input type="checkbox" id="stBuild" checked> build</label>
-      <label><input type="checkbox" id="onlyMissing" checked> only entries without art</label>
+      <label><input type="checkbox" id="onlyMissing" checked> only entries without a Forge render</label>
       <label>seeds <select id="seedMode"><option value="roster">from the roster</option><option value="random">roll new (written back)</option></select></label>
       <label>retries <input id="retries" type="number" value="1" min="0" max="4" style="width:52px"></label>
       <label>steps <input id="sampSteps" type="number" placeholder="25" min="4" max="60" style="width:60px"></label>
@@ -205,9 +257,11 @@ function setStatus(t, bad) { const s = $("#status"); if (s) { s.textContent = t;
 function card(r, e, busy) {
   const d = document.createElement("div");
   d.className = "card";
-  const pic = e.plate ? `<img src="${fileUrl(e.plate, true)}" alt="">` : e.render ? `<img src="${fileUrl(e.render, true)}" alt="">` : `<span>no art yet</span>`;
+  const shownArt = e.plate || e.render || e.source_img;
+  const pic = shownArt ? `<img src="${fileUrl(shownArt, true)}" alt="">` : `<span>${e.source_has_img ? "art in Foundry" : "no art yet"}</span>`;
+  const picTitle = e.plate ? "plate (click to view)" : e.render ? "render, not cut yet" : e.source_img ? "current Foundry art (click to view)" : e.source_has_img ? "Foundry art is outside this repo" : "no render";
   d.innerHTML = `
-    <div class="pic" title="${e.plate ? "plate (click to view)" : e.render ? "render, not cut yet" : "no render"}">${pic}</div>
+    <div class="pic" title="${picTitle}">${pic}</div>
     <div>
       <h3>${esc(e.name)}</h3>
       <div class="meta">CR ${esc(crText(e.cr))} · ${esc(e.type)} · ${esc(e.folder)}${e.tier ? " · " + esc(e.tier) : ""}${e.token_size > 1 ? " · " + e.token_size + "×" + e.token_size : ""}</div>
@@ -222,7 +276,7 @@ function card(r, e, busy) {
       </div>
     </div>`;
   const view = (p) => { $("#viewerImg").src = fileUrl(p, true); $("#viewer").style.display = "flex"; };
-  $(".pic", d).onclick = () => { if (e.plate) view(e.plate); else if (e.render) view(e.render); };
+  $(".pic", d).onclick = () => { if (e.plate) view(e.plate); else if (e.render) view(e.render); else if (e.source_img) view(e.source_img); };
   $("[data-save]", d).onclick = async () => { try { await api("/api/entry", {packet: r.packet, id: e.id, fields: {look: $("[data-look]", d).value}}); setStatus(`${e.name}: look saved`); await refresh(); } catch (x) { setStatus(x.message, true); } };
   $("[data-render]", d).onclick = () => startRun(r, ["render", "cut", "build"], [e.id], false);
   $("[data-cut]", d).onclick = () => startRun(r, ["cut", "build"], [e.id], false);
@@ -284,6 +338,17 @@ $("#newForm").onsubmit = async (ev) => {
     const r = await api("/api/draft", {packet: $("#nfPacket").value, name: $("#nfName").value, faction: $("#nfFaction").value || null, group: $("#nfGroup").value || null, plan, framing: $("#nfFraming").value || null});
     selected = r.packet; localStorage.setItem("forge.packet", selected);
     await refresh(); setStatus(`drafted ${r.path} — write the looks, then Run loop`);
+  } catch (x) { alert(x.message); }
+};
+$("#btnImportFoundry").onclick = async () => {
+  const group = $("#foundryGroup").value;
+  if (!group) return alert("no Foundry NPC folder is available");
+  try {
+    const r = await api("/api/import-foundry", {group, packet: $("#foundryPacket").value.trim() || null, world: state.foundry.world});
+    selected = r.packet; localStorage.setItem("forge.packet", selected);
+    foundryPacketEdited = false;
+    await refresh();
+    setStatus(`loaded ${r.counts.entries} Foundry NPCs from ${group} as ${r.packet}; render or ingest art, then Cut + build`);
   } catch (x) { alert(x.message); }
 };
 $("#btnCollectSite").onclick = async () => {

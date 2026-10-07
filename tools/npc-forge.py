@@ -33,6 +33,7 @@ import argparse
 import datetime as dt
 import importlib.util
 import json
+from html import unescape
 import os
 import re
 import shutil
@@ -188,15 +189,26 @@ class Forge:
         entries = []
         for e in r.get("entries") or []:
             render, plate = self.bfp.render_file(r, e), self.bfp.plate_file(r, e)
+            source_exists = False
+            if e.get("source_actor"):
+                try:
+                    source_exists = os.path.isfile(self.bfp.source_actor_path(e))
+                except (OSError, ValueError):
+                    source_exists = False
+            source_img = e.get("source_img")
+            if source_img and not os.path.isfile(os.path.join(ROOT, *source_img.split("/"))):
+                source_img = None
             entries.append({
                 "id": e["id"], "name": e["name"], "folder": e.get("folder"), "tier": e.get("tier"), "role": e.get("role"),
                 "cr": e.get("cr"), "type": e.get("type"), "size": e.get("size"), "seed": e.get("seed"), "look": e.get("look") or "",
                 "prompt": self.bfp.prompt_for(r, e), "token_size": e.get("token_size") or 1,
                 "render": rel(render) if os.path.exists(render) else None,
                 "plate": rel(plate) if os.path.exists(plate) else None,
-                "actor": os.path.exists(os.path.join(actors_dir, f"{prefix}{e['id']}.json")),
+                "source_img": source_img, "source_has_img": bool(e.get("source_has_img")),
+                "actor": os.path.exists(os.path.join(actors_dir, f"{prefix}{e['id']}.json")) or source_exists,
             })
         return {"packet": r["packet"], "name": r.get("name"), "title": r.get("title"), "faction": r.get("faction"), "group": r.get("group"),
+                "foundry_source": r.get("foundry_source"),
                 "color": r.get("color"), "subfolders": r.get("subfolders") or {}, "render_size": r.get("render_size") or [1408, 768],
                 "plate_size": r.get("plate_size") or 512, "style": r.get("style"), "framing": r.get("framing"), "negative": r.get("negative"),
                 "path": rel(os.path.join(self.bfp.ROSTERS, r["packet"] + ".json")),
@@ -224,6 +236,184 @@ class Forge:
                         "summary": f.get("summary"), "group": group, "color": (groups.get(group) or {}).get("color") if group else None})
         return {"factions": sorted(out, key=lambda x: x["name"] or ""), "groups": {g: v.get("color") for g, v in groups.items() if isinstance(v, dict)},
                 "rosters": [os.path.splitext(os.path.basename(p))[0] for p in self.bfp.roster_paths()]}
+
+    def _foundry_world(self, world=None):
+        scheme = self.bfp.P955.load_folder_scheme()
+        name = str(world or (scheme.get("players") or {}).get("world") or "midlands").strip()
+        if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._-]*", name):
+            raise RuntimeError(f"invalid Foundry world name: {name!r}")
+        return name, scheme
+
+    def _foundry_actor_rows(self, group=None, world=None):
+        """NPC documents in the live Foundry world mirror, grouped by their
+        explicit folderPath flag (falling back to the mirrored directories)."""
+        world, scheme = self._foundry_world(world)
+        world_dir = os.path.join(self.bfp.ACTORS_ROOT, "worlds", world)
+        if not os.path.isdir(world_dir):
+            return world, scheme, []
+        player_folder = (scheme.get("players") or {}).get("folder") or "Players"
+        rows, seen = [], set()
+        for base, dirs, files in os.walk(world_dir):
+            dirs.sort(key=str.casefold)
+            for filename in sorted(files, key=str.casefold):
+                if not filename.lower().endswith(".json"):
+                    continue
+                path = os.path.join(base, filename)
+                doc = read_json(path)
+                if not isinstance(doc, dict) or doc.get("type") != "npc":
+                    continue
+                actor_id = str(doc.get("_id") or "")
+                if not self.bfp.FOUNDRY_ID.match(actor_id) or actor_id in seen:
+                    continue
+                flag = ((doc.get("flags") or {}).get(self.bfp.MODULE_ID) or {}).get("folderPath")
+                rel_parts = os.path.relpath(path, world_dir).split(os.sep)[:-1]
+                folder_path = [str(part) for part in flag] if isinstance(flag, list) and flag else rel_parts
+                if not folder_path or folder_path[0] == player_folder:
+                    continue
+                if group is not None and folder_path[0] != group:
+                    continue
+                seen.add(actor_id)
+                rows.append({"doc": doc, "path": path, "folder_path": folder_path,
+                             "relative_path": os.path.relpath(path, self.bfp.ACTORS_ROOT).replace(os.sep, "/")})
+        rows.sort(key=lambda row: (row["folder_path"][0].casefold(), "/".join(row["folder_path"]).casefold(),
+                                   str(row["doc"].get("name") or "").casefold(), row["doc"].get("_id") or ""))
+        return world, scheme, rows
+
+    def foundry_groups(self, world=None):
+        """Groups and NPC counts discovered in actors/worlds/<live world>.
+        This is read-only; the UI imports a group only after an explicit click."""
+        world, _scheme, rows = self._foundry_actor_rows(world=world)
+        groups = {}
+        for row in rows:
+            name = row["folder_path"][0]
+            info = groups.setdefault(name, {"name": name, "count": 0, "folders": set()})
+            info["count"] += 1
+            info["folders"].add(" / ".join(row["folder_path"][1:]) or "(group root)")
+        return {"world": world, "path": rel(os.path.join(self.bfp.ACTORS_ROOT, "worlds", world)),
+                "groups": [{"name": name, "count": info["count"], "folders": sorted(info["folders"], key=str.casefold),
+                            "packet": "foundry-" + slugify(name)}
+                           for name, info in sorted(groups.items(), key=lambda item: item[0].casefold())]}
+
+    def _foundry_image(self, image):
+        """Return a repo-relative image path when a Foundry image is in this
+        checkout; Foundry's built-in and external paths stay untouched."""
+        if not isinstance(image, str) or not image or image.startswith(("http://", "https://", "data:")):
+            return None
+        image = image.replace("\\", "/").lstrip("/")
+        rm_root = os.path.realpath(self.bfp.RM)
+        if image.startswith("Reputation-Matrix2/"):
+            candidate = os.path.join(os.path.dirname(rm_root), *image.split("/"))
+        else:
+            candidate = os.path.join(rm_root, *image.split("/"))
+        candidate = os.path.realpath(candidate)
+        try:
+            if os.path.commonpath((rm_root, candidate)) != rm_root or not os.path.isfile(candidate):
+                return None
+        except ValueError:
+            return None
+        return os.path.relpath(candidate, ROOT).replace(os.sep, "/")
+
+    def import_foundry(self, group, packet=None, world=None):
+        """Create an art-only Forge roster from existing NPCs in one Foundry
+        folder. The source actors are references in the world mirror; a later
+        Build carries their original sheets forward and changes only art."""
+        if not group:
+            raise RuntimeError("choose a Foundry group folder")
+        world, scheme, rows = self._foundry_actor_rows(group=group, world=world)
+        if not rows:
+            raise KeyError(f"no NPC actors found in {group!r} under actors/worlds/{world}")
+        packet = slugify(packet or ("foundry-" + slugify(group)))
+        roster_path = os.path.join(self.bfp.ROSTERS, packet + ".json")
+        if os.path.exists(roster_path):
+            raise RuntimeError(f"data/forge/{packet}.json exists — choose another packet id")
+
+        articles = read_json(os.path.join(self.bfp.RM, "data", "characters.json"), []) or []
+        articles_by_id = {a.get("id"): a for a in articles if isinstance(a, dict) and a.get("id")}
+        group_info = (scheme.get("groups") or {}).get(group) or {}
+        color = group_info.get("color") or "#888888"
+        faction = group_info.get("faction")
+        folder_styles = {}
+        for spec in (scheme.get("packets") or {}).values():
+            if isinstance(spec, dict) and spec.get("folder") == group:
+                folder_styles.update(spec.get("subfolders") or {})
+        for spec in (scheme.get("eras") or {}).values():
+            if isinstance(spec, dict) and spec.get("folder"):
+                folder_styles.setdefault(spec["folder"], spec)
+
+        entries, subfolders, used = [], {}, set()
+        for index, row in enumerate(rows, 1):
+            doc = row["doc"]
+            foundry_id = str(doc.get("_id") or "")
+            name = str(doc.get("name") or foundry_id)
+            eid = slugify(name)
+            if eid in used:
+                eid = f"{eid}-{slugify(foundry_id[-6:])}"
+            suffix = 2
+            base_id = eid
+            while eid in used:
+                eid = f"{base_id}-{suffix}"
+                suffix += 1
+            used.add(eid)
+            folder_parts = row["folder_path"][1:]
+            folder = " / ".join(folder_parts) if folder_parts else "General"
+            style = folder_styles.get(folder) or {}
+            subfolders.setdefault(folder, {
+                "color": style.get("color") or color,
+                "description": style.get("description") or f"Existing Foundry folder under {group}.",
+            })
+            sysdoc = doc.get("system") or {}
+            details = sysdoc.get("details") or {}
+            actor_type = details.get("type") or {}
+            if isinstance(actor_type, dict):
+                actor_type = actor_type.get("value") or actor_type.get("custom") or "npc"
+            traits = sysdoc.get("traits") or {}
+            sheet_flags = ((doc.get("flags") or {}).get(self.bfp.SHEETS_FLAG) or {})
+            site_id = sheet_flags.get("characterId")
+            article = articles_by_id.get(site_id)
+            if article:
+                look = " ".join(str(article[k]) for k in ("summary", "description") if article.get(k))[:600].strip()
+            else:
+                biography = details.get("biography") or {}
+                biography = biography.get("value", "") if isinstance(biography, dict) else biography
+                look = re.sub(r"\s+", " ", unescape(re.sub(r"<[^>]*>", " ", str(biography or "")))).strip()[:600]
+            if not look:
+                subtype = (actor_type if isinstance(actor_type, str) else "npc")
+                detail_type = details.get("type") or {}
+                subtype = detail_type.get("subtype") if isinstance(detail_type, dict) else ""
+                look = f"{name}, a {subtype or actor_type or 'fantasy'} creature in {group}."
+            width = (doc.get("prototypeToken") or {}).get("width") or 1
+            height = (doc.get("prototypeToken") or {}).get("height") or 1
+            entry = {
+                "id": eid, "name": name, "folder": folder, "tier": sheet_flags.get("role") or "Foundry NPC",
+                "role": sheet_flags.get("role") or "Existing Foundry NPC", "cr": details.get("cr") or 0,
+                "type": actor_type, "size": traits.get("size") or "med", "token_size": max(int(width), int(height)),
+                "look": look, "seed": 600000 + index,
+                "source_actor": row["relative_path"], "source_actor_id": foundry_id,
+                "source_folder_path": list(row["folder_path"]),
+                "source_img": self._foundry_image(doc.get("img")),
+                "source_has_img": bool(doc.get("img") and doc.get("img") != self.bfp.PENDING_IMG),
+            }
+            if site_id:
+                entry["site"] = site_id
+            entries.append(entry)
+
+        roster = {
+            "format": self.bfp.FORMAT, "packet": packet, "name": group,
+            "title": f"{group} — existing NPCs from Foundry world {world}", "faction": faction,
+            "group": group, "color": color, "disposition": -1,
+            "file_prefix": f"fvtt-Actor-{packet}-", "portraits": f"portraits/{packet}",
+            "renders": f"npc-forge/{packet}/renders",
+            "source": f"Foundry world mirror: actors/worlds/{world}/{group}",
+            "foundry_source": {"world": world, "group": group},
+            "style": "Clean cel-shaded cartoon character art in the style of Mario & Luigi RPG concept art, bold dark outlines, flat colours, simple shading.",
+            "framing": self.bfp.FRAMINGS["fullbody"],
+            "negative": "photorealistic, 3d render, blurry, cropped, cut off, multiple characters, text, watermark, signature, border, frame, ground shadow, floor, background scenery, gradient background",
+            "background": "#FF00FF", "render_size": [1408, 768], "plate_size": 512,
+            "subfolders": subfolders, "entries": entries,
+        }
+        write_json(roster_path, roster)
+        self.ensure_scheme(roster)
+        return self.roster_view(roster)
 
     def _tier_entry(self, eid, name, folder, tier, look, seed, faction=None, roster_name=None, framing=None):
         """A draft statblock at `tier` with the given look — the shape both `draft`
@@ -412,7 +602,8 @@ class Forge:
             return False
         packets[roster["packet"]] = want
         groups = scheme.setdefault("groups", {})
-        if roster["group"] not in groups:
+        bestiary_folder = (scheme.get("bestiary") or {}).get("folder")
+        if roster["group"] not in groups and roster["group"] != bestiary_folder:
             groups[roster["group"]] = {"color": roster.get("color") or "#888888", "faction": roster.get("faction")}
         write_json(FOLDER_SCHEME, scheme)
         return True
@@ -654,7 +845,8 @@ class Forge:
         return {"handoff": rel(os.path.join(folder, "handoff.md")), "jobs": rel(os.path.join(folder, "jobs.jsonl")), "count": len(jobs)}
 
     def state(self):
-        return {"connection": self.connection(), "rosters": self.rosters(), "job": self.current, "root": ROOT,
+        return {"connection": self.connection(), "rosters": self.rosters(), "foundry": self.foundry_groups(),
+                "job": self.current, "root": ROOT,
                 "tiers": {k: {"cr": v["cr"], "ac": v["ac"], "hp": v["hp"]} for k, v in TIERS.items()}, "default_plan": DEFAULT_PLAN}
 
 
@@ -745,6 +937,8 @@ class Handler(BaseHTTPRequestHandler):
                 return self._send(200, f.draft(body["packet"], body["name"], faction=body.get("faction"), group=body.get("group"), color=body.get("color"),
                                                plan=body.get("plan"), subfolders=body.get("subfolders"), style=body.get("style"), title=body.get("title"),
                                                rows=body.get("rows"), framing=body.get("framing")))
+            if path == "/api/import-foundry":
+                return self._send(200, f.import_foundry(body.get("group"), packet=body.get("packet"), world=body.get("world")))
             if path == "/api/collect":
                 rows = body.get("rows")
                 if rows is None and body.get("fromSite") is not None:

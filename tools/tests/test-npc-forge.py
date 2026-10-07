@@ -253,6 +253,64 @@ try:
           [g["id"] for g in gotc] == ["draft-03"] and os.path.exists(os.path.join(sb, "npc-forge", "test-troop", "renders", "draft-03.png"))
           and os.path.exists(os.path.join(sb, "portraits", "test-troop", "draft-03.png")), gotc)
     check("ingest again collects nothing (the job is no longer pending)", forge.ingest(drop, packet="test-troop") == [])
+
+    # Import one existing Foundry group, then prove its full sheet survives a
+    # build; the only changed fields should be the token image paths.
+    scheme_path = bfp.P955.FOLDER_SCHEME
+    scheme = json.load(open(scheme_path, encoding="utf-8"))
+    scheme.setdefault("players", {})["world"] = "forge-test"
+    json.dump(scheme, open(scheme_path, "w", encoding="utf-8"), indent=2)
+    legacy_dir = os.path.join(sb, "actors", "worlds", "forge-test", "Koopa Troop", "Rank and File")
+    os.makedirs(legacy_dir, exist_ok=True)
+    old_art = os.path.join(sb, "portraits", "current-guard.png")
+    os.makedirs(os.path.dirname(old_art), exist_ok=True)
+    _Image.new("RGBA", (8, 8), (0, 180, 0, 255)).save(old_art)
+    legacy = {
+        "_id": "1234567890ABCDEF", "name": "Retained Guard", "type": "npc", "img": "portraits/current-guard.png",
+        "prototypeToken": {"name": "Retained Guard", "width": 1, "height": 1, "texture": {"src": "portraits/current-guard.png", "scaleX": 0.8}},
+        "system": {"details": {"cr": 4, "type": {"value": "humanoid", "subtype": "koopa"},
+                                  "biography": {"value": "<p>A watchful green koopa soldier.</p>"}},
+                    "traits": {"size": "med"}, "attributes": {"ac": {"flat": 17}, "hp": {"value": 88}},
+                    "specialPreservationMarker": "keep this exact Foundry sheet"},
+        "items": [{"_id": "abcdefghijklmnop", "name": "Original feature", "type": "feat"}],
+        "flags": {"waluipedia-mass-import": {"folderPath": ["Koopa Troop", "Rank and File"]},
+                  "waluipedia-sheets": {"tags": ["Koopa Troop", "npc"], "art": "pending"}},
+    }
+    source_file = os.path.join(legacy_dir, "fvtt-Actor-retained-guard-1234567890ABCDEF.json")
+    json.dump(legacy, open(source_file, "w", encoding="utf-8"), indent=2)
+    groups = forge.foundry_groups()
+    foundry_group = next((g for g in groups["groups"] if g["name"] == "Koopa Troop"), None)
+    check("Foundry scan: live-world NPC groups and counts come from the folderPath mirror", groups["world"] == "forge-test"
+          and foundry_group and foundry_group["count"] == 1 and foundry_group["folders"] == ["Rank and File"], groups)
+    st, body = req("GET", "/api/state")
+    api_state = json.loads(body)
+    check("GET /api/state exposes Foundry folder sources without auto-importing them", st == 200
+          and api_state["foundry"]["world"] == "forge-test" and not any(r["packet"] == "foundry-koopa-troop" for r in api_state["rosters"]))
+    st, body = req("POST", "/api/import-foundry", {"group": "Koopa Troop", "packet": "foundry-koopa-test"})
+    imported = json.loads(body)
+    check("POST /api/import-foundry makes an art roster from an existing group", st == 200 and imported["packet"] == "foundry-koopa-test"
+          and imported["counts"]["entries"] == 1 and imported["entries"][0]["source_img"].endswith("portraits/current-guard.png"), body)
+    foundry_roster = bfp.find_roster("foundry-koopa-test")
+    foundry_entry = foundry_roster["entries"][0]
+    legacy_scheme = bfp.P955.load_folder_scheme()
+    legacy_expected, legacy_problems, legacy_pending = bfp.build_packet(foundry_roster, lib, legacy_scheme)
+    legacy_built = json.loads(legacy_expected["fvtt-Actor-foundry-koopa-test-retained-guard.json"])
+    check("Foundry roster validates and keeps the source sheet intact before new art", not legacy_problems and not legacy_pending
+          and legacy_built["_id"] == legacy["_id"] and legacy_built["system"] == legacy["system"] and legacy_built["items"] == legacy["items"]
+          and legacy_built["img"] == legacy["img"] and legacy_built["flags"]["waluipedia-mass-import"]["folderPath"] == ["Koopa Troop", "Rank and File"], legacy_problems)
+    new_plate = bfp.plate_file(foundry_roster, foundry_entry)
+    os.makedirs(os.path.dirname(new_plate), exist_ok=True)
+    _Image.new("RGBA", (16, 16), (0, 0, 0, 0)).save(new_plate)
+    built = forge.build(foundry_roster)
+    packet_actor = json.load(open(os.path.join(sb, "actors", "foundry-koopa-test", "fvtt-Actor-foundry-koopa-test-retained-guard.json"), encoding="utf-8"))
+    source_after = json.load(open(source_file, encoding="utf-8"))
+    check("Build carries a new plate into the Foundry packet without rewriting the source mirror or statblock", built["actors"] == 1
+          and packet_actor["_id"] == legacy["_id"] and packet_actor["system"] == legacy["system"] and packet_actor["items"] == legacy["items"]
+          and packet_actor["img"] == "portraits/foundry-koopa-test/retained-guard.png"
+          and packet_actor["prototypeToken"]["texture"]["src"] == packet_actor["img"]
+          and "art" not in packet_actor["flags"]["waluipedia-sheets"] and source_after == legacy, packet_actor)
+    st, body = req("POST", "/api/import-foundry", {"group": "Koopa Troop", "packet": "foundry-koopa-test"})
+    check("Foundry import refuses to overwrite a Forge roster", st == 409 and b"choose another packet id" in body, body)
     srv.shutdown()
 finally:
     shutil.rmtree(tmp, ignore_errors=True)

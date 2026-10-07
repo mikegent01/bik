@@ -33,6 +33,7 @@ recipe (``prompt_for``), the plate cut (``cut_plate``) and the build.
 """
 
 import argparse
+import copy
 import glob
 import importlib.util
 import json
@@ -159,6 +160,44 @@ def plate_file(roster, entry):
 
 def render_file(roster, entry):
     return os.path.join(packet_paths(roster)[2], f"{entry['id']}.png")
+
+
+def source_actor_path(entry):
+    """Resolve a Foundry-imported roster entry to its source actor in the
+    world mirror. Imported rosters may point only inside actors/worlds — never
+    to an arbitrary file — and the path is relative to actors/ so the suite's
+    sandbox tests and a moved checkout behave the same way."""
+    source = entry.get("source_actor")
+    if not source:
+        return None
+    if not isinstance(source, str) or os.path.isabs(source):
+        raise ValueError("source_actor must be a relative path under actors/worlds")
+    source = source.replace("\\", "/")
+    actors = os.path.realpath(ACTORS_ROOT)
+    worlds = os.path.realpath(os.path.join(actors, "worlds"))
+    path = os.path.realpath(os.path.join(actors, *source.split("/")))
+    try:
+        inside_worlds = os.path.commonpath((worlds, path)) == worlds
+    except ValueError:
+        inside_worlds = False
+    if not inside_worlds:
+        raise ValueError("source_actor must point inside actors/worlds")
+    if not os.path.isfile(path):
+        raise FileNotFoundError(path)
+    return path
+
+
+def load_source_actor(entry):
+    """Read an imported actor snapshot, verifying its id has not drifted."""
+    path = source_actor_path(entry)
+    if not path:
+        return None
+    with open(path, encoding="utf-8") as fh:
+        doc = json.load(fh)
+    expected = entry.get("source_actor_id")
+    if expected and doc.get("_id") != expected:
+        raise ValueError(f"source actor id changed at {entry['source_actor']}: expected {expected}")
+    return doc
 
 
 def token_path(roster, entry):
@@ -395,6 +434,29 @@ def biography(roster, entry, token):
 
 
 def build_actor(roster, entry):
+    # A Foundry folder import is an art-only roster. Start from the source
+    # document so running Forge cannot replace a carefully edited sheet with
+    # the tier template used for newly drafted NPCs. Until a plate exists the
+    # existing art stays; afterwards only the actor/token image paths change.
+    if entry.get("source_actor"):
+        doc = copy.deepcopy(load_source_actor(entry))
+        folder_path = entry.get("source_folder_path")
+        if isinstance(folder_path, list) and folder_path:
+            flags = doc.setdefault("flags", {}).setdefault(MODULE_ID, {})
+            if not isinstance(flags.get("folderPath"), list):
+                flags["folderPath"] = list(folder_path)
+        plate = plate_file(roster, entry)
+        if os.path.isfile(plate):
+            token = f"{(roster.get('portraits') or 'portraits/' + roster['packet']).rstrip('/')}/{entry.get('plate') or entry['id']}.png"
+            doc["img"] = token
+            prototype = doc.setdefault("prototypeToken", {})
+            texture = prototype.setdefault("texture", {})
+            texture["src"] = token
+            sheets = ((doc.get("flags") or {}).get(SHEETS_FLAG) or {})
+            if isinstance(sheets, dict) and sheets.get("art") == "pending":
+                sheets.pop("art", None)
+        return doc
+
     sc = dict(zip(ABILITY_KEYS, entry["abilities"]))
     token = token_path(roster, entry)
     size = int(entry.get("token_size") or 1)
@@ -504,7 +566,9 @@ def validate_roster(roster, scheme):
     if len(ids) != len(set(ids)):
         problems.append("duplicate entry ids")
     if scheme:
-        if roster.get("group") not in (scheme.get("groups") or {}):
+        known_groups = scheme.get("groups") or {}
+        bestiary_folder = (scheme.get("bestiary") or {}).get("folder")
+        if roster.get("group") not in known_groups and roster.get("group") != bestiary_folder:
             problems.append(f"actors/folders.json groups lacks {roster.get('group')!r}")
         entry = (scheme.get("packets") or {}).get(pk) or {}
         if entry.get("folder") != roster.get("group"):
@@ -526,6 +590,17 @@ def validate_entry(roster, entry, doc, lib, scheme):
         problems.append("id must be a slug")
     if e.get("folder") not in (roster.get("subfolders") or {}):
         problems.append(f"folder {e.get('folder')!r} is not one of the roster's subfolders")
+    if e.get("source_actor"):
+        if not (e.get("look") or e.get("prompt")):
+            problems.append("entry needs a `look` (or a full `prompt`) for the Forge")
+        if doc.get("type") != "npc":
+            problems.append("Foundry source must be an NPC actor")
+        if not FOUNDRY_ID.match(doc.get("_id") or ""):
+            problems.append("actor _id must be 16 alphanumerics")
+        source_path = ((doc.get("flags") or {}).get(MODULE_ID) or {}).get("folderPath")
+        if not isinstance(source_path, list) or not source_path or source_path[0] != roster.get("group"):
+            problems.append(f"source actor must remain in Foundry group {roster.get('group')!r}")
+        return [f"{roster['packet']}/{e.get('id')}: {p}" for p in problems]
     if not isinstance(e.get("abilities"), list) or len(e["abilities"]) != 6:
         problems.append("abilities must be six scores")
     if not (0 <= float(e.get("cr", -1)) <= 30):
