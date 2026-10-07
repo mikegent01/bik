@@ -27,6 +27,12 @@ Promotions (one row each in ``PROMOTIONS`` below):
   Salam   2TkQ7lDU0DJBrx9J   convert — the thin shadowtoad statblock becomes a
                               Ranger 3 (Hunter) keeping its kit and owners.
 
+The rows are a record of what was done, and they stay after the actor retires:
+Wario and Salam are in ``players.retired`` now (2026-10-06 — not played at the
+table), so the sheets they got keep their promotion flags while the organizer
+files them by faction (Disaster Inc.) with everyone else. Only a promotion of
+an actor still on the roster is expected under ``Players/``.
+
 ``replace`` copies a PC sheet that already exists in the repo under the live
 id, keeping the live folder, ownership, art and token (the players keep
 access, the GM keeps the art they uploaded), with class levels and XP pinned
@@ -47,11 +53,12 @@ the GM builds NPCs on character sheets too. ``LEDGER``, ``LEDGER_EXEMPT`` and
 
   * every roster character sits under ``Players/`` as a ``character`` sheet;
   * nothing else sits under ``Players/`` except the roster's companions
-    (Steel Defender, Wario's Motorbike) — a character sheet alone does not make
-    a player character;
-  * each promoted actor exists under its live id as a character;
-  * every roster character carries the ledger XP (Green T is exempt: the GM
-    runs him off-ledger, see the roster's ``offLedger``).
+    (NPC-typed actors the scheme allows there — a mount, a construct);
+  * each promoted actor exists under its live id as a character (a promotion
+    whose actor has since retired — ``players.retired`` — keeps its record but
+    files by faction like any other actor, and is not nagged about it);
+  * every roster character carries the ledger XP (``LEDGER_EXEMPT`` lists any
+    the roster runs off-ledger, with its ``offLedger`` reason).
 
 A sheet whose class level disagrees with its ledger level is reported as a
 warning, never an error: levelling up is a choice made inside Foundry.
@@ -452,7 +459,11 @@ def run_check(xp, placement="error"):
         if doc.get("type") != "character":
             errors.append(f"{rel(hits[0])}: {promo['name']} is still type {doc.get('type')!r} — run tools/promote-player-sheets.py")
             continue
-        if os.path.abspath(hits[0]) != os.path.abspath(target_path(promo)):
+        # Only a promotion of an actor still on the roster belongs under
+        # Players/. A retired one (actors/folders.json players.retired — Wario,
+        # Salam) keeps its promotion record but files by faction like any other
+        # actor, so where the organizer put it is not a warning.
+        if promo["id"] in ROSTER["ids"] and os.path.abspath(hits[0]) != os.path.abspath(target_path(promo)):
             warnings.append(f"{rel(hits[0])}: {promo['name']} sits outside {'/'.join(promo['folderPath'])}/ in the world")
         if not ((doc.get("flags") or {}).get(SHEETS_FLAG) or {}).get("promoted"):
             warnings.append(f"{rel(hits[0])}: {promo['name']} carries no flags.{SHEETS_FLAG}.promoted record (rebuilt in Foundry?)")

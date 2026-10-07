@@ -7,8 +7,9 @@ proves: export discovery (world id off the file name, exportedAt off the
 file head, newest first, Downloads copies included), the staleness rule the
 split step uses, the appliesTo filter on changes files, the promoted sheets
 in the midlands mirror (character type, live id, folder, ownership kept,
-ledger XP, promotion record), the rule that nothing under Players/ is an
-NPC statblock, the spoils that reached the sheets, start.py's wiring
+ledger XP, promotion record), the rule that Players/ is exactly the party
+roster (the retired player characters and their mount file by faction), the
+spoils that reached the sheets, start.py's wiring
 (tick, light, button, flags, CORS header), the publish step that puts the
 packets, the module and the art into the Foundry Data folder the suite finds
 (what the module's Sync button reads first) and finally the suite's own
@@ -135,21 +136,42 @@ check("…every folder in it is coloured (groups, Bestiary types, Players, the e
 # ---- the promoted sheets --------------------------------------------------
 mirror = ROOT / "Reputation-Matrix2/actors/worlds/midlands"
 players = mirror / "Players"
+# by_id spans the WHOLE mirror: since 2026-10-06 the retired player characters
+# (and Wario's Motorbike) file under Disaster Inc. with the rest of the faction,
+# so a promoted sheet is no longer guaranteed to sit under Players/.
 by_id = {}
-for p in players.glob("fvtt-Actor-*.json"):
+for p in mirror.rglob("fvtt-Actor-*.json"):
     doc = read(p)
     by_id[doc["_id"]] = (p, doc)
-check("nothing under Players/ is an NPC statblock except the companions",
-      all(d["type"] == "character" or d["name"] in promote.COMPANIONS for _, d in by_id.values()))
-check("Wario's Motorbike is the only NPC-typed actor left in Players/",
-      sorted(d["name"] for _, d in by_id.values() if d["type"] != "character") == ["Wario's Motorbike"])
+in_players = {aid: v for aid, v in by_id.items() if v[0].parent == players}
+scheme_players = read(ROOT / "Reputation-Matrix2/actors/folders.json")["players"]
+roster_live = {r["actor"]: r["name"] for r in scheme_players["roster"]}
+retired_live = {r["actor"]: r["name"] for r in scheme_players["retired"]}
+check("Players/ is exactly the party roster (actors/folders.json players.roster) — the seven, each a character sheet, and nothing else",
+      set(in_players) == set(roster_live) and all(d["type"] == "character" for _, d in in_players.values()),
+      str(sorted(d["name"] for _, d in in_players.values())))
+check("the five retired player characters file by faction — Disaster Inc. — with Wario's Motorbike, and no tool reads them as players",
+      {retired_live[a]: by_id[a][0].parent.name for a in retired_live} == dict.fromkeys(retired_live.values(), "Disaster Inc")
+      and by_id["y1amANPSbK9exY41"][0].parent.name == "Disaster Inc"
+      and not (set(in_players) & set(retired_live))
+      and all(d["name"] not in promote.LEDGER for _, d in by_id.values() if d["_id"] in retired_live),
+      str({retired_live[a]: by_id[a][0].parent.name for a in retired_live if a in by_id}))
+check("the Steel Defender — the roster's companion — is filed with the faction he belongs to; a companion MAY sit in Players/, he does not have to",
+      by_id["Q8InPZPmhqhpOY7g"][0].parent.name == "Disaster Inc" and "Steel Defender" in promote.COMPANIONS
+      and promote.COMPANIONS == {c["name"] for c in scheme_players["companions"]})
 export = read(ROOT / "midlands-all-actors.json")
 exported = {a["_id"]: a for a in export["actors"]}
 xp = promote.B.load_xp_summary()
 for promo in promote.PROMOTIONS:
     aid, name = promo["id"], promo["name"]
     live = by_id.get(aid)
-    check(f"{name}: promoted sheet sits in Players/ under the live id", live is not None and live[1]["type"] == "character")
+    # a promotion of an actor still on the roster belongs under Players/; a
+    # retired one (Wario, Salam) keeps its record and files by faction
+    on_roster = aid in roster_live
+    want_dir, want_flag = ("Players", ["Players"]) if on_roster else ("Disaster Inc", ["Disaster Inc."])
+    check(f"{name}: promoted sheet sits under the live id in {want_dir}/{' (the roster)' if on_roster else ' (retired — filed by faction)'}",
+          live is not None and live[1]["type"] == "character" and live[0].parent.name == want_dir,
+          str(live[0].parent.name if live else None))
     if not live:
         continue
     path, doc = live
@@ -158,7 +180,8 @@ for promo in promote.PROMOTIONS:
     check(f"{name}: ownership kept from the world (the players keep access)", doc["ownership"] == src["ownership"])
     check(f"{name}: the GM's art kept", doc["img"] == src["img"] and doc["prototypeToken"]["texture"]["src"] == src["prototypeToken"]["texture"]["src"])
     check(f"{name}: token linked to the actor", doc["prototypeToken"]["actorLink"] is True)
-    check(f"{name}: folderPath flag says Players", doc["flags"]["waluipedia-mass-import"]["folderPath"] == ["Players"])
+    check(f"{name}: folderPath flag says {' / '.join(want_flag)}", doc["flags"]["waluipedia-mass-import"]["folderPath"] == want_flag,
+          str(doc["flags"]["waluipedia-mass-import"]["folderPath"]))
     rec = (doc["flags"].get("waluipedia-sheets") or {}).get("promoted") or {}
     check(f"{name}: promotion record names the mode, tool and ledger key", rec.get("mode") == promo["mode"] and rec.get("tool") == "tools/promote-player-sheets.py" and rec.get("ledger") == promo["ledger"])
     check(f"{name}: XP is the ledger's", doc["system"]["details"]["xp"]["value"] == int(xp[promo["ledger"]]["currentXP"]))
@@ -188,14 +211,21 @@ wario = by_id["dEhGeFofEfnIG24J"][1]
 check("Wario: Barbarian pinned to the ledger level, not the intake's guess", wario["system"]["details"]["xp"]["value"] == 18370 and xp["wario"]["level"] == 6)
 manifest = read(mirror / "manifest.json")
 rows = {r["_id"]: r for r in manifest["actors"]}
-check("manifest rows follow the promoted actors", all(rows[p["id"]]["type"] == "character" and rows[p["id"]]["file"].startswith("Players/") for p in promote.PROMOTIONS))
+check("manifest rows follow the promoted actors (each to the folder the organizer files it in)",
+      all(rows[p["id"]]["type"] == "character"
+          and rows[p["id"]]["file"].startswith(("Players/" if p["id"] in roster_live else "Disaster Inc/")) for p in promote.PROMOTIONS),
+      str({p["name"]: rows[p["id"]]["file"] for p in promote.PROMOTIONS if p["id"] in rows}))
 
 # ---- every player sheet at ledger XP; the spoils --------------------------
 for name, key in promote.LEDGER.items():
     doc = next((d for _, d in by_id.values() if d["name"] == name), None)
     check(f"{name}: sheet XP == ledger ({xp[key]['currentXP']})", doc is not None and doc["system"]["details"]["xp"]["value"] == int(xp[key]["currentXP"]))
-green = next(read(p) for p in mirror.rglob("fvtt-Actor-*.json") if read(p)["name"] == "Green T")
-check("Green T is left as the GM runs him (off-ledger, listed as exempt)", green["system"]["details"]["xp"]["value"] == 100000 and "Green T" in promote.LEDGER_EXEMPT)
+green = by_id["mj7kizwZ5R7FtGg6"][1]
+check("Green T is retired, not a player: the GM still runs him off-ledger at 100000 XP, filed by faction — and nobody ON the roster is off-ledger (LEDGER_EXEMPT reads the roster, and all seven rows have a ledger key)",
+      green["name"] == "Green T" and green["system"]["details"]["xp"]["value"] == 100000
+      and retired_live["mj7kizwZ5R7FtGg6"] == "Green T" and by_id["mj7kizwZ5R7FtGg6"][0].parent.name == "Disaster Inc"
+      and promote.LEDGER_EXEMPT == {} and sorted(promote.LEDGER) == sorted(roster_live.values()),
+      str({"xp": green["system"]["details"]["xp"]["value"], "ledger": promote.LEDGER, "exempt": promote.LEDGER_EXEMPT}))
 eager = next(d for _, d in by_id.values() if d["name"] == "Eager")
 sphere = [it for it in eager["items"] if it["name"] == "The Electric Sphere"]
 check("Eager carries The Electric Sphere (trinket, flagged to the technology file)",
@@ -216,13 +246,19 @@ check("the index resolves Bowser, Wario and Salam to live character sheets", all
 check("Mario and Luigi: the world has taken their hand-authored sheets (live character sheets now), the GM's statblocks ride as alternates — and neither is party: a character sheet is not a player character",
       all(entry[i]["source"] == "live" and entry[i]["kind"] == "pc" and not entry[i]["party"] and any(a["source"] == "live" and a["kind"] == "npc" for a in entry[i]["alternates"]) for i in ("mario", "luigi")),
       str({i: (entry[i]["source"], entry[i]["kind"], entry[i]["party"], entry[i].get("file")) for i in ("mario", "luigi")}))
-suite_roster = read(ROOT / "Reputation-Matrix2/actors/folders.json")["players"]["roster"]
+suite_roster = scheme_players["roster"]
 roster_ids = {r["character"] for r in suite_roster}
+retired_ids = {r["character"] for r in scheme_players["retired"]}
 check("1.9: every roster character is public, resolved to the player's own live sheet (by id, not name — Feyward Dan is not the Liberated Toads' Dan)",
       all(entry[r["character"]]["party"] and entry[r["character"]]["source"] == "live" and entry[r["character"]]["file"].endswith(f"-{r['actor']}.json") and entry[r["character"]]["kind"] == "pc" for r in suite_roster),
       str([(r["character"], entry.get(r["character"], {}).get("file")) for r in suite_roster]))
-check("1.9: the party is the roster plus the ledger's / affiliation's allies (Bones, Mossy, Roger, Ryan, Smoking J, Usk) — nobody is party for carrying a character sheet",
-      set(index["meta"]["party"]) == roster_ids | {"bones", "mossy", "roger", "ryan", "smoking_j", "usk"} and not any((s.get("partyWhy") or "") == "player character sheet" for s in index["sheets"])
+check("1.9: the retired player characters stay public on the sheets page, saying why (a former player character, not a member of the party)",
+      all(entry[i]["party"] and entry[i]["partyWhy"] == "former player character (actors/folders.json players.retired)"
+          and entry[i]["source"] == "live" and entry[i]["kind"] == "pc" for i in retired_ids),
+      str({i: entry[i].get("partyWhy") for i in retired_ids}))
+check("1.9: the party is the roster plus the retired player characters plus the ledger's / affiliation's allies (Bones, Mossy, Roger, Ryan, Smoking J, Usk) — nobody is party for carrying a character sheet",
+      set(index["meta"]["party"]) == roster_ids | retired_ids | {"bones", "mossy", "roger", "ryan", "smoking_j", "usk"}
+      and len(index["meta"]["party"]) == 18 and not any((s.get("partyWhy") or "") == "player character sheet" for s in index["sheets"])
       and all(not entry[i]["party"] for i in ("kirby", "sans", "mario", "luigi", "king_dedede", "toriel") if i in entry), str(sorted(index["meta"]["party"])))
 
 # ---- start.py wiring ------------------------------------------------------

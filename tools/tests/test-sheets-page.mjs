@@ -95,11 +95,20 @@ check('PC level is the ledger level wherever the ledger has one', index.sheets.f
 check('a generated PC renders as a character sheet with its class line', (() => { const e = CS.byCharacter('mario'); const actor = JSON.parse(fs.readFileSync(path.join(RM, e.file), 'utf8')); const html = CS.pcSheet(actor, e); return /Level 5 Monk 5 \(Warrior of the Open Hand\)/.test(html) && /Extra Attack/.test(html) && !/Multiattack/.test(html); })());
 check('Bowser carries the live character sheet (promoted from the GM\'s NPC copy) with the intake PC as an alternate', CS.byCharacter('bowser').source === 'live' && CS.byCharacter('bowser').kind === 'pc' && (CS.byCharacter('bowser').alternates || []).some(a => a.source === 'intake' && a.kind === 'pc'));
 check('Wario and Salam carry live character sheets, never NPC statblocks', ['wario', 'salam'].every(id => CS.byCharacter(id).source === 'live' && CS.byCharacter(id).kind === 'pc'));
-const roster = JSON.parse(fs.readFileSync(path.join(RM, 'actors/folders.json'), 'utf8')).players.roster;
-check('every roster character (actors/folders.json players.roster) is public on a live PC sheet; the public set beyond the roster is the ledger\'s / affiliation\'s allies on whatever sheet the GM keeps',
+const folderPlayers = JSON.parse(fs.readFileSync(path.join(RM, 'actors/folders.json'), 'utf8')).players;
+const roster = folderPlayers.roster;
+const retired = folderPlayers.retired;
+check('every roster character (actors/folders.json players.roster) is public on their own live PC sheet',
   roster.every(r => { const e = CS.byCharacter(r.character); return e && e.party && e.source === 'live' && e.kind === 'pc' && e.file.endsWith(`-${r.actor}.json`); })
-  && index.sheets.filter(s => s.party && !roster.some(r => r.character === s.id)).map(s => s.id).sort().join() === 'bones,mossy,roger,ryan,smoking_j,usk'
   && !index.sheets.some(s => s.partyWhy === 'player character sheet'));
+check('the retired player characters (players.retired) stay public on their live PC sheets, saying why — a former player character is not a member of the party',
+  retired.length === 5 && retired.every(r => { const e = CS.byCharacter(r.character);
+    return e && e.party && e.source === 'live' && e.kind === 'pc' && e.partyWhy === 'former player character (actors/folders.json players.retired)'; }),
+  JSON.stringify(retired.map(r => [r.character, (CS.byCharacter(r.character) || {}).partyWhy])));
+check('the public set beyond the roster and the retired is the ledger\'s / affiliation\'s allies on whatever sheet the GM keeps',
+  index.sheets.filter(s => s.party && !roster.some(r => r.character === s.id) && !retired.some(r => r.character === s.id)).map(s => s.id).sort().join() === 'bones,mossy,roger,ryan,smoking_j,usk'
+  && index.sheets.filter(s => s.party).length === 18,
+  JSON.stringify(index.sheets.filter(s => s.party).map(s => s.id).sort()));
 check('the GM\'s live statblocks for Mario and Luigi ride as alternates under the hand-authored PC sheets', ['mario', 'luigi'].every(id => (CS.byCharacter(id).alternates || []).some(a => a.source === 'live' && a.kind === 'npc')));
 check('Remi keeps the live-world export', CS.byCharacter('remi_akamatsu_full_backstory').source === 'live');
 const party = index.sheets.filter(s => s.party);
