@@ -66,10 +66,18 @@ image roots with the references each copy has; `--write` keeps the copy most
 records use, rewrites the other references to it the way they were written
 (RM-relative stays RM-relative), deletes the spares, and tells you to rebuild
 the generated files (`tools/build-chatroom.py`, `tools/sheets-suite.py`).
-Never deleted: the liberated toads' roster art, and a `.png` whose stem is an
+Never deleted: the liberated toads' roster art and the transparent plates
+`tools/cut-roster-toads.py` cuts from it (one plate per cell — its `--check`
+fails on a missing one), and a `.png` whose stem is an
 id the site may look up as `portraits/<id>.png` (two such files with the same
 bytes both stay — `oracle.png` / `the_oracle.png`, `purple_t.png` /
-`skull_cap_murphy.png`). `tools/check-all.py` runs `--check`, so a new
+`skull_cap_murphy.png`). A copy inside a directory another tool owns is never
+the keeper of a group that also has a copy nobody owns: four roster plates
+came out byte-identical to the full-body plate the same toad already had in
+`portraits/player/fullbody/`, so both stay and the report says why — the
+sources keep naming the copy they already name, and no generator's output
+directory becomes something `characters.json` depends on.
+`tools/check-all.py` runs `--check`, so a new
 duplicate fails the build until it is collapsed. Different bytes — a crop, a
 re-render, a re-encode — are a different image and are left alone.
 

@@ -32,6 +32,7 @@ def write(path, data):
 with tempfile.TemporaryDirectory() as tmp:
     rm = os.path.join(tmp, "Reputation-Matrix2")
     A, B, C = b"\x89PNG-A" * 40, b"\x89PNG-B" * 40, b"\xff\xd8JPG-C" * 40
+    D, E = b"\x89PNG-D" * 40, b"\x89PNG-E" * 40
     files = {
         # a plain name + a _v2 copy: the plain one has fewer refs but the other is not protected either → most referenced wins
         "Reputation-Matrix2/portraits/chai.jpg": A, "Reputation-Matrix2/portraits/chai_v2.jpg": A,
@@ -43,6 +44,13 @@ with tempfile.TemporaryDirectory() as tmp:
         "assets/scene.jpg": C, "Reputation-Matrix2/assets/scene.jpg": C,
         # the roster is never touched
         "Reputation-Matrix2/assets/images/toads/roster/toad_01.png": A + b"r", "Reputation-Matrix2/assets/images/toads/roster/scene_shift.png": A + b"r",
+        # a roster plate (a directory tools/cut-roster-toads.py owns: one plate per cell, its
+        # --check fails on a missing one) byte-identical to the full-body plate the same toad
+        # already had. The plate is never deleted AND never the keeper: the copy nobody owns
+        # keeps the references, both stay, the report says why.
+        "Reputation-Matrix2/portraits/player/fullbody/toad_two.png": D, "Reputation-Matrix2/portraits/liberated-toads/roster/toad_02_two.png": D,
+        # …and when the copy nobody owns is itself id-named, the id-named one is still the keeper
+        "Reputation-Matrix2/portraits/player/fullbody/toad_three.png": E, "Reputation-Matrix2/portraits/liberated-toads/roster/toad_03_three.png": E,
         # a near-duplicate (different bytes) is not a duplicate
         "Reputation-Matrix2/portraits/chai_crop.jpg": A + b"x",
     }
@@ -53,6 +61,10 @@ with tempfile.TemporaryDirectory() as tmp:
         {"id": "captain_toadette", "name": "Captain Toadette", "image": "portraits/captain_toadette_v2.png", "gallery": ["portraits/captain_toadette_v2.png", "portraits/captain_toadette.png"]},
         {"id": "oracle", "name": "Oracle", "image": "portraits/oracle.png"},
         {"id": "the_oracle", "name": "The Oracle", "image": "portraits/the_oracle.png"},
+        # "toad_two" is only ever named as a PATH, so it is not an id the site looks up;
+        # "toad_three" is an article id, so portraits/player/fullbody/toad_three.png is id-named
+        {"id": "foo_toad", "name": "Foo", "fullBody": "portraits/player/fullbody/toad_two.png"},
+        {"id": "toad_three", "name": "Three", "fullBody": "portraits/player/fullbody/toad_three.png"},
     ]}
     write(os.path.join(rm, "data", "characters.json"), json.dumps(chars, indent=2) + "\n")
     write(os.path.join(rm, "data", "events.json"), '[{"image": "portraits/chai_v2.jpg", "art": "../portraits/chai_v2.jpg", "scene": "assets/scene.jpg"}]')  # no trailing newline
@@ -60,16 +72,21 @@ with tempfile.TemporaryDirectory() as tmp:
     write(os.path.join(rm, "app", "pages", "profile.js"), "const p = `portraits/${characterKey}.png`; // chai, captain_toadette: 'captain_toadette'\r\nconst q = 'portraits/chai_v2.jpg'; const s = 'assets/scene.jpg';\r\n")
     write(os.path.join(tmp, "chatroom.html"), '<img src="portraits/chai_v2.jpg">')  # generated: never edited
     write(os.path.join(rm, "actors", "cast", "fvtt-Actor-chai.json"), '{"img": "portraits/chai_v2.jpg"}')  # generated
+    # the plates' only references live in generated cast actors (the builder prefers a plate over
+    # the cell) — GENERATED files do not count as references, so a plate always looks unreferenced
+    write(os.path.join(rm, "actors", "cast", "fvtt-Actor-toad_two.json"), '{"img": "portraits/liberated-toads/roster/toad_02_two.png"}')
+    write(os.path.join(rm, "actors", "cast", "fvtt-Actor-toad_three.json"), '{"img": "portraits/liberated-toads/roster/toad_03_three.png"}')
     write(os.path.join(rm, "actors", "worlds", "w", "fvtt-Actor-chai.json"), '{"img": "portraits/chai_v2.jpg", "prototypeToken": {"texture": {"src": "portraits/chai_v2.jpg"}}}')
     write(os.path.join(tmp, "docs", "note.md"), "see `portraits/captain_toadette_v2.png` and `assets/scene.jpg`\n")
 
     dd.ROOT, dd.RM = tmp, rm
     tracked = sorted(files) + ["Reputation-Matrix2/data/characters.json", "Reputation-Matrix2/data/events.json", "index.html", "Reputation-Matrix2/app/pages/profile.js",
-                               "chatroom.html", "Reputation-Matrix2/actors/cast/fvtt-Actor-chai.json", "Reputation-Matrix2/actors/worlds/w/fvtt-Actor-chai.json", "docs/note.md"]
+                               "chatroom.html", "Reputation-Matrix2/actors/cast/fvtt-Actor-chai.json", "Reputation-Matrix2/actors/worlds/w/fvtt-Actor-chai.json", "docs/note.md",
+                               "Reputation-Matrix2/actors/cast/fvtt-Actor-toad_two.json", "Reputation-Matrix2/actors/cast/fvtt-Actor-toad_three.json"]
     rows = dd.plan(tracked)
     by_keeper = {r["keeper"]: r for r in rows}
-    check("exact duplicates only: 5 groups (chai, captain_toadette, oracle, scene, roster) — the crop with other bytes is not one",
-          len(rows) == 5 and not any("chai_crop" in m for r in rows for m in r["members"]), json.dumps([r["members"] for r in rows]))
+    check("exact duplicates only: 7 groups (chai, captain_toadette, oracle, scene, roster, the two roster plates) — the crop with other bytes is not one",
+          len(rows) == 7 and not any("chai_crop" in m for r in rows for m in r["members"]), json.dumps([r["members"] for r in rows]))
     chai = by_keeper.get("Reputation-Matrix2/portraits/chai_v2.jpg")
     check("the most-referenced copy is the keeper when neither is protected (chai_v2.jpg: 6 refs in sources — the generated files do not count; a .jpg is never a dynamic lookup)",
           chai is not None and chai["deletable"] == ["Reputation-Matrix2/portraits/chai.jpg"] and chai["refs"]["Reputation-Matrix2/portraits/chai_v2.jpg"] == 6 and chai["refs"]["Reputation-Matrix2/portraits/chai.jpg"] == 0,
@@ -81,6 +98,16 @@ with tempfile.TemporaryDirectory() as tmp:
     check("two id-named portraits with the same bytes both stay, the second listed as protected", oracle is not None and oracle["deletable"] == [] and len(oracle["kept"]) == 1 and "look up" in oracle["kept"][0][1], json.dumps(oracle))
     roster = next((r for r in rows if "toads/roster" in r["members"][0]), None)
     check("the liberated toads' roster is never deleted from", roster is not None and roster["deletable"] == [] and "never modified" in roster["kept"][0][1])
+    plate = by_keeper.get("Reputation-Matrix2/portraits/player/fullbody/toad_two.png")
+    check("a roster plate (a directory tools/cut-roster-toads.py owns) byte-identical to a copy nobody owns: the plate is neither deleted nor the keeper — the full-body plate keeps the reference, both stay, the report names the tool",
+          plate is not None and plate["deletable"] == [] and plate["edits"] == []
+          and [m for m, _ in plate["kept"]] == ["Reputation-Matrix2/portraits/liberated-toads/roster/toad_02_two.png"]
+          and "cut-roster-toads" in plate["kept"][0][1] and plate["refs"]["Reputation-Matrix2/portraits/liberated-toads/roster/toad_02_two.png"] == 0,
+          json.dumps(plate))
+    plate_id = by_keeper.get("Reputation-Matrix2/portraits/player/fullbody/toad_three.png")
+    check("…and when the copy nobody owns is itself id-named (an article id), the id-named one is still the keeper over the plate",
+          plate_id is not None and plate_id["deletable"] == [] and [m for m, _ in plate_id["kept"]] == ["Reputation-Matrix2/portraits/liberated-toads/roster/toad_03_three.png"],
+          json.dumps(plate_id))
     scene = by_keeper.get("Reputation-Matrix2/assets/scene.jpg")
     check("references under Reputation-Matrix2/ resolve to the archive's assets/ (2 refs), root pages to the root copy (2 refs): the archive's copy wins the tie and the root references step across to it",
           scene is not None and scene["deletable"] == ["assets/scene.jpg"] and scene["refs"] == {"Reputation-Matrix2/assets/scene.jpg": 2, "assets/scene.jpg": 2}
@@ -102,7 +129,8 @@ with tempfile.TemporaryDirectory() as tmp:
     check("a root page's reference across trees is rewritten; a URL-encoded reference to a keeper is left alone", 'src="Reputation-Matrix2/assets/scene.jpg"' in idx and "chai%5Fv2.jpg" in idx, idx)
     check("the generated files were not edited", open(os.path.join(tmp, "chatroom.html"), encoding="utf-8").read() == '<img src="portraits/chai_v2.jpg">')
     rows_after = dd.plan([p for p in tracked if p not in removed])
-    check("a second plan finds nothing deletable (only the protected pairs remain)", all(r["deletable"] == [] for r in rows_after) and len(rows_after) == 2, json.dumps([r["members"] for r in rows_after]))
+    check("a second plan finds nothing deletable (only the protected groups remain: the roster pair, the oracle pair and the two plates)",
+          all(r["deletable"] == [] for r in rows_after) and len(rows_after) == 4, json.dumps([r["members"] for r in rows_after]))
 
 print(f"dedupe images: {len(OKS)} ok, {len(FAILS)} failed")
 for f in FAILS:
