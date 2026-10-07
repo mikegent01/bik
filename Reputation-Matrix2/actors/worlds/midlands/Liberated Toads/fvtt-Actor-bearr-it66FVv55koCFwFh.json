@@ -1074,6 +1074,20 @@
     },
     "midi-qol": {
       "onUseMacroParts": {}
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "disciplined"
+        ],
+        "reasons": [
+          "Keyword \"patrol\" in name/biography → disciplined"
+        ],
+        "confidence": 0.3333333333333333,
+        "version": 3,
+        "timestamp": 1791335191666,
+        "manuallyOverridden": false
+      }
     }
   },
   "_stats": {
@@ -1083,7 +1097,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791261793862,
-    "modifiedTime": 1791325781818,
+    "modifiedTime": 1791335191675,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

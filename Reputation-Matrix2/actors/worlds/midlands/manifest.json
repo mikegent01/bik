@@ -1,18 +1,18 @@
 {
   "format": "waluipedia-actors/1",
   "exportedFrom": "midlands",
-  "exportedAt": "2026-10-06T22:32:47.984Z",
+  "exportedAt": "2026-10-07T01:08:33.162Z",
   "system": "dnd5e",
   "systemVersion": "5.3.3",
   "coreVersion": "14.367",
-  "exportedBy": "waluipedia-mass-import 1.9.2 (update Actor)",
+  "exportedBy": "waluipedia-mass-import 1.9.4 (update Actor)",
   "lastSync": {
     "applied": {
-      "stamp": "data:076d03b0003793e06b683b1462b7c6e8d28f7809",
-      "at": "2026-10-06T22:29:49.391Z",
-      "exportedAt": "2026-10-06T22:05:42.988Z"
+      "stamp": "data:c5b82467b3625321bf43ef5b71d0752754fde9c8",
+      "at": "2026-10-07T01:06:15.305Z",
+      "exportedAt": "2026-10-06T22:32:47.984Z"
     },
-    "seen": "data:076d03b0003793e06b683b1462b7c6e8d28f7809"
+    "seen": "data:c5b82467b3625321bf43ef5b71d0752754fde9c8"
   },
   "source": "midlands-all-actors.json",
   "actorCount": 511,
