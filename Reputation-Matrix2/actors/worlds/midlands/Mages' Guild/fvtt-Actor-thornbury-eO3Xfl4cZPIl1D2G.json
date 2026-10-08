@@ -2,7 +2,7 @@
   "_id": "eO3Xfl4cZPIl1D2G",
   "name": "Thornbury",
   "type": "npc",
-  "img": "portraits/regal-lion/thornbury.png",
+  "img": "portraits/thornbury.jpg",
   "system": {
     "abilities": {
       "str": {
@@ -232,7 +232,7 @@
       },
       "cr": 1,
       "biography": {
-        "value": "<p><em>Waluipedia cast sheet \u2014 Thornbury.</em> Built by <code>tools/build-character-sheets.py</code>, generated from the article's own words. XP ledger: level 2, power rating 5 \u2192 CR 1 as a operative. Numbers are a GM-ready reading of the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p><p><strong>The Quartermaster Spy Who Itemized The Apocalypse</strong> \u2014 Mages' Guild</p><p>Status: Active \u2014 operating with the Mages' Guild, recently ear-dragged, still tracking receipts somehow</p><p>Thornbury is a stuffy, penny-pinching Mages' Guild operative who charged Archie 2,000 gold for a broken rope. He later brought Archie and Bones rubber duckies for a bubble bath, only to be dragged away by the ear by a disgruntled noblewoman. He left behind a notebook proving he was spying on the party the entire time. Waluigi has zero respect for a spy who is defeated by a bath time interruption. Thornbury is the Mages' Guild operative who proves that evil does not always arrive with a death ray, a monologue, or even decent posture. Sometimes evil arrives with a ledger, a rope, and a reimbursement policy. He accompanied Agent L, Luigi, and Archie through the ruined manor while secretly gathering intelligence on the party, cataloguing environmental anomalies, pocketing suspicious rings, uncovering hidden stashes, and charging Archie 2,062 gold pieces and 5 silver for breaking a single rope. He is a field spy, quartermaster, scavenger, emergency supplier, expense auditor, and apparently a man who believes no supernatural catastrophe is too urgent for itemized billing. He brought practical supplies to dangerous situations, helped navigate the manor, provided rope, potions, a Sending scroll, and a tensor box, and then managed to undermine all professional credibility by getting caught taking a heated luxury bath while soldiers suffered outside. Byscilla Danos dragged him away by the ear like an embarrassing child, and in his haste he left behind field notes proving he had been spying on everyone the entire time. Waluigi despises nearly everything about Thornbury on principle. Unfortunately, historical accuracy requires admitting that the man is actually COMPETENT, which is infuriating. WAH.</p><h3>Evidence</h3><ul><li><strong>Dagger</strong> \u2014 \u201cThe Quartermaster Spy Who Itemized The Apocalypse\u201d</li><li><strong>Hidden in Plain Sight</strong> \u2014 \u201cHis field pack was notably well-stocked: - Adventurer's basics: bedroll, mess kit, tinderbox, torches, rations, waterskin - Healer's kit with multiple uses remaining - Two potions of healing - One potion of invisibility\u201d</li><li><strong>Sneak Attack</strong> \u2014 \u201cHe is not the one making strategic decisions about planar fractures, expendable assets, or assassination cover-ups.\u201d</li><li><strong>Silver Tongue</strong> \u2014 \u201cShe did not negotiate.\u201d</li></ul><p>Article: <code>#/article/thornbury</code> (characters). Site sheet: <code>#/sheets/thornbury</code>.</p>",
+        "value": "<p><em>Waluipedia cast sheet — Thornbury.</em> Built by <code>tools/build-character-sheets.py</code>, generated from the article's own words. XP ledger: level 2, power rating 5 → CR 1 as a operative. Numbers are a GM-ready reading of the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p><p><strong>The Quartermaster Spy Who Itemized The Apocalypse</strong> — Mages' Guild</p><p>Status: Active — operating with the Mages' Guild, recently ear-dragged, still tracking receipts somehow</p><p>Thornbury is a stuffy, penny-pinching Mages' Guild operative who charged Archie 2,000 gold for a broken rope. He later brought Archie and Bones rubber duckies for a bubble bath, only to be dragged away by the ear by a disgruntled noblewoman. He left behind a notebook proving he was spying on the party the entire time. Waluigi has zero respect for a spy who is defeated by a bath time interruption. Thornbury is the Mages' Guild operative who proves that evil does not always arrive with a death ray, a monologue, or even decent posture. Sometimes evil arrives with a ledger, a rope, and a reimbursement policy. He accompanied Agent L, Luigi, and Archie through the ruined manor while secretly gathering intelligence on the party, cataloguing environmental anomalies, pocketing suspicious rings, uncovering hidden stashes, and charging Archie 2,062 gold pieces and 5 silver for breaking a single rope. He is a field spy, quartermaster, scavenger, emergency supplier, expense auditor, and apparently a man who believes no supernatural catastrophe is too urgent for itemized billing. He brought practical supplies to dangerous situations, helped navigate the manor, provided rope, potions, a Sending scroll, and a tensor box, and then managed to undermine all professional credibility by getting caught taking a heated luxury bath while soldiers suffered outside. Byscilla Danos dragged him away by the ear like an embarrassing child, and in his haste he left behind field notes proving he had been spying on everyone the entire time. Waluigi despises nearly everything about Thornbury on principle. Unfortunately, historical accuracy requires admitting that the man is actually COMPETENT, which is infuriating. WAH.</p><h3>Evidence</h3><ul><li><strong>Dagger</strong> — “The Quartermaster Spy Who Itemized The Apocalypse”</li><li><strong>Hidden in Plain Sight</strong> — “His field pack was notably well-stocked: - Adventurer's basics: bedroll, mess kit, tinderbox, torches, rations, waterskin - Healer's kit with multiple uses remaining - Two potions of healing - One potion of invisibility”</li><li><strong>Sneak Attack</strong> — “He is not the one making strategic decisions about planar fractures, expendable assets, or assassination cover-ups.”</li><li><strong>Silver Tongue</strong> — “She did not negotiate.”</li></ul><p>Article: <code>#/article/thornbury</code> (characters). Site sheet: <code>#/sheets/thornbury</code>.</p>",
         "public": ""
       },
       "ideal": "",
@@ -580,7 +580,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "portraits/regal-lion/thornbury.png",
+      "src": "portraits/thornbury.jpg",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -1208,8 +1208,8 @@
         ],
         "reasons": [
           "Sneak Attack detected",
-          "Keyword \"pack\" in name/biography \u2192 pack-hunter",
-          "Keyword \"spy\" in name/biography \u2192 assassin"
+          "Keyword \"pack\" in name/biography → pack-hunter",
+          "Keyword \"spy\" in name/biography → assassin"
         ],
         "confidence": 1,
         "version": 3,

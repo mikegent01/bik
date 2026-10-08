@@ -1,18 +1,18 @@
 {
   "format": "waluipedia-actors/1",
   "exportedFrom": "midlands",
-  "exportedAt": "2026-10-07T01:08:33.162Z",
+  "exportedAt": "2026-10-07T02:41:26.422Z",
   "system": "dnd5e",
   "systemVersion": "5.3.3",
   "coreVersion": "14.367",
   "exportedBy": "waluipedia-mass-import 1.9.4 (update Actor)",
   "lastSync": {
     "applied": {
-      "stamp": "data:c5b82467b3625321bf43ef5b71d0752754fde9c8",
-      "at": "2026-10-07T01:06:15.305Z",
-      "exportedAt": "2026-10-06T22:32:47.984Z"
+      "stamp": "data:9408abe824451bd42cde7f6b30f34d6dfd1312db",
+      "at": "2026-10-07T01:54:12.598Z",
+      "exportedAt": "2026-10-07T01:08:33.162Z"
     },
-    "seen": "data:c5b82467b3625321bf43ef5b71d0752754fde9c8"
+    "seen": "data:9408abe824451bd42cde7f6b30f34d6dfd1312db"
   },
   "source": "midlands-all-actors.json",
   "actorCount": 511,
@@ -35,6 +35,7 @@
     "Fawthful's Forces",
     "Fawthful's Forces / 1035 BF — Bowser's Castle",
     "Iron Legion",
+    "Iron Legion / Manor Wardens",
     "Koopa Troop",
     "Koopa Troop / 1035 BF — Bowser's Castle",
     "Koopa Troop / 955 BF — Peach's Castle",
@@ -1066,6 +1067,12 @@
       "file": "Fawthful's Forces/fvtt-Actor-the-jester-goomba-9lfsDWLXS3v9k9lX.json"
     },
     {
+      "name": "Warol Creeton",
+      "type": "npc",
+      "_id": "NBW2gNE6ws5ClMip",
+      "file": "Iron Legion/Manor Wardens/fvtt-Actor-warol-creeton-NBW2gNE6ws5ClMip.json"
+    },
+    {
       "name": "Aemenor Evenflight",
       "type": "npc",
       "_id": "rQqL4xsmIO1shEka",
@@ -1160,12 +1167,6 @@
       "type": "npc",
       "_id": "dhy7flTVOQczF3Ms",
       "file": "Iron Legion/fvtt-Actor-toadburt-dhy7flTVOQczF3Ms.json"
-    },
-    {
-      "name": "Warol Creeton",
-      "type": "npc",
-      "_id": "NBW2gNE6ws5ClMip",
-      "file": "Iron Legion/fvtt-Actor-warol-creeton-NBW2gNE6ws5ClMip.json"
     },
     {
       "name": "Bob-omb of the Tunnel Crew",

@@ -2,7 +2,7 @@
   "_id": "PgWiAxDz39WLURz6",
   "name": "Bion",
   "type": "npc",
-  "img": "portraits/liberated-toads/roster/toad_17_bion.png",
+  "img": "assets/images/toads/roster/toad_17_bion.png",
   "system": {
     "abilities": {
       "str": {
@@ -580,7 +580,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "portraits/liberated-toads/roster/toad_17_bion.png",
+      "src": "portraits/player/fullbody/toad_bion.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",

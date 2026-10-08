@@ -2,7 +2,7 @@
   "_id": "eLxkXCPICERjSvf6",
   "name": "Freaza",
   "type": "npc",
-  "img": "portraits/liberated-toads/roster/toad_19_freaza.png",
+  "img": "assets/images/toads/roster/toad_19_freaza.png",
   "system": {
     "abilities": {
       "str": {
@@ -580,7 +580,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "portraits/liberated-toads/roster/toad_19_freaza.png",
+      "src": "portraits/player/fullbody/toad_freaza.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",

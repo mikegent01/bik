@@ -2,7 +2,7 @@
   "_id": "T076PAalzBdK2usH",
   "name": "Poe White",
   "type": "npc",
-  "img": "portraits/liberated-toads/roster/toad_63_poe_white.png",
+  "img": "assets/images/toads/roster/toad_63_poe_white.png",
   "system": {
     "abilities": {
       "str": {
@@ -580,7 +580,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "portraits/liberated-toads/roster/toad_63_poe_white.png",
+      "src": "assets/images/toads/roster/toad_63_poe_white.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",

@@ -2,7 +2,7 @@
   "_id": "vw4Ic7Ynkj2j6Cgf",
   "name": "Shadowleap",
   "type": "npc",
-  "img": "portraits/liberated-toads/roster/toad_53_shadowleap.png",
+  "img": "assets/images/toads/roster/toad_53_shadowleap.png",
   "system": {
     "abilities": {
       "str": {
@@ -580,7 +580,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "portraits/liberated-toads/roster/toad_53_shadowleap.png",
+      "src": "assets/images/toads/roster/toad_53_shadowleap.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",

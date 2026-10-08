@@ -2,7 +2,7 @@
   "_id": "JOk3z135MNUb2kTO",
   "name": "Slinat",
   "type": "npc",
-  "img": "portraits/liberated-toads/roster/toad_28_slinat.png",
+  "img": "assets/images/toads/roster/toad_28_slinat.png",
   "system": {
     "abilities": {
       "str": {
@@ -580,7 +580,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "portraits/liberated-toads/roster/toad_28_slinat.png",
+      "src": "portraits/player/fullbody/toad_slinat.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",

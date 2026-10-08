@@ -2,7 +2,7 @@
   "_id": "brg7b4npoBbXuB65",
   "name": "Dan",
   "type": "character",
-  "img": "portraits/dan.png",
+  "img": "npc/realdan-removebg-preview.webp",
   "system": {
     "currency": {
       "pp": 0,
@@ -536,7 +536,7 @@
       "gender": "",
       "faith": "",
       "biography": {
-        "value": "<p><em>Waluipedia cast sheet — Dan.</em> Built by <code>tools/build-character-sheets.py</code>, hand-authored from the article. XP ledger: level 7, power rating 9 → a level 7 Fighter player-character sheet (a player may take this seat; the authored CR 4 stands in where the ledger is silent). Numbers are a GM-ready reading of the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p><p><strong>The Man Who Lost His Arm (And His Mind, Temporarily)</strong> — Liberated Toads (former co-leader)</p><p>Status: Alive — wielded the Holy Symbol of Ravenkind through a cottage window and drove Randell off</p><p>Dan was one of the original leaders of the Liberated Toads, a competent organizer who helped build the faction from traumatized barrel survivors into something resembling a functional movement. Then his mage staff corrupted him, he cast a fireball that killed thirteen of his own people, nearly consumed their souls, lost his arm when Green T had to physically wrestle the staff away from him, and got shrunk by dark magic healing. Waluigi has seen rough days, but Dan's rough day redefined the CONCEPT of rough days.</p><h3>Evidence</h3><ul><li><strong>One-Armed Blade</strong> — “The Man Who Lost His Arm (And His Mind, Temporarily)”</li><li><strong>Extra Attack</strong> — “The Man Who Lost His Arm (And His Mind, Temporarily)”</li><li><strong>The Arm He Lost</strong> — “Chopped off Dan's arm to break his grip.”</li><li><strong>The Staff That Turned</strong> — “Then his mage staff corrupted him, he cast a fireball that killed thirteen of his own people, nearly consumed their souls, lost his arm when Green T had to physically wrestle the staff away from him, and got shrunk by”</li></ul><p>Article: <code>#/article/dan</code> (characters). Site sheet: <code>#/sheets/dan</code>.</p>",
+        "value": "<p><em>Waluipedia cast sheet — Dan.</em> Built by <code>tools/build-character-sheets.py</code>, hand-authored from the article. XP ledger: level 7, power rating 9 → a level 7 Fighter player-character sheet (a player may take this seat; the authored CR 4 stands in where the ledger is silent). Numbers are a GM-ready reading of the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p><p><strong>The Man Who Lost His Arm (And His Mind, Temporarily)</strong> — Liberated Toads (former co-leader)</p><p>Status: Alive — wielded the Holy Symbol of Ravenkind through a cottage window and drove Randell off</p><p>Dan was one of the original leaders of the Liberated Toads, a competent organizer who helped build the faction from traumatized barrel survivors into something resembling a functional movement. Then his mage staff corrupted him, he cast a fireball that killed thirteen of his own people, nearly consumed their souls, lost his arm when Green T had to physically wrestle the staff away from him, and got shrunk by dark magic healing. Waluigi has seen rough days, but Dan's rough day redefined the CONCEPT of rough days.</p><h3>Evidence</h3><ul><li><p><strong>One-Armed Blade</strong> — “The Man Who Lost His Arm (And His Mind, Temporarily)”</p></li><li><p><strong>Extra Attack</strong> — “The Man Who Lost His Arm (And His Mind, Temporarily)”</p></li><li><p><strong>The Arm He Lost</strong> — “Chopped off Dan's arm to break his grip.”</p></li><li><p><strong>The Staff That Turned</strong> — “Then his mage staff corrupted him, he cast a fireball that killed thirteen of his own people, nearly consumed their souls, lost his arm when Green T had to physically wrestle the staff away from him, and got shrunk by”</p></li></ul><p>Article: <code>#/article/dan</code> (characters). Site sheet: <code>#/sheets/dan</code>.</p>",
         "public": ""
       }
     },
@@ -1431,7 +1431,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791171679772,
-    "modifiedTime": 1791325782006,
+    "modifiedTime": 1791340458379,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

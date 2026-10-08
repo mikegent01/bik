@@ -2,7 +2,7 @@
   "_id": "lhTVe5VfDckc07Up",
   "name": "Knight-Captain Garrick",
   "type": "npc",
-  "img": "icons/svg/mystery-man.svg",
+  "img": "portraits/regal-lion/sir-garrick-lionheart.png",
   "system": {
     "abilities": {
       "str": {
@@ -225,7 +225,7 @@
       },
       "cr": 5,
       "biography": {
-        "value": "<p><em>The Regal Lion packet sheet — Knight-Captain Garrick.</em> Built by <code>tools/build-forge-packets.py</code> from the NPC Forge roster <code>data/forge/regal-lion.json</code> (entry <code>sir-garrick-lionheart</code>): Medium humanoid (human), Lawful Good; CR 5 (proficiency +3, to hit +7 with STR); AC 18 (Regal Lion full plate & buckler), hit points 85 (10d8+40), speed 30 ft.. A GM scene kit for the The Regal Lion article's present (1040 BF), not a filed event; the faction article stays the authority.</p><p>Senior commander of the Regal Lion detachment at Raventree Manor. While Byscilla handles logistics and containment with cold detachment, Garrick ensures knightly morale and personal valor remain unbroken.</p><p><strong>Role:</strong> paladin champion · <strong>tier:</strong> Regal Lion Captain · <strong>folder:</strong> Iron Legion / Manor Command.</p><h3>Art</h3><p><strong>Awaiting its plate.</strong> The render <code>npc-forge/regal-lion/renders/sir-garrick-lionheart.png</code> has not been cut yet; run the NPC Forge (or <code>tools/build-forge-packets.py plates regal-lion</code>) and rebuild. Seed 610003. Prompt: <q>Clean cel-shaded character art in the style of dark fantasy military concept art, bold dark outlines, polished steel and gold lion crest heraldry, dark navy blue and crimson surcoats, cold iron plate, flat colours, crisp shading. A heroic, seasoned knight in ornate silver and polished gold plate armor emblazoned with the roaring Regal Lion crest, wearing a crimson cloak. Holding a large flaming broadsword with a lion-head crossguard. Full body, whole figure visible, three-quarter view, centred, isolated on a plain flat solid magenta background (#FF00FF), no floor, no ground shadow, no text, no border.</q></p>",
+        "value": "<p><em>The Regal Lion packet sheet — Knight-Captain Garrick.</em> Built by <code>tools/build-forge-packets.py</code> from the NPC Forge roster <code>data/forge/regal-lion.json</code> (entry <code>sir-garrick-lionheart</code>): Medium humanoid (human), Lawful Good; CR 5 (proficiency +3, to hit +7 with STR); AC 18 (Regal Lion full plate & buckler), hit points 85 (10d8+40), speed 30 ft.. A GM scene kit for the The Regal Lion article's present (1040 BF), not a filed event; the faction article stays the authority.</p><p>Senior commander of the Regal Lion detachment at Raventree Manor. While Byscilla handles logistics and containment with cold detachment, Garrick ensures knightly morale and personal valor remain unbroken.</p><p><strong>Role:</strong> paladin champion · <strong>tier:</strong> Regal Lion Captain · <strong>folder:</strong> Iron Legion / Manor Command.</p><h3>Art</h3><p>Token plate <code>portraits/regal-lion/sir-garrick-lionheart.png</code> — NPC Forge render, seed 610003, cut from a flat #FF00FF field. Prompt: <q>Clean cel-shaded character art in the style of dark fantasy military concept art, bold dark outlines, polished steel and gold lion crest heraldry, dark navy blue and crimson surcoats, cold iron plate, flat colours, crisp shading. A heroic, seasoned knight in ornate silver and polished gold plate armor emblazoned with the roaring Regal Lion crest, wearing a crimson cloak. Holding a large flaming broadsword with a lion-head crossguard. Full body, whole figure visible, three-quarter view, centred, isolated on a plain flat solid magenta background (#FF00FF), no floor, no ground shadow, no text, no border.</q></p>",
         "public": ""
       }
     },
@@ -525,7 +525,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "icons/svg/mystery-man.svg",
+      "src": "portraits/regal-lion/sir-garrick-lionheart.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -1073,8 +1073,7 @@
         "roster": "data/forge/regal-lion.json",
         "entry": "sir-garrick-lionheart",
         "seed": 610003
-      },
-      "art": "pending"
+      }
     }
   },
   "_stats": {

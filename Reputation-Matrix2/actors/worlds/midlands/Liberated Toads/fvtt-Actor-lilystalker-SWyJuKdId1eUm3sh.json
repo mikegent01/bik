@@ -2,7 +2,7 @@
   "_id": "SWyJuKdId1eUm3sh",
   "name": "Lilystalker",
   "type": "npc",
-  "img": "portraits/liberated-toads/roster/toad_44_lilystalker.png",
+  "img": "assets/images/toads/roster/toad_44_lilystalker.png",
   "system": {
     "abilities": {
       "str": {
@@ -580,7 +580,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "portraits/liberated-toads/roster/toad_44_lilystalker.png",
+      "src": "portraits/player/fullbody/toad_lilystalker.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",

@@ -1301,6 +1301,24 @@
         "basis": "era",
         "from": null
       }
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "skirmisher",
+          "sniper",
+          "tactician"
+        ],
+        "reasons": [
+          "Spellcasting detected",
+          "Long-range weapon with no melee option → sniper",
+          "INT 17 ≥ 16 → tactician overlay"
+        ],
+        "confidence": 1,
+        "version": 3,
+        "timestamp": 1791339275252,
+        "manuallyOverridden": false
+      }
     }
   },
   "_stats": {
@@ -1310,7 +1328,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791261790266,
-    "modifiedTime": 1791325781043,
+    "modifiedTime": 1791339275261,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

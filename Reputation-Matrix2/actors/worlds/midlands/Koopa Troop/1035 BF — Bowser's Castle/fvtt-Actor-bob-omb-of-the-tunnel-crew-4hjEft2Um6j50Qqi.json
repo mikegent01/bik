@@ -1170,6 +1170,22 @@
         "basis": "era",
         "from": null
       }
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "disciplined",
+          "fearless"
+        ],
+        "reasons": [
+          "Creature type \"construct\" → disciplined",
+          "Creature type \"construct\" → fearless"
+        ],
+        "confidence": 0.6666666666666666,
+        "version": 3,
+        "timestamp": 1791339245581,
+        "manuallyOverridden": false
+      }
     }
   },
   "_stats": {
@@ -1179,7 +1195,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791261789916,
-    "modifiedTime": 1791325780929,
+    "modifiedTime": 1791339245590,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

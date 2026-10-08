@@ -2,7 +2,7 @@
   "_id": "08UKwFafJ8QrTzKL",
   "name": "Hustion Gold",
   "type": "npc",
-  "img": "portraits/liberated-toads/roster/toad_64_hustion_gold.png",
+  "img": "assets/images/toads/roster/toad_64_hustion_gold.png",
   "system": {
     "abilities": {
       "str": {
@@ -580,7 +580,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "portraits/liberated-toads/roster/toad_64_hustion_gold.png",
+      "src": "assets/images/toads/roster/toad_64_hustion_gold.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -1136,6 +1136,22 @@
     },
     "midi-qol": {
       "onUseMacroParts": {}
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "skirmisher",
+          "tactician"
+        ],
+        "reasons": [
+          "Spellcasting detected",
+          "INT 16 ≥ 16 → tactician overlay"
+        ],
+        "confidence": 0.6666666666666666,
+        "version": 3,
+        "timestamp": 1791338455604,
+        "manuallyOverridden": false
+      }
     }
   },
   "_stats": {
@@ -1145,7 +1161,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791261794907,
-    "modifiedTime": 1791325782207,
+    "modifiedTime": 1791338455614,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

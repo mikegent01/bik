@@ -1360,6 +1360,26 @@
     },
     "midi-qol": {
       "onUseMacroParts": {}
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "disciplined",
+          "fearless",
+          "controller",
+          "undead-disciplined"
+        ],
+        "reasons": [
+          "Creature type \"construct\" → disciplined",
+          "Creature type \"construct\" → fearless",
+          "Keyword \"controller\" in name/biography → controller",
+          "Keyword \"shadow\" in name/biography → undead-disciplined"
+        ],
+        "confidence": 1,
+        "version": 3,
+        "timestamp": 1791339137839,
+        "manuallyOverridden": false
+      }
     }
   },
   "_stats": {
@@ -1369,7 +1389,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791324112891,
-    "modifiedTime": 1791325780011,
+    "modifiedTime": 1791339137850,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

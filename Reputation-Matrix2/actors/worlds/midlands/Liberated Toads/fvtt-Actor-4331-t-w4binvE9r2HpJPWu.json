@@ -2,7 +2,7 @@
   "_id": "w4binvE9r2HpJPWu",
   "name": "4331 T",
   "type": "npc",
-  "img": "portraits/liberated-toads/roster/toad_75_4331_t.png",
+  "img": "assets/images/toads/roster/toad_75_4331_t.png",
   "system": {
     "abilities": {
       "str": {
@@ -580,7 +580,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "portraits/liberated-toads/roster/toad_75_4331_t.png",
+      "src": "portraits/player/fullbody/toad_4331_t.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -1071,6 +1071,20 @@
     },
     "midi-qol": {
       "onUseMacroParts": {}
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "coward"
+        ],
+        "reasons": [
+          "No inference signals — fallback pool pick for \"humanoid\": coward"
+        ],
+        "confidence": 0,
+        "version": 3,
+        "timestamp": 1791337923305,
+        "manuallyOverridden": false
+      }
     }
   },
   "_stats": {
@@ -1080,7 +1094,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791261793552,
-    "modifiedTime": 1791325781749,
+    "modifiedTime": 1791337923317,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

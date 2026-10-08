@@ -1142,6 +1142,22 @@
     },
     "midi-qol": {
       "onUseMacroParts": {}
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "predator",
+          "disciplined"
+        ],
+        "reasons": [
+          "Creature type \"monstrosity\" → predator",
+          "Leadership detected"
+        ],
+        "confidence": 0.6666666666666666,
+        "version": 3,
+        "timestamp": 1791338578309,
+        "manuallyOverridden": false
+      }
     }
   },
   "_stats": {
@@ -1151,7 +1167,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791171678036,
-    "modifiedTime": 1791325780729,
+    "modifiedTime": 1791338578317,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

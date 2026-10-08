@@ -1712,6 +1712,24 @@
         "basis": "era",
         "from": null
       }
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "predator",
+          "fearless",
+          "brute"
+        ],
+        "reasons": [
+          "Creature type \"monstrosity\" → predator",
+          "Legendary Resistance detected",
+          "High HP (247) melee combatant → brute/frontliner"
+        ],
+        "confidence": 1,
+        "version": 3,
+        "timestamp": 1791339282124,
+        "manuallyOverridden": false
+      }
     }
   },
   "_stats": {
@@ -1721,7 +1739,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791261790326,
-    "modifiedTime": 1791325781060,
+    "modifiedTime": 1791339282135,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

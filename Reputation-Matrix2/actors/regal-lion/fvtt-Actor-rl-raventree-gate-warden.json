@@ -2,7 +2,7 @@
   "_id": "8y8NdVnuDP0bJUzU",
   "name": "Raventree Gate Warden",
   "type": "npc",
-  "img": "icons/svg/mystery-man.svg",
+  "img": "portraits/regal-lion/raventree-gate-warden.png",
   "system": {
     "abilities": {
       "str": {
@@ -225,7 +225,7 @@
       },
       "cr": 2,
       "biography": {
-        "value": "<p><em>The Regal Lion packet sheet — Raventree Gate Warden.</em> Built by <code>tools/build-forge-packets.py</code> from the NPC Forge roster <code>data/forge/regal-lion.json</code> (entry <code>raventree-gate-warden</code>): Medium humanoid (human), Lawful Neutral; CR 2 (proficiency +2, to hit +5 with STR); AC 18 (plate mail & iron door-shield), hit points 52 (7d8+21), speed 30 ft.. A GM scene kit for the The Regal Lion article's present (1040 BF), not a filed event; the faction article stays the authority.</p><p>Guarding the heavy iron portcullises that divide the manor's material corridors from the overgrown fey ruins.</p><p><strong>Role:</strong> heavy gatekeeper · <strong>tier:</strong> Portcullis Sentinel · <strong>folder:</strong> Iron Legion / Manor Wardens.</p><h3>Art</h3><p><strong>Awaiting its plate.</strong> The render <code>npc-forge/regal-lion/renders/raventree-gate-warden.png</code> has not been cut yet; run the NPC Forge (or <code>tools/build-forge-packets.py plates regal-lion</code>) and rebuild. Seed 610009. Prompt: <q>Clean cel-shaded character art in the style of dark fantasy military concept art, bold dark outlines, polished steel and gold lion crest heraldry, dark navy blue and crimson surcoats, cold iron plate, flat colours, crisp shading. A hulking, broad-shouldered gatekeeper in heavy riveted plate armor with a large keyring at his hip, holding a massive iron slab tower shield and a heavy squared-head warhammer. Full body, whole figure visible, three-quarter view, centred, isolated on a plain flat solid magenta background (#FF00FF), no floor, no ground shadow, no text, no border.</q></p>",
+        "value": "<p><em>The Regal Lion packet sheet — Raventree Gate Warden.</em> Built by <code>tools/build-forge-packets.py</code> from the NPC Forge roster <code>data/forge/regal-lion.json</code> (entry <code>raventree-gate-warden</code>): Medium humanoid (human), Lawful Neutral; CR 2 (proficiency +2, to hit +5 with STR); AC 18 (plate mail & iron door-shield), hit points 52 (7d8+21), speed 30 ft.. A GM scene kit for the The Regal Lion article's present (1040 BF), not a filed event; the faction article stays the authority.</p><p>Guarding the heavy iron portcullises that divide the manor's material corridors from the overgrown fey ruins.</p><p><strong>Role:</strong> heavy gatekeeper · <strong>tier:</strong> Portcullis Sentinel · <strong>folder:</strong> Iron Legion / Manor Wardens.</p><h3>Art</h3><p>Token plate <code>portraits/regal-lion/raventree-gate-warden.png</code> — NPC Forge render, seed 610009, cut from a flat #FF00FF field. Prompt: <q>Clean cel-shaded character art in the style of dark fantasy military concept art, bold dark outlines, polished steel and gold lion crest heraldry, dark navy blue and crimson surcoats, cold iron plate, flat colours, crisp shading. A hulking, broad-shouldered gatekeeper in heavy riveted plate armor with a large keyring at his hip, holding a massive iron slab tower shield and a heavy squared-head warhammer. Full body, whole figure visible, three-quarter view, centred, isolated on a plain flat solid magenta background (#FF00FF), no floor, no ground shadow, no text, no border.</q></p>",
         "public": ""
       }
     },
@@ -523,7 +523,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "icons/svg/mystery-man.svg",
+      "src": "portraits/regal-lion/raventree-gate-warden.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -1071,8 +1071,7 @@
         "roster": "data/forge/regal-lion.json",
         "entry": "raventree-gate-warden",
         "seed": 610009
-      },
-      "art": "pending"
+      }
     }
   },
   "_stats": {

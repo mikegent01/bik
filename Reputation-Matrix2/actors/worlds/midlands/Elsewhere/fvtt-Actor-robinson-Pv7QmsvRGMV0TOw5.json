@@ -1074,6 +1074,22 @@
     },
     "midi-qol": {
       "onUseMacroParts": {}
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "predator",
+          "disciplined"
+        ],
+        "reasons": [
+          "Creature type \"monstrosity\" → predator",
+          "Keyword \"commander\" in name/biography → disciplined"
+        ],
+        "confidence": 0.6666666666666666,
+        "version": 3,
+        "timestamp": 1791339489245,
+        "manuallyOverridden": false
+      }
     }
   },
   "_stats": {
@@ -1083,7 +1099,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791171677085,
-    "modifiedTime": 1791325779783,
+    "modifiedTime": 1791339489252,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

@@ -1073,6 +1073,22 @@
     },
     "midi-qol": {
       "onUseMacroParts": {}
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "tactician",
+          "undead-disciplined"
+        ],
+        "reasons": [
+          "Keyword \"vampire\" in name/biography → tactician",
+          "Keyword \"shadow\" in name/biography → undead-disciplined"
+        ],
+        "confidence": 0.6666666666666666,
+        "version": 3,
+        "timestamp": 1791338588797,
+        "manuallyOverridden": false
+      }
     }
   },
   "_stats": {
@@ -1082,7 +1098,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791171678138,
-    "modifiedTime": 1791325780805,
+    "modifiedTime": 1791338588806,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

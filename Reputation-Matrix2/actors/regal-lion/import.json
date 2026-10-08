@@ -4981,7 +4981,7 @@
       "_id": "lhTVe5VfDckc07Up",
       "name": "Knight-Captain Garrick",
       "type": "npc",
-      "img": "icons/svg/mystery-man.svg",
+      "img": "portraits/regal-lion/sir-garrick-lionheart.png",
       "system": {
         "abilities": {
           "str": {
@@ -5204,7 +5204,7 @@
           },
           "cr": 5,
           "biography": {
-            "value": "<p><em>The Regal Lion packet sheet — Knight-Captain Garrick.</em> Built by <code>tools/build-forge-packets.py</code> from the NPC Forge roster <code>data/forge/regal-lion.json</code> (entry <code>sir-garrick-lionheart</code>): Medium humanoid (human), Lawful Good; CR 5 (proficiency +3, to hit +7 with STR); AC 18 (Regal Lion full plate & buckler), hit points 85 (10d8+40), speed 30 ft.. A GM scene kit for the The Regal Lion article's present (1040 BF), not a filed event; the faction article stays the authority.</p><p>Senior commander of the Regal Lion detachment at Raventree Manor. While Byscilla handles logistics and containment with cold detachment, Garrick ensures knightly morale and personal valor remain unbroken.</p><p><strong>Role:</strong> paladin champion · <strong>tier:</strong> Regal Lion Captain · <strong>folder:</strong> Iron Legion / Manor Command.</p><h3>Art</h3><p><strong>Awaiting its plate.</strong> The render <code>npc-forge/regal-lion/renders/sir-garrick-lionheart.png</code> has not been cut yet; run the NPC Forge (or <code>tools/build-forge-packets.py plates regal-lion</code>) and rebuild. Seed 610003. Prompt: <q>Clean cel-shaded character art in the style of dark fantasy military concept art, bold dark outlines, polished steel and gold lion crest heraldry, dark navy blue and crimson surcoats, cold iron plate, flat colours, crisp shading. A heroic, seasoned knight in ornate silver and polished gold plate armor emblazoned with the roaring Regal Lion crest, wearing a crimson cloak. Holding a large flaming broadsword with a lion-head crossguard. Full body, whole figure visible, three-quarter view, centred, isolated on a plain flat solid magenta background (#FF00FF), no floor, no ground shadow, no text, no border.</q></p>",
+            "value": "<p><em>The Regal Lion packet sheet — Knight-Captain Garrick.</em> Built by <code>tools/build-forge-packets.py</code> from the NPC Forge roster <code>data/forge/regal-lion.json</code> (entry <code>sir-garrick-lionheart</code>): Medium humanoid (human), Lawful Good; CR 5 (proficiency +3, to hit +7 with STR); AC 18 (Regal Lion full plate & buckler), hit points 85 (10d8+40), speed 30 ft.. A GM scene kit for the The Regal Lion article's present (1040 BF), not a filed event; the faction article stays the authority.</p><p>Senior commander of the Regal Lion detachment at Raventree Manor. While Byscilla handles logistics and containment with cold detachment, Garrick ensures knightly morale and personal valor remain unbroken.</p><p><strong>Role:</strong> paladin champion · <strong>tier:</strong> Regal Lion Captain · <strong>folder:</strong> Iron Legion / Manor Command.</p><h3>Art</h3><p>Token plate <code>portraits/regal-lion/sir-garrick-lionheart.png</code> — NPC Forge render, seed 610003, cut from a flat #FF00FF field. Prompt: <q>Clean cel-shaded character art in the style of dark fantasy military concept art, bold dark outlines, polished steel and gold lion crest heraldry, dark navy blue and crimson surcoats, cold iron plate, flat colours, crisp shading. A heroic, seasoned knight in ornate silver and polished gold plate armor emblazoned with the roaring Regal Lion crest, wearing a crimson cloak. Holding a large flaming broadsword with a lion-head crossguard. Full body, whole figure visible, three-quarter view, centred, isolated on a plain flat solid magenta background (#FF00FF), no floor, no ground shadow, no text, no border.</q></p>",
             "public": ""
           }
         },
@@ -5504,7 +5504,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "icons/svg/mystery-man.svg",
+          "src": "portraits/regal-lion/sir-garrick-lionheart.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -6052,8 +6052,7 @@
             "roster": "data/forge/regal-lion.json",
             "entry": "sir-garrick-lionheart",
             "seed": 610003
-          },
-          "art": "pending"
+          }
         }
       },
       "_stats": {
@@ -7247,7 +7246,7 @@
       "_id": "2ygkH5GR2pYcZAaJ",
       "name": "Greenhouse Perimeter Scout",
       "type": "npc",
-      "img": "icons/svg/mystery-man.svg",
+      "img": "portraits/regal-lion/greenhouse-perimeter-scout.png",
       "system": {
         "abilities": {
           "str": {
@@ -7470,7 +7469,7 @@
           },
           "cr": 1,
           "biography": {
-            "value": "<p><em>The Regal Lion packet sheet — Greenhouse Perimeter Scout.</em> Built by <code>tools/build-forge-packets.py</code> from the NPC Forge roster <code>data/forge/regal-lion.json</code> (entry <code>greenhouse-perimeter-scout</code>): Medium humanoid (elf), Neutral; CR 1 (proficiency +2, to hit +5 with DEX); AC 15 (treated leather & agility), hit points 27 (5d8+5), speed 35 ft.. A GM scene kit for the The Regal Lion article's present (1040 BF), not a filed event; the faction article stays the authority.</p><p>Tasked with tracking rust monster movements and clearing fungal growth around the abandoned botanical conservatories.</p><p><strong>Role:</strong> hazard tracker · <strong>tier:</strong> Corrosion Watcher · <strong>folder:</strong> Iron Legion / Manor Wardens.</p><h3>Art</h3><p><strong>Awaiting its plate.</strong> The render <code>npc-forge/regal-lion/renders/greenhouse-perimeter-scout.png</code> has not been cut yet; run the NPC Forge (or <code>tools/build-forge-packets.py plates regal-lion</code>) and rebuild. Seed 610010. Prompt: <q>Clean cel-shaded character art in the style of dark fantasy military concept art, bold dark outlines, polished steel and gold lion crest heraldry, dark navy blue and crimson surcoats, cold iron plate, flat colours, crisp shading. A lithe elven scout in dark green camouflage leathers and protective glass goggles, carrying a compound shortbow and a bandolier of glass solvent flasks across her chest. Full body, whole figure visible, three-quarter view, centred, isolated on a plain flat solid magenta background (#FF00FF), no floor, no ground shadow, no text, no border.</q></p>",
+            "value": "<p><em>The Regal Lion packet sheet — Greenhouse Perimeter Scout.</em> Built by <code>tools/build-forge-packets.py</code> from the NPC Forge roster <code>data/forge/regal-lion.json</code> (entry <code>greenhouse-perimeter-scout</code>): Medium humanoid (elf), Neutral; CR 1 (proficiency +2, to hit +5 with DEX); AC 15 (treated leather & agility), hit points 27 (5d8+5), speed 35 ft.. A GM scene kit for the The Regal Lion article's present (1040 BF), not a filed event; the faction article stays the authority.</p><p>Tasked with tracking rust monster movements and clearing fungal growth around the abandoned botanical conservatories.</p><p><strong>Role:</strong> hazard tracker · <strong>tier:</strong> Corrosion Watcher · <strong>folder:</strong> Iron Legion / Manor Wardens.</p><h3>Art</h3><p>Token plate <code>portraits/regal-lion/greenhouse-perimeter-scout.png</code> — NPC Forge render, seed 610010, cut from a flat #FF00FF field. Prompt: <q>Clean cel-shaded character art in the style of dark fantasy military concept art, bold dark outlines, polished steel and gold lion crest heraldry, dark navy blue and crimson surcoats, cold iron plate, flat colours, crisp shading. A lithe elven scout in dark green camouflage leathers and protective glass goggles, carrying a compound shortbow and a bandolier of glass solvent flasks across her chest. Full body, whole figure visible, three-quarter view, centred, isolated on a plain flat solid magenta background (#FF00FF), no floor, no ground shadow, no text, no border.</q></p>",
             "public": ""
           }
         },
@@ -7771,7 +7770,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "icons/svg/mystery-man.svg",
+          "src": "portraits/regal-lion/greenhouse-perimeter-scout.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -8392,8 +8391,7 @@
             "roster": "data/forge/regal-lion.json",
             "entry": "greenhouse-perimeter-scout",
             "seed": 610010
-          },
-          "art": "pending"
+          }
         }
       },
       "_stats": {
@@ -8408,7 +8406,7 @@
       "_id": "8y8NdVnuDP0bJUzU",
       "name": "Raventree Gate Warden",
       "type": "npc",
-      "img": "icons/svg/mystery-man.svg",
+      "img": "portraits/regal-lion/raventree-gate-warden.png",
       "system": {
         "abilities": {
           "str": {
@@ -8631,7 +8629,7 @@
           },
           "cr": 2,
           "biography": {
-            "value": "<p><em>The Regal Lion packet sheet — Raventree Gate Warden.</em> Built by <code>tools/build-forge-packets.py</code> from the NPC Forge roster <code>data/forge/regal-lion.json</code> (entry <code>raventree-gate-warden</code>): Medium humanoid (human), Lawful Neutral; CR 2 (proficiency +2, to hit +5 with STR); AC 18 (plate mail & iron door-shield), hit points 52 (7d8+21), speed 30 ft.. A GM scene kit for the The Regal Lion article's present (1040 BF), not a filed event; the faction article stays the authority.</p><p>Guarding the heavy iron portcullises that divide the manor's material corridors from the overgrown fey ruins.</p><p><strong>Role:</strong> heavy gatekeeper · <strong>tier:</strong> Portcullis Sentinel · <strong>folder:</strong> Iron Legion / Manor Wardens.</p><h3>Art</h3><p><strong>Awaiting its plate.</strong> The render <code>npc-forge/regal-lion/renders/raventree-gate-warden.png</code> has not been cut yet; run the NPC Forge (or <code>tools/build-forge-packets.py plates regal-lion</code>) and rebuild. Seed 610009. Prompt: <q>Clean cel-shaded character art in the style of dark fantasy military concept art, bold dark outlines, polished steel and gold lion crest heraldry, dark navy blue and crimson surcoats, cold iron plate, flat colours, crisp shading. A hulking, broad-shouldered gatekeeper in heavy riveted plate armor with a large keyring at his hip, holding a massive iron slab tower shield and a heavy squared-head warhammer. Full body, whole figure visible, three-quarter view, centred, isolated on a plain flat solid magenta background (#FF00FF), no floor, no ground shadow, no text, no border.</q></p>",
+            "value": "<p><em>The Regal Lion packet sheet — Raventree Gate Warden.</em> Built by <code>tools/build-forge-packets.py</code> from the NPC Forge roster <code>data/forge/regal-lion.json</code> (entry <code>raventree-gate-warden</code>): Medium humanoid (human), Lawful Neutral; CR 2 (proficiency +2, to hit +5 with STR); AC 18 (plate mail & iron door-shield), hit points 52 (7d8+21), speed 30 ft.. A GM scene kit for the The Regal Lion article's present (1040 BF), not a filed event; the faction article stays the authority.</p><p>Guarding the heavy iron portcullises that divide the manor's material corridors from the overgrown fey ruins.</p><p><strong>Role:</strong> heavy gatekeeper · <strong>tier:</strong> Portcullis Sentinel · <strong>folder:</strong> Iron Legion / Manor Wardens.</p><h3>Art</h3><p>Token plate <code>portraits/regal-lion/raventree-gate-warden.png</code> — NPC Forge render, seed 610009, cut from a flat #FF00FF field. Prompt: <q>Clean cel-shaded character art in the style of dark fantasy military concept art, bold dark outlines, polished steel and gold lion crest heraldry, dark navy blue and crimson surcoats, cold iron plate, flat colours, crisp shading. A hulking, broad-shouldered gatekeeper in heavy riveted plate armor with a large keyring at his hip, holding a massive iron slab tower shield and a heavy squared-head warhammer. Full body, whole figure visible, three-quarter view, centred, isolated on a plain flat solid magenta background (#FF00FF), no floor, no ground shadow, no text, no border.</q></p>",
             "public": ""
           }
         },
@@ -8929,7 +8927,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "icons/svg/mystery-man.svg",
+          "src": "portraits/regal-lion/raventree-gate-warden.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -9477,8 +9475,7 @@
             "roster": "data/forge/regal-lion.json",
             "entry": "raventree-gate-warden",
             "seed": 610009
-          },
-          "art": "pending"
+          }
         }
       },
       "_stats": {
@@ -10473,7 +10470,7 @@
       "_id": "PierDBoWX0RWil6t",
       "name": "Regal Lion Chaplain",
       "type": "npc",
-      "img": "icons/svg/mystery-man.svg",
+      "img": "portraits/regal-lion/regal-lion-chaplain.png",
       "system": {
         "abilities": {
           "str": {
@@ -10696,7 +10693,7 @@
           },
           "cr": 3,
           "biography": {
-            "value": "<p><em>The Regal Lion packet sheet — Regal Lion Chaplain.</em> Built by <code>tools/build-forge-packets.py</code> from the NPC Forge roster <code>data/forge/regal-lion.json</code> (entry <code>regal-lion-chaplain</code>): Medium humanoid (human), Lawful Neutral; CR 3 (proficiency +2, to hit +4 with STR); AC 16 (scale mail & Silver Flame shield), hit points 45 (7d8+14), speed 30 ft.. A GM scene kit for the The Regal Lion article's present (1040 BF), not a filed event; the faction article stays the authority.</p><p>Ordained at Flamekeep to administer the Regal Lion's daily liturgies, blessing weapons and consecrating estate rooms against corruption.</p><p><strong>Role:</strong> combat cleric · <strong>tier:</strong> Flamekeep Chaplain · <strong>folder:</strong> Iron Legion / Regal Lion Knights.</p><h3>Art</h3><p><strong>Awaiting its plate.</strong> The render <code>npc-forge/regal-lion/renders/regal-lion-chaplain.png</code> has not been cut yet; run the NPC Forge (or <code>tools/build-forge-packets.py plates regal-lion</code>) and rebuild. Seed 610007. Prompt: <q>Clean cel-shaded character art in the style of dark fantasy military concept art, bold dark outlines, polished steel and gold lion crest heraldry, dark navy blue and crimson surcoats, cold iron plate, flat colours, crisp shading. A solemn priest in grey clerical robes worn over polished chainmail armor, holding an aloft Silver Flame holy symbol on an ornate steel mace and a swinging incense censer. Full body, whole figure visible, three-quarter view, centred, isolated on a plain flat solid magenta background (#FF00FF), no floor, no ground shadow, no text, no border.</q></p>",
+            "value": "<p><em>The Regal Lion packet sheet — Regal Lion Chaplain.</em> Built by <code>tools/build-forge-packets.py</code> from the NPC Forge roster <code>data/forge/regal-lion.json</code> (entry <code>regal-lion-chaplain</code>): Medium humanoid (human), Lawful Neutral; CR 3 (proficiency +2, to hit +4 with STR); AC 16 (scale mail & Silver Flame shield), hit points 45 (7d8+14), speed 30 ft.. A GM scene kit for the The Regal Lion article's present (1040 BF), not a filed event; the faction article stays the authority.</p><p>Ordained at Flamekeep to administer the Regal Lion's daily liturgies, blessing weapons and consecrating estate rooms against corruption.</p><p><strong>Role:</strong> combat cleric · <strong>tier:</strong> Flamekeep Chaplain · <strong>folder:</strong> Iron Legion / Regal Lion Knights.</p><h3>Art</h3><p>Token plate <code>portraits/regal-lion/regal-lion-chaplain.png</code> — NPC Forge render, seed 610007, cut from a flat #FF00FF field. Prompt: <q>Clean cel-shaded character art in the style of dark fantasy military concept art, bold dark outlines, polished steel and gold lion crest heraldry, dark navy blue and crimson surcoats, cold iron plate, flat colours, crisp shading. A solemn priest in grey clerical robes worn over polished chainmail armor, holding an aloft Silver Flame holy symbol on an ornate steel mace and a swinging incense censer. Full body, whole figure visible, three-quarter view, centred, isolated on a plain flat solid magenta background (#FF00FF), no floor, no ground shadow, no text, no border.</q></p>",
             "public": ""
           }
         },
@@ -10996,7 +10993,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "icons/svg/mystery-man.svg",
+          "src": "portraits/regal-lion/regal-lion-chaplain.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -11559,8 +11556,7 @@
             "roster": "data/forge/regal-lion.json",
             "entry": "regal-lion-chaplain",
             "seed": 610007
-          },
-          "art": "pending"
+          }
         }
       },
       "_stats": {
@@ -11575,7 +11571,7 @@
       "_id": "RSKMcGhJUXIojHxy",
       "name": "Regal Lion Halberdier",
       "type": "npc",
-      "img": "icons/svg/mystery-man.svg",
+      "img": "portraits/regal-lion/regal-lion-halberdier.png",
       "system": {
         "abilities": {
           "str": {
@@ -11798,7 +11794,7 @@
           },
           "cr": 2,
           "biography": {
-            "value": "<p><em>The Regal Lion packet sheet — Regal Lion Halberdier.</em> Built by <code>tools/build-forge-packets.py</code> from the NPC Forge roster <code>data/forge/regal-lion.json</code> (entry <code>regal-lion-halberdier</code>): Medium humanoid (human), Lawful Neutral; CR 2 (proficiency +2, to hit +5 with STR); AC 17 (half-plate & reinforced pauldrons), hit points 45 (6d8+18), speed 30 ft.. A GM scene kit for the The Regal Lion article's present (1040 BF), not a filed event; the faction article stays the authority.</p><p>Stationed at major thresholds, arched doorways, and manor staircases, halberdiers form an impassable barrier against large beasts, charging knights, and rebellious manor staff.</p><p><strong>Role:</strong> polearm specialist · <strong>tier:</strong> Heavy Guard · <strong>folder:</strong> Iron Legion / Regal Lion Knights.</p><h3>Art</h3><p><strong>Awaiting its plate.</strong> The render <code>npc-forge/regal-lion/renders/regal-lion-halberdier.png</code> has not been cut yet; run the NPC Forge (or <code>tools/build-forge-packets.py plates regal-lion</code>) and rebuild. Seed 610005. Prompt: <q>Clean cel-shaded character art in the style of dark fantasy military concept art, bold dark outlines, polished steel and gold lion crest heraldry, dark navy blue and crimson surcoats, cold iron plate, flat colours, crisp shading. A stalwart heavy infantry guard clad in fluted steel plate armor with lion-embossed pauldrons, wearing an enclosed visored bascinet. Gripping a long, ornate two-handed poleaxe halberd in a ready guard stance. Full body, whole figure visible, three-quarter view, centred, isolated on a plain flat solid magenta background (#FF00FF), no floor, no ground shadow, no text, no border.</q></p>",
+            "value": "<p><em>The Regal Lion packet sheet — Regal Lion Halberdier.</em> Built by <code>tools/build-forge-packets.py</code> from the NPC Forge roster <code>data/forge/regal-lion.json</code> (entry <code>regal-lion-halberdier</code>): Medium humanoid (human), Lawful Neutral; CR 2 (proficiency +2, to hit +5 with STR); AC 17 (half-plate & reinforced pauldrons), hit points 45 (6d8+18), speed 30 ft.. A GM scene kit for the The Regal Lion article's present (1040 BF), not a filed event; the faction article stays the authority.</p><p>Stationed at major thresholds, arched doorways, and manor staircases, halberdiers form an impassable barrier against large beasts, charging knights, and rebellious manor staff.</p><p><strong>Role:</strong> polearm specialist · <strong>tier:</strong> Heavy Guard · <strong>folder:</strong> Iron Legion / Regal Lion Knights.</p><h3>Art</h3><p>Token plate <code>portraits/regal-lion/regal-lion-halberdier.png</code> — NPC Forge render, seed 610005, cut from a flat #FF00FF field. Prompt: <q>Clean cel-shaded character art in the style of dark fantasy military concept art, bold dark outlines, polished steel and gold lion crest heraldry, dark navy blue and crimson surcoats, cold iron plate, flat colours, crisp shading. A stalwart heavy infantry guard clad in fluted steel plate armor with lion-embossed pauldrons, wearing an enclosed visored bascinet. Gripping a long, ornate two-handed poleaxe halberd in a ready guard stance. Full body, whole figure visible, three-quarter view, centred, isolated on a plain flat solid magenta background (#FF00FF), no floor, no ground shadow, no text, no border.</q></p>",
             "public": ""
           }
         },
@@ -12096,7 +12092,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "icons/svg/mystery-man.svg",
+          "src": "portraits/regal-lion/regal-lion-halberdier.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -12644,8 +12640,7 @@
             "roster": "data/forge/regal-lion.json",
             "entry": "regal-lion-halberdier",
             "seed": 610005
-          },
-          "art": "pending"
+          }
         }
       },
       "_stats": {
@@ -12660,7 +12655,7 @@
       "_id": "zeoSjI5by6KZOFuU",
       "name": "Regal Lion Manor Arbalest",
       "type": "npc",
-      "img": "icons/svg/mystery-man.svg",
+      "img": "portraits/regal-lion/regal-lion-manor-arbalest.png",
       "system": {
         "abilities": {
           "str": {
@@ -12883,7 +12878,7 @@
           },
           "cr": 2,
           "biography": {
-            "value": "<p><em>The Regal Lion packet sheet — Regal Lion Manor Arbalest.</em> Built by <code>tools/build-forge-packets.py</code> from the NPC Forge roster <code>data/forge/regal-lion.json</code> (entry <code>regal-lion-manor-arbalest</code>): Medium humanoid (human), Lawful Neutral; CR 2 (proficiency +2, to hit +5 with DEX); AC 15 (studded leather & steel cuirass), hit points 38 (6d8+12), speed 30 ft.. A GM scene kit for the The Regal Lion article's present (1040 BF), not a filed event; the faction article stays the authority.</p><p>Positioned on manor balustrades and the greenhouse iron catwalks, these arbalests scan the grounds for encroaching monstrosities and planar incursions.</p><p><strong>Role:</strong> crossbow marksman · <strong>tier:</strong> Rampart Marksman · <strong>folder:</strong> Iron Legion / Regal Lion Knights.</p><h3>Art</h3><p><strong>Awaiting its plate.</strong> The render <code>npc-forge/regal-lion/renders/regal-lion-manor-arbalest.png</code> has not been cut yet; run the NPC Forge (or <code>tools/build-forge-packets.py plates regal-lion</code>) and rebuild. Seed 610006. Prompt: <q>Clean cel-shaded character art in the style of dark fantasy military concept art, bold dark outlines, polished steel and gold lion crest heraldry, dark navy blue and crimson surcoats, cold iron plate, flat colours, crisp shading. An eagle-eyed marksman in a dark navy tunic with steel shoulder cops and leather archery bracers, aiming a large heavy mechanical steel arbalest crossbow with a lion-motif stirrup. Full body, whole figure visible, three-quarter view, centred, isolated on a plain flat solid magenta background (#FF00FF), no floor, no ground shadow, no text, no border.</q></p>",
+            "value": "<p><em>The Regal Lion packet sheet — Regal Lion Manor Arbalest.</em> Built by <code>tools/build-forge-packets.py</code> from the NPC Forge roster <code>data/forge/regal-lion.json</code> (entry <code>regal-lion-manor-arbalest</code>): Medium humanoid (human), Lawful Neutral; CR 2 (proficiency +2, to hit +5 with DEX); AC 15 (studded leather & steel cuirass), hit points 38 (6d8+12), speed 30 ft.. A GM scene kit for the The Regal Lion article's present (1040 BF), not a filed event; the faction article stays the authority.</p><p>Positioned on manor balustrades and the greenhouse iron catwalks, these arbalests scan the grounds for encroaching monstrosities and planar incursions.</p><p><strong>Role:</strong> crossbow marksman · <strong>tier:</strong> Rampart Marksman · <strong>folder:</strong> Iron Legion / Regal Lion Knights.</p><h3>Art</h3><p>Token plate <code>portraits/regal-lion/regal-lion-manor-arbalest.png</code> — NPC Forge render, seed 610006, cut from a flat #FF00FF field. Prompt: <q>Clean cel-shaded character art in the style of dark fantasy military concept art, bold dark outlines, polished steel and gold lion crest heraldry, dark navy blue and crimson surcoats, cold iron plate, flat colours, crisp shading. An eagle-eyed marksman in a dark navy tunic with steel shoulder cops and leather archery bracers, aiming a large heavy mechanical steel arbalest crossbow with a lion-motif stirrup. Full body, whole figure visible, three-quarter view, centred, isolated on a plain flat solid magenta background (#FF00FF), no floor, no ground shadow, no text, no border.</q></p>",
             "public": ""
           }
         },
@@ -13181,7 +13176,7 @@
         "width": 1,
         "height": 1,
         "texture": {
-          "src": "icons/svg/mystery-man.svg",
+          "src": "portraits/regal-lion/regal-lion-manor-arbalest.png",
           "anchorX": 0.5,
           "anchorY": 0.5,
           "fit": "contain",
@@ -13732,8 +13727,7 @@
             "roster": "data/forge/regal-lion.json",
             "entry": "regal-lion-manor-arbalest",
             "seed": 610006
-          },
-          "art": "pending"
+          }
         }
       },
       "_stats": {

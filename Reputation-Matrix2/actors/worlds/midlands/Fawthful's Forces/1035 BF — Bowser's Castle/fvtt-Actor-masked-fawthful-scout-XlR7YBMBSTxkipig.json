@@ -1405,6 +1405,21 @@
         "basis": "era",
         "from": null
       }
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "skirmisher"
+        ],
+        "reasons": [
+          "Finesse weapon + high speed (35ft) → skirmisher",
+          "Keyword \"scout\" in name/biography → skirmisher"
+        ],
+        "confidence": 0.6666666666666666,
+        "version": 3,
+        "timestamp": 1791338843797,
+        "manuallyOverridden": false
+      }
     }
   },
   "_stats": {
@@ -1414,7 +1429,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791261791134,
-    "modifiedTime": 1791325780400,
+    "modifiedTime": 1791338843806,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

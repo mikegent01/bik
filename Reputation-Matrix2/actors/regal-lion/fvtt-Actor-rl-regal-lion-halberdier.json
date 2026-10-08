@@ -2,7 +2,7 @@
   "_id": "RSKMcGhJUXIojHxy",
   "name": "Regal Lion Halberdier",
   "type": "npc",
-  "img": "icons/svg/mystery-man.svg",
+  "img": "portraits/regal-lion/regal-lion-halberdier.png",
   "system": {
     "abilities": {
       "str": {
@@ -225,7 +225,7 @@
       },
       "cr": 2,
       "biography": {
-        "value": "<p><em>The Regal Lion packet sheet — Regal Lion Halberdier.</em> Built by <code>tools/build-forge-packets.py</code> from the NPC Forge roster <code>data/forge/regal-lion.json</code> (entry <code>regal-lion-halberdier</code>): Medium humanoid (human), Lawful Neutral; CR 2 (proficiency +2, to hit +5 with STR); AC 17 (half-plate & reinforced pauldrons), hit points 45 (6d8+18), speed 30 ft.. A GM scene kit for the The Regal Lion article's present (1040 BF), not a filed event; the faction article stays the authority.</p><p>Stationed at major thresholds, arched doorways, and manor staircases, halberdiers form an impassable barrier against large beasts, charging knights, and rebellious manor staff.</p><p><strong>Role:</strong> polearm specialist · <strong>tier:</strong> Heavy Guard · <strong>folder:</strong> Iron Legion / Regal Lion Knights.</p><h3>Art</h3><p><strong>Awaiting its plate.</strong> The render <code>npc-forge/regal-lion/renders/regal-lion-halberdier.png</code> has not been cut yet; run the NPC Forge (or <code>tools/build-forge-packets.py plates regal-lion</code>) and rebuild. Seed 610005. Prompt: <q>Clean cel-shaded character art in the style of dark fantasy military concept art, bold dark outlines, polished steel and gold lion crest heraldry, dark navy blue and crimson surcoats, cold iron plate, flat colours, crisp shading. A stalwart heavy infantry guard clad in fluted steel plate armor with lion-embossed pauldrons, wearing an enclosed visored bascinet. Gripping a long, ornate two-handed poleaxe halberd in a ready guard stance. Full body, whole figure visible, three-quarter view, centred, isolated on a plain flat solid magenta background (#FF00FF), no floor, no ground shadow, no text, no border.</q></p>",
+        "value": "<p><em>The Regal Lion packet sheet — Regal Lion Halberdier.</em> Built by <code>tools/build-forge-packets.py</code> from the NPC Forge roster <code>data/forge/regal-lion.json</code> (entry <code>regal-lion-halberdier</code>): Medium humanoid (human), Lawful Neutral; CR 2 (proficiency +2, to hit +5 with STR); AC 17 (half-plate & reinforced pauldrons), hit points 45 (6d8+18), speed 30 ft.. A GM scene kit for the The Regal Lion article's present (1040 BF), not a filed event; the faction article stays the authority.</p><p>Stationed at major thresholds, arched doorways, and manor staircases, halberdiers form an impassable barrier against large beasts, charging knights, and rebellious manor staff.</p><p><strong>Role:</strong> polearm specialist · <strong>tier:</strong> Heavy Guard · <strong>folder:</strong> Iron Legion / Regal Lion Knights.</p><h3>Art</h3><p>Token plate <code>portraits/regal-lion/regal-lion-halberdier.png</code> — NPC Forge render, seed 610005, cut from a flat #FF00FF field. Prompt: <q>Clean cel-shaded character art in the style of dark fantasy military concept art, bold dark outlines, polished steel and gold lion crest heraldry, dark navy blue and crimson surcoats, cold iron plate, flat colours, crisp shading. A stalwart heavy infantry guard clad in fluted steel plate armor with lion-embossed pauldrons, wearing an enclosed visored bascinet. Gripping a long, ornate two-handed poleaxe halberd in a ready guard stance. Full body, whole figure visible, three-quarter view, centred, isolated on a plain flat solid magenta background (#FF00FF), no floor, no ground shadow, no text, no border.</q></p>",
         "public": ""
       }
     },
@@ -523,7 +523,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "icons/svg/mystery-man.svg",
+      "src": "portraits/regal-lion/regal-lion-halberdier.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -1071,8 +1071,7 @@
         "roster": "data/forge/regal-lion.json",
         "entry": "regal-lion-halberdier",
         "seed": 610005
-      },
-      "art": "pending"
+      }
     }
   },
   "_stats": {

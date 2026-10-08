@@ -2,7 +2,7 @@
   "_id": "q2VmDdERZ9yDcp9l",
   "name": "Toad ie Foxx",
   "type": "npc",
-  "img": "portraits/liberated-toads/roster/toad_73_toad_ie_foxx.png",
+  "img": "assets/images/toads/roster/toad_73_toad_ie_foxx.png",
   "system": {
     "abilities": {
       "str": {
@@ -580,7 +580,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "portraits/liberated-toads/roster/toad_73_toad_ie_foxx.png",
+      "src": "assets/images/toads/roster/toad_73_toad_ie_foxx.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -1071,6 +1071,20 @@
     },
     "midi-qol": {
       "onUseMacroParts": {}
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "assassin"
+        ],
+        "reasons": [
+          "No inference signals — fallback pool pick for \"humanoid\": assassin"
+        ],
+        "confidence": 0,
+        "version": 3,
+        "timestamp": 1791338520878,
+        "manuallyOverridden": false
+      }
     }
   },
   "_stats": {
@@ -1080,7 +1094,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791261797990,
-    "modifiedTime": 1791325783011,
+    "modifiedTime": 1791338520887,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

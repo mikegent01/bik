@@ -1295,6 +1295,22 @@
         "basis": "era",
         "from": null
       }
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "sniper",
+          "tactician"
+        ],
+        "reasons": [
+          "Long-range weapon with no melee option → sniper",
+          "INT 18 ≥ 16 → tactician overlay"
+        ],
+        "confidence": 0.6666666666666666,
+        "version": 3,
+        "timestamp": 1791338837822,
+        "manuallyOverridden": false
+      }
     }
   },
   "_stats": {
@@ -1304,7 +1320,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791261790614,
-    "modifiedTime": 1791325780254,
+    "modifiedTime": 1791338837831,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

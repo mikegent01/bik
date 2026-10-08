@@ -1239,6 +1239,23 @@
         "basis": "era",
         "from": null
       }
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "disciplined",
+          "fearless"
+        ],
+        "reasons": [
+          "Creature type \"construct\" → disciplined",
+          "Creature type \"construct\" → fearless",
+          "Keyword \"patrol\" in name/biography → disciplined"
+        ],
+        "confidence": 1,
+        "version": 3,
+        "timestamp": 1791338822514,
+        "manuallyOverridden": false
+      }
     }
   },
   "_stats": {
@@ -1248,7 +1265,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791261791004,
-    "modifiedTime": 1791325780367,
+    "modifiedTime": 1791338822524,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

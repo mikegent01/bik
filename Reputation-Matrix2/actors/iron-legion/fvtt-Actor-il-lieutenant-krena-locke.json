@@ -2,7 +2,7 @@
   "_id": "CWvdqgzhx8WAsqLo",
   "name": "Lieutenant Krena Locke",
   "type": "npc",
-  "img": "icons/svg/mystery-man.svg",
+  "img": "portraits/iron-legion/lieutenant-krena-locke.png",
   "system": {
     "abilities": {
       "str": {
@@ -225,7 +225,7 @@
       },
       "cr": 4,
       "biography": {
-        "value": "<p><em>Iron Cordon Brigade packet sheet — Lieutenant Krena Locke.</em> Built by <code>tools/build-forge-packets.py</code> from the NPC Forge roster <code>data/forge/iron-legion.json</code> (entry <code>lieutenant-krena-locke</code>): Medium humanoid (human), Lawful Neutral; CR 4 (proficiency +2, to hit +6 with DEX); AC 16 (studded ironcoat), hit points 65 (10d8+20), speed 35 ft.. A GM scene kit for the Iron Cordon Brigade article's present (1040 BF), not a filed event; the faction article stays the authority.</p><p>Lieutenant Locke leads advanced reconnaissance squads along the boundary lines between the Midlands and the contested provinces. Equipped with star-bit optics, she identifies enemy troop movements hours before main forces engage.</p><p><strong>Role:</strong> recon sniper · <strong>tier:</strong> Vanguard Scout · <strong>folder:</strong> Iron Legion / Cordon Command.</p><h3>Art</h3><p><strong>Awaiting its plate.</strong> The render <code>npc-forge/iron-legion/renders/lieutenant-krena-locke.png</code> has not been cut yet; run the NPC Forge (or <code>tools/build-forge-packets.py plates iron-legion</code>) and rebuild. Seed 510003. Prompt: <q>Clean cel-shaded character art in the style of dark fantasy military concept art, bold dark outlines, cold iron and gunmetal grey armor, brass gears, glowing cyan star-bit conduits, flat colours, crisp shading. An athletic female scout officer in a hooded grey-and-slate camouflage duster reinforced with light steel plating. She carries a long, brass-and-iron star-bit sniper rifle with a glowing cyan lens scope. Protective goggles pushed up on her forehead, alert calculating gaze. Full body, whole figure visible, three-quarter view, centred, isolated on a plain flat solid magenta background (#FF00FF), no floor, no ground shadow, no text, no border.</q></p>",
+        "value": "<p><em>Iron Cordon Brigade packet sheet — Lieutenant Krena Locke.</em> Built by <code>tools/build-forge-packets.py</code> from the NPC Forge roster <code>data/forge/iron-legion.json</code> (entry <code>lieutenant-krena-locke</code>): Medium humanoid (human), Lawful Neutral; CR 4 (proficiency +2, to hit +6 with DEX); AC 16 (studded ironcoat), hit points 65 (10d8+20), speed 35 ft.. A GM scene kit for the Iron Cordon Brigade article's present (1040 BF), not a filed event; the faction article stays the authority.</p><p>Lieutenant Locke leads advanced reconnaissance squads along the boundary lines between the Midlands and the contested provinces. Equipped with star-bit optics, she identifies enemy troop movements hours before main forces engage.</p><p><strong>Role:</strong> recon sniper · <strong>tier:</strong> Vanguard Scout · <strong>folder:</strong> Iron Legion / Cordon Command.</p><h3>Art</h3><p>Token plate <code>portraits/iron-legion/lieutenant-krena-locke.png</code> — NPC Forge render, seed 510003, cut from a flat #FF00FF field. Prompt: <q>Clean cel-shaded character art in the style of dark fantasy military concept art, bold dark outlines, cold iron and gunmetal grey armor, brass gears, glowing cyan star-bit conduits, flat colours, crisp shading. An athletic female scout officer in a hooded grey-and-slate camouflage duster reinforced with light steel plating. She carries a long, brass-and-iron star-bit sniper rifle with a glowing cyan lens scope. Protective goggles pushed up on her forehead, alert calculating gaze. Full body, whole figure visible, three-quarter view, centred, isolated on a plain flat solid magenta background (#FF00FF), no floor, no ground shadow, no text, no border.</q></p>",
         "public": ""
       }
     },
@@ -523,7 +523,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "icons/svg/mystery-man.svg",
+      "src": "portraits/iron-legion/lieutenant-krena-locke.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -1300,8 +1300,7 @@
         "roster": "data/forge/iron-legion.json",
         "entry": "lieutenant-krena-locke",
         "seed": 510003
-      },
-      "art": "pending"
+      }
     }
   },
   "_stats": {

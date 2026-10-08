@@ -2,7 +2,7 @@
   "_id": "vvcaOaq7cKHA6cxR",
   "name": "Byscilla Danos",
   "type": "npc",
-  "img": "portraits/regal-lion/byscilla-danos.png",
+  "img": "modules/house-divided/assets/creatures/portraits/byscilla-corvinarus.webp",
   "items": [
     {
       "_id": "87olpriernjyGLbC",
@@ -103,7 +103,7 @@
       },
       "system": {
         "description": {
-          "value": "<section class=\"secret\">\n<p><em>Melee Weapon Attack: </em><strong>+3 to hit,</strong>\u00a0<strong>5 ft.,</strong> one target. Hit: <strong>5 (1d8 + 1) <em>piercing damage</em></strong>.</p>\n<p>\u00a0</p>\n</section>\n<p>Byscilla attacks with her Rapier.</p>",
+          "value": "<section class=\"secret\">\n<p><em>Melee Weapon Attack: </em><strong>+3 to hit,</strong> <strong>5 ft.,</strong> one target. Hit: <strong>5 (1d8 + 1) <em>piercing damage</em></strong>.</p>\n<p> </p>\n</section>\n<p>Byscilla attacks with her Rapier.</p>",
           "chat": ""
         },
         "source": {
@@ -4075,7 +4075,7 @@
       "priority": 0
     },
     "texture": {
-      "src": "portraits/regal-lion/byscilla-danos.png",
+      "src": "modules/house-divided/assets/creatures/tokens-topdown/byscilla-corvinarus.webp",
       "tint": "#ffffff",
       "scaleX": 0.8,
       "scaleY": 0.8,
