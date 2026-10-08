@@ -1,88 +1,106 @@
-# Commentary Mode — "Waluigi's Cut"
+# Commentary Mode — "Waluigi's Cut" — Authoring & Implementation Guide
+
+**A commentary track for the archive: the whole story, retold, with Waluigi talking over every second of it.**
+
+> **Consolidated Guide:** This document is the single canonical source of truth for Waluigi's Cut commentary filings, superseding all previous standalone README summaries. It covers the structural contract, the time-stance separation from Analysis, the authoring rules, the schema, and the checker floors.
+
+- **Filed exemplars:**
+  - `#/commentary/promo_mario_newspaper_commentary` — a contested document (expanded 4x)
+  - `#/commentary/the_belly_of_the_beast_commentary` — a full narrative session
+- **Data file:** `Reputation-Matrix2/data/commentaries.json`
+- **Checker:** `python3 tools/check-commentaries.py` (and `python3 tools/check-commentaries.py --strict`)
+
+---
 
 ## Why this mode exists
 
-People read this archive for the story. They also read it for **Waluigi being
-insufferable about the story**, and somewhere along the line the second thing
-got squeezed out.
+People read this archive for the story. They also read it for **Waluigi being insufferable about the story**, and somewhere along the line the second thing got squeezed out.
 
-Compare two filings measured on the same scale:
+Compare filings measured on the same scale:
 
 | Filing | Words | "Waluigi"/1k | CAPS/1k | Shape |
 |---|---:|---:|---:|---|
-| `spider_grove_battle` (old) | 1,755 | **22.8** | **36.5** | Waluigi tells the whole battle himself |
-| `promo_mario_newspaper` (new) | 302 | 9.9 | 19.9 | neutral retelling, commentary bolted on the end |
+| `spider_grove_battle` (old, exemplar) | 1,755 | **22.8** | **36.5** | Waluigi tells the whole battle himself |
+| `promo_mario_newspaper` (flat source) | 302 | 9.9 | 19.9 | Neutral retelling, opinion parked in a note |
+| **Promo Mario — Waluigi's Cut** | **4,055** | **24.9** | **34.3** | Waluigi narrating and heckling continuously |
+| **The Belly of the Beast — Waluigi's Cut** | **5,850** | **19.1** | **29.2** | Full session with continuous running cut |
 
-The old article opens with *"THIS is the one. This is Waluigi's battle."* He is
-not annotating the fight — he is **narrating** it, and interrupting himself
-constantly while he does. The newer articles report events flatly and then park
-the opinions in a `waluigi_note` at the bottom. Technically the commentary is
-present. Emotionally it has been quarantined.
+The old Spider Grove article opens with *"THIS is the one. This is Waluigi's battle."* He is not annotating the fight from a calm distance — he is **narrating** it, and interrupting himself constantly while he does. 
 
-Commentary mode is where the voice goes back on top.
+Commentary mode is where the voice goes back on top of the story instead of quarantined in a footnote.
 
 ---
 
-## What this mode is NOT
+## Separating Commentary from Analysis: By Structure and Time Stance, Not Tone
 
-| Mode | Question it answers | Tone |
+In previous revisions, Commentary and Analysis began to sound identical because both degenerated into "first-person Waluigi complaining loudly." The table below defines the strict boundary. They are separated by **structure, stance, and evidence**, not merely tone:
+
+| Dimension | Commentary ("Waluigi's Cut") | Analysis (Companion Reading) |
 |---|---|---|
-| **Event article** | What happened? | Straight, canonical |
-| **Article analysis** | What does one specific thing about this filing MEAN? | Calm, forensic, single thesis |
-| **Investigation** | What can we prove, and what does it cost to check? | Procedural, dice |
-| **Waluigi's Cut** | What happened — *and what Waluigi thinks of it, continuously* | Loud, funny, opinionated |
-
-An analysis argues **one** point and stays sober. A commentary retells
-**everything** and never shuts up. Do not build a commentary by pasting an
-analysis thesis over a summary; that is the exact failure this mode exists to
-correct.
-
----
-
-## Length is proportional to the source
-
-Sized against the article it talks over — see the table in
-[`README-COMMENTARY-MODE.md`](README-COMMENTARY-MODE.md#length-proportional-to-the-source).
-Promo Mario ran 4.06x its source (a thin summary needing expansion); the Belly
-of the Beast ran 1.10x (an already-narrated session needing only the voice).
-
-Enforced per section, because that is the stable unit: **260–900 words each,
-whole cut >= 0.9x the source's story words.**
+| **Time stance** | **During:** Reacts as each beat lands; does *not* know what happens next. In the moment. | **After:** Hindsight; written the next morning; knows the ending and consequences. |
+| **Order** | **Chronological:** Follows the source event's sequence beat-by-beat. | **Thematic / Claim-based:** Follows claims and arguments, not chronology. |
+| **Shape** | **Quote → heckle.** No thesis, no verdict. Retelling with running comedy. | **Claim → anchor → argument → verdict.** Structured forensic reading. |
+| **Self-reference** | **Third-person "Waluigi", CAPS, WAH, performing.** Loud, theatrical broadcast voice. | **"I" only, no CAPS, WAH at most once per section.** Speaking quietly at a desk under a lamp. |
+| **Lexicon** | **Comedy.** Slapstick, physical insults, disbelief. *No ledger words* (`filed`, `ruled`, `custody`) except as an overt gag. | **Audit register.** Technical archival vocabulary (`filed`, `ruled`, `entered`, `exhibit`, `custody`, `chain of possession`). |
+| **Confession** | **Concedes about evidence:** One short drop-out acknowledging a physical fact ("Alright, the landing was technically survivable"). | **Concedes about himself and his stake:** Admits his own vulnerability, complicity, or fear. This personal stake is the engine of the argument. |
+| **Cross-references** | **None.** Stays strictly quarantined inside the single source event being watched. | **Required.** Must anchor to prior archive filings, legal contracts, warrants, or historical logs. |
+| **Framing conceit** | **Mandatory conceit:** Screening a tape, live blog, reading minutes aloud, reviewing cockpit black-box audio. | **Desk audit:** Physical evidence spread across the blotter under the lamp. |
 
 ---
 
-## The three house rules
+## The Mandatory Conceit
+
+Every commentary must establish an explicit framing conceit in its standfirst and opening section. Waluigi is not just "shouting at the reader"; he is **performing through an in-world medium**:
+- **A live screening of visual footage:** Sitting at a projector, telling the operator to pause, rewind, or freeze-frame (*"Stop the tape! Rewind three seconds! Look at Wario's thumbs!"*).
+- **Reading the minutes or transcript aloud:** Heckling an official transcript line-by-line in front of an audience.
+- **Reviewing flight recorder / black-box audio:** Reacting to recorded cockpit telemetry and radio noise as it plays.
+- **A live blog / running broadcast:** Reacting in real time to an event unfolding outside the window.
+
+The conceit anchors the **During** stance: Waluigi cannot skip ahead to reveal what is in the basement until the footage actually enters the basement.
+
+---
+
+## Length: Proportional to the Source
+
+A commentary is sized against the article it talks over. A long session gets a long cut; a short clipping does not get padded to match it.
+
+| Source | Source words | Cut words | Ratio | Why |
+|---|---:|---:|---:|---|
+| `promo_mario_newspaper` | 999 | 4,055 | **4.06x** | Thin summary sitting on rich unread exhibits; needed full expansion. |
+| `the_belly_of_the_beast` | 5,319 | 5,850 | **1.10x** | Already full narrative; needed the voice laid over it. |
+
+Rules enforced by `tools/check-commentaries.py`:
+- **260–900 words per section** (stable unit: one story beat plus its interruptions).
+- **Whole cut >= 0.9x the source's story words.**
+- **6–14 sections** matching the source beats.
+
+> **Pacing Tip:** On a long narrative source, do not paste narrative prose verbatim and tack jokes onto the end. **Compress the retold prose** so the action takes fewer words, then weave the heckling into every second or third sentence.
+
+---
+
+## The House Rules
 
 ### 1. The story must survive on its own
+A reader who has never read the source event must finish the commentary knowing exactly what happened, in order. You are **retelling**, not merely annotating.
 
-A reader who has never opened the source article must finish the commentary
-knowing the full sequence of events. **You are retelling, not annotating.** If
-removing the jokes would leave the reader confused about what happened, the
-retelling is too thin.
-
-### 2. The opinions are cut in, not stacked at the end
-
-Waluigi interrupts himself. He reacts inside the paragraph where the thing
-happens, not in a summary block afterwards. Target roughly **an interruption
-every second or third sentence**.
-
-Interruptions that work:
-
-- reacting to a fact as it lands — *"Fell. Onto a set."*
-- flagging what an absence proves — *"Peach never appears."*
-- competence bragging, ideally justified — the ice-magic passages
-- self-mockery and grievance — being uninvited, unthanked, un-medalled
-- admitting something that costs him — see rule 3
+### 2. Opinions are cut in, not stacked at the end
+Waluigi interrupts himself. He reacts inside the sentence or paragraph where the beat lands—roughly an interruption every second or third sentence. Never a block of jokes bolted to the end of a neutral summary.
 
 ### 3. No invented facts, ever
+The jokes and insults are Waluigi's. The events, injuries, and objects are canon. Every factual event must already exist in the source record. **A funnier version of an event that did not happen is a canon corruption with a laugh track.**
+Where the record is silent, say so in voice: *"The tape does not show where the hat went,"* or *"Nobody in this room has verified that."*
 
-The jokes are Waluigi's. The events are not. Every factual claim must already
-exist in the source record. **Commentary mode is a voice change, not a licence
-to embellish** — a funnier version of an event that did not happen is a
-canon corruption with a laugh track.
+### 4. Quote the real words (Verbatim speech density)
+Waluigi dissects what people **actually said**.
+- Quote verbatim from the source event: dialogue, rhymes, curses, name-drops, and demands.
+- Never put fake words in another character's mouth to set up a punchline. The comedy comes from the fact that someone *genuinely said that on the record* and Waluigi cannot believe it.
+- Preserved verses, poems, and reveals must stand on the page before Waluigi tears into them.
 
-Where the record is silent, say so *in voice*: "the paper does not say," "nobody
-in this building has authenticated that." Absence is often the best material.
+### 5. No ledger vocabulary, no thesis, no verdict
+Leave the audit register (`filed`, `ruled`, `entered`, `custody reading`) to the Analysis mode. A commentary is comedy and performance. It does not argue a central thesis and it does not render a final legal ruling.
+
+### 6. The honest concession beat
+Once per commentary, in the back half, Waluigi drops the manic performance for three or four sentences, concedes an inconvenient physical truth about the evidence (*"Alright, the landing was technically survivable"* or *"The signature is genuine"*), and immediately snaps back into high gear. This beat prevents the cut from collapsing into pure noise.
 
 ### 4. Quote the real lines — Waluigi dissects the actual words
 
@@ -94,80 +112,61 @@ When Waluigi ridicules, interrogates, or celebrates a line, he quotes the **exac
 
 ---
 
-## The thing that makes it land: let him be right, then make him pay for it
+## Anatomy of a Filing
 
-The Promo Mario cut works because Waluigi does the following in one section:
-
-1. brags that his own writing made a man weep — genuine, earned, funny
-2. **then concedes it proves nothing**, because a review is not corroboration
-
-That second beat is what separates commentary from noise. He is vain, loud, and
-petty, and he is also the best archivist in the building — so let him drop the
-voice for three or four sentences once per filing, say the true thing plainly,
-then pick the voice straight back up. Comedy without that beat is just volume.
-
----
-
-## Data shape
-
-`Reputation-Matrix2/data/commentaries.json`
+Filed in `Reputation-Matrix2/data/commentaries.json`:
 
 ```json
 {
-  "commentaries": [{
-    "id": "<source_id>_commentary",
-    "sourceArticle": "<must resolve to a real event/battle>",
-    "title": "…",
-    "subtitle": "…",
-    "filed": "5 Aethel, 1040 BF — …",
-    "timeCode": "TC:1040-09-05/MAT",
-    "kicker": "Waluigi's Cut · Commentary Track",
-    "pullQuote": "one line, his loudest",
-    "standfirst": "what he is about to do to you",
-    "sections": [
-      { "id": "kebab-case", "icon": "📰", "heading": "…", "body": "markdown" }
-    ],
-    "relatedArticles": ["…"]
-  }]
+  "commentaries": [
+    {
+      "id": "<source_id>_commentary",
+      "sourceArticle": "<resolves to a real event or battle id>",
+      "title": "Title of the Event",
+      "subtitle": "In Which Waluigi Performs The Screening",
+      "filed": "2 Aethel, 1035 BF — recorded live at the screening desk",
+      "timeCode": "TC:1035-09-02/COM",
+      "kicker": "Waluigi's Cut · Commentary Track",
+      "pullQuote": "One line, his loudest and funniest from the cut",
+      "standfirst": "The premise and conceit: what he is watching and why he is yelling at it",
+      "sections": [
+        {
+          "id": "beat-slug",
+          "icon": "📽️",
+          "heading": "Loud All-Caps or Direct Line Quote Heading",
+          "body": "Markdown body with high quote density, third-person Waluigi heckling, and continuous story retelling."
+        }
+      ],
+      "relatedArticles": []
+    }
+  ]
 }
 ```
 
-Route: `#/commentary/<id>` (aliases `#/waluigis-cut/`, `#/cut/`). The source
-article surfaces it automatically in the "Investigate this further" panel.
+Routes: `#/commentary/<id>`, `#/waluigis-cut/<id>`, `#/cut/<id>`.
 
 ---
 
-## Enforced floors
+## Enforced Checker Floors
 
-`tools/check-commentaries.py` (runs inside `check-all.py`):
+`tools/check-commentaries.py` validates the following:
 
 ```text
-□ sourceArticle resolves
-□ every section has id / icon / heading / body, no duplicate ids
-□ Waluigi named >= 18 times per 1k words
-□ emphasis capitals >= 25 per 1k words
-□ at least one WAH per filing
-□ every section shows first-person presence
-□ no stretch longer than 220 words without Waluigi in it
-```
-
-The last two are the important ones: they catch the specific failure of a
-section drifting into flat retelling. Thresholds are derived from
-`spider_grove_battle`, not invented.
-
-```bash
-python3 tools/check-commentaries.py           # report
-python3 tools/check-commentaries.py --strict  # exit 1 (used by check-all)
+□ sourceArticle resolves against events or battles
+□ Every section has id, icon, heading, body; no duplicate ids
+□ Waluigi named >= 18.0 times per 1k words
+□ Emphasis capitals >= 25.0 per 1k words
+□ At least one WAH per filing
+□ Every section has active Waluigi presence (max 220 words without interruption)
+□ High quote density: quotes the source event's lines
+□ Strictly follows source event sequence
+□ Free of ledger/thesis vocabulary outside of deliberate gags
+□ Section word counts within 260–900 words; total words >= 0.9x source words
 ```
 
 ---
 
-## When to file one
+## When to File a Commentary
 
-Good candidates: contested documents, absurd sessions, anything with a strong
-Waluigi opinion already trapped in a footnote, and any filing where readers
-would enjoy the events more than the paperwork.
-
-Poor candidates: solemn records where the voice would be cruel — massacres,
-executions, character deaths. Waluigi is petty, not heartless. The archive gets
-to be funny about a newspaper; it does not get to be funny about Order 120.
+- **Ideal candidates:** High-stakes sessions, absurd disasters, contested paper, chaotic battles, and events where Waluigi has a furious personal reaction to what happened.
+- **Forbidden candidates:** Solemn tragedies, executions, massacres, and permanent player deaths. Waluigi is vain and petty, not cruel.

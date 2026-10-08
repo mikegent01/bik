@@ -16,7 +16,26 @@ opinion filed beside it.
 
 ---
 
-## The distinction
+## The distinction: Separating Analysis from Commentary
+
+**By structure and time stance, not tone.**
+
+In previous revisions, Analysis and Commentary began to sound identical because both degenerated into "first-person Waluigi complaining loudly." The table below defines the strict boundary between an Article Analysis and Waluigi's Cut (Commentary):
+
+| Dimension | Analysis (Companion Reading) | Commentary ("Waluigi's Cut") |
+|---|---|---|
+| **Time stance** | **After:** Hindsight; written the next morning; knows the ending and consequences. | **During:** Reacts as each beat lands; does *not* know what happens next. In the moment. |
+| **Order** | **Thematic / Claim-based:** Follows claims and arguments, not chronology. | **Chronological:** Follows the source event's sequence beat-by-beat. |
+| **Shape** | **Claim → anchor → argument → verdict.** Structured forensic reading. | **Quote → heckle.** No thesis, no verdict. Retelling with running comedy. |
+| **Self-reference** | **"I" only, no CAPS, WAH at most once per section.** Speaking quietly at a desk under a lamp. | **Third-person "Waluigi", CAPS, WAH, performing.** Loud, theatrical broadcast voice. |
+| **Lexicon** | **Audit register.** Technical archival vocabulary (`filed`, `ruled`, `entered`, `exhibit`, `custody`, `chain of possession`). | **Comedy.** Slapstick, physical insults, disbelief. *No ledger words* (`filed`, `ruled`, `custody`) except as an overt gag. |
+| **Confession** | **Concedes about himself and his stake:** Admits his own vulnerability, complicity, or fear. This personal stake is the engine of the argument. | **Concedes about evidence:** One short drop-out acknowledging a physical fact ("Alright, the landing was technically survivable"). |
+| **Cross-references** | **Required.** Must anchor to prior archive filings, legal contracts, warrants, or historical logs. | **None.** Stays strictly quarantined inside the single source event being watched. |
+| **Framing conceit** | **Desk audit:** Physical evidence spread across the blotter under the lamp. | **Mandatory conceit:** Screening a tape, live blog, reading minutes aloud, reviewing cockpit black-box audio. |
+
+---
+
+## The three-way archive relationship
 
 | Filing | Job | Story / analysis | Dice? |
 |---|---|---:|---|

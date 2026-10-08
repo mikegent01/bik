@@ -61,7 +61,7 @@ def load(name):
         d = json.load(fh)
     if isinstance(d, dict):
         for k in ('events', 'battles', 'commentaries',
-                  'characters', 'locations', 'factions'):
+                  'characters', 'locations', 'factions', 'analyses'):
             if k in d:
                 return d[k]
         return []
@@ -102,6 +102,8 @@ def main():
         for rec in load(extra):
             if isinstance(rec, dict) and rec.get('id'):
                 ids.add(rec['id'])
+
+    analyses_by_src = {a.get('sourceArticle'): a for a in load('articleAnalyses.json') if isinstance(a, dict) and a.get('sourceArticle')}
 
     errs, warns = [], []
     for c in items:
@@ -176,6 +178,37 @@ def main():
             elif sw > SECTION_MAX_WORDS:
                 bucket.append(f"{cid}/{s.get('id')}: {sw}w section "
                               f'(max {SECTION_MAX_WORDS}) — split it')
+
+        # ---- style separation: no ledger words, quote density, stock tics ----
+        ledger_hits = re.findall(r'\b(thesis|verdict|custody reading|audit register)\b', blob, re.IGNORECASE)
+        if ledger_hits:
+            warns.append(f'{cid}: contains ledger/analysis vocabulary {set(h.lower() for h in ledger_hits)} '
+                         f'— commentary must use comedy/performance register, not audit jargon')
+
+        for tic in (r'\bi am filing\b', r'\bi would like it noted\b'):
+            tic_count = len(re.findall(tic, blob, re.IGNORECASE))
+            if tic_count > 2:
+                warns.append(f'{cid}: repetitive administrative tic {tic!r} occurs {tic_count} times '
+                             f'— rotate or remove stock phrases')
+
+        quotes = re.findall(r'["“][^"”]{3,}["”]|’[^’]{3,}’|\*[“"][^"”]{3,}[”"]\*', blob)
+        if len(quotes) < max(2, len(secs) // 2):
+            warns.append(f'{cid}: low quote density ({len(quotes)} quotes across {len(secs)} sections) '
+                         f'— commentary should quote verbatim dialogue from the record')
+
+        # ---- cross-form duplicate check (6-word phrases) ----
+        src_art = c.get('sourceArticle')
+        if src_art and src_art in analyses_by_src:
+            ana = analyses_by_src[src_art]
+            ana_text = str(ana.get('thesis', '')) + ' ' + ' '.join(str(s.get('body', '')) for s in (ana.get('sections') or []))
+            comm_words = re.findall(r'\b[a-z0-9]+\b', blob.lower())
+            ana_words = re.findall(r'\b[a-z0-9]+\b', ana_text.lower())
+            comm_ngrams = set(' '.join(comm_words[i:i+6]) for i in range(len(comm_words)-5))
+            ana_ngrams = set(' '.join(ana_words[i:i+6]) for i in range(len(ana_words)-5))
+            shared_ngrams = comm_ngrams & ana_ngrams
+            if len(shared_ngrams) > 10:
+                warns.append(f"{cid}: {len(shared_ngrams)} shared 6-word phrases with companion analysis {ana.get('id')} "
+                             f"— cross-form prose must be independently authored")
 
         print(f'{cid}')
         print(f'  {len(secs)} sections · {w} words · Waluigi/1k {wal:.1f} '
