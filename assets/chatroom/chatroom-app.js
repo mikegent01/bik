@@ -2505,6 +2505,12 @@
     (m.repeats || []).forEach(function (phrase) {
       bits.push('<span class="stale" title="Still leaning on this after being asked for a fresh turn">♻ ' + esc(RP.clip(phrase, 40)) + '</span>');
     });
+    (m.antiRepeat || []).forEach(function (reason) {
+      bits.push('<span class="formula" title="Repetitive formula or cadence pattern">🔁 ' + esc(RP.clip(reason, 40)) + '</span>');
+    });
+    (m.generic || []).forEach(function (cliche) {
+      bits.push('<span class="generic" title="Generic roleplay cliché detected">🎭 ' + esc(RP.clip(cliche, 40)) + '</span>');
+    });
     if (m.edited) bits.push('<span class="quiet">edited</span>');
     return bits.length ? '<div class="metastrip">' + bits.join('') + '</div>' : '';
   }
@@ -5658,6 +5664,12 @@
           }, 150);
           return false;
         }
+        // Clean intra-message sentence loops / stutters
+        var loops = RP.findRepetitionLoops(clean);
+        if (loops.hasLoop) {
+          clean = RP.cleanRepetitionLoops(clean);
+        }
+
         // ♻ A take stitched out of the character's own earlier turns is
         // sent back once (strict), with the phrases named.
         var freshMode = state.settings.fresh || RP.FRESH_DEFAULT;
@@ -5678,6 +5690,61 @@
           }, 150);
           return false;
         }
+
+        // 🔁 Anti-repetition: check cadence formulas, echoing & structural loops
+        var antiRepMode = (state.settings && state.settings.antiRepetition) || RP.ANTI_REPETITION_DEFAULT;
+        var repCheck = null;
+        if (antiRepMode !== 'off' && !worldTurn && !ambient && speaker.id !== RP.PLAYER_ID) {
+          var priorTurns = RP.priorTurns(r, speaker.id, RP.FRESH_TURNS);
+          if (priorTurns.length >= 1) repCheck = RP.repetitionCheck(clean, priorTurns, r);
+        }
+        if (repCheck && repCheck.repeated && antiRepMode === 'strict' && !opts.reheard) {
+          r.states = JSON.parse(sheetsBefore); r.cast = JSON.parse(castBefore);
+          r.next = speaker.id;
+          busy = false; save(); render();
+          toast('🔁 ' + speaker.name + ' hit a repetitive formula — retaking turn.');
+          window.setTimeout(function () {
+            generate({ room: r, reheard: true, nudge: 'REPETITION LOOP DETECTED (' + repCheck.reasons.join('; ') + '). ' +
+              'Break this formula loop immediately. Do not reuse that cadence, capitalization pattern, or argument. Address what was JUST said and change the physical situation.' });
+          }, 150);
+          return false;
+        }
+
+        // 🎭 Anti-generic: check stock AI roleplay clichés & prose mush
+        var antiGenMode = (state.settings && state.settings.antiGeneric) || RP.ANTI_GENERIC_DEFAULT;
+        var genCheck = null;
+        if (antiGenMode !== 'off' && !worldTurn) {
+          genCheck = RP.genericCheck(clean);
+        }
+        if (genCheck && genCheck.isGeneric && antiGenMode === 'strict' && !opts.reheard) {
+          r.states = JSON.parse(sheetsBefore); r.cast = JSON.parse(castBefore);
+          r.next = speaker.id;
+          busy = false; save(); render();
+          toast('🎭 AI clichés detected — asking for grounded, specific prose.');
+          window.setTimeout(function () {
+            generate({ room: r, reheard: true, nudge: 'GENERIC CLICHES DETECTED: ' + genCheck.cliches.slice(0, 3).map(function (c) { return '“' + c + '”'; }).join(', ') + '. ' +
+              'Ground the reply in concrete scene details and specific character voice. Eliminate purple prose and generic melodrama.' });
+          }, 150);
+          return false;
+        }
+
+        // 🤝 Item handover & continuity tracking across characters
+        var transfers = RP.handoverScan(clean, r.cast);
+        if (transfers && transfers.length && r.mechanics !== 'off' && r.states) {
+          transfers.forEach(function (tr) {
+            var giver = (r.cast || []).filter(function (c) { return RP.nameKey(c.name) === RP.nameKey(tr.giver); })[0];
+            var recv = (r.cast || []).filter(function (c) { return RP.nameKey(c.name) === RP.nameKey(tr.receiver); })[0];
+            if (giver && recv && r.states[giver.id] && r.states[recv.id]) {
+              var item = RP.findItem(r.states[giver.id], tr.item);
+              if (item) {
+                RP.applyChange(r.states[giver.id], { kind: 'item', op: '-', name: item.name });
+                RP.applyChange(r.states[recv.id], { kind: 'item', op: '+', name: item.name, note: item.note, icon: item.icon });
+                changes.lines.push('🤝 ' + giver.name + ' passes ' + item.name + ' to ' + recv.name);
+              }
+            }
+          });
+        }
+
         var saidBy = (!check.ok && check.actual && !check.playerVoice) ? check.actual : speaker;
         if (saidBy !== speaker) toast('That line was ' + saidBy.name + '’s — filed under them.');
         var msg = {
@@ -5698,6 +5765,8 @@
           ambient: ambient || undefined,
           // Still leaning on old phrases after being asked again: shown, not hidden.
           repeats: repeats && repeats.stale ? repeats.hits.slice(0, 3) : undefined,
+          antiRepeat: repCheck && repCheck.repeated ? repCheck.reasons.slice(0, 2) : undefined,
+          generic: genCheck && genCheck.isGeneric ? genCheck.cliches.slice(0, 2) : undefined,
           // One of several turns written as the same seconds.
           moment: moment ? moment.id : undefined,
           same: moment && moment.done.length ? true : undefined,
@@ -6980,6 +7049,12 @@
         return [k, RP.FRESH[k].name + ' — ' + RP.FRESH[k].blurb];
       }), 'The page keeps a ledger of the phrases, the subject and the opening each character has leaned on over their last ' + RP.FRESH_TURNS +
         ' turns. When there is something on it, the prompt names it and asks for one new move; on Strict, a reply that still leans on the old phrases is sent back once. No extra calls.') +
+      sel('f_antiRepetition', '🔁 Anti-repetition — suppress repetitive loops, echoes & formulas', state.settings.antiRepetition || RP.ANTI_REPETITION_DEFAULT, Object.keys(RP.ANTI_REPETITION).map(function (k) {
+        return [k, RP.ANTI_REPETITION[k].name + ' — ' + RP.ANTI_REPETITION[k].blurb];
+      }), 'Bans structural cadence formulas, sentence repetition loops, user echoing, and voice slide. Strict automatically retakes repeating turns once and cleans intra-turn stutter loops.') +
+      sel('f_antiGeneric', '🎭 Anti-generic — suppress AI roleplay clichés & prose mush', state.settings.antiGeneric || RP.ANTI_GENERIC_DEFAULT, Object.keys(RP.ANTI_GENERIC).map(function (k) {
+        return [k, RP.ANTI_GENERIC[k].name + ' — ' + RP.ANTI_GENERIC[k].blurb];
+      }), 'Detects and bans stock AI roleplay clichés (e.g. “shiver down spine”, “testament to”, “smirk played across”). Strict retakes once with a concrete grounding nudge.') +
       sel('f_audience', '👥 The room answers — the people who are NOT speaking this turn', state.settings.audience || RP.AUDIENCE_DEFAULT, Object.keys(RP.AUDIENCE).map(function (k) {
         return [k, RP.AUDIENCE[k].name + ' — ' + RP.AUDIENCE[k].blurb];
       }), 'Same call, no extra cost. Each reaction is cut out of the speaker\u2019s reply and filed under the person who made it — its own card, its own mood, its own voice in the history. Nothing shows in a two-hander, because nobody is watching.') +
@@ -7108,6 +7183,8 @@
       state.settings.world = $('f_world').value;
       state.settings.audience = $('f_audience') ? $('f_audience').value : (state.settings.audience || RP.AUDIENCE_DEFAULT);
       state.settings.fresh = $('f_fresh') ? $('f_fresh').value : (state.settings.fresh || RP.FRESH_DEFAULT);
+      state.settings.antiRepetition = $('f_antiRepetition') ? $('f_antiRepetition').value : (state.settings.antiRepetition || RP.ANTI_REPETITION_DEFAULT);
+      state.settings.antiGeneric = $('f_antiGeneric') ? $('f_antiGeneric').value : (state.settings.antiGeneric || RP.ANTI_GENERIC_DEFAULT);
       state.settings.fate = $('f_fate') ? $('f_fate').value : (state.settings.fate || 'normal');
       state.settings.hurt = $('f_hurt') ? $('f_hurt').value : (state.settings.hurt || 'on');
       state.settings.director = $('f_director') ? $('f_director').value : (state.settings.director || 'on');
@@ -7281,6 +7358,64 @@
     $('mOk').onclick = closeModal;
   }
 
+  function openCreateDialog() {
+    openModal(
+      '<h3>✨ Create Chat or Scene</h3>' +
+      '<p class="sub">Describe the scene you want to play. Existing characters from the archive will be matched automatically, and new NPCs created on the fly — or pick the cast manually.</p>' +
+      '<div class="field" style="margin-bottom:12px;">' +
+      '<label for="sceneDescInput"><b>Scene Description</b></label>' +
+      '<textarea id="sceneDescInput" rows="4" style="width:100%;box-sizing:border-box;margin-top:6px;padding:8px;font-family:inherit;font-size:13px;border:1px solid var(--line);border-radius:6px;resize:vertical;" placeholder="e.g. Waluigi and Wario cornering a nervous clerk in the counting house over an unpaid invoice, while an armored guard watches from the stone archway..."></textarea>' +
+      '</div>' +
+      '<div class="actions">' +
+      '<button class="pill" id="mManualCast">👥 Pick Cast Manually</button>' +
+      '<span class="grow"></span>' +
+      '<button class="pill" id="mCancelCreate">Cancel</button>' +
+      '<button class="pill primary" id="mGenerateScene">🎬 Start Scene</button>' +
+      '</div>'
+    );
+    $('mCancelCreate').onclick = closeModal;
+    $('mManualCast').onclick = function () {
+      closeModal();
+      castPicker({ title: 'Create a chat', note: 'One character is a one-to-one chat; two or more opens a group.', suggest: false }, function (picked) {
+        picked.length > 1 ? startGroup(picked) : startSolo(picked[0]);
+      });
+    };
+    $('mGenerateScene').onclick = function () {
+      var desc = ($('sceneDescInput') && $('sceneDescInput').value || '').trim();
+      closeModal();
+      if (!desc) {
+        castPicker({ title: 'Create a chat', note: 'One character is a one-to-one chat; two or more opens a group.', suggest: false }, function (picked) {
+          picked.length > 1 ? startGroup(picked) : startSolo(picked[0]);
+        });
+        return;
+      }
+      var parsed = RP.parseSceneDescription(desc, archive, castById);
+      var roomCast = (parsed.cast || []).slice();
+      if (roomCast.length === 0) {
+        var fallbackId = (state.user && state.user.playAs) || 'waluigi';
+        if (castById[fallbackId]) roomCast.push(castById[fallbackId]);
+        else if (cast.length > 0) roomCast.push(cast[0]);
+      }
+      var r = RP.newRoom(roomCast, {
+        scene: desc,
+        sceneName: 'Scene — ' + RP.clip(desc, 40),
+        style: (state.settings && state.settings.style) || RP.DEFAULT_STYLE,
+        persona: (state.user && state.user.persona) || '',
+        statePreset: (state.settings && state.settings.statePreset) || 'rpg',
+        mechanics: (state.settings && state.settings.mechanics) || 'on',
+        opener: 'Scene — ' + RP.clip(desc, 120),
+      });
+      (parsed.newChars || []).forEach(function (npc) {
+        RP.inventCharacter(state, r, npc);
+      });
+      pushRoom(r);
+      toast('🎬 Scene opened with ' + r.cast.map(function (c) { return c.name; }).join(', ') + '.');
+    };
+    setTimeout(function () {
+      if ($('sceneDescInput')) $('sceneDescInput').focus();
+    }, 50);
+  }
+
   function render() {
     applyLook();
     renderRail();
@@ -7289,11 +7424,7 @@
   }
 
   function wireShell() {
-    $('createBtn').onclick = function () {
-      castPicker({ title: 'Create a chat', note: 'One character is a one-to-one chat; two or more opens a group.', suggest: false }, function (picked) {
-        picked.length > 1 ? startGroup(picked) : startSolo(picked[0]);
-      });
-    };
+    $('createBtn').onclick = openCreateDialog;
     $('search').oninput = function () { query = $('search').value.trim(); tab = 'discover'; state.active = ''; renderDash(); renderRail(); };
     $('account').onclick = accountForm;
     $('settingsBtn').onclick = settingsForm;

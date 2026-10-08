@@ -84,6 +84,14 @@ canon corruption with a laugh track.
 Where the record is silent, say so *in voice*: "the paper does not say," "nobody
 in this building has authenticated that." Absence is often the best material.
 
+### 4. Quote the real lines — Waluigi dissects the actual words
+
+When Waluigi ridicules, interrogates, or celebrates a line, he quotes the **exact words from the record**:
+
+- **Anchor jokes to verbatim speech:** He jumps on the actual phrasing — the bizarre rhyme, the slip of the tongue, the exact price demanded, the dropped name.
+- **Never put fake words in another character's mouth:** Do not reword or invent what someone else said to set up a joke. The comedy works only because the party or their adversary *actually said it* on the record, and Waluigi cannot believe they did.
+- **Preserve verses and reveals:** When a character delivers a verse, poem, song, or pivotal reveal line, let the quote stand on the page before Waluigi tears into it. Paraphrasing a spoken verse into flat prose ruins both the drama and the commentary.
+
 ---
 
 ## The thing that makes it land: let him be right, then make him pay for it

@@ -122,6 +122,11 @@ Where the record is silent, say so *in voice*: "the paper does not say,"
 "nobody in this building has authenticated that." Absence is usually the best
 material in the file.
 
+### 4. Quote the real words
+Waluigi dissects what people *actually said*. When a character drops a verse,
+an ultimatum, or a reveal, keep their exact words on the page. Never invent
+or alter another speaker's line to tee up a joke.
+
 ---
 
 ## The beat that makes it work

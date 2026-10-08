@@ -880,7 +880,9 @@ def main(argv=None):
         write_packet(r, expected)
         for fname, text in expected.items():
             doc = json.loads(text)
-            print(f"  wrote {fname}  ({doc['flags'][MODULE_ID]['folderPath'][1]}, CR {cr_text(doc['system']['details']['cr'])}, "
+            fpath = doc['flags'][MODULE_ID].get('folderPath', [''])
+            folder_label = fpath[-1] if fpath else ''
+            print(f"  wrote {fname}  ({folder_label}, CR {cr_text(doc['system']['details']['cr'])}, "
                   f"{len(doc['items'])} items{', art pending' if doc['img'] == PENDING_IMG else ''})")
         print(f"Done. {len(expected)} actors in Reputation-Matrix2/actors/{r['packet']}/{note}")
     return rc

@@ -128,35 +128,35 @@
   function colourInline(text) {
     return String(text)
       // {red|the door} · {dark red|the door} · {#c0392b|the door}
-      .replace(/\{([a-z][a-z ]{2,14}|#[0-9a-f]{3,6})\|([^{}]{1,300})\}/gi, function (all, name, body) {
+      .replace(/\{([a-z][a-z0-9 _-]{1,24}|#[0-9a-f]{3,6})\s*\|\s*([^{}]{1,400}?)\}/gi, function (all, name, body) {
         var value = colourLoose(name);
         return value ? tintSpan(value, body) : all;
       })
       // {the door|red} — the same thing, backwards
-      .replace(/\{([^{}|]{1,300})\|([a-z][a-z ]{2,14}|#[0-9a-f]{3,6})\}/gi, function (all, body, name) {
+      .replace(/\{([^{}|]{1,400}?)\s*\|\s*([a-z][a-z0-9 _-]{1,24}|#[0-9a-f]{3,6})\}/gi, function (all, body, name) {
         var value = colourLoose(name);
         return value ? tintSpan(value, body) : all;
       })
       // {red: the door}
-      .replace(/\{([a-z][a-z ]{2,14}|#[0-9a-f]{3,6}):\s*([^{}]{1,300})\}/gi, function (all, name, body) {
+      .replace(/\{([a-z][a-z0-9 _-]{1,24}|#[0-9a-f]{3,6}):\s*([^{}]{1,400}?)\}/gi, function (all, name, body) {
         var value = colourLoose(name);
         return value ? tintSpan(value, body) : all;
       })
       // {red}the door{/red} · [red]the door[/red] · <red>the door</red> (escaped by now)
-      .replace(/\{([a-z][a-z ]{2,14})\}([^{}]{1,300}?)\{\/\1\}/gi, function (all, name, body) {
+      .replace(/\{([a-z][a-z0-9 _-]{1,24})\}([^{}]{1,400}?)\{\/\1\}/gi, function (all, name, body) {
         var value = colourLoose(name);
         return value ? tintSpan(value, body) : all;
       })
-      .replace(/\[([a-z][a-z ]{2,14})\]([^\[\]]{1,300}?)\[\/\1\]/gi, function (all, name, body) {
+      .replace(/\[([a-z][a-z0-9 _-]{1,24})\]([^\[\]]{1,400}?)\[\/\1\]/gi, function (all, name, body) {
         var value = colourLoose(name);
         return value ? tintSpan(value, body) : all;
       })
-      .replace(/&lt;([a-z][a-z ]{2,14})&gt;([^&]{1,300}?)&lt;\/\1&gt;/gi, function (all, name, body) {
+      .replace(/&lt;([a-z][a-z0-9 _-]{1,24})&gt;([^&]{1,400}?)&lt;\/\1&gt;/gi, function (all, name, body) {
         var value = colourLoose(name);
         return value ? tintSpan(value, body) : all;
       })
       // {pissed} — no colour named: the mood's colour, or an ember
-      .replace(/\{([^{}|:\n]{1,60})\}/g, function (all, body) {
+      .replace(/\{([^{}|:\n]{1,80})\}/g, function (all, body) {
         if (!/[a-z]/i.test(body)) return all;
         return '<span class="tint mood">' + body + '</span>';
       });
@@ -548,8 +548,10 @@
    *  markdown furniture and any stray stage direction stay silent. */
   RP.ttsClean = function (text) {
     return String(text || '')
-      .replace(/\{([a-z-]+)\|([^}]*)\}/gi, '$2')
-      .replace(/(?:\[\[|\{\{)[^\]\}\n]*(?:\]\]|\}\}|\]\}|\}\])/g, ' ')
+      .replace(/\{([a-z0-9 _-]+)\s*\|\s*([^}]*)\}/gi, '$2')
+      .replace(/\{([^}|]*)\s*\|\s*([a-z0-9 _-]+)\}/gi, '$1')
+      .replace(/(?:\[\[|\{\{|\[\{|\{\[)[^\]\}\n]*(?:\]\]|\}\}|\]\}|\}\])/g, ' ')
+      .replace(/(?:^|\n)\s*(?:\[|\{)?\s*(?:HP|MP|EN|ENERGY|STAMINA|FLAG|COND|CURE|COUNT|ITEM|USE|EQUIP|STOW|STATUS|MOOD|TINT|UNTINT|ENTER|EXIT|NEW|SET|TIME|LOOKUP|REMEMBER)\s*:[^\n]*/gi, ' ')
       .replace(/[*_`#>]+/g, ' ')
       .replace(/\s+/g, ' ').trim();
   };
@@ -4307,6 +4309,386 @@
     }).map(function (h) { return h.name; });
   };
 
+  /* ------------------------------------------------------------------ *
+   * Anti-repetition & Anti-generic systems (zero-call, deterministic)
+   * ------------------------------------------------------------------ */
+
+  RP.ANTI_REPETITION = {
+    strict:   { name: 'Strict',   blurb: 'bans loops, user-echoing & stale phrases; loops are cleaned, repeating turns retaken once' },
+    standard: { name: 'Standard', blurb: 'anti-repetition directives ride the prompt; loops are cleaned; flags repeating turns' },
+    off:      { name: 'Off',      blurb: 'no repetition checking or loop suppression' },
+  };
+  RP.ANTI_REPETITION_DEFAULT = 'strict';
+
+  RP.ANTI_GENERIC = {
+    strict: { name: 'Strict', blurb: 'bans stock AI RP clichés & generic mush; generic turns are retaken once with a grounding nudge' },
+    guide:  { name: 'Guide',  blurb: 'anti-generic directives ride the prompt; flags generic clichés on cards' },
+    off:    { name: 'Off',    blurb: 'no cliché or genericness checking' },
+  };
+  RP.ANTI_GENERIC_DEFAULT = 'strict';
+
+  /** Split text into sentences safely while keeping trailing punctuation
+   *  and quotes/asterisks attached to their sentence. */
+  RP.splitSentences = function (text) {
+    var raw = String(text || '').trim();
+    if (!raw) return [];
+    var parts = [];
+    var cur = '';
+    for (var i = 0; i < raw.length; i++) {
+      cur += raw[i];
+      if (/[.!?\n]/.test(raw[i])) {
+        while (i + 1 < raw.length && /["'”*)]/.test(raw[i + 1])) {
+          i++;
+          cur += raw[i];
+        }
+        if (i + 1 >= raw.length || /\s/.test(raw[i + 1])) {
+          parts.push(cur.trim());
+          cur = '';
+          while (i + 1 < raw.length && /\s/.test(raw[i + 1])) i++;
+        }
+      }
+    }
+    if (cur.trim()) parts.push(cur.trim());
+    return parts;
+  };
+
+  /** Detects repetitive intra-message loops, such as duplicated sentences,
+   *  stuttered phrases, or run-away phrase loops within the same reply. */
+  RP.findRepetitionLoops = function (text) {
+    var raw = String(text || '').trim();
+    if (!raw) return { hasLoop: false, loops: [], count: 0 };
+    var loops = [];
+    var sents = RP.splitSentences(raw);
+    for (var i = 0; i < sents.length; i++) {
+      var s = sents[i].trim();
+      var norm = s.toLowerCase().replace(/[^a-z0-9 ]+/g, ' ').replace(/\s+/g, ' ').trim();
+      if (norm.length >= 10 && i > 0) {
+        var prevNorm = sents[i - 1].trim().toLowerCase().replace(/[^a-z0-9 ]+/g, ' ').replace(/\s+/g, ' ').trim();
+        if (norm === prevNorm && loops.indexOf(s) < 0) loops.push(s);
+      }
+    }
+    var words = raw.toLowerCase().replace(/[^a-z0-9 ]+/g, ' ').split(/\s+/).filter(Boolean);
+    if (words.length >= 10) {
+      for (var n = 4; n <= 6; n++) {
+        var gCount = {};
+        for (var j = 0; j + n <= words.length; j++) {
+          var gram = words.slice(j, j + n).join(' ');
+          gCount[gram] = (gCount[gram] || 0) + 1;
+        }
+        Object.keys(gCount).forEach(function (g) {
+          if (gCount[g] >= 3 && loops.indexOf(g) < 0) loops.push(g);
+        });
+      }
+    }
+    return { hasLoop: loops.length > 0, loops: loops.slice(0, 5), count: loops.length };
+  };
+
+  /** Cleans up consecutive identical sentences or run-away loop stutters
+   *  from a reply so the reader doesn't see degeneration loops. */
+  RP.cleanRepetitionLoops = function (text) {
+    var raw = String(text || '');
+    if (!raw.trim()) return raw;
+    var sents = RP.splitSentences(raw);
+    if (sents.length < 2) return raw;
+    var deduped = [];
+    var lastNorm = '';
+    for (var i = 0; i < sents.length; i++) {
+      var norm = sents[i].trim().toLowerCase().replace(/[^a-z0-9 ]+/g, ' ').replace(/\s+/g, ' ').trim();
+      if (norm && norm.length >= 10 && norm === lastNorm) continue;
+      deduped.push(sents[i]);
+      if (norm && norm.length >= 10) lastNorm = norm;
+    }
+    return deduped.join(' ');
+  };
+
+  /** Detects when the model parrots or echoes the player's line or action
+   *  back to them at the beginning of the reply. */
+  RP.detectEcho = function (reply, userText) {
+    var rep = String(reply || '').trim();
+    var usr = String(userText || '').trim();
+    if (!rep || !usr || usr.length < 12) return { hasEcho: false, hits: [] };
+    var lead = rep.slice(0, 300).toLowerCase();
+    var rawWords = usr.toLowerCase().replace(/[^a-z0-9 ]+/g, ' ').split(/\s+/).filter(Boolean);
+    var echoHits = [];
+    for (var n = 4; n <= 7; n++) {
+      for (var i = 0; i + n <= rawWords.length; i++) {
+        var gram = rawWords.slice(i, i + n);
+        if (gram.every(function (w) { return FRESH_STOP[w]; })) continue;
+        var phrase = gram.join(' ');
+        if (lead.indexOf(phrase) >= 0 && echoHits.indexOf(phrase) < 0) echoHits.push(phrase);
+      }
+    }
+    var youEcho = /^(\*?[yY]ou\s+[^.!?\n]{8,120}[.!?])/i.exec(rep);
+    if (youEcho) {
+      var youWords = youEcho[1].toLowerCase().replace(/[^a-z0-9 ]+/g, ' ').split(/\s+/).filter(Boolean);
+      var usrWords = rawWords.filter(function (w) { return w.length >= 3 && !FRESH_STOP[w]; });
+      var matchCount = 0;
+      youWords.forEach(function (w) { if (usrWords.indexOf(w) >= 0) matchCount++; });
+      if (matchCount >= 2 && matchCount / Math.max(1, youWords.length) >= 0.35) {
+        if (echoHits.indexOf(youEcho[1].trim()) < 0) echoHits.unshift(youEcho[1].trim());
+      }
+    }
+    return { hasEcho: echoHits.length > 0, hits: echoHits.slice(0, 4) };
+  };
+
+  /** Score a new turn across intra-turn loops, user echo, and earlier turns. */
+  RP.repetitionCheck = function (text, opts) {
+    if (Array.isArray(opts)) opts = { prior: opts };
+    opts = opts || {};
+    var loop = RP.findRepetitionLoops(text);
+    var echo = opts.userText ? RP.detectEcho(text, opts.userText) : { hasEcho: false, hits: [] };
+    var prior = opts.prior || [];
+    var priorRep = (prior.length >= 1) ? RP.repeatCheck(text, prior, opts) : { stale: false, hits: [], count: 0 };
+
+    // Check cadence & structural formula loops:
+    var formulaHits = [];
+    if (prior.length >= 2) {
+      var curOpener = (String(text).trim().match(/^[^\s,.;:!?]+(?:\s+[^\s,.;:!?]+)?/i) || [''])[0].toLowerCase();
+      if (curOpener.length >= 3) {
+        var priorOpeners = prior.map(function (p) {
+          return (String(p).trim().match(/^[^\s,.;:!?]+(?:\s+[^\s,.;:!?]+)?/i) || [''])[0].toLowerCase();
+        });
+        if (priorOpeners.every(function (o) { return o === curOpener; })) {
+          formulaHits.push('identical turn opener “' + curOpener + '”');
+        }
+      }
+      var curActions = (String(text).match(/\*[^*]{4,60}\*/g) || []).map(function (a) { return a.toLowerCase().trim(); });
+      var priorActions = prior.map(function (p) {
+        return (String(p).match(/\*[^*]{4,60}\*/g) || []).map(function (a) { return a.toLowerCase().trim(); });
+      });
+      curActions.forEach(function (act) {
+        if (priorActions.every(function (paList) { return paList.indexOf(act) >= 0; })) {
+          formulaHits.push('repeated action beat ' + act);
+        }
+      });
+    }
+
+    var stale = loop.hasLoop || echo.hasEcho || priorRep.stale || formulaHits.length > 0 || (prior.length >= 2 && priorRep.hits.length >= 2);
+    var allHits = [].concat(loop.loops, echo.hits, priorRep.hits, formulaHits);
+    var summary = [];
+    if (loop.hasLoop) summary.push('contained repetition loops (' + loop.loops.slice(0, 2).map(function (s) { return '“' + s + '”'; }).join(', ') + ')');
+    if (echo.hasEcho) summary.push('echoed the player’s words (' + echo.hits.slice(0, 2).map(function (s) { return '“' + s + '”'; }).join(', ') + ')');
+    if (formulaHits.length) summary.push('repeated structural formula (' + formulaHits.join(', ') + ')');
+    if (priorRep.stale || (prior.length >= 2 && priorRep.hits.length >= 2)) {
+      summary.push('repeated phrases from earlier turns (' + priorRep.hits.slice(0, 3).map(function (s) { return '“' + s + '”'; }).join(', ') + ')');
+    }
+    return {
+      stale: stale,
+      repeated: stale,
+      reasons: summary,
+      formulaHits: formulaHits,
+      hasFormulaLoop: formulaHits.length > 0,
+      hasLoop: loop.hasLoop,
+      loopHits: loop.loops,
+      hasEcho: echo.hasEcho,
+      echoHits: echo.hits,
+      hasStaleRepeat: priorRep.stale,
+      staleHits: priorRep.hits,
+      hits: allHits.slice(0, 6),
+      summary: summary.join(' and ') || 'repeated earlier material',
+    };
+  };
+
+  /** Prompt directive for anti-repetition. */
+  RP.antiRepetitionBlock = function (room, char, setting) {
+    if (setting === 'off' || !room || !char) return '';
+    var prior = RP.priorTurns(room, char.id, RP.FRESH_TURNS);
+    if (prior.length < 2) return '';
+    var rep = RP.repetitionCheck('', prior, room);
+    if (!rep.repeated && setting !== 'strict') return '';
+    var name = (char && char.name) ? char.name : 'the speaker';
+    var lines = [
+      'ANTI-REPETITION DIRECTIVE (' + (setting === 'strict' ? 'STRICT' : 'STANDARD') + '):',
+      '\u2022 NEVER parrot or echo the player\u2019s line or actions back to them. Answer them; do not narrate what they just did.',
+      '\u2022 NEVER repeat sentences, clauses, or phrase loops within this turn. Each sentence must deliver a new action, detail, or dialogue.',
+      '\u2022 NEVER replay action beats, catchphrases, or gestures already used in recent turns.',
+      '\u2022 Avoid formulaic character ruts: vary sentence length, pacing, emotional register, and tactics. Do not lean on a single gag.',
+      '\u2022 Forward momentum only: every line must change something \u2014 a position, a possession, a fact revealed, or a decision made.',
+    ];
+    if (rep.repeated && rep.reasons.length) {
+      lines.push('\u2022 DO NOT repeat recent patterns: ' + rep.reasons.join('; ') + '.');
+    }
+    return lines.join('\n');
+  };
+
+  /* ---- anti-generic system: catalogue of AI clichés & grounding check ---- */
+
+  RP.GENERIC_PATTERNS = [
+    { id: 'smirk_lips', name: 'smirk played on lips', re: /\ba smirk played (?:across|on) (?:[a-z]+ )?lips\b/i },
+    { id: 'eyes_narrowed', name: 'eyes narrowed in/with', re: /\beyes narrowed (?:with|in|slightly)\b/i },
+    { id: 'chill_spine', name: 'chill down spine', re: /\ba chill (?:ran|crept|went) down (?:[a-z]+ )?spine\b/i },
+    { id: 'tension_palpable', name: 'tension was palpable', re: /\btension (?:in the (?:air|room) )?was palpable\b/i },
+    { id: 'tension_thick', name: 'tension hung thick/heavy', re: /\btension (?:hung|hung thick|hung heavy) in the air\b/i },
+    { id: 'little_did_know', name: 'little did they know', re: /\blittle did (?:he|she|they|anyone|we|i) know\b/i },
+    { id: 'testament_to', name: 'a testament to', re: /\ba testament to\b/i },
+    { id: 'unspoken_agreement', name: 'unspoken agreement/understanding', re: /\b(?:an )?unspoken (?:agreement|understanding|bond)\b/i },
+    { id: 'nodded_agreement', name: 'nodded in agreement', re: /\bnodded (?:slowly |solemnly )?in agreement\b/i },
+    { id: 'shared_glance', name: 'shared a glance/look', re: /\bshared a (?:knowing )?(?:glance|look)\b/i },
+    { id: 'only_time_will_tell', name: 'only time will tell', re: /\bonly time will tell\b/i },
+    { id: 'couldnt_help_but', name: 'couldnt help but feel/wonder', re: /\bcouldn'?t help but (?:feel|wonder|smile|notice|admire)\b/i },
+    { id: 'dance_of', name: 'dance of shadows/blades', re: /\ba dance of (?:shadows|blades|fire|death)\b/i },
+    { id: 'force_to_reckon', name: 'force to be reckoned with', re: /\ba force to be reckoned with\b/i },
+    { id: 'calm_before_storm', name: 'calm before the storm', re: /\bthe calm before the storm\b/i },
+    { id: 'pregnant_pause', name: 'pregnant pause', re: /\ba pregnant pause\b/i },
+    { id: 'silence_stretched', name: 'silence stretched', re: /\bsilence stretched between them\b/i },
+    { id: 'breath_holding', name: 'breath they didnt realize they held', re: /\b(?:breath|gasp) (?:he|she|they) (?:didn'?t|did not) (?:realize|know) (?:he|she|they) (?:was|were) holding\b/i },
+    { id: 'let_out_breath', name: 'let out a breath held', re: /\blet out a breath (?:he|she|they) (?:didn'?t|did not) (?:realize|know) (?:he|she|they) (?:was|were) holding\b/i },
+    { id: 'time_seemed_to', name: 'time seemed to freeze/stop', re: /\btime seemed to (?:stop|freeze|slow down)\b/i },
+    { id: 'steeling_self', name: 'steeling himself/herself', re: /\bsteeling (?:himself|herself|themselves)\b/i },
+    { id: 'no_time_to_lose', name: 'no time to lose/waste', re: /\b(?:we have|there is) no time to (?:lose|waste)\b/i },
+    { id: 'not_so_different', name: 'were not so different', re: /\bwe'?re not so different(?:, you and i)?\b/i },
+    { id: 'shall_we_begin', name: 'shall we begin', re: /\bshall we begin\??\b/i },
+    { id: 'you_speak_truth', name: 'you speak the truth', re: /\byou speak the truth\b/i },
+    { id: 'in_this_moment', name: 'in this moment all/everything', re: /\bin this moment,?\s+(?:everything|all|nothing)\b/i },
+    { id: 'whirlwind_emotion', name: 'whirlwind of emotions', re: /\ba whirlwind of emotions?\b/i },
+    { id: 'hope_curdling', name: 'hope curdling/the tally', re: /\b(?:hope curdling|the tally of|darkness calls|shadows beckon)\b/i },
+    { id: 'heart_pounded_chest', name: 'heart pounded in chest', re: /\bheart pounded (?:heavily )?(?:in |against )?(?:his|her|their)?\s*chest\b/i },
+  ];
+
+  /** Check if a text leans on stock AI clichés or lacks tangible grounding. */
+  RP.genericCheck = function (text, opts) {
+    opts = opts || {};
+    var raw = String(text || '').trim();
+    if (!raw) return { isGeneric: false, score: 0, cliches: [], count: 0, hasGrounding: false, reasons: [] };
+    var matched = [];
+    RP.GENERIC_PATTERNS.forEach(function (pat) {
+      if (pat.re.test(raw)) matched.push(pat.name);
+    });
+    var CONCRETE_WORDS = /\b(?:coin|coins|gold|ledger|key|keys|lock|door|table|chair|hat|boots|knife|blade|gun|cannon|wrench|pipe|garlic|salt|coffee|bottle|glass|iron|steel|blood|mud|wall|floor|pocket|invoice|badge|ticket|wire|card|helmet|shield|potion|rope|bag)\b/i;
+    var hasConcrete = CONCRETE_WORDS.test(raw);
+    var hasDialogue = /"[^"]{2,}"|“[^”]{2,}”/.test(raw);
+    var hasNumbers = /\b\d+\b/.test(raw);
+    var hasGrounding = hasConcrete || hasNumbers || hasDialogue;
+
+    var reasons = [];
+    if (matched.length > 0) reasons.push('used stock AI clichés: ' + matched.slice(0, 3).join(', '));
+    if (!hasGrounding && raw.length >= 180) reasons.push('lacks concrete physical items, dialogue, or numbers');
+
+    var isGeneric = matched.length >= 2 || (matched.length >= 1 && !hasConcrete) || (raw.length >= 200 && !hasGrounding && matched.length >= 1);
+    var score = Math.min(1, Math.round((matched.length * 0.35 + (hasGrounding ? 0 : 0.4)) * 100) / 100);
+    return {
+      isGeneric: isGeneric,
+      score: score,
+      cliches: matched,
+      count: matched.length,
+      hasGrounding: hasGrounding,
+      reasons: reasons,
+    };
+  };
+
+  /** Prompt directive for anti-generic grounding. */
+  RP.antiGenericBlock = function (room, char, setting) {
+    if (setting === 'off' || !room || !char) return '';
+    var prior = RP.priorTurns(room, char.id, RP.FRESH_TURNS);
+    if (prior.length < 2) return '';
+    var lastTurn = prior[prior.length - 1];
+    var gen = RP.genericCheck(lastTurn);
+    if (!gen.isGeneric && setting !== 'strict') return '';
+    var name = (char && char.name) ? char.name : 'the speaker';
+    var lines = [
+      'ANTI-GENERIC DIRECTIVE:',
+      '\u2022 BANISHED AI CLICH\u00c9S \u2014 never use stock melodrama or filler, including:',
+      '  \u201ca smirk played on lips\u201d, \u201ceyes narrowed\u201d, \u201ca chill down the spine\u201d, \u201ctension was palpable\u201d,',
+      '  \u201clittle did they know\u201d, \u201ca testament to\u201d, \u201cunspoken agreement\u201d, \u201cshared a glance\u201d, \u201conly time will tell\u201d,',
+      '  \u201cbreath they did not realize they were holding\u201d, \u201ca pregnant pause\u201d, \u201chope curdling\u201d, or \u201cWe have no time to lose\u201d.',
+      '\u2022 CONCRETE GROUNDING \u2014 ground this turn in physical reality: touch, kick, inspect, wield, drop, or slam a',
+      '  specific tangible object, gear, coin, weapon, door, tool, or environmental feature from the scene.',
+      '\u2022 RAW CHARACTER VOICE \u2014 speak in ' + name + '\u2019s distinct idiom, slang, flaws, and grit from their sheet.',
+      '  Never slide into generic purple fantasy or generic horror prose. Mr. L rhymes with mechanical bite; Wario grunts and haggles; Paulo panics over specifics.',
+      '\u2022 DECISIVE MOVES \u2014 make an irreversible choice or physical demand, not a philosophical musing.',
+    ];
+    if (gen.isGeneric && gen.cliches.length) {
+      lines.push('\u2022 BANNED CLICHES from recent turns: ' + gen.cliches.slice(0, 3).map(function (c) { return '“' + c + '”'; }).join(', ') + '.');
+    }
+    return lines.join('\n');
+  };
+
+  /* ---- physical possession & handover tracking (continuity) ---- */
+
+  /** Scan prose for items being handed over or taken between characters. */
+  RP.handoverScan = function (text, room) {
+    if (!text || !room) return [];
+    var cast = Array.isArray(room) ? room : (room.cast || []);
+    if (!cast.length) return [];
+    var lines = [];
+    var raw = String(text || '');
+    function findName(n) {
+      var low = String(n || '').toLowerCase();
+      for (var i = 0; i < cast.length; i++) {
+        var clow = cast[i].name.toLowerCase();
+        if (clow === low || clow.indexOf(low) >= 0 || low.indexOf(clow) >= 0) return cast[i];
+      }
+      return null;
+    }
+    var p1 = /\b([A-Z][a-z]+)[^.!?\n]{0,40}?\b(?:hands?|handed|gives?|gave|passes?|passed|tosses?|tossed|slides?|slid)\s+(?:the\s+|a\s+|an\s+)?([a-z0-9 -]{2,30}?)\s+(?:over\s+to|to)\s+([A-Z][a-z]+)\b/gi;
+    var m;
+    while ((m = p1.exec(raw))) {
+      var giver = findName(m[1]);
+      var receiver = findName(m[3]);
+      var item = m[2].trim();
+      if (giver && receiver && (giver.id || giver.name) !== (receiver.id || receiver.name) && item) {
+        lines.push({ giver: giver.name || giver, receiver: receiver.name || receiver, item: item });
+      }
+    }
+    var p2 = /\b([A-Z][a-z]+)[^.!?\n]{0,40}?\b(?:takes?|took|grabs?|grabbed|snatches?|snatched|accepts?|accepted)\s+(?:the\s+|a\s+|an\s+)?([a-z0-9 -]{2,30}?)\s+from\s+([A-Z][a-z]+)\b/gi;
+    while ((m = p2.exec(raw))) {
+      var receiver2 = findName(m[1]);
+      var giver2 = findName(m[3]);
+      var item2 = m[2].trim();
+      if (giver2 && receiver2 && (giver2.id || giver2.name) !== (receiver2.id || receiver2.name) && item2) {
+        lines.push({ giver: giver2.name || giver2, receiver: receiver2.name || receiver2, item: item2 });
+      }
+    }
+    return lines;
+  };
+
+  /* ---- dynamic scene description parsing (new NPCs + archive cast) ---- */
+
+  /** Parse a freeform scene description to match archive cast and extract
+   *  dynamically described NPCs on the spot. */
+  RP.parseSceneDescription = function (text, archive, castById) {
+    text = String(text || '').trim();
+    if (!text) return { scene: '', cast: [], newChars: [] };
+    var matched = RP.matchArchive(text, archive || {}, castById || {});
+    var cast = (matched.chars || []).slice(0, 6);
+    var seenNames = {};
+    cast.forEach(function (c) { seenNames[c.name.toLowerCase()] = true; });
+
+    var newChars = [];
+    var npcPatterns = [
+      /\b([A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)\s*,\s*(?:a|an)\s+([^,.;\n]{4,80})/g,
+      /\b([A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)\s*\((?:a|an)?\s*([^)\n]{4,80})\)/g,
+      /\b(?:a|an)\s+([a-zA-Z-]+(?:\s+[a-zA-Z-]+){0,2}\s+(?:guard|sentry|clerk|merchant|scout|assassin|priest|thief|knight|stranger|soldier|bystander|officer|commander|waiter|bartender|captain|doctor|monk|cultist|spy|witness))\b/gi,
+      /\b(?:a|an)\s+([a-z-]+(?:\s+[a-z-]+){1,3})\s+(?:guarding|watching|standing|blocking|threatening|waiting|lurking)\b/gi,
+      /\b(?:named|calls himself|calling herself|named)\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)/g,
+    ];
+    npcPatterns.forEach(function (re) {
+      var m;
+      while ((m = re.exec(text))) {
+        var rawName = (m[1] || '').trim();
+        var rawRole = (m[2] || m[1] || m[0]).trim();
+        var low = rawName.toLowerCase();
+        if (!rawName || seenNames[low] || low === 'the' || low === 'this' || low === 'that' || low === 'someone' || low === 'anyone') continue;
+        if (castById && (castById[low] || castById[rawName])) continue;
+        seenNames[low] = true;
+        var titleName = rawName.split(/\s+/).map(function (w) { return w.charAt(0).toUpperCase() + w.slice(1); }).join(' ');
+        newChars.push({
+          name: titleName,
+          role: rawRole,
+          look: 'Seen in the scene: ' + rawRole,
+        });
+      }
+    });
+
+    return {
+      scene: text,
+      cast: cast,
+      newChars: newChars,
+      factions: matched.factions || [],
+      events: matched.events || [],
+    };
+  };
+
   /* ---- the encouragement system: data-driven, one line, zero calls ---- */
 
   /** The model has tools it never reaches for unprompted. The page knows
@@ -4405,11 +4787,13 @@
   // is a direction printed at the reader, raw, in the middle of the prose.
   // So: [[ {{ [{ {[ [ { open; ]] }} ]} }] ] } close; a body never spans a line.
   var DIRECTIVE_RE = /(?:\[\[|\{\{|\[\{|\{\[|\[|\{)\s*(HP|MP|EN|ENERGY|STAMINA|FLAG|COND|CURE|COUNT|ITEM|USE|EQUIP|STOW|STATUS|MOOD|TINT|UNTINT|ENTER|EXIT|NEW|SET|TIME|LOOKUP|REMEMBER)\s*:\s*([^\]\}\n]+?)\s*(?:\]\]|\}\}|\]\}|\}\]|\]|\})/gi;
+  var BARE_DIRECTIVE_RE = /(?:^|\n)\s*(?:\[|\{)?\s*(HP|MP|EN|ENERGY|STAMINA|FLAG|COND|CURE|COUNT|ITEM|USE|EQUIP|STOW|STATUS|MOOD|TINT|UNTINT|ENTER|EXIT|NEW|SET|TIME|LOOKUP|REMEMBER)\s*:\s*([^\n]+?)\s*(?:\]|\})?(?=\n|$)/gi;
   // Anything else in double brackets is a directive the model invented. It
   // gets stripped rather than printed at the reader: "[[TIME: 23:00]]" in
   // the middle of the prose is a bug, not a feature.
   var STRAY_RE = /(?:\[\[|\{\{)[^\]\}\n]*(?:\]\]|\}\}|\]\}|\}\])/g;
   RP.STRAY_RE = STRAY_RE;
+  RP.BARE_DIRECTIVE_RE = BARE_DIRECTIVE_RE;
 
   /** Split "Lord Darian Marsh bleeding badly" into a character and the rest.
    *  Names are matched longest-first against the people actually in the room,
@@ -4435,12 +4819,10 @@
    *  can be re-split against the real cast when it is applied. */
   RP.parseDirectives = function (text, names) {
     var out = [], match;
-    DIRECTIVE_RE.lastIndex = 0;
-    while ((match = DIRECTIVE_RE.exec(String(text || '')))) {
-      var type = match[1].toUpperCase(), body = match[2].trim();
+    function parseItem(type, body) {
       if (type === 'LOOKUP') {
         out.push({ kind: 'lookup', body: body, query: clip(body, 120) });
-        continue;
+        return;
       }
       if (type === 'REMEMBER') {
         var split = body.split('|');
@@ -4448,18 +4830,13 @@
           kind: 'remember', body: body,
           name: clip(split[0], 80), value: clip(split.slice(1).join('|') || split[0], 400),
         });
-        continue;
+        return;
       }
       if (type === 'TIME') {
         out.push({ kind: 'time', body: body, value: clip(body, 60) });
-        continue;
+        return;
       }
       if (type === 'TINT' || type === 'UNTINT') {
-        // [[TINT: the seal, the wax = violet]] — words the model wants
-        // coloured in every turn from here on. UNTINT releases them.
-        // Models also write 'the seal: violet' and 'glowing violet';
-        // both used to file NOTHING, silently — the reason tints were
-        // never seen in play.
         var eq = body.split(/\s*=\s*/);
         if (eq.length < 2 && type === 'TINT') eq = body.split(/\s*:\s*(?=[^:]*$)/);
         var words = String(type === 'UNTINT' ? body : eq[0]).split(',')
@@ -4468,18 +4845,14 @@
         if (words.length && (type === 'UNTINT' || colour)) {
           out.push({ kind: 'tint', body: body, names: words, colour: colour });
         }
-        continue;
+        return;
       }
       if (type === 'SET') {
-        // [[SET: place = the stone patio of the outpost]] — a fact about the
-        // scene that may not drift afterwards.
         var pair = /^([a-z][a-z ]{1,24}?)\s*[=:]\s*(.+)$/i.exec(body);
         if (pair) out.push({ kind: 'set', body: body, name: clip(pair[1], 24), value: clip(pair[2], 180) });
-        continue;
+        return;
       }
       if (type === 'NEW') {
-        // Name | role | what they look like. The archive has no portrait for
-        // them, so the look IS the portrait.
         var bits = body.split('|');
         var name = clip(bits[0], 60);
         if (name) {
@@ -4488,21 +4861,20 @@
             role: clip(bits[1], 120), look: clip(bits.slice(2).join('|'), 300),
           });
         }
-        continue;
+        return;
       }
       if (type === 'ENTER' || type === 'EXIT') {
         var split = body.split(/\s+[—–]\s+|\s+-\s+|\s*:\s*|\s*\(\s*/);
         out.push({ kind: type.toLowerCase(), body: body, name: clip(split[0], 60), reason: clip((split[1] || '').replace(/\)$/, ''), 140) });
-        continue;
+        return;
       }
       var target = RP.splitTarget(body, names);
       var rest = target.rest;
       if (type === 'STATUS') {
         if (rest) out.push({ kind: 'status', body: body, who: target.name, value: rest });
-        continue;
+        return;
       }
       if (type === 'MOOD') {
-        // [[MOOD: Wario anger 2 | the landing bill]] · [[MOOD: Wario furious]] · [[MOOD: Wario calm]]
         var moodParts = rest.split('|');
         var moodHead = moodParts[0].trim();
         var moodLevel = /\s(\d)\s*(?:\/\s*3)?\s*$/.exec(moodHead);
@@ -4510,9 +4882,6 @@
         var feeling = RP.moodWord(moodHead);
         var moodWho = target.name;
         if (!feeling) {
-          // [[MOOD: furious | the bill]] · [[MOOD: anger 2]] — no name at
-          // all: the whole head is the feeling, and the page gives it to
-          // the speaker.
           moodParts = body.split('|');
           moodHead = moodParts[0].trim();
           moodLevel = /\s(\d)\s*(?:\/\s*3)?\s*$/.exec(moodHead);
@@ -4527,26 +4896,23 @@
             note: clip(moodParts.slice(1).join('|').trim(), 80),
           });
         }
-        continue;
+        return;
       }
       if (type === 'HP' || type === 'MP' || type === 'EN' || type === 'ENERGY' || type === 'STAMINA') {
-        // [[HP: Name -7]] · [[HP: Name = 40]] · [[HP: Name = 28/80]] (the max too)
-        // [[EN: Name -5]] — Energy; MP/STAMINA are the same pool by other names.
         var pool = /^([+\-=])?\s*(\d+)\s*(?:\/\s*(\d+))?\s*$/.exec(rest);
         if (pool) {
           var d = { kind: type === 'HP' ? 'hp' : 'mp', body: body, who: target.name, op: pool[1] || '=', value: Number(pool[2]) };
           if (pool[3]) { d.max = Number(pool[3]); d.op = '='; }
           out.push(d);
         }
-        continue;
+        return;
       }
       if (type === 'COUNT') {
         var cnt = /^([a-z0-9_ ]+?)\s*([+\-=])\s*(\d+)\s*$/i.exec(rest);
         if (cnt) out.push({ kind: 'counter', body: body, who: target.name, name: clip(cnt[1], 40), op: cnt[2], value: Number(cnt[3]) });
-        continue;
+        return;
       }
       if (type === 'ITEM') {
-        // [[ITEM: Name + 🗝 the brass key | bent, from the ledger room]]
         var item = /^([+\-])\s*(.+)$/.exec(rest);
         if (item) {
           var carried = RP.normItem(item[2]);
@@ -4555,16 +4921,13 @@
             name: carried.name, note: carried.note, icon: carried.icon,
           });
         }
-        continue;
+        return;
       }
       if (type === 'USE') {
         out.push({ kind: 'use', body: body, who: target.name, name: clip(rest, 60) });
-        continue;
+        return;
       }
       if (type === 'FLAG' || type === 'COND') {
-        // [[COND: Name bleeding 3 | a deep cut across the palm]]
-        // "bleeding 3 -2hp | a deep cut" — the cost comes off first, then
-        // the number of turns, and what is left is the condition itself.
         var parts = rest.split('|');
         var head = parts[0].trim();
         var effect = /\s([+-]\d{1,3}(?:hp|mp|en|energy|stamina))\s*$/i.exec(head);
@@ -4581,18 +4944,28 @@
             effect: effect ? RP.normEffect(effect[1]) : '',
           });
         }
-        continue;
+        return;
       }
       if (type === 'CURE') {
         out.push({ kind: 'flag', body: body, who: target.name, name: clip(rest, 40), value: false });
-        continue;
+        return;
       }
       if (type === 'EQUIP' || type === 'STOW') {
         out.push({ kind: 'equip', body: body, who: target.name, name: clip(rest, 60), op: type === 'STOW' ? '-' : '+' });
-        continue;
+        return;
       }
     }
-    var clean = String(text || '').replace(DIRECTIVE_RE, '').replace(STRAY_RE, '')
+    DIRECTIVE_RE.lastIndex = 0;
+    while ((match = DIRECTIVE_RE.exec(String(text || '')))) {
+      parseItem(match[1].toUpperCase(), match[2].trim());
+    }
+    BARE_DIRECTIVE_RE.lastIndex = 0;
+    while ((match = BARE_DIRECTIVE_RE.exec(String(text || '')))) {
+      var full = match[0].trim();
+      if (/^(?:\[\[|\{\{|\[\{|\{\[|\[|\{)/.test(full) && /(?:\]\]|\}\}|\]\}|\}\]|\]|\})$/.test(full)) continue;
+      parseItem(match[1].toUpperCase(), match[2].trim());
+    }
+    var clean = String(text || '').replace(DIRECTIVE_RE, '').replace(BARE_DIRECTIVE_RE, '').replace(STRAY_RE, '')
       .replace(/[ \t]+\n/g, '\n').replace(/\n{3,}/g, '\n\n').replace(/[ \t]{2,}/g, ' ').trim();
     return { clean: clean, directives: out };
   };
@@ -8690,6 +9063,10 @@
     // The freshness ledger: nothing on a character who is not repeating.
     var fresh = RP.freshnessBlock(room, RP.normChar(speaker || {}), (state.settings && state.settings.fresh) || RP.FRESH_DEFAULT);
     if (fresh) parts.push(fresh);
+    var antiRep = RP.antiRepetitionBlock(room, RP.normChar(speaker || {}), (state.settings && state.settings.antiRepetition) || RP.ANTI_REPETITION_DEFAULT);
+    if (antiRep && (!opts.budget || opts.budget >= 10000)) parts.push(antiRep);
+    var antiGen = RP.antiGenericBlock(room, RP.normChar(speaker || {}), (state.settings && state.settings.antiGeneric) || RP.ANTI_GENERIC_DEFAULT);
+    if (antiGen && (!opts.budget || opts.budget >= 10000)) parts.push(antiGen);
     var fateBlock = RP.fateBlock(opts.fate);
     if (fateBlock) parts.push(fateBlock);
     var flourish = RP.flourishBlock(room, opts.fate);
@@ -9017,6 +9394,8 @@
         fate: 'normal',            // off | gentle | normal | harsh
         statePreset: 'rpg',
         maxChain: RP.MAX_CHAIN,    // …but never more than this before you
+        antiRepetition: RP.ANTI_REPETITION_DEFAULT,
+        antiGeneric: RP.ANTI_GENERIC_DEFAULT,
       },
     };
   }

@@ -68,6 +68,9 @@ the first thing a hurried filing drops.
 
 Mark each beat as **new canon** (a place, person, object, or fact the archive
 does not have yet) or **existing canon**. The new-canon marks become steps 2–4.
+Also flag **Protected Dialogue** ([`STORY_FORMAT_GUIDE.md` §8A](STORY_FORMAT_GUIDE.md#8a-transcript-to-story-rule--how-dialogue-survives-remastering)):
+verses, songs, refrains, pivotal reveals, and load-bearing name-drops that must
+survive verbatim in the prose rather than being compressed into summary.
 
 ---
 
@@ -251,6 +254,15 @@ checklist lives there too. Two process rules that are not style rules:
 2. **Length is not a failure.** The bands in the format guide are aim, not
    target. A session that ran long produces a filing that runs long. Do not
    trim story-critical material to land inside a band — improve it instead.
+   Multi-act landmark climaxes can scale up to 10,000 words or take a clean
+   two-part split (§4).
+3. **Protect Tier 1 dialogue verbatim.** Consult the dialogue tiering rules
+   ([`STORY_FORMAT_GUIDE.md` §8A](STORY_FORMAT_GUIDE.md#8a-transcript-to-story-rule--how-dialogue-survives-remastering)).
+   Verses, songs, riddles, and pivotal reveals must survive intact with physical
+   anchors. Never summarize verse into generic description.
+4. **Respect the Fact vs. Texture Boundary.** Sensory texture, atmospheric
+   grounding, and physical weight should be rich and vivid, but never invent
+   unrecorded injuries, missing limbs, or new weapons to hit sensory targets (§2).
 
 Append the event to `Reputation-Matrix2/data/events.json`. Match the file's
 existing indentation. Validate the JSON parses before moving on.
