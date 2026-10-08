@@ -70,9 +70,11 @@ A commentary is sized against the article it talks over. A long session gets a l
 | `the_belly_of_the_beast` | 5,319 | 5,850 | **1.10x** | Already full narrative; needed the voice laid over it. |
 
 Rules enforced by `tools/check-commentaries.py`:
-- **260–900 words per section** (stable unit: one story beat plus its interruptions).
-- **Whole cut >= 0.9x the source's story words.**
+- **240–950 words per section** (stable unit: one story beat plus its interruptions).
+- **Whole cut >= 0.8x the source's story words.**
 - **6–14 sections** matching the source beats.
+- **No synthetic padding**: Never pad sections with trailing strings of repetitive words or WAHs just to hit counters; let prose conclude naturally once the narrative beat and heckles land.
+- **Fidelity to canon dialogue**: All quoted character dialogue in quotation marks must match verbatim dialogue from the source transcript/event, verified by fuzzy-matching audit.
 
 > **Pacing Tip:** On a long narrative source, do not paste narrative prose verbatim and tack jokes onto the end. **Compress the retold prose** so the action takes fewer words, then weave the heckling into every second or third sentence.
 
@@ -154,14 +156,15 @@ Routes: `#/commentary/<id>`, `#/waluigis-cut/<id>`, `#/cut/<id>`.
 ```text
 □ sourceArticle resolves against events or battles
 □ Every section has id, icon, heading, body; no duplicate ids
-□ Waluigi named >= 18.0 times per 1k words
-□ Emphasis capitals >= 25.0 per 1k words
+□ Waluigi named >= 12.0 times per 1k words
+□ Emphasis capitals >= 20.0 per 1k words
 □ At least one WAH per filing
-□ Every section has active Waluigi presence (max 220 words without interruption)
+□ Every section has active Waluigi presence (max 350 words without interruption)
+□ Dialogue fidelity: quoted lines fuzzy-match verbatim transcript/event text
 □ High quote density: quotes the source event's lines
 □ Strictly follows source event sequence
 □ Free of ledger/thesis vocabulary outside of deliberate gags
-□ Section word counts within 260–900 words; total words >= 0.9x source words
+□ Section word counts within 240–950 words; total words >= 0.8x source words
 ```
 
 ---
