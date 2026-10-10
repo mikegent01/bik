@@ -11,9 +11,9 @@
     "counts": {
       "characters": 257,
       "sheets": 251,
-      "generated": 2,
+      "generated": 3,
       "eras": 3,
-      "existing": 249,
+      "existing": 248,
       "party": 18,
       "skipped": 6
     },
@@ -6881,9 +6881,16 @@
       "name": "Thornbury",
       "title": "The Quartermaster Spy Who Itemized The Apocalypse",
       "sheetName": "Thornbury",
-      "source": "live",
-      "file": "actors/worlds/midlands/Mages' Guild/fvtt-Actor-thornbury-eO3Xfl4cZPIl1D2G.json",
-      "alternates": [],
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-thornbury.json",
+      "alternates": [
+        {
+          "file": "actors/worlds/midlands/Mages' Guild/fvtt-Actor-thornbury-eO3Xfl4cZPIl1D2G.json",
+          "name": "Thornbury",
+          "source": "live",
+          "kind": "npc"
+        }
+      ],
       "party": false,
       "partyWhy": "",
       "group": "Mages' Guild",
@@ -6892,22 +6899,72 @@
         "level": 2,
         "powerLevel": 5
       },
-      "kind": "npc",
+      "role": "rogue",
+      "bespoke": true,
+      "evidence": [
+        {
+          "feature": "Itemized Dagger",
+          "quote": "In another room, Thornbury pocketed a ring from the floor.",
+          "source": "article"
+        },
+        {
+          "feature": "Guild Hand Crossbow",
+          "quote": "Thornbury is a stuffy, penny-pinching Mages' Guild operative who charged Archie 2,000 gold for a broken rope.",
+          "source": "article"
+        },
+        {
+          "feature": "The Itemized Invoice (2,062 GP)",
+          "quote": "The bill totaled 2,062 gold pieces and 5 silver.",
+          "source": "article"
+        },
+        {
+          "feature": "Quartermaster's Field Pack",
+          "quote": "His field pack was notably well-stocked: - Adventurer's basics: bedroll, mess kit, tinderbox, torches, rations, waterskin - Healer's kit with multiple uses remaining - Two potions of healing - One potion of invisibility",
+          "source": "article"
+        },
+        {
+          "feature": "Tensor Box Detection",
+          "quote": "He deployed a tensor box—an arcane detection device that Archie did not understand, which is not surprising because Archie understands fire and very little else consistently.",
+          "source": "article"
+        },
+        {
+          "feature": "Surveillance Journal",
+          "quote": "Byscilla Danos dragged him away by the ear like an embarrassing child, and in his haste he left behind field notes proving he had been spying on everyone the entire time.",
+          "source": "article"
+        },
+        {
+          "feature": "Rubber Ducky Bath Contingency",
+          "quote": "He later brought Archie and Bones rubber duckies for a bubble bath, only to be dragged away by the ear by a disgruntled noblewoman.",
+          "source": "article"
+        }
+      ],
+      "kind": "pc",
       "abilities": {
-        "str": 10,
+        "str": 11,
         "dex": 16,
-        "con": 12,
-        "int": 13,
+        "con": 14,
+        "int": 15,
         "wis": 13,
         "cha": 12
       },
-      "hp": 27,
+      "hp": 17,
       "speed": "30",
       "size": "med",
-      "items": 4,
-      "ac": 14,
-      "cr": 1,
-      "type": "humanoid (human)",
+      "items": 10,
+      "ac": 15,
+      "level": 2,
+      "classes": [
+        "Rogue 2"
+      ],
+      "species": "Human",
+      "pc": {
+        "level": 2,
+        "class": "Rogue",
+        "subclass": null,
+        "cr": 2,
+        "hitDie": "d8",
+        "formula": "2d8 + 4"
+      },
       "versions": []
     },
     {
@@ -9466,9 +9523,9 @@
       "id": "xo",
       "name": "X.O.",
       "title": "The Divine Daughter",
-      "sheetName": "P.S",
+      "sheetName": "X.O.",
       "source": "live",
-      "file": "actors/worlds/midlands/Mages' Guild/fvtt-Actor-p-s-6apfRNEMlsKmxc5Y.json",
+      "file": "actors/worlds/midlands/Mages' Guild/fvtt-Actor-x-o-6apfRNEMlsKmxc5Y.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",

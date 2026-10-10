@@ -2490,12 +2490,6 @@
       "file": "Mages' Guild/fvtt-Actor-kyle-coinsoul-Gi1W7RCATgDcBQWi.json"
     },
     {
-      "name": "P.S",
-      "type": "npc",
-      "_id": "6apfRNEMlsKmxc5Y",
-      "file": "Mages' Guild/fvtt-Actor-p-s-6apfRNEMlsKmxc5Y.json"
-    },
-    {
       "name": "Parson Pellinost",
       "type": "npc",
       "_id": "74wawSSf7Yk9MUkH",
@@ -2524,6 +2518,12 @@
       "type": "npc",
       "_id": "l7YG88HtRZneApbC",
       "file": "Mages' Guild/fvtt-Actor-valorian-stormweave-l7YG88HtRZneApbC.json"
+    },
+    {
+      "name": "X.O.",
+      "type": "npc",
+      "_id": "6apfRNEMlsKmxc5Y",
+      "file": "Mages' Guild/fvtt-Actor-x-o-6apfRNEMlsKmxc5Y.json"
     },
     {
       "name": "Captain of the Palace Guard (955 BF)",

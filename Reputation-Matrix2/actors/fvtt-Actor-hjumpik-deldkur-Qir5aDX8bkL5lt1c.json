@@ -107,7 +107,7 @@
       },
       "wis": {
         "value": 13,
-        "proficient": 0,
+        "proficient": 1,
         "bonuses": {
           "check": "",
           "save": ""
@@ -598,8 +598,8 @@
         "formula": ""
       },
       "hp": {
-        "value": 65,
-        "max": 69,
+        "value": 68,
+        "max": 79,
         "temp": null,
         "tempmax": 0,
         "bonuses": {}
@@ -989,7 +989,7 @@
           "rules": "2014",
           "revision": 1
         },
-        "levels": 6,
+        "levels": 7,
         "spellcasting": {
           "progression": "none",
           "ability": "",
@@ -17195,6 +17195,57 @@
       },
       "folder": null,
       "sort": 0
+    },
+    {
+      "name": "Elegant Courtier",
+      "type": "feat",
+      "system": {
+        "source": {
+          "custom": "",
+          "book": "XGE",
+          "page": "31",
+          "license": "",
+          "rules": "2014",
+          "revision": 1
+        },
+        "description": {
+          "value": "<div class=\"rd__b  rd__b--1\"><p>Starting at 7th level, your discipline and attention to detail allow you to excel in social situations. Whenever you make a Charisma (Persuasion) check, you gain a bonus to the check equal to your Wisdom modifier.</p><p>Your self-control also causes you to gain proficiency in Wisdom saving throws. If you already have this proficiency, you instead gain proficiency in Intelligence or Charisma saving throws (your choice).</p></div>",
+          "chat": ""
+        },
+        "requirements": "Fighter 7 (Samurai)",
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "type": {
+          "value": "class",
+          "subtype": ""
+        },
+        "properties": [],
+        "advancement": {},
+        "activities": {},
+        "identifier": "elegant-courtier",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        }
+      },
+      "img": "icons/skills/social/diplomacy-handshake.webp",
+      "flags": {
+        "plutonium": {
+          "page": "subclassFeature",
+          "source": "XGE",
+          "hash": "elegant%20courtier_fighter_phb_samurai_xge_7_xge"
+        }
+      },
+      "effects": [],
+      "_id": "xkwhRuyXmRLDtxU5",
+      "ownership": {
+        "default": 0
+      }
     }
   ],
   "effects": [],

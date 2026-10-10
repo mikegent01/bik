@@ -238,7 +238,6 @@ ALIASES = {
     "usk": "Usk",
     "green_t": "Green T",
     "toad_lee": "Toad Lee",
-    "xo": "P.S",
 }
 # Characters that are deliberately not statted.
 SKIP = {
@@ -674,6 +673,27 @@ BESPOKE = {
             _f("School of Conjuration Spellcasting", "orb", "<p>Spellcasting ability Intelligence (spell save DC 15, +7 to hit with spell attacks). Level 7 Conjuration Wizard. Cantrips (at will): <em>mage hand, fire bolt, minor illusion, ray of frost</em>. 1st level (4 slots): <em>find familiar, shield, mage armor, grease</em>. 2nd level (3 slots): <em>misty step, web, rope trick</em>. 3rd level (3 slots): <em>counterspell, fireball, dispel magic</em>. 4th level (1 slot): <em>dimension door, summon aberration</em>.</p>",
                q=["mastered the disciplined geometry of the School of Conjuration"]),
         ]),
+    "thornbury": dict(
+        role="rogue", cr=2, align="Lawful Neutral", sc=(11, 16, 14, 15, 13, 12), saves=("dex", "int"),
+        skills={"inv": 2, "ste": 2, "ins": 1, "slt": 1, "prc": 1}, walk=30, ac=15, hp_mult=1.0,
+        weapons=[
+            _w("Itemized Dagger", "dagger", "<p>Finesse, light, thrown (20/60). Thornbury strikes with clinical efficiency when billing procedures fail. Deals 1d4+3 piercing damage, plus 2d6 precision damage if Thornbury has advantage on the attack roll.</p>",
+               q=["pocketed a ring", "efficiently"], dmg=(1, 4, ["piercing"]), ability="dex"),
+            _w("Guild Hand Crossbow", "crossbow", "<p>Ranged weapon (30/120), light. Bearing the Mages' Guild inspection mark and an equipment depreciation seal. Deals 1d6+3 piercing damage.</p>",
+               q=["broken rope", "rope"], dmg=(1, 6, ["piercing"]), ability="dex", kind="ranged", cls="weapon", wtype="martialR", rng=(30, 120)),
+        ],
+        features=[
+            _f("The Itemized Invoice (2,062 GP)", "scroll", "<p>Thornbury presents an official, excruciatingly detailed Guild invoice for property damage, broken ropes, or field services (including 'Master Weaver's Inspection' and 'Ogre Load-Test Certification'). One target within 30 feet must succeed on a DC 13 Wisdom saving throw or be stunned with bureaucratic disbelief until the end of its next turn.</p>",
+               q=["The bill totaled 2,062 gold pieces and 5 silver", "broken rope"]),
+            _f("Quartermaster's Field Pack", "sealed", "<p>Thornbury's field kit contains two potions of healing, a potion of invisibility, a scroll of Sending, a healer's kit, and climbing gear. Once per short rest as a bonus action, he can retrieve and use an emergency item without provoking opportunity attacks.</p>",
+               q=["His field pack was notably well-stocked", "two potions of healing"]),
+            _f("Tensor Box Detection", "lantern", "<p>Thornbury deploys an arcane tensor box to ping the immediate environment. For 10 minutes, he detects the presence, planar resonance, and location of hidden compartments, invisible creatures, and ghosts within 30 feet.</p>",
+               q=["deployed a tensor box", "revealing a ghost"]),
+            _f("Surveillance Journal", "book", "<p>Thornbury keeps cramped, meticulous surveillance notes on party members, supernatural anomalies, and structural weak points. He gains advantage on Intelligence (Investigation) and Wisdom (Insight) checks regarding observed subjects.</p>",
+               q=["field notes proving he had been spying on everyone"]),
+            _f("Rubber Ducky Bath Contingency", "coins", "<p>Even in haunted ruins or active warzones, Thornbury reserves generator-heated water and rubber duckies for personal maintenance. If compromised or caught by superiors (such as Byscilla Danos), he can grovel to disengage freely and slip away into shadows.</p>",
+               q=["rubber duckies", "luxury bath"]),
+        ]),
     "kamek": dict(
         role="caster", cr=2, align="Lawful Evil", sc=(8, 12, 11, 17, 13, 12), saves=("int", "wis"),
         skills={"arc": 2, "his": 1, "dec": 1}, walk=30, fly=0, ac=12,
@@ -1104,6 +1124,7 @@ PC_BUILD = {
     "sans": ("Rogue", "Phantom", 8, "none", "", "Skeleton (Bone-Line kin)", "Entertainer"),
     "speaker_l": ("Bard", "College of Eloquence", 8, "full", "cha", "Toad", "Noble"),
     "the_archivist": ("Wizard", "Order of Scribes", 6, "full", "int", "Unknown (possibly vampire)", "Sage"),
+    "thornbury": ("Rogue", "Inquisitive", 8, "none", "", "Human", "Guild Artisan"),
     "toriel": ("Cleric", "Life Domain", 8, "full", "wis", "Boss Monster", "Noble"),
     "vivian_corvinarus": ("Sorcerer", "Shadow Sorcery", 6, "full", "cha", "Unknown (presents as Toad)", "Charlatan"),
 }
@@ -1685,7 +1706,7 @@ def npc_doc(*, slug, c, name, img, size, sc, saves, trained, ac, hp, hp_formula,
 
 def pc_doc(*, slug, c, name, img, size, sc, saves, trained, ac, hp, hp_formula, cr, walk, fly, swim, hover,
            dv, langs, type_value, alignment, bio, items, di, dr, dr_bypass, ci, disposition,
-           group, evidence, role, level, power, build, pc_lvl):
+           group, evidence, role, level, power, build, pc_lvl, actor_id=None):
     """A dnd5e *character* for a bespoke sheet: class items first, then the authored kit."""
     cls, sub, die, prog, cast, species, background = build
     owner = "cast:" + slug
@@ -1693,7 +1714,7 @@ def pc_doc(*, slug, c, name, img, size, sc, saves, trained, ac, hp, hp_formula, 
     ids = {it["type"]: it["_id"] for it in head}
     wprof, aprof = CLASS_PROFS[cls]
     doc = {
-        "_id": sid("cast", slug),
+        "_id": actor_id or sid("cast", slug),
         "name": name,
         "type": "character",
         "img": img,
@@ -1776,7 +1797,7 @@ def pc_doc(*, slug, c, name, img, size, sc, saves, trained, ac, hp, hp_formula, 
     return doc
 
 
-def build_generated(c, xp, party, group, era=None):
+def build_generated(c, xp, party, group, era=None, existing_ids=None):
     cid = c["id"]
     text = article_text(c)
     level, power = level_of(xp, cid)
@@ -1946,6 +1967,7 @@ def build_generated(c, xp, party, group, era=None):
     img, _ = portrait_of(c)
     hay = " ".join([c.get("affiliation") or "", c.get("title") or "", c.get("status") or ""]).lower()
     disposition = 1 if party else (-1 if any(k in hay for k in DISC_HOSTILE) else 0)
+    actor_id = sid("cast:pc", slug) if (existing_ids and sid("cast", slug) in existing_ids) else sid("cast", slug)
     if build:
         bio = biography(c, level, power, cr, role, evidence, True, pc=(build[0], pc_lvl), era=era)
         name = c.get("name") or cid
@@ -1953,7 +1975,8 @@ def build_generated(c, xp, party, group, era=None):
                      saves=saves, trained=trained, ac=ac, hp=hp, hp_formula=hp_formula, cr=cr, walk=walk, fly=fly,
                      swim=swim, hover=hover, dv=dv, langs=sp["langs"], type_value=type_value, alignment=align,
                      bio=bio, items=items, di=di, dr=dr, dr_bypass=dr_bypass, ci=ci, disposition=disposition,
-                     group=group, evidence=evidence, role=role, level=level, power=power, build=build, pc_lvl=pc_lvl)
+                     group=group, evidence=evidence, role=role, level=level, power=power, build=build, pc_lvl=pc_lvl,
+                     actor_id=actor_id)
         if era:
             # a past self files under its faction OF THAT ERA (`group` on the
             # ERAS entry: Bowser (955 BF) under Koopa Troop, not Disaster
@@ -2158,7 +2181,8 @@ def build_all():
             continue
         party, why = is_party(c, xp, "npc")
         group = group_of(c, party)
-        doc = build_generated(c, xp, party, group)
+        existing_ids = {d.get("_id") for pair in existing.values() for _, d in pair}
+        doc = build_generated(c, xp, party, group, existing_ids=existing_ids)
         rel = f"actors/cast/fvtt-Actor-{cid}.json"
         generated.append((cid, doc))
         summ = summarize_actor(doc)
