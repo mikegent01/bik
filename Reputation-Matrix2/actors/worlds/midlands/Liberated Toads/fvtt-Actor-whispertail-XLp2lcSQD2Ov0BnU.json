@@ -2,7 +2,7 @@
   "_id": "XLp2lcSQD2Ov0BnU",
   "name": "Whispertail",
   "type": "npc",
-  "img": "assets/images/toads/roster/toad_54_whispertail.png",
+  "img": "portraits/liberated-toads/roster/toad_54_whispertail.png",
   "system": {
     "abilities": {
       "str": {
@@ -580,7 +580,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "assets/images/toads/roster/toad_54_whispertail.png",
+      "src": "portraits/liberated-toads/roster/toad_54_whispertail.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -1085,7 +1085,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791261798338,
-    "modifiedTime": 1791325783108,
+    "modifiedTime": 1791410643442,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

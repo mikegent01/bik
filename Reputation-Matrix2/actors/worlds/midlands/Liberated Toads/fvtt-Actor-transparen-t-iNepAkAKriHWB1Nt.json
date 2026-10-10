@@ -2,7 +2,7 @@
   "_id": "iNepAkAKriHWB1Nt",
   "name": "Transparen T",
   "type": "npc",
-  "img": "assets/images/toads/roster/toad_38_transparen_t.png",
+  "img": "portraits/liberated-toads/roster/toad_38_transparen_t.png",
   "system": {
     "abilities": {
       "str": {
@@ -580,7 +580,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "portraits/player/fullbody/toad_transparen_t.png",
+      "src": "portraits/liberated-toads/roster/toad_38_transparen_t.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -1082,7 +1082,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791261798055,
-    "modifiedTime": 1791325783031,
+    "modifiedTime": 1791410643309,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

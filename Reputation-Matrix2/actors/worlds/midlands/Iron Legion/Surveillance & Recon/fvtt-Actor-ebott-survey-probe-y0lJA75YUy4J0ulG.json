@@ -1,12 +1,12 @@
 {
-  "_id": "6apfRNEMlsKmxc5Y",
-  "name": "X.O.",
+  "_id": "y0lJA75YUy4J0ulG",
+  "name": "Ebott Survey Probe",
   "type": "npc",
-  "img": "portraits/xo.jpg",
+  "img": "portraits/iron-legion/ebott-survey-probe.png",
   "system": {
     "abilities": {
       "str": {
-        "value": 10,
+        "value": 8,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -29,75 +29,6 @@
         }
       },
       "dex": {
-        "value": 11,
-        "proficient": 0,
-        "bonuses": {
-          "check": "",
-          "save": ""
-        },
-        "max": null,
-        "check": {
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "save": {
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        }
-      },
-      "con": {
-        "value": 13,
-        "proficient": 0,
-        "bonuses": {
-          "check": "",
-          "save": ""
-        },
-        "max": null,
-        "check": {
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "save": {
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        }
-      },
-      "int": {
-        "value": 12,
-        "proficient": 0,
-        "bonuses": {
-          "check": "",
-          "save": ""
-        },
-        "max": null,
-        "check": {
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "save": {
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        }
-      },
-      "wis": {
         "value": 16,
         "proficient": 1,
         "bonuses": {
@@ -120,9 +51,78 @@
           }
         }
       },
+      "con": {
+        "value": 12,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "int": {
+        "value": 14,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "wis": {
+        "value": 14,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
       "cha": {
-        "value": 13,
-        "proficient": 1,
+        "value": 4,
+        "proficient": 0,
         "bonuses": {
           "check": "",
           "save": ""
@@ -146,31 +146,31 @@
     },
     "attributes": {
       "ac": {
-        "flat": 13,
+        "flat": 15,
         "calc": "natural",
         "formula": ""
       },
       "hp": {
-        "value": 27,
-        "max": 27,
-        "formula": "5d8 + 5",
+        "value": 22,
+        "max": 22,
+        "formula": "5d6+5",
         "temp": null,
         "tempmax": null
       },
       "movement": {
-        "walk": "30",
+        "walk": "10",
         "units": "ft",
         "hover": false,
         "burrow": "0",
         "climb": "0",
-        "fly": "0",
+        "fly": "40",
         "swim": "0",
         "ignoredDifficultTerrain": []
       },
       "senses": {
         "units": "ft",
         "ranges": {
-          "darkvision": 0
+          "darkvision": 60
         },
         "special": ""
       },
@@ -225,14 +225,14 @@
       }
     },
     "details": {
-      "alignment": "Neutral",
+      "alignment": "Unaligned",
       "type": {
-        "value": "humanoid",
-        "subtype": "human"
+        "value": "construct",
+        "subtype": "drone"
       },
       "cr": 1,
       "biography": {
-        "value": "<p><em>Waluipedia cast sheet — X.O..</em> Built by <code>tools/build-character-sheets.py</code>, generated from the article's own words. XP ledger: level 2, power rating 5 → CR 1 as a priest. Numbers are a GM-ready reading of the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p><p><strong>The Divine Daughter</strong> — Iron Fists Guild</p><p>Status: Active — wielding influence within the Iron Fists Guild through her mother Commander G</p><p>X.O. is Commander G's daughter and a destabilizing influence within the Iron Fists Guild's Swiftsoul Chapter. She exhibits profound narcissistic entitlement, a god complex that would embarrass actual deities, and a tendency to view Guild operations as theatrical performances staged for her personal amusement. Her demands for dramatic, often cruel, operational protocols may be responsible for the chaotic nature of the Swiftsoul incident—including the elaborate framing of Archie Miser.</p><h3>Evidence</h3><ul><li><strong>Mace</strong> — “The Divine Daughter”</li><li><strong>Shadow Step</strong> — “The Swiftsoul incident bears hallmarks of X.O.'s influence: - The 'Burn Notice' protocol was reportedly demanded by X.O. for dramatic effect, overruling more pragmatic options - The elaborate framing of”</li><li><strong>Leadership</strong> — “Active — wielding influence within the Iron Fists Guild through her mother Commander G”</li><li><strong>Keen Records</strong> — “Underworld analysts use the term 'Kamidere' to describe X.O.'s personality type: someone who genuinely believes themselves to be divine or semi-divine, expects worship from those around them, and reacts with extreme”</li><li><strong>Spellcasting</strong> — “The Divine Daughter”</li></ul><p>Article: <code>#/article/xo</code> (characters). Site sheet: <code>#/sheets/xo</code>.</p>",
+        "value": "<p><em>Iron Cordon Brigade packet sheet — Ebott Survey Probe.</em> Built by <code>tools/build-forge-packets.py</code> from the NPC Forge roster <code>data/forge/iron-legion.json</code> (entry <code>ebott-survey-probe</code>): Small construct (drone), Unaligned; CR 1 (proficiency +2, to hit +5 with DEX); AC 15 (brass-and-iron hull), hit points 22 (5d6+5), speed 10 ft., fly 40 ft.. A GM scene kit for the Iron Cordon Brigade article's present (1040 BF), not a filed event; the faction article stays the authority.</p><p>Directly descended from the Mount Ebott Survey Machines developed by the Gamma Division, these hovering autonomous probes sweep across war corridors registering planar fluctuations, subterranean vibrations, and unauthorized troop concentrations.</p><p><strong>Role:</strong> recon scanner · <strong>tier:</strong> Star-Bit Drone · <strong>folder:</strong> Iron Legion / Surveillance &amp; Recon.</p><h3>Art</h3><p>Token plate <code>portraits/iron-legion/ebott-survey-probe.png</code> — NPC Forge render, seed 510007, cut from a flat #FF00FF field. Prompt: <q>Clean cel-shaded character art in the style of dark fantasy military concept art, bold dark outlines, cold iron and gunmetal grey armor, brass gears, glowing cyan star-bit conduits, flat colours, crisp shading. A small hovering mechanical drone constructed of riveted iron plates and polished brass fixtures. It features a glowing cyan star-bit crystal core in its center, three articulated camera lenses, and two small grasping claws dangling below. Full body, whole figure visible, three-quarter view, centred, isolated on a plain flat solid magenta background (#FF00FF), no floor, no ground shadow, no text, no border.</q></p>",
         "public": ""
       },
       "ideal": "",
@@ -248,20 +248,28 @@
       }
     },
     "traits": {
-      "size": "med",
+      "size": "sm",
       "languages": {
-        "value": [
-          "common"
-        ],
-        "custom": "",
+        "value": [],
+        "custom": "understands Common and Gamma telegraph protocols but cannot speak",
         "communication": {}
       },
       "ci": {
-        "value": [],
+        "value": [
+          "charmed",
+          "exhaustion",
+          "frightened",
+          "paralyzed",
+          "petrified",
+          "poisoned"
+        ],
         "custom": ""
       },
       "di": {
-        "value": [],
+        "value": [
+          "poison",
+          "psychic"
+        ],
         "custom": "",
         "bypasses": []
       },
@@ -271,7 +279,9 @@
         "bypasses": []
       },
       "dv": {
-        "value": [],
+        "value": [
+          "lightning"
+        ],
         "custom": "",
         "bypasses": []
       },
@@ -361,7 +371,7 @@
         }
       },
       "ins": {
-        "value": 1,
+        "value": 0,
         "ability": "wis",
         "roll": {
           "min": null,
@@ -400,7 +410,7 @@
         }
       },
       "med": {
-        "value": 1,
+        "value": 0,
         "ability": "wis",
         "roll": {
           "min": null,
@@ -426,7 +436,7 @@
         }
       },
       "prc": {
-        "value": 0,
+        "value": 2,
         "ability": "wis",
         "roll": {
           "min": null,
@@ -452,7 +462,7 @@
         }
       },
       "per": {
-        "value": 1,
+        "value": 0,
         "ability": "cha",
         "roll": {
           "min": null,
@@ -465,7 +475,7 @@
         }
       },
       "rel": {
-        "value": 1,
+        "value": 0,
         "ability": "int",
         "roll": {
           "min": null,
@@ -491,7 +501,7 @@
         }
       },
       "ste": {
-        "value": 0,
+        "value": 2,
         "ability": "dex",
         "roll": {
           "min": null,
@@ -574,13 +584,13 @@
     }
   },
   "prototypeToken": {
-    "name": "X.O.",
+    "name": "Ebott Survey Probe",
     "displayName": 0,
     "actorLink": false,
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "portraits/xo.jpg",
+      "src": "portraits/iron-legion/ebott-survey-probe.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -592,7 +602,7 @@
     "lockRotation": false,
     "rotation": 0,
     "alpha": 1,
-    "disposition": 0,
+    "disposition": -1,
     "displayBars": 0,
     "bar1": {
       "attribute": "attributes.hp"
@@ -667,13 +677,13 @@
   },
   "items": [
     {
-      "_id": "BKSUElyFHKNEZT1T",
-      "name": "Mace",
+      "_id": "7ONC1xJ1Su7h5lSy",
+      "name": "Arc Discharge Prod",
       "type": "weapon",
-      "img": "icons/weapons/maces/mace-round-steel.webp",
+      "img": "icons/magic/lightning/bolt-strike-sparks-blue.webp",
       "system": {
         "description": {
-          "value": "<p>Mace; melee weapon attack.</p>",
+          "value": "<p><em>Melee Weapon Attack:</em> reach 5 ft., one target. <em>Hit:</em> 1d4 + 3 piercing damage plus 1d6 lightning damage.</p>",
           "chat": ""
         },
         "source": {
@@ -701,7 +711,7 @@
           "value": null,
           "long": null,
           "units": "ft",
-          "reach": null
+          "reach": 5
         },
         "uses": {
           "spent": 0,
@@ -726,10 +736,10 @@
           },
           "base": {
             "number": 1,
-            "denomination": 6,
+            "denomination": 4,
             "bonus": "",
             "types": [
-              "bludgeoning"
+              "piercing"
             ],
             "custom": {
               "enabled": false,
@@ -751,9 +761,11 @@
           "dt": null,
           "conditions": ""
         },
-        "properties": [],
+        "properties": [
+          "fin"
+        ],
         "type": {
-          "value": "simpleM",
+          "value": "natural",
           "baseItem": ""
         },
         "container": null,
@@ -825,7 +837,7 @@
               "recovery": []
             },
             "attack": {
-              "ability": "str",
+              "ability": "dex",
               "bonus": "",
               "critical": {
                 "threshold": null
@@ -833,6 +845,315 @@
               "flat": false,
               "type": {
                 "value": "melee",
+                "classification": "weapon"
+              }
+            },
+            "damage": {
+              "critical": {
+                "bonus": ""
+              },
+              "includeBase": true,
+              "parts": [
+                {
+                  "number": 1,
+                  "denomination": 6,
+                  "bonus": "",
+                  "types": [
+                    "lightning"
+                  ],
+                  "custom": {
+                    "enabled": false,
+                    "formula": ""
+                  },
+                  "scaling": {
+                    "mode": "",
+                    "number": null,
+                    "formula": ""
+                  }
+                }
+              ]
+            },
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true,
+            "attackMode": "oneHanded",
+            "ammunition": "",
+            "otherActivityUuid": "",
+            "attackRollPerTarget": "default",
+            "fumbleThreshold": 1
+          }
+        },
+        "unidentified": {
+          "description": ""
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 100000,
+      "folder": null,
+      "ownership": {
+        "default": 0
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791410641025,
+        "modifiedTime": 1791410641025,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      }
+    },
+    {
+      "_id": "WxvnQU3nHpV5Okbn",
+      "name": "Survey Laser",
+      "type": "weapon",
+      "img": "icons/magic/light/beam-strike-orange-gold.webp",
+      "system": {
+        "description": {
+          "value": "<p><em>Ranged Weapon Attack:</em> range 60/180 ft., one target. <em>Hit:</em> 1d8 + 3 radiant damage.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "attunement": "",
+        "rarity": "",
+        "identified": true,
+        "cover": null,
+        "range": {
+          "value": 60,
+          "long": 180,
+          "units": "ft",
+          "reach": null
+        },
+        "uses": {
+          "spent": 0,
+          "max": "",
+          "recovery": []
+        },
+        "damage": {
+          "versatile": {
+            "number": null,
+            "denomination": null,
+            "bonus": "",
+            "types": [],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "base": {
+            "number": 1,
+            "denomination": 8,
+            "bonus": "",
+            "types": [
+              "radiant"
+            ],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          }
+        },
+        "armor": {
+          "value": 10
+        },
+        "hp": {
+          "value": 0,
+          "max": 0,
+          "dt": null,
+          "conditions": ""
+        },
+        "properties": [],
+        "type": {
+          "value": "natural",
+          "baseItem": ""
+        },
+        "container": null,
+        "equipped": true,
+        "proficient": null,
+        "identifier": "",
+        "attuned": false,
+        "ammunition": {},
+        "crew": {
+          "value": []
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "attack",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "units": "ft",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "attack": {
+              "ability": "dex",
+              "bonus": "",
+              "critical": {
+                "threshold": null
+              },
+              "flat": false,
+              "type": {
+                "value": "ranged",
                 "classification": "weapon"
               }
             },
@@ -940,17 +1261,17 @@
       },
       "effects": [],
       "flags": {},
-      "sort": 100000,
+      "sort": 200000,
+      "folder": null,
       "ownership": {
         "default": 0
       },
-      "folder": null,
       "_stats": {
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1791171680389,
-        "modifiedTime": 1791171680389,
+        "createdTime": 1791410641025,
+        "modifiedTime": 1791410641025,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -958,13 +1279,13 @@
       }
     },
     {
-      "_id": "P8pAR7DCm0uIGfUg",
-      "name": "Shadow Step",
+      "_id": "eAkmo7eXevvjJ0Hv",
+      "name": "Blinding Flash Flare",
       "type": "feat",
-      "img": "icons/magic/perception/shadow-stealth-eyes-purple.webp",
+      "img": "icons/magic/lightning/bolt-forked-blue.webp",
       "system": {
         "description": {
-          "value": "<p>Bonus action: teleport up to 30 feet to an unoccupied space it can see that is in dim light or darkness. The archive records arrivals nobody saw walk in.</p>",
+          "value": "<p>The probe pulses its central star-bit core with blinding radiance. Each creature within 15 feet must succeed on a DC 12 Constitution saving throw or be blinded until the end of its next turn.</p>",
           "chat": ""
         },
         "type": {
@@ -976,70 +1297,169 @@
           "max": "",
           "recovery": []
         },
-        "activities": {},
-        "source": {
-          "custom": "Waluipedia campaign",
-          "book": "",
-          "page": "",
-          "license": "",
-          "revision": 1,
-          "rules": "2024"
+        "activities": {
+          "ZUGPhBirRugnFKSB": {
+            "_id": "ZUGPhBirRugnFKSB",
+            "type": "save",
+            "name": "",
+            "img": null,
+            "sort": 0,
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "radius",
+                "size": "15",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "creature",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "save": {
+              "ability": [
+                "con"
+              ],
+              "dc": {
+                "calculation": "",
+                "formula": "12"
+              }
+            },
+            "damage": {
+              "parts": [],
+              "onSave": "none",
+              "critical": {
+                "allow": false
+              }
+            },
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true,
+            "friendlySave": "default"
+          }
         },
-        "advancement": {},
-        "identifier": "",
-        "crewed": false,
-        "enchant": {},
-        "prerequisites": {
-          "items": [],
-          "repeatable": false
-        },
-        "properties": [],
-        "requirements": ""
-      },
-      "effects": [],
-      "flags": {},
-      "sort": 200000,
-      "ownership": {
-        "default": 0
-      },
-      "folder": null,
-      "_stats": {
-        "coreVersion": "14.367",
-        "systemId": "dnd5e",
-        "systemVersion": "5.3.3",
-        "createdTime": 1791171680389,
-        "modifiedTime": 1791171680389,
-        "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
-      }
-    },
-    {
-      "_id": "CBv1u4LFKDF9kD4b",
-      "name": "Leadership",
-      "type": "feat",
-      "img": "icons/sundries/flags/banner-flag-blue.webp",
-      "system": {
-        "description": {
-          "value": "<p>For 1 minute, allies within 30 feet that can hear it add a d4 to attack rolls and saving throws. Once per short rest.</p>",
-          "chat": ""
-        },
-        "type": {
-          "value": "monster",
-          "subtype": ""
-        },
-        "uses": {
-          "spent": 0,
-          "max": "1",
-          "recovery": [
-            {
-              "period": "sr",
-              "type": "recoverAll"
-            }
-          ]
-        },
-        "activities": {},
         "source": {
           "custom": "Waluipedia campaign",
           "book": "",
@@ -1062,16 +1482,16 @@
       "effects": [],
       "flags": {},
       "sort": 300000,
+      "folder": null,
       "ownership": {
         "default": 0
       },
-      "folder": null,
       "_stats": {
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1791171680389,
-        "modifiedTime": 1791171680389,
+        "createdTime": 1791410641025,
+        "modifiedTime": 1791410641025,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -1079,13 +1499,13 @@
       }
     },
     {
-      "_id": "rsWBzwduVSiozsuB",
-      "name": "Keen Records",
+      "_id": "UPbOmSYLZp33Q79p",
+      "name": "Hover Engine",
       "type": "feat",
-      "img": "icons/tools/scribal/ink-quill-pink.webp",
+      "img": "icons/commodities/tech/robotics-frame-steel-blue.webp",
       "system": {
         "description": {
-          "value": "<p>Has advantage on Intelligence (History) and (Investigation) checks about anything it has filed, and can recall any document it has read in the last year word for word.</p>",
+          "value": "<p>The probe can hover and does not provoke opportunity attacks when flying out of an enemy's reach.</p>",
           "chat": ""
         },
         "type": {
@@ -1120,16 +1540,16 @@
       "effects": [],
       "flags": {},
       "sort": 400000,
+      "folder": null,
       "ownership": {
         "default": 0
       },
-      "folder": null,
       "_stats": {
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1791171680389,
-        "modifiedTime": 1791171680389,
+        "createdTime": 1791410641025,
+        "modifiedTime": 1791410641025,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -1137,13 +1557,13 @@
       }
     },
     {
-      "_id": "V62rqbMXG7V7iAHx",
-      "name": "Faithful Spellcasting",
+      "_id": "359iddWXzklCh3l6",
+      "name": "Star-Bit Sensor Array",
       "type": "feat",
-      "img": "icons/magic/holy/prayer-hands-glowing-yellow.webp",
+      "img": "icons/magic/perception/eye-ringed-glow-angry-small-red.webp",
       "system": {
         "description": {
-          "value": "<p>Spellcasting ability Wisdom (spell save DC 12, +5 to hit with spell attacks). At will: <em>guidance, sacred flame, thaumaturgy</em>. 1st level (4 slots): <em>bless, cure wounds, command</em>. 2nd level (2 slots): <em>lesser restoration, spiritual weapon</em>.</p>",
+          "value": "<p>The probe automatically detects magical signatures, dimensional anomalies, and invisible creatures within 30 feet.</p>",
           "chat": ""
         },
         "type": {
@@ -1178,16 +1598,16 @@
       "effects": [],
       "flags": {},
       "sort": 500000,
+      "folder": null,
       "ownership": {
         "default": 0
       },
-      "folder": null,
       "_stats": {
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1791171680389,
-        "modifiedTime": 1791171680389,
+        "createdTime": 1791410641025,
+        "modifiedTime": 1791410641025,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
@@ -1196,7 +1616,7 @@
     }
   ],
   "effects": [],
-  "folder": "Cdp9oOZJz8mNmOmh",
+  "folder": "OADfVOhTXMORLJN2",
   "ownership": {
     "default": 0,
     "7BMT1Aux3QVtq027": 3
@@ -1204,82 +1624,54 @@
   "flags": {
     "waluipedia-mass-import": {
       "folderPath": [
-        "Mages' Guild"
+        "Iron Legion",
+        "Surveillance & Recon"
       ],
-      "source": "tools/build-character-sheets.py"
+      "source": "tools/build-forge-packets.py"
     },
     "waluipedia-sheets": {
-      "characterId": "xo",
-      "generated": true,
-      "bespoke": false,
-      "role": "priest",
-      "ledger": {
-        "level": 2,
-        "powerLevel": 5
-      },
-      "evidence": [
-        {
-          "feature": "Mace",
-          "quote": "The Divine Daughter",
-          "source": "title"
-        },
-        {
-          "feature": "Shadow Step",
-          "quote": "The Swiftsoul incident bears hallmarks of X.O.'s influence: - The 'Burn Notice' protocol was reportedly demanded by X.O. for dramatic effect, overruling more pragmatic options - The elaborate framing of",
-          "source": "article"
-        },
-        {
-          "feature": "Leadership",
-          "quote": "Active — wielding influence within the Iron Fists Guild through her mother Commander G",
-          "source": "article"
-        },
-        {
-          "feature": "Keen Records",
-          "quote": "Underworld analysts use the term 'Kamidere' to describe X.O.'s personality type: someone who genuinely believes themselves to be divine or semi-divine, expects worship from those around them, and reacts with extreme",
-          "source": "article"
-        },
-        {
-          "feature": "Spellcasting",
-          "quote": "The Divine Daughter",
-          "source": "title"
-        }
-      ],
       "tags": [
-        "Mages' Guild",
+        "Iron Legion",
         "npc",
-        "humanoid"
+        "construct",
+        "Surveillance & Recon"
       ],
-      "color": "#8A2BE2",
+      "color": "#8A96A3",
+      "faction": "iron_legion",
+      "forge": {
+        "roster": "data/forge/iron-legion.json",
+        "entry": "ebott-survey-probe",
+        "seed": 510007
+      },
       "organized": {
         "path": [
-          "Mages' Guild"
+          "Iron Legion",
+          "Surveillance & Recon"
         ],
-        "basis": "gm-group",
+        "basis": "packet",
         "from": null
       }
     },
     "scene-packer": {
-      "hash": "f999febc1124aca2dfe01b5e8001628b92f206ee"
-    },
-    "midi-qol": {
-      "onUseMacroParts": {}
+      "hash": "ca8ae481737a950035153a39f830ad89c4a38cb4"
     },
     "5e-npc-combat-automation": {
       "aiProfile": {
         "archetypes": [
           "disciplined",
-          "skirmisher",
+          "fearless",
+          "hunter",
           "undead-disciplined"
         ],
         "reasons": [
-          "Leadership detected",
-          "Spellcasting detected",
-          "Keyword \"commander\" in name/biography → disciplined",
+          "Creature type \"construct\" → disciplined",
+          "Creature type \"construct\" → fearless",
+          "Mixed melee/ranged weapons → hunter",
           "Keyword \"shadow\" in name/biography → undead-disciplined"
         ],
         "confidence": 1,
         "version": 3,
-        "timestamp": 1791175329526,
+        "timestamp": 1791599593946,
         "manuallyOverridden": false
       }
     }
@@ -1290,8 +1682,8 @@
     "systemVersion": "5.3.3",
     "compendiumSource": null,
     "duplicateSource": null,
-    "createdTime": 1791171680389,
-    "modifiedTime": 1791325784855,
+    "createdTime": 1791410641025,
+    "modifiedTime": 1791599593955,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

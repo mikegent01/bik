@@ -2,7 +2,7 @@
   "_id": "1BfZgOemyHSpgShH",
   "name": "Necro",
   "type": "npc",
-  "img": "assets/images/toads/roster/toad_39_necro.png",
+  "img": "portraits/liberated-toads/roster/toad_39_necro.png",
   "system": {
     "abilities": {
       "str": {
@@ -580,7 +580,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "assets/images/toads/roster/toad_39_necro.png",
+      "src": "portraits/liberated-toads/roster/toad_39_necro.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -1082,7 +1082,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791261795774,
-    "modifiedTime": 1791325782374,
+    "modifiedTime": 1791410642218,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

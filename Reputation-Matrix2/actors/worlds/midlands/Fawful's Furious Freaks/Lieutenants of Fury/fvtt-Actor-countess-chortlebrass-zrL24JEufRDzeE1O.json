@@ -3385,6 +3385,28 @@
     },
     "midi-qol": {
       "onUseMacroParts": {}
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "fearless",
+          "brute",
+          "controller",
+          "undead-disciplined",
+          "tactician"
+        ],
+        "reasons": [
+          "Legendary Resistance detected",
+          "High HP (127) melee combatant → brute/frontliner",
+          "Keyword \"controller\" in name/biography → controller",
+          "Keyword \"shadow\" in name/biography → undead-disciplined",
+          "INT 17 ≥ 16 → tactician overlay"
+        ],
+        "confidence": 1,
+        "version": 3,
+        "timestamp": 1791428399882,
+        "manuallyOverridden": false
+      }
     }
   },
   "_stats": {
@@ -3394,7 +3416,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791324111887,
-    "modifiedTime": 1791325779910,
+    "modifiedTime": 1791428399897,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

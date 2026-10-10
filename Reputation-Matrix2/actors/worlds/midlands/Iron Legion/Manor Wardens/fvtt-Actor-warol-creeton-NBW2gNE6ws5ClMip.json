@@ -1023,7 +1023,7 @@
     }
   ],
   "effects": [],
-  "folder": "5Q4w3VVb0sOc5DgD",
+  "folder": "ozpPtJqUTJHvYiYP",
   "ownership": {
     "default": 0,
     "7BMT1Aux3QVtq027": 3
@@ -1080,6 +1080,22 @@
     },
     "midi-qol": {
       "onUseMacroParts": {}
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "skirmisher",
+          "disciplined"
+        ],
+        "reasons": [
+          "Keyword \"goblin\" in name/biography → skirmisher",
+          "Keyword \"guard\" in name/biography → disciplined"
+        ],
+        "confidence": 0.6666666666666666,
+        "version": 3,
+        "timestamp": 1791595542527,
+        "manuallyOverridden": false
+      }
     }
   },
   "_stats": {
@@ -1089,7 +1105,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791171678168,
-    "modifiedTime": 1791325780843,
+    "modifiedTime": 1791595542534,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

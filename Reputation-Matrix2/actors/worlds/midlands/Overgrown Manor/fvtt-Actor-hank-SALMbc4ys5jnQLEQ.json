@@ -1135,6 +1135,20 @@
     },
     "midi-qol": {
       "onUseMacroParts": {}
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "skirmisher"
+        ],
+        "reasons": [
+          "Keyword \"goblin\" in name/biography → skirmisher"
+        ],
+        "confidence": 0.3333333333333333,
+        "version": 3,
+        "timestamp": 1791601364203,
+        "manuallyOverridden": false
+      }
     }
   },
   "_stats": {
@@ -1144,7 +1158,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791171681009,
-    "modifiedTime": 1791325785779,
+    "modifiedTime": 1791601364210,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

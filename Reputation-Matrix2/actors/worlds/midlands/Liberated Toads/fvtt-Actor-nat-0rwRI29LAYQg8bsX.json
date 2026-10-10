@@ -2,7 +2,7 @@
   "_id": "0rwRI29LAYQg8bsX",
   "name": "Nat",
   "type": "npc",
-  "img": "assets/images/toads/roster/toad_72_nat.png",
+  "img": "portraits/liberated-toads/roster/toad_72_nat.png",
   "system": {
     "abilities": {
       "str": {
@@ -580,7 +580,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "assets/images/toads/roster/toad_72_nat.png",
+      "src": "portraits/liberated-toads/roster/toad_72_nat.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -1080,7 +1080,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791261795695,
-    "modifiedTime": 1791325782359,
+    "modifiedTime": 1791410642176,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

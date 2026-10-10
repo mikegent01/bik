@@ -1134,6 +1134,24 @@
     },
     "midi-qol": {
       "onUseMacroParts": {}
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "skirmisher",
+          "controller",
+          "tactician"
+        ],
+        "reasons": [
+          "Spellcasting detected",
+          "Keyword \"mage\" in name/biography → controller",
+          "INT 16 ≥ 16 → tactician overlay"
+        ],
+        "confidence": 1,
+        "version": 3,
+        "timestamp": 1791597941439,
+        "manuallyOverridden": false
+      }
     }
   },
   "_stats": {
@@ -1143,7 +1161,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791171680230,
-    "modifiedTime": 1791325784659,
+    "modifiedTime": 1791597941446,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

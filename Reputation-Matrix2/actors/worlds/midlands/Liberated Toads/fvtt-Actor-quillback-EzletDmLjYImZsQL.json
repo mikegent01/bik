@@ -2,7 +2,7 @@
   "_id": "EzletDmLjYImZsQL",
   "name": "Quillback",
   "type": "npc",
-  "img": "assets/images/toads/roster/toad_46_quillback.png",
+  "img": "portraits/liberated-toads/roster/toad_46_quillback.png",
   "system": {
     "abilities": {
       "str": {
@@ -580,7 +580,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "portraits/player/fullbody/toad_quillback.png",
+      "src": "portraits/liberated-toads/roster/toad_46_quillback.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -1145,7 +1145,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791261796286,
-    "modifiedTime": 1791325782508,
+    "modifiedTime": 1791410642481,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

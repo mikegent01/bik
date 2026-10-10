@@ -1134,6 +1134,22 @@
     },
     "midi-qol": {
       "onUseMacroParts": {}
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "skirmisher",
+          "disciplined"
+        ],
+        "reasons": [
+          "Keyword \"goblin\" in name/biography → skirmisher",
+          "Keyword \"guard\" in name/biography → disciplined"
+        ],
+        "confidence": 0.6666666666666666,
+        "version": 3,
+        "timestamp": 1791602518279,
+        "manuallyOverridden": false
+      }
     }
   },
   "_stats": {
@@ -1143,7 +1159,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791171681421,
-    "modifiedTime": 1791325785909,
+    "modifiedTime": 1791602518287,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

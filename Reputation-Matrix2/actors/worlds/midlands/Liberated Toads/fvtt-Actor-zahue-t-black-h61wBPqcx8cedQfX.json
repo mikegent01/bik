@@ -2,7 +2,7 @@
   "_id": "h61wBPqcx8cedQfX",
   "name": "Zahue T Black",
   "type": "npc",
-  "img": "assets/images/toads/roster/toad_61_zahue_t_black.png",
+  "img": "portraits/liberated-toads/roster/toad_61_zahue_t_black.png",
   "system": {
     "abilities": {
       "str": {
@@ -580,7 +580,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "assets/images/toads/roster/toad_61_zahue_t_black.png",
+      "src": "portraits/liberated-toads/roster/toad_61_zahue_t_black.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -1145,7 +1145,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791261798418,
-    "modifiedTime": 1791325783124,
+    "modifiedTime": 1791410643486,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

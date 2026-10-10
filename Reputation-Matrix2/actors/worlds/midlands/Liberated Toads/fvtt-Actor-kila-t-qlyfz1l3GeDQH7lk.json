@@ -2,7 +2,7 @@
   "_id": "qlyfz1l3GeDQH7lk",
   "name": "Kila T",
   "type": "npc",
-  "img": "assets/images/toads/roster/toad_67_kila_t.png",
+  "img": "portraits/liberated-toads/roster/toad_67_kila_t.png",
   "system": {
     "abilities": {
       "str": {
@@ -580,7 +580,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "assets/images/toads/roster/toad_67_kila_t.png",
+      "src": "portraits/liberated-toads/roster/toad_67_kila_t.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -1082,7 +1082,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791261795063,
-    "modifiedTime": 1791325782243,
+    "modifiedTime": 1791410641818,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

@@ -1,21 +1,21 @@
 {
   "format": "waluipedia-actors/1",
   "exportedFrom": "midlands",
-  "exportedAt": "2026-10-07T02:41:26.422Z",
+  "exportedAt": "2026-10-10T03:38:57.675Z",
   "system": "dnd5e",
   "systemVersion": "5.3.3",
   "coreVersion": "14.367",
-  "exportedBy": "waluipedia-mass-import 1.9.4 (update Actor)",
+  "exportedBy": "waluipedia-mass-import 1.9.4 (create Item)",
   "lastSync": {
     "applied": {
-      "stamp": "data:9408abe824451bd42cde7f6b30f34d6dfd1312db",
-      "at": "2026-10-07T01:54:12.598Z",
-      "exportedAt": "2026-10-07T01:08:33.162Z"
+      "stamp": "data:c33751a49d2618c8bf966b289c4a6e01d93faecc",
+      "at": "2026-10-07T22:04:03.867Z",
+      "exportedAt": "2026-10-07T02:41:26.422Z"
     },
-    "seen": "data:9408abe824451bd42cde7f6b30f34d6dfd1312db"
+    "seen": "data:c33751a49d2618c8bf966b289c4a6e01d93faecc"
   },
   "source": "midlands-all-actors.json",
-  "actorCount": 511,
+  "actorCount": 535,
   "folders": [
     "Bestiary",
     "Bestiary / Beast",
@@ -35,7 +35,14 @@
     "Fawthful's Forces",
     "Fawthful's Forces / 1035 BF — Bowser's Castle",
     "Iron Legion",
+    "Iron Legion / Cordon Command",
+    "Iron Legion / Frontline Patrol",
+    "Iron Legion / Heavy Beasts & Auxiliaries",
+    "Iron Legion / Magitek Automata",
+    "Iron Legion / Manor Command",
     "Iron Legion / Manor Wardens",
+    "Iron Legion / Regal Lion Knights",
+    "Iron Legion / Surveillance & Recon",
     "Koopa Troop",
     "Koopa Troop / 1035 BF — Bowser's Castle",
     "Koopa Troop / 955 BF — Peach's Castle",
@@ -1067,10 +1074,154 @@
       "file": "Fawthful's Forces/fvtt-Actor-the-jester-goomba-9lfsDWLXS3v9k9lX.json"
     },
     {
+      "name": "Brigadier Malakor Vance",
+      "type": "npc",
+      "_id": "GVyquDEp41vTzytp",
+      "file": "Iron Legion/Cordon Command/fvtt-Actor-brigadier-malakor-vance-GVyquDEp41vTzytp.json"
+    },
+    {
+      "name": "Commissar Vane",
+      "type": "npc",
+      "_id": "BdGBGN0y8vGvGBtO",
+      "file": "Iron Legion/Cordon Command/fvtt-Actor-commissar-vane-BdGBGN0y8vGvGBtO.json"
+    },
+    {
+      "name": "Lieutenant Krena Locke",
+      "type": "npc",
+      "_id": "CWvdqgzhx8WAsqLo",
+      "file": "Iron Legion/Cordon Command/fvtt-Actor-lieutenant-krena-locke-CWvdqgzhx8WAsqLo.json"
+    },
+    {
+      "name": "Cordon Combat Chirurgeon",
+      "type": "npc",
+      "_id": "Lq0ATtT8V7PsO6yu",
+      "file": "Iron Legion/Frontline Patrol/fvtt-Actor-cordon-combat-chirurgeon-Lq0ATtT8V7PsO6yu.json"
+    },
+    {
+      "name": "Cordon Shock Trooper",
+      "type": "npc",
+      "_id": "PGSeq8EB6STcT24p",
+      "file": "Iron Legion/Frontline Patrol/fvtt-Actor-cordon-shock-trooper-PGSeq8EB6STcT24p.json"
+    },
+    {
+      "name": "Cordon Trench Sapper",
+      "type": "npc",
+      "_id": "BBqA3NWtkFWBFlog",
+      "file": "Iron Legion/Frontline Patrol/fvtt-Actor-cordon-trench-sapper-BBqA3NWtkFWBFlog.json"
+    },
+    {
+      "name": "Manor Gate-Breaker Ogre",
+      "type": "npc",
+      "_id": "dKjRwuYalTELEwy6",
+      "file": "Iron Legion/Heavy Beasts & Auxiliaries/fvtt-Actor-manor-gate-breaker-ogre-dKjRwuYalTELEwy6.json"
+    },
+    {
+      "name": "Raventree Iron Colossus",
+      "type": "npc",
+      "_id": "7fCu6fUOa64GcYIt",
+      "file": "Iron Legion/Heavy Beasts & Auxiliaries/fvtt-Actor-raventree-iron-colossus-7fCu6fUOa64GcYIt.json"
+    },
+    {
+      "name": "Regal Lion Armored Pride-Beast",
+      "type": "npc",
+      "_id": "AxRAf8GKFGYrLmAB",
+      "file": "Iron Legion/Heavy Beasts & Auxiliaries/fvtt-Actor-regal-lion-armored-pride-beast-AxRAf8GKFGYrLmAB.json"
+    },
+    {
+      "name": "Cordon Sentry Walker",
+      "type": "npc",
+      "_id": "goJi6oCxQpm4ZIbK",
+      "file": "Iron Legion/Magitek Automata/fvtt-Actor-cordon-sentry-walker-goJi6oCxQpm4ZIbK.json"
+    },
+    {
+      "name": "Iron Enforcer Automaton",
+      "type": "npc",
+      "_id": "1qFOrpA0Q6Gb41Av",
+      "file": "Iron Legion/Magitek Automata/fvtt-Actor-iron-enforcer-automaton-1qFOrpA0Q6Gb41Av.json"
+    },
+    {
+      "name": "Mobile Aegis Bastion",
+      "type": "npc",
+      "_id": "PTvPKJITKPVpksaz",
+      "file": "Iron Legion/Magitek Automata/fvtt-Actor-mobile-aegis-bastion-PTvPKJITKPVpksaz.json"
+    },
+    {
+      "name": "Commander Byscilla Danos",
+      "type": "npc",
+      "_id": "c2YpZK3vNaPysUHu",
+      "file": "Iron Legion/Manor Command/fvtt-Actor-commander-byscilla-danos-c2YpZK3vNaPysUHu.json"
+    },
+    {
+      "name": "Knight-Captain Garrick",
+      "type": "npc",
+      "_id": "lhTVe5VfDckc07Up",
+      "file": "Iron Legion/Manor Command/fvtt-Actor-knight-captain-garrick-lhTVe5VfDckc07Up.json"
+    },
+    {
+      "name": "Quartermaster Thornbury",
+      "type": "npc",
+      "_id": "FanpxUQMBfDkc9P6",
+      "file": "Iron Legion/Manor Command/fvtt-Actor-quartermaster-thornbury-FanpxUQMBfDkc9P6.json"
+    },
+    {
+      "name": "Greenhouse Perimeter Scout",
+      "type": "npc",
+      "_id": "2ygkH5GR2pYcZAaJ",
+      "file": "Iron Legion/Manor Wardens/fvtt-Actor-greenhouse-perimeter-scout-2ygkH5GR2pYcZAaJ.json"
+    },
+    {
+      "name": "Raventree Gate Warden",
+      "type": "npc",
+      "_id": "8y8NdVnuDP0bJUzU",
+      "file": "Iron Legion/Manor Wardens/fvtt-Actor-raventree-gate-warden-8y8NdVnuDP0bJUzU.json"
+    },
+    {
       "name": "Warol Creeton",
       "type": "npc",
       "_id": "NBW2gNE6ws5ClMip",
       "file": "Iron Legion/Manor Wardens/fvtt-Actor-warol-creeton-NBW2gNE6ws5ClMip.json"
+    },
+    {
+      "name": "Regal Lion Chaplain",
+      "type": "npc",
+      "_id": "PierDBoWX0RWil6t",
+      "file": "Iron Legion/Regal Lion Knights/fvtt-Actor-regal-lion-chaplain-PierDBoWX0RWil6t.json"
+    },
+    {
+      "name": "Regal Lion Halberdier",
+      "type": "npc",
+      "_id": "RSKMcGhJUXIojHxy",
+      "file": "Iron Legion/Regal Lion Knights/fvtt-Actor-regal-lion-halberdier-RSKMcGhJUXIojHxy.json"
+    },
+    {
+      "name": "Regal Lion Manor Arbalest",
+      "type": "npc",
+      "_id": "zeoSjI5by6KZOFuU",
+      "file": "Iron Legion/Regal Lion Knights/fvtt-Actor-regal-lion-manor-arbalest-zeoSjI5by6KZOFuU.json"
+    },
+    {
+      "name": "Regal Lion Manor Guard",
+      "type": "npc",
+      "_id": "AvI3aQwqF2FiQ9hv",
+      "file": "Iron Legion/Regal Lion Knights/fvtt-Actor-regal-lion-manor-guard-AvI3aQwqF2FiQ9hv.json"
+    },
+    {
+      "name": "Aegis Spotter-Hound",
+      "type": "npc",
+      "_id": "z7uNldCjSKKmoQfp",
+      "file": "Iron Legion/Surveillance & Recon/fvtt-Actor-aegis-spotter-hound-z7uNldCjSKKmoQfp.json"
+    },
+    {
+      "name": "Ebott Survey Probe",
+      "type": "npc",
+      "_id": "y0lJA75YUy4J0ulG",
+      "file": "Iron Legion/Surveillance & Recon/fvtt-Actor-ebott-survey-probe-y0lJA75YUy4J0ulG.json"
+    },
+    {
+      "name": "Syringe Carrier Drone",
+      "type": "npc",
+      "_id": "TwIcKyUByBJ3BAGT",
+      "file": "Iron Legion/Surveillance & Recon/fvtt-Actor-syringe-carrier-drone-TwIcKyUByBJ3BAGT.json"
     },
     {
       "name": "Aemenor Evenflight",
@@ -2339,6 +2490,12 @@
       "file": "Mages' Guild/fvtt-Actor-kyle-coinsoul-Gi1W7RCATgDcBQWi.json"
     },
     {
+      "name": "P.S",
+      "type": "npc",
+      "_id": "6apfRNEMlsKmxc5Y",
+      "file": "Mages' Guild/fvtt-Actor-p-s-6apfRNEMlsKmxc5Y.json"
+    },
+    {
       "name": "Parson Pellinost",
       "type": "npc",
       "_id": "74wawSSf7Yk9MUkH",
@@ -2367,12 +2524,6 @@
       "type": "npc",
       "_id": "l7YG88HtRZneApbC",
       "file": "Mages' Guild/fvtt-Actor-valorian-stormweave-l7YG88HtRZneApbC.json"
-    },
-    {
-      "name": "X.O.",
-      "type": "npc",
-      "_id": "6apfRNEMlsKmxc5Y",
-      "file": "Mages' Guild/fvtt-Actor-x-o-6apfRNEMlsKmxc5Y.json"
     },
     {
       "name": "Captain of the Palace Guard (955 BF)",

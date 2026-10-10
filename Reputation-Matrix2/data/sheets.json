@@ -11,9 +11,9 @@
     "counts": {
       "characters": 255,
       "sheets": 249,
-      "generated": 0,
+      "generated": 1,
       "eras": 3,
-      "existing": 249,
+      "existing": 248,
       "party": 18,
       "skipped": 6
     },
@@ -2739,14 +2739,14 @@
         "wis": 13,
         "cha": 8
       },
-      "hp": 69,
+      "hp": 76,
       "speed": "25",
       "size": "med",
-      "items": 110,
+      "items": 111,
       "ac": 18,
-      "level": 6,
+      "level": 7,
       "classes": [
-        "Fighter 6"
+        "Fighter 7"
       ],
       "species": "Mountain Dwarf",
       "versions": []
@@ -9330,8 +9330,8 @@
       "name": "X.O.",
       "title": "The Divine Daughter",
       "sheetName": "X.O.",
-      "source": "live",
-      "file": "actors/worlds/midlands/Mages' Guild/fvtt-Actor-x-o-6apfRNEMlsKmxc5Y.json",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-xo.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -9341,6 +9341,35 @@
         "level": 2,
         "powerLevel": 5
       },
+      "role": "priest",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Mace",
+          "quote": "The Divine Daughter",
+          "source": "title"
+        },
+        {
+          "feature": "Shadow Step",
+          "quote": "The Swiftsoul incident bears hallmarks of X.O.'s influence: - The 'Burn Notice' protocol was reportedly demanded by X.O. for dramatic effect, overruling more pragmatic options - The elaborate framing of",
+          "source": "article"
+        },
+        {
+          "feature": "Leadership",
+          "quote": "Active — wielding influence within the Iron Fists Guild through her mother Commander G",
+          "source": "article"
+        },
+        {
+          "feature": "Keen Records",
+          "quote": "Underworld analysts use the term 'Kamidere' to describe X.O.'s personality type: someone who genuinely believes themselves to be divine or semi-divine, expects worship from those around them, and reacts with extreme",
+          "source": "article"
+        },
+        {
+          "feature": "Spellcasting",
+          "quote": "The Divine Daughter",
+          "source": "title"
+        }
+      ],
       "kind": "npc",
       "abilities": {
         "str": 10,

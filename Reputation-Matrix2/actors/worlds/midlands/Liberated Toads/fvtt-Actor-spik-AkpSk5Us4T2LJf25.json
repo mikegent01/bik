@@ -2,7 +2,7 @@
   "_id": "AkpSk5Us4T2LJf25",
   "name": "Spik",
   "type": "npc",
-  "img": "assets/images/toads/roster/toad_56_spik.png",
+  "img": "portraits/liberated-toads/roster/toad_56_spik.png",
   "system": {
     "abilities": {
       "str": {
@@ -580,7 +580,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "assets/images/toads/roster/toad_56_spik.png",
+      "src": "portraits/liberated-toads/roster/toad_56_spik.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -1078,7 +1078,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791261797405,
-    "modifiedTime": 1791325782846,
+    "modifiedTime": 1791410643005,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

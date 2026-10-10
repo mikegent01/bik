@@ -2,7 +2,7 @@
   "_id": "it66FVv55koCFwFh",
   "name": "Bearr",
   "type": "npc",
-  "img": "assets/images/toads/roster/toad_15_bearr.png",
+  "img": "portraits/liberated-toads/roster/toad_15_bearr.png",
   "system": {
     "abilities": {
       "str": {
@@ -580,7 +580,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "portraits/player/fullbody/toad_bearr.png",
+      "src": "portraits/liberated-toads/roster/toad_15_bearr.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -1097,7 +1097,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791261793862,
-    "modifiedTime": 1791335191675,
+    "modifiedTime": 1791410641334,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

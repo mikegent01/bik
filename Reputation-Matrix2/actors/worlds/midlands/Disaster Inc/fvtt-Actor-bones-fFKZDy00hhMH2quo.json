@@ -3807,9 +3807,9 @@
           "system": {
             "changes": [
               {
-                "key": "flags.dnd5e.initiativeAdv",
-                "type": "override",
-                "value": true,
+                "key": "system.attributes.init.roll.mode",
+                "type": "add",
+                "value": 1,
                 "priority": 4,
                 "phase": "initial"
               }

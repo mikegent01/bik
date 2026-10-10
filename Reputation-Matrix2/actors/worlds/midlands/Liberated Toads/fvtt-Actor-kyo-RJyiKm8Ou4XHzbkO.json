@@ -2,7 +2,7 @@
   "_id": "RJyiKm8Ou4XHzbkO",
   "name": "Kyo",
   "type": "npc",
-  "img": "assets/images/toads/roster/toad_21_kyo.png",
+  "img": "portraits/liberated-toads/roster/toad_21_kyo.png",
   "system": {
     "abilities": {
       "str": {
@@ -580,7 +580,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "assets/images/toads/roster/toad_21_kyo.png",
+      "src": "portraits/liberated-toads/roster/toad_21_kyo.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -1083,7 +1083,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791261795221,
-    "modifiedTime": 1791325782273,
+    "modifiedTime": 1791410641913,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

@@ -2127,6 +2127,22 @@
           "Characters of the Shadeward Manor"
         ]
       }
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "berserker",
+          "fearless"
+        ],
+        "reasons": [
+          "Creature type \"fiend\" → berserker",
+          "Creature type \"fiend\" → fearless"
+        ],
+        "confidence": 0.6666666666666666,
+        "version": 3,
+        "timestamp": 1791602515674,
+        "manuallyOverridden": false
+      }
     }
   },
   "system": {
@@ -2858,7 +2874,7 @@
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
     "createdTime": 1788231129613,
-    "modifiedTime": 1791171681456,
+    "modifiedTime": 1791602515686,
     "lastModifiedBy": "7BMT1Aux3QVtq027"
   },
   "ownership": {
