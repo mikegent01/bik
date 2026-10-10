@@ -238,6 +238,7 @@ ALIASES = {
     "usk": "Usk",
     "green_t": "Green T",
     "toad_lee": "Toad Lee",
+    "xo": "P.S",
 }
 # Characters that are deliberately not statted.
 SKIP = {
@@ -358,6 +359,7 @@ ROLE_OVERRIDES = {
     "big_r": "soldier", "bully_t": "soldier", "forgemaster_ironspore": "scholar", "smoking_j": "rogue",
     "merric": "soldier", "piktor_deldkur_the_third": "soldier", "mistveil": "rogue", "valorian_stormweave": "caster",
     "dracule_mihawk": "soldier", "sensei": "scholar", "gabriel_freddy": "spirit",
+    "quartermaster_cornburary": "officer",
 }
 
 ROLES = {
@@ -652,6 +654,25 @@ BESPOKE = {
                q=["hosted the Second Diplomatic Summit"]),
             _f("No Committees", "banner", "<p>Once per short rest, Daisy gives one ally within 30 feet an extra reaction or bonus action this round.</p>",
                q=["without needing to form twelve committees first"]),
+        ]),
+    "july_summer_miser": dict(
+        role="caster", cr=7, align="Neutral Good", sc=(10, 14, 14, 18, 14, 12), saves=("int", "wis"),
+        skills={"arc": 2, "his": 2, "inv": 1, "nat": 1}, walk=30, ac=15, hp_mult=1.0,
+        weapons=[
+            _w("Conjurer's Quench-Staff", "staff", "<p>A carved weirwood walking staff tipped with cold iron and braided violet cord. Melee weapon attack (+7 to hit, reach 5 ft.), dealing 1d6+4 bludgeoning damage plus 1d8 force damage.</p>",
+               q=["mastered the disciplined geometry of the School of Conjuration"], dmg=(1, 6, ["bludgeoning"]), ability="int"),
+        ],
+        features=[
+            _f("Benign Transposition", "vortex", "<p>As an action (or bonus action once per short rest), July teleports up to 30 feet to an unoccupied space she can see, or swaps places with a willing creature within 30 feet. She recharges this feature immediately whenever she casts a conjuration spell of 1st level or higher.</p>",
+               q=["commands spatial transposition with clinical precision"]),
+            _f("Founder of the Jul'library", "book", "<p>July founded the Jul'library, an independent scriptorium and traveling repository of bound spaces. She has advantage on Intelligence (Arcana) and (History) checks concerning extraplanar texts, spatial geometries, and planar seals.</p>",
+               q=["founded the Jul'library"]),
+            _f("Barnaby the Owl Familiar", "eye", "<p>July is accompanied by Barnaby, an observant celestial barn owl familiar. While Barnaby is within 100 feet, July can communicate telepathically and see through his eyes; Barnaby cannot be surprised and grants July advantage on initiative rolls.</p>",
+               q=["keeps an owl familiar named Barnaby"]),
+            _f("Witches Gathering Fellowship", "vines", "<p>Maintaining close ties with the hedge-scholars and herbalists of the Witches Gathering, July adds double her proficiency bonus to checks made to identify rare planar flora, brew boundary tinctures, or negotiate with fey and hedgewitches.</p>",
+               q=["Witches Gathering"]),
+            _f("School of Conjuration Spellcasting", "orb", "<p>Spellcasting ability Intelligence (spell save DC 15, +7 to hit with spell attacks). Level 7 Conjuration Wizard. Cantrips (at will): <em>mage hand, fire bolt, minor illusion, ray of frost</em>. 1st level (4 slots): <em>find familiar, shield, mage armor, grease</em>. 2nd level (3 slots): <em>misty step, web, rope trick</em>. 3rd level (3 slots): <em>counterspell, fireball, dispel magic</em>. 4th level (1 slot): <em>dimension door, summon aberration</em>.</p>",
+               q=["mastered the disciplined geometry of the School of Conjuration"]),
         ]),
     "kamek": dict(
         role="caster", cr=2, align="Lawful Evil", sc=(8, 12, 11, 17, 13, 12), saves=("int", "wis"),
@@ -1060,6 +1081,9 @@ PC_BUILD = {
     "evil_mario": ("Monk", "Warrior of the Elements", 8, "none", "", "Studio Copy", "Entertainer"),
     "fawthful": ("Artificer", "Artillerist", 8, "artificer", "int", "Unknown (humanoid)", "Sage"),
     "flowey": ("Warlock", "Great Old One Patron", 8, "pact", "cha", "Underground Flower", "Hermit"),
+    "jack_melvus_miser": ("Fighter", "Champion", 10, "none", "", "Human", "Soldier"),
+    "jury_miser": ("Ranger", "Hunter", 10, "half", "wis", "Human", "Outlander"),
+    "july_summer_miser": ("Wizard", "School of Conjuration", 6, "full", "int", "Human", "Sage"),
     "kamek": ("Wizard", "Evoker", 6, "full", "int", "Magikoopa", "Courtier"),
     "king_boo": ("Warlock", "Fiend Patron", 8, "pact", "cha", "Boo", "Noble"),
     "king_dedede": ("Fighter", "Champion", 10, "none", "", "Dreamland Penguin", "Noble"),

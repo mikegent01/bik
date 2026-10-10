@@ -1,13 +1,13 @@
 {
-  "_id": "6apfRNEMlsKmxc5Y",
-  "name": "X.O.",
+  "_id": "FTXUBCFXdsOUobBW",
+  "name": "Quartermaster Cornburary",
   "type": "npc",
-  "img": "portraits/xo.jpg",
+  "img": "portraits/quartermaster_cornburary.jpg",
   "system": {
     "abilities": {
       "str": {
-        "value": 10,
-        "proficient": 0,
+        "value": 15,
+        "proficient": 1,
         "bonuses": {
           "check": "",
           "save": ""
@@ -29,7 +29,7 @@
         }
       },
       "dex": {
-        "value": 11,
+        "value": 13,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -52,7 +52,7 @@
         }
       },
       "con": {
-        "value": 13,
+        "value": 14,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -98,7 +98,7 @@
         }
       },
       "wis": {
-        "value": 16,
+        "value": 13,
         "proficient": 1,
         "bonuses": {
           "check": "",
@@ -121,8 +121,8 @@
         }
       },
       "cha": {
-        "value": 13,
-        "proficient": 1,
+        "value": 14,
+        "proficient": 0,
         "bonuses": {
           "check": "",
           "save": ""
@@ -146,14 +146,14 @@
     },
     "attributes": {
       "ac": {
-        "flat": 13,
+        "flat": 14,
         "calc": "natural",
         "formula": ""
       },
       "hp": {
-        "value": 27,
-        "max": 27,
-        "formula": "5d8 + 5",
+        "value": 45,
+        "max": 45,
+        "formula": "7d8 + 14",
         "temp": null,
         "tempmax": null
       },
@@ -223,9 +223,9 @@
         "value": "humanoid",
         "subtype": "human"
       },
-      "cr": 1,
+      "cr": 2,
       "biography": {
-        "value": "<p><em>Waluipedia cast sheet — X.O..</em> Built by <code>tools/build-character-sheets.py</code>, generated from the article's own words. XP ledger: level 2, power rating 5 → CR 1 as a priest. Numbers are a GM-ready reading of the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p><p><strong>The Divine Daughter</strong> — Iron Fists Guild</p><p>Status: Active — wielding influence within the Iron Fists Guild through her mother Commander G</p><p>X.O. is Commander G's daughter and a destabilizing influence within the Iron Fists Guild's Swiftsoul Chapter. She exhibits profound narcissistic entitlement, a god complex that would embarrass actual deities, and a tendency to view Guild operations as theatrical performances staged for her personal amusement. Her demands for dramatic, often cruel, operational protocols may be responsible for the chaotic nature of the Swiftsoul incident—including the elaborate framing of Archie Miser.</p><h3>Evidence</h3><ul><li><strong>Mace</strong> — “The Divine Daughter”</li><li><strong>Shadow Step</strong> — “The Swiftsoul incident bears hallmarks of X.O.'s influence: - The 'Burn Notice' protocol was reportedly demanded by X.O. for dramatic effect, overruling more pragmatic options - The elaborate framing of”</li><li><strong>Leadership</strong> — “Active — wielding influence within the Iron Fists Guild through her mother Commander G”</li><li><strong>Keen Records</strong> — “Underworld analysts use the term 'Kamidere' to describe X.O.'s personality type: someone who genuinely believes themselves to be divine or semi-divine, expects worship from those around them, and reacts with extreme”</li><li><strong>Spellcasting</strong> — “The Divine Daughter”</li></ul><p>Article: <code>#/article/xo</code> (characters). Site sheet: <code>#/sheets/xo</code>.</p>",
+        "value": "<p><em>Waluipedia cast sheet — Quartermaster Cornburary.</em> Built by <code>tools/build-character-sheets.py</code>, generated from the article's own words. no XP ledger entry; archetype default → CR 2 as a officer. Numbers are a GM-ready reading of the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p><p><strong>Quartermaster of the Iron Legion Cordon Division, Logistics &amp; Requisition Auditor</strong> — Iron Legion / Cordon Division Logistics</p><p>Status: Active — enforcing Section 14 Cordon property mandates inside the Overgrown Manor despite ongoing planar collapse</p><p>Quartermaster Cornburary is the Iron Legion logistics and supply officer attached to the Colour Division detachments operating near the Midlands border. Completely immune to supernatural terror, atmospheric dread, and rampant plant monsters, Cornburary evaluates military operations exclusively through ledger balances, equipment wear, and authorized property requisitions. When sent to enforce Hjumpik's overdue Aegis Magi contract, he treated the collapsing, briar-choked Feywild manor not as a magical crisis, but as an unauthorized structural alteration with an itemized depreciation fee.</p><h3>Evidence</h3><ul><li><strong>Crossbow</strong> — “Without Cornburary's stamp, no Colour Division squad gets fresh rations, crossbow bolts, or replacement armor straps.”</li><li><strong>Leadership</strong> — “Waluigi has audited commanders, sorcerers, tax collectors, and vampires, but Quartermaster Cornburary is a specific kind of dangerous: the bureaucrat who will read you an equipment clause while your boots are on fire.”</li><li><strong>Frightful Presence</strong> — “His complete refusal to acknowledge the supernatural makes him both absurd and terrifyingly stubborn—the kind of man who would file a lien against a burning church before asking for a bucket.”</li><li><strong>Iron Discipline</strong> — “Quartermaster of the Iron Legion Cordon Division, Logistics &amp; Requisition Auditor”</li></ul><p>Article: <code>#/article/quartermaster_cornburary</code> (characters). Site sheet: <code>#/sheets/quartermaster_cornburary</code>.</p>",
         "public": ""
       }
     },
@@ -305,7 +305,7 @@
         }
       },
       "ath": {
-        "value": 0,
+        "value": 1,
         "ability": "str",
         "roll": {
           "min": null,
@@ -344,7 +344,7 @@
         }
       },
       "ins": {
-        "value": 1,
+        "value": 0,
         "ability": "wis",
         "roll": {
           "min": null,
@@ -357,7 +357,7 @@
         }
       },
       "itm": {
-        "value": 0,
+        "value": 1,
         "ability": "cha",
         "roll": {
           "min": null,
@@ -383,7 +383,7 @@
         }
       },
       "med": {
-        "value": 1,
+        "value": 0,
         "ability": "wis",
         "roll": {
           "min": null,
@@ -409,7 +409,7 @@
         }
       },
       "prc": {
-        "value": 0,
+        "value": 1,
         "ability": "wis",
         "roll": {
           "min": null,
@@ -448,7 +448,7 @@
         }
       },
       "rel": {
-        "value": 1,
+        "value": 0,
         "ability": "int",
         "roll": {
           "min": null,
@@ -518,13 +518,13 @@
     "resources": {}
   },
   "prototypeToken": {
-    "name": "X.O.",
+    "name": "Quartermaster Cornburary",
     "displayName": 0,
     "actorLink": false,
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "portraits/xo.jpg",
+      "src": "portraits/quartermaster_cornburary.jpg",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -536,7 +536,7 @@
     "lockRotation": false,
     "rotation": 0,
     "alpha": 1,
-    "disposition": 0,
+    "disposition": -1,
     "displayBars": 0,
     "bar1": {
       "attribute": "attributes.hp"
@@ -547,13 +547,13 @@
   },
   "items": [
     {
-      "_id": "BKSUElyFHKNEZT1T",
-      "name": "Mace",
+      "_id": "6T5wxECXpR8LByVv",
+      "name": "Crossbow",
       "type": "weapon",
-      "img": "icons/weapons/maces/mace-round-steel.webp",
+      "img": "icons/weapons/crossbows/crossbow-simple-brown.webp",
       "system": {
         "description": {
-          "value": "<p>Mace; melee weapon attack.</p>",
+          "value": "<p>Crossbow; ranged weapon attack.</p><p><em>Record:</em> “Without Cornburary's stamp, no Colour Division squad gets fresh rations, crossbow bolts, or replacement armor straps.”</p>",
           "chat": ""
         },
         "source": {
@@ -578,8 +578,8 @@
         "identified": true,
         "cover": null,
         "range": {
-          "value": null,
-          "long": null,
+          "value": 80,
+          "long": 320,
           "units": "ft",
           "reach": null
         },
@@ -606,10 +606,10 @@
           },
           "base": {
             "number": 1,
-            "denomination": 6,
+            "denomination": 8,
             "bonus": "",
             "types": [
-              "bludgeoning"
+              "piercing"
             ],
             "custom": {
               "enabled": false,
@@ -631,9 +631,13 @@
           "dt": null,
           "conditions": ""
         },
-        "properties": [],
+        "properties": [
+          "amm",
+          "lod",
+          "two"
+        ],
         "type": {
-          "value": "simpleM",
+          "value": "simpleR",
           "baseItem": ""
         },
         "container": null,
@@ -705,14 +709,14 @@
               "recovery": []
             },
             "attack": {
-              "ability": "str",
+              "ability": "dex",
               "bonus": "",
               "critical": {
                 "threshold": null
               },
               "flat": false,
               "type": {
-                "value": "melee",
+                "value": "ranged",
                 "classification": "weapon"
               }
             },
@@ -743,47 +747,7 @@
       }
     },
     {
-      "_id": "P8pAR7DCm0uIGfUg",
-      "name": "Shadow Step",
-      "type": "feat",
-      "img": "icons/magic/perception/shadow-stealth-eyes-purple.webp",
-      "system": {
-        "description": {
-          "value": "<p>Bonus action: teleport up to 30 feet to an unoccupied space it can see that is in dim light or darkness. The archive records arrivals nobody saw walk in.</p>",
-          "chat": ""
-        },
-        "type": {
-          "value": "monster",
-          "subtype": ""
-        },
-        "activation": {},
-        "duration": {},
-        "target": {},
-        "range": {},
-        "uses": {
-          "spent": 0,
-          "max": "",
-          "recovery": []
-        },
-        "activities": {},
-        "source": {
-          "custom": "Waluipedia campaign",
-          "book": "",
-          "page": "",
-          "license": "",
-          "revision": 1,
-          "rules": "2024"
-        }
-      },
-      "effects": [],
-      "flags": {},
-      "sort": 200000,
-      "ownership": {
-        "default": 0
-      }
-    },
-    {
-      "_id": "CBv1u4LFKDF9kD4b",
+      "_id": "7N3fhs2skDmKapqG",
       "name": "Leadership",
       "type": "feat",
       "img": "icons/sundries/flags/banner-flag-blue.webp",
@@ -822,19 +786,59 @@
       },
       "effects": [],
       "flags": {},
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "EVae3pbn8XADOpv9",
+      "name": "Frightful Presence",
+      "type": "feat",
+      "img": "icons/magic/control/fear-fright-monster-grin-red-orange.webp",
+      "system": {
+        "description": {
+          "value": "<p>Each creature of its choice within 30 feet that can see it must succeed on a DC 13 Wisdom saving throw or be frightened for 1 minute (repeat the save at the end of each turn). Recharges after a short rest.</p>",
+          "chat": ""
+        },
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "activation": {},
+        "duration": {},
+        "target": {},
+        "range": {},
+        "uses": {
+          "spent": 0,
+          "max": "",
+          "recovery": []
+        },
+        "activities": {},
+        "source": {
+          "custom": "Waluipedia campaign",
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        }
+      },
+      "effects": [],
+      "flags": {},
       "sort": 300000,
       "ownership": {
         "default": 0
       }
     },
     {
-      "_id": "rsWBzwduVSiozsuB",
-      "name": "Keen Records",
+      "_id": "HzKOlD5PnVtUbWO8",
+      "name": "Iron Discipline",
       "type": "feat",
-      "img": "icons/tools/scribal/ink-quill-pink.webp",
+      "img": "icons/skills/melee/shield-block-gray-orange.webp",
       "system": {
         "description": {
-          "value": "<p>Has advantage on Intelligence (History) and (Investigation) checks about anything it has filed, and can recall any document it has read in the last year word for word.</p>",
+          "value": "<p>While within 5 feet of an ally, gains +2 AC and advantage on saving throws against being frightened.</p>",
           "chat": ""
         },
         "type": {
@@ -866,46 +870,6 @@
       "ownership": {
         "default": 0
       }
-    },
-    {
-      "_id": "V62rqbMXG7V7iAHx",
-      "name": "Faithful Spellcasting",
-      "type": "feat",
-      "img": "icons/magic/holy/prayer-hands-glowing-yellow.webp",
-      "system": {
-        "description": {
-          "value": "<p>Spellcasting ability Wisdom (spell save DC 12, +5 to hit with spell attacks). At will: <em>guidance, sacred flame, thaumaturgy</em>. 1st level (4 slots): <em>bless, cure wounds, command</em>. 2nd level (2 slots): <em>lesser restoration, spiritual weapon</em>.</p>",
-          "chat": ""
-        },
-        "type": {
-          "value": "monster",
-          "subtype": ""
-        },
-        "activation": {},
-        "duration": {},
-        "target": {},
-        "range": {},
-        "uses": {
-          "spent": 0,
-          "max": "",
-          "recovery": []
-        },
-        "activities": {},
-        "source": {
-          "custom": "Waluipedia campaign",
-          "book": "",
-          "page": "",
-          "license": "",
-          "revision": 1,
-          "rules": "2024"
-        }
-      },
-      "effects": [],
-      "flags": {},
-      "sort": 500000,
-      "ownership": {
-        "default": 0
-      }
     }
   ],
   "effects": [],
@@ -916,54 +880,49 @@
   "flags": {
     "waluipedia-mass-import": {
       "folderPath": [
-        "Mages' Guild"
+        "Iron Legion"
       ],
       "source": "tools/build-character-sheets.py"
     },
     "waluipedia-sheets": {
-      "characterId": "xo",
+      "characterId": "quartermaster_cornburary",
       "generated": true,
       "bespoke": false,
-      "role": "priest",
+      "role": "officer",
       "ledger": {
-        "level": 2,
-        "powerLevel": 5
+        "level": null,
+        "powerLevel": null
       },
       "evidence": [
         {
-          "feature": "Mace",
-          "quote": "The Divine Daughter",
-          "source": "title"
-        },
-        {
-          "feature": "Shadow Step",
-          "quote": "The Swiftsoul incident bears hallmarks of X.O.'s influence: - The 'Burn Notice' protocol was reportedly demanded by X.O. for dramatic effect, overruling more pragmatic options - The elaborate framing of",
+          "feature": "Crossbow",
+          "quote": "Without Cornburary's stamp, no Colour Division squad gets fresh rations, crossbow bolts, or replacement armor straps.",
           "source": "article"
         },
         {
           "feature": "Leadership",
-          "quote": "Active — wielding influence within the Iron Fists Guild through her mother Commander G",
+          "quote": "Waluigi has audited commanders, sorcerers, tax collectors, and vampires, but Quartermaster Cornburary is a specific kind of dangerous: the bureaucrat who will read you an equipment clause while your boots are on fire.",
           "source": "article"
         },
         {
-          "feature": "Keen Records",
-          "quote": "Underworld analysts use the term 'Kamidere' to describe X.O.'s personality type: someone who genuinely believes themselves to be divine or semi-divine, expects worship from those around them, and reacts with extreme",
+          "feature": "Frightful Presence",
+          "quote": "His complete refusal to acknowledge the supernatural makes him both absurd and terrifyingly stubborn—the kind of man who would file a lien against a burning church before asking for a bucket.",
           "source": "article"
         },
         {
-          "feature": "Spellcasting",
-          "quote": "The Divine Daughter",
-          "source": "title"
+          "feature": "Iron Discipline",
+          "quote": "Quartermaster of the Iron Legion Cordon Division, Logistics & Requisition Auditor",
+          "source": "article"
         }
       ],
       "tags": [
-        "Mages' Guild",
+        "Iron Legion",
         "npc",
-        "priest",
+        "officer",
         "humanoid",
         "generated"
       ],
-      "color": "#8A2BE2"
+      "color": "#ADB5BD"
     }
   },
   "_stats": {

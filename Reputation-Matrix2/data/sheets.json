@@ -9,11 +9,11 @@
     "folderScheme": "actors/folders.json",
     "castImport": "actors/cast/import.json",
     "counts": {
-      "characters": 255,
-      "sheets": 249,
-      "generated": 1,
+      "characters": 257,
+      "sheets": 251,
+      "generated": 2,
       "eras": 3,
-      "existing": 248,
+      "existing": 249,
       "party": 18,
       "skipped": 6
     },
@@ -2990,6 +2990,85 @@
       "versions": []
     },
     {
+      "id": "july_summer_miser",
+      "name": "July Summer Miser",
+      "title": "The Summer Witch, Founder of the Jul'library, Adept of the Witches Gathering",
+      "sheetName": "July Summer Miser",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-july_summer_miser.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Elsewhere",
+      "portrait": "portraits/july_summer_miser.png",
+      "ledger": {
+        "level": 7,
+        "powerLevel": 12
+      },
+      "role": "caster",
+      "bespoke": true,
+      "evidence": [
+        {
+          "feature": "Conjurer's Quench-Staff",
+          "quote": "While Jack took to the sword and the Silver Flame's rigid muster roll to feed the cottage, and Archie was consumed by unstable third-eyed pyromancy, July mastered the disciplined geometry of the School of Conjuration.",
+          "source": "article"
+        },
+        {
+          "feature": "Benign Transposition",
+          "quote": "Patient, sharp-eyed, and carrying the household's emotional weight beneath a tall pointed witch's hat, she commands spatial transposition with clinical precision and keeps an owl familiar named Barnaby watching the tree",
+          "source": "article"
+        },
+        {
+          "feature": "Founder of the Jul'library",
+          "quote": "She founded the Jul'library—a roaming repository and scriptorium of bound spaces and extraplanar compendiums based out of Vellanet Rise—and maintains close ties with the Witches Gathering, a loose fellowship of Midlands",
+          "source": "article"
+        },
+        {
+          "feature": "Barnaby the Owl Familiar",
+          "quote": "Patient, sharp-eyed, and carrying the household's emotional weight beneath a tall pointed witch's hat, she commands spatial transposition with clinical precision and keeps an owl familiar named Barnaby watching the tree",
+          "source": "article"
+        },
+        {
+          "feature": "Witches Gathering Fellowship",
+          "quote": "The Summer Witch, Founder of the Jul'library, Adept of the Witches Gathering",
+          "source": "article"
+        },
+        {
+          "feature": "School of Conjuration Spellcasting",
+          "quote": "While Jack took to the sword and the Silver Flame's rigid muster roll to feed the cottage, and Archie was consumed by unstable third-eyed pyromancy, July mastered the disciplined geometry of the School of Conjuration.",
+          "source": "article"
+        }
+      ],
+      "kind": "pc",
+      "abilities": {
+        "str": 10,
+        "dex": 14,
+        "con": 14,
+        "int": 18,
+        "wis": 14,
+        "cha": 12
+      },
+      "hp": 44,
+      "speed": "30",
+      "size": "med",
+      "items": 10,
+      "ac": 15,
+      "level": 7,
+      "classes": [
+        "Wizard 7"
+      ],
+      "species": "Human",
+      "pc": {
+        "level": 7,
+        "class": "Wizard",
+        "subclass": "School of Conjuration",
+        "cr": 7,
+        "hitDie": "d6",
+        "formula": "7d6 + 14"
+      },
+      "versions": []
+    },
+    {
       "id": "kamek",
       "name": "Kamek",
       "title": "The Fallen Regent",
@@ -5258,6 +5337,64 @@
       "ac": 10,
       "cr": 0.125,
       "type": "monstrosity (Bone-Line kin)",
+      "versions": []
+    },
+    {
+      "id": "quartermaster_cornburary",
+      "name": "Quartermaster Cornburary",
+      "title": "Quartermaster of the Iron Legion Cordon Division, Logistics & Requisition Auditor",
+      "sheetName": "Quartermaster Cornburary",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-quartermaster_cornburary.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Iron Legion",
+      "portrait": "portraits/quartermaster_cornburary.jpg",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "officer",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Crossbow",
+          "quote": "Without Cornburary's stamp, no Colour Division squad gets fresh rations, crossbow bolts, or replacement armor straps.",
+          "source": "article"
+        },
+        {
+          "feature": "Leadership",
+          "quote": "Waluigi has audited commanders, sorcerers, tax collectors, and vampires, but Quartermaster Cornburary is a specific kind of dangerous: the bureaucrat who will read you an equipment clause while your boots are on fire.",
+          "source": "article"
+        },
+        {
+          "feature": "Frightful Presence",
+          "quote": "His complete refusal to acknowledge the supernatural makes him both absurd and terrifyingly stubborn—the kind of man who would file a lien against a burning church before asking for a bucket.",
+          "source": "article"
+        },
+        {
+          "feature": "Iron Discipline",
+          "quote": "Quartermaster of the Iron Legion Cordon Division, Logistics & Requisition Auditor",
+          "source": "article"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 15,
+        "dex": 13,
+        "con": 14,
+        "int": 12,
+        "wis": 13,
+        "cha": 14
+      },
+      "hp": 45,
+      "speed": "30",
+      "size": "med",
+      "items": 4,
+      "ac": 14,
+      "cr": 2,
+      "type": "humanoid (human)",
       "versions": []
     },
     {
@@ -9329,9 +9466,9 @@
       "id": "xo",
       "name": "X.O.",
       "title": "The Divine Daughter",
-      "sheetName": "X.O.",
-      "source": "generated",
-      "file": "actors/cast/fvtt-Actor-xo.json",
+      "sheetName": "P.S",
+      "source": "live",
+      "file": "actors/worlds/midlands/Mages' Guild/fvtt-Actor-p-s-6apfRNEMlsKmxc5Y.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -9341,35 +9478,6 @@
         "level": 2,
         "powerLevel": 5
       },
-      "role": "priest",
-      "bespoke": false,
-      "evidence": [
-        {
-          "feature": "Mace",
-          "quote": "The Divine Daughter",
-          "source": "title"
-        },
-        {
-          "feature": "Shadow Step",
-          "quote": "The Swiftsoul incident bears hallmarks of X.O.'s influence: - The 'Burn Notice' protocol was reportedly demanded by X.O. for dramatic effect, overruling more pragmatic options - The elaborate framing of",
-          "source": "article"
-        },
-        {
-          "feature": "Leadership",
-          "quote": "Active — wielding influence within the Iron Fists Guild through her mother Commander G",
-          "source": "article"
-        },
-        {
-          "feature": "Keen Records",
-          "quote": "Underworld analysts use the term 'Kamidere' to describe X.O.'s personality type: someone who genuinely believes themselves to be divine or semi-divine, expects worship from those around them, and reacts with extreme",
-          "source": "article"
-        },
-        {
-          "feature": "Spellcasting",
-          "quote": "The Divine Daughter",
-          "source": "title"
-        }
-      ],
       "kind": "npc",
       "abilities": {
         "str": 10,

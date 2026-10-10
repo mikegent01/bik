@@ -315,50 +315,6 @@
         }
       }
     },
-    "iron-legion": {
-      "folder": "Iron Legion",
-      "description": "The Iron Cordon Brigade (actors/iron-legion, built by tools/build-forge-packets.py from data/forge/iron-legion.json): border patrol units, surveillance machines, and magitek combat automata deployed along contested Midlands war borders.",
-      "subfolders": {
-        "Cordon Command": {
-          "color": "#6C757D",
-          "description": "Command officers, protocol commissars, and reconnaissance lieutenants directing cordon operations."
-        },
-        "Frontline Patrol": {
-          "color": "#ADB5BD",
-          "description": "Heavy shock legionnaires, trench sappers, and syringe combat chirurgeons enforcing the border cordon."
-        },
-        "Surveillance & Recon": {
-          "color": "#8A96A3",
-          "description": "Star-bit scanning drones, medical support skitter-bots, and clockwork tracking hounds monitoring anomalous border crossings."
-        },
-        "Magitek Automata": {
-          "color": "#495057",
-          "description": "Heavy pacification constructs, bipedal sentry striders, and tracked barricade deployers."
-        }
-      }
-    },
-    "regal-lion": {
-      "folder": "Iron Legion",
-      "description": "The Regal Lion — Raventree Manor Occupation Force (actors/regal-lion, built by tools/build-forge-packets.py from data/forge/regal-lion.json): Byscilla Danos's field command, knightly sentries, manor gatekeepers, and heavy war beasts holding the fractured estate.",
-      "subfolders": {
-        "Manor Command": {
-          "color": "#B8860B",
-          "description": "Byscilla Danos and operational officers directing the containment and survey of Raventree Manor."
-        },
-        "Regal Lion Knights": {
-          "color": "#DAA520",
-          "description": "Sworn knights, halberdiers, and arbalests of the Regal Lion maintaining the estate perimeter."
-        },
-        "Manor Wardens": {
-          "color": "#8B7355",
-          "description": "Greenhouse sentries, gatekeepers, and goblin scouts watching the grounds and rust-monster nests."
-        },
-        "Heavy Beasts & Auxiliaries": {
-          "color": "#800000",
-          "description": "Armored pride-lions, gate-breaker ogres, and heavy iron colossi guarding the courtyard and gates."
-        }
-      }
-    },
     "foundry-trinity-academy": {
       "folder": "Trinity Academy",
       "description": "Trinity Academy (actors/foundry-trinity-academy, built by tools/build-forge-packets.py from the NPC Forge roster data/forge/foundry-trinity-academy.json).",
