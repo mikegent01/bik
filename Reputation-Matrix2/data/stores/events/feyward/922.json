@@ -1,0 +1,886 @@
+[
+  {
+    "id": "feyward_battalion_of_six_and_the_bait_plan",
+    "name": "The Battalion of Six",
+    "title": "The Feyward Session Where Hjumpik Was Handed Six People at Breakfast, Named Five of Them Wrong, Lost Two Before the Roll Call, Ordered Nobody to Shoot Anybody on Purpose, Watched Waluigi Water a Tree, Held a Corridor with a Waiter and a Goblin, Read the Revel Its Own Evacuation Order Back to It, and Ended the Night Arguing About Which Living Creature Should Run at a Monster First",
+    "date": "1 Aethel, 922 BF (Feyward clock) — from the morning after the map until the wood came through the wall; the Material stood in 1040 BF, and the cutting lane outside was having its own night on the same clock, which is why nobody in the manor could say what hour it was",
+    "era": "Raventree Crisis — Feyward Operations / The Battalion of Six",
+    "location": "The Overgrown Manor — the heir's war room and map table, the outside wall walk, the lower service hall, the kitchen, the mushroom coat room door, and the corridor the wood came through",
+    "type": "Feyward Small-Unit Command / Casualty Management / Four Engagements / Bait Planning",
+    "status": "Unresolved — four engagements fought, the wood pushed back one corridor, the bait plan agreed and not yet executed; the Revel has not ended and has issued an evacuation order for its own house",
+    "summary": "The morning after the map, the heir of the manor handed Hjumpik six people and a pincer. Two of the six were already dead, one of them a waiter, and the dwarf spent the rest of the day trying to keep the other four alive with an order that lasted four minutes: no friendly fire, please. Waluigi was made second-in-command, disputed the wording, and put an ice lance the length of a hallway into a tree that drank it. The wood came through the wall anyway. The Revel evacuated its own house on its own authority and everybody obeyed. The session ends in the war room with a plan, a bait, and the name of a dead dwarf nobody in the archive had ever heard of: Piktor Deldkur the Third.",
+    "description": "# SIX NAMES, ONE HAMMER, AND A FAIRY WITH A BRUISED WING\n### Filed by Waluigi, Auditor-General, Second-in-Command (Disputed), from a chair he was ordered to sit in\n\n> **Filing note.** This session continues directly from [the night of the OC ring](feyward_chop_bros_soul_ring_and_the_guard_with_no_name), which ended with the whole party standing around the heir's tactical map. It begins at that map, the next morning, and ends with a plan. Outside the walls, on the same unreliable clock, the cutting expedition was having its own night — filed separately as [Woodfellow vs. the Treant](feyward_woodfellow_vs_the_treant). The two records overlap. Neither clock agrees with the other, and the Feyward has never once apologised for it.\n\nWaluigi was in the war room for the first hour and in a bathroom for the second, and he intends to address the bathroom before somebody else does. It was a legitimate absence. It was tactically defensible. It had running water.\n\nWhat follows is a session about command. Not about who deserved it — nobody in that house deserved anything — but about what happens when a dwarf is handed six people at breakfast and told to spend them well. He spent them. Two were already dead before the roll call. One was a waiter. One of the living six put a longsword through one of the others by accident, twice, in front of everyone, and the dwarf's entire response was to ask for more brain cells.\n\nThe record of who gave the order survives: [[prop:prop_feyward_sixth_detachment_commission|a commission written in a hurry on the back of a barrel tally]], signed by nobody, listing six names and one struck through.\n\nThe wood came through the wall at some point in the middle of all this. That is filed too, because it happened, but it is not what the session was about. The session was about the argument at the end of it, in a room with a table, over which living creature should run at a monster first.\n",
+    "sections": [
+      {
+        "name": "Who Needs the Most Directive",
+        "icon": "🍺",
+        "subtitle": "the war room, morning, and the morale problem nobody wanted to name",
+        "overview": "The map took the whole table and the morning took the whole window. Grey Feyward light came in low across the pins, and dust from the mortar they had all climbed the night before was still settling on the sixth division's ink.\n\nThe heir stood at the head of it with both hands flat on the wood, and the party stood around him in the specific arrangement of people who have been awake too long: Hjumpik square-on, arms folded; Toad Lee leaning on his axe with his chin on his fist; Waluigi seated, because Waluigi had claimed the only chair before anyone thought to check whether the chair was claimed.\n\n“The question,” Hjumpik said, “is who needs the most directive.”\n\nSomebody at the door said the house was half drunk and half lazy, and that the drunk half was at least standing up. A guard with a towel over his elbow agreed. Another said the barrels were gone, all of them, splintered under a tree, and that the house had gone dry in a single night the way a pond goes dry in a summer.\n\n“So we get more,” said the first guard.\n\n“More drink.”\n\n“For morale.”\n\n“It grows,” Hjumpik said. He did not raise his voice. He said it the way a man reads a number off a page. “You feed it, it grows. Then the Revel is bigger and we are still this tired. That is the whole arithmetic.”\n\nThe room went quiet in the way rooms do when the arithmetic is correct and nobody likes it. Someone said, quietly, *not the Revel*. Hjumpik turned the idea over out loud: not the Revel — the Revelmaster. Go for the one holding the music.\n\n“Then they turn on us,” said the guard with the towel. “Every soul in this house. You take the music away from a Revel and you are not a liberator, you are the man who stopped the party.”\n\n“They won't turn on us if we're helping them,” Hjumpik said. “We take the plant out of their house. That is help. That is a favour with teeth in it.”\n\n“And after?”\n\n“After,” said the dwarf, “we worry about after.”\n\n*WAH. I sat through that whole table. I have sat through four hundred negotiations and this is the first one conducted entirely in the future tense. Feed it, it grows. Take the music, they riot. Help them, they might not notice. Every answer in that room was a bill with the amount left blank, and every man at that table signed anyway. I did not stop them.*\n",
+        "waluigi_note": "The war room reached its operating principle before it reached its plan: act now, price it later. That is not stupidity. It is what a house does when the alternative to acting is listening to the music for one more day."
+      },
+      {
+        "name": "The Dwarf Way",
+        "icon": "🪓",
+        "subtitle": "top to bottom, not all at once",
+        "overview": "Hjumpik pointed at the prince with his chin. “He has some say, right. Mr. Prince.”\n\nThe heir of the manor looked up off his map like a man being handed a rope at the exact moment he had decided to stop drowning.\n\n“You have to be strategic,” he said. “Hit them fast and hard. The dwarf way.”\n\n“That's not strategic,” said Hjumpik.\n\n“That is very much the dwarf way,” said Waluigi, from the chair.\n\nThe prince's hand came down on the map and stopped moving. Then he began, and for the first time in three sessions he sounded like somebody who had been taught this by a person.\n\n“Strategic,” he said, “is that you use your brain. Top to bottom. Not all at the same time.” His finger walked the ink. “The monster is going for the middle. Everything it does, it does at the middle — that is where the house is thickest, that is where the food is. So we do not go to the middle. We go around.”\n\nHe drew it in the air with two fingers, a wide pair of arms closing.\n\n“Pincer,” Hjumpik said.\n\n“From the back,” the prince agreed. “Maybe.”\n\n“We can try,” said the dwarf, and the whole room leaned in, because *we can try* out of Hjumpik is a promise with a signature on it.\n\nThe heir straightened. He had been not-drinking for days and it showed in the way he held his own sleeves, and he said the next part quickly, as if it might be taken back from him.\n\n“Alright. I'll allow you to command a unit. Get five, six people. Lead a charge from whatever point you need. We will figure out the rest with the others from there.”\n\nSix people. In a manor of several hundred, mostly fairies, most of them dancing. Six.\n\nToad Lee straightened off his axe. Waluigi sat up in the stolen chair.\n",
+        "waluigi_note": "Six people. In a manor of several hundred, mostly fairies, most of them dancing, the heir could find six to give away — and gave them to the only person in the room who had never once asked for anything. He had slept less than any of them and still produced the only coherent sentence of the week."
+      },
+      {
+        "name": "Guard the Window",
+        "icon": "🪟",
+        "subtitle": "the guard who ran, the shaking floor, and a route refused",
+        "overview": "The kitchen-sill guard was still in the room, apron over breastplate, towel over elbow, trying very hard to look like furniture.\n\nHjumpik looked at him the way a man looks at a tool he has already decided to use.\n\n“Guard the window,” he said.\n\nIt was the same guard who had gone out of a top-floor window ahead of a hundred-foot flower and landed in a hedge with his dignity mostly intact. The whole house knew. The hedge knew.\n\n“If you're strong,” Hjumpik added, kindly, which was worse, “we can use all the hands we can.”\n\n“Hm,” said the guard. “I guess.”\n\nThen the floor moved.\n\nNot a shudder — a *movement*, the whole room lifting an inch and setting itself down again, and the pins on the map skittered half a hand's width toward the window. Dust came off the rafters in a thin grey curtain. Somewhere far off, wood screamed the way wood screams: one long crack, then a sound like a table being folded.\n\n“What was that,” said Toad Lee. “It's getting closer.”\n\n“I'm not sure. It started shaking.”\n\n“That is not an answer, that is the same thing said twice.”\n\nThe Oracle arrived in the doorway without arriving — one moment the frame was empty, the next it was not, and nobody in the room could afterwards say which direction it had come from. It said that the Revel one was having trouble. It said it the way weather reports say *rain*. Then it turned to go and clearly expected to be followed.\n\nHjumpik did not follow.\n\n“No,” he said. “No, no, no. We go from the outside wall.”\n\n*WAH. Somebody has to say it: the Oracle offered this party a direct route to the Revel and the dwarf said NO, WE'LL TAKE THE LONG WAY, and then walked off. Waluigi has filed that decision under BOTH COLUMNS. Correct, probably. Also the single most expensive sentence spoken in this manor.*\n",
+        "waluigi_note": "Hjumpik refused a guided path from the one entity in three planes that has never once lied to him directly. He did it because a guided path puts the guide in charge of the destination. That is a real principle. It is also, on this map, a six-hour detour through a house full of things that eat corridors."
+      },
+      {
+        "name": "The Door Full of Thirst",
+        "icon": "🚪",
+        "subtitle": "a mob, a slur, and a prophecy",
+        "overview": "Outside the war room the corridor was loud, and the loud had a shape: forty-odd fairies and housefolk pressed against a door they could not open, arguing with it. Hands flat on the wood. Breath on the panel. Somebody's knuckles going again, and again, and again.\n\n— *open it. Open the door.* — *there's drink behind that.* — *there's a tree behind that.* — *there's DRINK behind that.*\n\nHjumpik went into the middle of it the way a wedge goes into a log, and the log opened.\n\n“There is no drink,” he said. “The barrels are splinters. The splinters are under a tree. Go help somebody.”\n\nA satyr with a wine-stained tunic got close enough to smell. “You,” he said. “You can't command anything. You're too broody.”\n\n“Broody.”\n\n“You stand in corners. You look at walls. It's off-putting.”\n\nHjumpik considered this with total seriousness, the way he considers everything, which is the reason people keep telling him things.\n\n“I might be in charge of them soon,” he said.\n\nThe satyr laughed. The corridor laughed with him, in that rolling way crowds do, and then the corridor lost interest, which is the only thing crowds are better at than laughing. They went back to the door. Somebody started singing. It was, unavoidably, the Revel's song, and three of them knew the words.\n\nHjumpik turned away from the mob and found the two house guards stationed at the foot of the stair, and asked them the question that would define the next four hours.\n\n“Where's my battalion?”\n\nThe guards looked at each other. Then they stepped aside — not out of the way, exactly, but out of the *middle* — and one of them said, with the exhausted courtesy of a man delivering bad news he did not write:\n\n“It's dangerous down there, sir.”\n\n*Waluigi has now watched a dwarf ask for an army twice in one week. The first time he was given a map. The second time he was given a hallway and a warning. The manor does not have armies. The manor has whatever is standing near the door when somebody asks.*\n"
+      },
+      {
+        "name": "With My Brawn and Your Brains",
+        "icon": "🤝",
+        "subtitle": "the recruitment of Toad Lee, and the body already in the hall",
+        "overview": "Waluigi stood up out of the stolen chair and said, in the tone of a man proposing a joint venture, that he wanted to be careful.\n\n“Careful,” said Hjumpik.\n\n“Careful.”\n\n“With my brawn,” said the dwarf, “and your brains, we will make it through.”\n\nIt was, Waluigi will admit, one of the more accurate sentences anyone has ever said to him, and it landed badly precisely because of that. He accepted it with a sniff and a straightening of his collar.\n\nThey went down the stair into air that got colder every step, dust drifting in the thin grey light from a window nobody had bothered to glaze. Halfway along the lower corridor Waluigi stopped, turned around, and shouted back up into the gloom.\n\n“TOAD LEE.”\n\nThe Toad came around a corner at a dead run, axe over one shoulder, cap askew, arriving with two full strides to spare — because, as the record must state plainly, nobody had asked him, and he had simply attached himself to the party on the assumption that somebody eventually would. He was almost left in a corridor with a mushroom in it.\n\n“I heard my name,” he said, breathing hard.\n\n“You heard half of it,” said Waluigi.\n\n“That's the important half.”\n\nThey reached the muster point: a service hall with a cracked tile floor, a rack of unused serving cloths, and the smell of a house that had stopped cooking. Six people stood in it, in no formation, holding what they had.\n\n“So,” said Waluigi, surveying his new command with the eye of a man appraising a very disappointing estate, “my new battalion.”\n\n“Don't kill them,” said Hjumpik.\n\n“That is a low bar and Waluigi is offended by how low it is.”\n\nThen the door at the end of the service hall opened and a house guard came out carrying a body the way staff carry anything heavy: with both arms, chin tucked, no ceremony available.\n\nGreen skin. Green livery under it. A goblin, small, still dressed for service, one shoe missing.\n\n“Who died,” Hjumpik said.\n\n“One of the green goblins,” said the guard, and set him down against the wall with a care that was almost an apology.\n\n“It *was* a green goblin.”\n\n“Sir.”\n\nWaluigi looked at the dead goblin's cuffs. They were folded. Somebody had folded them.\n\n“Why,” he said, “are butlers fighting.”\n\nNobody answered, because the answer was in the room with them: because there was nobody else. The house had spent its guards on the foyer, its fairies on the Revel, and its tree cutters on the lane, and what was left was a waiter, two goblins off the silver, and a pair of guards who had drawn the short corridor.\n\n“It's not a perfect team,” Hjumpik said, “but this is what we have.”\n\n“They're scraping the barrel,” said Waluigi.\n\n“There *is* no barrel. The tree got the barrels.”\n\n“Then they are scraping the floor, and Waluigi's metaphor survives on a technicality.”\n\n“What's the problem,” Hjumpik said.\n\n“The problem,” said Waluigi, with great pleasure, “is that there is a plant monster, and two dead.”\n\nThe dwarf looked down at the small green body with the folded cuffs.\n\n“Sorry. Some of them died. We're trying to make zero casualties with me in command.” And then, quietly, to nobody, “Ho ho ho.”\n\n*Waluigi has attended the funerals of kings, hedge funds, and one extremely expensive hat. This is the first he has attended where the deceased was still holding a serving cloth. Fold the cuffs. That is what you do when there is nothing else to do.*\n",
+        "waluigi_note": "Recruitment method, for the record: one Toad, summoned by shouting his name up a stairwell. No muster, no roll, no oath — a dwarf, a liar, a Toad with an axe, and six people who happened to be indoors. Two were dead before the roll call. The archive has one name for them, a green goblin of the household staff, and no name at all for the second."
+      },
+      {
+        "name": "Technically",
+        "icon": "📜",
+        "subtitle": "the command dispute, and a plea remembered at the worst possible moment",
+        "overview": "“What,” said Waluigi, “I thought *I* was in command.”\n\n“We're both in command,” said Hjumpik. “Technically I'm in command. You're my advisor.”\n\n“What advisor. This is worse than WarioWare.”\n\n“Don't worry. You have more power than WarioWare.” The dwarf's beard twitched, which is where his grin lives. “I guess you'll direct me if anything goes wrong. You take command.”\n\nIt was a good offer. It was also, and this is the part the archive must preserve exactly, an offer made in the same breath as the sentence that ended it. Because Waluigi heard *you take command* and answered with the only thing he has ever actually wanted from this dwarf, which is to be listened to.\n\n“Like how you listened,” he said, “during the planar fracture ritual that caused this? To my pleas?”\n\nThe corridor went very still. The six recruits looked at their boots. Somewhere above them the floor moved again, an inch, and set itself down.\n\nHjumpik did not flinch. He also did not look away, which is worse, because it meant he had already thought about it.\n\n“Hm. You could write that in your wahbook or something.” A pause. “But it's not just that. Okay. No need to argue — we got plant monsters coming out.”\n\nAnd Waluigi, who has been called many things by many governments and none of them *advisor*, wrote it down.\n\nHe has the leaf with him now: [[prop:prop_wahbook_command_dispute|one page, in his own hand, headed TECHNICAL]], with the plea transcribed in full beneath it and the word *technically* underlined twice.\n\n“Hm,” he said. “Partial. Fine.”\n\n*WAH! There it is. I said it. I asked him if he had listened during the ritual that caused this. He told me to write it in the wahbook. I wrote it in the wahbook. I always write it in the wahbook. Two men, one hammer, one staff, and a disagreement about who is driving that has now outlived three monsters, one fire, and a calendar.*\n"
+      },
+      {
+        "name": "Randall, Brad, Timmy, Hank, Wyatt",
+        "icon": "📋",
+        "subtitle": "a roll call in which every name is a disappointment to somebody",
+        "overview": "“Names,” said a goblin.\n\n“Sure,” said Hjumpik.\n\nThey went around the circle, six pairs of boots on cracked tile in a hall cold enough to see your breath in. The guard was Randall. The guard after him said his name, once, into the cold. The waiter was Brad, hands still red from a sink he had not stood at in three days. The top guard — the one standing tallest, on purpose, so that somebody would notice he was standing tallest — was Timmy. The goblin with a folded handkerchief in his breast pocket was Hank; the linen was white and square and the only clean thing in the room. The goblin with the white hair was Wyatt.\n\n“You have common names,” Hjumpik said.\n\n“Well,” said the goblin, “fine. It's Randall.”\n\n“That is the same name.”\n\n“It's Randall *now*.”\n\nWaluigi made the list. He has always made the list. It took eleven seconds and it is the only document produced by this battalion that will outlive it.\n\n“Who put you in charge,” one of them asked.\n\n“The map master,” said Hjumpik.\n\n“*Whose* map master.”\n\n“O.C.'s map master.”\n\nThat settled it, in the way that two initials settle everything in this family. The recruits did not ask again. The authority had come down off the table in the war room — the heir's map, the heir's pins, the heir's officer — and arrived in a service hall as a dwarf who had been told he could have six.\n\n“You're under my control,” Hjumpik told them, “fortunately or unfortunately.”\n\nThen he gave the speech. It was not long. He is not a long man.\n\n“You're having issues. Some of you guys died. That's a shame. But right now we gotta pick ourselves back up.”\n\nToad Lee opened a door looking for somewhere to put the dead. It was the mushroom room — the poison one, the coat room that had already eaten a spy — and the mushrooms turned toward the light of the open door like an audience.\n\n“Leave the bodies in the hallway,” Hjumpik said.\n\nThey leaned them against the door. He looked at it.\n\n“Against the *wall*.”\n\nThey moved them against the wall.\n\n*WAH! I wrote the list. Randall, Brad, Timmy, Hank, Wyatt. The one after Randall said his name. I heard it. I am not printing a first hearing from this house until he says it twice — I have been burned by first-hearings here. That is not the record failing. That is me being careful.*\n",
+        "waluigi_note": "“The map master. O.C.'s map master.” Authority in this manor does not come from a person. It comes from a table with pins on it, and whoever is standing at the table when the asking happens. That is worth remembering: it is how the graft in this family has always worked."
+      },
+      {
+        "name": "First Order — The Leaves",
+        "icon": "🌿",
+        "subtitle": "up top of the wall, and the longsword that found the wrong goblin",
+        "overview": "“My first order,” Hjumpik said, “is to try to go up top of the wall. The Revel is the other side. Remove the leaves.”\n\nIt was, in its way, the most sensible thing said in the manor in a week. The Revel ate; the leaves were the mouth; the leaves were on the outside of the wall, in the cold grey air, where a man could reach them with his hands without being eaten first.\n\n“I'll let Brad and Hank take care of it,” said the dwarf, “and we can sit back and relax.”\n\n“No,” said Waluigi. “No, no. You should go there too.”\n\n“And what — you stay and watch?”\n\n“Waluigi stays and *directs*. It is a different verb and it is a better one.”\n\nHjumpik looked at him for a long moment, then at the six, and made the decision the record will judge him kindly for.\n\n“Two guards, two goblins. Timmy leads the charge.”\n\nTimmy straightened so hard his pauldron rang. And Hjumpik went with them — not behind them, not at the back, but shoulder-to-shoulder with a goblin holding a handkerchief and a waiter holding a carving knife — because he had said *pick ourselves back up* out loud, and dwarves are unable to say a thing out loud and then not do it.\n\nWaluigi remained in the service hall.\n\n“I'm checking something,” he announced. “Make sure nothing crazy goes down.”\n\n“Of course,” said Waluigi, to Waluigi. “I only make stylish decisions. Not crazy ones.”\n\n“No friendly fire, please,” Hjumpik called back, and sighed the sigh of a man who already knew.\n\nThen, at the top of the stair, backlit by the grey morning and holding a warhammer that had once been a bell:\n\n“Let's glorify the morning.”\n\n*WAH. Waluigi wishes to state, before the record states it for him, that at some point in the hour that follows he was in a bathroom. It had running water. It had a door that locked. In a house where the corridors eat people, that is not cowardice, that is *logistics*, and he will not be taking questions.*\n\n\n“TEAM,” Hjumpik roared, “AND AN ENEMY!”\n\nHe was pointing at a shrub. The shrub was moving. It came along the wall walk on a hundred small root-feet with the unhurried patience of a thing that has all morning, and every leaf on it turned, one after another, the way a crowd turns to watch a fight.\n\n“You know what to do!”\n\n“ENGAGE,” said Hank, and went.\n\nHe was picked up — actually lifted, feet leaving the stone — by Randall, who set him down three paces closer to the shrub, and Hank ran the rest of the way himself with a kitchen knife in each hand and his handkerchief still folded in his pocket. The first knife went in under a leaf-cluster. The shrub made a sound like a wet bedframe.\n\nIts rake came around flat and caught the house guard across the breastplate. Timmy roared and went in with the longsword, twice, in the good old multiattack way —\n\n— and both strokes landed on Hank.\n\nThe goblin went down under his own commander's sergeant like a sack dropped off a cart. He got up. He is a goblin; they get up. But something in him had gone thin, and Waluigi, watching from the stair, could see it: the small body shaking itself out and deciding, visibly, that the shrub was now the safer of the two things in the room.\n\n“HEY, GUARD,” Hjumpik shouted. “If you attack the goblin again and actually hit our own men —”\n\n“These guys are puny little things,” said Timmy, defensively, “they won't work unless you put oomf into them!”\n\n“You put oomf into *Hank*.”\n\n“He was in the way.”\n\n“He is on our side.”\n\n“He's very small.”\n\nHjumpik rubbed his face with a hand the size of a ham.\n\n“You guys need some more just — brain cells.” A beat. “That doesn't make much sense.”\n\n“No,” said Waluigi, “it really doesn't.”\n\n*Waluigi's doctrine has always been that the enemy is whoever is standing where you swing. He has said this at four different governments. Watching it happen to a goblin named Hank, from a staircase, at nine in the morning, has done more for his argument than any of his forty volumes.*\n",
+        "waluigi_note": "Two rounds, five turns, four attacks, no spells, one shrub. The only casualty of note was inflicted by the battalion on itself. Hjumpik's order was *no friendly fire please*; the order was given, heard, and immediately spent."
+      },
+      {
+        "name": "Your Job Isn't Over",
+        "icon": "🍃",
+        "subtitle": "the goblin who did nothing, and a leader who follows",
+        "overview": "When the shrub stopped moving — and it did stop, eventually, under enough knives that it ran out of places to be cut — Hjumpik turned around and found the sixth member of his battalion standing exactly where he had been standing at the start.\n\n“What do you do,” Hjumpik said.\n\nThe goblin shrugged. It was a magnificent shrug. It had shoulders in it.\n\n“You should have joined,” said the dwarf. “Cut some leaves. Do the small fry. Just keep moving — time's a-wasting.” He jerked his chin down the wall walk. “I think I saw another one around that door, running around.”\n\n“We will handle it,” said Waluigi, magnanimously, from a safe distance.\n\n“No, no, no,” said Hjumpik. “I'm your battalion leader. I'll follow you.”\n\nAnd he did. Which is the part of this filing Waluigi keeps coming back to, because it is so small and so completely against the man's interest: a dwarf who had been handed six people and could, at any point, have gone back to the war room and pointed at a map like a gentleman. He stayed on a cold wall walk with a waiter and two goblins, cutting leaves off the mouth of the thing that was eating the house, because he had said he would.\n\nThey cut for the better part of an hour. Leaves came down in wet armfuls and the cold air smelled of green cut open. Under them the wall was not wall: it was a lattice of green fibre, pale as tendon, running in every direction, and where they cut it, it grew back thicker within the minute.\n\n“Good work,” Hjumpik said, at last. “You're better than I thought.”\n\nThe goblins looked at each other. Praise from the dwarf had the effect of sunlight on stone.\n\n“Your job isn't over.”\n\n*WAH. Cutting the leaves off a Revel is like shaving a man who is on fire. The archive has known this since the [poison-plants filing](the_feyward_revel_crisis_poison_plants_and_frozen_diplomacy), which said it in writing, and which nobody read, because the Feyward's only export is advice that arrives one session late.*\n"
+      },
+      {
+        "name": "Above Our Paygrade",
+        "icon": "🌳",
+        "subtitle": "two doors, one kitchen, and the wood coming through the wall",
+        "overview": "At the end of the wall walk there were two doors, and Hjumpik opened the first one, looked into it, and closed it.\n\nHe said nothing about what was in it. The record has nothing. Waluigi has asked. The dwarf's exact words, on three separate occasions, have been *no*.\n\nHe opened the second. Kitchen. Cold range, a butcher's block with a cleaver still standing in it, sacks of something that had stopped being flour. He ordered it barricaded, and the goblins went at it with the enthusiasm of people given a job that could not kill them.\n\n“What's in there,” Hjumpik said, nodding at the first door.\n\n“Nothing,” said the guard.\n\nThe dwarf put a hand on the man's pauldron. It covered the whole thing.\n\n“You're a royal guard, right. You can do it.”\n\n“Yeah,” said the guard. “You're right.” And then, with the sudden flat certainty of a man whose body has already decided: “And my instincts say we should use the other door.”\n\nHjumpik took a look for himself.\n\nHe closed the door. He turned around. And Hjumpik Deldkur — Asset Orange, the Anvil of Disaster Inc., the man who has been lifted, dropped, stabbed with a pen, and nearly eaten by a wall — ran.\n\n“It's above our paygrade,” he said, over his shoulder, at speed.\n\nHe regrouped with Waluigi. Waluigi was not there. The door was closed. Behind it, running water.\n\nSome minutes later Waluigi emerged, damp at the cuffs, radiant, entirely composed.\n\n“Ready for adventure,” he said.\n\n“There's a monster,” said Hjumpik.\n\n“How big.”\n\n“Big enough that I ran.”\n\nWaluigi considered this for a full second, which for Waluigi is a long silence, and did not go and look.\n\n*There are two doors in this filing and the archive has one door's worth of information. That is not a gap in the record. That is a dwarf who opened something, closed it, and has since declined three separate requests. Waluigi has stopped asking. He has started writing it down instead.*\n\n\nThey were still arguing about it when the corridor started to fill.\n\nHousefolk came past at a run — satyrs, fairies, a goblin with an armful of candlesticks — all of them saying the same two words in different orders. *Woodfellow. Giant. Support.* The librarian was out on the lane fighting something, and the something was winning enough that people had come inside to fetch help.\n\n“Red alert,” said Timmy. “Red alert.” He stopped dead. “Look in front of you.”\n\nIt came down the corridor the way a river comes down a corridor. Not walking — *arriving*, trunk first, with the ceiling coming apart above it in long strips of plaster, and every doorframe it passed exploding outward into splinters. Sap ran down it in ropes.\n\n“Was that the one fighting Woodfellow,” said Brad.\n\n“No,” said Hjumpik. “Even bigger.”\n\n“That was bigger than the one fighting Woodfellow?”\n\n“That *is* bigger.”\n\n“Alright,” said Hjumpik, turning. “Second in command. Time for you to shine.”\n\nWaluigi had three things in him and he named all three, because he is a professional and professionals itemise. One: a wall — force, stone, the whole corridor sealed, and it would cost him most of what he had. Two: hit it directly, ice, straight down the throat of the thing. Three: freeze the room, everything in it, everyone in it.\n\n“No fire,” said Hjumpik.\n\n“Waluigi was not going to use fire. Waluigi has *learned*.”\n\nHe chose two.\n\nThe ice went in hard and white and absolutely enormous — a lance of it the length of the hallway, cold enough that the plaster cracked on both walls — and the tree drank it. Waluigi watched his own spell go into the bark and disappear the way a cup of water disappears into a horse. Steam came off the thing. Frost formed on it and then was simply *gone*, absorbed, eaten.\n\n“We gotta go,” said Hjumpik.\n\n*WAH. It is a plant. Plants drink. Waluigi, author of FORTY VOLUMES, chose to attack a thirsty tree with a large quantity of water. He would like the record to note that he named three options out loud, in order, with costs attached, and that the room let him pick the second one.*\n",
+        "waluigi_note": "Hjumpik ran. The archive files *above our paygrade* as the most useful sentence he has produced in the Feyward: the first time anyone in this house measured a threat honestly instead of heroically. Nobody in the manor had said one all week."
+      },
+      {
+        "name": "Toad Lee and Wyatt Hold the Line",
+        "icon": "🛡️",
+        "subtitle": "the breach, Hank's door, and the mound that got overwhelmed",
+        "overview": "It breached.\n\nThat is the only word for it. The corridor did not open; it *ceased*, the far wall folding outward into the room beyond in one slow motion, and the tree came through the gap with the debris still hanging off it like a coat.\n\nAt the other door, meanwhile, forty thirsty fairies were still arguing with a locked panel about beer.\n\n“Quickly, in here!” Hank was standing in a doorway, waving both arms, his handkerchief finally out of his pocket and being used, for the first time in the record, to wipe his face. The door was small. Behind Hank, through the frame, was the enormous slow shape of the tree monster, arriving at the same door from the other side.\n\n“Bad idea,” Hjumpik said.\n\nHank went in anyway, handkerchief still in his fist, and the dark swallowed him up to the shoulders.\n\n“We gotta go,” said the dwarf, and turned his back on a goblin, which the archive will note cost him something.\n\nWhat was left in the corridor was a shambling mound — the second thing, the one that had come through behind the tree, rot and grudge in a shape that had once been a hedge — and what was left to stop it was Toad Lee, Wyatt, and the entire remaining confidence of the sixth detachment.\n\nThey held.\n\nThe air in there was wet and green and tasted of cold sap. Wyatt went at it twice with the white hair streaming and both hands on the haft, and the mound answered with something that was not a blow — a *spell*, a sour green light that found Brad and put him on his knees in the debris, coughing dust. Toad Lee got his axe into the mass and worked. Hjumpik came back into it and cut.\n\n“Overwhelm it,” he said. “Just — overwhelm it.”\n\nSo they did. Six of them, then eight, then whoever came past, all of them hitting the same square yard of rotten hedge until it stopped being a thing and started being a pile. It went down. It stayed down.\n\n“Our team fought valiantly,” said Brad, from the floor, “and defeated it.”\n\n“We just had to overwhelm him,” said Wyatt, “and we were able to get him down.”\n\nHjumpik tried to cut it further, out of something that was not quite suspicion and not quite respect, and found only wet fibre.\n\n*WAH! Two dead at the roll call, one waiter on the floor, one goblin through a door he was told not to go through, and a hedge killed by committee. The archive would like to point out that the winning move was not a plan. The winning move was six people in the same square yard. Hjumpik's entire battalion is one tactic: be there.*\n",
+        "waluigi_note": "Hank went through the door alone. He is alive in the later record, which means either the room was survivable or goblins are. The archive has no door report. It has, however, a dwarf who turned his back and has not mentioned it since."
+      },
+      {
+        "name": "A Glass of Wine, a Roast Chestnut",
+        "icon": "📖",
+        "subtitle": "the reading, the speech, and the monster that arrived during both",
+        "overview": "In the room beyond, while the corridor was still being decided, Waluigi had found a chair, a shelf, and an audience.\n\nThe book was water-warped and somebody else's — essays, in a hand from before the fracture, about how little a person needs. He read aloud to the survivors in a voice that had carried across three courtrooms:\n\n> *I felt once more how simple and frugal a thing is happiness: a glass of wine, a roast chestnut, a wretched little brazier, the sound of the sea.*\n\nThe fairies listened. One of them was crying. It may have been about the chestnuts.\n\n“That's what we must do,” Waluigi announced, closing the book with a slap. “Fight for a better future! Wahahaha! I am leader, and my future is the best.”\n\n“Hey, Waluigi,” said Hjumpik, from the doorway. “Uhh. You know what's happening right now?”\n\n“Waluigi is inspiring people.”\n\n“There is a monster about to eat you.”\n\nThe far wall came in. Not the tree this time — the other one, the biggest of them, the thing the whole house had been feeling through its floorboards since breakfast, arriving with a sound like a cathedral clearing its throat. Plaster went up in a white sheet. Somebody's chair went under.\n\n“Well,” said Waluigi, standing up with the book still in his hand, “I just held an inspirational speech, right. So that means something, right.”\n\nIt did not mean something. What meant something was the next eleven minutes, which the record reconstructs from the tally and from who was still standing: the Oracle going at a shrub twice and going at it hard; House Guard Joseph and a second house guard on the mound; a satyr berserker and a satyr scout and a satyr whose name nobody got, all three of them into the treant; two sprites working the same treant with spells from opposite ends of the room; a goblin with a staff; and, busiest of everything on that floor and classified by nobody since, the thing the tally calls the Ravenous Host.\n\nThe sprite archer did nothing. The sprite archer did nothing for the entire engagement and survived it, which is the only genuinely clever thing anyone did.\n\nThey won. The floor went quiet. Dust came down off what was left of the ceiling for a long time afterwards, like snow with an attitude.\n\n*Waluigi's speech was eleven words long and the monster arrived at word nine. He would like it noted that the room was still listening when it came through the wall, and that no amount of botany changes that.*\n"
+      },
+      {
+        "name": "Order of the Revel",
+        "icon": "🕯️",
+        "subtitle": "an evacuation signed by the thing being evacuated from",
+        "overview": "The order came up the stair ahead of the people carrying it: a house guard with a rolled sheet in one fist, shouting it at everybody he passed.\n\n“You civilians! We're evacuating! Order of the Revel!”\n\nWaluigi has the paper. It is [[prop:prop_revel_evacuation_order|short, warm, and signed in the Revel's own office]], which is a sentence he never expected to be able to write. A house being eaten was being cleared for its own safety by the eater's staff, on the eater's authority, with the eater's seal on it, and the fairies obeyed it without a single question, because in this house the music is the government.\n\n“I need to help some guys up there,” Hjumpik said.\n\n“You sure you want to fight that,” said the guard, “and not evacuate to the upper flowers?”\n\nToad Lee arrived then, cap straight, chest out, five Toads in a wedge behind him.\n\n“I gathered a squad,” he said. “A Toad squad. I'm pretty proud of them.”\n\nHe was. It showed. They were also, Waluigi noted, the only unit in the manor that had arrived already in formation.\n\nHjumpik pointed the evacuators at the one man doing the evacuating and told them to help him, and then — on orders from the Revel, delivered by a guard, in a house the Revel was consuming — decided to go the other way.\n\nA satyr fell in beside them on the stair, hooves on stone, wine still on his breath.\n\n“I want to join the tree protectors,” he said. “If you can't beat them, join them.”\n\n“They want to kill you,” said Hjumpik.\n\n“I'll show you they don't want to attack us.”\n\nHjumpik put him in an arm hold. It was not violent. It was total. The satyr's feet left the step and stayed off it.\n\n“Why don't you evacuate the civilians,” the dwarf said, “and not be an idiot.”\n\n“Alright, alright — you're clearly stronger than me.”\n\n“They don't call me Hjumpik for nothing.”\n\n*Nobody has ever explained to Waluigi what they call him for. He has asked. He has asked in three planes. The name is a verb in a language with one speaker, and the speaker uses it on people.*\n",
+        "waluigi_note": "The Revel issued an evacuation order to protect the house from itself, and the house complied. That is not incompetence. That is what total authority looks like from the inside: the fire brigade reports to the fire, and everyone still lines up."
+      },
+      {
+        "name": "Stretched Thin",
+        "icon": "🩸",
+        "subtitle": "a commander who is in control, a room that is not, and reinforcements refused",
+        "overview": "They moved through two more rooms. The second one had a commander in it, standing very upright in front of a door that was bulging.\n\n“The situation is under control,” he said.\n\nBehind him the door bowed outward an inch, held, and bowed again.\n\n“It doesn't look good,” said Hjumpik. Then, quieter, mostly to himself: “Maybe we should release the Revel.”\n\nHe thought about it for four full steps. The book in Woodfellow's library had said what a starving Revel does — it turns on the room. Release it and the music stops, and then the thing that was dancing starts eating, and there is no version of that which ends with a house in it.\n\n*Maybe not,* he decided, and kept walking.\n\nFrom the room they had just left came the sound of a great deal of slashing — steel on something wet, over and over, and underneath it a thin high note that might have been a fairy and might have been a hinge.\n\nHjumpik stopped. He looked back through the doorframe, one hand on the frame, dust coming off his beard. He looked at the two guards beside him.\n\n“There is a lot of slashing,” he said. “You guys going to do something?”\n\n“And leave the Oracle — the *heir*, I mean — like, just alone?” The guard's voice had the specific hurt of a man correcting himself in public. “No. Our job is to guard him.”\n\n“No. I mean reinforcements.”\n\n“Well,” said the guard, “we're pretty stretched thin as is.”\n\nThe slashing went on. The record has the shape of it from the tally: sprites coming and going, a sprite caster taking a multiattack through the ribs and going down, a sprite archer retreating four separate times, a sprite warrior's blade finding the sprite archer instead of the enemy, a sorcerer attacking three times and running three times, and Woodfellow, the treant, the dryad and the satyr druid Zach all recorded as doing nothing at all — which in the middle of that corridor meant *holding still and being the thing everything else was fighting around*.\n\nEverybody fell back. Everybody. Including, eventually, the door.\n\n*WAH. \"Our job is to guard him.\" In a house on fire, with a monster three rooms away, the garrison's answer to a request for help was a job description. Waluigi has worked for institutions. He recognises the tone. It is the tone of people who have been told so many times what they are for that they can no longer hear what is being asked.*\n"
+      },
+      {
+        "name": "The Bait",
+        "icon": "🪤",
+        "subtitle": "an armhold's worth of arithmetic, and the name of a dead dwarf",
+        "overview": "Back in the war room: Waluigi in the chair, Hjumpik on his feet, guards around the table, the map under everybody's elbows with three new pins in it that nobody remembered adding.\n\n“What can we do,” somebody said. “Is there a way to stop this?”\n\n“There's always a way,” said Hjumpik, “but it might be difficult. There are multiple of them.” He put a fist on the table. “I say we sneak attack. We let them come in, and as the bait runs, we gang up on them.”\n\n“Alright, I guess we could do that.”\n\n“Hjumpik is not being bait.”\n\n“Well, *Waluigi* is not being the bait,” said Waluigi. “How about Toad Lee. He's nimble, right. We slap a piece of meat on him from the kitchen, he runs into the room, and we all trap it.”\n\n“I was thinking maybe a fairy could be the bait,” said Hjumpik. “Like a fly.”\n\nA fairy came in. A guard grabbed him — one hand, closed almost all the way. The room looked at the small winged thing in the guard's fist, at the dust coming off him in the cold light, and something in it turned over.\n\n“No,” said Hjumpik. “No, no. We should not pick a random fairy.”\n\n“Why?”\n\n“It's not good to do.”\n\n“Say if I toss you in there,” said the guard, “you'd want to —” and then he explained himself, and the explanation was worse than the offer. If a good fairy dies, he said, we are already wearing thin. If a *mediocre* fairy dies, a good one can take its place.\n\n“Very doomer way to think,” said Hjumpik.\n\n“It's arithmetic.”\n\n“It's arithmetic about people.” The dwarf folded his arms. “I say we get a warrior fairy. The bait won't die — we will just attract him. We need a nimble person, less likely to get caught.”\n\nA goblin left the room without asking. He came back with a fairy under one arm: battered, bruised, one wing bent at an angle wings do not bend, eyes open and entirely clear.\n\n“I can take him,” the goblin said.\n\nHjumpik looked at the fairy for a long time.\n\n“You remind me of my grandpa.”\n\n“What was he like?”\n\n“Dead.” A beat. “But a great warrior.”\n\n“So I'm going to die.”\n\n“Even when his arm was cut off,” Hjumpik said, “he still wanted to fight. I saw his drive. It's in you.”\n\n“What was his name?”\n\n“Piktor Deldkur the Third.”\n\nWaluigi wrote it down before the sentence was finished.\n\n“Toad Lee is still more practical,” he said. “We know him. He is less likely to die.”\n\n“He is a Toad,” said Hjumpik. “But he will not do it.”\n\nAnd then the plan, whole, in one breath, from a dwarf who had been given six people that morning and had four left:\n\n“We shoot him first. Get his attention. As he runs after you, my guys will be in position. As he runs by, you run out of there. We surprise attack him. Gang up on him. Kill him.” He shrugged. “Can't go wrong.”\n\n*WAH. Piktor Deldkur the THIRD. Third. There is a First and a Second in a grave somewhere, and Hjumpik has just told a room full of strangers that his family's inheritance is an arm and an attitude. Waluigi has forty volumes and none of them contain a Deldkur. That ends tonight.*\n",
+        "waluigi_note": "The bait plan has one load-bearing assumption and it is the sentence *can't go wrong*: that the thing chasing the bait will keep chasing. Every monster in this manor so far has stopped, turned, or gone somewhere else. Hjumpik's plan is the first one built on the enemy behaving."
+      }
+    ],
+    "participants": [
+      {
+        "id": "hjumpik",
+        "name": "Hjumpik",
+        "role": "Commander, Sixth Detachment / Anvil / Refuser of Shortcuts"
+      },
+      {
+        "id": "waluigi",
+        "name": "Waluigi",
+        "role": "Second-in-Command (disputed) / Advisor / Ice / Bathroom Logistics"
+      },
+      {
+        "id": "toad_lee",
+        "name": "Toad Lee",
+        "role": "Squad Leader, Toad Squad of Five / Axe / Door-Holder"
+      },
+      {
+        "id": "the_oracle",
+        "name": "The Oracle",
+        "role": "Offered a route, was refused, then went and fought anyway"
+      },
+      {
+        "id": "timmy_the_house_guard",
+        "name": "Timmy",
+        "role": "Sergeant of the Charge / Longsword / Friendly Fire"
+      },
+      {
+        "id": "hank_the_goblin_butler",
+        "name": "Hank",
+        "role": "First into the shrub / Through the door he was told not to go through"
+      },
+      {
+        "id": "wyatt_the_white_haired_goblin",
+        "name": "Wyatt",
+        "role": "Held the corridor with Toad Lee"
+      },
+      {
+        "id": "brad_the_waiter",
+        "name": "Brad",
+        "role": "Waiter, combat detachment, casualty, victory announcer"
+      },
+      {
+        "id": "randall_the_house_guard",
+        "name": "Randall",
+        "role": "House guard / lifted Hank three paces"
+      }
+    ],
+    "outcome": "Four engagements fought inside the manor and one outside it, on the same night, on clocks that do not agree. The leaves on the wall walk were cut and grew back thicker within the minute. The shambling mound in the lower corridor was overwhelmed and destroyed. The largest of the plant monsters was brought down in the room where Waluigi was reading aloud. Two housefolk dead before the roll call, one wounded by a spell, one goblin through a door alone and back again. The Revel issued an evacuation order for its own house and the house complied. The heir's pincer was attempted and the wood came through the wall anyway. The bait plan is agreed, the bait is a battered fairy with one bent wing, and nobody has run at anything yet. Hjumpik still has the OC soul ring, Morel's key, and four of the six.",
+    "notableFeatures": [
+      "The heir's plan, verbatim: \"You have to be strategic. Hit them fast and hard. The dwarf way.\"",
+      "Six people, five names, four monosyllabic — and one I heard once and will not print until the second hearing",
+      "\"You guys need some more just — brain cells.\" \"That doesn't make much sense.\" \"No, it really doesn't.\"",
+      "Hank's morale, recorded by the tally as SHAKEN (39) — the archive's only numeric description of a goblin's feelings",
+      "Waluigi's ice lance: enormous, accurate, and drunk by a thirsty tree in under a second",
+      "The Revel issues an evacuation order for the house it is eating, and the house obeys without a question",
+      "\"Above our paygrade\" — the first honest threat assessment filed in the Overgrown Manor",
+      "Piktor Deldkur the Third: an arm, an attitude, and two earlier Deldkurs nobody has heard of",
+      "The bait plan's load-bearing sentence: \"Can't go wrong.\""
+    ],
+    "keyBattles": [
+      "feyward_sixth_detachment_house_defense",
+      "feyward_woodfellow_vs_the_treant"
+    ],
+    "relatedArticles": [
+      "feyward_sixth_detachment_house_defense",
+      "feyward_chop_bros_soul_ring_and_the_guard_with_no_name",
+      "feyward_amnesia_vines_morel_steely",
+      "feyward_woodfellow_vs_the_treant",
+      "the_feyward_revel_and_the_book_of_many_things",
+      "the_feyward_revel_crisis_poison_plants_and_frozen_diplomacy",
+      "overgrown_manor",
+      "overgrown_manor_campaign",
+      "the_oracle",
+      "orangus_cornelius",
+      "lady_aurelian",
+      "corvinarus_family",
+      "piktor_deldkur_the_third",
+      "mystic_morel",
+      "waluigi",
+      "hjumpik",
+      "toad_lee"
+    ],
+    "aftermath": "**Standing.** The Overgrown Manor is one corridor smaller and one evacuation order larger. The leaves on the outside wall were cut and have grown back thicker. The largest of the plant monsters is down in the room where Waluigi was reading; the corridor it came through is not held, it is merely quiet. The Revel has not ended. It has, however, demonstrated that it can order its own house evacuated and be obeyed without argument, which is the most frightening sentence in this filing and Waluigi would like it read twice.\n\n**Personnel.** Hjumpik commands a detachment of six, of whom four are standing, one is on the floor talking, and one is somewhere behind a door he went through alone. Toad Lee has a Toad squad of five and is, by a wide margin, the only officer in the manor whose unit arrived in formation. The house guard refused reinforcements twice in one night, both times citing the heir. The Oracle offered a direct route to the Revel and was told no; it fought anyway, twice, at a shrub.\n\n**Materiel.** Retained: the [OC soul ring](oc_soul_ring), [Morel's key](morel_feyward_key), and [Steely's rusted fragments](steely_rusted_fragments), all still in Hjumpik's pocket, all still unburied. Expended: one ice lance the length of a hallway, absorbed entire; a quantity of leaves; one kitchen; one corridor wall; two housefolk. Acquired: [[prop:prop_feyward_sixth_detachment_commission|a commission nobody signed]], [[prop:prop_revel_evacuation_order|an evacuation order from the Revel office]], and a name — Piktor Deldkur the Third.\n\n**Exposure.** The house now knows the party commands people, which is different from knowing the party fights. Hjumpik's authority rests on a table with pins on it and an office nobody has ever met. And one combatant in the largest engagement of the night is on the tally under a name the archive has never seen before or since: the Ravenous Host.",
+    "waluigiAssessment": "**1. The battalion is a tactic, and the tactic is being there.** Four engagements, no formation, no flank, no plan that survived contact with a shrub. The mound died because six people hit the same square yard until it stopped being a thing. That is not generalship. It is the only generalship this house has, and it worked three times out of four, and the archive is professionally obliged to say so while noting that it does not scale.\n\n**2. Friendly fire is the Feyward's actual weapon.** Timmy put two strokes into Hank. A sprite warrior put a blade into a sprite archer. On the lane, a satyr scout's shaft took Swifty and Bramm's first cut found Renard. Three separate engagements, same signature. The wood does not need to outfight this house. It needs the house to keep swinging in the dark, which it will, because there is no light and everybody is frightened.\n\n**3. Ice was the wrong answer and Waluigi knew it in time to not care.** A plant drinks. He named three options with costs attached — the wall, the strike, the whole room frozen — and picked the one that looked best from a staircase. The room let him. That is the finding: not that the archivist erred, but that nobody in the manor is willing to overrule anybody else, which is what a house looks like when its government is a song.\n\n**4. The Revel is a schedule, not a siege.** Its own office ordered the upper floors evacuated, promised the music would resume, and was obeyed without a single question. The library volume was right: total surrender, or somebody willing to be the one who stopped the music. Nobody has volunteered. The war room proposed going for the Revelmaster instead and rejected the idea in one line without ever establishing who he is.\n\n**5. Authority in this manor is furniture.** The commission is unsigned. Its authority is *the map master, O.C.'s map master* — a role, attached to a table, attached to two initials that have already turned up carved into bedframes and struck onto soul hardware. A dwarf was put in command of six people by an office nobody has met. The same mechanism, run once more with a different dwarf, is how this family has always worked.\n\n**RECOMMENDATION:** Do not run the bait plan until somebody establishes whether the thing being baited keeps chasing. Every monster in this manor so far has stopped, turned, or gone somewhere else. Hjumpik's plan is the first one built on the enemy behaving, and it rests entirely on *can't go wrong*. Find the Revelmaster. Bury Steely. And ask the dwarf, once, quietly, about the First and Second Piktor Deldkur.",
+    "xpAwards": [
+      {
+        "xpKey": "hjumpik",
+        "articleId": "hjumpik",
+        "name": "Hjumpik",
+        "cat": "social",
+        "xp": 320,
+        "title": "Event — The Battalion of Six and the Bait Plan",
+        "desc": "Took command of six people at breakfast, named them, and kept four of them alive through four engagements.",
+        "date": "1 Aethel, 922 BF (Feyward clock)",
+        "dateSort": 9220109
+      },
+      {
+        "xpKey": "hjumpik",
+        "articleId": "hjumpik",
+        "name": "Hjumpik",
+        "cat": "combat",
+        "xp": 260,
+        "title": "Event — The Battalion of Six and the Bait Plan",
+        "desc": "Came back into the corridor for the mound, cut it, and refused the Oracle's shortcut to the Revel.",
+        "date": "1 Aethel, 922 BF (Feyward clock)",
+        "dateSort": 9220109
+      },
+      {
+        "xpKey": "waluigi",
+        "articleId": "waluigi",
+        "name": "Waluigi",
+        "cat": "magic",
+        "xp": 240,
+        "title": "Event — The Battalion of Six and the Bait Plan",
+        "desc": "Named three options with costs attached, then put an ice lance the length of a hallway into a thirsty tree.",
+        "date": "1 Aethel, 922 BF (Feyward clock)",
+        "dateSort": 9220109
+      },
+      {
+        "xpKey": "waluigi",
+        "articleId": "waluigi",
+        "name": "Waluigi",
+        "cat": "survival",
+        "xp": 140,
+        "title": "Event — The Battalion of Six and the Bait Plan",
+        "desc": "Was in a bathroom with a locking door while the corridor was decided, and emerged composed.",
+        "date": "1 Aethel, 922 BF (Feyward clock)",
+        "dateSort": 9220109
+      },
+      {
+        "xpKey": "toadlee",
+        "articleId": "toad_lee",
+        "name": "Toad Lee",
+        "cat": "social",
+        "xp": 220,
+        "title": "Event — The Battalion of Six and the Bait Plan",
+        "desc": "Gathered a Toad squad of five — the only unit in the manor to arrive already in formation.",
+        "date": "1 Aethel, 922 BF (Feyward clock)",
+        "dateSort": 9220109
+      },
+      {
+        "xpKey": "toadlee",
+        "articleId": "toad_lee",
+        "name": "Toad Lee",
+        "cat": "combat",
+        "xp": 180,
+        "title": "Event — The Battalion of Six and the Bait Plan",
+        "desc": "Held the corridor line with Wyatt until the shambling mound was overwhelmed.",
+        "date": "1 Aethel, 922 BF (Feyward clock)",
+        "dateSort": 9220109
+      }
+    ],
+    "customCss": ".wiki-lead{background:linear-gradient(135deg,rgba(74,156,109,.16),rgba(30,40,32,.2),rgba(138,75,255,.08));padding:1.5rem;border-left:6px solid #4a9c6d;border-radius:1rem;margin-bottom:20px}.prose blockquote{background:linear-gradient(135deg,rgba(74,156,109,.12),rgba(20,26,22,.15)),var(--bg2);border-left:4px solid #4a9c6d;border-radius:0 10px 10px 0;padding:14px 20px;margin:18px 0;font-size:14.5px;line-height:1.8;color:var(--text)}.prose blockquote strong{color:#7fd8a4;letter-spacing:.03em}.prose blockquote em{color:#c9a6ff;font-style:italic}.prose h2{color:#7fd8a4;border-bottom:2px solid rgba(74,156,109,.3);padding-bottom:6px;font-family:var(--font-title,serif)}.wnote{background:linear-gradient(135deg,rgba(74,156,109,.14),rgba(138,75,255,.06)),var(--bg2);border-left:4px solid #4a9c6d;padding:14px 18px;margin:20px 0;border-radius:0 8px 8px 0;font-size:13.5px;line-height:1.65}.wnote b{color:#7fd8a4;font-size:14px}",
+    "reputationChanges": {
+      "hjumpik": {
+        "chaos_dwarfs": -15
+      },
+      "waluigi": {
+        "connectopia_pioneers_guild": 5,
+        "mushroom_regency": 10
+      }
+    },
+    "effects": {
+      "toad_cult": 8
+    },
+    "reputationNotes": {
+      "hjumpik": "Failed to name five dead comrades correctly in a critical battle.",
+      "waluigi": "Disputed his role and managed to freeze a tree, impressing the guild but angering the regency."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-29T16:49:55+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    },
+    "image": "assets/images/events/archive-sheets/feyward-battalion-of-six-and-the-bait-plan.jpg"
+  },
+  {
+    "id": "feyward_library_reclamation_and_the_kitchen",
+    "name": "The Reclamation of the Library",
+    "title": "The Reclamation of the Library, the Cook Who Poisons the Garden, and the Circle That Went Nowhere",
+    "date": "1-2 Aethel, 922 BF (Feyward clock)",
+    "era": "Raventree Crisis — Feyward Operations / The Library Reclamation / Kitchen Contact",
+    "location": "The Overgrown Manor - the library reading floor, the polished hallways, the mushroom room, the kitchen, an upstairs bathroom, and a one-being-wide passage that goes in a circle",
+    "type": "Feyward Room Clearance / Kitchen Contact / Party Fracture",
+    "status": "Filed",
+    "summary": "Hjumpik was reading his own Waluipedia dossier when he looked left and saw a shambling mound eating the library. He abandoned the standing order to go upstairs, set a marching order with a battered fairy at the front, and took the room back - killing a creature that was most of the way dead already. What followed was a corridor with polished marble, a cook who has been poisoning the overgrowth by feeding it, a guard who spent twenty minutes protecting a plant with no face, a violet fungus in a toilet, and a secret passage that let everybody out exactly where they went in. The session ends with Waluigi and Hjumpik arguing about whether any of it counted - the dwarf arguing they cannot fight every battle, the archivist arguing the plants are weak enough to take - and with Waluigi reaching past Hjumpik's hand to open a door on something that is not half dead at all.",
+    "description": "Waluigi is filing this one with an unusual problem, which is that he is in it. Not at the edge of it taking notes - in it, arguing, at volume, in a corridor, about whether this party has accomplished anything in the Overgrown Manor at all. The session began with the single most flattering thing that has ever happened to this archive: Hjumpik Deldkur, sober and unprompted, reading volume eleven of Waluipedia with his finger under the line. It ends with Waluigi admitting out loud, over the roar of something enormous, that he can no longer afford not to care. In between: a library defended for its own sake, an overkill dressed as a victory, a Toad who could not say what had just happened to him, a kitchen commander running the best strategy in the house out of a stockpot, and a hidden passage that returned everyone to their own doorstep.",
+    "sections": [
+      {
+        "name": "Brains and Bronze",
+        "icon": "📖",
+        "subtitle": "a dwarf reading his own dossier, and the archivist who wrote it",
+        "overview": "The tablet's glow sat in [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik)'s beard like a small blue weather system, and he was reading. Not skimming. Reading, with one thick finger under the line, the way a man reads a contract he intends to sign.\n\nI know what he was reading, because I wrote it. Volume eleven. The Deldkur dossier. The passage where I described the dwarf as *brains and bronze* and meant it as a compliment with an edge on it, the way all my compliments are issued.\n\nHe got to the phrase. His finger stopped. He read it twice.\n\n\"Brains and bronze,\" [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) said, out loud, to the room.\n\nI have been in a great many rooms. I have been in throne rooms, count-houses, three separate courts, and one collapsing mirror. I have never been in a room where somebody read my work in front of me and I did not know what to do with my hands.\n\n\"That's mine,\" I said. \"That's a Waluigi original. You are reading a *Waluigi original*.\"\n\n\"I know.\" He did not look up. \"It's good. It's — accurate.\"\n\nSomething happened in my chest that I am contractually obliged to describe as indigestion.\n\n\"At least you're reading my articles,\" I said. \"Someone has a brain, at least. Do you know how many people in this manor have opened volume eleven? Zero. The number is zero. I checked. I have a counter.\"\n\n\"I don't know much technology,\" [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) said, and finally looked up, and there was a smudge of mortar dust still on the tablet's corner from the wall they had all climbed the night before. \"But I like reading.\"\n\n\"You *like reading*.\" I put both hands over my heart. \"You had better get used to it. Because if we are doing things the right way, you are doing it my way, and my way is *documented*.\"\n\nThe dwarf smiled into his beard and went back to volume eleven, and for about four seconds the Overgrown Manor was the best posting I had ever held.",
+        "waluigi_note": "Forty volumes. Ten years. One reader, found in a hallway at an hour with no name, holding the tablet at the angle men hold things they intend to finish. I will not be recovering from this. I will be mentioning it in every filing until somebody asks me to stop."
+      },
+      {
+        "name": "Not My Library",
+        "icon": "📚",
+        "subtitle": "the thing at the end of the room, and what it was eating",
+        "overview": "[Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) looked to his left, which is the sort of small ordinary motion the archive is obliged to record because of everything that came after it.\n\nA guy was eating something. That was the first reading. A figure at the far end of the reading floor, hunched over, working at something with the patient rhythm of a man at a long meal.\n\nThen the shape resolved. It was not a guy. It was a shambling mound — a wet green haystack the size of a cart, standing in [the Overgrown Library](https://mikegent01.github.io/bik/index.html#/article/overgrown_library) among the bare joists and the coiling roots, and what it was eating was *books*.\n\nNot the shelves. Not the librarian rooted into the west wall with his golden-red canopy and his bough arms. The books. It took them off the low racks one at a time, unhurried, the way a cow works a hedge, and the sound they made going in was the sound of a boot in deep mud.\n\n[the Veteran](https://mikegent01.github.io/bik/index.html#/article/the_veteran_fairy) came up off [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik)'s shoulder and got altitude in one bent-winged lurch, hung there, and saw it.\n\n\"It's eating the books,\" he said.\n\n\"Not my library,\" said [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik).\n\nHe said it flatly, the way another man says *not today*, and the archive wishes to note the possessive. It is not his library. He has been in it twice. He was nearly killed in it once, by a bookshelf, in an incident I have filed and will not be discussing. He said *my* anyway.\n\nThe mound turned a fraction, and a page came out of the side of its mouth and hung there, browning.\n\n\"How hurt is it?\" [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) said.\n\nNobody knew. That is worth writing down plainly, because everything that followed was built on it: they could not tell. A shambling mound at full health and a shambling mound three-quarters dead look identical from a doorway. It was wet, it was green, it was chewing.\n\n\"We could go around,\" [Toad Lee](https://mikegent01.github.io/bik/index.html#/article/toad_lee) offered.\n\n[Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) was already unslinging the warhammer.\n\n\"We're taking the room back,\" he said.",
+        "waluigi_note": "*WAH!* The standing order was UPSTAIRS. The main room, the prince, the plan we spent a whole night and one tactical map building. He threw it over for a room full of paper because something was chewing it. I want that on the record before the part where it works."
+      },
+      {
+        "name": "As You Said in Your Waluipedia",
+        "icon": "🗺️",
+        "subtitle": "the marching order, and a war nobody has heard of",
+        "overview": "\"We need strategy,\" [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) said, and then, turning, with the delivery of a man producing a citation: \"As you said in your Waluipedia. I love strategy.\"\n\nReader. He *cited* me. Mid-corridor. To a fairy.\n\n[the Veteran](https://mikegent01.github.io/bik/index.html#/article/the_veteran_fairy) came down onto the reading rail and folded the good wing. \"We can take him.\"\n\n\"Seems like you lot are decent at stealth.\" [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) was already sorting them with his hands, the way he sorts everything, as though people were crates with a correct stacking order. \"I'll decide marching order.\"\n\nHe pointed at the fairy.\n\n\"You. Veteran. First. Can you lead?\"\n\nAnd the small battered thing with one wing bent at an angle wings do not bend said, without any particular emphasis:\n\n\"I fought wars in Barckelhaven. Not one person died. I can lead.\"\n\nNobody in that corridor had heard of Barckelhaven. I have forty volumes and Barckelhaven is in none of them. I wrote the name down twice, once phonetically, and I want to draw attention to the credential he chose. Not a rank. Not a battle. Not a body count in the useful direction. *Not one person died.* That is what he offered as proof of competence, and [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) — who has spent this entire campaign trying to get people to stop dying — hired him on the spot.\n\n\"Then the fairy,\" [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) said, \"then me, then [Toad Lee](https://mikegent01.github.io/bik/index.html#/article/toad_lee).\"\n\n\"Tree guys,\" he added, meaning the mounds.\n\n[Toad Lee](https://mikegent01.github.io/bik/index.html#/article/toad_lee)'s head came up. \"*Three* guys?\"\n\n\"No. *Tree* guys.\"\n\n\"Oh.\" A pause. \"Okay.\"\n\nI stepped forward at this juncture, because the running order was wrong.\n\n\"Stay with your audience, little toad,\" I said, moving smoothly into the second position, which was mine by right of magnificence. \"Let me show you how a REAL show happens.\"\n\n[Toad Lee](https://mikegent01.github.io/bik/index.html#/article/toad_lee) went third. He did not argue. He walked up to [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik)'s side instead, and the two of them looked at each other and nodded, once, the way people do when they have stopped needing the sentence.",
+        "waluigi_note": "*Waluigi files the marching order as evidence.* The dwarf put the unknown fairy at the front because the fairy asked, and asking is the only credential this house has ever respected. Barckelhaven remains unverified. Pending a second source, the archive holds the name and not the war."
+      },
+      {
+        "name": "On Three",
+        "icon": "🔪",
+        "subtitle": "a distracted stationary target, and the overkill that followed",
+        "overview": "[Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) leaned to me and put it under his breath, close enough that I could smell mortar dust and old ale.\n\n\"On three.\"\n\nThey went in low along the joists, and the stealth was — I will be honest, because the archive is not a place for flattery — genuinely good. Four beings crossing a floor with no floor in it, stepping joist to joist, and the mound did not turn. It had a book. It was busy.\n\nThen [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) swung, and missed.\n\nA warhammer going through empty air makes a specific noise, a kind of disappointed *whoomph*, and it was followed by the small private silence of a dwarf recalculating. He swung again. He hit. The mound came apart at the shoulder like wet thatch.\n\n\"How,\" I said, with feeling, \"do you MISS a distracted stationary target?\"\n\n\"It moved.\"\n\n\"It did not move. It was *reading*.\"\n\nThen the goblin staff arrived, because the manor's servants have developed the habit of appearing wherever violence is already underway, and they ran up the joists in a loose green wave and stabbed it. Repeatedly. With the enthusiasm of people who have wanted to stab something in this house for weeks and have finally been handed a target that cannot report them.\n\nAnd I raised one magnificent hand and put a magic missile into the centre of the mass.\n\nIt exploded.\n\nI want to be clear about the sequence, because I was proud of the missile for approximately one second before the arithmetic caught up. The mound was already coming apart when I cast. The goblins had already opened it. [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik)'s second swing had already taken the shoulder off. It was a wet green ruin held together by habit, and I detonated it, and it fell.\n\nIt was overkill. It was, in fact, the third or fourth kill of the same creature, and the archive suspects it was well on its way to dead before anybody in this party looked at it.\n\nThe pieces steamed on the joists. A half-eaten book lay open in the wreckage, pages down.\n\n\"Well,\" said [the Veteran](https://mikegent01.github.io/bik/index.html#/article/the_veteran_fairy), from above, \"that's that.\"\n\nThe tree librarian at the west wall did not say anything at all.",
+        "waluigi_note": "*WAH!* Four attackers, one dying shrub, one exploded. The party will tell this story as a victory and the story will be true and the story will also be a lie, and the difference between those two things is the entire subject of the argument we had ninety minutes later.",
+        "image": "assets/images/events/library-reclamation/lib-02-on-three.jpg",
+        "imageCaption": "The second swing, the one that connected. Goblin staff already up the joists with spears; the missile leaving Waluigi's hand; Toad Lee third in the order with the axe he would afterwards be unable to account for. The Veteran holds altitude on a bent wing. Four attackers on a creature the fey residents had already half killed."
+      },
+      {
+        "name": "The Yew Leaf and the Pointy Stick",
+        "icon": "🌿",
+        "subtitle": "looting a shrub, and a question asked twice",
+        "overview": "[Toad Lee](https://mikegent01.github.io/bik/index.html#/article/toad_lee) started picking at the corpse immediately, which is a habit the archive has stopped commenting on and started budgeting for.\n\n[Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) pulled a yew leaf out of his component pouch — flat, waxy, dark, the kind of thing that costs nothing and is impossible to buy in a hurry — and held it up between two fingers. Then he took the mound's own weapon out of the wreckage: a length of hardwood, sharpened at one end by nothing more sophisticated than growth.\n\nA pointy stick. Now a sword.\n\nHe turned it in the lantern light and looked satisfied in a way I have only otherwise seen when he is being underpaid.\n\nThen he reached over and patted his man on the back.\n\n\"That was not that hard, right?\"\n\nSilence.\n\n\"Sorry — what was that?\" said [Toad Lee](https://mikegent01.github.io/bik/index.html#/article/toad_lee).\n\nHe had not been listening. He had not, as far as the archive can establish, been *present* for a measurable portion of the fight. He was standing over a corpse he had personally been picking at, holding an axe, and the question arrived at him from a long way off.\n\nI wrote it down. I did not say anything. I wrote it down.\n\nThis is the third time. There was the missing time before Morel's warning. There was *I swung out of instinct* in the corridor with the leaf. Now there is a Toad who came out of a stealth engagement and had to ask what the sentence was.\n\n\"If we stealth like this,\" [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) said, delighted, oblivious, \"we can do anything.\"\n\nHe flipped the warhammer.\n\nThe warhammer did not come back down into his hand. It came down onto the floorboards about four inches from his own boot with a bang that went all the way up into the roots, and every goblin on the joists flinched.\n\n\"Oh....\" He picked it up. \"Sorry about that.\"\n\n\"I want more action,\" said [Toad Lee](https://mikegent01.github.io/bik/index.html#/article/toad_lee), to nobody.\n\n\"I know,\" I said. \"You're the action toad.\"\n\n\"I still want to be safe with [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik),\" he said, and there was nothing in his face at all when he said it.",
+        "waluigi_note": "*Waluigi is not enjoying this section.* Three instances now: the missing hours, the instinct swing, and a question asked twice over a corpse. Filed under ANCHORS, drawer one, alongside Morel's warning. The archive does not believe in flukes and has stopped pretending to."
+      },
+      {
+        "name": "Renown, Favour, and the Newspaper Club",
+        "icon": "📰",
+        "subtitle": "two treants, a job offer, and a lost dog",
+        "overview": "They went back toward the planning room, opened the door, and stopped.\n\nThe room was in open battle. Two treants — actual treants, thirty feet of arguing timber apiece — and shambling mounds among them, and the manor's people in the middle of it in a chaos that had gone past tactics and into weather. Furniture was airborne. Something was on fire in a corner and nobody had the time.\n\n\"If we fight these two shambling mounds,\" [Toad Lee](https://mikegent01.github.io/bik/index.html#/article/toad_lee) said, thinking out loud, fast, \"we can gain renown. Favour in the manor.\" He turned to [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik). \"Maybe they can help you get back to [Archie](https://mikegent01.github.io/bik/index.html#/article/archie_miser).\"\n\nAnd I saw the opening and I took it, because I am what I am.\n\n\"Or,\" I said, \"forget [Archie](https://mikegent01.github.io/bik/index.html#/article/archie_miser).\"\n\n[Toad Lee](https://mikegent01.github.io/bik/index.html#/article/toad_lee) blinked.\n\n\"Join my newspaper club.\" I spread my hands to indicate the scale of the offer, which was considerable. \"Write stories. For me. You have an eye — you notice things, you pick at corpses, that is ninety percent of journalism. I will give you a byline. I will give you *two* bylines.\"\n\n\"No thanks,\" said [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik).\n\n\"I did not ask *you*.\"\n\n\"Our best bet,\" [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) continued, entirely untroubled, \"is to gang up on one of the plant monsters.\"\n\nHe moved off to take the room from the side. And I stopped [Toad Lee](https://mikegent01.github.io/bik/index.html#/article/toad_lee) on the way past, because the question had been sitting in me since the marching order and it came out with more edge on it than I intended.\n\n\"You going to follow him like a lost dog?\"\n\n[Toad Lee](https://mikegent01.github.io/bik/index.html#/article/toad_lee) did not rise to it. He looked at me for a moment with those flat dark eyes.\n\n\"I'm not a pet,\" he said. \"I just think he is reliable.\"\n\nThen he went after the dwarf.\n\nI was annoyed. I am recording that I was annoyed, and I am recording that the annoyance was not about the Toad, and I am not going to elaborate further at this point in the filing.\n\n\"Come on, boys,\" [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) called from the doorway.\n\nWe went up to the door.",
+        "waluigi_note": "*WAH!* I offered a Toad a career and he chose a dwarf. I have made worse pitches to better prospects and closed them. The difference is that my club has a byline and a printing schedule, and {HJ} has never once left anybody in a room he could have left them in."
+      },
+      {
+        "name": "The Hallways Are in Surprisingly Good Shape",
+        "icon": "🕯️",
+        "subtitle": "polished marble, warm light, and a house being eaten",
+        "overview": "The archive is going to slow down here, because the corridor deserves it and because of what it means.\n\nThe hallways of the fey manor are in surprisingly good shape overall, with rather minimal wear or damage. The plaster is cracked in places. The wood has seen better days. Everything is clean, and polished as well as it can be.\n\nA vast carpet runs in all directions, well worn from the footsteps of countless beings, but clean — and it rests upon polished marble that is equally worn and equally well cared for.\n\nWarm light fills the hallways from numerous glowing glass orb lanterns affixed to the walls.\n\nNow hold that against everything else in this filing. There is a shambling mound eating the library. There are two treants in the planning room. There is something in the kitchen that ate a person, and a Revel downstairs that has been playing the same reel for weeks, and an overgrowth coming up through the floors of a house that has been dying by inches since before we arrived.\n\nAnd somebody is still polishing the marble.\n\nSomebody is still trimming the lanterns. Somebody walked this carpet with a brush this week, in a war, while the walls were producing vines, and got the dust out of a rug that has been walked flat by a thousand years of feet.\n\nI have audited institutions in collapse. I know what a failing house looks like from the inside: the accounts stop first, then the maintenance, then the staff, and the last thing to go is always the lie that everything is fine. This house has done it in the opposite order. The staff are dying. The accounts are a map with pins in it. And the lanterns are *warm*.\n\n[Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) walked down the middle of that carpet with a warhammer over his shoulder and did not remark on any of it.\n\nI remarked on all of it, silently, at length, and filed it under the heading the archive has been circling for three sessions now: the Overgrown Manor is not a house losing a war. It is a house *keeping standards* during one, which is a different and much sadder thing.",
+        "waluigi_note": "*Waluigi's professional opinion:* you can measure a household's morale by the objects nobody is required to care about. The marble is polished. The lanterns are lit. Whatever else is true of this house, its staff have not yet agreed to let it look like what it is.",
+        "image": "assets/images/events/library-reclamation/lib-03-polished-hallway.jpg",
+        "imageCaption": "The corridor, unretouched. Plaster cracked, panelling tired, carpet walked threadbare down its centre line by a thousand years of feet - and clean, on marble that has been polished this week. Every lantern is lit. Note the vine at the left, already through the wall. Somebody is still keeping standards in a house being eaten."
+      },
+      {
+        "name": "The Creation in Them Ate Someone",
+        "icon": "🚪",
+        "subtitle": "two guards holding a door, and the name they said first",
+        "overview": "Two guards were shutting a door. Not guarding it — *shutting* it, both shoulders, the way you close something that is pushing back.\n\n[Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) asked, reasonably, whether there was a way around it. He wanted to flank.\n\n\"The creation in them ate someone,\" one of the guards said.\n\nEverybody stopped.\n\n\"Wait.\" [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) put a hand flat on the door beside the man's shoulder. \"You *saw* someone eat someone?\"\n\nThey had. They did not want to describe it, and they described it anyway, in the compulsive way people do. Then the second guard jerked his chin further down the hall, toward the noise, and gave us the shape of the next room before we asked for it.\n\nA battle was going on in the kitchen.\n\n\"There's a commander in there. [Red](https://mikegent01.github.io/bik/index.html#/article/red_the_kitchen_commander).\" He caught himself. \"He — she. She's preparing the dinner.\"\n\n\"Dinner,\" I said.\n\n\"She will eat you alive.\" He said it with the flat conviction of a man repeating something he has been told and has never tested. \"Like the monsters do. She's the heir's greatest soldier.\"\n\nI would like the record to reflect that this is the second time in this house that a woman has been described to us before she was met, and that the first time the description was of a Lady and the reality was a plant wearing her face.\n\n\"We're both going to die on our own terms,\" the guard added, with a kind of exhausted gallantry.\n\n\"That's not the Hjumpik way,\" said [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik).\n\nThe guard looked at him.\n\n\"Huh? What's that?\"\n\n\"My name.\"\n\nAnd his friend — the other guard, the one who had been holding the door with his whole body — made a small strangled noise and went slightly to pieces, in the manner of a man whose reserves have been spent for some hours and who has just been handed one absurdity too many.\n\nHe got the door to the mushroom room open. Both of them went in.\n\nThey got drunk.",
+        "waluigi_note": "*WAH!* The dwarf's entire personality is a load-bearing joke and he deploys it as a morale weapon. Two men holding a door against something that eats people, and he broke them with the etymology of his own name. It worked. That is the horrifying part. It WORKED."
+      },
+      {
+        "name": "Danger Is My Middle Name",
+        "icon": "🍄",
+        "subtitle": "a bluff, delivered upward",
+        "overview": "\"Going up can be dangerous,\" one of them said from inside the mushroom room, in the loose confiding voice of a man who has recently discovered he has feelings.\n\n[Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) did not break stride.\n\n\"That's my middle name,\" he said. \"Hjumpik *Danger* Deldkur.\"\n\nI want to enter into the archive, formally and with citations, that this is not true.\n\nThe Deldkur line runs Piktor Deldkur the Third, deceased, one arm, great warrior; and before him a Second and a First that nobody in three planes has heard of and that I intend to find. There is no Danger in it. There is no Danger on any document, guild roll, contract, or bar tab I have ever seen the man sign, and I have seen a number of his bar tabs, because I have paid several of them.\n\nHe made it up. Standing in a corridor, at an hour with no name, in a house where the marble is polished and something in the kitchen eats people, a sober dwarf invented a middle name to make two frightened drunk guards feel better about a staircase.\n\nThe guards did not react. They were, at this point, extremely occupied with the mushroom room.\n\nI reacted. I wrote *DANGER (invented, in situ)* in the margin and underlined it, and then I sat with the underline for a moment, because there is a version of that joke that is a man showing off and there is a version that is a man doing a job, and after four sessions in this manor I have stopped being able to tell them apart. He does the bit. The room gets lighter. Somebody who was about to stop moving keeps moving.\n\nForty volumes and I still do not know whether [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) is funny on purpose.\n\n\"Let's go,\" he said.\n\nThey left, and went upstairs.",
+        "waluigi_note": "*Waluigi, Auditor-General, certifies the following:* Hjumpik Deldkur has no middle name. He has a warhammer, a grandfather, a guild he will not name, and a habit of manufacturing exactly as much courage as a corridor requires. The invoice for that service has never once been issued."
+      },
+      {
+        "name": "We're Here to Cook",
+        "icon": "🍲",
+        "subtitle": "the withering plant, the pot of slop, and the door with a key",
+        "overview": "\"Ow. Ow, ow.\" [Red](https://mikegent01.github.io/bik/index.html#/article/red_the_kitchen_commander) was going at her work with the sound of somebody who has burned the same two fingers more than once this shift. She looked up. \"Who are you? Did orange guy send you?\"\n\nThe heir. Orange guy. The archive notes the manor's chain of command in four syllables.\n\n\"You're here to stop the plant monsters?\" [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) asked.\n\n\"No. No.\" She waved the question off with a ladle. \"We're here to *cook*.\" And then, with what I can only describe as professional satisfaction: \"The plants love this.\"\n\nShe held up what she was making.\n\nIt withered in her hand.\n\nNot wilted. *Withered* — went grey and slack between her fingers in about a second and a half, the green going out of it like heat out of a poker, and she watched it do that with the expression of a woman checking a sauce.\n\n[Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) got it before I did. I will admit that in writing. He looked at the grey thing in her fist and then at the pots and then at the doors the guards had been holding shut, and something reorganised behind his eyes.\n\nThe food is bad *on purpose*.\n\nShe is not defending the kitchen from the overgrowth. She is *provisioning* it. She is running poison out through the one system this house has never stopped operating — the service, the trays, the dinner — at the scale a great house does everything, and she is calling it dinner because that is what it is.\n\nShe handed [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) a pot of the slop. It smelled like a pond in August.\n\n\"You will stay for dessert,\" she told him. Not a question.\n\nSomething was wriggling in an oven. It was wriggling with intent, and it had a rhythm, and every single one of us decided independently and simultaneously not to ask.\n\n\"Maybe later,\" [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) said.\n\n\"...Wait.\" I had been reading the room, which is my function. \"What's in that door?\"\n\n[Red](https://mikegent01.github.io/bik/index.html#/article/red_the_kitchen_commander) produced a key from somewhere in the apron.\n\n\"Oh, this?\" She turned it over. \"Nothing much. A shortcut to the main room.\"\n\n*Nothing much.*\n\nI took her running sheet off the prep table on the way out, because I am what I am.\n\n[[prop:prop_red_dinner_service_sheet|Open the kitchen's dinner service sheet as taken.]]",
+        "waluigi_note": "*WAH!* The best strategy in this manor belongs to the cook. Everyone upstairs has a map with pins in it. She has a service that already runs, a schedule the enemy already trusts, and a poison the enemy already eats. And the only direct route in the house is in her apron pocket.",
+        "image": "assets/images/events/library-reclamation/lib-04-red-kitchen.jpg",
+        "imageCaption": "Red demonstrates the manor's best strategy: the plant goes grey and slack in her fist in about a second and a half. The pot she is handing Hjumpik is the same recipe at scale. Behind her the oven door is shut on something that was wriggling with intent, and nobody in the room asked about it."
+      },
+      {
+        "name": "Field Observations",
+        "icon": "👁️",
+        "subtitle": "the guard who was fine, and the half hour he cannot account for",
+        "overview": "A guard was telling anyone who would listen that the mushroom room had no effect on him whatsoever.\n\nHe was very clear about it. Unaffected. Completely fine. Sharp as a tack, in fact, sharper than usual, and he would thank you not to imply otherwise.\n\nHis eyes were bloodshot to the rim.\n\n[Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) noticed. I watched him notice — the small still moment, the beat where a dwarf decides not to say a thing — and then he asked, mildly, about the other one. The colleague. There had been two.\n\n\"Where did he go?\"\n\n\"He's in the mushroom room.\" Cheerfully. \"Want to see?\"\n\nWe went and looked, because the archive goes and looks. The room was warm and low and smelled like a cellar in the good way. [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) crouched, picked up a mushroom, turned it over, and sniffed it.\n\nFine. Ordinary. A mushroom.\n\nThat is the part I cannot make fit, and I have been trying since. The mushrooms test clean. The men who spend time in the room do not. Something in there is having an effect that is not in the fungus, and the fungus is what everyone is looking at, and I have a horrible suspicion that this is the design.\n\n[Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) walked away, then turned around and went to the bathroom instead, which sounds like a joke and was in fact the single most productive decision of the night.\n\nLater — after the bathroom, after the ash — he came back to [the mushroom room guard](https://mikegent01.github.io/bik/index.html#/article/the_mushroom_room_guard), and the missing colleague had returned, and the two of them had this exchange in front of us:\n\n\"Hey. The mushrooms didn't have any effects.\"\n\n\"Oh.\" A pause of exactly the wrong length. \"I didn't think you would come back that soon.\"\n\n[Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik): \"Where were you?\"\n\n\"Field observations.\"\n\nField observations. Two words, in a corridor, from a man with a hidden door behind him.",
+        "waluigi_note": "*Waluigi flags the sentence, not the mushroom.* \"I didn't think you would come back that soon\" is not the language of a man who was somewhere innocent. It is the language of a man who had a window and misjudged it. The fungus is a decoy and I will be filing on this again."
+      },
+      {
+        "name": "Fifteen Minutes at the Bathroom Door",
+        "icon": "🚽",
+        "subtitle": "a lady with no face, one spark, and something in the toilet",
+        "overview": "There was a guard outside the bathroom, standing at parade rest, and he informed us with real pride that he was guarding the lady of the manor.\n\n\"You have been here for fifteen minutes,\" said [Toad Lee](https://mikegent01.github.io/bik/index.html#/article/toad_lee).\n\nThe guard's face did something complicated.\n\n\"What? She said twenty minutes ago—\"\n\n\"What did the lady look like?\"\n\n\"She was hiding her face.\"\n\nNobody said anything for a moment. In the walls, faintly, the vines ticked.\n\n[Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) knocked. Then opened the door.\n\nA plant monster came out of the bathroom.\n\nAnd I would like the archive to note that I did not hesitate, deliberate, or consult. A spark of fire left my hand before the thing had finished emerging — not one of my larger works, a small precise unkind one — and it went into the centre of the mass where a heart would be if the thing had bothered with one.\n\nIt turned to ash. All of it, at once, standing up, and then not standing up.\n\nNobody had guarded a lady. A guard had stood at a door for fifteen or twenty minutes protecting the privacy of a thing that was hiding its face because it did not have one, and he had been *proud* of it, and I have no joke for that.\n\nWe investigated the room. And in the toilet, I found something.\n\n\"Is it poop?\" [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) asked, from the doorway, with the directness that makes him such a poor diplomat and such an excellent witness.\n\nIt was not. It was a violet fungus — squat, purple, unmistakably alive, and regarding us.\n\n[Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) crouched to its level.\n\n\"Do you speak English?\"\n\nThe fungus did not.\n\nHe turned to me. \"Can you translate this?\"\n\n\"*Huh?*\" I drew myself up. \"I am a field archivist, not a translator.\"\n\n\"Maybe Waluipedia has it.\"\n\nAnd he pulled the tablet out, right there, crouched over a toilet in a fey manor at two in the morning, and started searching my encyclopedia for a violet fungus phrasebook.\n\n\"I'll be right back,\" he said, and went to find the guards.",
+        "waluigi_note": "*WAH!* He looked it up. In the middle of an operation, over a talking mushroom in a toilet, the dwarf consulted the archive as a working reference. That is what it is FOR. Forty volumes and its first field deployment is a fungus in the plumbing. I have never been prouder or more insulted."
+      },
+      {
+        "name": "Three Knocks, and a Circle",
+        "icon": "🕳️",
+        "subtitle": "the credentials, the passage, and where it went",
+        "overview": "[Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) went back to [the mushroom room guard](https://mikegent01.github.io/bik/index.html#/article/the_mushroom_room_guard). A secret hatch opened somewhere behind the panelling, and the missing colleague came back through it, and we had the *field observations* exchange the archive has already filed.\n\nThen [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) asked the only question that mattered.\n\n\"Why should we trust you?\"\n\nThe guard held up fingers. Three of them. He had them ready, which is itself a finding.\n\nOne. [Aurelian](https://mikegent01.github.io/bik/index.html#/article/lady_aurelian) is helping.\n\nTwo. [Orangus Cornelius](https://mikegent01.github.io/bik/index.html#/article/orangus_cornelius).\n\nThree — and here he warmed up, and leaned in, and became briefly the hero of his own account — \"I stopped [Wario](https://mikegent01.github.io/bik/index.html#/article/wario). Actually, I did quite a bit.\"\n\nLet us take these in order. The first is a woman currently folded into a gold ring in [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik)'s pocket, who has helped nobody in some weeks. The second is a name the guards of this house have refused to say out loud since the sitting room, delivered here as a *reference*. The third is a claim made by a very large number of people, almost all of whom are lying, and none of whom have ever produced a receipt.\n\n[[prop:prop_mushroom_guard_three_credentials|Open the three credentials as transcribed.]]\n\n\"Fine,\" said [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik).\n\nThe guard knocked three times. A door opened in a wall that had no door in it.\n\nI note, without comment, that [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) had been given the instructions first, had tried it himself, and had failed. Three knocks. He got it wrong. The house does not open for people who have been told how; it opens for people it knows.\n\nThe passage was one-being-wide. We went in single file — wall on both shoulders, the smell of dust and old plaster, somebody's lantern throwing our shadows forward in a long jointed row — and we scurried through it with the particular indignity of important people in a crawlspace.\n\nThere were others in there. Waiting. In the dark. They did not explain themselves and we did not ask.\n\nAnd then the passage let us out.\n\nBack where we started.\n\nAll of us. The whole party, the guards, the waiting figures, out into the same stretch of corridor we had entered from, with the same warm lantern light on the same well-cared-for marble.\n\nThat is when I stopped being able to do this politely.",
+        "waluigi_note": "*Waluigi's structural note.* A secret passage that returns you to your own doorstep is not a fault in the house. It is the house's opinion, expressed in architecture, of everyone currently walking around inside it. We have been in this manor for weeks and it has decided we are furniture."
+      },
+      {
+        "name": "I Can't Afford Not to Care Anymore",
+        "icon": "🚪",
+        "subtitle": "the argument, the door Waluigi opened, and the hand that tried to stop him",
+        "overview": "\"You know what,\" I said. \"We have been going in circles. And we are *losing*.\"\n\n[Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) turned around.\n\n\"Look at how many people we have lost to your incompetence,\" I said, and I did not stop, because it had been building since the marching order and the lost-dog remark and the fungus in the toilet. \"And that Toad too - he just sits around and follows you. At least the fey in this house *care* about it.\"\n\n\"We killed one of the big plant monsters,\" [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) said. \"Right?\"\n\n\"A half-dead one. That was almost killed by the fey residents before we got there.\"\n\n\"Do you want to just run around and fight things,\" he said, \"or think before you act?\"\n\nAnd here is where I want the archive to slow down, because the argument turns over on this line and I am the one who turned it.\n\n\"Thinking has led us this far,\" I said. \"We're not dead. But if we don't act, they reach the heir, and we are stuck with the plants forever.\"\n\n\"No. No, no.\" [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) put a hand out - not at me, at the corridor, at the whole green length of it. \"We can't fight every battle. *Look at these guys.*\"\n\n\"I one-shot that shrub almost ten minutes ago.\"\n\n\"Remember the goblins stabbed it and it died.\" The dwarf's voice went flat in a way I had not heard from him before. \"I don't think that's saying much.\"\n\nWhich was true. Which is exactly the point I had made myself, in this same corridor, about this same shrub, and which I now needed not to be true.\n\n\"Then if they're that weak,\" I said, \"we should take them on.\"\n\nAnd I opened the door.\n\nI want that recorded in the active voice, because I have spent this entire filing recording other people's decisions and this one was mine. Not the dwarf's. Mine. His hand came up as I reached past him - too slow, or slow on purpose, or slow because he had spent the night being told by me that thinking was what was killing us - and it closed on the air where my sleeve had been.\n\nThe monster was standing in the middle of the room, surrounded by people. It was not half dead. Nothing about it was half dead. It turned its whole mass toward the doorway, found us in it, and roared, and the sound went through the polished marble and up into the warm lantern light and out into a house that has been keeping its standards for a thousand years.\n\n[Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) looked at me. Not at the thing in the room. At me.\n\n\"Since when did you care?\"\n\nAnd I heard myself answer, in the corridor, over the noise, before I had cleared it with any part of myself that handles policy:\n\n\"I can't afford not to care anymore.\"\n\nThe Revel played on downstairs. The filing ends here, in a doorway I opened, mid-roar.",
+        "waluigi_note": "*WAH.* Read the transcript back and the whole argument inverts on one line: the dwarf was the one saying we cannot fight every battle. I was the one who said take them on, and then reached past his hand and opened the door. Ten years of filings and I have never written that sentence down. I have written AROUND it. Next filing begins in that doorway, and it is mine."
+      }
+    ],
+    "participants": [
+      {
+        "id": "hjumpik",
+        "name": "Hjumpik",
+        "role": "Anvil / Reader of Volume Eleven / Reclaimer of the Library / Marching Order"
+      },
+      {
+        "id": "waluigi",
+        "name": "Waluigi",
+        "role": "Auditor-General / Field Archivist / Magic Missile / The One Who Said It Out Loud"
+      },
+      {
+        "id": "toad_lee",
+        "name": "Toad Lee",
+        "role": "Third in Order / Axe / Spaced Out During the Engagement"
+      },
+      {
+        "id": "the_veteran_fairy",
+        "name": "The Veteran",
+        "role": "Point / Volunteered to Lead / Barckelhaven"
+      },
+      {
+        "id": "red_the_kitchen_commander",
+        "name": "Red",
+        "role": "Kitchen Commander / Poisoner of the Overgrowth / Holder of the Shortcut Key"
+      },
+      {
+        "id": "the_mushroom_room_guard",
+        "name": "The Mushroom Room Guard",
+        "role": "Field Observations / Three Knocks / Bloodshot"
+      }
+    ],
+    "outcome": "The Overgrown Library was retaken - the first room in the manor anybody chose to defend for its own sake rather than as a route somewhere else. The shambling mound that was eating the collection was killed by a goblin staff, a warhammer and a magic missile, and was already most of the way dead when the party arrived. A second plant creature, posing as the lady of the manor behind a bathroom door, was destroyed with a single spark of fire. Contact was established with Red, the kitchen commander, who is not defending the kitchen but using it: the food she cooks makes the overgrowth wither, and she holds the key to a locked shortcut to the main room. The mushroom room was confirmed to have an effect its own guards deny and its mushrooms do not carry. A violet fungus was recovered from an upstairs toilet, untranslated. A hidden passage, opened by three knocks the party could not reproduce, returned everyone to the corridor they entered from. The party's standing order to go upstairs to the heir was abandoned at the start of the session and never resumed. Toad Lee lost time during combat for the third recorded instance. The session ends in a doorway Waluigi opened himself, over Hjumpik's attempt to stop him, with a plant monster roaring on the other side of it and the argument unfinished. The positions had reversed by the end: Hjumpik was the one counselling against another fight, and Waluigi was the one who forced it.",
+    "notableFeatures": [
+      "Hjumpik reads volume eleven of Waluipedia unprompted and calls it accurate - the archive's first confirmed field reader",
+      "\"Brains and bronze\" - Waluigi's own phrase, read back to him by its subject",
+      "\"Not my library.\" A standing order abandoned for a room full of paper",
+      "The Veteran's credential, in full: \"I fought wars in Barckelhaven. Not one person died.\"",
+      "\"Tree guys.\" \"Three guys?\" \"No. Tree guys.\" \"Oh. Okay.\"",
+      "A distracted stationary target, missed once - and then killed four separate times by four separate parties",
+      "Toad Lee asks \"sorry, what was that?\" over a corpse he was personally looting: third missing-time instance",
+      "A warhammer flip that lands four inches from its owner's boot",
+      "The hallway that is clean, polished, warm-lit and well cared for, in a house being eaten",
+      "Red's plant withers in her hand: the manor's best strategy is being run out of a stockpot",
+      "\"Nothing much. A shortcut to the main room.\" The only direct route in the house lives in the cook's apron",
+      "A guard proudly guards a faceless plant for twenty minutes and calls it the lady of the manor",
+      "A violet fungus recovered from a toilet; Waluipedia consulted, in the field, as a phrasebook",
+      "Three knocks open a hidden door Hjumpik was taught to open and could not",
+      "The secret passage lets everybody out exactly where they went in",
+      "\"We can't fight every battle.\" - Hjumpik, counselling restraint, to Waluigi",
+      "Waluigi opens the door himself, past Hjumpik's hand, on the monster that is not half dead",
+      "\"Since when did you care?\" / \"I can't afford not to care anymore.\""
+    ],
+    "keyBattles": [
+      "The Library Reclamation - shambling mound, four attackers, already most of the way dead",
+      "The Bathroom Door - one plant creature, one spark, ash"
+    ],
+    "relatedArticles": [
+      "feyward_battalion_of_six_and_the_bait_plan",
+      "feyward_chop_bros_soul_ring_and_the_guard_with_no_name",
+      "overgrown_library",
+      "overgrown_manor",
+      "hjumpik",
+      "waluigi",
+      "toad_lee",
+      "the_veteran_fairy",
+      "red_the_kitchen_commander",
+      "the_mushroom_room_guard"
+    ],
+    "reputationChanges": {
+      "hjumpik": {
+        "connectopia_pioneers_guild": 4
+      },
+      "waluigi": {
+        "connectopia_pioneers_guild": 3
+      }
+    },
+    "effects": {
+      "connectopia_pioneers_guild": 6
+    },
+    "reputationNotes": {
+      "hjumpik": "Abandoned the standing order to go upstairs, set a marching order with the battered fairy at the front, and retook the Overgrown Library as a room worth holding.",
+      "waluigi": "Argued the plants were weak enough to take and was right; the collection survived the shambling mound.",
+      "_record": "The first reclamation in the manor undertaken for the room's own sake rather than as a route somewhere else."
+    },
+    "aftermath": "The library is held and nobody is holding it. The party retook a room, looted a corpse for a pointy stick, and walked out of it toward the planning room without leaving a guard, which means the reclamation is currently a sentence in this filing rather than a fact on the ground.\n\nThree threads leave this session open. The first is Red: she has a working counter-strategy, an operating supply line, and a key to the main room, and nobody has yet asked her the obvious question, which is whether the heir knows what she is cooking. The second is the mushroom room, where the fungus tests clean and the men do not, and where a guard misjudged how long he had. The third is Toad Lee, who has now lost time in combat three times, and whose \"I still want to be safe with Hjumpik\" was delivered with nothing at all behind the eyes.\n\nThe violet fungus is uncatalogued and untranslated. The circular passage has not been re-entered. And the standing order - upstairs, the main room, the heir, the plan built on a tactical map over a whole night - has now been abandoned for a full session and replaced with nothing.",
+    "waluigiAssessment": "**1. The victory was not one, and I used that against him and then against myself.** A shambling mound already fought by the fey residents, then stabbed by a goblin staff, then hit by a warhammer, then detonated by me, is not a trophy. It is a queue. I said so, and I was right. Then Hjumpik said *we can't fight every battle* - the dwarf, the one who hjumps on things, counselling restraint at me - and I answered *if they're that weak we should take them on*, which is the exact reasoning that gets parties killed, and which I had disproved myself ninety seconds earlier. He put a hand out. I opened the door anyway. The thing behind it was not weak at all. The archive records that the Auditor-General won the argument on the facts and lost it on the only question that mattered.\n\n**2. Hjumpik abandoned a night's planning for a room full of books and it was the right call.** *Not my library.* Three words, no deliberation. The archive has spent four sessions watching this house treat every room as a corridor to somewhere better, and the dwarf is the first person in it to defend a place because it was worth defending. It cost us the upstairs plan. File it as a loss in the ledger and a gain in every other column.\n\n**3. The cook is winning and nobody upstairs knows.** Red has what the war room does not: a delivery system the enemy already trusts. The heir has pins. She has a poison the overgrowth eats voluntarily, at scale, on a schedule. If this manor survives, it will not be because of the sixth and seventh divisions. It will be because somebody kept making dinner. RECOMMENDATION: get her a second cook and get out of her way.\n\n**4. Toad Lee, third instance.** The missing hours. *I swung out of instinct.* And now a question asked twice over a body he was looting. Three is not a pattern the archive can keep calling a coincidence, and Morel's warning about anchors was specific. Somebody needs to sit down with him while he is definitely himself, and somebody needs to decide what we do if that stops being a thing we can schedule.\n\n**5. The passage went in a circle and the house meant it.** Three knocks the dwarf was taught and could not reproduce. Others already waiting in the dark. Everyone deposited back on their own doorstep. This house has a functioning hidden infrastructure that opens for its own people and returns strangers to where they started, and we have been walking around inside it for weeks congratulating ourselves on our stealth.\n\n**6. On the sentence.** I said I could not afford not to care anymore. I said it in a corridor, over a roar, to a dwarf who had just asked me since when - and he asked it *because* I had spent the whole night telling him caution was killing us and had then opened a door to prove it. The question was not rhetorical. It was a man looking at somebody who had just behaved completely out of character and asking, reasonably, what had changed. What changed was volume eleven, and a finger under the line. RECOMMENDATION: none. There is no recommendation. WAH.",
+    "xpAwards": [
+      {
+        "xpKey": "hjumpik",
+        "articleId": "hjumpik",
+        "name": "Hjumpik",
+        "cat": "social",
+        "xp": 300,
+        "title": "Event - The Reclamation of the Library",
+        "desc": "Set a marching order that put a volunteer at the front, broke two terrified door-holders with the etymology of his own name, and was the one arguing against another fight at the end.",
+        "date": "1-2 Aethel, 922 BF (Feyward clock)",
+        "dateSort": 9220209
+      },
+      {
+        "xpKey": "hjumpik",
+        "articleId": "hjumpik",
+        "name": "Hjumpik",
+        "cat": "combat",
+        "xp": 240,
+        "title": "Event - The Reclamation of the Library",
+        "desc": "Abandoned the upstairs plan to retake the library, and read the kitchen correctly: the food is bad on purpose.",
+        "date": "1-2 Aethel, 922 BF (Feyward clock)",
+        "dateSort": 9220209
+      },
+      {
+        "xpKey": "waluigi",
+        "articleId": "waluigi",
+        "name": "Waluigi",
+        "cat": "magic",
+        "xp": 250,
+        "title": "Event - The Reclamation of the Library",
+        "desc": "One magic missile into a dying mound, and one spark of fire that turned a faceless impostor to ash before it cleared the doorframe.",
+        "date": "1-2 Aethel, 922 BF (Feyward clock)",
+        "dateSort": 9220209
+      },
+      {
+        "xpKey": "waluigi",
+        "articleId": "waluigi",
+        "name": "Waluigi",
+        "cat": "social",
+        "xp": 220,
+        "title": "Event - The Reclamation of the Library",
+        "desc": "Called the overkill what it was, then argued himself into the opposite position, opened the door over Hjumpik's objection, and said out loud that he could not afford not to care.",
+        "date": "1-2 Aethel, 922 BF (Feyward clock)",
+        "dateSort": 9220209
+      },
+      {
+        "xpKey": "toadlee",
+        "articleId": "toad_lee",
+        "name": "Toad Lee",
+        "cat": "social",
+        "xp": 200,
+        "title": "Event - The Reclamation of the Library",
+        "desc": "Spotted the renown play in the planning room, and refused a newspaper job and the word 'pet' in the same corridor.",
+        "date": "1-2 Aethel, 922 BF (Feyward clock)",
+        "dateSort": 9220209
+      },
+      {
+        "xpKey": "toadlee",
+        "articleId": "toad_lee",
+        "name": "Toad Lee",
+        "cat": "survival",
+        "xp": 150,
+        "title": "Event - The Reclamation of the Library",
+        "desc": "Caught the bathroom guard's missing five minutes - fifteen against his twenty - which is what opened the door on the impostor.",
+        "date": "1-2 Aethel, 922 BF (Feyward clock)",
+        "dateSort": 9220209
+      }
+    ],
+    "image": "assets/images/events/library-reclamation/lib-01-mound-eating-books.jpg",
+    "imageCaption": "The Overgrown Library from the doorway. The floor is joists and root; the head librarian is rooted at the far wall with his books still hanging like fruit. The mound in the middle is most of the way through a volume, one page out the side of its mouth and browning. Hjumpik saw this and abandoned a night's planning."
+  },
+  {
+    "id": "feyward_i_cant_afford_not_to_care",
+    "name": "I Can't Afford Not to Care Anymore",
+    "title": "I Can't Afford Not to Care Anymore: The Doorway, the Colour Division, and the Lady Who Answered to Carnivorous",
+    "date": "2 Aethel, 922 BF (Feyward clock) - continuing without a break from the doorway Waluigi opened at the close of the library reclamation",
+    "timeCode": "TC:0922-09-02/FEY",
+    "era": "Raventree Crisis - Feyward Operations / The Manor Fracture / Mages' Guild Retrieval",
+    "location": "The Overgrown Manor - the Revel room doorway, the green corridor, the hallway post, the kitchen, the lower locked room, the upper landing, and the lady's sealed sanctuary",
+    "type": "Feyward Party Fracture / Special Forces Retrieval / Boss Confrontation",
+    "status": "Filed",
+    "summary": "The door Waluigi opened at the end of the last filing turned out to contain a treant at full height, a Revel that could no longer tell which of its own members it was fighting, and no way for anybody to read how damaged anything was. Hjumpik dragged Waluigi out by the sleeve and the two of them had the argument the arc has been building to - glory against arithmetic, theatre against survival - and settled it on an exchange rate rather than an agreement. Then a Toad missed a bomb throw, a veteran picked it up, a treant made another treant, and somebody finally asked whether wood burns. Downstairs, a hallway guard reported that the manor's dead reinforcements had sword slashes and not plant wounds, and suggested loading the kitchen's poison into a bomb. Red changed out of a bugbear-demon shape behind a closed door and came back human, reporting the trees. Behind a locked door on the same floor, four Iron Legion special forces operatives introduced themselves by colour, identified Hjumpik by his wolf-pelt onesie, and took Toad Lee and Waluigi as leverage against an overdue contract. Hjumpik bought ten minutes, read two paragraphs of the Autumnwood Accords under duress, and walked into the lady's sanctuary alone, where the vines shut the doors behind him. The thing wearing Lady Aurelian explained its whole plan - collapse the manor, grow trees in the ruin, the beauty of nature is slow - and then said the word carnivorous and answered to it as a name. Hjumpik threw Red's poisoned dinner into its chest. The glamour came apart, the floor opened, and the session ends with a dwarf at a locked bathroom door, a satyr losing a fight behind him, and the Mages' Guild beating on the door in front.",
+    "description": "Waluigi files this one as the session where the archive's own commentator stopped being able to pretend he was outside the story. He opened the door. He said out loud, in a corridor, that he could not afford not to care any more, and then spent the rest of the night being dragged out of rooms by a dwarf doing arithmetic he could not argue with. It is also the session where three separate institutions finally showed their hands at once: the Revel, which cannot tell its own members from its enemies and spent forty-four turns proving it; the Iron Legion's Colour Division, which crossed a planar boundary to collect one overdue contractor and did it in ten efficient minutes; and the overgrowth itself, which turns out to have a name, a timetable, and a stated preference for doing this slowly. In between there is a missed bomb throw, a guard nobody has relieved holding the only real clue in the building, a kitchen commander who changed species between two lines of dialogue, and the first person in a week to ask whether trees are weak to fire.",
+    "sections": [
+      {
+        "name": "I Can't Afford Not to Care Anymore",
+        "icon": "🚪",
+        "subtitle": "the sentence that opened the door, and the thing on the other side of it",
+        "overview": "I ended the last filing in a doorway and I am going to begin this one in the same doorway, because nothing about it improved in the interval.\n\nThe door was open because I opened it. [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik)'s hand closed on air. Inside the room was the Revel, and the Revel was not alone, and the thing standing in the middle of the floor was a treant with its full height under it — not the half-dead shrub I had been using as a rhetorical device for the last twenty minutes of corridor. It turned. The floor took the weight.\n\n*I can't afford not to care anymore.* I said that. It is filed. I stand by the sentence and I would like the record to note that I said it approximately four seconds before the sentence became expensive.\n\nBehind me [Toad Lee](https://mikegent01.github.io/bik/index.html#/article/toad_lee) had the axe out and was looking at the thing with an expression I could not read, which is normal, and [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) was already doing arithmetic, which is worse.\n\nWhat neither of them said out loud, and what the Revel's fey said for them in the same breath, is the part this filing has to answer: **some of the people in that room were not fighting the tree. Some of them were fighting for it.** The Revel has been a party for three sessions. It has now produced combatants on both sides of the same floor, and nobody in the manor can tell you which fey is which until it swings.",
+        "waluigi_note": "*WAH.* Read the last filing's final line and then read this one's first line. Same doorway, four seconds apart, and the entire cost of the sentence lands in the gap. I have never been so pleased to have written something down and so unhappy to have meant it."
+      },
+      {
+        "name": "He Cannot Tell How Damaged It Is",
+        "icon": "🌲",
+        "subtitle": "the dwarf's assessment, and the reason he stopped making one",
+        "overview": "[Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) looked at the treant for what I will generously call three seconds and then said, flatly, that this did not look really good and was kind of pointless.\n\nI want to be fair to him in a way that I was not fair to him in the corridor, so here is the actual problem he had, in his own terms: **he could not tell how damaged it was.** Bark does not bleed where you can see it. A treant with forty hit points left and a treant with a hundred and forty look identical from a doorway. In the library, the mound was visibly half-eaten, and that visible half-deadness was the entire basis of my argument that these things are weak. Here there was nothing to read.\n\nSo he did the thing he does, which is stop assessing and start moving.\n\n\"I'm going to drag [Waluigi](https://mikegent01.github.io/bik/index.html#/article/waluigi) out of this,\" he announced, to nobody, and then did.\n\nI would like the archive to understand that I was not carried. I was *pulled*. There is a difference and it is the only dignity available to me in this section.",
+        "waluigi_note": "*WAH.* He is right that you cannot read a treant's health from a doorway. He is wrong that this makes fighting it pointless. It makes fighting it UNKNOWN, which is a different word, and the difference between those two words is the entire argument this session is about.",
+        "image": "assets/images/events/ambush-in-the-doorway/amb-01-drag-him-out.jpg",
+        "imageCaption": "The doorway, resolved. Hjumpik with both hands on the sleeve, hauling; Waluigi braced across the frame with his arms out, refusing to be hauled; Toad Lee third with the axe, looking back at a treant at full height and the second one budding beside it. The dwarf's whole strategy in one grip."
+      },
+      {
+        "name": "It's Not an Ambush If It's Right Here",
+        "icon": "🎭",
+        "subtitle": "the spirits shouting about the plan, and the dwarf who would not fight a stranger",
+        "overview": "The Revel's spirits objected immediately and at volume.\n\n*Wait — our plan, the ambush — where are you going?*\n\n[Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) did not break stride. \"It's not an ambush if it's right here. So... unless you know how strong this guy is, I won't fight them.\"\n\n*Ugh,* said the Revel.\n\nI want that exchange preserved exactly as it happened, because it is the first time in this arc that somebody has said the quiet mechanical thing out loud. An ambush is a fight you chose. A fight in a doorway you happened to open is a fight the room chose. [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) will take the first one all day and will not take the second one at any price, and the Revel — which planned the ambush, which has been planning the ambush for two sessions — could not follow the distinction fast enough to argue with it.\n\nMeanwhile I was still being towed.\n\n\"Why are you pulling me away from the action?\"\n\n\"Well, there's a giant tree you ran into the room with. I'm trying to save your life. *Strategy.*\"",
+        "waluigi_note": "*WAH.* \"It's not an ambush if it's right here.\" Write that on the war room wall. The fey have spent two sessions building a trap and cannot recognise that a trap you fall into yourself is just a hole."
+      },
+      {
+        "name": "Think of the Glory, Think of the Manor",
+        "icon": "🏛️",
+        "subtitle": "the argument in the hallway, at volume, again",
+        "overview": "\"Bah. I hear you.\" I did hear him. Hearing him has never once stopped me. \"But think of it — the *glory*. Think about the manor. We have been running away for so long. What's the point? This manor will collapse.\"\n\n\"You pick your fights,\" [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) said.\n\nAnd there it was. The dwarf's entire philosophy, four words, delivered like a door closing.\n\n\"You pick your fights? Then why are we in this mess?\" I did not lower my voice and I am not going to pretend I did. \"Because you let someone get away. Because you took inaction. That guy ran away — and you *healed* him into a giant plant. I'm tired of running. [Toad Lee](https://mikegent01.github.io/bik/index.html#/article/toad_lee) follows you like a giant stub.\"\n\nHe let me go.\n\nNot dramatically. He just opened his hand, and my sleeve came back, and the two of us stood in a hallway in a house that is being eaten, having said the true things.\n\n\"What should we do, then?\" he said. \"Since you love fighting — I'll follow what you say, and see if you're right.\"\n\n\"I have been leading you guys. What do you think, Mr Bossman?\"",
+        "waluigi_note": "*WAH.* He handed me the command and I handed it straight back, and neither of us wanted it, and that is the most honest thing this party has done all week. The archive files a leadership dispute resolved by mutual refusal."
+      },
+      {
+        "name": "We Need Something Theatrical",
+        "icon": "💣",
+        "subtitle": "a bomb placed in a Toad's hand, and the veteran who picked it up",
+        "overview": "[Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) pointed at [Toad Lee](https://mikegent01.github.io/bik/index.html#/article/toad_lee) and put a bomb in his hand.\n\nNot *gave*. Pointed first, then placed. The Toad looked at the bomb. The bomb, one of Wario's, looked at nobody.\n\n\"We need something theatrical,\" I said, because we did. \"\"[Toad Lee](https://mikegent01.github.io/bik/index.html#/article/toad_lee)— throw the bomb.\"\n\nHe threw the bomb.\n\nHe missed.\n\nThe bomb was picked up by the House Guard veteran, and from there the evening stopped having a shape. A guard holding a live Bob-omb in a corridor full of fey who cannot agree which side they are on is not a tactical situation, it is a *category error*, and the room resolved it the way rooms do.\n\n\"You're a deserter,\" somebody shouted at [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik). \"Deserters get killed.\"\n\n\"You didn't say you'd fight this battle — you're attacking *me*? **Attack the tree.**\"\n\n\"Well, I guess it's, uh — there's a bomb in there, and people started going crazy. And now there's TWO. They're multiplying. That's not good.\"\n\nA guard, helpfully: *it's stronger than you three combined.*\n\nThe treant animated a second treant. [Waluigi](https://mikegent01.github.io/bik/index.html#/article/waluigi) — me — stood there stone-faced while a tree made another tree out of a room I had personally insisted we enter.",
+        "waluigi_note": "*WAH.* I asked for theatre. I received theatre. The archive notes that the request and the disaster were separated by one failed throw, and that I have no grounds to complain about either, and complains anyway."
+      },
+      {
+        "name": "Are These Guys Weak to Fire Damage",
+        "icon": "🔥",
+        "subtitle": "the only useful question asked in the whole engagement",
+        "overview": "\"Are these guys weak to fire damage?\"\n\n\"They're wood, so probably.\"\n\nThat is the entire exchange. It took four seconds. It is, on the evidence of this session, the single most productive conversation the party has had since the kitchen, and I want it filed with the same weight the archive gives to a treaty.\n\nBecause here is the thing nobody in this manor has done: **nobody has tested the vegetation for the obvious weakness.** Not the household, which has been stabbing it. Not the guards, who have been shooting it with crossbows at a hundred feet. Not the Revel, which has been putting it to sleep. Not us, and we are the ones with a fire mage in the party roster and a kitchen downstairs that produces poison by the stockpot.\n\nA house has been under siege by wood for a week and the first person to say the word *fire* out loud said it in a corridor while retreating.",
+        "waluigi_note": "*WAH.* Wood. Fire. Two of them, in a house, in the Feyward, for a week. I am going to be thinking about this section for a long time and none of the thoughts are flattering to anybody present, me included."
+      },
+      {
+        "name": "Put Your Own Theatrics Into It",
+        "icon": "🎪",
+        "subtitle": "a compromise between strategy and showmanship, negotiated mid-retreat",
+        "overview": "[Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) decided to help the people upstairs. He said it out loud in the shape of a sales pitch, which is new for him: \"I'll do that. That's, ummm — win-win. I'll help you, and I'll take out more tree monsters.\"\n\n\"Let's go find the others. *Strategy*, right?\"\n\nI told him I like theatre more than strategy.\n\nAnd he said the thing that ended the argument, and I am filing it as the most competent piece of man-management I have witnessed in this campaign:\n\n**\"Put your own theatrics into it. So we don't die, and you get your theatrics.\"**\n\n\"Okay. For now. I still want that thing dead. If you run away, I'll stay and fight.\"\n\nThat is where we left it. Not agreement. A rate of exchange.",
+        "waluigi_note": "*WAH.* He did not tell me to stop wanting the spectacle. He told me to route the spectacle through the survival. I have been managed. I noticed at the time and I allowed it, which I maintain is a different thing from being managed."
+      },
+      {
+        "name": "They Had Sword Slashes",
+        "icon": "🗡️",
+        "subtitle": "the hallway guard, the dead reinforcements, and the detail nobody followed up",
+        "overview": "The same reinforcements guard was standing in the hallway. He said he had been guarding the hallway. He has, as far as this archive can establish, been guarding the hallway this entire time.\n\n\"What happened to the reinforcements?\"\n\n\"They died.\"\n\n\"From the plants?\"\n\n\"**Not from plants. From other people. They had sword slashes.**\"\n\nI want a straight line drawn under that and I want it drawn in a colour the reader cannot ignore.\n\nThe overgrowth does not carry swords. The treants club and throw bark. The violet fungus rots. The shambling mound engulfs. Every single casualty this house has taken from vegetation has looked like vegetation did it. These did not. Somebody with an edged weapon killed the manor's reinforcements in a corridor while the household's entire attention was pointed at the trees, and the only person who noticed was a guard nobody has relieved and nobody has debriefed.\n\nThen he offered the best idea anybody has had in this house: put [Red](https://mikegent01.github.io/bik/index.html#/article/red_the_kitchen_commander)'s soup in a bomb.\n\n[Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik): \"We need a bomb specialist.\"\n\nMe: \"Oh. Wario is one.\"\n\nAnd that is where the thread stops, because nobody in this party has yet done the arithmetic where the poisoned dinner and the explosive meet.",
+        "waluigi_note": "*WAH.* Sword slashes. SWORD SLASHES. I have filed three sessions of this manor's plant problem and one sentence from a man who was not invited to any of the planning has just put a second enemy in the building. Nobody followed it up. I am following it up. It is a lead and it has a file number now."
+      },
+      {
+        "name": "The Coins, the Shadow, and the Satyr",
+        "icon": "🪙",
+        "subtitle": "a summoning in a hallway, and the thing from the toilet",
+        "overview": "[Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) shook his coins.\n\nA shadow arrived. It walked up the hall toward us and resolved, as it came, into the purple thing from the bathroom — the violet fungus, the one from the toilet, the one we left in there because there was a more interesting door.\n\nThe satyr killed it.\n\nI am filing the whole encounter in three sentences because it took about that long, and because the notable thing is not the fungus. The notable thing is that [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) has a way of shaking coins that brings something to him, that what it brought was a satyr who fights on our side, and that nobody at the table asked him a single question about it.\n\nHe wanted to go upstairs. He had, by his own account, been *swayed* to come over here instead.\n\n\"Let's see what the lady wants,\" he said, and we went to the kitchen.",
+        "waluigi_note": "*WAH.* The dwarf shook a purse and a competent swordsman appeared. I have known him for three sessions. I am filing an open question rather than a guess, which the reader should understand costs me something."
+      },
+      {
+        "name": "All Women Here",
+        "icon": "🍲",
+        "subtitle": "a closed door, a change of clothes, and a commander who is not what she was",
+        "overview": "[Red](https://mikegent01.github.io/bik/index.html#/article/red_the_kitchen_commander) wanted the door closed. She needed to change; she had got her clothes dirty.\n\n[Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik): \"Why?\"\n\n\"I need privacy.\"\n\n\"But you have cooks in there.\"\n\n\"We're all women here.\"\n\nThe door closed.\n\nThe door opened.\n\nAnd [Red](https://mikegent01.github.io/bik/index.html#/article/red_the_kitchen_commander) was human. Not a red bugbear demon — a woman, standing in her own kitchen doorway with flour on her hands, in the same coat.\n\n[Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik): \"Who are you?\"\n\n\"No, no — it's *me*. The trees are multiplying.\"\n\nI have read this exchange back four times looking for the seam and I cannot find one. The archive's position, filed plainly: **the manor's kitchen commander changed species behind a closed door and gave no account of it, and the first thing she said on the other side was about the trees.** She was not hiding. She was reporting.\n\n\"We need an actual solution,\" [Red](https://mikegent01.github.io/bik/index.html#/article/red_the_kitchen_commander) said. \"How did this happen?\"\n\n\"From a guy with mushrooms growing on him.\"\n\n\"We need to take it out at the source.\"\n\n[Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik): \"I didn't want to kill an innocent.\"\n\n[Red](https://mikegent01.github.io/bik/index.html#/article/red_the_kitchen_commander): \"Sometimes we have to kill for the greater good.\"\n\nThere is a whole political philosophy in that exchange and neither party noticed they were having it.",
+        "waluigi_note": "*WAH.* She changed shape and reported the tactical situation in the same breath, in that order, and the archive would like to know which of those two things she considered the news.",
+        "image": "assets/images/events/ambush-in-the-doorway/amb-03-red-unmasked.jpg",
+        "imageCaption": "The kitchen doorway, the moment after. Red out of the bugbear-demon shape and in a human one, hands still floury, mid-sentence and already back onto the trees. Hjumpik with his question half-raised. Waluigi in the doorframe, declining to be surprised on the record. The stockpot behind them is still going."
+      },
+      {
+        "name": "I'm Red, and I'm Green, and I'm Yellow, and I'm Black",
+        "icon": "🎨",
+        "subtitle": "four operatives behind a locked door, and the onesie that gave the game away",
+        "overview": "[Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) tried a door. Locked. [Red](https://mikegent01.github.io/bik/index.html#/article/red_the_kitchen_commander) said there had been fighting in there — slashing sounds — and that she had opened it after the plants left, and then a hand—\n\nHe asked to check it. She agreed to unlock it.\n\nThree guards stood there. Then the magical girl sequence started.\n\n*I'm Red.* *And I'm Green.* *And I'm Yellow.* *And I'm Black* — and the fourth one turned into a shadow.\n\n\"Like a black person, or—\"\n\n\"Okay, so there are monsters over here. Have you fought any?\"\n\n\"Yeah, we got the monsters. This goblin guy and demon guy.\" A satyr, for the record.\n\n\"Who are you guys? You don't look like guards here.\"\n\n\"We're part of the Colour Division.\"\n\n\"Colour Division?\"\n\n\"Special forces.\"\n\n\"For who?\"\n\n\"The Iron Legionaries. We were sent here to look for a dwarf named **Hjumpoo**.\"\n\n[Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) — standing there, in the room, being looked at — said: \"Hjumpik, you stupid.\"\n\n\"Why?\"\n\n\"He took longer than five nights. His time's up. They want him back for the mission.\"\n\n\"I can relay that information to him.\"\n\n\"Really?\"\n\nAnd then Black said it. \"Hey — you ARE Hjumpik. You have the signature wolf-pelt onesie on.\"\n\n\"Uhh, you know, a lot of dwarves use this stuff. It's kinda racist. *All* dwarves use wolf pelt.\"\n\nHe closed the door slowly and ran upstairs.",
+        "waluigi_note": "*WAH.* Four special forces operatives crossed a planar boundary into a house full of carnivorous architecture to collect one contractor, and the identification was made on a garment. Not a description, not a sigil, not a writ. The onesie. He has been wearing the onesie for three sessions and I have never once thought of it as evidence."
+      },
+      {
+        "name": "By the Order of the Lady of the House",
+        "icon": "🪜",
+        "subtitle": "a chase up a staircase, and a guard post argued past in nine words",
+        "overview": "He looked below during the chase. They were coming.\n\nAt the top, the house guard held the line the way the house guard always holds the line: \"By the order of the Lady of the House, you can't go in.\"\n\n[Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik): \"What if she's a fake?\"\n\nNothing. The guards held.\n\n\"I don't have time. If you close the door, bring us in — we can talk.\"\n\n\"Fine. Fine.\"\n\nThe guards stood down. Everybody ran in. The Legion arrived at the door behind them and started banging on it.\n\n*By the order of the Legion, open the door.*\n\n\"Alright, listen — keep this quick. People downstairs are getting killed by the trees.\"\n\nAnd then [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) looked around the room and stopped.\n\n**The other tree battles are gone.** This was the same room where he and I used the freezing spell. The frozen statues. The engagement we left in progress.\n\nEmpty.",
+        "waluigi_note": "*WAH.* \"What if she's a fake?\" — asked as a delaying tactic, by a man who does not yet know he is going to be right about it within the hour. I have filed a lot of accidental prophecy in this archive and this is the cheapest and the best."
+      },
+      {
+        "name": "A House Divided Against Itself",
+        "icon": "🧩",
+        "subtitle": "the theory session, conducted at speed, with a door being beaten on",
+        "overview": "[Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) had questions and the Legion had a battering fist, so he asked them fast.\n\n\"Say the plant monster wanted to take out the lady of the manor, but couldn't. To get this manor, you destroy the manor or take control of the leader — common sense. Let's say this plant monster wanted to take control of the lady, but she couldn't. **So what if they changed into the lady themselves? Can we rule that out?**\"\n\n\"But we've been winning some battles, right? We cleared all these rooms. Why would a plant want to remove other plants from itself?\"\n\n\"Good question. I don't have a complete answer. Why were we struggling, but now we're not?\"\n\nI put in: \"What if the fake lady wanted to control the manor from the *outside*?\"\n\n[Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik): \"A house divided against itself can't stand. Why would they kill themselves to hide themselves?\"\n\n\"Well — it could be a vengeful spirit.\"\n\n\"Could be. But doesn't make sense.\"\n\n\"You were there when the fake one fought us.\"\n\n\"No, no — maybe they realised they can't beat us.\"\n\n\"But they *were* beating us. Continuously.\"\n\n\"What I'm saying is: something's fishy and I don't like it. These guards are chasing me.\"\n\n\"Just keep your eyes open. We're losing and they're retreating. **Use your brain.**\"\n\n[Toad Lee](https://mikegent01.github.io/bik/index.html#/article/toad_lee), who had said nothing for two sessions: \"Maybe an ambush.\"\n\n\"Yeah. Maybe. Maybe an ambush, actually.\"",
+        "waluigi_note": "*WAH.* Toad Lee spoke twice this session and was right the second time, which is a better hit rate than mine. The archive would like it noted that the correct answer to the whole theory session was supplied by the party member I described, in a corridor, ninety minutes earlier, as a giant stub. I retract nothing and I record everything."
+      },
+      {
+        "name": "Five Months",
+        "icon": "🔔",
+        "subtitle": "the guards' account of their watch, and the arithmetic Hjumpik did out loud",
+        "overview": "\"What happened recently?\"\n\nThe guard's account, filed as given: \"Well, we were at the hot spa, and we planned a push. So we killed some tree monsters and cut some leaves. But by the time we reached this room, we found some frozen statues in here and no plants to be seen. Soon the Lady returned. She asked us to guard the room while she does some preparation to kill the plants. So we have been doing that.\"\n\n\"No one else came in or out?\"\n\n\"We're guards.\"\n\n\"Sure.\"\n\nAnd then [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) did the arithmetic.\n\nHe has been in this house for three months. He said it out loud, and then he kept going, and the number moved.\n\n*Five months.*\n\nHe looked at his cowbell. He recalled his past. He relearned it — that is the only verb available and I am using it under protest. I waved my hand in front of his face and got nothing. No reaction. The dwarf stood in a guarded room with the Legion beating on the door below and an unaccounted-for two months arriving in his head all at once.\n\nFor the record, I want the archive to hold three facts next to each other and not resolve them:\n\n1. The Lady asked the guards to hold this room while she *prepares to kill the plants*.\n2. Nobody has come in or out, because they are guards.\n3. Hjumpik has lost two months he did not know he had lost.",
+        "waluigi_note": "*WAH.* The cowbell again. Second session running it has done something to him and second session running nobody has picked it up and looked at it. I am putting it in the investigation file whether he likes it or not."
+      },
+      {
+        "name": "Leverage",
+        "icon": "⛓️",
+        "subtitle": "the ambush that was actually an ambush, and the price of ten more minutes",
+        "overview": "The stair doors burst open. The Colour Division came through.\n\nThey apprehended [Toad Lee](https://mikegent01.github.io/bik/index.html#/article/toad_lee) and [Waluigi](https://mikegent01.github.io/bik/index.html#/article/waluigi) promptly and without theatre, which I resented.\n\n[Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik): \"You got me. I'm Hjumpik.\"\n\nHe thought about asking for more time. He decided against asking for time, and asked for something narrower instead: \"No, I don't want to get any time. Just let me investigate first.\"\n\n\"Well — YOU can. But your friends there are apprehended right now.\"\n\n\"Why don't you just want me? Why them, in the crossfire?\"\n\n\"**Leverage.**\"\n\nI did not want to kill the Mages' Guild. I want that filed, because the option was available and I considered it and the consideration was brief but it was real. Still...\n\n\"You know what — fine. Sure. I'll see what's in this room.\"\n\n\"Wait. Please read this.\"\n\nAnd they handed a dwarf, in a corridor, mid-siege, [[prop:prop_accords_900_20_containment|six pages of the Autumnwood Accords on containment-zone maintenance]].\n\n[Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik), having read it: \"You want me to monitor this place?\"\n\n\"No. That's what *we* are tasked to do.\"\n\nThen they read him the part that actually applied — [[prop:prop_aegis_magi_recall_clause|the Recall clause]]. *In the event that a bound object flees its designated location, the Aegis Magi may be authorized to track and retrieve it using Recall magic, the costs of which shall be borne by the owner.* Collateral that can walk away requires extraordinary security.\n\n\"Your mission is over, Hjumpik. You failed.\"\n\n\"You said it was simple. Look what happened. Plants came. Other stuff. No flak.\"\n\n\"Well — what have you achieved? Something *tangible*?\"\n\n\"I'm getting to the bottom of this place.\"\n\n\"Anything tangible to show the Aegis Magi, and maybe they'll hold off a bit.\"\n\n[Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) clutched the ring in his pocket. The one with Aurelian in it.\n\n\"How about this. Since you've got me cornered — I'll just check the room over there. I'll come back out. Hold me back for a bit.\"\n\n\"We want something, then. Insurance. Give us one item.\"\n\n\"You have my friends. You're lucky I'm not blasting you guys.\"\n\n\"Fine. Go get the mage cages.\"\n\n\"No — no mage cages.\" [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) had the warhammer in his hand without appearing to have picked it up. \"No cages. They're not animals. Just hold them.\"\n\n\"Fine.\"\n\nHe produced handcuffs.\n\n[Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) signalled to me to escape if things got bad. I slipped the handcuffs immediately and stood there wearing them anyway, because there is no theatre in an empty cuff.",
+        "waluigi_note": "*WAH.* They read him the regulations. In a corridor. During a siege. Six pages on containment-zone maintenance and then one paragraph about retrieving property that walks away, and only the second document was actually about him. That is how an institution tells you what you are without using the word.",
+        "image": "assets/images/events/ambush-in-the-doorway/amb-02-color-division.jpg",
+        "imageCaption": "The landing, the moment the leverage was named. Toad Lee held between Red and Green; Waluigi cuffed and unbothered, having already slipped them; Yellow and Black at the stair door. Hjumpik alone in the foreground with a hand on the warhammer, buying ten minutes with a ring he has not shown them."
+      },
+      {
+        "name": "Yes, Yes, Come In",
+        "icon": "🌺",
+        "subtitle": "the door that closed behind them, and the thing that was pleased to see them",
+        "overview": "He opened the door gently.\n\n\"Ready to go, [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik),\" said the satyr from earlier, who had been there the whole time.\n\n\"Sure. Why not.\"\n\nThey took a step in.\n\nThe doors closed. Vines locked them.\n\n*\"Yes, yes — come in,\"* said Aurelian. *\"We need to talk.\"*\n\n\"Yeah.... sure.\"\n\n[Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) went forward. **\"Come face me.\"**\n\nThen, one step later, out loud, to the room: \"Wait — why did I come in here? Actually, this was a horrible idea.\"\n\nThe vines covered every door. The full room was crawling. He walked over anyway.\n\n\"Who are you?\"\n\n\"I'm the one that will rule the manor.\"\n\n\"You're collapsing this place.\"\n\n\"Yes. And once it collapses, trees will grow anew.\"\n\n\"Then why impersonate the lady?\"\n\n\"I needed to move some puzzle pieces. Put them into place.\"\n\n\"Why not just — why waste our time? Go out and kill everyone.\"\n\n\"Well. The beauty of nature is *slow*.\" A pause. \"Have you smelt the fungus spores yet?\"",
+        "waluigi_note": "*WAH.* It answered every question. Every single one. A monster with a complete plan, a stated objective, and the patience to explain both — and the only reason we got the explanation is that it had already won the room and could afford the conversation."
+      },
+      {
+        "name": "That's... My Name",
+        "icon": "🪴",
+        "subtitle": "a question about furniture, asked twice, and a bowl of dinner",
+        "overview": "[Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) looked at what it was sitting on.\n\n\"Since we're dying anyway — what plant are you sitting on?\"\n\n\"Oh, this? Sadly, it's just a foflower.\"\n\n\"Is it?\"\n\n\"Yes.\"\n\n\"Ever wondered if sitting on this is bad for plants?\"\n\nHe took another step. \"You sure?\"\n\n\"Hmmm. What do you mean?\"\n\nHe smirked. \"Are you sure that plant is good to sit on? Plants are *carnivorous*, right—\"\n\nAnd it said: **\"That's.... my name.....\"**\n\nI have transcribed that with the pauses in because the pauses are the evidence. Something in the thing wearing Aurelian's face heard the word and answered it as though it had been addressed. Not *plants are carnivorous, yes*. Not a correction. A name, given, by accident, in the middle of being condescended to about furniture.\n\n\"I have something for you,\" [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) said. \"Since it's my last day — why don't I give you something special?\"\n\nHe threw the food right at her.\n\n[Red](https://mikegent01.github.io/bik/index.html#/article/red_the_kitchen_commander)'s dinner. The poison that withers the overgrowth in the hand. Straight into the chest of the thing that runs it.",
+        "waluigi_note": "*WAH.* He killed a monster's composure with a question about seating. Then he threw soup at it. I have been arguing for two sessions that this party needs to be more theatrical and the dwarf who hates theatre just out-staged me with a bowl."
+      },
+      {
+        "name": "The Show Can Begin",
+        "icon": "🕳️",
+        "subtitle": "the glamour ending, the floor opening, and a bell rung in a corridor",
+        "overview": "It was damaged.\n\nDamaged is not beaten. Its eyes started bleeding, and then the black came, and then the plants came out of the eyes. The mouth went hollow and kept going, past where a mouth stops. [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) — who has walked into a treant's reach twice this session without changing expression — was horrified, and the archive is recording that because he is not a man who is horrified on paper.\n\nThe floor opened.\n\n*\"The show can begin.\"*\n\nThe satyr ran at it. \"I'll stop this.\" He failed horribly.\n\nThe plants on the floor shrieked.\n\n[Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) rang the bell.\n\nAurelian glowed orange, and her eyes rolled back. The ring in his pocket glowed. And the satyr stood there.\n\nI do not know what happened. I want that in writing, in my own voice, in an archive I control: **I do not know what happened.** A cowbell, an orange glow, a soul ring, a monster mid-transformation and a satyr standing perfectly still in the middle of it.\n\nThen [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) ran — away from her, directly into the violet fungus. He jumped one. Barely cleared it. Reached the locked bathroom door.\n\nThe bathroom was locked.\n\nThe satyr is locked in a fight he did not pick, behind him. The Mages' Guild is beating on the door, in front of him. The floor is open in the room he just left, and something with roots where its eyes were is currently deciding what to grow into.\n\nThe filing ends with a dwarf between two doors, both of them shut.",
+        "waluigi_note": "*WAH.* Last session ended in a doorway I opened. This one ends at a door that will not open, with the same dwarf on the wrong side of it, and me in handcuffs I have already escaped from one floor down. Somebody is going to have to admit that this house has a pattern.",
+        "image": "assets/images/events/ambush-in-the-doorway/amb-04-the-show-can-begin.jpg",
+        "imageCaption": "The sanctuary room, after the bowl. The glamour is finished: black down the cheeks, shoots out of the sockets, the mouth open past where a mouth stops, Red's slop steaming down the gown and blackening the petals. The floor is already splitting. Hjumpik is turning to run with the cowbell up and ringing."
+      },
+      {
+        "name": "The Ledger — Three Rounds, Forty-Four Turns, Nothing Decided",
+        "icon": "📊",
+        "subtitle": "what the combat log actually says, translated out of dice",
+        "overview": "The engagement in the Revel room ran three rounds, forty-four NPC turns, twenty-four attack actions and thirteen spells, and produced **no decision whatsoever.** Most of the fighting was a standstill. I have the ledger and I am going to read it honestly, which means reading it against us.\n\n**Busiest combatant: the Satyr Swordfighter** — eight multiattacks, and its focus was the House Guard. Not the treant. The *House Guard*. A fey swordsman spent the entire engagement attacking the manor's own soldiers.\n\n**Most-targeted: the Treant** — which sounds like progress until you count who was doing the targeting. The House Guard put six multiattacks into it with heavy crossbows. The Satyr Bard cast Sleep at it three times. The Sprite Caster cast Sleep at the Wyght. The Satyr Sorcerer spent four spells on the *Satyr Swordfighter*, which is to say the Revel spent its magic fighting itself.\n\n**The tally by hand:** Satyr Swordfighter 8 multiattacks, focused House Guard. House Guard 6 multiattacks, focused Treant. Satyr Sorcerer 4 spells, focused Satyr Swordfighter. A Satyr: 3 attacks and 2 spells, focused [Waluigi](https://mikegent01.github.io/bik/index.html#/article/waluigi). Satyr Bard 3 spells, focused Treant. Treant: 1 multiattack, 1 spell, focused Satyr. Goblin Line Cook 4 attacks, focused Satyr Swordfighter — and healing itself between throws off packets of questionable powder it calls *seasoning*. Satyr Druid 1 attack, 1 spell. Satyr Rogue 1 multiattack, focused Satyr Bard. Sprite Caster 1 spell. A second Treant, 1 spell. Red Scullion: no actions. Shambling Mound: no actions, incapacitated.\n\n**What the numbers mean, in plain terms.** The Revel is not a faction. It is a room full of individuals who have not agreed on an enemy. A rogue emptied a hand crossbow and two shortswords into a bard on its own side. A sorcerer put Colour Spray into a cone containing a treant and a druid. A druid Thunderwaved a swordfighter. The house's own guards put crossbow bolts into [Toad Lee](https://mikegent01.github.io/bik/index.html#/article/toad_lee) and into [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) — [[prop:prop_revel_engagement_ledger|nineteen points of damage across four bolts]], logged, against the two party members who were not attacking anybody.\n\nThe Treant, meanwhile, cast Animate Trees twice. It is not fighting a battle. It is *reproducing* in the middle of one, and the only reason the number of treants is not higher is that the room ran out of rounds before it ran out of trees.\n\nAnd the sleeping one died. That is the last line in the log and I am giving it its own paragraph because somebody in that room went down asleep, under an enchantment cast by an ally, and the log does not say who cast the last blow.",
+        "waluigi_note": "*WAH.* Forty-four turns and the most effective combatant in the room spent all eight of its actions on the wrong side. This is not a battle report. It is a diagnosis, and the diagnosis is that the Revel cannot tell friend from enemy any more — which, given that we have spent this session establishing that the lady of the house is a plant, may not be a failure of discipline at all. It may be the correct reading of the room."
+      }
+    ],
+    "participants": [
+      {
+        "id": "hjumpik",
+        "name": "Hjumpik",
+        "role": "Anvil / The One Doing the Arithmetic / Thrower of Soup / Ringer of the Bell"
+      },
+      {
+        "id": "waluigi",
+        "name": "Waluigi",
+        "role": "Field Archivist / The One Who Opened the Door / Handcuffed, Briefly and Voluntarily"
+      },
+      {
+        "id": "toad_lee",
+        "name": "Toad Lee",
+        "role": "Bomb Thrower (Missed) / Said 'Maybe an Ambush' and Was Right / Taken as Leverage"
+      },
+      {
+        "id": "red_the_kitchen_commander",
+        "name": "Red",
+        "role": "Kitchen Commander / Changed Shape Behind a Closed Door / Supplier of the Poison That Landed"
+      },
+      {
+        "id": "the_plant_lady",
+        "name": "The Plant of the Manor",
+        "role": "Host of the Sanctuary / Stated Its Whole Plan / Answered to Carnivorous"
+      },
+      {
+        "id": "color_division_black",
+        "name": "Black",
+        "role": "Colour Division / Made the Identification / Named the Leverage"
+      },
+      {
+        "id": "the_hallway_reinforcement_guard",
+        "name": "The Hallway Guard",
+        "role": "Counted the Wounds / Proposed the Soup Bomb"
+      },
+      {
+        "id": "lady_aurelian",
+        "name": "Lady Aurelian Corvinarus",
+        "role": "Present as a Glow in a Ring When the Bell Rang"
+      }
+    ],
+    "outcome": "No room was taken and no enemy was beaten, and the party's position is materially worse than it was at the start of the night. The treant in the Revel room was not fought; it animated a second treant and the engagement dissolved into a three-round standstill in which the Revel's own members did most of the damage to each other. Toad Lee and Waluigi are in Colour Division custody as leverage against Hjumpik's overdue Aegis Magi contract - handcuffs rather than mage cages, on Hjumpik's insistence, and Waluigi slipped his immediately and is wearing them by choice. Hjumpik traded an investigation window for that custody and spent it walking alone into the lady's sanctuary. What was gained is information, and it is substantial: the overgrowth's objective is stated (collapse the manor, grow trees in the ruin), its patience is explained (the beauty of nature is slow), its impersonation of the lady is confirmed as deliberate piece-moving, and it answered to the name Carnivorous. Red's kitchen poison works on it at range, thrown by hand. The manor's dead reinforcements were killed with edged weapons, not vegetation, which puts a second hostile party in the building that nobody has accounted for. And Hjumpik's own reckoning of how long he has been in this house moved from three months to five in the middle of a sentence.",
+    "notableFeatures": [
+      "\"I can't afford not to care anymore\" - Waluigi's line from the previous filing, and the four seconds before it became expensive",
+      "\"It's not an ambush if it's right here\" - Hjumpik's refusal to fight an unread enemy",
+      "\"Put your own theatrics into it. So we don't die, and you get your theatrics\" - the compromise that ended the argument",
+      "\"Are these guys weak to fire damage?\" \"They're wood, so probably.\" - the first fire test proposed in a week-long siege against vegetation",
+      "\"Not from plants. From other people. They had sword slashes.\" - a second killer in the manor, reported by a guard nobody debriefed",
+      "The Colour Division: \"I'm Red. And I'm Green. And I'm Yellow. And I'm Black\" - the fourth turns into a shadow",
+      "Hjumpik identified by his wolf-pelt onesie, and his defence that all dwarves use wolf pelt",
+      "\"Leverage.\" - one word, and the party has two hostages in it",
+      "Three months becomes five months, mid-monologue, in front of a cowbell",
+      "\"Plants are carnivorous, right-\" \"That's.... my name.....\"",
+      "A bowl of Red's kitchen poison thrown into the chest of the thing wearing Lady Aurelian",
+      "\"The show can begin\" - the floor opening under a face that has finished being a face",
+      "Three rounds, 44 NPC turns, 24 attacks, 13 spells, and no decision: the Revel fighting itself"
+    ],
+    "keyBattles": [
+      "The Revel Room Standstill - three rounds, forty-four turns, a treant reproducing mid-fight and a fey faction attacking its own",
+      "The Sanctuary - one bowl of poisoned dinner, one glamour ended, one floor opened"
+    ],
+    "relatedArticles": [
+      "feyward_library_reclamation_and_the_kitchen",
+      "feyward_battalion_of_six_and_the_bait_plan",
+      "feyward_chop_bros_soul_ring_and_the_guard_with_no_name",
+      "overgrown_manor",
+      "overgrown_library",
+      "hjumpik",
+      "waluigi",
+      "toad_lee",
+      "red_the_kitchen_commander",
+      "the_plant_lady",
+      "color_division",
+      "color_division_black",
+      "the_hallway_reinforcement_guard",
+      "lady_aurelian",
+      "iron_legion"
+    ],
+    "reputationChanges": {
+      "hjumpik": {
+        "color_division": -8,
+        "mages_guild": -10
+      },
+      "waluigi": {
+        "color_division": -5
+      }
+    },
+    "effects": {
+      "color_division": -6,
+      "mages_guild": -8
+    },
+    "reputationNotes": {
+      "hjumpik": "His Aegis Magi engagement was declared failed and over; the Division took two of his people as leverage against the overdue contract, and he refused to surrender the only asset that would have satisfied them.",
+      "waluigi": "Taken into Colour Division custody as leverage, was out of the cuffs before anybody noticed, and has not mentioned it.",
+      "_record": "A Mages' Guild contract failed publicly and the Colour Division took hostages over it — cuffs rather than mage cages, agreed without argument, which is the part worth filing."
+    },
+    "aftermath": "**Standing.** Nothing in the Overgrown Manor is held. The Revel room contains at least two treants and a fey faction that spent three rounds unable to agree on a target. The lady's sanctuary has an open floor in it and something in the middle of finishing its transformation. The corridor between them is unguarded, as every corridor in this house has been since the first filing.\n\n**Custody.** Toad Lee and Waluigi are held by the Colour Division on the upper landing, cuffed, as leverage. The cuffs are cuffs and not mage cages because Hjumpik put a hand on a warhammer and said they are not animals; the Division agreed without argument, which should worry the reader more than a refusal would have. Waluigi is out of his and has not mentioned it.\n\n**Contract.** Hjumpik's Aegis Magi engagement is declared failed and over. The Division wants one tangible item as insurance against the window he negotiated. He has the soul ring with Lady Aurelian in it in his pocket and did not offer it, and the archive notes that the only asset he has that would satisfy them is the only asset he will not surrender.\n\n**Open threads.** The sword slashes on the manor's dead reinforcements are unexplained and unpursued. The soup-in-a-bomb proposal has a supplier (Red), a specialist named (Wario), and no bomb. The fire question was asked and never tested. The two missing months in Hjumpik's reckoning have no account attached. And the thing in the sanctuary answered to Carnivorous, which means the archive now has a name for the overgrowth and no idea what holds the name.",
+    "waluigiAssessment": "**1. I opened the door and the bill arrived immediately.** I spent the last filing arguing that these plants are weak and that thinking is what has been killing us. I opened a door on that argument and found a treant at full height, a room that could not be read, and a dwarf who told me - correctly - that you cannot assess a thing you cannot see the damage on. I was pulled out of that room by the sleeve. The archive will record that I was not grateful at the time and that I am, in writing, now.\n\n**2. The argument was settled by a rate of exchange, not by anybody being right.** *Put your own theatrics into it, so we don't die and you get your theatrics.* That is not a concession, it is a currency conversion, and it is the most competent thing Hjumpik has done in this campaign. I have been managed. I noticed at the time. I allowed it.\n\n**3. The most important sentence of the night was said by a man nobody has relieved.** Sword slashes. Not plants. The manor has been fighting vegetation for a week with its entire attention, and its own dead are turning up with edged wounds, and the witness is a guard standing in a hallway waiting for orders that are not coming. I have filed that as a lead. If the next session does not pull that thread I will pull it myself and I will be insufferable about it.\n\n**4. Forty-four turns of a faction fighting itself is not a battle report, it is a diagnosis.** The Revel's best swordsman spent eight multiattacks on the house guard. Its sorcerer spent four spells on its own swordfighter. Its rogue emptied three attacks into its own bard. Either the Revel has lost cohesion entirely, or - and I want this considered seriously - some of them are being controlled, and the ones fighting the house are the ones already taken. Given what we learned upstairs about who has been wearing the lady's face, I am no longer confident that a fey attacking another fey is a mistake.\n\n**5. The Colour Division was the only professional organisation in the building.** They stated their objective, identified their target by a garment, took hostages they called insurance, granted a window they intend to close, and read a dwarf two paragraphs of regulation in the middle of a siege. Nothing they did was cruel. Everything they did worked. I file institutions I cannot outmanoeuvre with a particular kind of loathing and this is that entry.\n\n**6. Hjumpik killed a monster's composure with a question about furniture, and then threw soup at it.** *Are you sure that plant is good to sit on? Plants are carnivorous, right—* *That's.... my name.....* I have spent three sessions demanding that this party be more theatrical. The dwarf who hates theatre out-staged me with a bowl of kitchen slop and a question about seating, and the archive is obliged to say so.\n\n**7. Two months are missing and nobody has looked for them.** Three months became five months in the middle of his own sentence, in front of a cowbell that has now done something inexplicable in two consecutive filings, while I waved a hand in his face and got nothing back. He is the party's strategist and his own timeline has a hole in it. That is not a character note. That is a security problem.",
+    "xpAwards": [
+      {
+        "xpKey": "hjumpik",
+        "articleId": "hjumpik",
+        "name": "Hjumpik",
+        "cat": "exploration",
+        "xp": 320,
+        "title": "Event - I Can't Afford Not to Care Anymore",
+        "desc": "Refused an unreadable fight, dragged his archivist out of it by the sleeve, and converted the argument into a working compromise instead of winning it.",
+        "date": "2 Aethel, 922 BF (Feyward clock)",
+        "dateSort": 9220209
+      },
+      {
+        "xpKey": "hjumpik",
+        "articleId": "hjumpik",
+        "name": "Hjumpik",
+        "cat": "social",
+        "xp": 300,
+        "title": "Event - I Can't Afford Not to Care Anymore",
+        "desc": "Bought an investigation window from the Colour Division under arrest, refused the mage cages for his friends, then broke the false lady's composure with a question about furniture and put Red's poison into its chest.",
+        "date": "2 Aethel, 922 BF (Feyward clock)",
+        "dateSort": 9220209
+      },
+      {
+        "xpKey": "waluigi",
+        "articleId": "waluigi",
+        "name": "Waluigi",
+        "cat": "chaos",
+        "xp": 260,
+        "title": "Event - I Can't Afford Not to Care Anymore",
+        "desc": "Opened the door, owned the consequence in the active voice, and filed the Revel's forty-four-turn standstill as a diagnosis rather than a defeat.",
+        "date": "2 Aethel, 922 BF (Feyward clock)",
+        "dateSort": 9220209
+      },
+      {
+        "xpKey": "waluigi",
+        "articleId": "waluigi",
+        "name": "Waluigi",
+        "cat": "discovery",
+        "xp": 220,
+        "title": "Event - I Can't Afford Not to Care Anymore",
+        "desc": "Caught the hallway guard's sword-slash testimony and the Carnivorous name-slip, and filed both as leads instead of colour.",
+        "date": "2 Aethel, 922 BF (Feyward clock)",
+        "dateSort": 9220209
+      },
+      {
+        "xpKey": "toadlee",
+        "articleId": "toad_lee",
+        "name": "Toad Lee",
+        "cat": "technique",
+        "xp": 180,
+        "title": "Event - I Can't Afford Not to Care Anymore",
+        "desc": "Threw the bomb on command and missed it, then supplied the session's correct theory in three words - maybe an ambush - and was taken as leverage without breaking formation.",
+        "date": "2 Aethel, 922 BF (Feyward clock)",
+        "dateSort": 9220209
+      }
+    ],
+    "image": "assets/images/events/ambush-in-the-doorway/amb-01-drag-him-out.jpg",
+    "imageCaption": "The doorway, resolved. Waluigi braced across the frame refusing to leave, Hjumpik with both hands on the sleeve hauling him out, Toad Lee looking back at a treant at full height with a second one already budding beside it. The whole session is in this grip."
+  }
+]

@@ -1,0 +1,446 @@
+[
+  {
+    "id": "order_120",
+    "name": "Order 120",
+    "title": "The Execution Order That Made the Riot Inevitable",
+    "date": "21st Highsun, 1040 BF — issued 14:30",
+    "era": "The Aegis Uprising — Toad Liberation Crisis",
+    "location": "Aegis Command Fortress, Regal Empire Midlands",
+    "type": "Military Order / Atrocity Directive / Casus Belli",
+    "status": "Executed in part — superseded by the loss of the facility the same afternoon",
+    "summary": "Order 120 was General Ironhand's directive for the immediate execution of all Toad prisoners held at Aegis Command, issued on the 21st of Highsun, 1040 BF at 14:30. It followed the failed courtyard infiltration in which Bones was stabbed, and the Legion's confirmation that the 'Speaker L' in their custody was a decoy. The order did not produce the compliance it assumed. It produced the largest prison break in Regal Empire history, in the same building, within the hour.",
+    "description": "Waluigi wishes to be precise about what Order 120 was, because the archive is full of people who use the number as a synonym for cruelty and never say what the document actually did.\n\nOrder 120 was an instruction to kill prisoners already in custody. Not a battlefield order, not a rule of engagement, not a reprisal policy with conditions attached. General Ironhand issued it at 14:30 on the 21st of Highsun after two things happened in quick succession: Bones, disguised as a guard, was recognised in the courtyard and stabbed through the chest, and the Legion established that the 'Speaker L' they had been interrogating was a decoy — a loyalist who had claimed under questioning that he had eaten a poisonous mushroom and was dying regardless.\n\nThe interrogation had produced nothing. The decoy had spoken of the Fractured Heart philosophy and of the Council of Seven, and had described a movement that would survive any single death. He was telling the truth, and he was also wasting the Legion's afternoon on purpose. Ironhand appears to have concluded that if the prisoners could not be made to yield intelligence, they could at least be made to stop existing.\n\n## What the order set running\n\n\nThe Liberated Toads' own council recorded the emergency at 14:45 — fifteen minutes after issue — as CRISIS RESPONSE: ORDER 120, proposed by Captain Fernback, with a deadline of 15:45. One hour. The council's own background note is the flattest sentence in the file: 'We have less than an hour before executions begin. The infiltration team (Creek) is pinned down.'\n\nThe crisis vote was taken with the Speaker's seat effectively empty and the Council in disarray, and it did not resolve cleanly. What resolved the situation was not a vote. It was the prisoners.\n\n## The order as evidence\n\n\nThere is a detail in the archive that Waluigi keeps returning to. Order 120 reached the Council of Seven's clerk roughly thirty-two hours before the gate offices received it, and no copy was ever recalled. Soldiers in the field twice radioed to ask whether 'the hour stands' — whether the order was still live — and received no reply, on a line that was working.\n\nThat is not the paperwork of a decision taken in fury at 14:30. That is the paperwork of a decision that had been sitting somewhere, drafted, waiting for an afternoon bad enough to justify it. Waluigi does not assert this. Waluigi notes the timestamps and invites the reader to do arithmetic.\n\n## Outcome\n\n\nOrder 120 was never completed. The riot began at 14:30 and the facility was compromised before the deadline expired. The order's practical legacy is that it converted a containment problem into an uprising, handed the Liberated Toads the moral position in every subsequent negotiation, and gave the Glazed Congress the specific atrocity it needed to move against the Iron Mandate. It is the single most counterproductive instruction issued by the Iron Legion during the crisis, and it was issued by their most senior commander in the field. WAH.",
+    "participants": [
+      {
+        "id": "general_ironhand",
+        "name": "General Ironhand",
+        "role": "Issued the order"
+      },
+      {
+        "id": "bones",
+        "name": "Bones",
+        "role": "Stabbed in the courtyard; named among the prisoners condemned"
+      },
+      {
+        "id": "captain_fernback",
+        "name": "Captain Fernback",
+        "role": "Proposed the Liberated Toads' emergency response at 14:45"
+      },
+      {
+        "id": "speaker_l",
+        "name": "Speaker L",
+        "role": "The prisoner in custody proved to be a decoy standing in for him"
+      }
+    ],
+    "outcome": "Not completed. The Aegis Command Uprising began at 14:30 and the facility fell before the 15:45 deadline. The order became the central atrocity cited against the Iron Mandate.",
+    "notableFeatures": [
+      "Issued 14:30, 21st Highsun 1040 BF, by General Ironhand",
+      "Directed the execution of all Toad prisoners held at Aegis Command",
+      "Triggered by the failed courtyard infiltration and the exposure of the Speaker L decoy",
+      "Liberated Toads logged the crisis at 14:45 with a 15:45 deadline — one hour",
+      "Reached the Council of Seven's clerk roughly 32 hours before the gate offices",
+      "Two field queries asking whether 'the hour stands' went unanswered on a working line"
+    ],
+    "keyBattles": [
+      "aegis_command_riot"
+    ],
+    "relatedArticles": [
+      "aegis_command",
+      "iron_legion",
+      "liberated_toads",
+      "general_ironhand",
+      "bones",
+      "speaker_l",
+      "captain_fernback",
+      "iron_mandate",
+      "council_of_seven",
+      "vigilance",
+      "fractured_heart",
+      "robinson",
+      "accountability_docket",
+      "supernatural_sovereignty_act",
+      "midlands_diet"
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "liberated_toads": -30
+      }
+    },
+    "effects": {
+      "liberated_toads": -15
+    },
+    "reputationNotes": {
+      "waluigi": "Waluigi's precise analysis of Order 120 alienates the Liberated Toads."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T22:37:06+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    },
+    "image": "assets/images/events/archive-sheets/order-120.jpg"
+  },
+  {
+    "id": "iron_mandate",
+    "name": "The Iron Mandate",
+    "title": "Emergency Powers, Passed 28-8-3, That Reclassified People as Threats",
+    "date": "21st Highsun, 1040 BF — enacted 09:00",
+    "era": "The Aegis Uprising — Toad Liberation Crisis",
+    "location": "The Midlands Diet, Regal Empire",
+    "type": "Emergency Legislation / Enabling Act",
+    "status": "In force in the Regal Empire; formally condemned by the Glazed Congress under Vote #200",
+    "summary": "The Iron Mandate is the emergency legislation passed by the Midlands Diet on the 21st of Highsun, 1040 BF at 09:00, by a recorded division of 28 for, 8 against, 3 abstaining. It granted the Iron Legion emergency powers to purge supernatural threats and reclassified the Liberated Toads as an 'organized supernatural entity.' Speaker Rivers resigned from the Diet in protest as Legion patrols mobilised. It remains the legal instrument under which the rest of the crisis was conducted.",
+    "description": "The Iron Mandate is the most consequential document of the Toad Liberation Crisis, and it is boring on purpose. That is what makes it work.\n\nIt passed the Midlands Diet at nine in the morning on the 21st of Highsun, 1040 BF, 28-8-3. Thirty-nine members voted out of a chamber that could seat more. The Mandate granted the Iron Legion emergency powers to purge supernatural threats, and — this is the operative move — it classified the Liberated Toads as an 'organized supernatural entity.' Not a rebellion, not a criminal conspiracy, not a party to a conflict. An entity. Entities do not have standing to negotiate, and nothing done to an entity is done to a person.\n\nSpeaker Rivers resigned from the Diet in protest the same morning. Legion patrols mobilised immediately, which suggests the mobilisation orders were drafted before the vote rather than after it.\n\n## What the powers actually permitted\n\n\nThe Mandate's provisions allowed the Iron Legion to detain, relocate, and restrict the movements of persons classified as presenting 'supernatural risk profiles.' The classification required no individual finding of wrongdoing. A person could be detained on the basis of what they were held to be rather than anything they were held to have done. The Mages Guild advisory submission on the Mandate's compliance with the Species Recognition Compact ran to forty-seven pages and concluded that six specific provisions were incompatible with the compact's core requirements.\n\nSix hours after the Mandate was enacted, General Ironhand issued Order 120. Waluigi observes that the Mandate did not require Order 120 and did not authorise the execution of prisoners. Waluigi also observes that Order 120 was issued on the first day the Legion held emergency powers, which is either a remarkable coincidence or the entire point of asking for emergency powers.\n\n## The condemnation that did not condemn\n\n\nSeven member nations — Beanbean Kingdom, the Pokemon League Regions, Yoshi's Island, Sarasaland, Flipside-Flopside, Pi'illo Kingdom, and the Elves of Lindon — jointly brought the Iron Mandate Condemnation Resolution before the Glazed Congress as Vote #200. They had the votes. This was known before the session opened.\n\nWhat was also known before the session opened was that the Iron Pact, led by the Regal Empire, had made explicit to the Non-Aligned bloc and to smaller Sovereignty Bloc nations that treating the condemnation as a legitimate Congress action would be regarded as a hostile act against a founding member. The economic dependencies were not abstract. Waluigi has read the division list and has read the trade figures and considers them the same document filed twice.\n\n## Standing\n\n\nThe Iron Mandate remains in force inside the Regal Empire. The condemnation resolution exists. Both facts are true simultaneously, which is the ordinary condition of international law and the reason Waluigi drinks. WAH.",
+    "participants": [
+      {
+        "id": "speaker_rivers",
+        "name": "Speaker Rivers",
+        "role": "Resigned from the Midlands Diet in protest at the Mandate's passage"
+      },
+      {
+        "id": "iron_legion",
+        "name": "The Iron Legion",
+        "role": "Recipient of the emergency powers"
+      },
+      {
+        "id": "liberated_toads",
+        "name": "The Liberated Toads",
+        "role": "Reclassified as an 'organized supernatural entity'"
+      },
+      {
+        "id": "mages_guild",
+        "name": "The Mages Guild",
+        "role": "Filed the forty-seven page compliance advisory"
+      }
+    ],
+    "outcome": "Passed 28-8-3 and immediately operative. Speaker Rivers resigned. Order 120 followed within six hours. The Glazed Congress condemnation (Vote #200) was brought by seven nations against Iron Pact pressure.",
+    "notableFeatures": [
+      "Passed by the Midlands Diet 28-8-3 at 09:00 on 21st Highsun 1040 BF",
+      "Classified the Liberated Toads as an 'organized supernatural entity'",
+      "Permitted detention on 'supernatural risk profile' with no individual finding of wrongdoing",
+      "Mages Guild advisory: 47 pages, six provisions incompatible with the Species Recognition Compact",
+      "Speaker Rivers resigned in protest; Legion patrols mobilised immediately",
+      "Condemned at the Glazed Congress by seven sponsoring nations as Vote #200"
+    ],
+    "keyBattles": [
+      "aegis_command_riot"
+    ],
+    "relatedArticles": [
+      "order_120",
+      "iron_legion",
+      "liberated_toads",
+      "speaker_rivers",
+      "glazed_congress_founding",
+      "mages_guild",
+      "regal_empire",
+      "accountability_docket",
+      "midlands_diet",
+      "supernatural_sovereignty_act"
+    ],
+    "reputationChanges": {
+      "bowser": {
+        "iron_legion": 15
+      },
+      "waluigi": {
+        "iron_legion": 20,
+        "mages_guild": -10
+      },
+      "markop": {
+        "iron_legion": -10
+      },
+      "green_t": {
+        "liberated_toads": -15
+      }
+    },
+    "effects": {
+      "mages_guild": -15
+    },
+    "reputationNotes": {
+      "bowser": "Grants the Iron Legion emergency powers but alienates the Mages Guild.",
+      "waluigi": "Sees the Iron Legion gain favor and the Mages Guild lose it due to reclassification.",
+      "markop": "Feels a significant loss of standing among the Iron Legion."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T22:37:29+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    },
+    "image": "assets/images/events/archive-sheets/iron-mandate.jpg"
+  },
+  {
+    "id": "accountability_docket",
+    "name": "The Accountability Docket",
+    "title": "The Warrant That Sent the Pond Patrol to Raventree Manor",
+    "date": "18th Highsun, 1040 BF",
+    "era": "The Aegis Uprising — Toad Liberation Crisis",
+    "location": "The Vigilance; enforced across Raventree and the surrounding region",
+    "type": "Emergency Resolution / Arrest Register / Standing Order ED-001",
+    "status": "Active — enforced by the Pond Patrol; lethal force withheld in the Speaker's absence",
+    "summary": "The Accountability Docket is Standing Order ED-001, issued on Day 18 of Highsun, 1040 BF under Emergency Resolution 17-A. It establishes formal charges against Archie Miser, Bowser, Waluigi, Dan and Eager, and creates the register that names them. It is the Pond Patrol's warrant, and it is the reason the Patrol raided Raventree Manor. Its governing rule is four words long: apprehend, but do not slay.",
+    "description": "Waluigi is named on this docket. The reader should weigh everything that follows accordingly, and Waluigi would rather say so at the top than have it discovered at the bottom.\n\nThe Accountability Docket is Standing Order ED-001, issued Day 18 of Highsun, 1040 BF. Its authority is Emergency Resolution 17-A, passed by the Cohort Council unanimously — six for, none against, none abstaining, out of a seven-seat body whose seventh chair had been empty since the Mole defected two days earlier. The same resolution granted Speaker L emergency powers. The Docket is what those powers were immediately spent on.\n\nIts effect, in the register's own words, is to establish formal charges against **Archie Miser, Bowser, Waluigi, Dan and Eager**, and to create the list that holds them. The enforcement arm is the Pond Patrol. The authority chain runs: Cohort Council to Emergency Resolution 17-A to Speaker L, and — since the Speaker went absent after the Aegis decoy reveal — to Captain Fernback as acting commander, and from him to Pond Patrol field units.\n\n## Why this sent the Patrol to Raventree\n\n\nThe Docket is a warrant, and warrants are served where the subject is. Archie Miser was at Raventree Manor. On Day 19 the council issued the follow-on order — ED-002, Containment Protocol Alpha — authorising the Pond Patrol to hold a containment perimeter around the manor. The perimeter vote passed five to one, with Healer Mistpetal dissenting on the grounds that a cordon cuts off the people trapped inside as surely as it contains what is in there.\n\nSo the raid on Raventree Manor was not a battle the Liberated Toads went looking for. It was an arrest, escalated by geography into a siege, and then escalated again by what the manor turned out to contain.\n\n## Apprehend, but do not slay\n\n\nThe protocol line is: *Apprehend, but do not slay. Lethal force denied unless by threat defied.* Only Speaker L could authorise a killing. With the Speaker absent, Captain Fernback ruled that no docket subject may be killed except in immediate defence of a toad's life.\n\nWaluigi wants this understood properly, because it is the part outsiders get wrong. Being on the Docket does not make you an enemy of the Liberated Toads. Docket subjects remain allied with the movement and can be helped, escorted and defended by it. A Patrol unit meeting a listed subject attempts apprehension first. Fighting back moves you up the priority ladder and costs you standing. Surrendering, submitting evidence, or completing a restoration task can move a subject to probationary or clear them entirely.\n\n## The four pillars\n\n\nThe Docket rests on four words, each with its own clause: **CONTAIN** — halt the spread of disorder before it reaches the Cohort. **ACCOUNT** — every action has a cost that must be acknowledged out loud. **RESTORE** — rebuild what was broken, heal what was wounded, return what was taken. **ADHERE** — to the Will of the Cohort, as spoken by the Council.\n\nSpeaker L's Day 18 statement on issuing it: *'This is not retribution's art, but the mending of the fractured heart. By pond and law, by vow and steel, the wound must close for peace to heal.'*\n\nThat is the origin of the Fractured Heart. The philosophy the Legion later heard about under interrogation and filed as cult rhetoric began as one line in a warrant, and the warrant's stated purpose is not punishment but restoration. Waluigi, who is named on it, finds this genuinely difficult to be sarcastic about, and has elected not to try. WAH.",
+    "participants": [
+      {
+        "id": "speaker_l",
+        "name": "Speaker L",
+        "role": "Issuing voice; granted emergency powers by the same resolution"
+      },
+      {
+        "id": "captain_fernback",
+        "name": "Captain Fernback",
+        "role": "Acting commander in the Speaker's absence; set the lethal-force rule"
+      },
+      {
+        "id": "pond_patrol",
+        "name": "Pond Patrol",
+        "role": "Enforcement arm"
+      },
+      {
+        "id": "archie_miser",
+        "name": "Archie Miser",
+        "role": "Docket subject — the warrant that took the Patrol to Raventree Manor"
+      },
+      {
+        "id": "waluigi",
+        "name": "Waluigi",
+        "role": "Docket subject, and the archivist of this entry"
+      }
+    ],
+    "outcome": "Active. Produced ED-002 (Raventree containment, passed 5-1) on Day 19. ED-003, the Iron Mandate response, was suspended mid-session by the Order 120 emergency on Day 21.",
+    "notableFeatures": [
+      "Standing Order ED-001, issued Day 18 under Emergency Resolution 17-A",
+      "ER-17-A passed 6-0-0 by a seven-seat council with one seat vacant",
+      "Charges Archie Miser, Bowser, Waluigi, Dan and Eager",
+      "Protocol: 'Apprehend, but do not slay. Lethal force denied unless by threat defied.'",
+      "Only Speaker L may authorise lethal force; Fernback restricted it further in his absence",
+      "Four pillars: CONTAIN, ACCOUNT, RESTORE, ADHERE",
+      "Speaker L's issuing quote is the origin of the 'fractured heart' phrase"
+    ],
+    "keyBattles": [
+      "reclamation_of_the_vigilance"
+    ],
+    "relatedArticles": [
+      "pond_patrol",
+      "liberated_toads",
+      "speaker_l",
+      "captain_fernback",
+      "council_of_seven",
+      "archie_miser",
+      "raventree_manor",
+      "vigilance",
+      "order_120",
+      "iron_mandate"
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "toad_gang": 15
+      },
+      "archie_miser": {
+        "toad_cult": -20
+      }
+    },
+    "effects": {
+      "toad_gang": 10,
+      "liberated_toads": 8
+    },
+    "reputationNotes": {
+      "waluigi": "Waluigi's name is on the warrant; he makes sure to state his involvement at the top of this document.",
+      "archie_miser": "Archie Miser faces formal charges and a siege, which damages his standing with the Toad Cult."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T22:37:54+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    },
+    "image": "assets/images/events/archive-sheets/accountability-docket.jpg"
+  },
+  {
+    "id": "fractured_heart",
+    "name": "The Fractured Heart",
+    "title": "A Line From a Warrant That the Enemy Filed as Cult Rhetoric",
+    "date": "Coined 18th Highsun, 1040 BF; recorded by the Iron Legion 21st Highsun",
+    "era": "The Aegis Uprising — Toad Liberation Crisis",
+    "location": "The Vigilance; carried into Aegis Command by a prisoner",
+    "type": "Doctrine / Founding Philosophy",
+    "status": "Active doctrine of the Liberated Toads; logged by Iron Legion interrogators as cult rhetoric",
+    "summary": "The Fractured Heart is the guiding philosophy of the Liberated Toads. It originates in a single line spoken by Speaker L on Day 18 of Highsun, 1040 BF when he issued the Accountability Docket: 'This is not retribution's art, but the mending of the fractured heart.' Three days later a Toad prisoner recited it to Iron Legion interrogators at Aegis Command alongside the litany CONTAIN, ACCOUNT, RESTORE, ADHERE. The Legion wrote it down as cult-like rhetoric, which tells you more about the Legion than about the doctrine.",
+    "description": "Waluigi has traced this one to its source, and the source is not what either side thinks it is.\n\n## Where it comes from\n\n\nOn Day 18 of Highsun, 1040 BF, Speaker L issued the Accountability Docket — the warrant naming Archie Miser, Bowser, Waluigi, Dan and Eager. The statement he attached to it runs:\n\n> This is not retribution's art, but the mending of the fractured heart.\n> By pond and law, by vow and steel, the wound must close for peace to heal.\n\nThat is the whole origin. The Fractured Heart is not a scripture, a cult, or an ancient tradition. It is a line of verse in an arrest warrant, and the arrest warrant's stated purpose is restoration rather than punishment. The 'fractured heart' being mended is the Cohort itself — a population that came out of the barrels, discovered a spy in its own leadership on Day 16, and had to decide within forty-eight hours what it was going to do to the people who had wronged it.\n\nThe answer it chose was: account for it out loud, then repair it. Hence the four pillars that travel with the phrase — CONTAIN, ACCOUNT, RESTORE, ADHERE — and hence the protocol line, *apprehend, but do not slay*.\n\n## What the Legion heard\n\n\nOn the 21st, at Aegis Command, the Iron Legion had a prisoner they believed was Speaker L. He was a decoy — a loyalist whose skin had been dyed green, who claimed under torture that he had eaten a poisonous mushroom and was dying anyway.\n\nUnder interrogation he spoke about the Fractured Heart philosophy, about the Council of Seven, and about how the movement would survive any single death. The Legion's own record describes him as spouting cult-like rhetoric about 'The Fractured Heart' and a doctrine of 'CONTAIN, ACCOUNT, RESTORE, ADHERE.'\n\nWaluigi finds this the single most revealing exchange in the crisis. A tortured prisoner recited his movement's theory of restorative justice to the people torturing him, and they logged it as cultism. The interrogators were listening for an operational secret and could not process being handed a moral one. They got nothing useful, concluded the prisoner was mad or fanatical, and reported upward accordingly. General Ironhand read the reports, worked out he had been sold an afternoon, and issued Order 120.\n\nSo the doctrine's first recorded appearance in enemy hands is also, directly, the thing that preceded the order to execute the prisoners. The decoy told them the movement would survive any single death, and the Legion's response was to test it.\n\n## Standing\n\n\nIt survived. The prisoners rose at 14:30, the facility was compromised before the execution deadline, and the phrase outlived both the decoy and the order. The Liberated Toads still operate under it: the Accountability Docket remains active, subjects can still clear themselves by restoration rather than punishment, and the four pillars still head the register.\n\nWaluigi is named on that register and has read the doctrine that governs his own arrest. He notes, without further comment, that it is more generous than anything the Iron Legion has ever offered him. WAH.",
+    "participants": [
+      {
+        "id": "speaker_l",
+        "name": "Speaker L",
+        "role": "Coined the phrase issuing the Accountability Docket, Day 18"
+      },
+      {
+        "id": "liberated_toads",
+        "name": "The Liberated Toads",
+        "role": "Movement operating under the doctrine"
+      },
+      {
+        "id": "general_ironhand",
+        "name": "General Ironhand",
+        "role": "Received the interrogation reports; issued Order 120 after them"
+      }
+    ],
+    "outcome": "Survived the decoy, the interrogation and Order 120. Remains the operative philosophy of the Liberated Toads and the stated basis of the Accountability Docket.",
+    "notableFeatures": [
+      "Origin: Speaker L's Day 18 statement issuing the Accountability Docket",
+      "Litany: CONTAIN, ACCOUNT, RESTORE, ADHERE",
+      "Recited to Iron Legion interrogators at Aegis Command by the green-dyed Speaker L decoy",
+      "Logged in Legion records as 'cult-like rhetoric'",
+      "Restorative rather than punitive: subjects may clear themselves by restoration",
+      "The interrogation that produced it immediately preceded Order 120"
+    ],
+    "keyBattles": [
+      "aegis_command_riot"
+    ],
+    "relatedArticles": [
+      "accountability_docket",
+      "speaker_l",
+      "liberated_toads",
+      "council_of_seven",
+      "order_120",
+      "general_ironhand",
+      "aegis_command",
+      "pond_patrol"
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "liberated_toads": 10
+      },
+      "green_t": {
+        "liberated_toads": -5
+      }
+    },
+    "effects": {
+      "liberated_toads": 20
+    },
+    "reputationNotes": {
+      "waluigi": "Archived the Fractured Heart, helping to define the Liberated Toads' philosophy.",
+      "green_t": "Revealed as a decoy and recited cult-like rhetoric under torture."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T22:38:06+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    },
+    "image": "assets/images/events/archive-sheets/fractured-heart.jpg"
+  },
+  {
+    "id": "supernatural_sovereignty_act",
+    "name": "The Supernatural Sovereignty Act",
+    "title": "Five Clauses That Made Attendance a Crime",
+    "date": "18th Highsun, 1040 BF — passed 13:00",
+    "era": "The Aegis Uprising — Toad Liberation Crisis",
+    "location": "The Midlands Diet, Regal Empire; posted by ward office in every district",
+    "type": "Legislation / Enabling Act",
+    "status": "Enacted and in force. Listed by the Iron Legion among its political assets as 'legal basis for expanded operations'.",
+    "summary": "The Supernatural Sovereignty Act is the Regal Empire law passed at 13:00 on the 18th of Highsun, 1040 BF declaring organized vampires and werewolves illegal — in practice a declaration of war on the Onyx Hand and the Moonfang Pack. Its five posted clauses go considerably further than the summary suggests. Clause 3 completes the offence on the giving of an undertaking, with no performance required. Clause 5 convicts everyone present at a collective undertaking who did not dissent aloud. It is the legal instrument the Iron Mandate was built on three days later.",
+    "description": "Waluigi wants to be precise about this one, because the Act is usually described in a single sentence and that sentence hides the entire problem.\n\n## What the summary says\n\n\nThe timeline entry reads: *the Regal Empire passes a law declaring organized vampires and werewolves illegal, effectively declaring war on the Onyx Hand and Moonfang Pack.* That is true and it is not the dangerous part.\n\n## What the posted notice actually says\n\n\nThe ward-office summary for posting runs to five clauses:\n\n1. No allegiance, undertaking or covenant may be given to any power not of the mortal establishment.\n2. An undertaking given in the course of a rite is an undertaking for the purposes of clause 1.\n3. The offence is complete on the giving. Performance is not required.\n4. The offence is triable as sedition.\n5. Where the undertaking is given collectively, every person present who did not dissent aloud is taken to have given it.\n\nRead clause 1 and note what is missing: the word *vampire* does not appear, and neither does *werewolf*. The Act does not outlaw a species. It outlaws a **kind of promise** — and 'any power not of the mortal establishment' is a definition wide enough to swallow funeral rites, harvest ceremonies, household prayers and any oath sworn to anything the Diet has not personally licensed.\n\nClause 2 then confirms that ceremonial speech counts. Clause 3 removes the requirement that anything actually happen. Clause 4 makes it sedition, which carries the sentence sedition carries. And clause 5 removes the requirement that you personally said anything at all.\n\nWaluigi's note on the posted copy stands: *clause 5 is the one that should frighten people and clause 3 is the one that should frighten lawyers.* Under clause 3 there is no act to prove, only words. Under clause 5 there is not even that — standing in a circle and keeping your mouth shut is the offence. Silence is construed as assent, and assent is sedition.\n\n## How it was used\n\n\nA copy was posted three streets from a festival ground in the quarter it was needed. Somebody wanted it read that week. At the funeral rite that followed, the clerk's offering list shows the four traditional offerings ruled off — grain, salt, oil, and a name from each household — and a fifth entry written below the line in a second hand: *an undertaking, given aloud, on behalf of the living.* No giver named. Under clause 5, no giver needed to be named. Exactly one voice dissented aloud at that circle. Everybody else present is, on the face of the notice, a seditionist.\n\nThe Act also reaches further than its authors advertised. Because the Rakasha are an organized supernatural entity, a Loyalist garrison protecting Rakasha interests is technically sedition — which is how a law aimed at vampires ended up criminalising a garrison's ordinary duties.\n\n## Why it matters to the crisis\n\n\nThe Iron Legion lists the Act in its own asset register under *political*, with the note 'legal basis for expanded operations'. It sits directly above the Iron Mandate in that register. An Iron Legion deep-cover agent leaked its impending passage to hjumpik inside the Mirror Dimension before it was law — the Legion knew what was coming and considered it worth burning an agent's cover to trail.\n\nThree days later the Iron Mandate reclassified the Liberated Toads as an 'organized supernatural entity'. That reclassification only bites because this Act already existed to define what happens to one. The Mandate is the trigger; the Supernatural Sovereignty Act is the loaded chamber. WAH.",
+    "participants": [
+      {
+        "id": "regal_empire",
+        "name": "The Regal Empire",
+        "role": "Passed the Act through the Midlands Diet"
+      },
+      {
+        "id": "iron_legion",
+        "name": "The Iron Legion",
+        "role": "Principal beneficiary; lists it as 'legal basis for expanded operations'"
+      },
+      {
+        "id": "onyx_hand",
+        "name": "The Onyx Hand",
+        "role": "Organized vampires — a named target"
+      },
+      {
+        "id": "moonfang_pack",
+        "name": "The Moonfang Pack",
+        "role": "Organized werewolves — a named target"
+      },
+      {
+        "id": "hjumpik",
+        "name": "hjumpik",
+        "role": "Warned of the Act's passage by an Iron Legion spy in the Mirror Dimension"
+      }
+    ],
+    "outcome": "Enacted and never repealed. Provided the legal machinery the Iron Mandate used three days later to reclassify the Liberated Toads as an organized supernatural entity.",
+    "notableFeatures": [
+      "Passed 13:00, 18th Highsun 1040 BF — the same day as Emergency Resolution 17-A on the Toad side",
+      "Clause 3: the offence is complete on the giving; performance is not required",
+      "Clause 5: everyone present who did not dissent aloud is taken to have given the undertaking",
+      "Clause 4: triable as sedition",
+      "Never names vampires or werewolves in its operative text — it outlaws a kind of promise",
+      "Its passage was leaked in advance by an Iron Legion deep-cover agent",
+      "Makes a Loyalist garrison protecting Rakasha interests technically seditious"
+    ],
+    "keyEvents": [
+      "iron_mandate",
+      "midlands_diet"
+    ],
+    "relatedArticles": [
+      "iron_mandate",
+      "midlands_diet",
+      "regal_empire",
+      "iron_legion",
+      "onyx_hand",
+      "moonfang_pack",
+      "hjumpik",
+      "order_120",
+      "liberated_toads"
+    ],
+    "reputationChanges": {
+      "bowser": {
+        "onyx_hand": -15,
+        "moonfang_pack": -15
+      },
+      "waluigi": {
+        "iron_legion": 10,
+        "regal_empire": 10,
+        "onyx_hand": -3,
+        "moonfang_pack": -3
+      },
+      "hjumpik": {
+        "iron_legion": -10
+      }
+    },
+    "reputationNotes": {
+      "bowser": "Warned of the Act's passage by an Iron Legion spy in advance.",
+      "waluigi": "Mastermind behind the Act and chief archivist for the Regal Empire; gained respect from allies but lost ground with targets.",
+      "hjumpik": "Warned of the Act's passage, likely due to intelligence gathering."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T22:38:14+00:00",
+      "fields": [
+        "reputationChanges",
+        "reputationNotes"
+      ]
+    },
+    "image": "assets/images/events/archive-sheets/supernatural-sovereignty-act.jpg"
+  }
+]

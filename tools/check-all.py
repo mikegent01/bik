@@ -38,6 +38,7 @@ def main() -> int:
 
     py = sys.executable or "python3"
     checks: list[tuple[str, list[str], Path]] = [
+        ("json stores", [py, "tools/build-json-stores.py", "--check"], ROOT),
         ("local paths", [py, "tools/check-local-paths.py"], ROOT),
         ("injury table", [py, "tools/generate-injury-table.py", "--check"], ROOT),
         ("injury table tiers", [py, "tools/tests/test-injury-tables.py"], ROOT),
