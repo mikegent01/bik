@@ -8,9 +8,9 @@ A key example of this philosophy is the handling of game data. Instead of large,
 
 ## ⚠ STANDING ORDER — Don't load the stores
 
-The four filing bundles are **generated**. Edit a shard under
-`data/stores/<kind>/<world>/`, then rebuild. **Never Read `events.json`
-whole.**
+The filing bundles are **generated**. Edit a shard under
+`data/stores/`, then rebuild. **Never Read `events.json` whole.**
+Investigations, commentaries and analyses are one file per id.
 
 ```bash
 python3 ../tools/filing-context.py packet <event-id>

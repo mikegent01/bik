@@ -4705,6 +4705,7 @@ const TYPES=[
  {key:'races',label:'Species & Peoples',emoji:'🧬',singular:'Species'},
  {key:'nations',label:'Nations & Realms',emoji:'🌍',singular:'Nation'},
  {key:'cultures',label:'Cultures & Laws',emoji:'⚖️',singular:'Culture'},
+ {key:'skills',label:'Skills',emoji:'🎯',singular:'Skill'},
  {key:'trials',label:'Trials',emoji:'⚖️',singular:'Trial'},
 ];
 const TYPE_BY_KEY=Object.fromEntries(TYPES.map(t=>[t.key,t]));
@@ -24907,7 +24908,7 @@ document.addEventListener('keydown',e=>{const typing=/input|textarea|select/i.te
 /* ================= DATA LOADER (fetch ./data/*.json, fall back to embedded) ================= */
 /* Files that live in ./data/ as separate JSON. Keys map 1:1 to DATA fields. */
 const DATA_FILES = ['characters','events','articleAnalyses','commentaries','daylogs','battles','locations','races','nations','factions','collections',
-  'trials','brosAttacks','mainPage','congress_votes','conflicts','majorBattles','factionColors','currentDate','calendarMonths','calendarWeekdays','calendarSeasons','calendarMeta','calendars','calendarHolidays','historicalTimeline','artifacts','congress','annotations','wahnotes','currencies','banking','wallets','books','crafting','cultures','injuries','liberatedToadsSystem','ironLegionSystem','abilityShop','itemLoreLinks','whatifs','quests','props','investigations','rolls','inventory','session-loot','filing-updates','technology','sheets'];
+  'trials','brosAttacks','mainPage','congress_votes','conflicts','majorBattles','factionColors','currentDate','calendarMonths','calendarWeekdays','calendarSeasons','calendarMeta','calendars','calendarHolidays','historicalTimeline','artifacts','congress','annotations','wahnotes','currencies','banking','wallets','books','crafting','cultures','skills','injuries','liberatedToadsSystem','ironLegionSystem','abilityShop','itemLoreLinks','whatifs','quests','props','investigations','rolls','inventory','session-loot','filing-updates','technology','sheets'];
 
 async function loadData(){
   const embedded = window.WALUPEDIA_EMBEDDED || {};

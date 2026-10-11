@@ -1,0 +1,55 @@
+[
+  {
+    "id": "inv_first_snowfall_incident",
+    "codename": "THE FIRST SNOWFALL INCIDENT",
+    "title": "Aftermath: The First Snowfall Incident",
+    "subtitle": "The archive requires answers.",
+    "status": "active",
+    "classification": "Generated Investigation",
+    "opened": "14th Chillwind, 978 BF",
+    "archivist": "Waluigi, Auditor-General",
+    "icon": "🕵️",
+    "accent": "#4a9c6d",
+    "plainSummary": [
+      {
+        "point": "Following the intense storm, the village lay under a thick blanket of snow, eerily quiet after the chaos of the night.",
+        "detail": "The branches that had threatened to break during the storm now hung low and heavy, their resilience tested but unbroken. The villagers emerged from their shelters, shivering in the cold light of dawn. Many were silent, their faces marked by exhaustion and a sense of dread. The village elder, after his impassioned speech about ancient prophecies, was approached by several curious individuals who sought to know more about these predictions. He shared tales passed down through generations, speaking of winters that had been longer and harsher than this one, yet never so unpredictable. Despite his words, fear lingered in the air. The village undertook a communal effort to clear paths and assess damages. Supplies were checked, and it was found that some crops had survived but others would be lost to the snow. The villagers worked together, determined to rebuild their lives. However, there was an underlying tension; the storm felt like more than just weather, as if nature itself had sent a warning. As days passed, the cold continued, and the skies remained overcast. Some ventured into the woods cautiously, looking for signs of the unusual pressure on the earth. The village elders met frequently to discuss possible measures but could find no immediate solution. The storm’s aftermath was not just about physical damage but also a psychological one, leaving the villagers feeling both fragile and resilient in the face of an unknown future."
+      }
+    ],
+    "leads": [],
+    "sessions": [
+      {
+        "id": "s_first_snowfall_incident",
+        "label": "The First Snowfall Incident",
+        "event": "first_snowfall_incident"
+      }
+    ],
+    "relatedEvents": [
+      "first_snowfall_incident"
+    ],
+    "exhibits": [
+      {
+        "id": "ex_frozen_incident_report",
+        "propId": "prop_frozen_incident_report_01",
+        "session": "s_first_snowfall_incident",
+        "icon": "📄",
+        "kind": "note",
+        "category": "discovery",
+        "title": "Frost-Damaged Incident Report",
+        "secured": "14th Chillwind, 978 BF",
+        "custody": "Archive — Original document requires thermal gloves to handle.",
+        "visual": "<div style=\"padding:24px;border:1px solid rgba(160,220,255,.35);border-radius:10px;background:linear-gradient(135deg,rgba(20,50,70,.8),rgba(12,20,30,.95));color:#cceeff;text-align:center;font-weight:800;letter-spacing:.12em\">CONFIDENTIAL · REGIONAL COMMAND</div>",
+        "onRecord": "A hastily scribbled report from a local militiaman. The ink is smeared and the parchment is unnaturally cold. It reads: 'Commander, the snow is humming. I repeat, the snow is humming. The village elder tried speaking to it, but the well froze solid in seconds. Requesting immediate tactical support.' The stamp of receipt from Central Command is dated three days AFTER the incident. [[roll:4|the receipt stamp postdates the report by three days|a report written during an event and received after it either sat undelivered or sat unopened, and both mean somebody in the chain chose not to act on it|winter couriers are slow and a three-day lag over snowed roads is unremarkable]]",
+        "dc": 4,
+        "analysis": "This document proves Waluigi's assertion: the regional command completely ignored the distress call until it was far too late. The tactical failure was not a lack of communication from the ground, but a bureaucratic bottleneck at the top. The supernatural frost preserving the document is lingering fey magic.",
+        "links": {
+          "events": [
+            "first_snowfall_incident"
+          ],
+          "items": [],
+          "characters": []
+        }
+      }
+    ]
+  }
+]

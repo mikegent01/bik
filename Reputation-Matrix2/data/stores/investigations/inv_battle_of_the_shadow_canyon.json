@@ -1,0 +1,32 @@
+[
+  {
+    "id": "inv_battle_of_the_shadow_canyon",
+    "codename": "BATTLE OF THE SHADOW CANYON",
+    "title": "Aftermath: Battle of the Shadow Canyon",
+    "subtitle": "The archive requires answers.",
+    "status": "active",
+    "classification": "Generated Investigation",
+    "opened": "Highsun 15, 723 BF",
+    "archivist": "Waluigi, Auditor-General",
+    "icon": "🕵️",
+    "accent": "#4a9c6d",
+    "plainSummary": [
+      {
+        "point": "The dawn brought a somber realization to both factions as they faced the harsh realities of the night's engagements.",
+        "detail": "The Guardians, having successfully repelled numerous Scourge advances, were exhausted yet relieved. They knew that while their defenses held strong, they too were stretched thin by the relentless nature of the night’s battles. On the other side, the Scourge, though equally fatigued, maintained an air of determination. Their aggressive strategy had tested the Guardians' resolve, but also exposed vulnerabilities within their own ranks. The prolonged fighting had taken a significant toll on both sides, with casualties and injuries mounting. Leaders on both fronts had to quickly reassess their strategies for the upcoming day. In the aftermath, the Scourge leadership convened an emergency meeting to evaluate their progress and discuss potential changes in tactics. They recognized that a direct assault might not be as effective given the high casualty rate. The Guardians, meanwhile, held council to strategize on how best to fortify their positions against any renewed attack. The stalemate continued, with both sides preparing for what seemed likely to be another night of attrition warfare. Each faction's leaders were acutely aware that a single misstep could shift the balance in favor of the other, and thus, the strategic planning became even more critical. The battle lines remained drawn, but now with a heightened sense of anticipation for what the coming day would bring."
+      }
+    ],
+    "leads": [],
+    "sessions": [
+      {
+        "id": "s_battle_of_the_shadow_canyon",
+        "label": "Battle of the Shadow Canyon",
+        "event": "battle_of_the_shadow_canyon"
+      }
+    ],
+    "relatedEvents": [
+      "battle_of_the_shadow_canyon"
+    ],
+    "exhibits": []
+  }
+]

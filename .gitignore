@@ -48,3 +48,8 @@ workflow/saves/
 # their module.json / KNOWN_PACKETS URLs point at them.)
 Reputation-Matrix2/actors/worlds/*/import.json
 Reputation-Matrix2/actors/worlds/*/players-import.json
+
+# Foundry intake dumps — drop locally, never commit. Live sheets live under
+# Reputation-Matrix2/actors/worlds/ and actors/cast/.
+/Players.json
+/midlands-all-actors.json

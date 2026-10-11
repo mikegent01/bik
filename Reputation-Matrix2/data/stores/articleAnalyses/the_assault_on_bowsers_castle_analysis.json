@@ -1,0 +1,65 @@
+[
+  {
+    "id": "the_assault_on_bowsers_castle_analysis",
+    "sourceArticle": "the_assault_on_bowsers_castle",
+    "title": "The Assault on Bowser’s Throne Room",
+    "kicker": "Waluigi’s Article Analysis",
+    "subtitle": "The fake heir opened the inside; the dragon broke the window and wall; Bowser ordered the survivors out.",
+    "archivist": "Waluigi, Auditor-General",
+    "filed": "Filed with the Bowser Castle assault record",
+    "summary": "The assault took place in Bowser’s throne room after the fake Bowser Jr. session had been used to infiltrate it. The dragon’s breach of the window and wall was not the loss of an abstract fortress: it was an attack on the king’s command space. Bowser used fire, a ground pound, and an evacuation order to keep the castle from becoming a surrender.",
+    "thesis": "The throne room being breached is more serious than saying the castle was lost. Fawthful’s operation penetrated the seat of power from inside, then used the dragon to break the physical room open. Bowser did not win the fight, but he refused to let occupation become surrender: his arithmetic was the evacuation order, the Magikoopa transport, and the retreat that kept a garrison alive.",
+    "sections": [
+      {
+        "id": "small-bodies",
+        "icon": "🐢",
+        "heading": "The Order Is A Map Of What The Dragon Cannot Do",
+        "sourceAnchor": "Goombas moved under the jaw and Koopas formed the barrier.",
+        "body": "The retreat order distributes jobs by size and reach. It does not ask a Goomba to stop a dragon. It asks a Goomba to use the space beneath one. That is not a lesser form of courage; it is the only form that survives contact with a large enough body."
+      },
+      {
+        "id": "the-switch",
+        "icon": "⚠️",
+        "heading": "The Switch Plate Turns A Joke Into A Decision",
+        "sourceAnchor": "The lower command-room labels contradict each other.",
+        "body": "The switch is funny because the labels are incompetent. It is evidence because the labels remove a safe answer at the moment the castle needs one. Bowser leaves both toggles untouched, and the evacuation remains a plan rather than a detonation."
+      },
+      {
+        "id": "retreat-order",
+        "icon": "📣",
+        "heading": "The Retreat Order Is The Battle’s Centre",
+        "sourceAnchor": "Bowser orders the line away from the dragon instead of sacrificing it to the wall.",
+        "body": "The order is not a surrender. It assigns Goombas, Koopas, and Magikoopas the jobs their bodies and tools can actually complete. That turns a dragon’s reach into a limit: the large attacker cannot occupy every small route at once."
+      },
+      {
+        "id": "traitors",
+        "icon": "🕳️",
+        "heading": "The Garrison Fought Behind Its Own Doors",
+        "sourceAnchor": "The outer assault and the inside betrayal moved together.",
+        "body": "A dragon at the wall explains the noise but not the speed of the breach. Traitors and altered routes made the interior uncertain, forcing loyal troops to fight for corridors while also deciding which corridors were safe. Evacuation preserved witnesses as much as it preserved soldiers."
+      },
+      {
+        "id": "hammer-bro",
+        "icon": "🔨",
+        "heading": "The Hammer Bro Knew When To Leave",
+        "sourceAnchor": "The withdrawal is recorded as survival discipline, not treason.",
+        "body": "The Hammer Bro retreated when the wall became a ceiling. That detail gives the filing a useful counterweight to heroic last stands. The order protected a surviving line because it allowed a soldier to recognise that a position had stopped being defensible."
+      },
+      {
+        "id": "breach-claim",
+        "icon": "👑",
+        "heading": "A Ruler Before A God",
+        "sourceAnchor": "Fawthful and Mimbus meet Bowser at the breach with a claim larger than the castle.",
+        "body": "Fawthful’s sequence is explicit: ruler first, god after. Bowser’s Castle is treated as the first throne in a campaign that wants occupation to become worship. The breach proves access, not completion. The historical record ends with the claim exposed and the switch untouched."
+      },
+      {
+        "id": "date-limit",
+        "icon": "🗓️",
+        "heading": "Historical, Not Current",
+        "sourceAnchor": "The assault belongs to the inferred 18 Harvestide, 1035 BF placement.",
+        "body": "The current 1040 BF record places Bowser in the Shadow Estate. This article reconstructs the earlier castle assault and should not be read as a present-tense battlefield report."
+      }
+    ],
+    "sourceDate": "Inferred historical placement from the canonical 18 Harvestide, 1035 BF chain; exact hour unrecorded."
+  }
+]

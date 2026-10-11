@@ -43,9 +43,14 @@ STORES: dict[str, Path] = {
     "majorBattles": DATA / "majorBattles.json",
     "props": DATA / "props.json",
     "investigations": DATA / "investigations.json",
+    "commentaries": DATA / "commentaries.json",
+    "articleAnalyses": DATA / "articleAnalyses.json",
     "trials": DATA / "trials.json",
 }
-SHARDED = {"events", "characters", "locations", "battles"}
+SHARDED = {
+    "events", "characters", "locations", "battles",
+    "investigations", "commentaries", "articleAnalyses",
+}
 
 # Fat files an agent must never Read whole. Includes stores plus Foundry dumps.
 TOO_BIG = [
@@ -60,6 +65,7 @@ TOO_BIG = [
     DATA / "characters.json",
     DATA / "commentaries.json",
     DATA / "investigations.json",
+    DATA / "articleAnalyses.json",
     DATA / "battles.json",
     DATA / "locations.json",
     ROOT / "index.html",

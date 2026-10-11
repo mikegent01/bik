@@ -9,19 +9,20 @@ the thread. Open the heading you need.
 
 ## Token gate — the transfer
 
-The four filing stores are **sharded**. Edit a shard, not the bundle.
+The filing stores are **sharded**. Edit a shard, not the bundle.
 
 ```
-Reputation-Matrix2/data/stores/events/material/1040-harvestide.json
-Reputation-Matrix2/data/stores/events/feyward/
-Reputation-Matrix2/data/stores/events/shadeward/
+Reputation-Matrix2/data/stores/events/<world>/<year>.json
 Reputation-Matrix2/data/stores/characters/
 Reputation-Matrix2/data/stores/locations/
 Reputation-Matrix2/data/stores/battles/
+Reputation-Matrix2/data/stores/investigations/<id>.json
+Reputation-Matrix2/data/stores/commentaries/<id>.json
+Reputation-Matrix2/data/stores/articleAnalyses/<id>.json
 ```
 
-`events.json` / `characters.json` / `locations.json` / `battles.json` are
-**generated**. Never hand-edit them. After a shard edit:
+Bundles under `data/*.json` are **generated**. Never hand-edit them.
+After a shard edit:
 
 ```bash
 python3 tools/build-json-stores.py --build --check
@@ -39,8 +40,8 @@ World folders: `material` (real world), `feyward`, `shadeward`, `mirror`,
 `unsorted`. Year in the filename; month only when that year is fat
 (`1040-harvestide.json`). No year/month/day nesting.
 
-Still never Read whole: `midlands-all-actors.json`, `Players.json`,
-`index.html`, `investigations.json`.
+Still never Read whole: Foundry dumps, shop catalogs, `index.html`.
+Skills: `.claude/skills/session-filing`, `.claude/skills/json-stores`.
 
 New chat per filing. `/clear` between jobs. Opus for prose; Sonnet/Haiku for
 JSON splices and `check-all`.

@@ -1,0 +1,222 @@
+[
+  {
+    "id": "acrobatics",
+    "name": "Acrobatics",
+    "ability": "Dexterity",
+    "kind": "core",
+    "type": "Skill",
+    "summary": "Balance, tumble, and stay on your feet when the floor has other plans.",
+    "description": "The table's catch-all for not falling off a lava bridge, a motorbike, or a studio catwalk. Remi uses it as a way out. Waluigi uses it as a way to look like he meant to do that.\n\n<div class=\"waluigi-comment\">Waluigi's Note: If you are still standing after the floor moved, that is Acrobatics. If you are not, that is a filing. WAH.</div>",
+    "relatedArticles": ["the_lava_bridge_ambush_and_the_blue_luigi", "you_said_leave_no_one_behind"]
+  },
+  {
+    "id": "animal_handling",
+    "name": "Animal Handling",
+    "ability": "Wisdom",
+    "kind": "core",
+    "type": "Skill",
+    "summary": "Talk a beast into staying, leaving, or not eating the hire.",
+    "description": "Used on war-lions, ettercaps that used to be men, and Wario's motorbike when someone insists it counts. The archive files the beast under the person who named it.\n\n<div class=\"waluigi-comment\">Waluigi's Note: If it has more legs than you and you still gave it a name, that is this skill. WAH.</div>",
+    "relatedArticles": ["warol_creeton", "the_scorncrow_skirmish"]
+  },
+  {
+    "id": "arcana",
+    "name": "Arcana",
+    "ability": "Intelligence",
+    "kind": "core",
+    "type": "Skill",
+    "summary": "Read the Guild's work, the Mirror's geometry, and anything that hums without a motor.",
+    "description": "The Mages' Guild treats Arcana as a licence. Disaster Inc. treats it as a way to tell whether the glowing thing is a door, a bomb, or a filing error. July Summer Miser keeps the Jul'library on this column.\n\n<div class=\"waluigi-comment\">Waluigi's Note: If the Guild stamped it, it is Arcana. If they denied it exists, it is still Arcana, just louder. WAH.</div>",
+    "relatedArticles": ["july_summer_miser", "charred_note_at_waluigis_door"]
+  },
+  {
+    "id": "athletics",
+    "name": "Athletics",
+    "ability": "Strength",
+    "kind": "core",
+    "type": "Skill",
+    "summary": "Climb, shove, carry a body, or hold a stump while everyone else runs.",
+    "description": "Markop's column. Also anyone who has ever had to drag Waluigi, a notebook, or a paladin who is down to two hit points.\n\n<div class=\"waluigi-comment\">Waluigi's Note: Athletics is how you leave with the person you arrived with. The Legion calls the same thing a code. WAH.</div>",
+    "relatedArticles": ["the_way_i_started_it", "the_airlift_that_never_came"]
+  },
+  {
+    "id": "deception",
+    "name": "Deception",
+    "ability": "Charisma",
+    "kind": "core",
+    "type": "Skill",
+    "summary": "A lie that has to hold for one conversation, one costume, or one unlocked cell.",
+    "description": "Promo copy, fake IDs, a Luigi who is the wrong colour, and every time Wario says the notebook is not important. The archive prefers the lie that was said out loud — it files cleaner than the one everyone agreed not to mention.\n\n<div class=\"waluigi-comment\">Waluigi's Note: If they believed you, it is Deception. If they filed it, it is now canon and you have a problem. WAH.</div>",
+    "relatedArticles": ["promo_mario_newspaper", "the_unlocked_cell_955_bf"]
+  },
+  {
+    "id": "history",
+    "name": "History",
+    "ability": "Intelligence",
+    "kind": "core",
+    "type": "Skill",
+    "summary": "What the filings already said, and whether this year has happened before.",
+    "description": "The encyclopedia's own skill. Used when a session hands you a date, a dynasty, or a mountain with one T. The wrong mountain is still History — it is just History of a mapping company that no longer exists.\n\n<div class=\"waluigi-comment\">Waluigi's Note: History is the skill of not inventing a king who already has a page. WAH.</div>",
+    "relatedArticles": ["the_mount_ebot_expedition", "the_mount_ebot_expedition_part_2"]
+  },
+  {
+    "id": "insight",
+    "name": "Insight",
+    "ability": "Wisdom",
+    "kind": "core",
+    "type": "Skill",
+    "summary": "Tell whether the person talking is lying, possessed, or just hungry.",
+    "description": "The Oracle, Carnivorous in Lady Aurelian's face, and every Guild clerk who smiles too long. Insight is how the table decides the costume is the story.\n\n<div class=\"waluigi-comment\">Waluigi's Note: If they answered to a name that was not on the page, Insight already failed and you are in a fight. WAH.</div>",
+    "relatedArticles": ["feyward_i_cant_afford_not_to_care", "the_shepherds_garden_and_the_three_week_clock"]
+  },
+  {
+    "id": "intimidation",
+    "name": "Intimidation",
+    "ability": "Charisma",
+    "kind": "core",
+    "type": "Skill",
+    "summary": "Make someone stop, talk, or open a door they were paid to keep shut.",
+    "description": "Bowser's default. Also a commissar, a Colour Division introduction, and Wario with a claw. The archive distinguishes intimidation from violence by whether anyone is still standing to file it.\n\n<div class=\"waluigi-comment\">Waluigi's Note: If they moved because you asked loudly, that is Intimidation. If they moved because of the claw, that is a battle. WAH.</div>",
+    "relatedArticles": ["bowser", "the_debt_siege_and_the_sixty_thirty_split"]
+  },
+  {
+    "id": "investigation",
+    "name": "Investigation",
+    "ability": "Intelligence",
+    "kind": "core",
+    "type": "Skill",
+    "summary": "The desk skill: exhibits, leads, and which drawer the paper actually lives in.",
+    "description": "Not the investigation *file* — that is `investigations.json`. This is the roll that finds the charred note, the unlocked cell, the receipt Portia kept. Step 6 and Step 7 of a filing are this skill written down.\n\n<div class=\"waluigi-comment\">Waluigi's Note: Investigation the skill finds the paper. The investigation the file argues about it. Do not confuse the two or the docket grows a tumour. WAH.</div>",
+    "relatedArticles": ["mario_charred_note_file", "the_tape_and_the_wario_files"]
+  },
+  {
+    "id": "medicine",
+    "name": "Medicine",
+    "ability": "Wisdom",
+    "kind": "core",
+    "type": "Skill",
+    "summary": "Keep someone at two hit points instead of zero.",
+    "description": "Salam's hands, Dr. Toad, a Cordon combat chirurgeon, and the syringe that paid a Legion code back. Permanent injuries still go to the Injury Desk — Medicine does not unwrite a d100.\n\n<div class=\"waluigi-comment\">Waluigi's Note: Medicine is not a rewrite. It is how the person lives long enough to be filed. WAH.</div>",
+    "relatedArticles": ["the_way_i_started_it", "you_said_leave_no_one_behind"]
+  },
+  {
+    "id": "nature",
+    "name": "Nature",
+    "ability": "Intelligence",
+    "kind": "core",
+    "type": "Skill",
+    "summary": "Trees that eat libraries, groves that are people, and whether wood burns.",
+    "description": "Feyward's working language. The first person in a week to ask whether wood burns was using Nature. Shadeward groves pretend they are the same skill and are not.\n\n<div class=\"waluigi-comment\">Waluigi's Note: If the plant has a face, it is Nature. If the plant had a face yesterday, it is Shadeward and you should have left. WAH.</div>",
+    "relatedArticles": ["feyward_library_reclamation_and_the_kitchen", "the_belly_of_the_beast"]
+  },
+  {
+    "id": "perception",
+    "name": "Perception",
+    "ability": "Wisdom",
+    "kind": "core",
+    "type": "Skill",
+    "summary": "See the thing in the room before it sees you.",
+    "description": "Sentries, roll calls, a man with too many hands, and the notebook leaving in a courier's satchel. The archive treats a failed Perception as the start of an event, not a footnote.\n\n<div class=\"waluigi-comment\">Waluigi's Note: Perception is how you notice Luigi is the wrong colour *before* he smiles. After, it is History. WAH.</div>",
+    "relatedArticles": ["the_rot_zone_at_star_hill", "the_roll_call_at_trinity"]
+  },
+  {
+    "id": "performance",
+    "name": "Performance",
+    "ability": "Charisma",
+    "kind": "core",
+    "type": "Skill",
+    "summary": "A song, a show, or a CUT that stops a fight because the director said so.",
+    "description": "Plumber Man, Wario taking a bow to an empty house, Papyrus's puzzle theatre, and every RNN late slot. When the studio is the dungeon, Performance is Athletics for the face.\n\n<div class=\"waluigi-comment\">Waluigi's Note: If they clapped, it is Performance. If the director knocked Wario out, it is still Performance, just reviewed. WAH.</div>",
+    "relatedArticles": ["the_cut_and_the_puppet_master", "snowdin_bone_line_registry"]
+  },
+  {
+    "id": "persuasion",
+    "name": "Persuasion",
+    "ability": "Charisma",
+    "kind": "core",
+    "type": "Skill",
+    "summary": "Get a yes without a claw, a lie, or a contract you cannot read.",
+    "description": "The sixty-thirty split, Hjumpik's exchange rate, Bowser talking a one-week ultimatum up to three. Distinct from Deception: the other party still likes you afterward, or at least files the same number.\n\n<div class=\"waluigi-comment\">Waluigi's Note: Persuasion is a deal that survives the next session. Deception is a deal that survives the next sentence. WAH.</div>",
+    "relatedArticles": ["the_debt_siege_and_the_sixty_thirty_split", "feyward_the_soul_ring_and_the_twenty_one_day_cut"]
+  },
+  {
+    "id": "religion",
+    "name": "Religion",
+    "ability": "Intelligence",
+    "kind": "core",
+    "type": "Skill",
+    "summary": "Star Spirits, the Silver Flame, and whatever Jack's order actually swore to.",
+    "description": "Faiths are a live system. This skill is how a character *uses* one: last rites, a holy symbol with mushrooms on it, an oath that names a man before a crown.\n\n<div class=\"waluigi-comment\">Waluigi's Note: If the god answered, file it as an event. If the god did not, it is still Religion — they are like that. WAH.</div>",
+    "relatedArticles": ["jack_melvus_miser", "vellanet_rise"]
+  },
+  {
+    "id": "sleight_of_hand",
+    "name": "Sleight of Hand",
+    "ability": "Dexterity",
+    "kind": "core",
+    "type": "Skill",
+    "summary": "Palm a notebook, a soul ring, a student ID, or the remote in the director's other hand.",
+    "description": "The courier's satchel, Remi's ID traded for an exit, Darian watching a wired remote pass. The archive files the object in inventory first, then admits how it moved.\n\n<div class=\"waluigi-comment\">Waluigi's Note: If they did not see you take it, Sleight of Hand. If they saw you and you still have it, that is Intimidation and we will argue. WAH.</div>",
+    "relatedArticles": ["the_rot_zone_at_star_hill", "the_airlift_that_never_came"]
+  },
+  {
+    "id": "stealth",
+    "name": "Stealth",
+    "ability": "Dexterity",
+    "kind": "core",
+    "type": "Skill",
+    "summary": "Not being the person the grove, the studio, or the Legion is looking at.",
+    "description": "Bones leaving an inn, a Colour Division hallway, John Lee lost in his own castle. Failed Stealth is how most events start.\n\n<div class=\"waluigi-comment\">Waluigi's Note: Stealth is the skill of arriving in the filing as 'also present' instead of as the title. WAH.</div>",
+    "relatedArticles": ["bones_alpine_bank_eavesdropping_and_inn_refuge", "the_unlocked_cell_955_bf"]
+  },
+  {
+    "id": "survival",
+    "name": "Survival",
+    "ability": "Wisdom",
+    "kind": "core",
+    "type": "Skill",
+    "summary": "Track, forage, and not die of the weather while the plot happens somewhere else.",
+    "description": "Snowdin, the Skittering Grove, a motorbike in a bush. Survival is the skill of still having a route when the airlift does not come.\n\n<div class=\"waluigi-comment\">Waluigi's Note: If you ate, slept, and still know which way is out, that is Survival. The rest is commentary. WAH.</div>",
+    "relatedArticles": ["the_airlift_that_never_came", "mount_ebott_survey_mission"]
+  },
+  {
+    "id": "chop_bros",
+    "name": "Chop Bros",
+    "ability": "Strength",
+    "kind": "campaign",
+    "type": "Skill",
+    "summary": "A verified twenty-five feet of Feyward violence with a name the table keeps using.",
+    "description": "Logged in the false-lady session: Chop Bros, a garlic grenade, a Bob-omb, and a soul ring engraved OC. Not a PHB skill. The archive keeps it because the transcript named it and the analysis filed the distance.\n\n<div class=\"waluigi-comment\">Waluigi's Note: If it has a nickname and a measured distance, it is a skill. If it only has a nickname, it is a bit. WAH.</div>",
+    "relatedArticles": ["feyward_chop_bros_soul_ring_and_the_guard_with_no_name", "feyward_chop_bros_trust_accounting_analysis"]
+  },
+  {
+    "id": "cheaters_gambit",
+    "name": "Cheater's Gambit",
+    "ability": "Charisma",
+    "kind": "campaign",
+    "type": "Skill",
+    "summary": "Nine seconds of Mister L, an unread note, and the first time the table named the cheat out loud.",
+    "description": "Filed at the lava bridge, 18 Harvestide 1035 BF. A Tanuki Leaf over a lava falls, a second smiling Luigi, and the rule that the cheat is part of the record.\n\n<div class=\"waluigi-comment\">Waluigi's Note: A gambit you write down is not cheating. It is a system. WAH.</div>",
+    "relatedArticles": ["the_lava_bridge_ambush_and_the_blue_luigi"]
+  },
+  {
+    "id": "whispered_fireball",
+    "name": "Whispered Fireball",
+    "ability": "Intelligence",
+    "kind": "campaign",
+    "type": "Skill",
+    "summary": "Archie's first real Fireball on the record, whispered, with the grove still in the room.",
+    "description": "The Way I Started It: Archie puts the body down and whispers the first real Fireball. Not a shop ability. A named cast the commentary has to quote exactly.\n\n<div class=\"waluigi-comment\">Waluigi's Note: If you whisper a Fireball it is still a Fireball. The whisper is the filing. WAH.</div>",
+    "relatedArticles": ["the_way_i_started_it", "archie_miser"]
+  },
+  {
+    "id": "no_man_left_behind",
+    "name": "No Man Left Behind",
+    "ability": "Wisdom",
+    "kind": "campaign",
+    "type": "Skill",
+    "summary": "The Legion code that moves a body, starts an argument, and sometimes comes back as a syringe.",
+    "description": "Spoken as 'you said leave no one behind, right?' The code took Eager off the field; the syringe paid it back. Not optional once someone has said it in earshot of a Cordon uniform.\n\n<div class=\"waluigi-comment\">Waluigi's Note: A code is a skill the other side also has. File both uses. WAH.</div>",
+    "relatedArticles": ["you_said_leave_no_one_behind", "the_airlift_that_never_came"]
+  }
+]

@@ -1102,5 +1102,320 @@
       "judgement_in_the_grove_battle": "battles/shadeward/all.json",
       "the_grove_floor_battle": "battles/shadeward/all.json"
     }
+  },
+  "investigations": {
+    "bundle": "investigations.json",
+    "n": 19,
+    "order": [
+      "shadeward_feyward_ruined",
+      "capital_intrigue_file",
+      "mushroom_civil_war_file",
+      "toad_liberation_file",
+      "rakasha_alliance_file",
+      "mount_ebott_silence_file",
+      "mount_ebot_one_t_file",
+      "mario_charred_note_file",
+      "dread_mansion_file",
+      "inv_first_snowfall_incident",
+      "inv_battle_of_the_shadow_canyon",
+      "inv_battle_of_the_sugar_swamp",
+      "inv_eldridge_hillfort_defense_722_bf",
+      "inv_battle_of_the_mistral_farmstead",
+      "inv_undercity_grotto_seclusion_incident",
+      "inv_ruin_recovery_1023_bf",
+      "inv_frostfall_moonlit_mysteries",
+      "trinity_schale_file",
+      "bowser_castle_succession_file"
+    ],
+    "shards": {
+      "shadeward_feyward_ruined": "investigations/shadeward_feyward_ruined.json",
+      "capital_intrigue_file": "investigations/capital_intrigue_file.json",
+      "mushroom_civil_war_file": "investigations/mushroom_civil_war_file.json",
+      "toad_liberation_file": "investigations/toad_liberation_file.json",
+      "rakasha_alliance_file": "investigations/rakasha_alliance_file.json",
+      "mount_ebott_silence_file": "investigations/mount_ebott_silence_file.json",
+      "mount_ebot_one_t_file": "investigations/mount_ebot_one_t_file.json",
+      "mario_charred_note_file": "investigations/mario_charred_note_file.json",
+      "dread_mansion_file": "investigations/dread_mansion_file.json",
+      "inv_first_snowfall_incident": "investigations/inv_first_snowfall_incident.json",
+      "inv_battle_of_the_shadow_canyon": "investigations/inv_battle_of_the_shadow_canyon.json",
+      "inv_battle_of_the_sugar_swamp": "investigations/inv_battle_of_the_sugar_swamp.json",
+      "inv_eldridge_hillfort_defense_722_bf": "investigations/inv_eldridge_hillfort_defense_722_bf.json",
+      "inv_battle_of_the_mistral_farmstead": "investigations/inv_battle_of_the_mistral_farmstead.json",
+      "inv_undercity_grotto_seclusion_incident": "investigations/inv_undercity_grotto_seclusion_incident.json",
+      "inv_ruin_recovery_1023_bf": "investigations/inv_ruin_recovery_1023_bf.json",
+      "inv_frostfall_moonlit_mysteries": "investigations/inv_frostfall_moonlit_mysteries.json",
+      "trinity_schale_file": "investigations/trinity_schale_file.json",
+      "bowser_castle_succession_file": "investigations/bowser_castle_succession_file.json"
+    },
+    "wrapper": "investigations",
+    "readme": {
+      "what": "Investigations replace the quest board. One investigation per story arc; each accretes exhibits, threads and leads as sessions are played.",
+      "why": "The quest board carried 73 entries, 25 of which had no description at all. A board answers 'what could we do next'. An investigation answers 'what is happening to us'.",
+      "route": "#/investigations for the index, #/investigation/<id> for a file. #/quests and #/quest/<id> redirect here.",
+      "authoring": "See docs/INVESTIGATIONS.md. Every claim in a brief must be pinned to a numbered exhibit that exists in props.json with a chain of custody.",
+      "tone": "Heavy Waluigi analysis, light story prose. The story is in events.json; this system is the archivist arguing about the story.",
+      "exhibit_shape": {
+        "id": "unique within the investigation",
+        "propId": "id in data/props.json - renders the physical document via the existing exhibit engine",
+        "itemId": "optional id in INVENTORY_SYSTEM.items",
+        "session": "id of an entry in the investigation's sessions[]",
+        "visual": "inline-CSS specimen art. Inline styles only - no classes, no ASCII, so the art travels with the data.",
+        "onRecord": "what is visible without rolling",
+        "dc": "the single examination DC for this exhibit (d6+1 vs dc)",
+        "analysis": "the archivist's full reading, revealed by one successful examination. `## ` starts a subheading."
+      },
+      "dice": "Two rolls, both taken from archiecourtcase. (1) EXAMINATION: one d6+1 vs the exhibit's dc, once per exhibit, revealing the whole analysis. (2) INSIGHT: inline [[roll:DC|text|success|failure]] spans anywhere in onRecord or analysis, rolled as a plain d6, once each. There is no layer ladder, no re-rolling and no XP - you roll to learn things, not to farm them. Every result is remembered in localStorage; the only way back is the file's reset link.",
+      "storage": "Per-browser in localStorage under 'waluipedia-investigations-v1', shaped { invId: { exam:{exhibitId:'success'|'failure'}, insight:{rollId:'success'|'failure'} } }. Nothing is written back to JSON.",
+      "quest_migration": {
+        "note": "quests.json is retained read-only as the historical campaign log. Nothing was deleted from it.",
+        "promoted_to_leads": {
+          "dinner_party_aftermath": [
+            "shadeward_feyward_ruined/lead_verify_ring"
+          ],
+          "faeward_exploration": [
+            "shadeward_feyward_ruined/lead_toad_lee_time",
+            "shadeward_feyward_ruined/lead_morel_price"
+          ],
+          "hjumpik_feywild_survival": [
+            "shadeward_feyward_ruined/lead_steely_core"
+          ],
+          "remi_waluigi_espionage": [
+            "shadeward_feyward_ruined/lead_missing_card"
+          ],
+          "markop_vessel_investigation": [
+            "shadeward_feyward_ruined/lead_fourth_artifact"
+          ],
+          "timeline_convergence": [
+            "shadeward_feyward_ruined/lead_circle_sketches"
+          ],
+          "hjumpik_mirror_identity": [
+            "shadeward_feyward_ruined/lead_mirror_fragment"
+          ],
+          "archie_sleeper_protocol": [
+            "shadeward_feyward_ruined/lead_estate_register"
+          ],
+          "archie_kamek_conundrum": [
+            "shadeward_feyward_ruined/lead_seal_variance",
+            "mushroom_civil_war_file/lead_kamek_conundrum"
+          ],
+          "toads_rescue_eager": [
+            "capital_intrigue_file/lead_iron_docs"
+          ],
+          "markop_centaurs_burden": [
+            "capital_intrigue_file/lead_third_branch",
+            "capital_intrigue_file/lead_withdrawn_charges"
+          ],
+          "archie_god_toad_hunt": [
+            "mushroom_civil_war_file/lead_godtoad_article",
+            "mushroom_civil_war_file/lead_prepaid_supplier"
+          ],
+          "liberated_toads_integration": [
+            "toad_liberation_file/lead_ration_ledger",
+            "toad_liberation_file/lead_thirty_two_hours"
+          ],
+          "toads_a_place_to_call_home": [
+            "toad_liberation_file/lead_housing_authority",
+            "toad_liberation_file/lead_buy_the_pump"
+          ],
+          "festival_of_the_fallen_pact": [
+            "rakasha_alliance_file/lead_pact_terms",
+            "rakasha_alliance_file/lead_recorded_request"
+          ],
+          "rogueport_retrieval": [
+            "rakasha_alliance_file/lead_rogueport_item",
+            "rakasha_alliance_file/lead_number_18"
+          ],
+          "eager_rescue_lead": [
+            "capital_intrigue_file/lead_goods_gate"
+          ],
+          "hjumpik_kings_physician": [
+            "capital_intrigue_file/lead_guild_invoice"
+          ],
+          "archie_fugitive_of_the_accords": [
+            "mushroom_civil_war_file/lead_hall_order"
+          ],
+          "bowser_rally_remnants": [
+            "mushroom_civil_war_file/lead_third_line"
+          ],
+          "bones_identity_crisis": [
+            "toad_liberation_file/lead_records_relief"
+          ],
+          "hjumpik_legion_pact": [
+            "rakasha_alliance_file/lead_patrol_restoration"
+          ]
+        },
+        "culled_filler": [
+          "hidden_echo_in_the_core",
+          "request_aw_spell_reversal",
+          "request_aw_teleport_test",
+          "request_bp_lost_screw",
+          "request_bp_peace_offering",
+          "request_dc_prankster_bounty",
+          "request_dc_tumbleweed_rustlers",
+          "request_dm_radioactive_core",
+          "request_iw_legendary_beast",
+          "request_iw_rare_herbs",
+          "request_jt_food_taster",
+          "request_jt_ghostly_love",
+          "request_lh_letter_delivery",
+          "request_li_treasure_map",
+          "request_lw_vampire_bounty",
+          "request_mid_beast_hunt",
+          "request_mid_lost_heirloom",
+          "request_nl_bounty_on_orcs",
+          "request_nl_supply_run",
+          "request_tg_diplomatic_escort",
+          "request_tg_moon_herbs",
+          "request_vm_caravan_guard",
+          "request_vm_lost_pet",
+          "request_yb_sparring_partners",
+          "request_yc_scarecrow_menace",
+          "request_ys_explore_ruins"
+        ],
+        "retired_to_log": [
+          "archie_dinner_betrayal",
+          "archie_jesters_masterpiece",
+          "archie_third_eye_escape",
+          "bowser_my_heir",
+          "bowser_shadow_etiquette",
+          "bramblehaven_siege",
+          "bryans_mission",
+          "dan_reclaim_the_staff",
+          "dk_save_funky",
+          "guild_gryphon_contract_1",
+          "guild_mages_anomaly",
+          "hjumpik_feywild_heist",
+          "hjumpik_honor_quest",
+          "hjumpik_rescue_mission",
+          "markop_paladins_penance",
+          "markop_serpents_key",
+          "markop_silver_flame_schism",
+          "markop_void_vigil",
+          "remi_adopt_mossy",
+          "remi_noble_debt",
+          "rescue_toadburt",
+          "toad_lee_feywild_protocol",
+          "toadette_loyalty_test",
+          "vigilance_investigation",
+          "wario_roof_hazard"
+        ]
+      }
+    }
+  },
+  "commentaries": {
+    "bundle": "commentaries.json",
+    "n": 17,
+    "order": [
+      "promo_mario_newspaper_commentary",
+      "the_belly_of_the_beast_commentary",
+      "feyward_library_reclamation_and_the_kitchen_commentary",
+      "the_lava_bridge_ambush_and_the_blue_luigi_commentary",
+      "the_garden_above_the_fire_commentary",
+      "feyward_i_cant_afford_not_to_care_commentary",
+      "the_tape_and_the_wario_files_commentary",
+      "judgement_in_the_grove_commentary",
+      "the_roll_call_at_trinity_commentary",
+      "the_shepherds_garden_and_the_three_week_clock_commentary",
+      "snowdin_bone_line_registry_commentary",
+      "the_airlift_that_never_came_commentary",
+      "the_assault_on_bowsers_castle_commentary",
+      "the_cut_and_the_puppet_master_commentary",
+      "the_rot_zone_at_star_hill_commentary",
+      "the_unlocked_cell_955_bf_commentary",
+      "feyward_the_soul_ring_and_the_twenty_one_day_cut_commentary"
+    ],
+    "shards": {
+      "promo_mario_newspaper_commentary": "commentaries/promo_mario_newspaper_commentary.json",
+      "the_belly_of_the_beast_commentary": "commentaries/the_belly_of_the_beast_commentary.json",
+      "feyward_library_reclamation_and_the_kitchen_commentary": "commentaries/feyward_library_reclamation_and_the_kitchen_commentary.json",
+      "the_lava_bridge_ambush_and_the_blue_luigi_commentary": "commentaries/the_lava_bridge_ambush_and_the_blue_luigi_commentary.json",
+      "the_garden_above_the_fire_commentary": "commentaries/the_garden_above_the_fire_commentary.json",
+      "feyward_i_cant_afford_not_to_care_commentary": "commentaries/feyward_i_cant_afford_not_to_care_commentary.json",
+      "the_tape_and_the_wario_files_commentary": "commentaries/the_tape_and_the_wario_files_commentary.json",
+      "judgement_in_the_grove_commentary": "commentaries/judgement_in_the_grove_commentary.json",
+      "the_roll_call_at_trinity_commentary": "commentaries/the_roll_call_at_trinity_commentary.json",
+      "the_shepherds_garden_and_the_three_week_clock_commentary": "commentaries/the_shepherds_garden_and_the_three_week_clock_commentary.json",
+      "snowdin_bone_line_registry_commentary": "commentaries/snowdin_bone_line_registry_commentary.json",
+      "the_airlift_that_never_came_commentary": "commentaries/the_airlift_that_never_came_commentary.json",
+      "the_assault_on_bowsers_castle_commentary": "commentaries/the_assault_on_bowsers_castle_commentary.json",
+      "the_cut_and_the_puppet_master_commentary": "commentaries/the_cut_and_the_puppet_master_commentary.json",
+      "the_rot_zone_at_star_hill_commentary": "commentaries/the_rot_zone_at_star_hill_commentary.json",
+      "the_unlocked_cell_955_bf_commentary": "commentaries/the_unlocked_cell_955_bf_commentary.json",
+      "feyward_the_soul_ring_and_the_twenty_one_day_cut_commentary": "commentaries/feyward_the_soul_ring_and_the_twenty_one_day_cut_commentary.json"
+    },
+    "wrapper": "commentaries",
+    "readme": "Waluigi's Cut — the comedy commentary mode. NOT an analysis and NOT an investigation. An analysis argues a thesis about a filing; a commentary RETELLS the whole story in Waluigi's voice with his opinions cut into it constantly. The story must survive on its own: a reader who has never opened the source article should get the full sequence of events here. The difference is that Waluigi will not shut up while telling it. House rules in docs/COMMENTARY_MODE_GUIDE.md. Voice target measured off spider_grove_battle: >=18 'Waluigi'/1k, >=25 CAPS/1k, an interruption at least every 3rd sentence, and no invented facts."
+  },
+  "articleAnalyses": {
+    "bundle": "articleAnalyses.json",
+    "n": 28,
+    "order": [
+      "hanging_tree_apple_waluigi_analysis",
+      "feyward_chop_bros_trust_accounting_analysis",
+      "mount_ebott_final_log_waluigi_analysis",
+      "battalion_of_six_waluigi_analysis",
+      "warp_pipe_junction_waluigi_analysis",
+      "scorncrow_skirmish_waluigi_analysis",
+      "first_snowfall_incident_waluigi_analysis",
+      "battle_of_the_shadow_canyon_waluigi_analysis",
+      "battle_of_the_sugar_swamp_waluigi_analysis",
+      "eldridge_hillfort_defense_722_bf_waluigi_analysis",
+      "battle_of_the_mistral_farmstead_waluigi_analysis",
+      "undercity_grotto_seclusion_incident_waluigi_analysis",
+      "ruin_recovery_1023_bf_waluigi_analysis",
+      "frostfall_moonlit_mysteries_waluigi_analysis",
+      "promo_mario_newspaper_waluigi_analysis",
+      "the_lava_bridge_ambush_and_the_blue_luigi_waluigi_analysis",
+      "the_brothers_argument_line_by_line",
+      "the_roll_call_at_trinity_waluigi_analysis",
+      "judgement_in_the_grove_waluigi_analysis",
+      "the_tape_and_the_wario_files_provenance_analysis",
+      "snowdin_bone_line_registry_authorship_analysis",
+      "shepherds_garden_disclosure_analysis",
+      "the_airlift_that_never_came_custody_analysis",
+      "bowser_throne_room_compromise_analysis",
+      "the_assault_on_bowsers_castle_analysis",
+      "the_rot_zone_at_star_hill_custody_reading",
+      "the_unlocked_cell_955_bf_schedule_reading",
+      "the_way_i_started_it_stump_reading"
+    ],
+    "shards": {
+      "hanging_tree_apple_waluigi_analysis": "articleAnalyses/hanging_tree_apple_waluigi_analysis.json",
+      "feyward_chop_bros_trust_accounting_analysis": "articleAnalyses/feyward_chop_bros_trust_accounting_analysis.json",
+      "mount_ebott_final_log_waluigi_analysis": "articleAnalyses/mount_ebott_final_log_waluigi_analysis.json",
+      "battalion_of_six_waluigi_analysis": "articleAnalyses/battalion_of_six_waluigi_analysis.json",
+      "warp_pipe_junction_waluigi_analysis": "articleAnalyses/warp_pipe_junction_waluigi_analysis.json",
+      "scorncrow_skirmish_waluigi_analysis": "articleAnalyses/scorncrow_skirmish_waluigi_analysis.json",
+      "first_snowfall_incident_waluigi_analysis": "articleAnalyses/first_snowfall_incident_waluigi_analysis.json",
+      "battle_of_the_shadow_canyon_waluigi_analysis": "articleAnalyses/battle_of_the_shadow_canyon_waluigi_analysis.json",
+      "battle_of_the_sugar_swamp_waluigi_analysis": "articleAnalyses/battle_of_the_sugar_swamp_waluigi_analysis.json",
+      "eldridge_hillfort_defense_722_bf_waluigi_analysis": "articleAnalyses/eldridge_hillfort_defense_722_bf_waluigi_analysis.json",
+      "battle_of_the_mistral_farmstead_waluigi_analysis": "articleAnalyses/battle_of_the_mistral_farmstead_waluigi_analysis.json",
+      "undercity_grotto_seclusion_incident_waluigi_analysis": "articleAnalyses/undercity_grotto_seclusion_incident_waluigi_analysis.json",
+      "ruin_recovery_1023_bf_waluigi_analysis": "articleAnalyses/ruin_recovery_1023_bf_waluigi_analysis.json",
+      "frostfall_moonlit_mysteries_waluigi_analysis": "articleAnalyses/frostfall_moonlit_mysteries_waluigi_analysis.json",
+      "promo_mario_newspaper_waluigi_analysis": "articleAnalyses/promo_mario_newspaper_waluigi_analysis.json",
+      "the_lava_bridge_ambush_and_the_blue_luigi_waluigi_analysis": "articleAnalyses/the_lava_bridge_ambush_and_the_blue_luigi_waluigi_analysis.json",
+      "the_brothers_argument_line_by_line": "articleAnalyses/the_brothers_argument_line_by_line.json",
+      "the_roll_call_at_trinity_waluigi_analysis": "articleAnalyses/the_roll_call_at_trinity_waluigi_analysis.json",
+      "judgement_in_the_grove_waluigi_analysis": "articleAnalyses/judgement_in_the_grove_waluigi_analysis.json",
+      "the_tape_and_the_wario_files_provenance_analysis": "articleAnalyses/the_tape_and_the_wario_files_provenance_analysis.json",
+      "snowdin_bone_line_registry_authorship_analysis": "articleAnalyses/snowdin_bone_line_registry_authorship_analysis.json",
+      "shepherds_garden_disclosure_analysis": "articleAnalyses/shepherds_garden_disclosure_analysis.json",
+      "the_airlift_that_never_came_custody_analysis": "articleAnalyses/the_airlift_that_never_came_custody_analysis.json",
+      "bowser_throne_room_compromise_analysis": "articleAnalyses/bowser_throne_room_compromise_analysis.json",
+      "the_assault_on_bowsers_castle_analysis": "articleAnalyses/the_assault_on_bowsers_castle_analysis.json",
+      "the_rot_zone_at_star_hill_custody_reading": "articleAnalyses/the_rot_zone_at_star_hill_custody_reading.json",
+      "the_unlocked_cell_955_bf_schedule_reading": "articleAnalyses/the_unlocked_cell_955_bf_schedule_reading.json",
+      "the_way_i_started_it_stump_reading": "articleAnalyses/the_way_i_started_it_stump_reading.json"
+    },
+    "wrapper": "analyses",
+    "readme": {
+      "what": "Dedicated Waluigi companion readings for settled Waluipedia articles.",
+      "route": "#/article-analysis/<id>. Source event pages expose the matching record through their Investigate this further panel.",
+      "authoring": "See docs/ARTICLE_ANALYSES.md. Keep approximately 20 percent source reference and 80 percent signed Waluigi analysis. Optional researchDesk checks may reveal only supplemental opinion or an honest limit; they never rewrite the analysis or manufacture canon.",
+      "source_of_truth": "The sourceArticle record owns chronology, participants, outcomes, XP, reputation, and images. This file owns only Waluigi's interpretation."
+    }
   }
 }

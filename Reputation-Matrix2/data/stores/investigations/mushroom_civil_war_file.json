@@ -1,0 +1,574 @@
+[
+  {
+    "id": "mushroom_civil_war_file",
+    "codename": "THE GOD-TOAD QUESTION",
+    "title": "An Enormous Claim With No Custody Chain",
+    "subtitle": "Divinity, asserted; paperwork, absent",
+    "status": "active",
+    "classification": "Open — accreting",
+    "arcIds": [
+      "mushroom_civil_war"
+    ],
+    "opened": "25 Harvestide, 1040 BF",
+    "lastFiled": "5 Aethel, 1040 BF",
+    "archivist": "Waluigi, Auditor-General",
+    "icon": "🍄",
+    "accent": "#e74c3c",
+    "imageCaption": "Waluigi declines to illustrate a deity whose existence is the open question of the file.",
+    "hook": "Several parties are hunting a god. Twelve articles later, nobody has produced one — but somebody has prepaid eleven months of stores for four hundred people.",
+    "plainSummary": [
+      {
+        "point": "Everyone is hunting a god-toad. Nobody can show one exists.",
+        "detail": "Twelve documents, and not one piece of physical evidence for the god. So the file stops asking whether it is real — paper cannot answer that — and asks who is paying for the belief instead."
+      },
+      {
+        "point": "Someone prepaid eleven months of food for four hundred people.",
+        "detail": "A supply contract covers preserved stores for 400 people a month, plus lamp oil and machine parts, delivered to a road crossing rather than a settlement so the carter never sees the destination. It was paid eleven months in advance. Nobody prepays that far ahead unless they are buying the supplier's lack of curiosity along with the goods."
+      },
+      {
+        "point": "The congregation grew from thirty to six hundred in nine weeks, and the preacher takes no wages.",
+        "detail": "The collection balance is untouched. A movement that grows twentyfold while the man at the front draws nothing is either genuine or funded, and an untouched balance is what funded looks like."
+      },
+      {
+        "point": "Certain carts are exempt from being written down.",
+        "detail": "An unpublished border amendment, sent only to gate officers, exempts carts bearing a particular mark from search, from delay, and from entry in the crossing book. A further clause tells officers not to discuss it with other crossings. Skipping the logbook is worth more to a smuggler than skipping the search."
+      },
+      {
+        "point": "The temple guards were told to leave two days early.",
+        "detail": "They abandoned their posts before the raid and nobody was punished. That is a planned withdrawal dressed up as a security failure."
+      }
+    ],
+    "background": [
+      {
+        "id": "star_shard_caves_tanuki_origin",
+        "kicker": "where a god-toad could actually come from",
+        "why": "The star shards are fragments of the Crystal Star that fell at Edgeshade, and one of them turned an abandoned, nameless toad into the God Toad — who then shattered his own shard because the power was too concentrated. This is the mechanism the file's claimants are implicitly invoking."
+      },
+      {
+        "id": "archie_god_sermon",
+        "kicker": "what a real congregation looks like up close",
+        "why": "Remi bolted into a building and the party found a religious service worshipping Archie Miser as the God of the Third Eye — a living god currently walking around setting things on fire. The congregation includes bugbears hiding from something. Useful for telling sincere belief from staged belief."
+      },
+      {
+        "id": "fawful_gala_revelations",
+        "kicker": "where these factions were last in one room",
+        "why": "Fawful's diplomatic gala drew Loyalist operatives, Regency diplomats, Rakasha chiefs, Iron Legion observers and independent brokers — a guest list of people who want each other dead. The natural place to start asking who could fund something quietly."
+      }
+    ],
+    "brief": "**The short version.** Several factions are hunting a god-toad. Twelve documents later, nobody has produced the slightest physical evidence that one exists — but somebody has quietly prepaid eleven months of food for four hundred people, and a congregation has grown from thirty to six hundred in nine weeks.\n\nSo the file stops asking the question everyone else is asking. **Whether the god is real is not answerable from paper. Who is funding the belief is — and that person has been paying for a year.**\n\n\nTwelve articles later, Waluigi has to report a result nobody was expecting, least of all Waluigi.\n\n**None of the twelve establishes that a god exists.** Every one of them establishes that a very well-funded institution is being built on the proposition that one does, and that the people building it are running it like a supply operation rather than a revelation.\n\n## What this file is arguing\n\nBelief does not require paperwork. Institutions do, and the paperwork is here.\n\nThree months of collections for the House of the Ascended: twenty to thirty-five people in a yard rising to four hundred and more in nine weeks, a roof hired, a second sitting added — and no preacher drawing a stipend, with the balance untouched. A congregation that grows twentyfold in nine weeks while the man at the front takes nothing is either a genuine movement or a **funded one**, and an untouched balance is what a funded one looks like.\n\nAlongside it, a supply agreement in counterpart: preserved stores for four hundred people monthly, six barrels of lamp oil, mechanical parts to an annexed schedule, delivery to a crossing rather than a settlement so the supplier's carts never see the destination — and payment made **eleven months in advance**. Nobody pre-pays eleven months for stores unless they are buying the supplier's incuriosity along with the food.\n\nAnd a border amendment, issued to gate officers only and never published, exempting carts under an annexed mark from search, from delay, and from **entry in the crossing book**. Clause four instructs officers not to discuss clause three with officers of other crossings.\n\nStores for four hundred, moving under an exemption from being written down, to a place the carter does not see, on a route where each gate officer has been told not to compare notes with the next.\n\nThat is not a faith. That is a logistics chain with a religion attached to the front of it for the same reason a warehouse has a shop.\n\n## The two documents that hurt\n\nWaluigi's standing rule is that both readings get filed, and there are two exhibits here where the uncomfortable reading is the one the archive prefers.\n\nThe satyr's song sheet. The performed verse ends *and the rod is held by the ones abroad*, and struck out beneath it, in the same hand and ink, is what he wrote first: *and the rod is held by a living god.* The replacement is cramped and pressed harder. A performer changed his own lyric before going on, in the direction of vagueness, and the archive can think of very few reasons to do that in a hall full of Iron Legion.\n\nThe evening duty return for that same night. Establishment on post, forty-three. Actually on post, eight. Twelve of the yard patrol marked *assembled in hall*. The off-duty hall recorded holding forty-one against an establishment of nineteen. The two men watching the cells entered as absent, also in hall. **Nobody was punished.**\n\nA garrison does not empty its posts for a song. It empties them when it has been told to, and the goblin guard's charcoal undertaking says the orders came down *two days before, not that night*, and that the captain was pleased about it.\n\n## What is still not established\n\nThe archive will be blunt, because the file's whole value is that it started sceptical and has to stay that way.\n\nNothing here proves a divinity. The Star Fragment reconciliation is fifty-two drams short against a two per cent expected loss, and a missing fifty-two drams is a theft or a bad scale before it is an ascension. The watchman's service record has a fourth entry begun and never finished, no death form, no discharge, and the file left in the active drawer — which is a clerk's failure before it is a transfiguration.\n\nWaluigi prefers the uncomfortable reading in both cases and says so, and would still lose an argument with a careful sceptic about either.\n\nWhat the archive now holds is a different and better question than the one it opened with. Not *is there a god-toad*. Rather: **who is paying eleven months in advance, and what do they think they are buying**.\n\nWAH.",
+    "threads": [
+      {
+        "id": "th_claim",
+        "title": "Repetition is not custody — and the articles arrived anyway",
+        "state": "open",
+        "text": "This file was opened on one demand: produce a single physical object, with a named person attached to it, that attests the god. Twelve documents arrived. **None of them establishes a divinity.** All of them establish an institution being assembled around the proposition, which is a different claim and a much more falsifiable one.\n\n**In plain terms:** twelve documents establish that an organisation is being built around the god-toad. Not one establishes the god-toad. Those are different claims, and only the second one is testable — so the file tests the second one."
+      },
+      {
+        "id": "th_funding",
+        "title": "Somebody is paying eleven months in advance",
+        "state": "open",
+        "text": "Preserved stores for four hundred, monthly, plus lamp oil and mechanical parts to an annexed schedule, delivered to a crossing rather than a settlement, prepaid eleven months. Set against a collection plate that goes from thirty worshippers to six hundred in nine weeks with no preacher drawing a stipend and the balance untouched. Congregations do not fund warehouses; warehouses fund congregations.\n\n**In plain terms:** faith does not prepay eleven months of food. An institution does. Somebody with real money decided a year ago that four hundred people would need feeding, and started paying before the congregation existed."
+      },
+      {
+        "id": "th_exempt_carts",
+        "title": "The carts that are exempt from being written down",
+        "state": "open",
+        "text": "Border amendment four, issued to gate officers only and unpublished: carts under an annexed mark are exempt from search, from delay, and from entry in the crossing book. Clause four instructs officers not to discuss clause three with officers of other crossings. An exemption from the *record* is worth more than an exemption from the search.\n\n**In plain terms:** the valuable part is not skipping the search, it is skipping the logbook. A cart nobody wrote down cannot be traced later, which means this exemption is worth more to a smuggler than an armed escort."
+      },
+      {
+        "id": "th_hall",
+        "title": "The garrison was told two days before",
+        "state": "open",
+        "text": "Forty-three on establishment, eight actually on post, twelve of the yard patrol *assembled in hall*, the cell guards entered as absent, and nobody punished. The goblin's charcoal undertaking says the orders came down **two days before, not that night**, and that the captain was pleased about it. A garrison does not empty its posts for a song.\n\n**In plain terms:** the guards were not caught out. They were told two days early, they left their posts, and nobody was punished for it — which makes this a planned withdrawal wearing the costume of a security failure."
+      },
+      {
+        "id": "th_insurance",
+        "title": "Four items held against Kamek, described by class only",
+        "state": "open",
+        "text": "Correspondence in the subject's hand; an executed financial instrument; a living contactable witness; an object with no further description. On the reverse: *not to be spent on a small thing. Once used it is used.* No location is given for any of the four, which means the card is an index to leverage rather than to property.\n\n**In plain terms:** the card lists what leverage exists over Kamek without saying where any of it is kept. That is deliberate: an index is safe to hold, the material is not. Somebody is holding the material elsewhere."
+      },
+      {
+        "id": "th_pipe_gate",
+        "title": "Who the Junction actually reports to",
+        "text": "A Bowser Bros sign, a guildmaster who does not live in a shack, a Magikoopa who leaves. The pipes are a government or a costume."
+      }
+    ],
+    "leads": [
+      {
+        "id": "lead_godtoad_article",
+        "title": "Obtain one physical article attesting the god-toad",
+        "state": "open",
+        "priority": "high",
+        "objective": "The twelve articles now filed establish an institution, not a divinity. Obtain the one thing still missing: an article that attests the god independently of anybody who profits from the belief.",
+        "why": "Because the file opened on a demand for custody and got twelve documents that all describe funding, logistics and attendance instead. That is a finding, but it is not the finding the movement claims, and the gap between the two is where somebody is standing.",
+        "fromQuest": "archie_god_toad_hunt",
+        "xp": 240,
+        "exhibits": [
+          "ex_mcw_shard_assay",
+          "ex_mcw_service_record",
+          "ex_mcw_collection_plate"
+        ]
+      },
+      {
+        "id": "lead_kamek_conundrum",
+        "title": "Establish what Kamek believes he was invited to",
+        "state": "open",
+        "priority": "medium",
+        "objective": "Get Kamek on the record about the inner mark, in his own words, before the archive's reading hardens into the official one.",
+        "why": "Waluigi has published a reading of that rubbing that makes Kamek look foolish. Waluigi's standing rule requires filing both readings, and Waluigi has so far only filed Waluigi's.",
+        "fromQuest": "archie_kamek_conundrum",
+        "xp": 150,
+        "exhibits": [
+          "ex_mcw_kamek_index",
+          "ex_mcw_regency_alert"
+        ]
+      },
+      {
+        "id": "lead_prepaid_supplier",
+        "title": "Find who paid eleven months in advance",
+        "state": "open",
+        "priority": "critical",
+        "objective": "Work the supply agreement from the supplier's end. Delivery is to a crossing, so the carter never sees the destination — but somebody handed over eleven months of money, in a place, on a date, to a counterparty identified only by an impressed bean-within-a-cog.",
+        "why": "This is the single most answerable question in the file. Belief leaves no trace; prepayment leaves a receipt, a courier, a date and a room. Stores for four hundred a month is a garrison's appetite, not a congregation's, and the exemption from the crossing book means the destination has been arranged with the border establishment as well as the supplier.",
+        "fromQuest": "archie_god_toad_hunt",
+        "xp": 270,
+        "exhibits": [
+          "ex_mcw_fawful_manifest",
+          "ex_mcw_border_notice",
+          "ex_mcw_collection_plate"
+        ]
+      },
+      {
+        "id": "lead_hall_order",
+        "title": "Establish who ordered the garrison into the hall",
+        "state": "open",
+        "priority": "high",
+        "objective": "Identify the origin of the instruction that emptied thirty-five posts on the night of the performance, two days before it happened, and why no punishment followed.",
+        "why": "The duty return and the goblin's undertaking corroborate each other from opposite directions: the return proves the posts were empty and the undertaking proves it was arranged in advance. An order that empties a garrison and generates no disciplinary consequence came from somewhere above the captain, and the captain was pleased about it.",
+        "fromQuest": "archie_fugitive_of_the_accords",
+        "xp": 210,
+        "exhibits": [
+          "ex_mcw_duty_return",
+          "ex_mcw_goblin_parole",
+          "ex_mcw_songsheet"
+        ]
+      },
+      {
+        "id": "lead_third_line",
+        "title": "Account for the third line formation",
+        "state": "open",
+        "priority": "high",
+        "objective": "Two hundred men became eighteen with no engagement recorded. Find out where the other one hundred and eighty-two went, and whether they are dead, dispersed, or serving under a different heading.",
+        "why": "Household first and second lost men to killing and capture, which is what a defeat looks like in a muster roll. The third line lost more than either and nobody fought it. Shellshock's order forbids formations from seeking confirmation of his command from any other source, and a formation that cannot check is a formation that can be reassigned without anybody noticing.",
+        "fromQuest": "bowser_rally_remnants",
+        "xp": 230,
+        "exhibits": [
+          "ex_mcw_muster_roll",
+          "ex_mcw_shellshock_order"
+        ]
+      },
+      {
+        "id": "lead_missing_rat",
+        "title": "What ate the reconnaissance rat",
+        "state": "open",
+        "priority": "medium",
+        "objective": "Find what the rat found, or what found the rat, before the next pipe crossing.",
+        "why": "Toadette already knows vermin recon failed. The next map of the Junction cannot be another animal.",
+        "xp": 80,
+        "exhibits": [
+          "ex_restricted_notice"
+        ]
+      }
+    ],
+    "sessions": [
+      {
+        "id": "s_mcw_ascension",
+        "label": "The Star Fragment and the toad who stopped being one",
+        "date": "Reconstructed from the shard record",
+        "event": "star_shard_caves_tanuki_origin"
+      },
+      {
+        "id": "s_mcw_legion",
+        "label": "A satyr sings about the Iron Legion, and the Legion dances",
+        "date": "During the god-hunt",
+        "event": "archie_god_sermon"
+      },
+      {
+        "id": "s_mcw_kamek",
+        "label": "The Kamek conundrum — insurance, gathered quietly",
+        "date": "Concurrent",
+        "event": "fawful_gala_revelations"
+      },
+      {
+        "id": "s_mcw_remnants",
+        "label": "Rallying the remnants under a usurper's shadow",
+        "date": "Ongoing",
+        "event": "first_bowser_conflict"
+      },
+      {
+        "id": "s_aethel5_warp_pipe",
+        "label": "The shack that was not a guildhouse",
+        "date": "5 Aethel, 1040 BF",
+        "event": "warp_pipe_junction_restricted_city"
+      }
+    ],
+    "relatedEvents": [
+      "star_shard_caves_tanuki_origin",
+      "archie_god_sermon",
+      "fawful_gala_revelations",
+      "first_bowser_conflict",
+      "the_toad_god_interview_and_the_star_shard",
+      "campaign_songs_archive",
+      "the_arrangement",
+      "glazed_congress_founding",
+      "warp_pipe_junction_restricted_city"
+    ],
+    "exhibits": [
+      {
+        "id": "ex_mcw_shard_assay",
+        "propId": "prop_shard_assay",
+        "session": "s_mcw_ascension",
+        "icon": "⭐",
+        "kind": "ledger",
+        "category": "accounting",
+        "title": "Assay Sheet — Fifty-Two Drams Unaccounted",
+        "secured": "Assay bench copy, obtained from the caves recovery papers",
+        "custody": "Archive — copy",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:radial-gradient(circle at 50% 40%,rgba(231,76,60,.16),transparent 70%),repeating-linear-gradient(135deg,rgba(255,255,255,.02) 0 8px,transparent 8px 16px)\"><div style=\"position:absolute;left:14.0%;bottom:30px;width:9.0%;height:69px;background:rgba(231,76,60,.42);border-radius:2px 2px 0 0\"></div><div style=\"position:absolute;left:26.0%;bottom:30px;width:9.0%;height:64px;background:rgba(231,76,60,.42);border-radius:2px 2px 0 0\"></div><div style=\"position:absolute;left:38.0%;bottom:30px;width:9.0%;height:60px;background:#e74c3c;border-radius:2px 2px 0 0\"></div><div style=\"position:absolute;left:50.0%;bottom:30px;width:9.0%;height:60px;background:rgba(231,76,60,.42);border-radius:2px 2px 0 0\"></div><div style=\"position:absolute;left:62.0%;bottom:30px;width:9.0%;height:60px;background:rgba(231,76,60,.42);border-radius:2px 2px 0 0\"></div><div style=\"position:absolute;left:74.0%;bottom:30px;width:9.0%;height:60px;background:rgba(231,76,60,.42);border-radius:2px 2px 0 0\"></div><div style=\"position:absolute;left:12%%;right:12%%;bottom:29px;height:1px;background:rgba(255,255,255,.3)\"></div><div style=\"position:absolute;left:0;right:0;bottom:9px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#e74c3c\">412 → 388 → 360 DRAMS</div></div>",
+        "dc": 3,
+        "onRecord": "The mass reconciliation for the recovered Star Fragment. Four hundred and twelve drams at the cave face, three hundred and eighty-eight into the first holding, three hundred and sixty released against receipt. Extraction losses on a crystalline mass of this class run to two per cent; this one lost twelve and six-tenths. [[roll:4|The weighing clerk queried it once, in writing|and then never again. A clerk who raises a query and drops it has been answered privately, and a private answer to a written query is the answer that matters.|clerks raise queries and lose interest all the time; nobody chases a docket forever.]]",
+        "analysis": "## The god was weighed, and the sums do not close\n\nEvery account of the ascension is a story about light, and Waluigi has read all of them and can extract from them precisely nothing that could be checked.\n\nThis sheet is a bench assay. It contains four numbers, and two of them disagree.\n\nFour hundred and twelve drams came off the cave face. Three hundred and sixty were released against a receipt. Somewhere in between, fifty-two drams of a substance capable of making a Toad into something else stopped being on the paperwork.\n\nThe bench itself supplies the benchmark: two per cent is normal extraction loss on a crystalline mass. Twelve and six-tenths is not a loss, it is a **removal**, and Waluigi would like to be careful about the difference. Loss is dust, chips, and the inevitable friction of getting a hard thing out of harder rock. Removal is somebody putting a piece in a pocket.\n\nAt this scale the distinction is measurable. Fifty-two drams is [[roll:5|not dust, it is a piece|a fragment large enough to be handled, transported, and used, taken between the rock and the receipt by somebody with access to both. The ascension used what was released. Something else was made with the rest.|extraction from an irregular seam can genuinely produce losses far outside the book figure.]].\n\n## The clerk who asked once\n\nThe part of this document Waluigi keeps returning to is not the discrepancy. It is the query.\n\nSomebody at that bench noticed a twelve per cent loss, understood it was six times the book figure, and wrote a query. That is a person doing their job competently under conditions where competence was clearly unwelcome.\n\nThen the query stops. No answer is attached, and it was not repeated.\n\nThere are two readings. The clerk was satisfied — in which case the answer would normally be minuted, because a bench that has resolved a discrepancy records the resolution to protect itself. Or the clerk was **told**, verbally, by somebody whose telling ended the matter.\n\nThe absence of a written answer to a written query is a specific and unusual absence. Waluigi has learned to treat it as a signature: [[roll:4|somebody senior walked to that bench|because that is the only mechanism that closes a written query without producing a written answer. The clerk's silence dates and locates an intervention.|an unanswered query at a busy bench simply means nobody got round to it.]].\n\n## Why this exhibit opens the file\n\nThe God-Toad Question, as this archive has framed it, is whether a Toad became a god or whether a Toad was **made into** one.\n\nThose are not the same question and only the second one has a paper trail. Divinity leaves no records. Logistics leave records everywhere, and this sheet is the first piece of logistics the file has ever had.\n\nWhat it establishes, narrowly and defensibly: the fragment was under institutional control, was weighed by professionals, was documented at three separate points, and lost a usable quantity in the middle of that chain to a party the record does not name.\n\nWhat it therefore implies, and Waluigi will flag this as inference rather than finding: the ascension was **not the only thing that fragment was used for**, and a second application is out there somewhere with no receipt attached to it. [[roll:6|Fifty-two drams is enough to do it twice|which means the correct question is no longer whether one Toad became a god. It is how many the recovered mass could have supported, and whether anybody has counted.|nobody knows the dosage; fifty-two drams might be enough for nothing at all.]]",
+        "links": {
+          "events": [
+            "star_shard_caves_tanuki_origin",
+            "the_toad_god_interview_and_the_star_shard"
+          ],
+          "items": [],
+          "characters": [
+            "archie_miser"
+          ]
+        }
+      },
+      {
+        "id": "ex_mcw_service_record",
+        "propId": "prop_orange_t_service_record",
+        "session": "s_mcw_ascension",
+        "icon": "🍊",
+        "kind": "ledger",
+        "category": "personnel",
+        "title": "Service Record — The File That Was Never Closed",
+        "secured": "Kingdom Service personnel drawer — still in the active section",
+        "custody": "Archive — copy",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:radial-gradient(circle at 50% 40%,rgba(217,143,43,.16),transparent 70%),repeating-linear-gradient(135deg,rgba(255,255,255,.02) 0 8px,transparent 8px 16px)\"><div style=\"position:absolute;left:30%;top:14px;width:40%;height:92px;background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.02));border:1px solid rgba(217,143,43,.5);border-radius:2px\"></div><div style=\"position:absolute;left:33%;top:26px;width:26%;height:2px;background:rgba(255,255,255,.22)\"></div><div style=\"position:absolute;left:33%;top:38px;width:26%;height:2px;background:rgba(255,255,255,.22)\"></div><div style=\"position:absolute;left:33%;top:50px;width:26%;height:2px;background:rgba(255,255,255,.22)\"></div><div style=\"position:absolute;left:33%;top:62px;width:16%;height:2px;background:rgba(255,255,255,.22)\"></div><div style=\"position:absolute;left:32%;top:62px;width:29%;height:2px;background:#d98f2b;transform:rotate(-1.5deg)\"></div><div style=\"position:absolute;left:0;right:0;bottom:9px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#d98f2b\">ENTRY 4 · BEGUN, NOT COMPLETED</div></div>",
+        "dc": 3,
+        "onRecord": "A township watchman's service record. Junior watch, satisfactory. Senior watch, satisfactory, commended once. Detached to the caves survey party — *at own request*. Then a fourth entry that was begun and never finished, in ink matching the third. No death form, no discharge, no transfer. [[roll:3|The file was left in the active drawer|where it still is. A personnel office that cannot close a file leaves it open, and an open file means the office has never been told, officially, that anything happened to him.|files sit in the wrong drawer in every institution in the world.]]",
+        "analysis": "## An ordinary man, documented ordinarily\n\nWaluigi wants to establish the baseline before anybody starts theorising, because the baseline is the finding.\n\nThree entries. Junior watch. Senior watch, commended once. Detached to the caves at his own request.\n\nThat is a completely unremarkable career. He was competent enough to be promoted and to be commended, and not remarkable enough for anybody to have written more than four words about him at any point. This archive contains a great many people who were destined for something; this record documents a man who was destined to retire from a township watch.\n\nThe fourth entry is the whole exhibit. It was **begun**. The ink matches entry three, which means it was begun at or near the time of the detachment, and it was never completed.\n\nSo a clerk sat down to write down what happened next, and [[roll:4|stopped partway through the first word|which means the clerk knew there was something to enter and then discovered they could not enter it. A clerk who has nothing to write does not start writing.|a half-written line is the most ordinary thing in any office; the clerk was called away and never came back to it.]].\n\n## At own request\n\nThe third entry contains two words that Waluigi has now read a great many times.\n\nHe was not posted to the caves. He asked.\n\nThe archive has been treating the ascension as something that happened to a Toad — an accident of proximity, a man in the wrong tunnel when a fragment of a dead god turned over in its sleep. The service record does not support the accident reading. It supports a man who volunteered for a specific detachment shortly before that detachment produced the most consequential event in this file.\n\nWaluigi is deliberately not calling this a plan. There is a perfectly ordinary reason a bored senior watchman volunteers for a survey party, and it is that survey parties pay better and township watch is tedious. But the archive should stop saying *happened to*, because [[roll:5|the record says he chose to be there|and choosing to be somewhere is the smallest possible amount of agency, which is still infinitely more than none. Every account of the ascension describes a man acted upon. His own file describes a man who applied.|volunteering for a better-paid detachment says nothing about what he expected to find.]].\n\n## Why the file matters more than the god\n\nHere is the practical value, and it is administrative rather than theological.\n\nA record closes by death, discharge, or transfer. Each has a form. No form was ever raised, which means that as far as Kingdom Service is concerned, the subject of this file is **still a serving watchman on detachment**.\n\nThat has consequences the party can use. He can be summoned. He can be paid, and there is presumably three years of accumulated pay sitting against his name. He can be subject to orders, and an order to a serving watchman goes through channels that exist and are documented.\n\nThe god has no address. The watchman has a personnel number.\n\nThe file's recommendation, and Waluigi means it seriously: before anybody attempts a theological approach to this problem, somebody should try [[roll:4|the administrative one|write to the personnel office, request the current posting of the subject of this record, and see what comes back. It costs a letter, and the answer — whatever it is — will be the first official statement anybody has obtained about what he now is.|a personnel office will simply return the file marked 'no current posting' and learn nothing.]].",
+        "links": {
+          "events": [
+            "archie_god_sermon",
+            "star_shard_caves_tanuki_origin"
+          ],
+          "items": [],
+          "characters": [
+            "archie_miser"
+          ]
+        }
+      },
+      {
+        "id": "ex_mcw_songsheet",
+        "propId": "prop_satyr_songsheet",
+        "session": "s_mcw_legion",
+        "icon": "🎻",
+        "kind": "note",
+        "category": "testimony",
+        "title": "Song Sheet — The Line He Crossed Out Before He Went In",
+        "secured": "Recovered from the pit after the performance",
+        "custody": "Archive — original",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:radial-gradient(circle at 50% 40%,rgba(217,143,43,.16),transparent 70%),repeating-linear-gradient(135deg,rgba(255,255,255,.02) 0 8px,transparent 8px 16px)\"><div style=\"position:absolute;left:28%;top:14px;width:44%;height:40px;background:rgba(255,255,255,.07);border:1px solid rgba(217,143,43,.5);border-bottom:none;border-radius:3px 3px 0 0\"></div><div style=\"position:absolute;left:31%%;top:26px;width:36%%;height:2px;background:rgba(255,255,255,.24)\"></div><div style=\"position:absolute;left:31%%;top:38px;width:28%%;height:2px;background:rgba(255,255,255,.24)\"></div><div style=\"position:absolute;left:26%;top:54px;width:48%;height:3px;background:repeating-linear-gradient(90deg,#d98f2b 0 5px,transparent 5px 9px)\"></div><div style=\"position:absolute;left:32%;top:58px;width:44%;height:36px;background:rgba(255,255,255,.05);border:1px solid rgba(217,143,43,.4);border-top:none;border-radius:0 0 3px 3px;transform:rotate(1.6deg)\"></div><div style=\"position:absolute;left:35%%;top:70px;width:30%%;height:2px;background:rgba(255,255,255,.2)\"></div><div style=\"position:absolute;left:0;right:0;bottom:9px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#d98f2b\">STRUCK LINE STILL LEGIBLE</div></div>",
+        "dc": 4,
+        "onRecord": "A satyr's working song sheet, recovered from the orchestra pit. The performed verse ends *and the rod is held by the ones abroad*. Underneath, struck out but legible in the same hand and ink, is what he wrote first: *and the rod is held by a living god*. [[roll:4|The replacement is cramped and pressed harder|which means it was fitted into a space already the wrong size — the edit was made before the performance, not improvised during it. He decided what not to sing while he was still somewhere safe.|a performer revises a lyric a dozen times before a show; the pressure means nothing.]]",
+        "analysis": "## What the Legion heard, and what it nearly heard\n\nThe famous part of this evening is the dance. Waluigi accepts the dance; forty-one witnesses and a duty return agree on it and the archive does not need to relitigate a fact that well attested.\n\nThe useful part of the evening is on this sheet, and nobody in the hall ever saw it.\n\nHe wrote *the rod is held by a living god*. Then he struck it and wrote *the rod is held by the ones abroad*, and it is the second version that a room full of the Iron Legion danced to.\n\nThe two lines say completely different things. The first names the Legion's authority as a person, present, alive, and divine. The second locates that authority somewhere else, offshore, comfortably abstract. One is an allegation. The other is a shrug set to music.\n\nA travelling performer with no stake in the succession does not make that edit out of scansion. Both lines scan. He made it because [[roll:5|he knew which of the two would get him killed|and knowing that means he knew the first line was true, or at least believed enough people in that room thought it was. You do not censor yourself out of an accusation nobody would recognise.|a performer avoiding any mention of divinity in front of soldiers is simple professional caution.]].\n\n## The pressure of the pen\n\nWaluigi is aware that resting an argument on handwriting is the sort of thing that makes an archive look silly, so the claim is kept small.\n\nThe replacement line is cramped. It is fitted into the space the struck line occupied, which is the wrong size for it, and the pressure is heavier. That is what writing looks like when you are correcting a fair copy rather than drafting.\n\nSo the sequence was: he wrote the verse he meant, made a fair copy, and then went back and changed it. Not during the performance — there is no performing hand on this sheet, no smudge of haste, no pencil.\n\nThat matters because it locates the moment of fear **before he entered the building**. Something happened between writing the verse and arriving at the hall. The goblin guard's parole note, filed beside this exhibit, supplies a candidate: the orders permitting the performance came down two days in advance, which means [[roll:4|the satyr knew he was expected|and a performer who discovers his subversive song has been pre-approved by the people he intended to subvert will change the dangerous line. He was not smuggling a song past the Legion. The Legion had booked him.|advance notice of a booking is how every performance in history has been arranged.]].\n\n## The archive's difficulty with this exhibit\n\nWaluigi files a caution against himself here, because the temptation is obvious and the archive is supposed to resist it.\n\nA struck-out line is not a fact about the world. It is a fact about one satyr's judgement of what was safe to sing. He may have been wrong. He may have crossed out a line that was merely melodramatic rather than dangerous. Performers cut lines constantly and most of the cuts mean nothing.\n\nWhat lifts it above that is the corroboration. The verse he cut names a living god holding the rod of the Iron Legion. Three exhibits in this file — an assay with fifty-two drams missing, a service record that cannot be closed, and a collection account going from thirty worshippers to six hundred in nine weeks — all independently point at the same proposition.\n\nA travelling musician who has never seen any of those documents [[roll:6|arrived at the same conclusion and then thought better of it|which is a form of corroboration the archive rates highly, because it is completely uncoordinated. Four sources, no contact between them, one claim.|a rumour circulating among performers is not an independent source, it is the same rumour.]].",
+        "links": {
+          "events": [
+            "archie_god_sermon",
+            "campaign_songs_archive"
+          ],
+          "items": [],
+          "characters": [
+            "archie_miser"
+          ]
+        }
+      },
+      {
+        "id": "ex_mcw_duty_return",
+        "propId": "prop_legion_dance_returns",
+        "session": "s_mcw_legion",
+        "icon": "🪖",
+        "kind": "ledger",
+        "category": "discipline",
+        "title": "Duty Return — Forty-Three on Post, Eight Actually There",
+        "secured": "Duty office copy, obtained after the performance",
+        "custody": "Archive — copy",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:radial-gradient(circle at 50% 40%,rgba(192,57,43,.16),transparent 70%),repeating-linear-gradient(135deg,rgba(255,255,255,.02) 0 8px,transparent 8px 16px)\"><div style=\"position:absolute;left:16%;top:16px;width:68%;height:88px;border:1px solid rgba(192,57,43,.55);border-radius:3px\"></div><div style=\"position:absolute;left:16%;top:30px;width:68%;height:1px;background:rgba(192,57,43,.35)\"></div><div style=\"position:absolute;left:16%;top:44px;width:68%;height:1px;background:rgba(192,57,43,.35)\"></div><div style=\"position:absolute;left:16%;top:58px;width:68%;height:1px;background:rgba(192,57,43,.35)\"></div><div style=\"position:absolute;left:16%;top:72px;width:68%;height:1px;background:rgba(192,57,43,.35)\"></div><div style=\"position:absolute;left:16%;top:86px;width:68%;height:1px;background:rgba(192,57,43,.35)\"></div><div style=\"position:absolute;left:25.7%;top:16px;width:1px;height:88px;background:rgba(192,57,43,.3)\"></div><div style=\"position:absolute;left:35.4%;top:16px;width:1px;height:88px;background:rgba(192,57,43,.3)\"></div><div style=\"position:absolute;left:45.1%;top:16px;width:1px;height:88px;background:rgba(192,57,43,.3)\"></div><div style=\"position:absolute;left:54.9%;top:16px;width:1px;height:88px;background:rgba(192,57,43,.3)\"></div><div style=\"position:absolute;left:64.6%;top:16px;width:1px;height:88px;background:rgba(192,57,43,.3)\"></div><div style=\"position:absolute;left:74.3%;top:16px;width:1px;height:88px;background:rgba(192,57,43,.3)\"></div><div style=\"position:absolute;left:18.0%;top:24px;width:4.7%;height:2px;background:rgba(255,255,255,.26)\"></div><div style=\"position:absolute;left:27.7%;top:24px;width:4.7%;height:2px;background:rgba(255,255,255,.26)\"></div><div style=\"position:absolute;left:37.4%;top:24px;width:4.7%;height:2px;background:rgba(255,255,255,.26)\"></div><div style=\"position:absolute;left:47.1%;top:24px;width:4.7%;height:2px;background:rgba(255,255,255,.26)\"></div><div style=\"position:absolute;left:56.9%;top:24px;width:4.7%;height:2px;background:rgba(255,255,255,.26)\"></div><div style=\"position:absolute;left:66.6%;top:24px;width:4.7%;height:2px;background:rgba(255,255,255,.26)\"></div><div style=\"position:absolute;left:76.3%;top:24px;width:4.7%;height:2px;background:rgba(255,255,255,.26)\"></div><div style=\"position:absolute;left:18.0%;top:38px;width:4.7%;height:2px;background:rgba(255,255,255,.26)\"></div><div style=\"position:absolute;left:27.7%;top:38px;width:4.7%;height:2px;background:rgba(255,255,255,.26)\"></div><div style=\"position:absolute;left:37.4%;top:38px;width:4.7%;height:2px;background:rgba(255,255,255,.26)\"></div><div style=\"position:absolute;left:47.1%;top:38px;width:4.7%;height:2px;background:rgba(255,255,255,.26)\"></div><div style=\"position:absolute;left:56.9%;top:38px;width:4.7%;height:2px;background:rgba(255,255,255,.26)\"></div><div style=\"position:absolute;left:66.6%;top:38px;width:4.7%;height:2px;background:rgba(255,255,255,.26)\"></div><div style=\"position:absolute;left:76.3%;top:38px;width:4.7%;height:2px;background:rgba(255,255,255,.26)\"></div><div style=\"position:absolute;left:18.0%;top:66px;width:4.7%;height:2px;background:rgba(255,255,255,.26)\"></div><div style=\"position:absolute;left:27.7%;top:66px;width:4.7%;height:2px;background:rgba(255,255,255,.26)\"></div><div style=\"position:absolute;left:37.4%;top:66px;width:4.7%;height:2px;background:rgba(255,255,255,.26)\"></div><div style=\"position:absolute;left:47.1%;top:66px;width:4.7%;height:2px;background:rgba(255,255,255,.26)\"></div><div style=\"position:absolute;left:56.9%;top:66px;width:4.7%;height:2px;background:rgba(255,255,255,.26)\"></div><div style=\"position:absolute;left:66.6%;top:66px;width:4.7%;height:2px;background:rgba(255,255,255,.26)\"></div><div style=\"position:absolute;left:76.3%;top:66px;width:4.7%;height:2px;background:rgba(255,255,255,.26)\"></div><div style=\"position:absolute;left:18.0%;top:80px;width:4.7%;height:2px;background:rgba(255,255,255,.26)\"></div><div style=\"position:absolute;left:27.7%;top:80px;width:4.7%;height:2px;background:rgba(255,255,255,.26)\"></div><div style=\"position:absolute;left:37.4%;top:80px;width:4.7%;height:2px;background:rgba(255,255,255,.26)\"></div><div style=\"position:absolute;left:47.1%;top:80px;width:4.7%;height:2px;background:rgba(255,255,255,.26)\"></div><div style=\"position:absolute;left:56.9%;top:80px;width:4.7%;height:2px;background:rgba(255,255,255,.26)\"></div><div style=\"position:absolute;left:66.6%;top:80px;width:4.7%;height:2px;background:rgba(255,255,255,.26)\"></div><div style=\"position:absolute;left:76.3%;top:80px;width:4.7%;height:2px;background:rgba(255,255,255,.26)\"></div><div style=\"position:absolute;left:18.0%;top:94px;width:4.7%;height:2px;background:rgba(255,255,255,.26)\"></div><div style=\"position:absolute;left:27.7%;top:94px;width:4.7%;height:2px;background:rgba(255,255,255,.26)\"></div><div style=\"position:absolute;left:37.4%;top:94px;width:4.7%;height:2px;background:rgba(255,255,255,.26)\"></div><div style=\"position:absolute;left:47.1%;top:94px;width:4.7%;height:2px;background:rgba(255,255,255,.26)\"></div><div style=\"position:absolute;left:56.9%;top:94px;width:4.7%;height:2px;background:rgba(255,255,255,.26)\"></div><div style=\"position:absolute;left:66.6%;top:94px;width:4.7%;height:2px;background:rgba(255,255,255,.26)\"></div><div style=\"position:absolute;left:76.3%;top:94px;width:4.7%;height:2px;background:rgba(255,255,255,.26)\"></div><div style=\"position:absolute;left:17%;top:45px;width:66%;height:13px;background:rgba(192,57,43,.14)\"></div><div style=\"position:absolute;left:0;right:0;bottom:9px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#c0392b\">35 POSTS ABANDONED FOR A SONG</div></div>",
+        "dc": 4,
+        "onRecord": "The Iron Legion's evening duty return for the night of the performance. Establishment on post: forty-three. Actually on post: eight. Twelve of the yard patrol are marked *assembled in hall*; the off-duty hall is recorded holding forty-one against an establishment of nineteen; and [[roll:3|the two men watching the cells are entered as absent, also in hall|the cell watch is the one post an army does not leave. Both of them left it, and the duty serjeant wrote it down rather than cover it, which tells you he did not think he was recording a crime.|a serjeant writing down an embarrassment honestly is just a serjeant covering himself in advance.]]. Nobody was punished.",
+        "analysis": "## The most disciplined thing about this return is that it exists\n\nWaluigi expected this document not to survive. An army that abandons thirty-five posts in an evening has an obvious remedy, which is to write a different evening return, and duty offices have been doing exactly that since the invention of the duty office.\n\nThis one is unamended and signed. The serjeant wrote what happened.\n\nThat single fact reframes the whole incident, because a cover-up implies somebody thought there was something to cover. Nobody did. The return went in, the numbers were absurd, and the file contains no disciplinary action of any kind.\n\nWaluigi's reading: [[roll:4|the Legion did not consider this a breach|which means attendance in that hall was, in some sense the duty office understood, authorised. An army punishes desertion of a post reflexively. It does not punish attendance at something it arranged.|thirty-five simultaneous offenders is simply too many to discipline, so it was quietly ignored.]].\n\n## The two men on the cells\n\nEvery other absence on this sheet can be argued down. Yard patrol is dull. Off-duty men drifting toward music is not a scandal. Two absent from the inner gate returned.\n\nThe cell watch is different, and the archive would like the reader to sit with it.\n\nAn establishment of two, present zero, remark *also in hall*. Whatever was in those cells was, for the duration of a song, entirely unguarded, and the duty serjeant recorded that in the same flat hand he used for the lamp oil.\n\nWaluigi has one question about that evening and it is not about the music. Nobody has checked what was in the cells, and nobody has checked whether it was still there in the morning. A performance that empties a guard post is a **method**, and this archive has an entire file elsewhere about houses that use ceremony to move things while everyone is looking the other way.\n\nThe correct next step is administrative and cheap: [[roll:5|the cell register for that night exists|because a cell is a custody record and custody records are kept separately from duty returns. Two documents, same night, and only one of them has been looked at.|cell registers in a field formation are rarely maintained and will show nothing.]].\n\n## What thirty-five men prove that one man cannot\n\nThe satyr's song sheet, filed beside this, shows a performer who cut the dangerous line before going in. It is suggestive but it is one man's judgement.\n\nThis return is thirty-five men behaving, simultaneously, in a way soldiers do not behave.\n\nThe archive is obliged to consider the mundane explanation, which is that it was a very good song. Waluigi has considered it. Soldiers like music, garrison life is tedious, and a satyr with genuine skill can hold a room.\n\nBut a good song does not empty a cell watch. Discipline in a standing formation is not a matter of enthusiasm; it is a matter of consequence, and consequence was suspended that evening. The goblin guard's parole note explains why — the orders came down two days before, the captain was pleased, and nobody was to interfere.\n\nSo the sequence, assembled from three documents that were never meant to be read together: an order was issued in advance, a performance was permitted, a garrison left its posts including the cells, and no punishment followed. [[roll:6|That is not an army being charmed|that is an army being stood down under cover of entertainment, by written order, two days in advance. Somebody needed those posts empty and arranged a reason that would look like a lapse of discipline rather than an operation.|garrison commanders authorise entertainment constantly and it is not a conspiracy when the men enjoy it.]]",
+        "links": {
+          "events": [
+            "archie_god_sermon"
+          ],
+          "items": [],
+          "characters": [
+            "archie_miser"
+          ]
+        }
+      },
+      {
+        "id": "ex_mcw_goblin_parole",
+        "propId": "prop_goblin_parole",
+        "session": "s_mcw_legion",
+        "icon": "🗡️",
+        "kind": "note",
+        "category": "testimony",
+        "title": "Parole Note — Two Days Before, Not That Night",
+        "secured": "Given on release, witnessed by two",
+        "custody": "Archive — original",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:radial-gradient(circle at 50% 40%,rgba(127,176,105,.16),transparent 70%),repeating-linear-gradient(135deg,rgba(255,255,255,.02) 0 8px,transparent 8px 16px)\"><div style=\"position:absolute;left:12%;top:16px;width:76%;height:2px;background:linear-gradient(90deg,transparent,rgba(127,176,105,.7),transparent)\"></div><div style=\"position:absolute;left:50%;top:18px;width:2px;height:20px;background:rgba(127,176,105,.6)\"></div><div style=\"position:absolute;left:28%;top:38px;width:44%;height:52px;background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.03));border:1px solid rgba(127,176,105,.65);border-radius:4px\"></div><div style=\"position:absolute;left:49%;top:44px;width:7px;height:7px;border:2px solid rgba(127,176,105,.8);border-radius:50%\"></div><div style=\"position:absolute;left:0;right:0;top:60px;text-align:center;font-size:12px;font-weight:800;letter-spacing:.1em;color:#7fb069\">PAROLE</div><div style=\"position:absolute;left:0;right:0;bottom:9px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#7fb069\">SPARED · WROTE IT DOWN</div></div>",
+        "dc": 3,
+        "onRecord": "The undertaking written in charcoal by the goblin guard the party chose not to kill. Four sentences of substance. He was on the door; the orders for the hall came down *two days before, not that night*; the garrison was told there would be a performance and told not to interfere with it; he does not know who told the captain, but the captain was pleased about it. [[roll:4|He is going north and will not be at that door again|which means he has no ongoing interest in the outcome and nothing to gain from the contents. A witness who is leaving is the only kind whose statement does not need discounting for what he hopes to get.|a man writing a statement in exchange for his life will write whatever he thinks buys it.]]",
+        "analysis": "## Mercy that produced a document\n\nThe party spared a guard on a door. Waluigi has been consistently sceptical of mercy as a tactic and is obliged to record that on this occasion it returned better intelligence than anything else in the session.\n\nWhat makes this statement usable is not gratitude, which is worthless, but **structure**. He gives four facts, and he marks the boundary of his own knowledge in the middle of them: *I do not know who told the captain.* A fabricator does not put a hole in the centre of his own story. He would supply the name, because the name is the thing that would make the statement valuable to the people holding him.\n\nHe declined to supply it. That is the mark of somebody reporting rather than performing, and Waluigi rates it accordingly [[roll:3|without rating it too highly|a man writing under any degree of duress is not a free witness, and the archive files this as corroborative rather than primary. It is checked against the duty return, and it holds.|a statement given in exchange for one's life is inadmissible everywhere and should be treated as such.]].\n\n## Two days before\n\nThis is the sentence that reorganises the session.\n\nThe working account of the evening — the party's, the Legion's, and by implication the satyr's — is that a performer arrived and a garrison was carried away. Spontaneous. Embarrassing. Human.\n\nThe orders came down two days in advance.\n\nA performance that is scheduled forty-eight hours ahead, permitted by written order, and shielded by an instruction not to interfere is not an intrusion into the garrison's evening. It is **an item on the garrison's programme**.\n\nThat single correction to the timeline does more work than any other line in this file. It converts a lapse of discipline into an arrangement, and arrangements have authors. The duty return shows the consequence: thirty-five posts empty, including the cells, with no punishment. Of course there was no punishment. [[roll:5|You cannot punish men for obeying an order you gave|and the absence of disciplinary action, which looked like weakness, is actually the strongest confirmation that the order existed.|no punishment for a mass breach is simply what happens when a commander is embarrassed.]].\n\n## The captain was pleased\n\nThree words, and they are the only characterisation the archive will accept from this witness, because they describe an observable rather than a motive.\n\nThe captain — not the men, the captain — received the instruction and was pleased by it. Which means the instruction came from a direction the captain wanted to be favoured by, and that it did not read to him as an imposition.\n\nWaluigi is not going to guess at the source and will not have this file guessing either. But the shape of it can be stated: the order arrived from above, or from outside, and it arrived with enough weight that a captain of the Iron Legion was gratified rather than inconvenienced by being told to stand his garrison down for an evening.\n\nThere is a document trail for that. Orders that reach a captain are received, and receipt is logged. The parole note gives the archive a date range of two days and a specific recipient, which is the most precise search parameter this investigation has ever had. [[roll:4|Somebody should go and read the captain's in-tray|because an order permitting the performance was received, and receipt into a Legion command is entered in an order book with a date and an origin. The witness cannot name the sender. The order book can.|a verbal instruction from a superior leaves no book entry at all, which is presumably why it was verbal.]]",
+        "links": {
+          "events": [
+            "archie_god_sermon"
+          ],
+          "items": [],
+          "characters": [
+            "archie_miser"
+          ]
+        }
+      },
+      {
+        "id": "ex_mcw_fawful_manifest",
+        "propId": "prop_fawful_supply_manifest",
+        "session": "s_mcw_legion",
+        "icon": "🫘",
+        "kind": "contract",
+        "category": "instrument",
+        "title": "Supply Agreement — Stores for Four Hundred, Eleven Months Paid",
+        "secured": "Counterpart copy, obtained from the supplier's side",
+        "custody": "Archive — counterpart",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:radial-gradient(circle at 50% 40%,rgba(217,143,43,.16),transparent 70%),repeating-linear-gradient(135deg,rgba(255,255,255,.02) 0 8px,transparent 8px 16px)\"><div style=\"position:absolute;left:26%;top:16px;width:48%;height:88px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:3px\"></div><div style=\"position:absolute;left:31%;top:34px;width:38%;height:2px;background:rgba(255,255,255,.2)\"></div><div style=\"position:absolute;left:31%;top:46px;width:30%;height:2px;background:rgba(255,255,255,.2)\"></div><div style=\"position:absolute;left:31%;top:76px;width:34%;height:2px;background:rgba(255,255,255,.2)\"></div><div style=\"position:absolute;left:50%;top:52px;margin-left:-62px;width:124px;transform:rotate(-11deg);border:3px solid #d98f2b;border-radius:5px;text-align:center;font-size:13px;font-weight:900;letter-spacing:.12em;color:#d98f2b;padding:3px 0;background:rgba(217,143,43,.10)\">SUPPLY</div><div style=\"position:absolute;left:0;right:0;bottom:9px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#d98f2b\">MARK IMPRESSED · NAME ABSENT</div></div>",
+        "dc": 4,
+        "onRecord": "A supply agreement, counterpart copy. Monthly delivery of preserved stores for four hundred, six barrels of lamp oil, and mechanical parts to an annexed schedule. The receiving party is identified only by an impressed mark — a bean, upright, within a cog. Delivery is to a crossing rather than a settlement, so the supplier's carts never see the destination. And [[roll:3|payment has been made eleven months in advance|nobody prepays a year of provisions to an ally. You prepay when you need the supplier to have no reason to ask questions and no leverage to stop.|advance payment is standard for a supplier taking on unusual delivery risk.]].",
+        "analysis": "## An alliance you can count\n\nEverything the archive holds about the alliance between the ascended Toad and Fawful is testimony. People said it happened. People who say things have reasons.\n\nThis is a supply agreement, and supply agreements are arithmetic.\n\n**Four hundred.** That is the number the stores are cut for, and it is the single most valuable figure in this investigation. Not an estimate from a frightened scout, not a boast — a monthly provisioning quantity, set by a supplier who is being paid to get it right and who loses money if it is wrong.\n\nSo there is a body of four hundred somewhere, eating, and it has been eating for eleven months.\n\nWaluigi has checked the composition against the goods, because provisioning tells you what kind of four hundred. Preserved stores means no cooking infrastructure or no reliable one. Six barrels of lamp oil monthly is a great deal of light for four hundred people, which means either underground or night work. And mechanical parts to a schedule means [[roll:5|something is being maintained, continuously, at scale|preserved food, heavy lighting and a standing parts schedule describes a works, not a camp. Four hundred people are operating machinery somewhere dark, and they have been doing it for the better part of a year.|a parts schedule could be nothing more than cart repairs and lamp fittings.]].\n\n## The mark instead of a name\n\nClause 2 is unusual enough that Waluigi went looking for a precedent and did not find a clean one.\n\nA contract normally identifies its parties, because identification is what makes it enforceable. This one deliberately does the opposite: the receiving party is identified *by the mark impressed below, and by no other means*.\n\nThat is not evasion. It is a design decision with a specific consequence. Anybody holding the seal is the receiving party. The agreement runs to the **mark**, not to a person, which means it survives the person — if the holder of the seal changes, the deliveries continue without amendment and without anybody at the supplier's end being told.\n\nCombine that with clause 3, delivery to the crossing, and clause 4, eleven months paid. The supplier has been arranged into a position where it cannot identify its customer, cannot see the destination, and has already been paid. [[roll:4|The supplier is structurally incapable of informing on anyone|which is presumably why it agreed: it can answer any question honestly and truthfully know nothing. Somebody built this contract for the interrogation that has not happened yet.|a supplier who takes prepayment and asks nothing is just a supplier who likes prepayment.]]\n\n## The bean in the cog\n\nThe archive will describe the mark and decline to over-read it.\n\nA bean, upright, within a cog. The bean is not subtle; the association is obvious to anybody who has been near the eastern courts, and the gala revelations event in this archive is full of it. The cog is the part Waluigi finds interesting, and it matches the third clause of the goods schedule — mechanical parts, monthly, to a schedule.\n\nA supply mark that includes the thing being supplied is a mark designed to be **recognised by carters** rather than by lawyers. It is operational signage.\n\nOne finding, then, stated conservatively. The archive cannot prove who receives these stores. It can prove that four hundred provisioned mouths, a year of prepayment, a standing mechanical works and a deliberately anonymised counterparty all exist, and that the mark on the counterpart copy is a bean.\n\nThat is a great deal more than the file had this morning, and it came out of a delivery schedule rather than a confession, which Waluigi notes [[roll:6|is the general rule and not a lucky exception|every meaningful thing in this archive has been established by an accounting document rather than by anybody admitting anything. Testimony describes intentions. Logistics describe capacity, and capacity is what a civil war is decided by.|this is one contract; the pattern is being asserted rather than shown.]].",
+        "links": {
+          "events": [
+            "fawful_gala_revelations"
+          ],
+          "items": [],
+          "characters": [
+            "fawful"
+          ]
+        }
+      },
+      {
+        "id": "ex_mcw_kamek_index",
+        "propId": "prop_kamek_insurance_index",
+        "session": "s_mcw_kamek",
+        "icon": "🧙",
+        "kind": "note",
+        "category": "leverage",
+        "title": "Index Card — Four Items, Described by Class Only",
+        "secured": "Recovered loose; drawer of origin unknown",
+        "custody": "Archive — original",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:radial-gradient(circle at 50% 40%,rgba(138,75,255,.16),transparent 70%),repeating-linear-gradient(135deg,rgba(255,255,255,.02) 0 8px,transparent 8px 16px)\"><div style=\"position:absolute;left:24%;top:44px;width:30px;height:30px;border:7px solid #8a4bff;border-radius:50%\"></div><div style=\"position:absolute;left:36%;top:55px;width:100px;height:8px;background:linear-gradient(90deg,rgba(138,75,255,.55),#8a4bff);border-radius:3px\"></div><div style=\"position:absolute;left:60%;top:63px;width:8px;height:14px;background:#8a4bff\"></div><div style=\"position:absolute;left:67%;top:63px;width:8px;height:22px;background:#8a4bff\"></div><div style=\"position:absolute;left:0;right:0;bottom:9px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#8a4bff\">INDEX WITHOUT ITS FILE</div></div>",
+        "dc": 4,
+        "onRecord": "A ruled index card, both sides used, subject *Kamek*. Four items held, described by class and nothing else: correspondence in the subject's hand, an executed financial instrument, a living contactable witness, and an object with no further description. On the reverse: *not to be spent on a small thing. Once used it is used.* [[roll:4|The card gives no location for any of the four|and was not filed with them. An index deliberately separated from what it indexes is an index designed to survive the loss of the file, or to be shown to somebody without giving them anything.|a loose card without its drawer is simply a card that fell out of a drawer.]]",
+        "analysis": "## The card is the exhibit, not the contents\n\nWaluigi is aware how this looks. The archive has obtained an index to a collection it does not have, describing four items it cannot see, in language that identifies none of them.\n\nThat is still a finding, and it is worth stating why.\n\nThe card proves that somebody **assembled** material against Kamek. Not gossip — a holding, sorted into classes, with a use policy written on the back. That is the behaviour of a person who intends to spend it, and who has thought about when.\n\nThe classes themselves are informative even stripped of specifics. Correspondence in the subject's own hand is the strongest documentary category there is; you cannot deny your own writing. An executed financial instrument means a transaction that completed. A living, contactable witness means the holding is not purely paper. And a fourth class, an object, with no description entered at all — which in a document this disciplined means [[roll:5|the describer chose not to describe it|every other line has a class. The fourth line has a category and then stops, and the only reason to break your own scheme on the last entry is that describing the thing would identify it.|the fourth item may simply have been catalogued before anyone examined it properly.]].\n\n## Once used it is used\n\nThe note on the reverse is the most professionally sophisticated sentence in this file, and Waluigi says that with genuine, slightly irritated respect.\n\n*Not to be spent on a small thing. Once used it is used.*\n\nWhoever wrote that understands the actual economics of leverage, which almost nobody does. Material held against a person is worth the most on the day before it is deployed. The threat is the asset. The moment it is published, the holder converts a permanent claim into a single outcome, and the outcome is usually smaller than the claim was.\n\nThe party is presently gathering exactly this kind of material — the quest is literally to find dirt on Kamek as insurance — and Waluigi would like the file to record, in advance, that the party has no equivalent policy. There is nothing anywhere in this archive that says what would be a big enough reason to spend it.\n\nThe recommendation is one line: decide the trigger before acquiring the material, because [[roll:4|leverage without a spending rule gets spent on the first crisis|and the first crisis is never the important one. The unknown author of this card understood that and wrote a rule for themselves. The party has not.|leverage is best kept flexible; committing to a trigger in advance throws away options.]].\n\n## Who holds it, and why that is the real question\n\nThe archive cannot say whose card this is, and will not guess in a file that is meant to be evidence.\n\nWhat it can say is what the card rules out. It is not Kamek's own; nobody indexes their own vulnerabilities by class with a use policy. It is not an official registry, which would carry a reference and a drawer. It is a private holding, made by a party with sufficient access to obtain correspondence and sufficient reach to keep a witness contactable over time.\n\nThat is a short list of capabilities, and every entry on it costs money and years.\n\nSo the operative fact for the party is not that dirt on Kamek exists. It is that **somebody got there first**, has had it long enough to write a policy about it, and has not spent it. Which means either the moment has not arrived, or [[roll:6|the holder is already being paid not to spend it|because unspent leverage held for years by a private party is usually not being saved, it is being rented. The absence of any use is itself a transaction.|material can sit unused for years simply because the right moment never came.]].\n\nAnd if the party approaches Kamek with new material, it will be walking into a negotiation where the other side has been managing this exposure, quietly, for a long time.",
+        "links": {
+          "events": [
+            "fawful_gala_revelations"
+          ],
+          "items": [],
+          "characters": [
+            "kamek",
+            "archie_miser"
+          ]
+        }
+      },
+      {
+        "id": "ex_mcw_regency_alert",
+        "propId": "prop_regency_alert_bulletin",
+        "session": "s_mcw_kamek",
+        "icon": "📡",
+        "kind": "telegram",
+        "category": "instrument",
+        "title": "Standing Alert — The Fourth Line Is This File's Title",
+        "secured": "Ward-level copy, not for circulation below ward level",
+        "custody": "Archive — copy",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:radial-gradient(circle at 50% 40%,rgba(192,57,43,.16),transparent 70%),repeating-linear-gradient(135deg,rgba(255,255,255,.02) 0 8px,transparent 8px 16px)\"><div style=\"position:absolute;left:10%%;right:10%%;top:60px;height:1px;background:rgba(255,255,255,.25)\"></div><div style=\"position:absolute;left:12%;top:60px;width:30.3px;height:2px;background:rgba(192,57,43,.6);transform:rotate(-7.6deg);transform-origin:0 50%\"></div><div style=\"position:absolute;left:22%;top:56px;width:24.7px;height:2px;background:rgba(192,57,43,.6);transform:rotate(14.0deg);transform-origin:0 50%\"></div><div style=\"position:absolute;left:30%;top:62px;width:24.3px;height:2px;background:rgba(192,57,43,.6);transform:rotate(-9.5deg);transform-origin:0 50%\"></div><div style=\"position:absolute;left:38%;top:58px;width:41.6px;height:2px;background:rgba(192,57,43,.6);transform:rotate(-54.8deg);transform-origin:0 50%\"></div><div style=\"position:absolute;left:46%;top:24px;width:70.3px;height:2px;background:#c0392b;transform:rotate(75.2deg);transform-origin:0 50%\"></div><div style=\"position:absolute;left:52%;top:92px;width:49.4px;height:2px;background:#c0392b;transform:rotate(-68.6deg);transform-origin:0 50%\"></div><div style=\"position:absolute;left:58%;top:46px;width:27.8px;height:2px;background:#c0392b;transform:rotate(30.3deg);transform-origin:0 50%\"></div><div style=\"position:absolute;left:66%;top:60px;width:30.1px;height:2px;background:rgba(192,57,43,.6);transform:rotate(-5.7deg);transform-origin:0 50%\"></div><div style=\"position:absolute;left:76%;top:57px;width:30.1px;height:2px;background:rgba(192,57,43,.6);transform:rotate(5.7deg);transform-origin:0 50%\"></div><div style=\"position:absolute;left:0;right:0;bottom:9px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#c0392b\">REPORT IMMEDIATE · DO NOT INVESTIGATE</div></div>",
+        "dc": 4,
+        "onRecord": "A Regency standing instruction listing the terms that require an immediate report. Any approach to the named mage: one hour. Any gathering of six or more former household troops: one hour. Use of the old style of address for the deposed: six hours. Movement of the standard: twelve hours. And [[roll:3|any enquiry concerning the succession instruments: immediate|the only entry on the list with no time attached, because there is no interval short enough. Four categories of sedition get an hour or more. Asking about the paperwork gets none.|'immediate' is bureaucratic emphasis and appears on watchlists everywhere.]]. Wardens are instructed not to investigate locally.",
+        "analysis": "## A watchlist is a confession of what frightens you\n\nWaluigi collects these because they are the most honest documents any state produces. A regime's proclamations describe what it wants believed. Its internal reporting triggers describe what it actually expects to happen.\n\nThis one has five entries and they are not equally weighted.\n\nApproaching the named mage, one hour. Six former household troops in a room, one hour. Both of those are sensible counter-insurgency; they describe the physical reassembly of a defeated faction, and an hour is a serious response time.\n\nUsing the old style of address gets six hours, and moving the standard gets twelve. Symbolism is on the list but it is on the slow end, which tells you the Regency is not primarily afraid of sentiment.\n\nThen there is line four, with no interval at all. Enquiring about the succession instruments requires an immediate report — faster than an armed gathering. The Regency is more alarmed by [[roll:5|a question about documents than by a meeting of soldiers|which is only rational if the documents would settle something the soldiers cannot. A regime that fears paperwork above force has a paperwork problem it cannot fix by force.|'immediate' versus 'one hour' is a distinction without a difference in practice.]].\n\n## Do not investigate locally\n\nThe instruction to wardens is the second finding and Waluigi nearly missed it.\n\n*Report by fastest means. Do not investigate locally.*\n\nThat is an unusual order to give a local officer. The ordinary instruction is to establish the facts and report; this one forbids establishing anything. The warden is a tripwire, not an investigator.\n\nThere is one good reason to structure it that way, and it is not efficiency. It is that a local investigation produces a **local record** — a warden's notebook, a statement, a name written down in a ward office where anybody might read it. Reporting upward without investigating means the only account of the incident exists at the centre, in a file the ward cannot see.\n\nSo the Regency has built a reporting system that generates no distributed evidence of what it is worried about. Waluigi finds that admirable and appalling in roughly equal measure, and notes that it has one exploitable weakness: [[roll:4|the ward officer still knows what he reported|the system suppresses the written record, not the man. Every warden on this distribution is a person who has read line four and knows it is there, and one of them will talk about it long before a file ever leaks.|wardens who talk about standing instructions do not stay wardens.]].\n\n## The party is on this list\n\nThe uncomfortable part, filed openly per house rule rather than buried at the bottom.\n\nThis investigation is titled the God-Toad Question. Its central activity is enquiring into who holds legitimate authority in a fractured kingdom and by what instrument. The party has been doing that loudly, in multiple wards, for weeks.\n\nThat is line four. Not adjacent to line four — it *is* line four, in the Regency's own drafting.\n\nWaluigi is not recommending the archive stop, because the archive stopping would be worse than the archive being reported. But two operational consequences follow and both should be acted on.\n\nFirst, the reports have already been made. Somebody has already sent them, immediately, by fastest means, and the party's ignorance of that is not the same as it not having happened.\n\nSecond, and more usefully: the reports are **routed**. They go somewhere specific, they arrive at a desk, and a desk that receives immediate reports about succession enquiries is a desk that holds a list of everybody who has ever asked. [[roll:6|That desk holds the best index of this investigation's own subject matter that exists anywhere|because the Regency has been compiling, at speed and at state expense, a register of every person who thought to ask the question this file is asking. The archive would very much like a copy.|a reporting desk keeps reports, not an analytical index; there is nothing there but paperwork.]]",
+        "links": {
+          "events": [
+            "fawful_gala_revelations",
+            "the_arrangement"
+          ],
+          "items": [],
+          "characters": [
+            "kamek",
+            "bowser"
+          ]
+        }
+      },
+      {
+        "id": "ex_mcw_shellshock_order",
+        "propId": "prop_shellshock_standing_order",
+        "session": "s_mcw_remnants",
+        "icon": "🐢",
+        "kind": "order",
+        "category": "instrument",
+        "title": "General Order — Clause Four Forbids Checking",
+        "secured": "Retained copy, obtained from a formation that received it",
+        "custody": "Archive — copy",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:radial-gradient(circle at 50% 40%,rgba(192,57,43,.16),transparent 70%),repeating-linear-gradient(135deg,rgba(255,255,255,.02) 0 8px,transparent 8px 16px)\"><div style=\"position:absolute;left:26%;top:16px;width:48%;height:88px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:3px\"></div><div style=\"position:absolute;left:31%;top:34px;width:38%;height:2px;background:rgba(255,255,255,.2)\"></div><div style=\"position:absolute;left:31%;top:46px;width:30%;height:2px;background:rgba(255,255,255,.2)\"></div><div style=\"position:absolute;left:31%;top:76px;width:34%;height:2px;background:rgba(255,255,255,.2)\"></div><div style=\"position:absolute;left:50%;top:52px;margin-left:-62px;width:124px;transform:rotate(-11deg);border:3px solid #c0392b;border-radius:5px;text-align:center;font-size:13px;font-weight:900;letter-spacing:.12em;color:#c0392b;padding:3px 0;background:rgba(192,57,43,.10)\">ASSUMED</div><div style=\"position:absolute;left:0;right:0;bottom:9px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#c0392b\">NO FORMATION IS TO SEEK CONFIRMATION</div></div>",
+        "dc": 3,
+        "onRecord": "General Shellshock's order assuming command of all Koopa formations, effective at once, distributed to every formation. Standing orders continue unaltered; formations will not stand down or redeploy. Correspondence addressed to the previous holder of command is to be forwarded to this office unopened. And clause four: [[roll:4|no formation is to seek confirmation of this order from any other source|a commander whose authority is genuine does not need to prohibit verification, because verification would confirm him. The prohibition is only useful to someone who would fail it.|forbidding lateral confirmation is normal signals discipline in a compromised communications environment.]].",
+        "analysis": "## Usurpation, in ninety words\n\nWaluigi wants to admire the drafting before demolishing it, because it is genuinely good.\n\nFour clauses. No justification, no explanation of what happened to the previous commander, no appeal to loyalty or legitimacy. It simply asserts a state of affairs in the flat register of routine administration — the same register a formation reads twenty times a day about latrines and forage.\n\nThat is the trick. The order is written to be **obeyed without being noticed**. Clause 2 is doing the heaviest lifting: standing orders continue unaltered, formations will not stand down and will not redeploy. Nothing changes. Every soldier in every formation carries on doing exactly what they were doing yesterday, and the only thing that is different is the name at the top of the page.\n\nA usurpation that requires no action from anybody is a usurpation that is very difficult to refuse, because [[roll:5|refusing it requires doing something, and obeying it requires doing nothing|inertia has been placed entirely on the usurper's side. Every hour a formation spends not deciding is an hour it has spent complying.|soldiers follow the last written order they received; there is nothing clever about it.]].\n\n## Clause three is the interception\n\nCorrespondence addressed to the previous holder of command will be forwarded to this office unopened.\n\nWaluigi notes the word *unopened*, which is there to make the clause sound scrupulous, and which is worth nothing whatsoever once the letters are in your building.\n\nWhat this clause achieves is total interception of the deposed commander's incoming communications. Every ally writing in, every formation reporting, every outside party attempting contact — all of it routes to Shellshock's office by standing order, and the senders have no way of knowing it has been diverted.\n\nThe remnants' problem, stated in one sentence: they cannot tell who has abandoned them and who is writing letters that never arrive.\n\nAnd the counter-measure is obvious once the clause is read properly. [[roll:4|Anything sent under the old address is now a marker|because a letter addressed to the previous holder of command is guaranteed to reach Shellshock's office and nowhere else. That makes it a channel — an unreliable one for messages, and an excellent one for anything the remnants want the usurper to read while believing he intercepted it.|a diverted post channel is useless to the party because they cannot confirm receipt.]].\n\n## What the order does not say\n\nThe absences are as loud as the text.\n\nThere is no statement of what became of the previous commander. No claim of death, no claim of incapacity, no claim of abdication. Legitimate successions say so, at length, because saying so is the whole point.\n\nThere is also no confirming authority cited. Nobody countersigns. No council, no crown, no senior formation is named as endorsing it, and clause 4 then forbids anybody from going and asking.\n\nSo the document rests entirely on its own assertion, and its drafter knew it, which is why clause 4 exists at all.\n\nThat gives the remnants a specific and cheap line of attack, and Waluigi would rather they used it than fought anybody. The order forbids formations from seeking confirmation *from any other source*. It does not forbid the previous holder of command from **being one**. [[roll:6|A living, visible, unambiguous Bowser is the order's only real vulnerability|because clause 4 assumes he cannot be produced. It was drafted by somebody who was confident about that, and the muster roll shows one hundred and eighty-two men transferred away on nothing but a signature. Signatures reverse.|the formations that transferred did so knowingly and will not come back for a personal appearance.]]",
+        "links": {
+          "events": [
+            "first_bowser_conflict"
+          ],
+          "items": [],
+          "characters": [
+            "bowser",
+            "kamek"
+          ]
+        }
+      },
+      {
+        "id": "ex_mcw_muster_roll",
+        "propId": "prop_remnant_muster_roll",
+        "session": "s_mcw_remnants",
+        "icon": "🔥",
+        "kind": "ledger",
+        "category": "strength",
+        "title": "Muster Roll — One Hundred and Eighty-Two Men Lost to a Signature",
+        "secured": "Compiled by hand over nine days",
+        "custody": "Archive — original",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:radial-gradient(circle at 50% 40%,rgba(192,57,43,.16),transparent 70%),repeating-linear-gradient(135deg,rgba(255,255,255,.02) 0 8px,transparent 8px 16px)\"><div style=\"position:absolute;left:14.0%;bottom:30px;width:9.0%;height:63px;background:rgba(192,57,43,.42);border-radius:2px 2px 0 0\"></div><div style=\"position:absolute;left:26.0%;bottom:30px;width:9.0%;height:31px;background:rgba(192,57,43,.42);border-radius:2px 2px 0 0\"></div><div style=\"position:absolute;left:38.0%;bottom:30px;width:9.0%;height:51px;background:rgba(192,57,43,.42);border-radius:2px 2px 0 0\"></div><div style=\"position:absolute;left:50.0%;bottom:30px;width:9.0%;height:6px;background:#c0392b;border-radius:2px 2px 0 0\"></div><div style=\"position:absolute;left:62.0%;bottom:30px;width:9.0%;height:50px;background:rgba(192,57,43,.42);border-radius:2px 2px 0 0\"></div><div style=\"position:absolute;left:74.0%;bottom:30px;width:9.0%;height:69px;background:rgba(192,57,43,.42);border-radius:2px 2px 0 0\"></div><div style=\"position:absolute;left:12%%;right:12%%;bottom:29px;height:1px;background:rgba(255,255,255,.3)\"></div><div style=\"position:absolute;left:0;right:0;bottom:9px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#c0392b\">WAS 680 · IS 312</div></div>",
+        "dc": 3,
+        "onRecord": "The remnant muster, formation by formation, taken over nine days. Six hundred and eighty were, three hundred and twelve are. Household first and second lost men to killing and capture. The engineers lost one. And the third line formation went from two hundred to eighteen [[roll:4|with no engagement recorded against it|two hundred men did not fight anybody and are gone anyway. The reason column says transferred, on written order, to the new command — which means the largest single loss in this army was administrative.|paper strength collapses for a hundred reasons; the reason column is a serjeant's guess.]].",
+        "analysis": "## Read the reasons column\n\nA muster roll's headline number is almost always misleading, because it collapses several completely different problems into one figure. Six hundred and eighty to three hundred and twelve looks like an army that has been beaten.\n\nIt is two armies' worth of loss with two entirely different remedies.\n\n**One hundred and eighty-six lost to the enemy.** Killed or taken, concentrated in the household formations, which is what you expect — household troops stand where they are put. That loss is permanent, it is expensive, and there is nothing to be done about it except grieve efficiently.\n\n**One hundred and eighty-two lost to a signature.** The third line formation, two hundred down to eighteen, in a day, by written order, with no engagement recorded.\n\nThose numbers are nearly equal, which Waluigi finds almost artistically unfair. The enemy killed a hundred and eighty-six men at whatever it cost them. Shellshock removed a hundred and eighty-two [[roll:5|at the price of one piece of paper|and unlike the dead, those men are alive, trained, equipped, and standing in formation somewhere under a different name at the top of the order. The second loss is the only one that can be reversed.|men who transferred once will transfer again to whoever looks likely to win, which is not the remnants.]].\n\n## The fourth line formation is the real asset\n\nEverybody looking at this roll has focused on the disaster. Waluigi would like to point at line four.\n\nTwo hundred, down to a hundred and forty, reason: *scattered, returning in ones*.\n\nReturning. Present tense. That formation was broken up and its men are, individually, walking back — not to a victory, not to a paymaster, but to a defeated remnant with no obvious future. Sixty are unaccounted for and a hundred and forty have already made that walk.\n\nThat is the single most encouraging fact in this entire investigation, and it is buried in a reason column on a hand-written muster.\n\nIt also has an operational implication that nobody appears to have acted on. Men returning in ones arrive without escort, without orders and without being expected. Anybody can walk in claiming to be a returner. A formation reconstituting itself by individual return is [[roll:4|the easiest possible thing to infiltrate|and the archive would be astonished if the new command had not already sent people in. The returning stream is a gift to the remnants and an open door to whoever wants one.|men returning to their own colours are known to their serjeants and will be recognised.]].\n\n## The engineers\n\nForty were. Thirty-nine are. One lost, no reason given.\n\nWaluigi has stared at that line longer than at any other on the sheet. Every combat formation was gutted. The engineers — the only specialist body on the roll, the men who build the bridges, cut the roads and maintain whatever the army has that is worth maintaining — are intact.\n\nTwo readings. They were not committed, because engineers rarely are. Or they were **not worth taking**, which cannot be right, because trained engineers are the scarcest thing any army owns and the new command would want them more than it wanted two hundred line infantry.\n\nSo the engineers were not transferred, and they were not offered, and they stayed.\n\nThe remnants' actual strength is not three hundred and twelve men. It is thirty-nine specialists who did not leave when leaving was easy and evidently available, plus a hundred and forty men walking home of their own accord. [[roll:6|That is a force with a character, not just a number|because everybody who could be bought or frightened has already gone. The muster has performed an unpleasant but thorough selection, and what remains selected itself.|a small force of survivors is a small force, whatever its motives.]]",
+        "links": {
+          "events": [
+            "first_bowser_conflict"
+          ],
+          "items": [],
+          "characters": [
+            "bowser"
+          ]
+        }
+      },
+      {
+        "id": "ex_mcw_collection_plate",
+        "propId": "prop_sermon_collection_plate",
+        "session": "s_mcw_remnants",
+        "icon": "🙏",
+        "kind": "ledger",
+        "category": "accounting",
+        "title": "Collection Account — Thirty Worshippers to Six Hundred in Nine Weeks",
+        "secured": "Collections book, three months, obtained intact",
+        "custody": "Archive — copy",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:radial-gradient(circle at 50% 40%,rgba(217,143,43,.16),transparent 70%),repeating-linear-gradient(135deg,rgba(255,255,255,.02) 0 8px,transparent 8px 16px)\"><div style=\"position:absolute;left:14.0%;bottom:30px;width:3.0%;height:4px;background:rgba(217,143,43,.42);border-radius:2px 2px 0 0\"></div><div style=\"position:absolute;left:20.0%;bottom:30px;width:3.0%;height:7px;background:rgba(217,143,43,.42);border-radius:2px 2px 0 0\"></div><div style=\"position:absolute;left:26.0%;bottom:30px;width:3.0%;height:10px;background:rgba(217,143,43,.42);border-radius:2px 2px 0 0\"></div><div style=\"position:absolute;left:32.0%;bottom:30px;width:3.0%;height:14px;background:rgba(217,143,43,.42);border-radius:2px 2px 0 0\"></div><div style=\"position:absolute;left:38.0%;bottom:30px;width:3.0%;height:24px;background:rgba(217,143,43,.42);border-radius:2px 2px 0 0\"></div><div style=\"position:absolute;left:44.0%;bottom:30px;width:3.0%;height:34px;background:rgba(217,143,43,.42);border-radius:2px 2px 0 0\"></div><div style=\"position:absolute;left:50.0%;bottom:30px;width:3.0%;height:44px;background:rgba(217,143,43,.42);border-radius:2px 2px 0 0\"></div><div style=\"position:absolute;left:56.0%;bottom:30px;width:3.0%;height:56px;background:rgba(217,143,43,.42);border-radius:2px 2px 0 0\"></div><div style=\"position:absolute;left:62.0%;bottom:30px;width:3.0%;height:69px;background:#d98f2b;border-radius:2px 2px 0 0\"></div><div style=\"position:absolute;left:68.0%;bottom:30px;width:3.0%;height:66px;background:rgba(217,143,43,.42);border-radius:2px 2px 0 0\"></div><div style=\"position:absolute;left:74.0%;bottom:30px;width:3.0%;height:63px;background:rgba(217,143,43,.42);border-radius:2px 2px 0 0\"></div><div style=\"position:absolute;left:80.0%;bottom:30px;width:3.0%;height:67px;background:rgba(217,143,43,.42);border-radius:2px 2px 0 0\"></div><div style=\"position:absolute;left:12%%;right:12%%;bottom:29px;height:1px;background:rgba(255,255,255,.3)\"></div><div style=\"position:absolute;left:0;right:0;bottom:9px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#d98f2b\">WEEKLY TAKINGS · ACCUMULATING</div></div>",
+        "dc": 3,
+        "onRecord": "Three months of weekly collections for the House of the Ascended. Weeks one to four: twenty to thirty-five people in a yard, two to five silver. Weeks five to eight: indoors, a roof hired, sixty to a hundred and forty. Week nine: four hundred and over, eleven gold, a second sitting added. Expenditure is roof hire, lamp oil and one paid doorkeeper — [[roll:4|no preacher draws a stipend, and the balance is untouched|a religion whose leadership takes nothing and whose treasury only grows is not a fraud. Waluigi checked for the fraud first and it is not there, which is the problem.|an unspent balance usually just means the accounts have not caught up with the spending.]].",
+        "analysis": "## Waluigi checked for the scam and could not find it\n\nThe archive's default position on any new faith is that somebody is being paid, and the fastest way to establish it is the expenditure side of the collections book. Preachers who believe live badly. Preachers who do not, do not.\n\nThe expenditure here is roof hire, lamp oil, and one paid doorkeeper. That is it.\n\nNo stipend. No travel. No robes, no furnishings, no honoraria, no discreet line item that resolves into somebody's rent. The people running this are taking nothing out of it, and the balance is accumulating untouched — which in three months at these takings is a substantial sum sitting in a box that nobody has dipped into.\n\nWaluigi would like to be clear that this is the bad outcome. A fraud has an owner, a motive and a pressure point. This has [[roll:5|none of the three|which means there is no one to buy off, no one to expose and no lever to pull. A sincere movement is not a target, it is a weather system.|an unspent balance today is a stipend next quarter; give it time and the owner will appear.]].\n\n## The shape of the curve\n\nThe numbers are worth reading as a curve rather than as a table.\n\nWeeks one to four are a nothing. Twenty to thirty-five people in a yard is a neighbourhood eccentricity, and this kingdom generates several a month.\n\nWeeks five to eight are the tell. Sixty, then a hundred and forty, and the group moves indoors and hires a roof. Somebody made a decision there — hiring a roof is a commitment, an expense, and an act of organisation, and it happened *before* the growth that would justify it.\n\nWeek nine is four hundred plus, overflow, a second sitting.\n\nA congregation that outgrows a hired roof in one week is not growing by persuasion. Persuasion is slow and produces gentle curves. This is a step change, and step changes have events behind them. Something happened in week nine, and the collections book — which is a financial record and not a chronicle — does not say what.\n\nThe archive's recommendation is narrow and easy: [[roll:4|find out what happened in week nine|because the curve dates it precisely to a single seven-day window, and a four-hundred-person event in a city leaves witnesses, noise complaints and rival preachers with opinions. The book cannot tell you what it was. It tells you exactly when to ask.|a step in attendance can simply be one good week of weather and word of mouth.]].\n\n## What six hundred people means for a civil war\n\nThis exhibit sits in the remnants session deliberately, and Waluigi will justify the filing.\n\nThe muster roll opposite records three hundred and twelve soldiers, assembled over nine days of hard work by people with a professional interest in assembling them.\n\nThis book records six hundred civilians who assemble twice weekly, voluntarily, and pay for the privilege.\n\nThose are not comparable forces and Waluigi is not pretending they are. But they are comparable **counts**, and the second one is growing while the first is not. A faction in a civil war is ultimately a body of people who will turn up when called, and one side of this ledger has been quietly out-recruiting an army since about week five.\n\nThe untouched balance is the part that should worry everybody. Money that accumulates is money being saved for something, and nobody saves for nothing. [[roll:6|Somebody is going to spend that box|and the interesting question is not who takes it but what it buys, because a congregation's treasury converts into premises, printing, or people-under-arms, and only one of those changes the shape of this war.|an untouched balance is most likely just poor administration by people with no experience of money.]]",
+        "links": {
+          "events": [
+            "archie_god_sermon",
+            "first_bowser_conflict"
+          ],
+          "items": [],
+          "characters": [
+            "archie_miser"
+          ]
+        }
+      },
+      {
+        "id": "ex_mcw_border_notice",
+        "propId": "prop_two_kingdoms_border_notice",
+        "session": "s_mcw_remnants",
+        "icon": "🚧",
+        "kind": "addendum",
+        "category": "instrument",
+        "title": "Border Notice — The Carts That Never Crossed",
+        "secured": "Gate officer's copy, fourth amendment this season",
+        "custody": "Archive — copy",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:radial-gradient(circle at 50% 40%,rgba(217,143,43,.16),transparent 70%),repeating-linear-gradient(135deg,rgba(255,255,255,.02) 0 8px,transparent 8px 16px)\"><div style=\"position:absolute;left:16.0%;top:40px;width:11px;height:11px;border:3px solid #d98f2b;border-radius:50%;background:rgba(0,0,0,.3)\"></div><div style=\"position:absolute;left:33.0%;top:54px;width:11px;height:11px;border:3px solid #d98f2b;border-radius:50%;background:rgba(0,0,0,.3)\"></div><div style=\"position:absolute;left:18.0%;top:45px;width:15.0%;height:3px;background:repeating-linear-gradient(90deg,rgba(217,143,43,.75) 0 6px,transparent 6px 11px)\"></div><div style=\"position:absolute;left:50.0%;top:40px;width:11px;height:11px;border:3px solid #d98f2b;border-radius:50%;background:rgba(0,0,0,.3)\"></div><div style=\"position:absolute;left:35.0%;top:45px;width:15.0%;height:3px;background:repeating-linear-gradient(90deg,rgba(255,80,80,.9) 0 4px,transparent 4px 9px)\"></div><div style=\"position:absolute;left:67.0%;top:54px;width:11px;height:11px;border:3px solid #d98f2b;border-radius:50%;background:rgba(0,0,0,.3)\"></div><div style=\"position:absolute;left:52.0%;top:45px;width:15.0%;height:3px;background:repeating-linear-gradient(90deg,rgba(217,143,43,.75) 0 6px,transparent 6px 11px)\"></div><div style=\"position:absolute;left:84.0%;top:40px;width:11px;height:11px;border:3px solid #d98f2b;border-radius:50%;background:rgba(0,0,0,.3)\"></div><div style=\"position:absolute;left:69.0%;top:45px;width:15.0%;height:3px;background:repeating-linear-gradient(90deg,rgba(217,143,43,.75) 0 6px,transparent 6px 11px)\"></div><div style=\"position:absolute;left:0;right:0;bottom:9px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#d98f2b\">CLAUSE 3 · NOT ENTERED IN THE BOOK</div></div>",
+        "dc": 4,
+        "onRecord": "Amendment four to the crossing schedule, issued to gate officers only and not published. The mill and the ford are closed except to supply carts under a standing agreement. The crossroads stays open in daylight, subject to search. Clause three exempts carts under an annexed mark from search, delay, *and entry in the crossing book*. Clause four instructs officers [[roll:3|not to discuss clause three with officers of other crossings|which prevents the only check that would ever reveal the scale of it. Two gate officers comparing notes is the entire audit, and it has been forbidden in writing.|compartmentalising sensitive instructions between posts is ordinary practice.]].",
+        "analysis": "## A cart that is not in the book did not cross\n\nWaluigi has read a large number of border instruments and this is the most quietly effective one in the archive.\n\nClause 3 does three things and they escalate. Exempt from search — routine, granted to diplomats and couriers everywhere. Exempt from delay — a convenience, unusual but defensible. Exempt from **entry in the crossing book** — and that is not a convenience at all, that is the creation of a legal fiction.\n\nThe crossing book is the record. A movement that is not entered in it did not, for every administrative purpose that will ever matter, happen. Nobody can be asked how many carts crossed, because the answer is truthfully none. Nobody can compare a month against a month. No auditor, no future commission of inquiry, and no archivist can reconstruct the traffic, because the traffic was never written down.\n\nThat is not smuggling. Smuggling is what you do when the rules are against you. This is [[roll:5|the rules being rewritten to make the movement invisible in advance|and it was done by amendment, quietly, as the fourth routine revision of a schedule, by somebody with the authority to issue gate instructions. Smugglers evade the system. This is the system.|an exemption for official traffic is on every border in the world and means nothing sinister.]].\n\n## Clause four is the audit-killer\n\nThe archive rates clause 4 as the more sophisticated of the two.\n\nClause 3 creates the invisible category. Clause 4 makes sure nobody can ever count it.\n\nA border works as a system of posts, and the ordinary way an irregularity surfaces is that two officers talk. One mentions the strange carts at the ford; the other says he has been seeing them at the crossroads; between them they now have a pattern, and patterns get reported. Every serious abuse of a frontier in recorded history has been uncovered by exactly that conversation.\n\nClause 4 forbids the conversation. In writing. As an instruction.\n\nSo each gate officer holds one true fact — that some carts pass unrecorded at his post — and believes it to be a local peculiarity of his own posting. None of them can know how many posts have the same clause, which means none of them can know [[roll:4|whether they are one exemption or the whole border|and Waluigi's suspicion, unprovable from this copy alone, is that the same amendment went to every crossing on the line. Four amendments this season, none published, all identical, is how you convert a frontier into a corridor.|each crossing is administered separately and clause 3 may well be unique to this one.]].\n\n## The annexe that is not attached\n\nThe copy the archive holds does not include the annexe describing the mark. It states only that the mark is impressed and not printed.\n\nThat detail is small and it is the one that ties this exhibit to the rest of the file.\n\nThe Fawful supply agreement, three exhibits above, identifies its receiving party *by the mark impressed below, and by no other means* — a bean, upright, within a cog. Impressed, not printed. Delivery to a crossing rather than a settlement.\n\nOne document describes goods for four hundred, monthly, delivered to a crossing under an impressed mark. Another document instructs the officers of the crossings not to search, delay or record carts bearing an impressed mark, and forbids them from mentioning it to each other.\n\nWaluigi is not going to claim these are the same mark, because the annexe is missing and claiming it without the annexe would be exactly the kind of overreach this archive was built to avoid. What the file will say is that the two instruments are **shaped to fit each other**, and that obtaining the annexe would settle it in a single afternoon. [[roll:6|The annexe exists at every gate on this line|and unlike the counterpart contract, it is held by low-level officers who were never told why, in a building with no guard on the schedule cupboard. It is the cheapest decisive document in this investigation.|the annexe will be held centrally, not at the gates, precisely because it identifies the beneficiary.]]",
+        "links": {
+          "events": [
+            "glazed_congress_founding",
+            "fawful_gala_revelations"
+          ],
+          "items": [],
+          "characters": [
+            "fawful"
+          ]
+        }
+      },
+      {
+        "id": "ex_restricted_notice",
+        "propId": "prop_warp_pipe_restricted_notice",
+        "session": "s_aethel5_warp_pipe",
+        "icon": "🚫",
+        "kind": "order",
+        "title": "The sign they talked past",
+        "secured": "Read on the Junction gate, 5 Aethel, 1040 BF",
+        "custody": "Still posted",
+        "visual": "<div style=\"width:120px;height:80px;border:3px solid #333;background:#c4a574;display:flex;align-items:center;justify-content:center;font:900 11px sans-serif;text-align:center;padding:6px\">BROS ONLY</div>",
+        "onRecord": "A restriction notice. Bowser Bros only. No exception written.",
+        "dc": 3,
+        "analysis": "The paper did not fail. The crew did. Embercap named a guildmaster the sign does not contain. That is not a forged pass. That is a gate that wanted to believe it had a procedure.\n\n## What it does not prove\n\nIt does not prove a guildmaster lives beyond the pipes. The shack proved the opposite.\n\n[[roll:4|whether the posting crew reports to Bowser or only to the sign|A Bowser Bros posting that takes a guild lie is a crew that has not seen Bowser in a while.|A local hustle wearing a famous name. Either way the sign is real.]]",
+        "links": {
+          "events": [
+            "warp_pipe_junction_restricted_city"
+          ],
+          "items": [],
+          "characters": [
+            "embercap",
+            "captain_toadette"
+          ]
+        }
+      },
+      {
+        "id": "ex_ladder_tally",
+        "propId": "prop_junction_ladder_tally",
+        "session": "s_aethel5_warp_pipe",
+        "icon": "📋",
+        "kind": "ledger",
+        "title": "What the wall actually produced",
+        "secured": "Counted after extraction",
+        "custody": "Loyalist field file",
+        "visual": "<div style=\"width:130px;height:90px;background:#f4ecd8;border:1px solid #333;padding:6px;font:11px monospace\">WALL<br>KOOPA<br>BEAR<br>WINCH</div>",
+        "onRecord": "A field count. Busiest: Koopa. Most attention: the bear. One Magikoopa blast.",
+        "dc": 4,
+        "analysis": "The tally will not write crayfish. It will write bear. Waluigi is keeping both. The Magikoopa's blast is the only line that explains Big R on the ground.\n\n## Dewdrop\n\nShe is not a row. She is the reason the extraction is the result and not a hold.\n\n[[roll:3|whether ANCHOR and Black Bear are one body|One person. The field needed two names for the same back.|A bear and a toad sharing a ladder. Second hearing required.]]",
+        "links": {
+          "events": [
+            "warp_pipe_junction_restricted_city"
+          ],
+          "items": [],
+          "characters": [
+            "big_r",
+            "scribe_dewdrop"
+          ]
+        }
+      }
+    ]
+  }
+]

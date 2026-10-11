@@ -1,0 +1,1458 @@
+[
+  {
+    "id": "shadeward_feyward_ruined",
+    "codename": "SHADEWARD FEYWARD RUINED",
+    "title": "Three Houses, One Method",
+    "subtitle": "The anchor, the graft, and the question of who keeps the record",
+    "status": "active",
+    "classification": "Open — accreting",
+    "arcIds": [
+      "shadowfell_estate",
+      "feywild_attic",
+      "raventree_manor"
+    ],
+    "opened": "23 Harvestide, 1040 BF",
+    "lastFiled": "1 Aethel, 1040 BF — amended: the grove floor fought through, the whispered Fireball, Feyward Dan's fall and row 59, and the vote for the stump over Remi",
+    "archivist": "Waluigi, Auditor-General",
+    "icon": "🏚️",
+    "accent": "#8a4bff",
+    "imageCaption": "No images survive of any of the three houses. Waluigi asked. Multiple times. One of the three replied, which was worse.",
+    "hook": "Three ruined houses, one load-bearing noun, and a diary page instructing the reader to watch whoever is keeping the record. Waluigi keeps the record.",
+    "plainSummary": [
+      {
+        "point": "Three noble houses in three different worlds all collapsed the same way.",
+        "detail": "The Shadeward, the Feyward and a ruined manor near the Thornwood. The method is written down in one of their own diaries."
+      },
+      {
+        "point": "The trick is joining yourself onto a bloodline, then keeping the records.",
+        "detail": "You graft yourself onto an existing family line so it reads as unbroken, take the authority that comes with being the heir, and then make sure you are the person writing the history afterwards. Nothing in the documents is forged. The forgery is who gets to hold the pen."
+      },
+      {
+        "point": "An \"anchor\" is a job, not an object.",
+        "detail": "Something has to be held fixed so the rest can be pulled onto it. In the Feyward, Mystic Morel came out of a wall specifically to say \"don't make Toad Lee the anchor\" — which means a person can be used as one. The party may be escorting an anchor rather than carrying one."
+      },
+      {
+        "point": "Something official is standing behind all three houses.",
+        "detail": "A signet ring was recognised somewhere it should not have been, and word was sent ahead that visitors were coming. Some institution honours these credentials, and this file has not worked out which."
+      },
+      {
+        "point": "The people replaced may still be alive inside.",
+        "detail": "If grafting stores the original rather than destroying them, the substituted figures across all three houses are containers. The party has checked exactly one."
+      }
+    ],
+    "background": [
+      {
+        "id": "shadeward_arc",
+        "kicker": "the first of the three houses",
+        "why": "Archie woke on cold marble in a world with no colour and no fire, and survived three weeks in the Shadowfell on disguise and improvisation. It ends at the vampire dinner where Green T shot the host from the children's table."
+      },
+      {
+        "id": "feyward_dark_rooms_and_balcony_planning",
+        "kicker": "the second house, and the ring",
+        "why": "The Raventree Signet Ring, which can create and destroy connections between the manors, and the Book of Revised History — Raventree was a thriving academic centre where Toads, orcs and lightning professors worked together, until a proto-Liberated-Toads movement was crushed by the Iron Legion and the Mages' Guild."
+      },
+      {
+        "id": "ruined_manor_convergence",
+        "kicker": "the third house, and the accusation",
+        "why": "Agent L found a broken teleportation circle and took testimony from a murdered spirit — coordinates in the Thornwood, and allegations about false coronations. That is what turned three separate hauntings into one investigation."
+      }
+    ],
+    "brief": "**The short version.** Three ruined houses, in three different planes, all failed the same way — and the method is written down in one of their own diaries.\n\nSomeone joins themselves onto an existing bloodline so the line reads as unbroken, takes the authority that comes with it, and then makes sure they are the one keeping the records afterwards. **The forgery is not in the documents. The forgery is the person who gets to write them.**\n\nThat last part is why this archive exists in its current paranoid form, and why every claim below is pinned to a numbered document with a list of the hands it passed through. Do not take Waluigi's word for any of it. Roll against the paper.\n\n\nThe reason is arithmetic. The old quest board carried seventy-three entries, and Waluigi has now read all of them in one sitting, which is a thing Waluigi will not be doing again. Twenty-five were requests with no description at all — a title, a location, a notional reward, and nothing else. Several more were of the form *a farmer has lost a screw*. Waluigi does not object to a farmer losing a screw. Waluigi objects to filing it beside the destruction of a bloodline.\n\nA board is the wrong instrument. A board answers the question *what could we do next*, and the party has never once been short of things to do next. The question the party is actually short of is **what is happening to us**, and that question is not answered by a list. It is answered by paper: things that were written down at the time by people who did not know what they were part of.\n\nSo this is an investigation. One per arc. It accretes.\n\n## What this file is arguing\n\nThree houses have failed in the same way, and Waluigi is prepared to argue they failed by the same method.\n\nThe **Shadeward**, where Archie woke on marble in a world with no colour and no fire, and where the way out turned out to be a *shadow anchor* — an object holding a plane's condition in place over a house.\n\nThe **Feyward**, where the manor stopped attacking people and started converting them: a Toad who lost time standing at a door, a Lady replaced by overgrowth wearing her own face, a construct that rusted at the speed the house rusts things, and Mystic Morel coming out of a wall to say *don't make Toad Lee the anchor*.\n\nThe **ruined manor** near the Thornwood, where Agent L kicked aside a rug and found a teleportation circle deliberately damaged — or made to appear damaged — and where a spirit called Ashford said the Crown's bloodline was *broken at third branch*.\n\nAnchor. Anchor. Branch. Graft.\n\nFour words from four different mouths in three different houses, and all four of them are engineering vocabulary from the same discipline: something is held fixed so that something else can be pulled onto it, and the join is described in the language of gardening so that nobody at the table has to say what it is.\n\nWaluigi is not claiming a conspiracy. Waluigi is claiming a **contractor** — a method, repeated, by someone who has done it before and writes it down. And per the Aurelian diary page, the method's central instruction is not about bodies at all. It is *watch who is keeping the record*.\n\n## Why the reader has to roll\n\nEvery claim above is Waluigi's. Waluigi is a magnificent and interested party, and an interested party's summary is worth exactly nothing without the paper underneath it.\n\nSo the paper is here. Twelve exhibits, each one a physical article with a custody chain, most of them written by people who had no idea they were producing evidence — an ammunition sheet, an unpaid invoice, a salvage return with the values struck out, a card-reading register whose last outcome column is deliberately blank.\n\nExamining an exhibit is a roll because analysis is a skill and the archive is not going to pretend otherwise. A failed examination is not a locked door; it means the reader did not get anything new out of it *this time*, and the paper is still on the table tomorrow.\n\nDeeper layers cost more and pay more. The third layer of most exhibits is where the uncomfortable reading lives, and Waluigi has put the uncomfortable reading in writing rather than keeping it in Waluigi's head, for reasons the seal rubbing explains at length.\n\n## Standing rule of this file\n\nWhen a document can be read two ways, the archive files **both**, and marks which one the archive prefers.\n\nKamek read a dedication as a personal address, wrote *for me* on it in charcoal, and the label lost first and then everyone else did. Waluigi is not immune to this. Waluigi is simply writing the preference down, where somebody can check it later.\n\nWAH.",
+    "threads": [
+      {
+        "id": "th_anchor",
+        "title": "The anchor is a role, not an object",
+        "state": "open",
+        "text": "A shadow anchor held a plane's condition over the Shadeward estate. Morel warned against making Toad Lee *the* anchor — definite article, technical usage. The Black Crystal is filed in the party's own paperwork as an **anchor key**. If the role can be filled by a person, the party is currently escorting both a candidate and a key.\n\n**In plain terms:** an \"anchor\" is not a thing you can put in a bag — it is a job, and a person can be made to do it. If that is right, the party is not carrying an anchor around. They are escorting one, and he does not know it."
+      },
+      {
+        "id": "th_graft",
+        "title": "Grafting is succession fraud with a biological delivery mechanism",
+        "state": "open",
+        "text": "Aurelian's diary: what is joined is not the flesh, it is the **line**, and a line joined once can be joined again. The false Lady was not an impostor pretending — on the document's own logic she was a legitimate graft onto an opened line. The Ashford spirit's “broken at third branch” puts the same vocabulary inside the succession crisis.\n\n**In plain terms:** this is inheritance fraud done with biology instead of forged deeds. You do not fake being the heir; you make yourself genuinely part of the bloodline, so that every check anybody runs comes back clean."
+      },
+      {
+        "id": "th_record",
+        "title": "Whoever keeps the record decides afterwards what happened",
+        "state": "open",
+        "text": "The method's own instruction, written by one of its architects. It makes the Waluipedia a target and a compromised archivist indistinguishable from a diligent one. Countermeasure: every claim pinned to a numbered exhibit with a chain of hands. Do not believe Waluigi. Roll against the paper.\n\n**In plain terms:** the method's final step is controlling the archive, which makes this archive a target. A corrupted archivist and a diligent one produce identical-looking pages — so the only defence is that every claim here names a document and the hands it passed through."
+      },
+      {
+        "id": "th_department",
+        "title": "There is administration behind this",
+        "state": "open",
+        "text": "The Umbral Signet grants **estate authority** — a credential, meaningless without a system that recognises it. The Shadeward butler knew Cornelius was expecting visitors who arrived by accident from another plane. A house does not expect an accident; somebody sent notice ahead. The closest thing to a suspect in this file is a clerical department, which Waluigi finds worse than a lich.\n\n**In plain terms:** a credential is worthless unless some organisation honours it. Something recognised that ring and sent word ahead that visitors were coming. There is an institution behind these three houses, and the file has not identified it."
+      },
+      {
+        "id": "th_container",
+        "title": "The originals may still be inside",
+        "state": "open",
+        "text": "Destroying the false Lady produced a ring with, allegedly, the real one in it. If the graft is a container rather than a replacement, every grafted figure across three houses may still have somebody in it. The party has checked one.\n\n**In plain terms:** if grafting stores the original person rather than destroying them, then the grafted figures across all three houses may still have someone alive inside. The party has checked exactly one of them."
+      },
+      {
+        "id": "th_threshold_invitation",
+        "title": "A warded house is only as closed as everyone already inside",
+        "state": "open",
+        "text": "Randell could not enter Tymnas's cottage until the imp thrown through the window granted permission. The invitation came from a hostile creature hiding in the broom closet, not the owner, host, or lawful occupant. Either the threshold recognizes any creature physically inside as household authority, or the imp possessed a specific right nobody had identified. Every safehouse containing prisoners, servants, vermin, familiars, summons, or hidden intruders now has a vampire-entry problem. The cottage did not fail under force. It accepted a sentence."
+      },
+      {
+        "id": "th_inside",
+        "title": "The tree is not a place the Scorncrow lives. It is an interior with its own population.",
+        "state": "open",
+        "text": "Everything filed about the Scorncrow before this session treated the tree as scenery: the shape it takes, the thing it stands next to, the object Archie kept trying to uproot. The descent says otherwise. Inside the tree there is a grove — a dead tree of its own, a canopy of webs, wrapped beast and man hanging from the boughs, an ettercap brood with unbroken morale, voices that argue about fire, and Legion soldiers on ground no column marched to. That is not a monster's body. That is an address.\n\n**In plain terms:** they thought they were cutting down a tree with something nasty in it. They have gone inside a room that is bigger than the thing containing it, and other people were already there."
+      },
+      {
+        "id": "th_scorncrow_human",
+        "title": "The thing that died was human, and nobody knows in what sense",
+        "state": "open",
+        "text": "Two physical tests agree: human blood under the face, a human face under the hood, and remains that stayed remains. The archive's three readings — worn, made, or faked — were all still live when the warhammer landed, and the only witness who could have separated them was the one being asked the question.\n\n**In plain terms:** we killed the only person who knew what the Scorncrow was, while he was in the middle of telling us."
+      },
+      {
+        "id": "thread_oracle_placement",
+        "title": "Whether the Oracle was in the palace in 955 BF",
+        "status": "open",
+        "note": "He describes a tableau that the archive says was erased within hours of the killing. If he saw it, he was the killer, the Guild, or already inside — and is a party to the assassination rather than a custodian who heard about it. If he did not, he assembled it from leaked material and delivered it to the one listener who could not check. The archive holds no instrument to separate these."
+      },
+      {
+        "id": "thread_feyward_tether",
+        "title": "The three-week tether deadline and who else knows it exists",
+        "status": "open",
+        "note": "A hard twenty-one-day term runs on the planar tether joining the Feyward to the Material sanctum, started at Bowser's teleport. Hjumpik's party is standing inside the Feyward and has not been told. Bowser asked twice for a margin and was promised nothing; the Oracle offered three unnamed rewards if the term holds, one of which he described as smelling like peaches."
+      },
+      {
+        "id": "thread_disputed_casualty",
+        "title": "Who holds Eager, and on what authority",
+        "status": "open",
+        "note": "A Legion guard removed an unconscious party member on the code — no man left behind — over the objection of Archie, Feyward Dan and Markop, and over the man's own request to be put down. Resolved in part on 1 Aethel: Salam woke, Markop returned the code — 'you said leave no one behind, right?' — and the Legion let him go and left a guard waiting at the motorbike with him. The custody question is closed; the authority question is not — a guard later tried to move Salam off the bike ('stand still, you worm') and was refused. Amended again: the authority question went unanswered because the Legion went unrecorded — while the grove floor was fought, no guard's hand is on anybody. Salam left the post he had been given to heal Dan, and nobody stopped him."
+      },
+      {
+        "id": "thread_no_helicopter",
+        "title": "The helicopter that was promised twice and never arrived",
+        "status": "open",
+        "note": "Legion guards promised an airlift out of the grove and a show at Legionhold. Nothing in the record shows an aircraft. They left on foot carrying wounded. Either the asset did not exist, or it was not sent."
+      },
+      {
+        "id": "thread_what_the_legion_ran_from",
+        "title": "What made an Iron Legion soldier run",
+        "status": "open",
+        "note": "A Legion man ran past Markop in open panic while the guards were still treating the grove as their ground. Nothing in the record names the cause. The three Toads are running toward the same deeper grove. Amended 1 Aethel, later: the grove floor was fought through by the party alone — the Legion appears nowhere in the record of the fight, not the guard at the bike, not the medic, not the running man. The ettercaps and the giant green spider are now candidates for what he ran from, and they are dead. Nothing confirms it; the thread stays open."
+      },
+      {
+        "id": "thread_remi_after_the_grove",
+        "title": "What about Remi",
+        "status": "open",
+        "note": "Markop's question — 'what about Remi, we can't rest now' — was the only mention of Remi on the grove floor and it lost the vote: back to the stump. Remi, Wario and Mossy are on the far side of Anamatar's passage with a student ID traded for the way. The record does not show Markop agreeing to the vote."
+      }
+    ],
+    "leads": [
+      {
+        "id": "lead_verify_ring",
+        "title": "Verify the occupant of the OC Soul Ring",
+        "state": "open",
+        "priority": "critical",
+        "objective": "Establish, with the Mirror of True Reflection and not with hope, whether the ring lodged with the Anvil actually contains Lady Aurelian.",
+        "why": "The entire container thesis rests on one unverified claim, and the party wants it to be true, which is precisely when verification stops happening. The mirror exists, it is repaired, and it has never been assigned a keeper.",
+        "fromQuest": "dinner_party_aftermath",
+        "xp": 200,
+        "exhibits": [
+          "ex_soul_ring",
+          "ex_mirror_invoice"
+        ]
+      },
+      {
+        "id": "lead_toad_lee_time",
+        "title": "Account for Toad Lee's missing time",
+        "state": "open",
+        "priority": "critical",
+        "objective": "Reconstruct where Toad Lee was, and with whom, during the period he cannot explain — without telling him he is a suspect, because he may be a victim and the two require different handling.",
+        "why": "Morel warned specifically against making him the anchor, using the grammar of an instruction to the party rather than a warning about an enemy. Either he was intercepted or he is a vector. Nobody has done the work.",
+        "fromQuest": "faeward_exploration",
+        "xp": 180,
+        "exhibits": [
+          "ex_key_thrown",
+          "ex_feyward_addendum"
+        ]
+      },
+      {
+        "id": "lead_steely_core",
+        "title": "Determine whether Steely's core retains memory",
+        "state": "open",
+        "priority": "high",
+        "objective": "Establish whether the fragmented core housing in Hjumpik's pack can be read, before deciding whether it should be — the salvage return says memory *unverified*, not destroyed.",
+        "why": "Steely was in the Feyward manor during Toad Lee's missing time, could not lie, and could not be enchanted into forgetting the way a Toad can. He is the most credible witness the branch ever had and he is currently loose parts.",
+        "fromQuest": "hjumpik_feywild_survival",
+        "xp": 160,
+        "exhibits": [
+          "ex_steely_burial"
+        ]
+      },
+      {
+        "id": "lead_missing_card",
+        "title": "Identify the card removed from the Oracle's Deck",
+        "state": "open",
+        "priority": "high",
+        "objective": "Find out which card is missing from Remi's deck and who took it, before the sixth outcome column fills itself in.",
+        "why": "Somebody edited a record inside the party's own pocket — the same operational signature as everything else in this file. The next draw is *The Ring*, and there is currently a ring in evidence with a person allegedly inside it.",
+        "fromQuest": "remi_waluigi_espionage",
+        "xp": 170,
+        "exhibits": [
+          "ex_reading_register",
+          "ex_bag_inventory"
+        ]
+      },
+      {
+        "id": "lead_fourth_artifact",
+        "title": "Establish the fourth item of the Portal Set",
+        "state": "open",
+        "priority": "high",
+        "objective": "Name and locate item four. Three are catalogued in full; the set is a routing system and one function is unaccounted for.",
+        "why": "Authority to enter, an anchor to fix the far end, an instrument to verify what arrived — the only job left in the sequence is deciding what a traveller *is* when it comes through. If that is what item four does, it is the graft's machinery.",
+        "fromQuest": "markop_vessel_investigation",
+        "xp": 220,
+        "exhibits": [
+          "ex_umbral_signet",
+          "ex_crystal_order"
+        ]
+      },
+      {
+        "id": "lead_circle_sketches",
+        "title": "Recover full plans of the ruined manor teleportation circle",
+        "state": "open",
+        "priority": "medium",
+        "objective": "Obtain the complete geometry. The archive holds partial sketches only, and partial geometry cannot answer whether the damage was sabotage or camouflage.",
+        "why": "Sections were scratched out and connections severed. Either somebody ensured it could never be used again, or somebody made it *look* unusable while preserving its function for people who know how to restore it. Those two readings have opposite consequences.",
+        "fromQuest": "timeline_convergence",
+        "xp": 190,
+        "exhibits": [
+          "ex_key_thrown",
+          "ex_grafting_page"
+        ]
+      },
+      {
+        "id": "lead_mirror_fragment",
+        "title": "Trace the Mirror's absent fragment",
+        "state": "open",
+        "priority": "medium",
+        "objective": "Establish where the missing piece was recovered from and who separated it from the frame in Usk's private chambers.",
+        "why": "A truth instrument was found broken with one piece elsewhere. Akamatsu billed 150 gold to recover and refit it. Waluigi would like to know whether it was lost or *taken*, because those are different crimes and only one of them has a suspect.",
+        "fromQuest": "hjumpik_mirror_identity",
+        "xp": 150,
+        "exhibits": [
+          "ex_mirror_invoice"
+        ]
+      },
+      {
+        "id": "lead_estate_register",
+        "title": "Find the register of estate authority",
+        "state": "open",
+        "priority": "medium",
+        "objective": "Identify who maintains the record of shadow estate credentials — the system that makes the Umbral Signet mean anything.",
+        "why": "A credential requires an issuer. Waluigi has been calling this the clerical department for want of a name, and a nameless suspect is an unfalsifiable one, which is Waluigi's least favourite kind.",
+        "fromQuest": "archie_sleeper_protocol",
+        "xp": 210,
+        "exhibits": [
+          "ex_umbral_signet",
+          "ex_seal_rubbing"
+        ]
+      },
+      {
+        "id": "lead_morel_price",
+        "title": "Establish what Mystic Morel is owed",
+        "state": "open",
+        "priority": "medium",
+        "objective": "Determine the price of the key before Morel names it at a moment of Morel's choosing.",
+        "why": "Morel came out of a wall, threw a key underarm so it could not be refused, issued a warning phrased as a technical instruction, and left. Nobody does that for nothing. The debt exists whether or not the party has written it down, so the party should write it down.",
+        "fromQuest": "faeward_exploration",
+        "xp": 140,
+        "exhibits": [
+          "ex_key_thrown",
+          "ex_bag_inventory"
+        ]
+      },
+      {
+        "id": "lead_seal_variance",
+        "title": "Confirm the seal carried no variance",
+        "state": "open",
+        "priority": "low",
+        "objective": "Have an actual ward scholar — Waluigi has said on the record that Waluigi is not one — confirm that the outer ring repeats without variation, and that the inner mark dedicates the prison to its occupant.",
+        "why": "The single most consequential misreading in the campaign rests on notation Waluigi cannot personally verify. If Waluigi is wrong about the variance, several conclusions in this file need withdrawing, and Waluigi would rather withdraw them than defend them.",
+        "fromQuest": "archie_kamek_conundrum",
+        "xp": 130,
+        "exhibits": [
+          "ex_seal_rubbing"
+        ]
+      },
+      {
+        "id": "lead_controlled_storm_eye",
+        "title": "Identify who is holding the storm over Tymnas's cottage",
+        "status": "open",
+        "why": "Wario says the weather is controlled and that two people — Trouble and Disaster — wait at its eye. Leaving by any route without identifying the caster may walk the party into the arrest ambush or away from the only place Archie can be found.",
+        "exhibits": [],
+        "events": [
+          "the_hanging_tree_apple_mirror_theft_and_invited_vampire",
+          "archies_return_to_shadow_estate"
+        ]
+      },
+      {
+        "id": "lead_boundy_knows_remi",
+        "title": "Find how Boundy learned Remi's name",
+        "status": "open",
+        "why": "Remi never introduced herself. Boundy used her name after delivering a threat to Markop. Shared Mazebound memory, Tree of Woe surveillance, and an outside briefing imply different enemies and different countermeasures.",
+        "exhibits": [],
+        "events": [
+          "the_hanging_tree_apple_mirror_theft_and_invited_vampire",
+          "the_tree_of_woe_engagement"
+        ]
+      },
+      {
+        "id": "lead_remi_home_address",
+        "title": "Give Wario Postal a destination that exists",
+        "status": "open",
+        "why": "Remi has finally asked for help returning home, but she cannot name an address or reconstruct how she reached the Vigilance. A message cannot be delivered until Kivotos, Gehenna Academy, or another receiving point is identified in terms Wario can route.",
+        "exhibits": [],
+        "events": [
+          "the_hanging_tree_apple_mirror_theft_and_invited_vampire"
+        ]
+      },
+      {
+        "id": "lead_green_t_forehead_mark",
+        "title": "Determine what marked Green T's forehead",
+        "status": "open",
+        "why": "Markop's blood-sense tagged only Green T's forehead as non-humanoid after he came back from the storm line claiming Mazebound contact and answers. Residue, graft, ward contact, and possession imply very different kinds of danger, and the cottage admitted him before sorting any of them.",
+        "exhibits": [
+          "ex_green_t_parley",
+          "ex_stormwatch_receipt"
+        ],
+        "events": [
+          "green_t_at_the_door_and_the_scorncrow_underfoot",
+          "archies_return_to_shadow_estate"
+        ]
+      },
+      {
+        "id": "lead_ravenous_host",
+        "title": "Identify the Ravenous Host",
+        "status": "open",
+        "why": "The corridor tally calls the busiest combatant on the floor the Ravenous Host. Nobody in the manor has described it, nobody classified it, and the archive cannot tell whether it fought for the house, for the wood, or for itself. It is the only name in the whole engagement that belongs to nothing else on file.",
+        "exhibits": [],
+        "events": [
+          "feyward_battalion_of_six_and_the_bait_plan",
+          "feyward_woodfellow_vs_the_treant"
+        ]
+      },
+      {
+        "id": "lead_revelmaster_as_target",
+        "title": "Price the Revelmaster option before anybody tries it",
+        "status": "open",
+        "why": "The war room proposed going for the Revelmaster rather than the Revel and rejected it in one line — *then they turn on us* — without ever establishing who holds the music, where he stands, or whether the house's obedience survives him. The evacuation order proves the obedience is total. Nobody has tested whether it is personal.",
+        "exhibits": [
+          "ex_revel_evacuation_order"
+        ],
+        "events": [
+          "feyward_battalion_of_six_and_the_bait_plan",
+          "the_feyward_revel_and_the_book_of_many_things"
+        ]
+      },
+      {
+        "id": "lead_deldkur_line",
+        "title": "Find the First and Second Piktor Deldkur",
+        "status": "open",
+        "why": "Hjumpik named his grandfather Piktor Deldkur the Third in front of six strangers. The ordinal implies two earlier Deldkurs with the same name and the same habit. The archive has the grandson's full name on file and nothing else about the line — no home, no guild, no record of where an arm was lost.",
+        "exhibits": [],
+        "events": [
+          "feyward_battalion_of_six_and_the_bait_plan"
+        ]
+      },
+      {
+        "id": "lead_map_master",
+        "title": "Establish who the Map Master is, and whether he exists",
+        "status": "open",
+        "why": "Hjumpik's authority over six people came from *the map master, O.C.'s map master* and nothing else — no signature, no name, no face. If the commission is unsigned because the office is a role and not a person, then the same move that put a dwarf in command can put anybody in command, and the file's graft thread has just produced a working example.",
+        "exhibits": [
+          "ex_sixth_detachment_commission"
+        ],
+        "events": [
+          "feyward_battalion_of_six_and_the_bait_plan",
+          "feyward_chop_bros_soul_ring_and_the_guard_with_no_name"
+        ]
+      },
+      {
+        "id": "lead_red_authorisation",
+        "title": "Find out whether the heir knows what his kitchen is cooking",
+        "status": "open",
+        "why": "Red's dinner sheet is unsigned, and her first question to the party was *did orange guy send you* — not the question of someone acting under orders. The manor's only working counter-attack against the overgrowth may be running without the command that owns the map ever having been told. If the heir does know, he has deliberately kept a kill order off paper. If he does not, then the kitchen is a second centre of power inside a house that already cannot agree on who its Lady is — and it holds the key to the main room.",
+        "exhibits": [
+          "ex_red_dinner_service"
+        ],
+        "events": [
+          "feyward_library_reclamation_and_the_kitchen"
+        ],
+        "characters": [
+          "red_the_kitchen_commander"
+        ]
+      },
+      {
+        "id": "lead_scorncrow_identity",
+        "title": "Establish who is under the Scorncrow's face, and whether they consented",
+        "status": "open",
+        "why": "The archive spent three filings classifying a creature as a monster on the strength of its own denial and equipped a squad accordingly — garlic, and an elixir sold for bonus attacks against fey and monsters. One point-blank shot produced human blood, which means either a person is inside that construct or a person was made into it. If it is the second, the grove is holding a victim who has stated the fact four times, and this file's grafting thread already contains the vocabulary for joining a person into something they did not choose. Nobody has recovered the face.",
+        "exhibits": [
+          "ex_scorncrow_human_blood"
+        ],
+        "events": [
+          "the_belly_of_the_beast",
+          "the_scorncrow_skirmish",
+          "green_t_at_the_door_and_the_scorncrow_underfoot"
+        ]
+      },
+      {
+        "id": "lead_second_mouth",
+        "title": "Find the opening the Legion used, because it is also the way out",
+        "status": "open",
+        "why": "An Iron Legion detachment is inside a structure whose only known entrance is a mouth that a centaur had to pry apart by hand, and which has closed further in response to every intervention. Soldiers do not arrive by rope through a jaw nobody was holding. The test torch also returned through the trunk rather than the jaws, which puts a second aperture in the record by physical evidence rather than inference. The party is currently sealed inside with no reserves; the same finding that explains the Legion explains their exit, and only one of those two facts is being treated as urgent.",
+        "exhibits": [
+          "ex_torch_voices",
+          "ex_burned_door"
+        ],
+        "events": [
+          "the_belly_of_the_beast"
+        ]
+      },
+      {
+        "id": "lead_wrapped_and_the_voices",
+        "title": "Determine whether the hanging wrapped are the voices in the pit",
+        "status": "open",
+        "why": "One witness heard a plural, grammatical objection to being burned from inside a location whose canopy is hung with wrapped creatures, beast and man. If the wrapped are alive and speaking, the grove is a larder with an inventory rather than a lair, the party's fire plan is a mass-casualty plan, and Archie has already made one attempt at it. Cutting down a single bundle settles the question, costs one round, and changes what winning here means.",
+        "exhibits": [
+          "ex_torch_voices"
+        ],
+        "events": [
+          "the_belly_of_the_beast"
+        ]
+      },
+      {
+        "id": "lead_sword_slashes_second_killer",
+        "title": "Examine the manor's dead — something in this house is killing with a blade",
+        "status": "open",
+        "why": "A house guard who was never debriefed reports that the manor's dead reinforcements carry sword slashes rather than plant wounds. Every casualty this file has recorded in three sessions has been attributed to vegetation on the assumption that vegetation is the only hostile present. The overgrowth crushes, engulfs and rots; it does not cut. If the report is accurate, the household has been fighting one enemy with its full attention while a second one works behind it — and the two combatants in the building known to carry blades, the Satyr Swordfighter and the Satyr Rogue, spent the Revel engagement attacking the house and their own side rather than the treant. Nobody has examined a body. That is a one-scene action with a decisive answer at the end of it.",
+        "exhibits": [
+          "ex_sword_slashes",
+          "ex_revel_friendly_fire"
+        ],
+        "events": [
+          "feyward_i_cant_afford_not_to_care"
+        ]
+      },
+      {
+        "id": "lead_carnivorous_binding",
+        "title": "Test the name Carnivorous against the ring and the bell before the manor comes down",
+        "status": "open",
+        "why": "The overgrowth answered to a name it was not asked for, in a sealed room, from a creature that had otherwise controlled every word of the conversation. The party is already carrying two fey instruments that operate on identity rather than force — the soul ring holding Lady Aurelian, and Hjumpik's cowbell, which has now produced an inexplicable effect in two consecutive filings, one of them in the same room as the name. Red's poison damages the thing; nothing the party holds can currently hold it. A name is the first binding-shaped object this arc has produced, and it has a shelf life: the creature stated its objective is to collapse the manor, and it does not need to win a fight to achieve that.",
+        "exhibits": [
+          "ex_carnivorous_name"
+        ],
+        "events": [
+          "feyward_i_cant_afford_not_to_care"
+        ]
+      },
+      {
+        "id": "lead_soup_bomb",
+        "title": "Build the soup bomb — the supplier, the specialist and the delivery problem are all already named",
+        "status": "open",
+        "why": "Red's kitchen produces a substance that withers the overgrowth on contact; Hjumpik proved it works as a thrown weapon by putting a bowl of it into the false lady's chest and breaking her glamour. The hallway guard proposed the obvious escalation — put the soup in a bomb — and Waluigi named a bomb specialist the party already knows in Wario. That is a complete supply chain with nothing built at the end of it. The manor cannot out-stab the overgrowth's growth rate and has proved it over three sessions; a poison with an area delivery is the only proposal on the table that scales.",
+        "exhibits": [
+          "ex_sword_slashes"
+        ],
+        "events": [
+          "feyward_i_cant_afford_not_to_care",
+          "feyward_library_reclamation_and_the_kitchen"
+        ]
+      },
+      {
+        "id": "lead_hjumpik_missing_months",
+        "title": "Account for the two months Hjumpik lost between one sentence and the next",
+        "status": "open",
+        "why": "Hjumpik stated his time in the manor as three months, continued the same monologue, and arrived at five. He then looked at his cowbell, recalled and relearned his own past, and did not respond to a hand waved in front of his face. The Aegis Magi contract he is being retrieved on ran five nights. The gap between five nights and five months is not a rounding error in a party member's memory — it is the same category of missing time this file already holds against the Feyward branch under the amnesia session, and it is happening to the person making the tactical decisions.",
+        "exhibits": [
+          "ex_carnivorous_name"
+        ],
+        "events": [
+          "feyward_i_cant_afford_not_to_care",
+          "feyward_amnesia_vines_morel_steely"
+        ]
+      },
+      {
+        "id": "lead_scorncrow_who_was_he",
+        "title": "Identify the body under the scarecrow",
+        "state": "open",
+        "priority": "critical",
+        "objective": "Establish who the human under the Scorncrow's hood was — name, origin, and whether he was reported missing by anyone.",
+        "why": "The archive has a human corpse in the Skittering Grove with a face nobody has tried to match against a missing-persons record. If he was taken and made into this, someone is still waiting for him to come home; if he wore it willingly, the grove recruited locally. Both answers change what the grove is, and the body is the only place either answer lives.",
+        "exhibits": [
+          "ex_grove_unmasked_face",
+          "ex_grove_scythe_transfer",
+          "ex_scorncrow_human_blood"
+        ]
+      },
+      {
+        "id": "lead_place_oracle_955",
+        "title": "Place the Oracle in 955 BF, or establish that nobody can",
+        "status": "open",
+        "priority": "high",
+        "why": "He appears in none of the six assassination filings. Either his presence was never recorded, or it was removed, or he was not there — and which of those is true changes what the whole disclosure is worth.",
+        "exhibits": [
+          "ex_oracle_peach_account"
+        ]
+      },
+      {
+        "id": "lead_comb_and_hair",
+        "title": "Test the comb against the vault-key hair",
+        "status": "open",
+        "priority": "medium",
+        "why": "Fawful left with a strand of Peach's hair as a biometric vault key and the archive has never established who told him it would work. A comb in her hand at the moment of death is adjacent to that question. Adjacency is not a connection and should not be filed as one.",
+        "exhibits": [
+          "ex_oracle_peach_account"
+        ]
+      },
+      {
+        "id": "lead_warn_the_feyward_party",
+        "title": "Establish whether the Feyward party can be told about the clock",
+        "status": "open",
+        "priority": "high",
+        "why": "Hjumpik, Toad Lee and Waluigi are inside a plane whose route out is on a twenty-one-day timer none of them know about. Bowser accepted the term on their behalf and then teleported away from them.",
+        "exhibits": [
+          "ex_oracle_peach_account"
+        ]
+      },
+      {
+        "id": "lead_recover_eager",
+        "title": "Establish where Salam was taken",
+        "status": "open",
+        "priority": "high",
+        "why": "Salam is in Legion custody, carried toward Legionhold. The party has no confirmation he arrived, no contact, and an outstanding arrest warrant against Archie at the same destination.",
+        "exhibits": [
+          "ex_student_id"
+        ]
+      },
+      {
+        "id": "lead_anamatar_card",
+        "title": "Find out what Pierce Anamatar wants with a student ID",
+        "status": "open",
+        "priority": "medium",
+        "why": "He declined an expired coupon and asked for a quest object first, so the card was a choice. It is the only document proving Remi was enrolled at Gehenna Academy, and she has no copy.",
+        "exhibits": [
+          "ex_student_id"
+        ]
+      },
+      {
+        "id": "lead_second_fire",
+        "title": "Assess what the second grove fire destroyed",
+        "status": "open",
+        "priority": "medium",
+        "why": "Archie spent his last high-level spell setting the undergrowth alight with the whole party inside it. The grove had already burned once during the Scorncrow skirmish. Nobody has surveyed what is left.",
+        "exhibits": [
+          "ex_student_id"
+        ]
+      },
+      {
+        "id": "lead_legion_panic",
+        "title": "Establish what the running Legion man saw",
+        "status": "open",
+        "priority": "high",
+        "why": "A professional soldier broke into a sprint in the open, past an armed stranger, and the record never names the cause. Whatever moved him is deeper in the grove — the same direction the three Toads are running voluntarily.",
+        "exhibits": []
+      },
+      {
+        "id": "lead_tree_route",
+        "title": "Map the retreat through the tree of the grove",
+        "status": "open",
+        "priority": "high",
+        "why": "Markop named the tree as the rally route — 'we're going back through the tree' — and the party roped down into the grove through it. Nobody has filed whether the way up is still open, or what two fires have done to it. Amended after the grove floor: the Toads are back in the conversation and voted for the stump — the record does not show when the three who ran upward came down, or whether these are they; the stump is the way up and the party is resting at it.",
+        "exhibits": []
+      },
+      {
+        "id": "lead_toads_disengagement",
+        "title": "Confirm whether the three Toads fully disengaged",
+        "status": "open",
+        "priority": "medium",
+        "why": "They said they would run upwards, deeper into the grove, and fully disengage if it turned south. The filing closes without them on the record, in a grove that just frightened the Iron Legion. Amended after the grove floor: the Toads are back in the conversation and voted for the stump — the record does not show when the three who ran upward came down, or whether these are they; the stump is the way up and the party is resting at it.",
+        "exhibits": []
+      },
+      {
+        "id": "lead_green_spider",
+        "title": "Open a file on the giant green spider",
+        "status": "closed",
+        "priority": "medium",
+        "why": "It closed on Markop one filing ago and bit Archie through Dan's shield in this one. Two filings, two victims, no wound on it anywhere in the record. The grove's best fighter has no page. CLOSED 1 Aethel, later: Eager killed it, past the fires, with no ceremony the record kept. The file is opened and closed in the same sentence of the filing; the spider's two filings of unwounded menace are its page.",
+        "exhibits": []
+      },
+      {
+        "id": "lead_electric_sphere",
+        "title": "What Eager carried out of the grove",
+        "status": "open",
+        "priority": "medium",
+        "why": "The record says the electric sphere was powered during the giant battle by Archie's electric magic. The archive has no earlier sighting of it and files the claim as stated. It is in the hands of a scout with two hit points.",
+        "exhibits": []
+      },
+      {
+        "id": "lead_the_week_at_the_stump",
+        "title": "Can the party rest a week at the stump",
+        "status": "open",
+        "priority": "high",
+        "why": "Dan's thumb is a week on the rule; Eager is on two hit points; Archie has no spells; Salam is weak. The stump is inside a grove the Legion treated as its ground and the record has lost track of the Legion. A rest at the stump is a plan with the same shape as the last one.",
+        "exhibits": []
+      },
+      {
+        "id": "lead_the_scream_pact",
+        "title": "Retire the scream as a signal",
+        "status": "open",
+        "priority": "low",
+        "why": "The signal was made — by Archie, for Dan — and nobody retreated on it, because it meant something else. The arrangement is spent and should not be reused without a new word.",
+        "exhibits": []
+      }
+    ],
+    "sessions": [
+      {
+        "id": "s22_dark_rooms",
+        "label": "Dark rooms and the balcony plan",
+        "date": "22 Harvestide, 1040 BF",
+        "event": "feyward_dark_rooms_and_balcony_planning"
+      },
+      {
+        "id": "s23_amnesia",
+        "label": "Missing time, the key, and Steely's last warning",
+        "date": "23 Harvestide, 1040 BF",
+        "event": "feyward_amnesia_vines_morel_steely"
+      },
+      {
+        "id": "s24_chop_bros",
+        "label": "Chop Bros, the OC Soul Ring, and the guard with no name",
+        "date": "23–24 Harvestide, 1040 BF",
+        "event": "feyward_chop_bros_soul_ring_and_the_guard_with_no_name"
+      },
+      {
+        "id": "s_shadeward_dinner",
+        "label": "The Shadeward arc and the vampire dinner",
+        "date": "21–24 Highsun, 1040 BF",
+        "event": "shadeward_arc"
+      },
+      {
+        "id": "s_ritual",
+        "label": "The Shadeward ritual",
+        "date": "Shadowfell time",
+        "event": "the_shadeward_ritual"
+      },
+      {
+        "id": "s_portal_set",
+        "label": "Portal artifact set — custody and carriage",
+        "date": "Ongoing",
+        "event": "the_shadeward_ritual"
+      },
+      {
+        "id": "s_ongoing",
+        "label": "Ongoing — filed as received",
+        "date": "Ongoing",
+        "event": "ruined_manor_convergence"
+      },
+      {
+        "id": "s_aethel4_threshold_storm",
+        "label": "The Mirror Ping, the Invitation Loophole, and the Controlled Storm",
+        "date": "4 Aethel, 1040 BF",
+        "event": "the_hanging_tree_apple_mirror_theft_and_invited_vampire"
+      },
+      {
+        "id": "s_h30_green_t_door_giant",
+        "label": "Green T at the Door, the Giant Form, and the Scorncrow Underfoot",
+        "date": "30 Harvestide, 1040 BF — later that night",
+        "event": "green_t_at_the_door_and_the_scorncrow_underfoot"
+      },
+      {
+        "id": "s_aethel1_battalion_of_six",
+        "label": "The Battalion of Six, the Ice That Got Drunk, and the Bait Plan",
+        "date": "1 Aethel, 922 BF (Feyward clock)",
+        "event": "feyward_battalion_of_six_and_the_bait_plan"
+      },
+      {
+        "id": "s_h30_scorncrow_skirmish",
+        "label": "The Scorncrow Skirmish: Deforestation, Garlic Weapons, and Wario's Stalled Motorbike",
+        "date": "30 Harvestide, 1040 BF — the overgrown grove, the night of the threshold storm",
+        "event": "the_scorncrow_skirmish"
+      },
+      {
+        "id": "s_a01_library_reclamation",
+        "label": "The Reclamation of the Library: A Cook Who Poisons the Garden, and a Passage That Goes in a Circle",
+        "date": "1-2 Aethel, 922 BF (Feyward clock) - the library reading floor through the kitchen and an upstairs bathroom",
+        "event": "feyward_library_reclamation_and_the_kitchen"
+      },
+      {
+        "id": "s_h30_belly_of_the_beast",
+        "label": "The Belly of the Beast: Human Blood Under the Scarecrow, a Door Burned Shut, and the Skittering Grove Inside the Tree",
+        "date": "30 Harvestide, 1040 BF — the overgrown grove into the interior of the Scorncrow's tree",
+        "event": "the_belly_of_the_beast"
+      },
+      {
+        "id": "s_a02_cant_afford_not_to_care",
+        "label": "I Can't Afford Not to Care Anymore: The Doorway, the Colour Division, and the Lady Who Answered to Carnivorous",
+        "date": "2 Aethel, 922 BF (Feyward clock) - from the doorway through the kitchen and the landing into the sealed sanctuary",
+        "event": "feyward_i_cant_afford_not_to_care"
+      },
+      {
+        "id": "s_a01_judgement_in_the_grove",
+        "label": "Judgement in the Grove: the musket in the smoke, the warhammer that would not hear an appeal, and the man Remi found asleep",
+        "date": "1 Aethel, 1040 BF — from the web canopy through the execution to the sleeping man",
+        "event": "judgement_in_the_grove"
+      },
+      {
+        "id": "s_shepherds_garden",
+        "label": "The Shepherd's Garden — the bargain, the disclosure, and the basement",
+        "date": "3 Aethel, 922 BF (Feyward clock)",
+        "event": "the_shepherds_garden_and_the_three_week_clock"
+      },
+      {
+        "id": "s_airlift_never_came",
+        "label": "The airlift that never came — the Legion keeps the wounded",
+        "date": "1 Aethel, 1040 BF",
+        "event": "the_airlift_that_never_came"
+      },
+      {
+        "id": "s_you_said_leave_no_one_behind",
+        "label": "You said leave no one behind, right? — the code turned around, the sentry at the bike, and the syringe",
+        "date": "1 Aethel, 1040 BF",
+        "event": "you_said_leave_no_one_behind"
+      },
+      {
+        "id": "s_the_way_i_started_it",
+        "label": "The Way I Started It — the scream made for the wrong reason, the whispered Fireball over Dan's body, two hit points, and the fist that closed the grove",
+        "date": "1 Aethel, 1040 BF",
+        "event": "the_way_i_started_it"
+      }
+    ],
+    "relatedEvents": [
+      "ruined_manor_convergence",
+      "shadeward_arc",
+      "remi_shadeward_arc",
+      "the_shadeward_ritual",
+      "9_Harvestside_aftermath_shadeward",
+      "feyward_dark_rooms_and_balcony_planning",
+      "feyward_amnesia_vines_morel_steely",
+      "feyward_chop_bros_soul_ring_and_the_guard_with_no_name",
+      "the_feyward_revel_and_the_book_of_many_things",
+      "the_feyward_revel_crisis_poison_plants_and_frozen_diplomacy",
+      "the_hanging_tree_apple_mirror_theft_and_invited_vampire",
+      "green_t_at_the_door_and_the_scorncrow_underfoot",
+      "feyward_battalion_of_six_and_the_bait_plan",
+      "the_scorncrow_skirmish",
+      "the_belly_of_the_beast",
+      "feyward_i_cant_afford_not_to_care",
+      "judgement_in_the_grove",
+      "the_shepherds_garden_and_the_three_week_clock",
+      "the_airlift_that_never_came",
+      "the_way_i_started_it"
+    ],
+    "exhibits": [
+      {
+        "id": "ex_key_thrown",
+        "propId": "prop_feyward_key_tag",
+        "itemId": "morel_feyward_key",
+        "session": "s23_amnesia",
+        "icon": "🗝️",
+        "kind": "note",
+        "category": "discovery",
+        "title": "Evidence Tag — The Key That Was Thrown",
+        "secured": "23 Harvestide, 1040 BF · Feyward manor, mid-corridor, in flight",
+        "custody": "Hjumpik",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:radial-gradient(circle at 50% 42%,rgba(201,162,39,.16),transparent 70%),repeating-linear-gradient(135deg,rgba(255,255,255,.02) 0 8px,transparent 8px 16px)\"><div style=\"position:absolute;left:26%;top:40px;width:32px;height:32px;border:7px solid #c9a227;border-radius:50%\"></div><div style=\"position:absolute;left:39%;top:52px;width:104px;height:8px;background:linear-gradient(90deg,#8f7318,#e8cc6a);border-radius:3px\"></div><div style=\"position:absolute;left:63%;top:60px;width:8px;height:15px;background:#c9a227\"></div><div style=\"position:absolute;left:70%;top:60px;width:8px;height:24px;background:#c9a227\"></div><div style=\"position:absolute;left:12%;top:30px;width:44px;height:2px;background:linear-gradient(90deg,transparent,rgba(201,162,39,.7));transform:rotate(-12deg)\"></div><div style=\"position:absolute;left:10%;top:44px;width:34px;height:2px;background:linear-gradient(90deg,transparent,rgba(201,162,39,.45));transform:rotate(-6deg)\"></div><div style=\"position:absolute;left:0;right:0;bottom:9px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#c9a227\">THROWN &#183; NOT HANDED</div></div>",
+        "onRecord": "Mystic Morel came out of a wall, threw [[roll:4|a warm brass key|warm means carried against a body, not lifted off a hook on the way past. Morel had been holding it for a while.|brass takes heat off anything. It proves nothing on its own.]] underarm without stopping, said one sentence, and was gone. Hjumpik caught the key. Two hearers agree on the sentence.",
+        "dc": 3,
+        "analysis": "## What the tag actually records\n\nWaluigi wants the reader to notice what this exhibit is. It is not a key. The key is in Hjumpik's pocket and Waluigi has never held it. The exhibit is the **tag** — and the tag records a method of transfer, which is the part everybody skips.\n\nMorel did not hand the key over. Handing something over creates a moment: two people, one object, an exchange that can be witnessed, refused, negotiated, or retracted. Morel threw it. Underarm. Without stopping. That converts a negotiation into a delivery, and a delivery cannot be refused — Hjumpik's only options were [[roll:3|catch or drop|Morel threw it to the dwarf who had just healed him off the floor. He was not testing reflexes. He was paying a debt to the only person present who had treated him as a patient rather than a suspect.|even odds either way; anyone might have caught it.]], and Morel already knew which one Hjumpik would pick.\n\nWaluigi files this as the first competent thing Mystic Morel has done on the record.\n\n## The sentence, read as an instruction rather than a warning\n\n“Don't make Toad Lee the anchor.”\n\nEveryone in the party heard that as protective. Waluigi has read it eleven times and Waluigi does not think it is protective. It is **technical**. A warning would have been *they're going to hurt Toad Lee*. An instruction is *don't do the thing you are about to do*, and the thing named is a procedure, with a role in it, and [[roll:5|the role has a name: anchor|role-names belong to procedures with more than one participant. Somebody else in that procedure is the operator.|could be a figure of speech Morel picked up second-hand.]].\n\nWhich means Morel knows the procedure. Which means Morel has seen the procedure performed, or has performed it, or has been briefed by someone who has. None of the three readings is comfortable and Waluigi is not going to pretend otherwise.\n\nAlso note the grammar. Not *don't let them make Toad Lee the anchor*. **Don't make.** Morel was warning the party about the party.\n\n## Anchor, three houses — the reason this investigation exists\n\nWaluigi opened this entire file because of one word appearing in three places that have no business sharing vocabulary.\n\n**Shadeward.** Archie got his fire back by smashing a *shadow anchor* — an object holding a plane's condition in place over a house.\n\n**Feyward.** Morel warns against making a *person* the anchor.\n\n**The ruined manor.** A teleportation circle, damaged in a way that reads as deliberate, that would need something to hold its far end steady.\n\nThree houses. One load-bearing noun. Waluigi is aware that a word can be a coincidence, and Waluigi has been careful to say so wherever this file makes a claim. But an anchor is a specific engineering idea: it is the thing that stays fixed so that something else can pull against it. If the same technique is being used in the Shadowfell, in the Feyward, and under a rug near the Thornwood, then this is not three hauntings. It is [[roll:6|one contractor|contractors reuse suppliers. If the method is shared, the components were bought from the same place, and purchases leave invoices.|shared vocabulary is not shared employment.]].\n\nWaluigi does not know who the contractor is. Waluigi knows the contractor prefers anchors that can walk, because an anchor that can walk can be persuaded to stand somewhere and then be told it volunteered.",
+        "links": {
+          "events": [
+            "feyward_amnesia_vines_morel_steely",
+            "shadeward_arc",
+            "ruined_manor_convergence"
+          ],
+          "items": [
+            "morel_feyward_key"
+          ],
+          "characters": [
+            "toad_lee",
+            "hjumpik",
+            "mystic_morel",
+            "archie_miser"
+          ]
+        }
+      },
+      {
+        "id": "ex_bag_inventory",
+        "propId": "prop_morel_bag_inventory",
+        "itemId": "mystic_morel_tarot_bag",
+        "session": "s23_amnesia",
+        "icon": "🧳",
+        "kind": "ledger",
+        "category": "discovery",
+        "title": "Bag Inventory — The Bag, Emptied Onto a Table",
+        "secured": "23 Harvestide, 1040 BF · taken down by two hands at once",
+        "custody": "Disaster Inc. Archive",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:radial-gradient(circle at 50% 42%,rgba(120,180,255,.12),transparent 70%),repeating-linear-gradient(135deg,rgba(255,255,255,.02) 0 8px,transparent 8px 16px)\"><div style=\"position:absolute;left:12%;right:12%;top:16px;bottom:30px;border:1px solid rgba(255,255,255,.18);border-radius:6px;background:rgba(255,255,255,.03)\"></div><div style=\"position:absolute;left:15%;right:15%;top:34px;height:1px;background:rgba(255,255,255,.10)\"></div><div style=\"position:absolute;left:15%;right:15%;top:48px;height:1px;background:rgba(255,255,255,.10)\"></div><div style=\"position:absolute;left:15%;right:15%;top:62px;height:1px;background:rgba(255,255,255,.10)\"></div><div style=\"position:absolute;left:15%;right:15%;top:76px;height:1px;background:rgba(255,255,255,.10)\"></div><div style=\"position:absolute;left:15%;top:24px;font-size:9.5px;letter-spacing:.1em;color:rgba(255,255,255,.55)\">ITEM &#183;&#183;&#183; CLAIMED BY</div><div style=\"position:absolute;right:16%;top:38px;font-size:10px;color:#8fd6a0\">HJUMPIK</div><div style=\"position:absolute;right:16%;top:52px;font-size:10px;color:#e5484d;letter-spacing:.05em\">&#8212;</div><div style=\"position:absolute;right:16%;top:66px;font-size:10px;color:#8fd6a0\">MOREL</div><div style=\"position:absolute;left:15%;top:52px;font-size:10px;color:rgba(255,255,255,.75)\">watch, stopped</div><div style=\"position:absolute;left:0;right:0;bottom:9px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:rgba(255,255,255,.5)\">NOBODY. EVERYONE LOOKED AWAY.</div></div>",
+        "onRecord": "Morel's bag was [[roll:4|emptied and listed by two people simultaneously|a two-scribe inventory is a courtroom habit. Somebody in that room has been deposed before.|sensible practice; plenty of quartermasters do it.]], so that neither could later be accused of editing the list. The third column is claims of ownership. Most of it was filled in after somebody said “wait, that's mine.”",
+        "dc": 3,
+        "analysis": "## Seven unlabelled keys\n\nLine two: *Keys, assorted, unlabelled, 7. Unclaimed.*\n\nA thief carries keys. Fine. A prophet carries keys — less fine, but Morel is both, so still fine. What is **not** fine is *unlabelled*. Seven keys and not one tag, not one scratch mark, not one loop of coloured thread. Waluigi has run a criminal enterprise of some distinction and can report that nobody carries seven unlabelled keys by accident. You label keys because you will forget. Unless forgetting is the point, in which case you label nothing and you memorise, and you memorise because [[roll:5|a written label is a confession that can be taken off your body|which implies Morel expects to be searched, and expects the searcher to be literate and hostile.|standard thief discipline, nothing more.]].\n\nOne of those seven, Waluigi notes, is not on the list any more. Morel threw it at Hjumpik.\n\n## The stopped watch that nobody would claim\n\nTwo pocket watches. One still running — claimed instantly by Hjumpik, which tells the reader something about Hjumpik and nothing about the case. One stopped. Claimed by, in the exact wording of the inventory: *Nobody. Everyone looked away.*\n\nWaluigi has interrogated professionals who gave less away than that column.\n\nA room full of people who will loot a corpse for supplies without blinking, and a stopped watch produces [[roll:4|a coordinated failure of eye contact|coordinated means more than one person already knew. They had heard the same thing, from the same source, before that day.|people are squeamish about dead men’s watches. It happens.]]. That is not superstition. Superstition is loud. That is **recognition** — several people in that room knew what a stopped watch means in this context, declined to say so, and declined in a way they thought was invisible.\n\nWaluigi does not yet know what it means. Waluigi knows the party is keeping something from its own archive, and Waluigi is writing that down where they can read it.\n\n## An incomplete deck, before the deck was given away\n\n*Cards, prophetic, incomplete deck, 1. Claimed by Morel.*\n\nHold that against the Reading Register, which Remi keeps for the Oracle's Deck that **Morel gave to Remi as a gift**. Register line five: *Card removed from deck. Not by Remi.*\n\nSo. The deck was already incomplete while it was in Morel's bag. Morel then gifted it. Remi, who is diligent to the point of being annoying about it, logged a card as missing and specified that the removal was not hers.\n\nTwo possibilities and Waluigi dislikes both.\n\nOne: Morel gave away a deck with a card already pulled, meaning the gift was [[roll:6|pre-edited|pre-editing requires knowing which future to remove, which requires having read the deck first. Morel drew from it before gifting it.|decks lose cards. Bags are rough places.]] — somebody decided in advance which future Remi would not be permitted to draw.\n\nTwo: the card left after the handover, by a hand that was not Remi's, in a house where things come out of walls.\n\nThe register's sixth draw is *The Ring*, outcome column deliberately blank because it has not happened yet. Waluigi would very much like to know which card is missing before the sixth outcome fills itself in.",
+        "links": {
+          "events": [
+            "feyward_amnesia_vines_morel_steely"
+          ],
+          "items": [
+            "mystic_morel_tarot_bag",
+            "oracle_deck"
+          ],
+          "characters": [
+            "hjumpik",
+            "remi_akamatsu_full_backstory",
+            "mystic_morel"
+          ]
+        }
+      },
+      {
+        "id": "ex_grafting_page",
+        "propId": "prop_toad_lee_diary_page",
+        "itemId": "toad_lee_diary_pages",
+        "session": "s22_dark_rooms",
+        "icon": "📄",
+        "kind": "letter",
+        "category": "discovery",
+        "title": "Diary Page — The Grafting, In Her Own Hand",
+        "secured": "Feyward manor · loose page, recovered by Toad Lee",
+        "custody": "Toad Lee → Archive (copy)",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:radial-gradient(circle at 50% 42%,rgba(120,220,150,.13),transparent 70%),repeating-linear-gradient(135deg,rgba(255,255,255,.02) 0 8px,transparent 8px 16px)\"><div style=\"position:absolute;left:49%;top:66px;width:7px;height:44px;background:linear-gradient(180deg,#6b8f5a,#3f5637);border-radius:3px\"></div><div style=\"position:absolute;left:49%;top:30px;width:7px;height:34px;background:linear-gradient(180deg,#9ed37f,#6b8f5a);border-radius:3px;transform:rotate(11deg);transform-origin:bottom center\"></div><div style=\"position:absolute;left:44%;top:58px;width:36px;height:13px;border-radius:7px;background:repeating-linear-gradient(90deg,#c9b28a 0 3px,#8d7a55 3px 6px)\"></div><div style=\"position:absolute;left:56%;top:34px;width:16px;height:9px;border-radius:9px 0 9px 0;background:#9ed37f\"></div><div style=\"position:absolute;left:36%;top:44px;width:16px;height:9px;border-radius:0 9px 0 9px;background:#7fb864\"></div><div style=\"position:absolute;left:0;right:0;bottom:9px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#9ed37f\">WHAT IS JOINED IS THE LINE</div></div>",
+        "onRecord": "A loose page from Lady Aurelian's diary, unsigned beyond the initial. [[roll:3|Toad Lee read it|he read it during the dark-rooms crawl, while Hjumpik was cutting through Sedeia's overgrowth in total blackness. Nobody else in that corridor could see well enough to read anything. The page entered the record through one pair of eyes, and its finder is the one party member who reads the lore.|he read it. That is all the record says.]] while other people were swinging axes at plants.",
+        "dc": 3,
+        "analysis": "## Gardener's vocabulary, chosen on purpose\n\n“They call it **grafting**, which is a gardener's word, and they chose it on purpose.”\n\nAurelian is telling the reader that the terminology is public relations. A graft is not a wound. A graft *takes*. The tree does not complain afterwards — and the reason she gives for that is the sentence Waluigi keeps rereading: *the tree has nothing left to complain with.*\n\nThat is not gardening. That is a description of a survivor with no faculty left for objection. Somebody chose a horticultural euphemism for it and then used the euphemism at a dinner table [[roll:4|until it stopped sounding like anything|then the roll is not about the word, it is about the room. A euphemism only goes soft in company, which means there were repeat listeners — a table of people who heard a house describe cutting a line out of a person, and went on eating. Aurelian names that table twice on this page and never once names who sat at it. That guest list is the missing exhibit in this investigation, and it is missing because the only surviving person who could write it is the woman currently folded into a ring in Steely's smith's keeping.|any word goes soft with use.]].\n\n## What is joined is the line\n\n“What is joined is not the flesh. Anyone can join flesh. What is joined is the **line** — and a line that has been joined once can be joined again.”\n\nRead that as an engineer and not as a poet.\n\nGrafting is not body horror. Grafting is **succession fraud with a biological delivery mechanism**. You do not need to replace a person if you can replace their position in a lineage — and once a bloodline has been spliced successfully, the splice is repeatable, because the hard part was never the second graft. The hard part was establishing that the line tolerates grafting at all.\n\nWhich reframes the entire Feyward branch. The false Lady Aurelian was not an impostor in the ordinary sense. An impostor pretends. The overgrowth wearing its owner's face was, on this document's own logic, a *legitimate graft* onto a line that had already been opened.\n\nAnd it reframes the succession crisis, because the Ashford spirit told Luigi the Crown's bloodline was “[[roll:6|broken at third branch|third branch, third house, item three of four. Waluigi does not like how often the number three is load-bearing in this file.|two houses using a tree metaphor is not a conspiracy.]].” **Branch.** Another gardener's word, from an entirely different house, in an entirely different mouth.\n\n## Watch who keeps the record\n\nThe last line is the one that made Waluigi close the folder and go for a walk.\n\n“The Legion watches the wrong end of it. They watch the bodies. The bodies are the least interesting part. Watch the **blood-work**, and watch **who is keeping the record of it**, because whoever keeps that record decides afterwards what happened.”\n\nWaluigi keeps a record. Waluigi is, by trade and by vanity, the person who decides afterwards what happened. Aurelian has written down the exact vulnerability of Waluigi's entire profession and she wrote it before Waluigi ever opened this file.\n\nSo Waluigi will state the obvious risk in Waluigi's own archive, because refusing to state it would be the first symptom of the disease: **if the method works by controlling the record, then the Waluipedia is a target, and [[roll:5|a compromised archivist would produce a file that looks exactly like this one|so apply Aurelian's own test to Waluigi. She says watch who keeps the record. This archive is kept by someone who was in the manor, who reads with both hands while a dwarf clears the path, and who has never once filed his own movements as an exhibit.|unfalsifiable either way, which is rather the problem.]].**\n\nThe countermeasure is not trust. The countermeasure is that every claim in this investigation is pinned to a numbered exhibit that exists physically, in custody, with a chain of hands attached. Do not believe Waluigi. Roll against the paper.",
+        "links": {
+          "events": [
+            "feyward_dark_rooms_and_balcony_planning",
+            "ruined_manor_convergence"
+          ],
+          "items": [
+            "toad_lee_diary_pages"
+          ],
+          "characters": [
+            "toad_lee",
+            "waluigi"
+          ]
+        }
+      },
+      {
+        "id": "ex_soul_ring",
+        "propId": "prop_oc_soul_ring_custody",
+        "itemId": "oc_soul_ring",
+        "session": "s24_chop_bros",
+        "icon": "💍",
+        "kind": "contract",
+        "category": "discovery",
+        "title": "Custody Undertaking — The OC Soul Ring",
+        "secured": "24 Harvestide, 1040 BF · recovered by Bob-omb, indoors, against advice",
+        "custody": "Lodged with the Anvil",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:radial-gradient(circle at 50% 42%,rgba(255,214,102,.16),transparent 70%),repeating-linear-gradient(135deg,rgba(255,255,255,.02) 0 8px,transparent 8px 16px)\"><div style=\"position:absolute;left:50%;top:26px;margin-left:-37px;width:74px;height:74px;border-radius:50%;border:11px solid #d9b34a;box-shadow:0 0 18px rgba(217,179,74,.4),inset 0 0 12px rgba(0,0,0,.5)\"></div><div style=\"position:absolute;left:50%;top:52px;margin-left:-20px;width:40px;text-align:center;font-size:15px;font-weight:900;letter-spacing:.18em;color:#d9b34a\">OC</div><div style=\"position:absolute;left:0;right:0;bottom:9px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#d9b34a\">REPORTED OCCUPANT &#183; THE ACTUAL ONE</div></div>",
+        "onRecord": "The Lady interviewing Hjumpik over cold tea [[roll:4|was not the Lady|the substitution held through an entire interview over cold tea. Whatever wore her did not merely look like her — it answered questions as her.|it was noticed eventually, which is what matters.]]. What was left after the explosion was a gold ring, heavy, engraved **OC** inside the band, allegedly containing the real Aurelian. The occupant was not consulted, being inside it.",
+        "dc": 3,
+        "analysis": "## The word non-negotiable, three times\n\nThe undertaking uses the word *non-negotiable* three times and underlines it once. Waluigi has drafted a great many instruments designed to be quietly negotiable later and can tell the reader from the inside: you repeat a word three times when you expect to be argued with by [[roll:5|somebody specific|the drafter had a name in mind and did not write it. That omission is the only cowardice in an otherwise fearless document.|boilerplate caution, common in custody instruments.]].\n\nThe party knew, at the moment of signing, that someone was going to come for this ring. The document is braced for it.\n\n## A person filed as an article\n\nRead the schedule. *Article: Ring, gold, heavy.* *Reported occupant: The Lady of the manor. The actual one.*\n\nThe archive has now created a category error and Waluigi is responsible for it. Aurelian is in the exhibit register under **Article**, with a custody chain, a recovery method, and a lodging location, filed exactly as one would file a dagger.\n\nWaluigi has thought about this for some time and Waluigi is going to keep it that way, because the alternative is worse. If she is filed as a person, she gets a status line and sympathy and nobody signs for her. Filed as an article, she gets a **chain of custody** — dated, witnessed, transferable only in writing. The indignity is the protection. Somebody is on the hook by name for where she is at all times.\n\n*Reported* occupant, though. Waluigi wrote that word deliberately. Nobody has verified the ring contains Aurelian. What the party has is a claim, a convenient artefact, and [[roll:4|an enormous appetite for the story being true|and the party has a Mirror of True Reflection sitting in a different exhibit, unused, which would settle it in an afternoon.|hope is not evidence, but it is not a crime either.]].\n\n## Bob-omb, indoors, against advice\n\nMeans of recovery: *Bob-omb, indoors, against advice.*\n\nWaluigi wishes to log a tactical objection that the party will ignore. You do not resolve a hostage situation involving a soul-capture article by detonating in an enclosed room. It worked. It worked in the specific way that things work when the universe is being generous to people it intends to bill later.\n\nBut here is the analytical point, and it is not about safety. **The false Lady's destruction produced the ring.** The overgrowth wearing Aurelian's face was, on the grafting page's own logic, joined to her line — and when the graft was blown apart, what fell out was the original, portable, and conveniently pocket-sized.\n\nWhich means the graft was not a replacement. It was a **container with a person still in it**. That is either the most encouraging fact in this file — the originals survive the procedure, they can be recovered — or the most alarming one, because it means every grafted figure in three houses may still have someone inside, and [[roll:6|the party has so far checked exactly one|the Shadeward butler. Cornelius. The false Aurelian. None were tested for an occupant, and two of them are no longer available to test.|one is more than most parties would manage.]].",
+        "links": {
+          "events": [
+            "feyward_chop_bros_soul_ring_and_the_guard_with_no_name"
+          ],
+          "items": [
+            "oc_soul_ring"
+          ],
+          "characters": [
+            "hjumpik",
+            "waluigi"
+          ]
+        }
+      },
+      {
+        "id": "ex_steely_burial",
+        "propId": "prop_steely_burial_record",
+        "itemId": "steely_rusted_fragments",
+        "session": "s23_amnesia",
+        "icon": "⚙️",
+        "kind": "ledger",
+        "category": "loyalty",
+        "title": "Salvage Refusal — The Fragments of Steely",
+        "secured": "23 Harvestide, 1040 BF · collected by hand after the detonation",
+        "custody": "Hjumpik's pack",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:radial-gradient(circle at 50% 42%,rgba(180,120,80,.14),transparent 70%),repeating-linear-gradient(135deg,rgba(255,255,255,.02) 0 8px,transparent 8px 16px)\"><div style=\"position:absolute;left:14%;right:14%;top:20px;bottom:32px;border:1px solid rgba(255,255,255,.15);border-radius:6px;background:rgba(255,255,255,.025)\"></div><div style=\"position:absolute;left:18%;top:34px;font-size:10px;color:rgba(255,255,255,.7)\">frame sections</div><div style=\"position:absolute;right:19%;top:34px;font-size:10px;color:#b0782f\">recoverable</div><div style=\"position:absolute;right:18%;top:40px;width:64px;height:1.5px;background:#e5484d;transform:rotate(-4deg)\"></div><div style=\"position:absolute;left:18%;top:52px;font-size:10px;color:rgba(255,255,255,.7)\">plating</div><div style=\"position:absolute;right:19%;top:52px;font-size:10px;color:#b0782f\">recoverable</div><div style=\"position:absolute;right:18%;top:58px;width:64px;height:1.5px;background:#e5484d;transform:rotate(-4deg)\"></div><div style=\"position:absolute;left:18%;top:70px;font-size:10px;color:rgba(255,255,255,.7)\">core housing</div><div style=\"position:absolute;right:19%;top:70px;font-size:10px;color:#b0782f\">recoverable</div><div style=\"position:absolute;right:18%;top:76px;width:64px;height:1.5px;background:#e5484d;transform:rotate(-4deg)\"></div><div style=\"position:absolute;left:18%;top:84px;font-size:9px;font-style:italic;color:#e5484d\">fragmented &#183; memory unverified</div><div style=\"position:absolute;left:0;right:0;bottom:9px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#b0782f\">FILED, THEN MADE TO SAY NO</div></div>",
+        "onRecord": "Steely rusted down and exploded. Hjumpik filed the remains on a salvage return and [[roll:3|struck out every recoverable value|striking a value leaves it readable. Hjumpik refused the salvage without concealing what the salvage was worth.|a refusal is a refusal.]] on the sheet.",
+        "dc": 3,
+        "analysis": "## The format is the argument\n\nThis is a **salvage return**. It is the standard form for recovering value from a destroyed construct: component, condition, salvage value. Three columns, all business.\n\nHjumpik filled it in correctly and then struck out the third column on every line. Frame sections: recoverable, struck. Plating: recoverable, struck. Core housing: *fragmented, memory unverified*, recoverable, struck.\n\nHe did not refuse to file. He filed, and then [[roll:4|made the filing say no|he used the enemy’s own form against the enemy’s own procedure. Waluigi has taught this technique and never seen it improvised.|he simply did not want the parts sold.]]. Waluigi respects this more than Waluigi is prepared to say in a public document.\n\n## Memory unverified\n\nTwo words in the condition column and nobody has followed them up: **memory unverified.**\n\nA construct's core housing holds its memory. Steely was present for the corridors, the overgrowth, the doors that should not have opened, and — critically — Steely was present in the same house as Toad Lee during the period Toad Lee cannot account for.\n\nSteely could not lie. Steely also could not be enchanted into forgetting in the way a Toad can. Which makes the fragmented core the single most credible witness the Feyward branch ever had, and it is currently loose parts in a pack.\n\nWaluigi is not asking the party to disturb the burial. Waluigi is noting, for the record and with as much delicacy as Waluigi possesses, that *unverified* is not the same as *destroyed*, and that [[roll:5|somebody wrote it that way on purpose|and an unverified core can be read by an artificer. There is one in this file, owed 650 gold, who has not pressed for payment.|a fragmented core is usually a dead one.]].\n\n## Why a rusting dog is filed in a succession-fraud case\n\nA reader may reasonably ask why a construct's death sits in a file about grafting, anchors, and three ruined houses.\n\nBecause of *how* Steely died. Not shattered. Not cut down. **Rusted** — progressive, visible, over a period, in a house where the overgrowth is advancing and the Revel is still singing. Steely degraded at the pace the manor degrades things, and then went up near a foot-washing scene that nobody has adequately explained either.\n\nThe Feyward manor is not attacking intruders. It is **converting** them: Toad Lee loses time, the Lady is replaced by growth wearing her face, Waluigi needs sprites to put him back together, and the metal dog oxidises like it has been left out for a season. Every one of those is the same process at a different speed against a different material.\n\nSteely is in this file because [[roll:6|Steely is the timer|then the rate is measurable, and the party spent weeks in that house without measuring anything. Ask how fast Toad Lee is going.|rust is rust; constructs corrode.]]. He is the only party member whose rate of conversion could be watched with the naked eye, and the party watched it, and did not read it as data until it was a pile in a pack.",
+        "links": {
+          "events": [
+            "feyward_amnesia_vines_morel_steely"
+          ],
+          "items": [
+            "steely_rusted_fragments"
+          ],
+          "characters": [
+            "hjumpik",
+            "toad_lee",
+            "mystic_morel"
+          ]
+        }
+      },
+      {
+        "id": "ex_umbral_signet",
+        "propId": "prop_umbral_signet_redaction",
+        "itemId": "umbral_signet",
+        "session": "s_portal_set",
+        "icon": "💍",
+        "kind": "note",
+        "category": "stealth",
+        "title": "Custody Memorandum — Umbral Signet, Redacted Copy",
+        "secured": "Portal Artifact Set · Item 3 of 4",
+        "custody": "████████",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:radial-gradient(circle at 50% 42%,rgba(138,75,255,.16),transparent 70%),repeating-linear-gradient(135deg,rgba(255,255,255,.02) 0 8px,transparent 8px 16px)\"><div style=\"position:absolute;left:13%;right:13%;top:18px;bottom:30px;border:1px solid rgba(138,75,255,.35);border-radius:6px;background:rgba(138,75,255,.05)\"></div><div style=\"position:absolute;left:17%;top:27px;font-size:9px;letter-spacing:.12em;color:#b18cff\">PORTAL ARTIFACT SET &#183; ITEM 3 OF 4</div><div style=\"position:absolute;left:17%;top:44px;font-size:10px;color:rgba(255,255,255,.72)\">function &#183;&#183; shadow key</div><div style=\"position:absolute;left:17%;top:58px;font-size:10px;color:rgba(255,255,255,.72)\">estate authority &#183; umbral routing</div><div style=\"position:absolute;left:17%;top:76px;font-size:10px;color:rgba(255,255,255,.5)\">custody</div><div style=\"position:absolute;left:32%;top:74px;width:104px;height:12px;background:#12121a;border-radius:2px\"></div><div style=\"position:absolute;left:17%;top:92px;font-size:10px;color:rgba(255,255,255,.5)\">verified</div><div style=\"position:absolute;left:32%;top:90px;width:70px;height:12px;background:#12121a;border-radius:2px\"></div><div style=\"position:absolute;left:0;right:0;bottom:9px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#b18cff\">A BLANK IS A CLAIM THAT AN ANSWER EXISTS</div></div>",
+        "onRecord": "The publishable version. Function: shadow key, estate authority, umbral routing. Current custody and last verified date are blacked out. A full copy exists and will not be published, because [[roll:4|the enemy also reads the Waluipedia|stated as settled fact, not as a precaution. Somewhere in this archive there is a readership record that says so.|assume it; everyone does.]].",
+        "dc": 4,
+        "analysis": "## What the redaction admits\n\nWaluigi redacted two fields: **current custody** and **last verified**.\n\nAn adversary reading this page learns that the archive knows both. That is deliberate. A blank where an answer should be is a claim that the answer exists — and a bearer whose custody is publicly unknown but archivally recorded is much harder to rob than one whose name is printed.\n\nWhat Waluigi cannot hide, because the memorandum states it plainly, is the *function*: shadow key, estate authority, umbral routing. Anyone reading this now knows the signet opens estates and moves people through shadow. Waluigi accepted that cost. [[roll:4|You cannot catalogue an artefact set and simultaneously pretend the artefacts do nothing|the honest cost of an honest archive. Every function published here is a function the opposition no longer has to discover.|a fair trade for a usable index.]].\n\n## Item 3 of 4 — and the set is the point\n\nThe memorandum is headed *Portal Artifact Set · Item 3 of 4*, and clause one says the other three are catalogued in full.\n\nSo the archive is publishing three of four artefacts openly and hiding the custody of one. That is not caution. That is a **decoy structure**, and Waluigi will now confess to it in Waluigi's own file, because a decoy that the party does not understand is a decoy that the party will accidentally dismantle.\n\nThe set matters more than any member of it. Individually: a shadow key, an anchor key, a truth mirror, a fourth. Collectively: a *routing system* — authority to enter, an anchor to fix the far end, an instrument to verify what came through, and one more piece. Waluigi has been assuming for some weeks that the fourth item is the one that decides what a traveller **is** when it arrives, because every other function in the set is already covered and [[roll:5|that is the only job left|identity verification at the far end. Which is precisely what the Mirror of True Reflection does — and the mirror was found broken.|speculation dressed as deduction.]].\n\n## Estate authority, and why that phrase is doing more work than it looks\n\n*Estate authority.* Not *door-opening*. Not *access*. **Authority.**\n\nA signet does not pick locks. A signet proves you are entitled. The Umbral Signet is not a burglary tool, it is a **credential** — and a credential is only meaningful inside a system that recognises it, which means there is a system, which means somebody maintains a register of who holds estate authority in the shadow, which means the estates are administered.\n\nAdministered by whom? Waluigi does not know. But hold it against the Feyward grafting page: *whoever keeps that record decides afterwards what happened.* Hold it against Shadeward, where a butler in a tuxedo materialised out of the dark and knew that Master Cornelius was expecting visitors who had arrived by accident from another plane.\n\nA house does not *expect* an accident. Somebody sent notice ahead. Somebody with routing, credentials, and a register.\n\nThis is the closest thing this investigation has to a suspect, and it is not a person. It is a **clerical department**, and Waluigi finds that [[roll:6|considerably more frightening than a lich|departments keep hours, forms, and grievances. A grievance is the cheapest way into any administration ever built.|a colourful way of saying \"we do not know\".]].",
+        "links": {
+          "events": [
+            "shadeward_arc",
+            "the_shadeward_ritual"
+          ],
+          "items": [
+            "umbral_signet",
+            "black_crystal",
+            "mirror_true_reflection"
+          ],
+          "characters": [
+            "waluigi"
+          ]
+        }
+      },
+      {
+        "id": "ex_crystal_order",
+        "propId": "prop_black_crystal_carrier_order",
+        "itemId": "black_crystal",
+        "session": "s_portal_set",
+        "icon": "◆",
+        "kind": "order",
+        "category": "stealth",
+        "title": "Discipline Order — Carriage of the Black Crystal",
+        "secured": "Issued after Lyranth demanded the crystal from Eager",
+        "custody": "Public-known carrier: Markop. Actual carrier: not recorded.",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:radial-gradient(circle at 50% 42%,rgba(90,60,140,.2),transparent 70%),repeating-linear-gradient(135deg,rgba(255,255,255,.02) 0 8px,transparent 8px 16px)\"><div style=\"position:absolute;left:50%;top:24px;margin-left:-27px;width:54px;height:54px;background:linear-gradient(150deg,#3a2b58,#0d0a14 60%,#5b3f8f);transform:rotate(45deg);border:1px solid rgba(177,140,255,.5);box-shadow:0 0 22px rgba(138,75,255,.35)\"></div><div style=\"position:absolute;left:50%;top:38px;margin-left:-9px;width:18px;height:18px;background:rgba(177,140,255,.5);transform:rotate(45deg);filter:blur(3px)\"></div><div style=\"position:absolute;left:14%;right:14%;top:92px;text-align:center;font-size:10px;color:rgba(255,255,255,.65)\">who is carrying it &#183; <span style=\"color:#e5484d\">not established</span></div><div style=\"position:absolute;left:0;right:0;bottom:9px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#b18cff\">ANCHOR KEY</div></div>",
+        "onRecord": "Lyranth demanded the anchor key from Eager. Eager was not carrying it and [[roll:3|could not have produced it|Eager’s ignorance was genuine, which is why it was convincing. The best cover is the one the asset does not know he is running.|he did not have it. Nothing more to read.]]. The order exists to preserve that mistake.",
+        "dc": 4,
+        "analysis": "## Two disasters, only one of which has happened\n\nClause I is the cleanest piece of counter-intelligence writing in the archive and Waluigi did not write it, which is why Waluigi is prepared to praise it.\n\n“The enemy has established that the crystal matters. The enemy has **not** established who is carrying it. Those are two different disasters and only one of them has happened.”\n\nMost parties, on being demanded an artefact, panic about the demand. The correct response is to audit what the demand *reveals about the demander*. Lyranth knew the crystal existed, knew it was with the party, and guessed wrong about the hand. That is a partial intelligence picture, and [[roll:5|a partial picture is a thing you can feed|feeding it requires knowing what the enemy already has. This order implies somebody has audited Lyranth’s knowledge and written it down.|easy to say, hard to do without being caught.]].\n\n## Do not correct it accidentally, which is harder\n\nClause II instructs the party not to correct Lyranth's error, and then adds the clause that makes Waluigi trust the drafter: *do not correct it accidentally, either, which is harder.*\n\nDeliberate silence is easy. Accidental correction is the real failure mode: Eager looking relieved, Markop patting the wrong pocket, someone saying *he doesn't have it* in a corridor where the walls have recently produced a Mystic Morel.\n\nMarkop is under standing instruction to be visibly, tediously careful with a pocket, and to keep being careful with that pocket long after it stops feeling necessary. That last part is the professional touch. Every amateur maintains a cover until the moment they relax, which is [[roll:4|the only moment anyone is watching|which means the watcher is patient and local. Not a raid — an observer, already inside the party’s routine.|general tradecraft, not a specific warning.]].\n\n## Anchor key — the noun again\n\nThe subject line calls the Black Crystal an **anchor key**.\n\nWaluigi asks the reader to go back to the Feyward key tag and the third layer of it. Anchor in the Shadowfell, holding a plane's condition over a house. Anchor in the Feyward, as a role a *person* can be made to fill. And here, in the party's own quartermaster paperwork, an object described as the key to one.\n\nThe party is carrying a component of the same system it is investigating. Nobody in the party phrased it that way, because the crystal arrived as loot and loot is not interrogated.\n\nWaluigi is interrogating it. If the Black Crystal is an anchor key, then the question is not *who wants to steal it from us*. The question is **what is currently anchored, and does carrying the key make the bearer part of the mechanism**. Lyranth demanded it from Eager. Lyranth may not have been trying to acquire an artefact at all. Lyranth may have been trying to establish [[roll:6|which body the key was attached to|attached. Not \"carried by\". If a bearer can become part of the mechanism, the demand was a survey, and the survey succeeded.|a demand is usually just a demand.]].",
+        "links": {
+          "events": [
+            "the_shadeward_ritual"
+          ],
+          "items": [
+            "black_crystal"
+          ],
+          "characters": [
+            "markop",
+            "mystic_morel"
+          ]
+        }
+      },
+      {
+        "id": "ex_mirror_invoice",
+        "propId": "prop_mirror_restoration_invoice",
+        "itemId": "mirror_true_reflection",
+        "session": "s_portal_set",
+        "icon": "🪞",
+        "kind": "invoice",
+        "category": "discovery",
+        "title": "Restoration Account — Mirror of True Reflection",
+        "secured": "Recovered broken from Usk's private chambers",
+        "custody": "Green T, at close of business",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:radial-gradient(circle at 50% 42%,rgba(150,200,220,.14),transparent 70%),repeating-linear-gradient(135deg,rgba(255,255,255,.02) 0 8px,transparent 8px 16px)\"><div style=\"position:absolute;left:50%;top:18px;margin-left:-40px;width:80px;height:92px;border-radius:40px 40px 8px 8px;border:4px solid #8a7a52;background:linear-gradient(160deg,rgba(200,225,240,.28),rgba(120,150,175,.12))\"></div><div style=\"position:absolute;left:50%;top:24px;margin-left:-2px;width:2px;height:78px;background:rgba(255,255,255,.5);transform:rotate(14deg)\"></div><div style=\"position:absolute;left:50%;top:52px;margin-left:-34px;width:64px;height:2px;background:rgba(255,255,255,.45);transform:rotate(-24deg)\"></div><div style=\"position:absolute;left:56%;top:60px;width:22px;height:26px;border:1.5px dashed #8fd6a0;border-radius:3px;background:rgba(143,214,160,.12)\"></div><div style=\"position:absolute;left:0;right:0;bottom:9px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#cfe3ee\">650 GP &#183; UNPAID</div></div>",
+        "onRecord": "650 gold, unpaid. Mending cast on a major artifact under field conditions, the absent fragment recovered and refitted, and a salvage claim entered by Wario — [[roll:3|verbally, immediately, twice|twice, in front of witnesses, before Akamatsu closed the account — which is why the strike had to be written onto the invoice instead of simply ignored. You cannot strike a claim that was never entered. Wario's two sentences forced a 650 gp working document to permanently record that Wario wanted the mirror, and that record is now Exhibit 8 in a case about who gets to hold the instrument that tells people apart.|Wario claims everything twice.]] — and struck.",
+        "dc": 3,
+        "analysis": "## Salvage requires a wreck\n\nR. Akamatsu struck Wario's claim with seven words: *Salvage requires a wreck. This was a repair.*\n\nWaluigi is obliged to note that this is legally correct and that Wario knew it was legally correct when he entered the claim twice. The claim was not a legal argument. It was an attempt to establish a *timestamp* — a recorded moment at which Wario asserted interest in the mirror, so that a later negotiation could begin from “as previously claimed” rather than from nothing.\n\nWario does not win arguments. [[roll:4|Wario creates paper that other people have to argue against later|then check this file for the second instance, because there is one. Wario also moved on Steely's remains, and that claim was refused too — the construct was promised burial rather than salvage. Same verb, same week, two different objects: an artifact that identifies people, and the body of a party member. Both times Wario reached for the word *salvage*, and both times somebody had to spend words taking it back off the record.|an old habit, widely known.]]. Waluigi says this with professional affection and total distrust.\n\n## The line item that is not about money\n\nThird line of the account: *Handling of an object that shows the handler what they are. 200 gp.*\n\nAn artificer billed two hundred gold for the psychological cost of touching the thing. That line is not padding — it is above the fragment recovery in the itemisation, which means Akamatsu considered it the second most demanding part of the job.\n\nThe Mirror of True Reflection was found **broken** in Usk's private chambers, with a piece missing that had to be recovered separately. Waluigi would like the reader to consider the ordinary explanation, which is that it got knocked over, and then to consider the other one: that somebody who did not like the answer broke it, and then removed a specific fragment, and that [[roll:5|the fragment was not lost but *taken*|and it was recovered separately, by somebody, from somewhere. That recovery has no chain of custody anywhere in this file.|things break; pieces scatter.]].\n\n## A different person has held it every time\n\nThe archive's own footnote: *the person holding the mirror of truth has been a different person every time.*\n\nWaluigi added that line and Waluigi is now going to defend it, because it is the most useful sentence in the file about the party.\n\nAn instrument that verifies identity is only as trustworthy as its chain of custody, and this one has no chain — it has a *sequence of unrelated hands*. Usk had it broken. Akamatsu had it in pieces. Wario tried to have it before it set. Green T has it at close of business, and Green T is a person who counts revolver rounds out and back on a discipline sheet, which is the single strongest argument for leaving it exactly where it is.\n\nIn a case whose central mechanism is **replacing people with things wearing their line**, the party owns one device that can tell the difference and [[roll:5|has never once assigned it a permanent keeper|an instrument with no keeper has no baseline. Nobody can say whether it reads the same today as it did in Usk’s chambers.|it has stayed within the party. That is custody enough.]]. That is the operational recommendation this investigation most wants acted on, and Waluigi has no authority to give orders, only the ability to write them down where they are embarrassing.",
+        "links": {
+          "events": [
+            "feyward_chop_bros_soul_ring_and_the_guard_with_no_name"
+          ],
+          "items": [
+            "mirror_true_reflection"
+          ],
+          "characters": [
+            "green_t",
+            "wario",
+            "waluigi"
+          ]
+        }
+      },
+      {
+        "id": "ex_reading_register",
+        "propId": "prop_oracle_deck_reading_register",
+        "itemId": "oracle_deck",
+        "session": "s_ongoing",
+        "icon": "🎴",
+        "kind": "ledger",
+        "category": "magic",
+        "title": "Reading Register — Cards Drawn Against Events Occurring",
+        "secured": "Kept privately by Remi from the date of the gift",
+        "custody": "Remi",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:radial-gradient(circle at 50% 42%,rgba(230,160,90,.13),transparent 70%),repeating-linear-gradient(135deg,rgba(255,255,255,.02) 0 8px,transparent 8px 16px)\"><div style=\"position:absolute;left:34px;top:34px;width:34px;height:50px;border-radius:5px;border:1px solid rgba(255,255,255,.28);background:linear-gradient(160deg,rgba(255,255,255,.10),rgba(255,255,255,.03));transform:rotate(-9deg)\"></div><div style=\"position:absolute;left:76px;top:30px;width:34px;height:50px;border-radius:5px;border:1px solid rgba(255,255,255,.28);background:linear-gradient(160deg,rgba(255,255,255,.10),rgba(255,255,255,.03));transform:rotate(-4deg)\"></div><div style=\"position:absolute;left:118px;top:28px;width:34px;height:50px;border-radius:5px;border:1px solid rgba(255,255,255,.28);background:linear-gradient(160deg,rgba(255,255,255,.10),rgba(255,255,255,.03));transform:rotate(0deg)\"></div><div style=\"position:absolute;left:160px;top:30px;width:34px;height:50px;border-radius:5px;border:1px solid rgba(255,255,255,.28);background:linear-gradient(160deg,rgba(255,255,255,.10),rgba(255,255,255,.03));transform:rotate(4deg)\"></div><div style=\"position:absolute;left:202px;top:32px;width:34px;height:50px;border-radius:5px;border:1.5px dashed #e5484d;background:rgba(229,72,77,.08);transform:rotate(8deg)\"></div><div style=\"position:absolute;left:206px;top:52px;width:26px;text-align:center;font-size:15px;color:#e5484d\">&#215;</div><div style=\"position:absolute;left:244px;top:34px;width:34px;height:50px;border-radius:5px;border:1px solid #d9b34a;background:rgba(217,179,74,.12);transform:rotate(12deg)\"></div><div style=\"position:absolute;left:246px;top:52px;width:30px;text-align:center;font-size:9px;color:#d9b34a\">RING</div><div style=\"position:absolute;left:0;right:0;bottom:9px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#e0b47a\">CARD LOGGED FIRST &#183; OUTCOME LOGGED AFTER</div></div>",
+        "onRecord": "Six draws. The right-hand column — what actually happened — was [[roll:4|filled in afterwards|the ordering is the whole evidentiary value. Reverse it and this document is worth nothing at all.|an ordinary way to keep a diary.]], which is the only honest way to keep such a record and the reason it is admissible.",
+        "dc": 4,
+        "analysis": "## Why the method is sound and the result is worse for it\n\nRemi recorded the card at the time and the outcome later. That ordering is everything. A prophecy log written after the fact proves nothing, because memory obligingly reshapes a vague card into a specific event.\n\nSo Waluigi cannot dismiss this the way Waluigi would like to.\n\n*The Broken Window* — a window was broken, two days later. *The Guest Who Is Furniture* — a spy was found in a closet. Waluigi has tried to read those as retrofitted and cannot, because the cards were logged first, by a diligent person, in her own private book [[roll:4|with nobody to impress|a private book kept honestly is the hardest kind of evidence to dismiss and the easiest kind to steal from.|private books are still written by people.]].\n\n## The Lady With Two Faces, left blank at the time\n\nThird draw: *The Lady With Two Faces.* Recorded **before** the Feyward manor. Outcome column left blank at the time.\n\nRemi drew a two-faced Lady before the party ever met a Lady who was not the Lady — before the cold tea, before the interview, before the Bob-omb, before a gold ring engraved OC fell out of the overgrowth.\n\nWaluigi is not going to write *the deck predicted it*. Waluigi is going to write the sceptical version, which is somehow worse: **Morel gave Remi this deck.** Morel knew what was in the Feyward manor. A gift that produces an accurate card is a gift that was *loaded*, and a loaded deck is a way of putting information into a party without being the one who told them.\n\nEither the cards are prophetic or Mystic Morel has been [[roll:6|running an intelligence channel through a card game|a channel needs a schedule. Compare the draw dates against Morel’s appearances — the register is dated and Morel is not subtle.|no way to distinguish the two readings from here.]]. Waluigi has no way to distinguish these and resents it.\n\n## Draw five, draw six\n\nFifth draw: **—**. Card removed from deck. *Not by Remi.*\n\nSixth draw: **The Ring**. Outcome column deliberately empty. It has not happened yet.\n\nWaluigi wants both of those understood together, because separately they are curiosities and together they are a threat assessment.\n\nSomebody reached into the deck of a person who logs everything, removed a card, and did it cleanly enough that Remi could only record the absence. That is [[roll:5|the same operational signature as everything else in this file: not destruction, **editing**|editing implies the editor intends the record to keep being used. Nobody amends a document they mean to destroy.|theft is theft, however tidy.]]. The grafting page said watch who keeps the record. Here is somebody amending a record in the party's own pocket.\n\nAnd the very next draw is *The Ring*, in an investigation where a ring is currently lodged with the Anvil with a person allegedly inside it.\n\nThe register's outcome column is the only blank space in this entire investigation that will fill itself in without anybody rolling for it. Waluigi advises the party to be present when it does.",
+        "links": {
+          "events": [
+            "feyward_chop_bros_soul_ring_and_the_guard_with_no_name"
+          ],
+          "items": [
+            "oracle_deck",
+            "oc_soul_ring"
+          ],
+          "characters": [
+            "remi_akamatsu_full_backstory",
+            "mystic_morel"
+          ]
+        }
+      },
+      {
+        "id": "ex_seal_rubbing",
+        "propId": "prop_kamek_seal_rubbing",
+        "itemId": "kamek_seal_rubbing",
+        "session": "s_ritual",
+        "icon": "🪄",
+        "kind": "map",
+        "category": "magic",
+        "title": "Seal Rubbing — The Notation Kamek Read as an Invitation",
+        "secured": "Charcoal on paper, taken at the seal face · scale unrecorded",
+        "custody": "Archive",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:radial-gradient(circle at 50% 42%,rgba(138,75,255,.15),transparent 70%),repeating-linear-gradient(135deg,rgba(255,255,255,.02) 0 8px,transparent 8px 16px)\"><div style=\"position:absolute;left:50%;top:14px;margin-left:-52px;width:104px;height:104px;border-radius:50%;border:2px dashed rgba(177,140,255,.75)\"></div><div style=\"position:absolute;left:50%;top:28px;margin-left:-38px;width:76px;height:76px;border-radius:50%;border:1px solid rgba(177,140,255,.45)\"></div><div style=\"position:absolute;left:50%;top:44px;margin-left:-22px;width:44px;height:44px;border-radius:50%;background:radial-gradient(circle,rgba(177,140,255,.30),transparent 70%)\"></div><div style=\"position:absolute;left:50%;top:54px;margin-left:-30px;width:60px;text-align:center;font-size:11px;font-style:italic;color:#d9b34a\">&#8220;for me&#8221;</div><div style=\"position:absolute;left:0;right:0;bottom:9px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#b18cff\">REPEATED WITHOUT VARIATION &#183; CLOSED</div></div>",
+        "onRecord": "Outer ring: binding notation, [[roll:4|repeated without variation|no variance means no keyhole. Whoever cut it was not planning to come back, which is itself a decision worth examining.|ward notation is not the archive’s field.]] — which in ward-work means closed. Middle ring: a dedication naming the thing sealed. Inner mark: annotated on the original, in a firm hand, “for me.”",
+        "dc": 4,
+        "analysis": "## Repeated without variation means closed\n\nThe outer ring repeats one binding notation with no variation at all. Waluigi is not a ward scholar and has said so on the record. Waluigi has, however, had this confirmed: in ward-work, **repetition without variation is the notation for a closed condition**. A ward meant to be opened by a keyholder carries a variance — a break in the pattern where the key engages.\n\nThere is no variance anywhere on this rubbing.\n\nThe seal was not lockable. It was *sealed*, in the sense that a tomb is sealed, and the only correct reading of it was: [[roll:3|this stays shut|and it was read, by a literate wizard, and opened anyway. The failure was not literacy. It was appetite.|seals get broken. That is what seals are for.]].\n\n## A dedication of the prison to what is inside it\n\nThe inner mark was read by the taker of the rubbing as a personal address. He wrote **“for me”** on the original, in a firm hand, in charcoal, next to a mark that dedicates a prison to its occupant.\n\nThe greatest wizard in Koopa history versus a label. The label lost first. Then everyone else did.\n\nWaluigi has been careful throughout this file about mockery, because mockery is how an archive stops noticing things. So here is the non-mocking version. Kamek is not stupid and Kamek is not illiterate in ward-notation. Kamek read a dedication as an address because the notation is *ambiguous by design* — a mark that names the thing sealed will always be readable as a mark that names the reader, and [[roll:6|whoever cut that seal knew it|which makes the seal a trap with a very long fuse — built to be opened eventually, by whoever wanted it most.|ambiguity in old notation is common and usually accidental.]].\n\nThe seal was not merely a lock. It was a lock with **bait cut into the face of it**.\n\n## Reading a document as saying what one wishes it said\n\nThe archive's closing note is Waluigi's own and Waluigi meant it as self-indictment: *Waluigi is extremely experienced in reading a document as saying what one wishes it said, and this is a textbook specimen.*\n\nThis is the methodological centre of the entire investigation, so Waluigi will spend a paragraph on it rather than a joke.\n\nEvery exhibit in this file can be read two ways. The key tag is a warning or an instruction. The grafting page is a confession or a boast. The reading register is prophecy or an intelligence channel. The ring contains Aurelian or contains a story the party badly wants to be true. In every single case the *pleasant* reading is available and free, and the unpleasant reading costs something.\n\nKamek picked the pleasant reading of one mark and it went the way it went.\n\nSo the standing rule of this investigation, written here because this is the exhibit that earns it: **when a document can be read two ways, [[roll:4|the archive files both, and marks which one the archive would prefer|Kamek wrote *for me* on a ward that says only *this stays shut*. He read an instruction as an invitation, dug under a castle on the strength of it, and woke the thing that ate his own troops. The archive prefers the reading that does not flatter the reader.|a good rule, stated once and hard to audit.]].** A preference that is written down can be checked by somebody else later. A preference that is not written down becomes a fact within about a fortnight.",
+        "links": {
+          "events": [
+            "the_shadeward_ritual"
+          ],
+          "items": [
+            "kamek_seal_rubbing"
+          ],
+          "characters": [
+            "kamek",
+            "waluigi"
+          ]
+        }
+      },
+      {
+        "id": "ex_round_sheet",
+        "propId": "prop_green_t_round_sheet",
+        "itemId": "green_t_revolver",
+        "session": "s_shadeward_dinner",
+        "icon": "🔫",
+        "kind": "ledger",
+        "category": "loyalty",
+        "title": "Accountability Sheet — Ammunition Issued Against Ammunition Fired",
+        "secured": "Ongoing · maintained by Green T personally",
+        "custody": "Green T",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:radial-gradient(circle at 50% 42%,rgba(200,200,210,.12),transparent 70%),repeating-linear-gradient(135deg,rgba(255,255,255,.02) 0 8px,transparent 8px 16px)\"><div style=\"position:absolute;left:44px;top:34px;width:13px;height:34px;border-radius:6px 6px 3px 3px;background:linear-gradient(180deg,#dfe3ea,#8f949e)\"></div><div style=\"position:absolute;left:64px;top:34px;width:13px;height:34px;border-radius:6px 6px 3px 3px;background:linear-gradient(180deg,#dfe3ea,#8f949e)\"></div><div style=\"position:absolute;left:84px;top:34px;width:13px;height:34px;border-radius:6px 6px 3px 3px;background:linear-gradient(180deg,#dfe3ea,#8f949e)\"></div><div style=\"position:absolute;left:104px;top:34px;width:13px;height:34px;border-radius:6px 6px 3px 3px;background:linear-gradient(180deg,#dfe3ea,#8f949e)\"></div><div style=\"position:absolute;left:124px;top:34px;width:13px;height:34px;border-radius:6px 6px 3px 3px;background:linear-gradient(180deg,#dfe3ea,#8f949e)\"></div><div style=\"position:absolute;left:144px;top:34px;width:13px;height:34px;border-radius:6px 6px 3px 3px;background:linear-gradient(180deg,#6f7480,#3a3d45);border:1px solid #8fd6a0\"></div><div style=\"position:absolute;left:176px;top:40px;font-size:10px;color:#8fd6a0\">recovered from the host</div><div style=\"position:absolute;left:44px;top:82px;font-size:10px;color:rgba(255,255,255,.6)\">the tanuki matter</div><div style=\"position:absolute;left:44px;top:88px;width:112px;height:1.5px;background:#e5484d\"></div><div style=\"position:absolute;left:170px;top:82px;font-size:10px;color:#e5484d\">accounted: NO</div><div style=\"position:absolute;left:0;right:0;bottom:9px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:rgba(255,255,255,.55)\">ROUNDS UNACCOUNTED FOR &#183; 0</div></div>",
+        "onRecord": "Rounds out against rounds accounted. Every occasion balances. [[roll:3|One line is struck|struck, not erased. Somebody wanted the failure to remain legible to whoever audits the sheet next.|bookkeeping correction, presumably.]], and the struck line is the exhibit.",
+        "dc": 3,
+        "analysis": "## Silver. Recovered from Orangus Cornelius. Yes.\n\nLine one. *Dinner, the vampire. Out 6. Fired 1. Accounted: Silver. Recovered from Orangus Cornelius. Yes.*\n\nGreen T shot the host of a vampire dinner from the children's table, and then went and **got the bullet back**.\n\nWaluigi wants that sequence appreciated properly. It is not bravado. Recovering the round means no silver ball is left in a Shadowfell estate for somebody to match to a weapon, and it means the sheet balances. A person who retrieves evidence from inside a host during an active incident is not a child at a children's table. [[roll:4|That is fieldcraft|fieldcraft is taught. Ask who taught it, because nobody in this party admits to running the lesson.|quick thinking under pressure, nothing trained.]].\n\n## Weapon not loaded during instruction\n\n*Instruction of R. Akamatsu. Out 6. Fired 0. Accounted: Yes — weapon not loaded during instruction.*\n\nGreen T logged six rounds out, taught an artificer to handle a revolver, fired nothing, and specified in the accounted column that the weapon was empty for the lesson.\n\nNobody required that note. The sheet already balanced without it. It is there because Green T holds themself to a standard nobody in this party has asked for and most of them could not meet.\n\nWaluigi files this in an investigation about people being replaced by things wearing their faces, and here is why: **[[roll:5|this sheet is an identity document|then it is also a test. Hand a suspected graft a discipline sheet and watch whether it can be bothered to fill in the column nobody checks.|habits can be observed and copied.]].** Nothing in the Feyward or the Shadeward could counterfeit the habit of writing that line. A graft can wear a face. It cannot be bothered to note that the weapon was unloaded during a lesson that went fine.\n\n## The line that cannot be totalled\n\n*The tanuki matter — moral accounting. Out: —. Fired: —. Accounted: **No**.*\n\nAnd underneath, in the archive's hand: *the struck line is struck because [[roll:5|it cannot be totalled, not because it was resolved|the only unresolved line in an archive full of confident conclusions, and it was left by the youngest person holding a gun.|some things do not tally. He left it open.]].*\n\nGreen T fired one round in the tanuki matter, accounted for it in the line above, and then opened a second line for the part that a rounds ledger has no column for. Then struck it. Not erased — **struck**, which leaves it legible.\n\nWaluigi has spent this whole investigation arguing that whoever keeps the record decides what happened. Here is the counter-example, and Waluigi is glad to have it in the file. Green T kept a record that deliberately fails to resolve, in a format designed to always resolve, and left the failure visible.\n\nThat is what an honest archive looks like. Rounds unaccounted for: 0. Everything else: outstanding.",
+        "links": {
+          "events": [
+            "shadeward_arc"
+          ],
+          "items": [
+            "green_t_revolver"
+          ],
+          "characters": [
+            "green_t",
+            "waluigi"
+          ]
+        }
+      },
+      {
+        "id": "ex_feyward_addendum",
+        "propId": "prop_feyward_addendum_legible",
+        "itemId": null,
+        "session": "s23_amnesia",
+        "icon": "📎",
+        "kind": "addendum",
+        "category": "discovery",
+        "title": "Addendum — Why This Session Matters More Than It Looks",
+        "secured": "Attached to the session record · the session did not close the branch",
+        "custody": "Walupedia Editorial Board",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:radial-gradient(circle at 50% 42%,rgba(255,255,255,.08),transparent 70%),repeating-linear-gradient(135deg,rgba(255,255,255,.02) 0 8px,transparent 8px 16px)\"><div style=\"position:absolute;left:16%;right:16%;top:22px;bottom:30px;border:1px solid rgba(255,255,255,.18);border-radius:5px;background:rgba(255,255,255,.035)\"></div><div style=\"position:absolute;left:50%;top:12px;margin-left:-9px;width:18px;height:30px;border:2.5px solid #9aa0ad;border-radius:9px 9px 4px 4px;border-bottom-color:transparent\"></div><div style=\"position:absolute;left:21%;top:44px;font-size:10px;color:rgba(255,255,255,.6)\">Toad&#160;Lee</div><div style=\"position:absolute;right:21%;top:44px;font-size:10px;color:#e5484d\">security problem</div><div style=\"position:absolute;left:21%;top:60px;font-size:10px;color:rgba(255,255,255,.6)\">Morel</div><div style=\"position:absolute;right:21%;top:60px;font-size:10px;color:#d9b34a\">informant</div><div style=\"position:absolute;left:21%;top:76px;font-size:10px;color:rgba(255,255,255,.6)\">Steely</div><div style=\"position:absolute;right:21%;top:76px;font-size:10px;color:#e5484d\">lost</div><div style=\"position:absolute;left:21%;top:92px;font-size:10px;color:rgba(255,255,255,.6)\">the revel</div><div style=\"position:absolute;right:21%;top:92px;font-size:10px;color:rgba(255,255,255,.55)\">ongoing</div><div style=\"position:absolute;left:0;right:0;bottom:9px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:rgba(255,255,255,.5)\">A LEGIBLE PROBLEM CAN BE HUNTED</div></div>",
+        "onRecord": "Waluigi's argument that an unsolved problem you can finally see is worth more than a solved one. A solved problem stops moving. [[roll:3|A legible problem can be hunted|so apply it to the file itself and the count is uncomfortable. Of twelve exhibits, three exist only because somebody tried to make them stop existing — a key thrown into the dark, a fifth card lifted out of a spread, a salvage claim struck through. Every one of those removals is what made the thing legible. The method in this case does not destroy evidence. It edits it, and editing leaves a shape.|a slogan. Pleasant, but a slogan.]].",
+        "dc": 3,
+        "analysis": "## Before and after, in four rows\n\nThe addendum's table is the closest thing the archive has to an honest progress report.\n\n*Toad Lee:* useful and occasionally ridiculous → useful, ridiculous, **and a possible security problem**.\n\n*Mystic Morel:* ambiguous presence → antagonist and informant, appeared from a wall, survived near-decapitation, issued a targeted warning, provided a key.\n\n*Steely:* present → lost.\n\n*The revel:* ongoing → still ongoing.\n\nOne of those four rows got worse, two got more detailed, and one did not move at all. [[roll:4|Waluigi published it in that order deliberately|worst first. The archive leads with the row that indicts the party, which is the only way the rest of it stays credible.|an order is just an order.]].\n\n## Legibility as a war aim\n\n“A solved problem stops moving. A legible problem can be hunted.”\n\nWaluigi wrote that and then had to live with it, because it is the justification for this entire investigation existing instead of a quest board.\n\nA quest board says *retrieve the item, receive the reward, the entry closes*. That model assumes the problem is a task. This is not a task. Nobody is going to hand the party a completed Feyward branch in exchange for enough chopping.\n\nWhat the party can actually accumulate is **resolution** — in the optical sense. Every exhibit that gets examined makes the shape slightly sharper, and the shape is what you hunt. The XP in this file is not paid for defeating anything. It is paid for making something visible, because [[roll:5|visibility is the only thing in this campaign that has never once been taken back|and the file can prove it three times over. Wario's salvage claim was struck and is still readable under the strike. The fifth card was removed from the spread and the removal was itself written down. The key was thrown away and the throw became the exhibit. Every attempt in this investigation to unmake a fact has instead produced a dated, custodied record of the attempt — which is the one structural weakness in a method that works by controlling what the record says.|an optimistic claim from a pessimistic archivist.]].\n\n## Obligations, evidence, and debts that never appear on a sheet\n\nThe addendum ends: *Money is not the only thing characters carry. They carry obligations. They carry evidence. They carry debts that never appear on a sheet.*\n\nWaluigi will now inventory what the Feyward branch is carrying, since nobody else has.\n\n**Obligations.** A ring lodged with the Anvil containing, allegedly, a person. A construct's remains that were promised burial rather than salvage. A Toad who is either a victim or a vector and has been told he is neither.\n\n**Evidence.** Everything in this file. Twelve exhibits, in custody, with hands attached to each one.\n\n**Debts that never appear on a sheet.** Morel is owed something for the key, and Morel will name the price at a moment of Morel's choosing. Akamatsu is owed 650 gold and has not pressed. [[roll:4|Aurelian is owed her body back|and the debt is owed by the party, who currently hold her in a ring, filed under Article, lodged with a smith.|owed by someone. The file does not say who.]].\n\nNone of that is on a quest board because a quest board cannot represent it. It is on this page because Waluigi's archive can, and because a debt that has been written down is considerably harder to walk away from than a debt that has merely been felt.",
+        "links": {
+          "events": [
+            "feyward_amnesia_vines_morel_steely",
+            "feyward_dark_rooms_and_balcony_planning"
+          ],
+          "items": [],
+          "characters": [
+            "toad_lee",
+            "hjumpik",
+            "mystic_morel",
+            "waluigi"
+          ]
+        }
+      },
+      {
+        "id": "ex_green_t_parley",
+        "propId": "prop_green_t_threshold_parley",
+        "session": "s_h30_green_t_door_giant",
+        "icon": "🚪",
+        "kind": "note",
+        "category": "discovery",
+        "title": "Threshold note — Green T after the storm line",
+        "secured": "30 Harvestide, 1040 BF · filed from overlapping witness accounts at Tymnas's cottage",
+        "custody": "Archive copy",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(135deg,rgba(34,34,42,.96),rgba(15,15,20,.98));border:1px solid rgba(90,170,120,.28)\"><div style=\"position:absolute;left:16%;right:16%;top:18px;bottom:24px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.04)\"></div><div style=\"position:absolute;left:24%;top:28px;width:52%;height:2px;background:rgba(255,255,255,.16)\"></div><div style=\"position:absolute;left:24%;top:46px;width:42%;height:2px;background:#7fd8a4\"></div><div style=\"position:absolute;left:24%;top:64px;width:56%;height:2px;background:rgba(255,255,255,.16)\"></div><div style=\"position:absolute;left:24%;top:82px;width:36%;height:2px;background:#7fd8a4\"></div><div style=\"position:absolute;left:0;right:0;bottom:8px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#7fd8a4\">FOREHEAD ONLY</div></div>",
+        "onRecord": "Green T returned from the storm line and failed the cottage's comfort test immediately. He was challenged as a possible fake, answered with a gunshot through freshly repaired glass, and then glowed under Markop's blood-sense [[roll:4|only at the forehead|localized contamination is a touch, a seal, or an embedded thing. Whole-body falsehood would have been simpler and more dangerous in a different way.|the spell may simply have caught residue in the rain and nothing more.]].",
+        "dc": 3,
+        "analysis": "## The useful part is where the spell stopped\n\nWhole-body failure would have made this easy. The spell did not do that. It lit the forehead only, which means the archive is looking at a mark, not a replacement. Marks can be acquired. Replacements are a different bureaucracy.\n\n## The threshold was opened by impatience, not certainty\n\nRemi said no and was correct on the merits. Markop was too exhausted to resolve the question. Eager let Green T in because deadlock had become more dangerous than risk. [[roll:5|That is still a decision structure, not an accident|the cottage did not blunder. It delegated under fatigue, which is the sort of sentence armies use shortly before writing memorials.|fatigue is chaos with polite wording.]]. The archive should treat the admission as chosen and therefore analyzable.\n\n## Mazebound is not an answer, only a direction\n\nGreen T's own explanation — that the residue was Mazebound and that he got what he needed — narrows the map without reducing the fear. It tells the file where to look next and nothing about what followed him back. That is enough to keep the lead open.",
+        "links": {
+          "events": [
+            "green_t_at_the_door_and_the_scorncrow_underfoot"
+          ],
+          "items": [],
+          "characters": [
+            "green_t",
+            "markop",
+            "dan",
+            "remi_akamatsu_full_backstory",
+            "eager"
+          ]
+        }
+      },
+      {
+        "id": "ex_stormwatch_receipt",
+        "propId": "prop_remi_stormwatch_receipt",
+        "session": "s_h30_green_t_door_giant",
+        "icon": "🧾",
+        "kind": "invoice",
+        "category": "record",
+        "title": "Receipt — Remi armed up before the floor moved",
+        "secured": "30 Harvestide, 1040 BF · preserved from Wario's table during the storm watch",
+        "custody": "Archive copy",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(180deg,rgba(80,58,36,.9),rgba(34,24,18,.98));border:1px solid rgba(210,170,120,.28)\"><div style=\"position:absolute;left:18%;right:18%;top:14px;bottom:18px;background:rgba(230,214,188,.9)\"></div><div style=\"position:absolute;left:26%;top:34px;right:26%;height:2px;background:rgba(60,40,20,.22)\"></div><div style=\"position:absolute;left:26%;top:52px;right:30%;height:2px;background:rgba(60,40,20,.22)\"></div><div style=\"position:absolute;left:26%;top:70px;right:24%;height:2px;background:rgba(60,40,20,.22)\"></div><div style=\"position:absolute;left:0;right:0;bottom:8px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#e7b08a\">THREE ITEMS · ONE STORM</div></div>",
+        "onRecord": "The receipt is not about price so much as timing. Remi bought three items while the cottage was still deciding whether its shelter counted as shelter. [[roll:3|Wario kept selling through the crisis instead of after it|which means he judged the danger as negotiable long before anybody else did. Wario's sense for survivable disaster remains offensively sharp.|Wario sells through everything. That is personality, not field intelligence.]].",
+        "dc": 3,
+        "analysis": "## A market judgment disguised as a receipt\n\nA receipt proves somebody thought there would still be a later in which money mattered. That is the hidden optimism of commerce, and Wario was optimistic enough to finish the lines properly while the weather argued with the walls.\n\n## Weapon choice as mood ring\n\nSkullsplitter Warhammer. Peach's Castle Brick. The Rotting Skull Piercer. Not food, not rope, not nails, not blankets. The cottage bought impact. [[roll:4|That tells the archive how the room felt before Green T knocked|the shopping list is a fear profile: hit back, throw something heavy, carry one thing too horrible for ordinary use. Nobody in that room believed rest was next.|people buy whatever Wario has in front of them. Lists flatter analysts.]].\n\n## The free decoy remains off-book\n\nThe decoy crystal matters partly because the receipt does not dignify it with a line. Off-book help from Wario is help he intends to remember as leverage, not as inventory. The archive notes the omission and keeps moving.",
+        "links": {
+          "events": [
+            "green_t_at_the_door_and_the_scorncrow_underfoot"
+          ],
+          "items": [],
+          "characters": [
+            "remi_akamatsu_full_backstory",
+            "wario"
+          ]
+        }
+      },
+      {
+        "id": "ex_sixth_detachment_commission",
+        "propId": "prop_feyward_sixth_detachment_commission",
+        "session": "s_aethel1_battalion_of_six",
+        "icon": "📋",
+        "kind": "order",
+        "category": "record",
+        "title": "Six names, one struck through, nobody's signature",
+        "secured": "1 Aethel, 922 BF (Feyward clock) · lifted off the map table before the wood came through the wall",
+        "custody": "Archive copy — Waluigi made the list in eleven seconds",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(180deg,rgba(38,48,38,.95),rgba(18,24,20,.98));border:1px solid rgba(127,216,164,.26)\"><div style=\"position:absolute;left:14%;right:14%;top:14px;bottom:18px;background:rgba(228,214,182,.9)\"></div><div style=\"position:absolute;left:22%;top:32px;right:22%;height:2px;background:rgba(60,40,20,.22)\"></div><div style=\"position:absolute;left:22%;top:48px;right:26%;height:2px;background:rgba(60,40,20,.22)\"></div><div style=\"position:absolute;left:22%;top:64px;right:24%;height:2px;background:rgba(60,40,20,.22)\"></div><div style=\"position:absolute;left:22%;top:80px;right:40%;height:2px;background:rgba(150,30,30,.6)\"></div><div style=\"position:absolute;left:0;right:0;bottom:8px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#7fd8a4\">SIX NAMED · ONE STRUCK · UNSIGNED</div></div>",
+        "onRecord": "The commission is written on the reverse of a barrel tally, which is the paper the house had left. [[roll:3|strength: six, one struck through|the tally was struck BEFORE the roll call, which means whoever wrote it knew a man was dead and counted him anyway. Somebody in the war room was doing arithmetic on the living and the dead at the same time, and did not tell the dwarf.|a struck line is bookkeeping. Staff strike lines all day.]] There is no signature. The authority line reads *the map master, O.C.* and nothing else.",
+        "dc": 3,
+        "analysis": "## Authority in this house is furniture\n\nNobody signed this. The commission says it comes from the map master and the map master comes from two initials, and two initials in this family have already been found carved into bedframes and struck onto soul-capture hardware. [[roll:4|That is the graft, running in daylight|the same move the file opened on — take an existing authority, do not sign anything, and let the object carry the weight. A commission nobody signed cannot be traced to a person, only to a table.|initials are everywhere in this family. Proximity is not authorship.]]\n\n## The struck line is the honest part\n\nTwo men were dead before the roll call and the paper still says strength: six. That is not a lie; it is a document written to a number somebody upstairs wanted to see.\n\n## One trade on the list is *waiter*\n\nBrad. A waiter, in a combat detachment, because the house had spent its guards on the foyer and its fairies on the music. The archive files this under what a manor looks like on its fourth day.",
+        "links": {
+          "events": [
+            "feyward_battalion_of_six_and_the_bait_plan",
+            "feyward_chop_bros_soul_ring_and_the_guard_with_no_name"
+          ],
+          "items": [],
+          "characters": [
+            "hjumpik",
+            "waluigi",
+            "hank_the_goblin_butler",
+            "timmy_the_house_guard"
+          ]
+        }
+      },
+      {
+        "id": "ex_revel_evacuation_order",
+        "propId": "prop_revel_evacuation_order",
+        "session": "s_aethel1_battalion_of_six",
+        "icon": "🕯️",
+        "kind": "order",
+        "category": "record",
+        "title": "An evacuation signed by the thing being evacuated from",
+        "secured": "1 Aethel, 922 BF (Feyward clock) · taken from a house guard on the east stair, mid-shout",
+        "custody": "Archive copy",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(180deg,rgba(64,44,72,.95),rgba(22,16,28,.98));border:1px solid rgba(201,166,255,.26)\"><div style=\"position:absolute;left:20%;right:20%;top:12px;bottom:20px;background:rgba(236,226,206,.92)\"></div><div style=\"position:absolute;left:28%;top:30px;right:28%;height:2px;background:rgba(60,40,70,.24)\"></div><div style=\"position:absolute;left:28%;top:46px;right:30%;height:2px;background:rgba(60,40,70,.24)\"></div><div style=\"position:absolute;left:28%;top:62px;right:26%;height:2px;background:rgba(60,40,70,.24)\"></div><div style=\"position:absolute;left:44%;right:44%;top:76px;height:16px;border-radius:50%;background:rgba(150,60,60,.55)\"></div><div style=\"position:absolute;left:0;right:0;bottom:8px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#c9a6ff\">ORDER OF THE REVEL · SEALED</div></div>",
+        "onRecord": "The order moves civilians to the upper flowers, tells them not to open the drink doors, and says the music will resume. [[roll:3|The Revel is issuing safety orders about itself|a thing that has to warn a house not to interrupt it is a thing that can be interrupted. The order is an admission, filed as a courtesy.|safety notices are boilerplate. Every office writes them.]] Every fairy on that stair obeyed it without a single question.",
+        "dc": 3,
+        "analysis": "## Total authority does not need to be enforced\n\nNobody argued with this paper. Not the drunk half, not the sober half, not the satyr who wanted to join the trees. The order was shouted by one guard on one stair and the whole floor moved.\n\n## The resume clause\n\n[[roll:5|Attendance will be resumed when the floors are safe|the Revel plans to keep going after the house is repaired. It is not a siege, it is a schedule. The library volume said the only endings are total surrender or somebody willing to be the one who stopped the music — and this paper is the Revel saying it has read the same book.|the clause could be politeness. Offices promise continuity reflexively.]]\n\n## Why the party did not simply obey\n\nHjumpik went the other way on this order. The archive files that as the second time in one week he has refused a route offered by something more powerful than him.",
+        "links": {
+          "events": [
+            "feyward_battalion_of_six_and_the_bait_plan",
+            "the_feyward_revel_and_the_book_of_many_things"
+          ],
+          "items": [],
+          "characters": [
+            "hjumpik",
+            "waluigi"
+          ]
+        }
+      },
+      {
+        "id": "ex_wahbook_technical",
+        "propId": "prop_wahbook_command_dispute",
+        "session": "s_aethel1_battalion_of_six",
+        "icon": "📓",
+        "kind": "note",
+        "category": "testimony",
+        "title": "One page, headed TECHNICAL",
+        "secured": "1 Aethel, 922 BF (Feyward clock) · written in the corridor, four minutes after the argument",
+        "custody": "Waluigi's own hand — filed at the other man's suggestion",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(180deg,rgba(52,40,64,.95),rgba(20,16,26,.98));border:1px solid rgba(212,168,83,.28)\"><div style=\"position:absolute;left:16%;right:24%;top:10px;bottom:16px;background:rgba(232,222,196,.93);transform:rotate(-1.2deg)\"></div><div style=\"position:absolute;left:24%;top:28px;right:32%;height:3px;background:rgba(40,30,50,.7)\"></div><div style=\"position:absolute;left:24%;top:44px;right:30%;height:2px;background:rgba(60,40,20,.24)\"></div><div style=\"position:absolute;left:24%;top:58px;right:34%;height:2px;background:rgba(60,40,20,.24)\"></div><div style=\"position:absolute;left:24%;top:72px;right:38%;height:2px;background:rgba(60,40,20,.24)\"></div><div style=\"position:absolute;left:24%;top:88px;right:52%;height:3px;background:rgba(140,40,40,.55)\"></div><div style=\"position:absolute;left:0;right:0;bottom:6px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#f2d68a\">ONE PAGE · UNDERLINED TWICE</div></div>",
+        "onRecord": "The leaf transcribes the argument word for word and underlines one word twice. [[roll:3|The transcript was written within four minutes|Waluigi wrote it while the dwarf was still walking away, which means the page is a contemporaneous record and not a recollection. In a dispute about who is in charge, that is the only piece of paper either of them will ever have.|he keeps a notebook. Notebooks get written in.]] The plea is recorded in full, including the part about the ritual.",
+        "dc": 3,
+        "analysis": "## A plea, on the record, at last\n\nThe planar fracture ritual has been in this file since it opened. What has never been on paper is that Waluigi asked, out loud, before it happened, and was not listened to. [[roll:4|The dwarf did not deny it|he said *it's not just that* and moved on to the plant monsters. That is not a denial, it is a deferral, and deferrals in this house have a way of becoming the answer.|deflection under pressure proves nothing about the underlying claim.]]\n\n## Who is actually in command\n\nTechnically the dwarf. Practically the archivist, whenever the dwarf is wrong, which the same page records the dwarf conceding in advance. That is not a chain of command. That is a friendship with a tiebreaker.\n\n## Why the paper exists at all\n\nHjumpik told him to write it down as a way of ending the argument. The archive notes that the argument did end, and the paper did not.",
+        "links": {
+          "events": [
+            "feyward_battalion_of_six_and_the_bait_plan",
+            "planar_fracture"
+          ],
+          "items": [],
+          "characters": [
+            "waluigi",
+            "hjumpik"
+          ]
+        }
+      },
+      {
+        "id": "ex_red_dinner_service",
+        "propId": "prop_red_dinner_service_sheet",
+        "session": "s_a01_library_reclamation",
+        "icon": "🍲",
+        "kind": "ledger",
+        "category": "discovery",
+        "title": "Dinner service sheet - the third course has no price",
+        "secured": "2 Aethel, 922 BF (Feyward clock) · taken from the kitchen prep table",
+        "custody": "Archive — original",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(180deg,rgba(38,30,20,.96),rgba(16,12,8,.98));border:1px solid rgba(212,168,83,.28)\"><div style=\"position:absolute;inset:14px;border-left:3px solid rgba(120,180,90,.55);padding-left:12px;font:12px/1.5 ui-monospace,monospace;color:rgba(232,224,208,.86)\">I &mdash; broth &middot; hall &amp; posts<br>II &mdash; root and barley &middot; hall<br><span style=\"color:rgba(150,210,110,.95)\">III &mdash; the green dish &middot; overgrowth only</span><br>IV &mdash; dessert &middot; held back</div><div style=\"position:absolute;right:14px;bottom:12px;font:10px ui-monospace,monospace;color:rgba(212,168,83,.75)\">NO COST ENTERED &middot; LINE III</div></div>",
+        "onRecord": "Four courses. Three of them are priced to the copper. [[roll:3|the third course carries no cost against it|a kitchen this meticulous does not forget a price; a blank in an otherwise complete ledger means the item was never bought, but made from something the house already had or from something nobody wants written down|a standing dish repeated nightly can simply be costed once, elsewhere, in a stores book this sheet does not duplicate]] The third course is also the only one with a delivery restriction: to the overgrowth only, do not carry to the hall, do not taste. [[roll:4|do not let the sprites carry it, they eat from the tray|somebody has already thought about friendly casualties and written a control into the standing order, which makes this an operation with a safety procedure rather than a desperate improvisation|kitchens keep sprites off trays as ordinary practice, poison or no poison]]",
+        "dc": 3,
+        "analysis": "## The manor's only working weapon is a menu\n\nEverything else in this file is a plan. The heir has a map with pins in it. Hjumpik has a marching order. The Revel has an evacuation notice nobody can enforce. Red has a **delivery system the enemy already trusts**, running on a schedule the house has never stopped keeping.\n\nThat is the entire finding. The overgrowth cannot be cut faster than it grows — the wall walk proved that when the cut leaves came back thicker inside a minute. It can, apparently, be **fed**. And a great house at war still serves dinner, so the vector was always going to be the one service that never stops.\n\nWhat the sheet adds beyond the scene is the discipline. *Do not let the sprites carry it — they eat from the tray.* Somebody has already thought about friendly casualties and written a control into the standing order. This is not a desperate improvisation by a cook. It is an operation with a safety procedure.\n\nThe open question is authorisation. The sheet is **unsigned**, and Red's first words to the party were *did orange guy send you* — which is not the question of someone acting under the heir's orders. Either the heir knows and has kept it off paper, or the manor's most effective counter-attack is being run by its kitchen without anybody upstairs being told.",
+        "links": {
+          "events": [
+            "feyward_library_reclamation_and_the_kitchen"
+          ],
+          "items": [],
+          "characters": [
+            "red_the_kitchen_commander",
+            "hjumpik"
+          ]
+        }
+      },
+      {
+        "id": "ex_mushroom_guard_credentials",
+        "propId": "prop_mushroom_guard_three_credentials",
+        "session": "s_a01_library_reclamation",
+        "icon": "👁️",
+        "kind": "note",
+        "category": "testimony",
+        "title": "Three reasons to trust me, offered without hesitation",
+        "secured": "2 Aethel, 922 BF (Feyward clock) · the lower hall, before the hidden door was opened",
+        "custody": "Waluigi's own hand",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(180deg,rgba(30,34,44,.96),rgba(14,16,22,.98));border:1px solid rgba(150,120,200,.28)\"><div style=\"position:absolute;inset:14px;font:12px/1.6 ui-monospace,monospace;color:rgba(232,224,208,.86)\">1. Aurelian is helping<br>2. Orangus Cornelius<br>3. I stopped Wario</div><div style=\"position:absolute;right:14px;bottom:12px;font:10px ui-monospace,monospace;color:rgba(200,160,120,.8)\">OFFERED IN THIS ORDER</div></div>",
+        "onRecord": "Asked why he should be trusted, the guard produced three credentials on his fingers without pausing to think. [[roll:4|he had all three ready|a man assembles a defence in advance when he expects to be challenged, so either somebody in this house has already asked him or he has been waiting for somebody to|a guard on a hidden door is challenged constantly and would rehearse an answer as a matter of routine]] He then opened a hidden door with three knocks that Hjumpik had been taught and could not reproduce. [[roll:3|bloodshot eyes over an insistence that the mushroom room did nothing to him|the room has an effect its own guards deny and the mushrooms themselves do not carry, which means the agent is something else in that room and the fungus is what everyone is looking at|a guard at the end of a long shift in a smoky lower hall has bloodshot eyes for ordinary reasons]]",
+        "dc": 4,
+        "analysis": "## Every credential is borrowed, and one of them is a name nobody says\n\nTaken one at a time:\n\n**Aurelian is helping.** She is folded into a gold band in Hjumpik's pocket and has helped nobody for weeks. Either he does not know that, which makes him badly informed for a man with a hidden door, or he is using her name the way people use a patron's name — as borrowed standing.\n\n**Orangus Cornelius.** This is the load-bearing one. It is the name the Guard With No Name refused to let the false Lady finish saying, the name a defector gave up his post rather than pronounce. This guard offers it as a **reference**, in a corridor, unprompted. Two men in the same household have opposite relationships with one name, and the difference between them is the shape of whatever faction exists inside this house.\n\n**I stopped Wario.** A claim available to anybody, made by many, evidenced by none.\n\nSet that against the two facts he did not intend to give away: bloodshot eyes over an insistence that the mushroom room did nothing to him, and *I didn't think you would come back that soon* — the sentence of a man who had budgeted more time for something. He is not lying about being useful. He opened the door. The door went in a circle, which may be the house's decision rather than his.",
+        "links": {
+          "events": [
+            "feyward_library_reclamation_and_the_kitchen"
+          ],
+          "items": [],
+          "characters": [
+            "the_mushroom_room_guard",
+            "orangus_cornelius",
+            "lady_aurelian"
+          ]
+        }
+      },
+      {
+        "id": "ex_scorncrow_human_blood",
+        "propId": "prop_scorncrow_unmasking_note",
+        "session": "s_h30_belly_of_the_beast",
+        "icon": "🩸",
+        "kind": "note",
+        "category": "testimony",
+        "title": "The denial was testable, and nobody tested it for three filings",
+        "secured": "30 Harvestide, 1040 BF · from beneath the subject, mid-engagement",
+        "custody": "Waluigi's own hand — no sample, no face recovered",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(180deg,rgba(34,20,20,.96),rgba(14,10,10,.98));border:1px solid rgba(190,80,80,.28)\"><div style=\"position:absolute;inset:14px;font:12px/1.6 ui-monospace,monospace;color:rgba(232,224,208,.86)\">STATED (×3): <i>I am not a monster</i><br>FILED (×3): monster<br><span style=\"color:rgba(230,120,120,.95)\">TESTED (×1): human blood</span></div><div style=\"position:absolute;right:14px;bottom:12px;font:10px ui-monospace,monospace;color:rgba(190,80,80,.8)\">RANGE: ZERO INCHES</div></div>",
+        "onRecord": "Pinned under the fallen subject, Remi Akamatsu observed that she was at point-blank range and discharged a musket into its face. The face came off and the blood beneath it was human. [[roll:3|the subject had made the same claim on three prior filed occasions|a creature that repeats one specific denial across three engagements is not taunting, it is correcting the record, and the party has been arguing with a thing that keeps telling them what it is|monsters in this archive say theatrical things constantly and the repetition proves only that it has a favourite line]] The subject did not press the advantage after being unmasked. It laughed and withdrew into the mouth of its own tree. [[roll:5|it left immediately after the face came off, not after the wound|the exposure was the intolerable event rather than the injury, which means the face is doing work — concealment, or restraint, or both|a creature knocked down, sliced by a shadow blade and shot in the head has ordinary reasons to disengage without any of them being about identity]]",
+        "dc": 4,
+        "analysis": "## Three filings of the archive calling something a liar for telling the truth\n\nThe method here is worth naming, because the file has seen it before under another heading. **Whoever keeps the record decides afterwards what happened** — and what happened, on the record, is that a creature stated a fact four times and the record printed the word *monster* in the same paragraph on every occasion.\n\nThat is not a small error of tone. Every operational decision this party made about the Scorncrow followed from the classification. Garlic weapons. An **anti-fey elixir**, bought and drunk, purchased specifically for bonus attacks against *fey, undead, and other monsters*. A wizard's repeated attempts to uproot it as though it were vegetation. A plan whose stated objective was to *uproot the belly of the beast*. Every one of those is a countermeasure selected for a category, and the category was chosen by the archivist rather than by the evidence.\n\nSet the elixir against the finding and the arithmetic gets uncomfortable: if the blood is human, the squad's consumable edge was optimised against a thing the subject may not be, and the fact that the fights still went badly stops being mysterious.\n\n**What the finding does not settle.** Human blood under a scarecrow's face admits at least three readings, and this file will not choose between them on one observation taken by a fourteen-year-old under a corpse's weight with no sample retained:\n\n- **Worn.** Something human is inside the construct, willingly or not.\n- **Made.** Something human *was* made into the construct — in which case *I am not a monster* is a complaint, filed four times, in a grove whose interior boughs are hung with wrapped people.\n- **Costumed.** The blood is a further layer, laid on by something that has watched this party for three engagements and worked out what would stop them.\n\nThe third reading deserves more respect than it is comfortable to give it, because the subject's behaviour inside the tree — attacking the motorbike before the man — is the behaviour of something that studies.\n\n**Where it connects.** The graft thread in this file already holds a document arguing that what is joined is not the flesh but the line, and that a line joined once can be joined again. A human interior under a non-human exterior is that vocabulary in a different medium. The file is not asserting the connection. It is refusing to pretend it cannot see it."
+      },
+      {
+        "id": "ex_burned_door",
+        "propId": "prop_belly_marching_order",
+        "session": "s_h30_belly_of_the_beast",
+        "icon": "🪧",
+        "kind": "order",
+        "category": "discovery",
+        "title": "Two men solved the same door and both solutions closed it",
+        "secured": "30 Harvestide, 1040 BF · set at the jaws before the rope went down",
+        "custody": "Archive — transcribed at the mouth",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(180deg,rgba(24,28,22,.96),rgba(12,14,12,.98));border:1px solid rgba(140,180,110,.28)\"><div style=\"position:absolute;inset:14px;font:12px/1.5 ui-monospace,monospace;color:rgba(232,224,208,.86)\">1 Feyward Dan &middot; paladin<br>2 Eager<br>3 Archie &middot; <i>squishy</i><br>4 Salam<br>5 Markop &middot; rope</div><div style=\"position:absolute;right:14px;bottom:12px;font:10px ui-monospace,monospace;color:rgba(140,180,110,.8)\">DESCENT BY ROPE &middot; DEPTH UNKNOWN</div></div>",
+        "onRecord": "Archie's all-in fire cast killed the tree and sealed the exit. Markop then removed a piece of bark intending to widen the way, and the jaws shut. [[roll:4|every intervention made the opening smaller|a structure that closes further each time it is worked on is not a door failing, it is a mechanism succeeding, and the party has been operating the wrong end of it|a dying tree collapsing inward under fire and structural damage is the least surprising thing in this file]] The order that followed was set with a stated reason against each position, the only decision of the session filed that way. [[roll:6|the reasoning survives but the condition of the marchers does not appear in it|the order was written for a party that no longer existed — two of the five had spent every point of magic they had before the first step down|a marching order records position, not readiness, and expecting a condition report inside one is asking a rope plan to be a medical file]]",
+        "dc": 4,
+        "analysis": "## A throat, and five people who wrote a good plan for the wrong party\n\n**On the structure.** Take the sequence at face value, because it is short and it is consistent. Fire bolt: bark scarred, nothing. Second bolt: nothing. Full expenditure: the tree dies and the exit seals. Bark plate removed: the jaws shut. Torch dropped into the pit: the torch comes back out of the trunk.\n\nFive interventions, five closures, and one of them returned an object by a route the party did not use. A door that jams is a door. A structure that answers every kind of pressure by closing, and that can push something back out through a different part of itself, is doing something else. The plainest reading available is that the party is not besieging a building; they have been swallowed, and the model that fits the observations is digestion rather than fortification.\n\n**On the order.** This is the best piece of work in the session and the file should be honest about why it still failed. Markop wrote position with justification attached — paladin at the front, the wizard in the middle because the wizard is squishy, the centaur at the rear because the rope is his. Nothing in it is wrong.\n\nWhat is missing is the column the party needed most. Position one had spent every point of magic he owned healing himself. Position three had spent every point of his emptying it into the tree. Two of five were at zero, both of them had said so out loud within the previous ten minutes, and the order records neither fact. The plan was correct for the party that walked into the grove and was written for the party that walked out of it.\n\n**Consequence for the file.** The exit is not a lead about getting home; it is a lead about how the Legion got in. Something is inside a structure with one mouth that had to be pried apart by a centaur's hands. Either the closure is selective, or there is a second opening. Both answers are worth more than the rope."
+      },
+      {
+        "id": "ex_torch_voices",
+        "propId": "prop_belly_torch_test",
+        "session": "s_h30_belly_of_the_beast",
+        "icon": "🕯️",
+        "kind": "note",
+        "category": "testimony",
+        "title": "The pit answered, in the plural, and only one person heard it",
+        "secured": "30 Harvestide, 1040 BF · both sides of the trunk, same moment",
+        "custody": "Archive — two accounts, one witness each",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(180deg,rgba(20,22,30,.96),rgba(10,11,16,.98));border:1px solid rgba(212,168,83,.28)\"><div style=\"position:absolute;inset:14px;font:12px/1.6 ui-monospace,monospace;color:rgba(232,224,208,.86)\">OUTSIDE: torch in &rarr; torch out<br>INSIDE: <i>they're going to burn</i><br><span style=\"color:rgba(212,168,83,.95)\">&mdash; us all down</span></div><div style=\"position:absolute;right:14px;bottom:12px;font:10px ui-monospace,monospace;color:rgba(212,168,83,.75)\">SOUNDING FAILED &middot; ANSWER RECEIVED</div></div>",
+        "onRecord": "A torch was thrown into the pit to measure it. Outside, the torch came back out of the trunk and the sounding returned nothing. Inside, Remi Akamatsu heard voices: *there's a fire, someone is causing a fire, they're going to burn us all down.* [[roll:3|the objection is grammatical, collective and correctly reasoned|whatever is in there can hear, can speak, can identify a fire as a fire and can refer to itself as a group, which puts a population in the pit rather than a hazard|panicked speech carries in a confined space and a few intelligible words prove intelligence in the speaker, not numbers]] The torch returned by a route the party did not throw it down. [[roll:5|it came out of the trunk, not the jaws|the interior has at least one opening the party has not found, which is also the likeliest answer to how a Legion detachment reached ground with no marched route|an object thrown into a pit inside a hollow tree can be pushed back up any number of ways by anything strong enough, and no second opening is required]]",
+        "dc": 3,
+        "analysis": "## Somebody in there said *us*\n\n**The word doing all the work is a pronoun.** Not *me*, not a scream, not noise. *They're going to burn us all down.* That single word converts the pit from a hazard into a population, and it does it with grammar the party never asked for and cannot have supplied.\n\nWork out what the sentence requires of its speakers. They perceived a fire. They identified it as deliberate — *someone is causing a fire*. They inferred an intention held by parties outside a wall they cannot see through. And they described themselves as a plural body with a shared fate. That is four cognitive operations, performed under stress, by things the party has been calling scenery.\n\n**Set it beside the inner grove and the reading gets worse.** The heart of the Skittering Grove is hung with the forms of wrapped creatures, beast and man, dangling from the boughs like fruit. The file is not going to assert that the wrapped are the speakers, because one witness heard voices through wood and nobody has cut anything down. But the archive holds a location with hanging people in it and a recording of people in that location objecting to being burned, and it would be a strange kind of rigour to file those on separate pages and never mention it.\n\n**What it costs the party.** Archie's fire cast was the largest single expenditure of the night, and the fire it answered is the fire those voices were already panicking about — the test torch, thrown minutes earlier. From inside, the sequence reads: a fire arrives, they raise the alarm, and then a wizard empties his reserves into the walls. Whatever is in that grove now has a first impression of this party, and it is arson.\n\n**The plainer finding, and the one worth acting on.** The torch came back out of the trunk. It went in at the jaws. Something moved an object between two openings, and the party only knows about one of them."
+      },
+      {
+        "id": "ex_sword_slashes",
+        "propId": "prop_revel_engagement_ledger",
+        "session": "s_a02_cant_afford_not_to_care",
+        "icon": "🗡️",
+        "kind": "ledger",
+        "category": "testimony",
+        "title": "The manor's dead reinforcements were killed with edged weapons, and only the unrelieved guard noticed",
+        "secured": "2 Aethel, 922 BF (Feyward clock) · the hallway post, from a guard who was never debriefed",
+        "custody": "Archive — single witness, uncorroborated, unpursued by anybody present",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(180deg,rgba(18,24,20,.96),rgba(9,12,10,.98));border:1px solid rgba(180,60,60,.3)\"><div style=\"position:absolute;left:16px;top:18px;font:12px/1.7 ui-monospace,monospace;color:rgba(232,224,208,.86)\">CAUSE OF DEATH &mdash; REINFORCEMENT DETAIL<br>expected: crush / engulf / rot<br><span style=\"color:rgba(230,120,120,.95)\">observed: sword slashes</span></div><div style=\"position:absolute;right:18px;top:26px;width:2px;height:76px;background:linear-gradient(180deg,transparent,rgba(230,120,120,.8),transparent);transform:rotate(18deg)\"></div><div style=\"position:absolute;right:38px;top:20px;width:2px;height:84px;background:linear-gradient(180deg,transparent,rgba(230,120,120,.6),transparent);transform:rotate(24deg)\"></div><div style=\"position:absolute;left:16px;bottom:12px;font:10px ui-monospace,monospace;color:rgba(212,168,83,.75)\">ONE WITNESS &middot; NO FOLLOW-UP</div></div>",
+        "onRecord": "A house guard, still holding a hallway nobody has relieved him from, was asked what happened to the reinforcements. He said they died. Asked whether the plants killed them, he said: *not from plants, from other people, they had sword slashes.* [[roll:3|the overgrowth does not carry edged weapons|every vegetation casualty in three sessions of filings presents as crushing, engulfing or rot; the treants club and throw bark, the mound engulfs, the fungus rots, and none of them cut|a panicking guard describing wounds he saw briefly in poor light is not a coroner, and torn bark-strike wounds on soft tissue can look like anything you already expect to see]] The same guard, told that the kitchen's cooking withers the overgrowth on contact, proposed loading it into a bomb. [[roll:5|the man holding the corridor is also the only one running the problem|three sessions of planning rooms, war tables and marching orders have produced no weapon test; the unrelieved sentry produced a delivery mechanism in one sentence, which says something uncomfortable about where this household keeps its thinking|it is an obvious idea and obvious ideas occur to everybody; the reason nobody built it is that nobody has a bomb specialist, not that nobody thought of it]]",
+        "dc": 3,
+        "analysis": "## There is a second killer in this house and it uses a sword\n\n**The file has been prosecuting the wrong case.** Every page in this arc treats the Overgrown Manor as a siege by vegetation: one hostile, many bodies, a plant problem with a plant solution. The hallway guard's sentence breaks that frame in nine words, and the archive is going to treat it as a break rather than as colour.\n\nThe evidentiary value is in the *mismatch*, not the wound. A witness who wanted to be useful would have said the plants did it — that is the answer the house is primed for, the answer his officers expect, and the answer that requires no further conversation. He gave the inconvenient answer instead, unprompted, to a dwarf who was not his superior and who had not asked a leading question. Testimony that costs the witness something is worth more than testimony that costs him nothing, and this cost him the rest of his shift being wrong in front of strangers.\n\n**Who is holding a sword in this building.** The manor's own guards carry heavy crossbows and quarterstaves; the ledger from the Revel room logs them firing bolts at a hundred feet, not cutting. The Satyr Swordfighter carries a scimitar and, over three rounds, put eight multiattacks into the *House Guard* — not into the treant. The Satyr Rogue carries shortswords and spent its entire engagement stabbing the Satyr Bard. The file notes, without yet asserting, that the two combatants in this house who are armed with blades are also the two combatants who spent the engagement killing the house and its own.\n\n**Against that reading.** A fey Revel that has been drinking for three sessions and has now had its party invaded does not need to be infiltrated to start swinging at the wrong people. Chaos is the Revel's native state. The archive has repeatedly mistaken fey indifference for fey conspiracy and has had to amend the filing afterwards.\n\n**What decides it.** Nobody has examined a body. Not one. Three sessions, a mounting casualty list, and the only forensic observation in the entire file came from a man who was not asked and was not listened to. The lead is not *who has a sword* — it is *go and look at the dead*."
+      },
+      {
+        "id": "ex_carnivorous_name",
+        "propId": "prop_aegis_magi_recall_clause",
+        "session": "s_a02_cant_afford_not_to_care",
+        "icon": "🪴",
+        "kind": "note",
+        "category": "testimony",
+        "title": "The thing wearing Lady Aurelian answered to a word nobody had used as a name",
+        "secured": "2 Aethel, 922 BF (Feyward clock) · the sealed sanctuary, doors vined shut, one witness inside",
+        "custody": "Hjumpik Deldkur — sole witness; recorded to the archive immediately after",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:radial-gradient(circle at 50% 55%,rgba(140,40,60,.22),transparent 70%),linear-gradient(180deg,rgba(22,16,20,.96),rgba(10,8,10,.98));border:1px solid rgba(212,168,83,.26)\"><div style=\"position:absolute;left:16px;top:22px;font:12px/1.8 ui-monospace,monospace;color:rgba(232,224,208,.86)\">&ldquo;plants are carnivorous, right&mdash;&rdquo;<br><span style=\"color:rgba(226,160,180,.95)\">&ldquo;that&hellip;. my name&hellip;..&rdquo;</span></div><div style=\"position:absolute;right:20px;top:24px;width:64px;height:64px;border:2px solid rgba(226,160,180,.5);border-radius:50% 50% 50% 8%\"></div><div style=\"position:absolute;left:16px;bottom:12px;font:10px ui-monospace,monospace;color:rgba(212,168,83,.75)\">NAME OBTAINED &middot; NOT SOUGHT</div></div>",
+        "onRecord": "Hjumpik, stalling inside a sealed room, asked the false Aurelian twice whether the plant it was sitting on was a good plant to sit on, then said *plants are carnivorous, right—*. The thing replied, with pauses transcribed as heard: *that's.... my name.....* [[roll:4|a fey answered to a true name by accident and then stopped talking about it|it did not correct him, did not laugh, and did not continue the sentence it had been enjoying; a creature that has held a perfect impersonation through three sessions of conversation dropped its cadence on one word, which is the behaviour of a name and not of a vocabulary error|it is a plant creature being condescended to about botany by a dwarf; 'that's my name' is exactly the sort of flat joke a thing makes when a mortal explains its own biology to it, and the pauses are menace, not malfunction]] Immediately before the slip it had volunteered its entire strategy unprompted: rule the manor, let the manor collapse, trees grow anew, *the beauty of nature is slow*. [[roll:6|the confession and the slip are the same failure|it talked freely because it had already sealed the doors and counted the room as won; the same confidence that produced a full statement of intent produced an unguarded answer to a name, and both are artefacts of a creature that stopped performing once it believed nobody would be leaving|a monster monologuing before it wins is the oldest behaviour in the archive and proves nothing about what its name is]]",
+        "dc": 4,
+        "analysis": "## A name is the only thing in this arc that can be acted on\n\n**Everything else this file holds about the overgrowth is descriptive.** It grows. It impersonates. It withers when fed Red's cooking. None of that is leverage. A name, in the Feyward, is a different category of object entirely, and the file has to decide how much weight to put on five syllables spoken with ellipses in them.\n\n**The case for taking it seriously starts with what preceded it.** Hjumpik was not conducting an interrogation. He was talking about *furniture* — an absurd, sustained, deliberately trivial line about whether it is bad manners to sit on a flower — and he ran it twice, which is the part that matters. The first pass got a straight answer (*it's just a foflower*). The second pass got *hmmm, what do you mean*. The creature had stopped tracking the conversation as an attack, which is precisely when the word landed.\n\n**The competing reading deserves its due.** Fey are fond of flat, affectless jokes, and *that's my name* is a serviceable one. This file has been embarrassed before by treating fey wordplay as a revelation. If the archive stakes an action on a name that turns out to be a pun, it will have handed a creature that plans in months a way to waste the party's only remaining session.\n\n**What tips it.** The transcription. Hjumpik recorded pauses — *that's.... my name.....* — and pauses are the thing a joke does not have. A joke lands on the beat. This did not land; it trailed, and then the conversation did not go back to it, and a creature that had answered every other question in the room at length declined to expand on this one. The overgrowth explained its objective, its timetable, and its reason for wearing a dead woman's face, and the only subject it would not elaborate on was its own name.\n\n**Practical consequence.** Red's dinner damages it physically; the file already knows that. What the file did not have until now is anything to *bind* it with. Every fey instrument in this campaign — the soul ring, the bell, the Accords' own language about bound objects — runs on names. The party is carrying a ring that holds a person and a bell that has done something inexplicable twice, and it now has a name to put in front of both."
+      },
+      {
+        "id": "ex_revel_friendly_fire",
+        "propId": "prop_revel_engagement_ledger",
+        "session": "s_a02_cant_afford_not_to_care",
+        "icon": "⚔️",
+        "kind": "ledger",
+        "category": "record",
+        "title": "Forty-four turns in which the Revel's best fighters attacked their own side",
+        "secured": "2 Aethel, 922 BF (Feyward clock) · the Revel room, three rounds, logged in full",
+        "custody": "Archive — complete action ledger",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(180deg,rgba(16,20,26,.96),rgba(8,10,14,.98));border:1px solid rgba(212,168,83,.26)\"><div style=\"position:absolute;left:16px;top:16px;font:11px/1.6 ui-monospace,monospace;color:rgba(232,224,208,.86)\">Swordfighter &rarr; <span style=\"color:rgba(230,140,140,.95)\">House Guard</span> &times;8<br>Sorcerer &rarr; <span style=\"color:rgba(230,140,140,.95)\">Swordfighter</span> &times;4<br>Rogue &rarr; <span style=\"color:rgba(230,140,140,.95)\">Bard</span> &times;3<br>Druid &rarr; <span style=\"color:rgba(230,140,140,.95)\">Swordfighter</span></div><div style=\"position:absolute;right:16px;bottom:12px;font:10px ui-monospace,monospace;color:rgba(212,168,83,.78)\">3 ROUNDS &middot; 44 TURNS &middot; NO DECISION</div></div>",
+        "onRecord": "Three rounds, forty-four NPC turns, twenty-four attack actions and thirteen spells produced no decision. The Satyr Swordfighter, busiest combatant in the room, spent eight multiattacks on the House Guard. The Satyr Sorcerer spent four spells on the Satyr Swordfighter. The Satyr Rogue put a hand crossbow and two shortswords into the Satyr Bard. [[roll:4|this is not a melee getting confused, it is a pattern with direction|the same attackers returned to the same targets round after round, and morale stayed BOLD in the eighties throughout; troops who have lost cohesion break or scatter, they do not calmly re-engage the same friendly target for three consecutive rounds|a fey revel is not a military unit and was never cohesive; expecting formation discipline from a party that has been drinking for three sessions is a category error]] Meanwhile the Treant cast Animate Trees twice, adding combatants that act on its own initiative count. [[roll:3|the treant was not trying to win the fight|it spent its actions reproducing rather than killing while everything else in the room spent its actions on everything else in the room, which is what an organism does when it is not in danger|it is a plant with two actions and a multiattack; using one on summoning is ordinary monster tactics and implies no strategy at all]]",
+        "dc": 3,
+        "analysis": "## A faction attacking itself, or a faction already taken\n\n**The interesting number is not forty-four. It is eight.** Eight multiattacks from the single most active combatant in the room, every one of them aimed at the manor's own House Guard, while a treant stood in the middle of the floor growing more treants. If the Revel were merely chaotic, the targeting would be *scattered* — it is not. Each attacker returned to the same target across rounds. That is selection, and selection has a cause.\n\n**Morale forecloses the easiest explanation.** The ledger stamps morale readings throughout: BOLD, in the eighties, for almost every combatant, round after round. Panic produces flight and mis-targeting; it does not produce confident, repeated, accurate engagement of a chosen friendly. Whatever the Satyr Swordfighter thought it was doing, it was not frightened, and it did not change its mind.\n\n**Set it against the upstairs finding.** The party established, in the same session, that the lady of the manor is a plant wearing a dead woman, that it has been moving pieces into position deliberately, and that it is patient on a scale of months. A creature with that much control over the household's chain of command does not need to fight the Revel. It needs the Revel pointed at the house.\n\n**The honest counterweight.** No compulsion effect was observed, named, or saved against. The ledger shows Sleep, Colour Spray, Mockery and Thunderwave — nothing that dominates. If some of these fey are controlled, the mechanism is not in this log, and a file that concludes control from targeting alone is guessing with a table of numbers in front of it to look rigorous.\n\n**What the file will say.** Not that the Revel is compromised. That the Revel can no longer be counted as an ally in planning, because on the evidence of three full rounds it cannot be predicted to attack the enemy, and a party that plans an ambush around it is planning around a variable it does not control."
+      },
+      {
+        "id": "ex_grove_scythe_transfer",
+        "propId": "prop_grove_scythe_transfer",
+        "session": "s_a01_judgement_in_the_grove",
+        "icon": "⚖️",
+        "kind": "ledger",
+        "category": "custody",
+        "title": "The only paperwork the execution produced",
+        "secured": "1 Aethel, 1040 BF · Skittering Grove, after the swing",
+        "custody": "Markop — weapon retained",
+        "visual": "<div role=\"img\" aria-label=\"A ledger line recording a scythe taken from a body\" style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(160deg,rgba(40,34,28,.96),rgba(22,20,18,.96));border:1px solid rgba(150,120,70,.34)\"><div style=\"position:absolute;left:12%;right:12%;top:20px;height:2px;background:rgba(190,160,100,.5)\"></div><div style=\"position:absolute;left:12%;right:44%;top:38px;height:7px;background:rgba(205,180,120,.72)\"></div><div style=\"position:absolute;left:12%;right:56%;top:56px;height:7px;background:rgba(150,130,95,.5)\"></div><div style=\"position:absolute;left:58%;top:34px;width:34%;height:44px;border:1px solid rgba(190,160,100,.45)\"></div><div style=\"position:absolute;left:60%;top:48px;width:30%;height:6px;background:rgba(190,80,70,.75)\"></div><div style=\"position:absolute;left:12%;right:12%;bottom:30px;height:2px;background:rgba(190,160,100,.35)\"></div><div style=\"position:absolute;left:0;right:0;bottom:8px;text-align:center;font-size:10px;letter-spacing:.14em;font-weight:800;color:#c9a46a\">CONDITION OF PRIOR HOLDER · KNEELING</div></div>",
+        "onRecord": "One scythe, of stolen origin, transferred from the Scorncrow to Markop in the Skittering Grove on 1 Aethel, 1040 BF. The ledger records the prior holder as disarmed, kneeling and unmasked, and the cause of death as a single warhammer strike to the skull.",
+        "dc": 3,
+        "analysis": "## An inventory line is the wrong shape for this\n\nThe entry is correct in every particular and it is still the wrong document. It has a field for the item, a field for who took it, and a field for the condition of the prior holder — and into that last field somebody has written **kneeling**, which is a word about a killing wearing the costume of a word about stock. [[roll:3|read the condition field as testimony|the transfer is recorded as happening AFTER the weapon was released, which means the scythe was not taken in a fight — it was picked up off the ground beside a body that had already surrendered it|the field records posture at the moment of transfer and cannot establish what was in anybody's mind]].\n\n## What the ledger declines to record\n\nThere is no field on this form for *was an appeal made*, and so the appeal — the four words the thing said across four engagements, said again in the form of a request, to a paladin, by name — survives here only as a quotation with a note attached. [[roll:4|the quoted line is load-bearing|the archive's own ledger preserves the request while offering no place to record the answer, which is itself the answer: nothing was granted, because nothing was considered|the quotation is transcribed from party account and the wording of a dying sentence is the least reliable thing in any record]].\n\nWaluigi files the object and refuses to file the verdict. The scythe is Markop's. What it cost is not written on any line of this."
+      },
+      {
+        "id": "ex_grove_unmasked_face",
+        "propId": "prop_grove_unmasked_face_note",
+        "session": "s_a01_judgement_in_the_grove",
+        "icon": "🩸",
+        "kind": "note",
+        "category": "physical",
+        "title": "Two tests of one sentence, both of which it passed",
+        "secured": "30 Harvestide 1040 and 1 Aethel 1040 · Skittering Grove",
+        "custody": "Archive observation note; no physical specimen retained",
+        "visual": "<div role=\"img\" aria-label=\"A torn scarecrow face over human colour\" style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:radial-gradient(circle at 46% 44%,rgba(150,40,34,.34),transparent 68%),linear-gradient(150deg,rgba(38,32,24,.96),rgba(20,18,16,.96));border:1px solid rgba(150,110,70,.3)\"><div style=\"position:absolute;left:30%;top:22px;width:40%;height:62px;border-radius:48% 48% 44% 44%;background:rgba(176,150,96,.5);box-shadow:0 0 0 1px rgba(210,180,120,.35) inset\"></div><div style=\"position:absolute;left:46%;top:30px;width:3px;height:52px;background:rgba(20,16,14,.85);transform:rotate(9deg)\"></div><div style=\"position:absolute;left:38%;top:56px;width:26%;height:20px;border-radius:0 0 40% 40%;background:rgba(150,44,36,.62)\"></div><div style=\"position:absolute;left:0;right:0;bottom:8px;text-align:center;font-size:10px;letter-spacing:.14em;font-weight:800;color:#c08a72\">NOT ICHOR · NOT SAP · NOT SMOKE</div></div>",
+        "onRecord": "On 30 Harvestide 1040 a point-blank musket shot removed the Scorncrow's face and the blood beneath it was human. On 1 Aethel 1040, in the grove, the hood came off and the face underneath was human and speaking. At death the remains stayed remains.",
+        "dc": 4,
+        "analysis": "## The claim was testable and it was tested twice\n\nFor three filings the archive read *I am not a monster* as villain theatre, and Waluigi wrote that reading himself, which is why he is the one correcting it. Two independent physical tests, eleven days apart, by different means, returned the same result. [[roll:3|the physical record is consistent|two separate encounters produced human blood and a human face, and the body did not dissolve, burn off or revert at death the way every other constructed thing in this arc has|consistency between two party accounts is not the same as a specimen, and no specimen was kept]].\n\n## Three readings, and the grove closed the door on all of them\n\nSomething human inside the scarecrow. Something human *made into* it. Or a monster that learned to bleed convincingly because it learned what this party would find persuasive. [[roll:5|the third reading is the weakest|a deception maintained through death, with no observer left to deceive and nothing further to gain, is a deception with no audience — which is not how deceptions work|a thing willing to die in costume is exactly the thing a sufficiently patient deceiver would build, and the archive has met patient things in this arc before]].\n\n**The plain fact, unhedged:** the question was answerable right up until the swing. A disarmed, kneeling, unmasked prisoner who is talking is the most informative object anybody in this arc has ever had, and the party converted it into a body and a secondhand scythe. Waluigi is not moralising about the kill. He is filing the cost of it, which is that the archive now has three readings and no way left to choose."
+      },
+      {
+        "id": "ex_oracle_peach_account",
+        "session": "s_shepherds_garden",
+        "icon": "🕯️",
+        "kind": "note",
+        "category": "testimony",
+        "title": "The Oracle's account of the assassination",
+        "secured": "uncorroborated",
+        "custody": "Waluipedia, via Bowser's retelling — no independent witness, no physical copy",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(135deg,rgba(40,30,60,.35),rgba(10,8,20,.96));border:1px solid rgba(196,181,253,.3)\"><div style=\"position:absolute;left:18px;top:16px;font-size:34px\">🕯️</div><div style=\"position:absolute;left:18px;bottom:16px;color:#c4b5fd;font-size:11px;letter-spacing:.14em;text-transform:uppercase\">Uncorroborated testimony</div><div style=\"position:absolute;right:18px;top:18px;color:#8b8398;font-size:11px;text-align:right;line-height:1.5\">Highsun 1, 955 BF<br>recounted 922 BF</div><div style=\"position:absolute;right:18px;bottom:16px;color:#d6c9a0;font-size:12px\">one comb, unsourced</div></div>",
+        "dc": 5,
+        "onRecord": "Five or six mages' locks broken. The room untouched. Peach seated with a comb in her hand, dead, unmoving, blood on the floor. The responding guards came in and all died. Delivered unprompted, immediately after an hour of escalating provocation the Oracle then admitted had been a test. [[roll:5|Check the account against the primary assassination record|The Day Of file says the Guild had already moved the body and scrubbed the chambers within hours, and that three guard witnesses were alive on Day 1 — two dead within a fortnight, one vanished. The tableau he describes existed only between the killing and the cleaners, and his one checkable claim is wrong in the direction a reader gets wrong.|The account is internally consistent and contains one detail — the comb — that appears nowhere else in the archive.]]",
+        "analysis": "## What this testimony is worth\n\n**Two elements are corroborated and therefore add nothing.** That Peach chose her death and left evidence is already in the Day Of record, filed earlier and from a different direction. That the room was managed is also there: body moved within hours, chambers scrubbed, all physical evidence through Guild hands. His agreement is not a second source; it is an echo of a source we already had.\n\n**One element is new.** The comb appears in no other filing. Either it is the detail only a true witness could supply, or it is the specific invented object a constructed scene needs in order to feel witnessed.\n\n**One element is wrong.** He says the responding guards all died. The record says three were alive on Day 1, two dead within two weeks, one vanished — administrative removal over a fortnight, not a massacre in a bedroom. That is the error a person makes reading a casualty list afterwards, not the error a person makes having stood in the room.\n\n**And he cannot be placed there.** He appears in none of the six assassination filings. The Day Of record names fourteen people in and around that palace; he is not among them. By that same record the scene he describes had been erased within hours, so the only people who saw it were the killer, the Guild, or somebody already inside the palace. He implies he is one of the three and never says which.\n\nI am not filing him as a liar. He has never been caught in a falsifiable lie, which is a different and more careful thing. I am filing him as a **source rather than a witness**, and recording that he chose his moment: an audience just proven non-violent, committed, and eighty-five years too young to check.",
+        "links": {
+          "events": [
+            "the_shepherds_garden_and_the_three_week_clock",
+            "highsun_1_955_bf_the_day_of"
+          ],
+          "characters": [
+            "the_oracle",
+            "bowser",
+            "princess_peach",
+            "lady_bloomia"
+          ]
+        }
+      },
+      {
+        "id": "ex_student_id",
+        "session": "s_airlift_never_came",
+        "icon": "🪪",
+        "kind": "passport",
+        "category": "identity",
+        "title": "Remi Akamatsu's Gehenna Academy student ID",
+        "secured": "surrendered",
+        "custody": "Pierce Anamatar, as the price of passage out of Guild-controlled ground",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(135deg,rgba(90,60,30,.35),rgba(12,10,8,.96));border:1px solid rgba(224,180,0,.3)\"><div style=\"position:absolute;left:18px;top:16px;font-size:34px\">🪪</div><div style=\"position:absolute;left:18px;bottom:16px;color:#e0c07a;font-size:11px;letter-spacing:.14em;text-transform:uppercase\">Surrendered as payment</div><div style=\"position:absolute;right:18px;top:18px;color:#8b8398;font-size:11px;text-align:right;line-height:1.5\">Gehenna Academy<br>no formal withdrawal</div></div>",
+        "dc": 3,
+        "onRecord": "A laminated student identity card issued by Gehenna Academy to Remi Akamatsu, handed to Pierce Anamatar in his den in exchange for passage out of the Skittering Grove. He asked first for the siglet and declined an expired coupon before accepting it, on the stated grounds that it is very durable. [[roll:3|Ask what the card actually proves|Remi left Gehenna without a formal withdrawal, so this was the only document still asserting she had ever been enrolled anywhere. She has no copy.|It reads as a routine student card and a cheap price for three lives.]]",
+        "analysis": "## Why a man with knights wanted a piece of laminate\n\nAnamatar could have asked for coin, for the battle axe, for the chain shirt Remi had just taken off a corpse. He asked for the **siglet** — a quest object — and when that was not on offer he chose, out of everything in the room, a child's school card. He turned down an expired coupon in between, so he was selecting rather than accepting.\n\nBoth of his recorded prices are the same shape: **a thing that belongs to a specific person.** On the Shadow Estate rooftop he took a contract to kill the Oracle in exchange for sending the party home. Here he took the only paper in the grove with Remi's name and an institution on it.\n\nRemi departed Gehenna without withdrawing. That card is the last external evidence that the enrolment happened at all. Whether Anamatar knew that is unestablished, and whether it matters depends entirely on what he does with it.\n\nI am not filing a theory. I am filing that a man who trades in possessions now holds a document that proves who somebody is, and that she handed it over without pausing.",
+        "links": {
+          "events": [
+            "the_airlift_that_never_came",
+            "shadow_estate_session_Harvestside_14_continued"
+          ],
+          "characters": [
+            "pierce_anamatar",
+            "remi_akamatsu_full_backstory",
+            "wario"
+          ]
+        }
+      }
+    ]
+  }
+]

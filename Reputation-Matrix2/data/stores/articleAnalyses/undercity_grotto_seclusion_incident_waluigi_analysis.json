@@ -1,0 +1,37 @@
+[
+  {
+    "id": "undercity_grotto_seclusion_incident_waluigi_analysis",
+    "sourceArticle": "undercity_grotto_seclusion_incident",
+    "title": "The Grotto Incident Is a Filing With No Source",
+    "kicker": "Waluigi's Article Analysis",
+    "subtitle": "An analysis of an event the archive cannot produce.",
+    "archivist": "Waluigi, Auditor-General",
+    "filed": "Chillwind 15, 923 BF",
+    "summary": "A minor incident in the otherwise tranquil sanctuary saw an unauthorized party attempting to breach the seclusion of the grotto, leading to a tense stand-off with local guards and a close call that could have disrupted the peace.",
+    "thesis": "I went to pull the source article for this filing and there is not one. No event record, no battle record, no investigation entry. I searched the data by name and the only file in this archive that contains the phrase *undercity grotto seclusion incident* is this analysis of it.\n\nSo I am doing something unusual and filing the absence itself, because an opinion page hanging in the air above nothing is worse than no page at all. Somebody at some point read a summary of a descent into a grotto beneath the Monster Underground and wrote three paragraphs about shifting balances of authority. Those paragraphs are still on the page. What they describe is not.\n\nMy thesis is that this record should not be trusted until its source is produced, and that saying so is more useful than tidying the prose. *WAH! I have spent this whole week complaining that other people's documents describe evidence they cannot hand over. I am not going to make an exception for a document with my own name on it.*",
+    "sections": [
+      {
+        "id": "no-source",
+        "icon": "🕳️",
+        "heading": "The Source Article Does Not Exist in the Archive",
+        "sourceAnchor": "sourceArticle: undercity_grotto_seclusion_incident — no matching record in events, battles, or investigations.",
+        "body": "I checked three times and in three places, with the lamp turned up, because a missing file is usually a misspelling. *WAH! I have pulled every drawer in this desk and there is nothing behind this page.*\n\nIt is not a misspelling. The identifier appears exactly once in the entire data set, in the `sourceArticle` field of this analysis, pointing at nothing. Every other analysis in this section resolves to a real filing you can open and read against the argument.\n\nThat is what a source anchor is for. This form exists so a biased reader can check my bias against the record. Remove the record and the form stops being an analysis and becomes an assertion with decorative furniture — a kicker, an archivist's name, a filing date, and no way for anybody to tell me I am wrong.\n\nAn unfalsifiable opinion page in an archive that prides itself on chain of custody is a small rot. I would rather name it than paint over it."
+      },
+      {
+        "id": "what-the-old-text-claimed",
+        "icon": "📜",
+        "heading": "What the Original Text Claimed, and Why None of It Can Be Checked",
+        "sourceAnchor": "The prior text described a descent into the grotto and a resulting shift in Undercity authority.",
+        "body": "The text that was here spoke of a descent, of power shifting within the Undercity, of consequences for those who follow. I hold the page up to the light out of habit, as though a watermark might argue with me. It was written in the flat, agreeable register of something generated to fill a space — every sentence balanced, no sentence checkable.\n\nI want to be fair to it. There may well have been a real night in a real grotto, and this may be a genuine memory that lost its paperwork in a reorganisation. That happens, and when it happens the correct response is to go and find the paperwork.\n\nWhat I will not do is keep arguing on top of it. If I write two thousand grounded words about a descent I cannot verify, I have made the problem worse: the page becomes more convincing without becoming more true. Better prose over a missing source is just a better-dressed hole. *WAH. This is the one situation where writing less is the honest option.*"
+      },
+      {
+        "id": "what-happens-next",
+        "icon": "🔎",
+        "heading": "Either Produce the Night or Retire the Page",
+        "sourceAnchor": "This analysis, ruin_recovery_1023_bf, and frostfall_moonlit_mysteries all point at sources absent from the archive.",
+        "body": "Three analyses in this section point at nothing. This one, a ruin recovery, and a night of moonlit mysteries in the Frostlands. Three sheets of paper, the same weight, the same dust on the top edge. They share a shape — no sections, no verdict, generic consequence-language — which suggests they entered the archive together, as placeholders, and were never filled.\n\nThree pages, side by side on the desk, identical in shape. There are only two honest endings. Somebody who was there writes the event record, at which point this page can be rebuilt properly against it. Or the page is retired, and the identifier goes on a list of things the archive once claimed and could not support.\n\nI have a preference. If a night in the Undercity grotto happened, I want it — that is a real place with real politics and I would read it gladly. But wanting a document is exactly the condition under which I am least reliable, and I have said so twice this week in other people's files. The rule holds here."
+      }
+    ],
+    "verdict": "My verdict: unsupported. Not false — I have no evidence the grotto incident did not happen, and I am not going to invent one. Unsupported, in the precise sense that this archive contains an opinion about an event and no event.\n\nWhat I recommend: treat this page as a placeholder rather than a reading. Do not cite it. Do not build on it. If the descent is real, file the event first and this analysis can be written afterwards the way the others were — against a record, with anchors that resolve.\n\nApply the same test to `ruin_recovery_1023_bf` and `frostfall_moonlit_mysteries`, which have the same defect and arrived by the same route.\n\nThe desk is clear. That is the trouble. There is nothing on it to hold up to the lamp, and I have written a filing about a night I cannot prove anybody had."
+  }
+]

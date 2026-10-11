@@ -78,8 +78,9 @@ def main():
 
     originals = sorted(glob.glob(os.path.join(ACTORS, "original-fvtt-Actor-*.json")))
     if not originals:
-        print("FATAL: no original-*.json exports found")
-        return 2
+        print("no original-*.json intake dumps (retired from git; drop a Foundry export locally to rebuild)")
+        if not args.check:
+            return 2
 
     written = []
     failures = []

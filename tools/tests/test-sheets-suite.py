@@ -167,9 +167,13 @@ check("the five retired player characters file by faction — Disaster Inc. — 
 check("the Steel Defender — the roster's companion — is filed with the faction he belongs to; a companion MAY sit in Players/, he does not have to",
       by_id["Q8InPZPmhqhpOY7g"][0].parent.name == "Disaster Inc" and "Steel Defender" in promote.COMPANIONS
       and promote.COMPANIONS == {c["name"] for c in scheme_players["companions"]})
-export = read(ROOT / "midlands-all-actors.json")
-exported = {a["_id"]: a for a in export["actors"]}
 xp = promote.B.load_xp_summary()
+_export_path = ROOT / "midlands-all-actors.json"
+exported = {}
+if _export_path.exists():
+    exported = {a["_id"]: a for a in read(_export_path)["actors"]}
+else:
+    print("SKIP promotion-vs-export checks: midlands-all-actors.json not in repo")
 for promo in promote.PROMOTIONS:
     aid, name = promo["id"], promo["name"]
     live = by_id.get(aid)
@@ -183,10 +187,11 @@ for promo in promote.PROMOTIONS:
     if not live:
         continue
     path, doc = live
-    src = exported[aid]
-    check(f"{name}: the world has taken the promotion (the committed export carries the character sheet under the live id; the record says what was done)", src["type"] == "character" and (src["flags"].get("waluipedia-sheets") or {}).get("promoted", {}).get("mode") == promo["mode"], src["type"])
-    check(f"{name}: ownership kept from the world (the players keep access)", doc["ownership"] == src["ownership"])
-    check(f"{name}: the GM's art kept", doc["img"] == src["img"] and doc["prototypeToken"]["texture"]["src"] == src["prototypeToken"]["texture"]["src"])
+    src = exported.get(aid)
+    if src is not None:
+        check(f"{name}: the world has taken the promotion (the committed export carries the character sheet under the live id; the record says what was done)", src["type"] == "character" and (src["flags"].get("waluipedia-sheets") or {}).get("promoted", {}).get("mode") == promo["mode"], src["type"])
+        check(f"{name}: ownership kept from the world (the players keep access)", doc["ownership"] == src["ownership"])
+        check(f"{name}: the GM's art kept", doc["img"] == src["img"] and doc["prototypeToken"]["texture"]["src"] == src["prototypeToken"]["texture"]["src"])
     check(f"{name}: token linked to the actor", doc["prototypeToken"]["actorLink"] is True)
     check(f"{name}: folderPath flag says {' / '.join(want_flag)}", doc["flags"]["waluipedia-mass-import"]["folderPath"] == want_flag,
           str(doc["flags"]["waluipedia-mass-import"]["folderPath"]))

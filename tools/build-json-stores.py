@@ -70,13 +70,20 @@ def split_kind(kind: str, locations: list[dict]) -> dict:
     order = [str(r.get("id")) for r in records if r.get("id")]
     shards = {rid: sl.shard_relpath(kind, id_to_key[rid])
               for rid in order if rid in id_to_key}
-    return {
+    raw = sl.load_json(sl.bundle_path(kind))
+    spec = {
         "bundle": f"{kind}.json",
         "n": len(order),
         "order": order,
         "shards": shards,
         "_files": written,
     }
+    if kind in sl.WRAPPER_KEYS:
+        spec["wrapper"] = sl.WRAPPER_KEYS[kind]
+        readme = sl.readme_of(raw)
+        if readme is not None:
+            spec["readme"] = readme
+    return spec
 
 
 def build_kind(kind: str, spec: dict) -> list[dict]:
@@ -94,7 +101,7 @@ def build_kind(kind: str, spec: dict) -> list[dict]:
         if rec is None:
             raise SystemExit(f"{kind}: {rid} missing from {rel}")
         rows.append(rec)
-    sl.bundle_path(kind).write_text(sl.dumps(rows), encoding="utf-8")
+    sl.write_bundle(kind, rows, readme=(spec.get("readme")))
     return rows
 
 

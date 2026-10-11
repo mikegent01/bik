@@ -1,0 +1,25 @@
+[
+  {
+    "id": "inv_frostfall_moonlit_mysteries",
+    "codename": "FROSTFALL'S MOONLIT MYSTERIES",
+    "title": "Aftermath: Frostfall's Moonlit Mysteries",
+    "subtitle": "The archive requires answers.",
+    "status": "stub",
+    "classification": "Generated Investigation",
+    "opened": "Deepwinter 15, year 784 BF",
+    "archivist": "Waluigi, Auditor-General",
+    "icon": "🕵️",
+    "accent": "#4a9c6d",
+    "plainSummary": [
+      {
+        "point": "Following his harrowing encounter in Frostfall, Waluigi found himself amidst a landscape where shadows loomed large and secrets were as cold as the wind.",
+        "detail": "The distant howls of creatures had left an indelible mark on his psyche, adding to the unease already present when he returned to the city. Local authorities reported no immediate disturbances or unusual activities, yet Waluigi could not shake off the feeling that something significant had occurred. In the days following this event, Waluigi's contacts within various intelligence networks began reporting heightened surveillance and increased chatter among underground groups known for their involvement in such shadowy affairs. The peculiar hums he encountered resonated with theories of anomalous electromagnetic interference—a phenomenon often exploited by those seeking to control uncharted territories and resources. Waluigi decided to dig deeper into historical records, uncovering old reports of similar occurrences across various regions. His investigation led him to a network of clandestine organizations operating at the crossroads of science, technology, and power politics. The more he uncovered, the clearer it became that these events were not isolated incidents but part of a much larger, interconnected web. With this new knowledge, Waluigi realized the importance of his role in unraveling these mysteries. Each piece of information pieced together brought him one step closer to understanding the true extent of the manipulation at play. The cold wind outside was a constant reminder that the battle against shadows would be long and arduous."
+      }
+    ],
+    "leads": [],
+    "sessions": [],
+    "relatedEvents": [],
+    "exhibits": [],
+    "_stubNote": "Flipped from active by tools/fix-investigation-stubs.py: the article this arc cites has not been written. Listed in docs/worklists/investigation-stubs.md."
+  }
+]

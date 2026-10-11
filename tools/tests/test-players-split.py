@@ -40,6 +40,10 @@ def load_splitter():
     return module
 
 
+if not (ROOT / "Players.json").exists():
+    print("SKIP: Players.json not in repo (Foundry intake dump retired from git)")
+    sys.exit(0)
+
 players = load_players()
 check("Players.json is a root-level list", isinstance(players, list))
 by_name = {a.get("name"): a for a in players}

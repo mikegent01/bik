@@ -1,0 +1,501 @@
+[
+  {
+    "id": "toad_liberation_file",
+    "codename": "SOMEWHERE TO PUT THEM",
+    "title": "Two Returns for One Afternoon",
+    "subtitle": "Aegis Command, the twenty-first of Highsun, and the paperwork that cannot agree what happened inside it",
+    "status": "active",
+    "classification": "Open — accreting",
+    "arcIds": [
+      "toad_liberation"
+    ],
+    "opened": "26 Harvestide, 1040 BF",
+    "lastFiled": "Aethel 4, 1040 BF",
+    "archivist": "Waluigi, Auditor-General",
+    "icon": "🏠",
+    "accent": "#2ecc71",
+    "imageCaption": "Two casualty returns for the same engagement, filed from opposite ends of the same afternoon. Neither has been withdrawn.",
+    "hook": "Waluigi asked for the casualty return and was handed two of them. Same building, same date, same half hour: twelve dead or three missing, thirty-two of theirs or sixty-seven.",
+    "plainSummary": [
+      {
+        "point": "This file is about one afternoon in one building.",
+        "detail": "Aegis Command, an Imperial processing facility, on the 21st of Highsun 1040 BF. At half past two that afternoon a general ordered every Toad prisoner killed, and at that same half past two the prisoners escaped. Both things are recorded as having happened."
+      },
+      {
+        "point": "The prison was also a power station, and the prisoners were the fuel.",
+        "detail": "Aegis Command is node one of twelve in a network broadcasting a frequency that paralyses dragons. The Empire's own operating schedule calls the people in the cells 'throughput' and says replacement is drawn from the detained population as available."
+      },
+      {
+        "point": "The escape was a supply operation, not a fight.",
+        "detail": "Mushrooms baked into the prisoners' bread, gas through the laundry vents, floor drains lit by moss planted weeks in advance, boiler valves jammed with Imperial service medals, bedsheet ziplines, and submersibles waiting in the river."
+      },
+      {
+        "point": "The Toads' own leadership could not agree what to do, and ran out of time.",
+        "detail": "Their council tabled an emergency vote at 14:45 with a one-hour deadline. It split two-one-one, reached no majority and expired — fifteen minutes after the escape it was debating had already begun."
+      },
+      {
+        "point": "Nobody has reconciled the two casualty returns, and this file does not either.",
+        "detail": "Both were filed, neither was withdrawn, and neither names a single casualty. Waluigi marks a preference between them and declines to write the conclusion."
+      }
+    ],
+    "background": [
+      {
+        "id": "liberated_toads",
+        "kicker": "who the people in this file are",
+        "why": "More than 150 Toads were found sealed in barrels aboard the airship Vigilance, stowed in void spaces reachable only by somebody shrunk with a Mini-Mushroom. The survivors of that cargo hold became a faction governed by a seven-seat Cohort Council, and they are the population Order 120 was written about."
+      },
+      {
+        "id": "order_120",
+        "kicker": "the order this file is named around",
+        "why": "Issued by General Ironhand at Aegis Command at 14:30 on the 21st of Highsun 1040 BF: every Toad prisoner in Legion custody to be killed, no trials, no ransoms, no exceptions. Its four clauses never once use the word."
+      },
+      {
+        "id": "general_ironhand",
+        "kicker": "the man who signed the order",
+        "why": "The commander of the Iron Legion and the person responsible for Order 120 — the execution of all Toad prisoners in Legion custody. He is not a ranting warlord: he is an administrator who happens to have the authority to sign orders for mass murder. When Bones infiltrated Aegis Command, Ironhand handled the interrogation personally and stabbed him with precision, then signed Order 120 with the same pen he probably used to approve equipment requisitions that morning."
+      }
+    ],
+    "brief": "Waluigi has rebuilt this file from the ground up and wants the reason stated at the top, because it bears on how much weight the rest deserves.\n\nThe previous version argued that liberation is a logistics problem — that rescue is easy and the afterwards is a subtraction. It was a good argument built on a refugee camp, a ration ledger, a drainage pump and a draft charter, none of which exist anywhere in the world's records. Twelve exhibits corroborated one another perfectly and nothing corroborated them from outside. That is the most dangerous shape a file can take, because internal consistency reads as reliability.\n\nSo: every figure below carries a source, and where the sources disagree the disagreement is the exhibit rather than a problem to be tidied away.\n\n**What the evidence supports.** Aegis Command was not a prison that happened to be cruel. It was node one of twelve in a network broadcasting a frequency that drops dragons out of the sky, and its own operating schedule describes the prisoners as throughput, consumed per operating day, replaced from the detained population as available. On the Great Dragon's account the war that justifies the Empire's posture is manufactured by this machine. The people in the cells were the fuel.\n\nOn the 21st of Highsun the Midlands Diet reclassified the Liberated Toads as an organised supernatural entity at nine in the morning. Robinson and a captured dragon arrived at ten. At half past two General Ironhand issued Order 120 — four clauses of stores-management vocabulary in which nobody is ever killed, only discontinued.\n\nAt that same half past two, the facility emptied. Speaker L had allowed himself to be taken deliberately and had spent weeks supplying the escape as freight: mushrooms baked into the prisoners' hardtack and written off as baking wastage, peppermint gas synthesised to choke Imperial lungs and spare Toads, floor drains lit by luminous moss laid in darkness weeks early, relief valves jammed with Imperial long-service medals so the boiler took out the east wall, bedsheet ziplines, a fifty-foot dive, and submersibles held on an open-ended arrangement at the river frontage.\n\n**What the evidence does not settle.** Two casualty returns were filed for that afternoon. One records twelve of their own killed, seventeen recaptured, thirty-two of the enemy dead, a hundred and fifty-eight escaped, decisive victory. The other records three missing, sixty-seven enemy dead, a hundred and fifty rioted, facility damaged. Neither has been withdrawn. Neither names a single casualty. The archive holds both.\n\nWaluigi's preference, marked and not concluded: Return A carries a recapture figure, and offices that invent victories rarely invent seventeen people going back into cells. That is a preference, not a finding, and this file will not pretend otherwise.\n\n**One number this file refuses to give you.** The Day 21 strength return lists eight cohorts totalling 275 and carries a note in the same hand warning that the Barrel Survivors are also counted within their working cohorts and the columns must not be totalled. This archive therefore cannot state how many Liberated Toads there were. Anybody who quotes a figure is reading a document that told them not to.",
+    "threads": [
+      {
+        "id": "th_two_returns",
+        "title": "Two returns for one afternoon",
+        "state": "open",
+        "text": "Twelve killed and thirty-two enemy dead, or three missing and sixty-seven. A hundred and fifty-eight escaped, or a hundred and fifty rioted. Decisive victory, or facility damaged. Same engagement, same building, same half hour — both filed, neither withdrawn, no reconciliation on file.\n\n**In plain terms:** the two official accounts of this afternoon contradict each other and always have. Nobody ever corrected either one, and neither names a single casualty, which is why the argument can run forever."
+      },
+      {
+        "id": "th_throughput",
+        "title": "The prisoners were the power supply",
+        "state": "open",
+        "text": "Twelve nodes hold a frequency that paralyses dragons. The operating schedule calls the consumption 'throughput', defines it as units consumed per operating day, and states that replacement is drawn from detained population **as available** — a limit set by how many people the Empire holds, not by how much power the grid needs.\n\n**In plain terms:** the cells were a fuel depot with a roll call, and the war the fuel was burned for is, by the Great Dragon's own account, a fabrication."
+      },
+      {
+        "id": "th_seventh_seat",
+        "title": "The seventh seat is empty because it belonged to the Mole",
+        "state": "open",
+        "text": "Four recorded divisions between Days 16 and 19, every one casting six votes out of seven seats, none recording the seventh as an abstention. The Scouts sit at 8 of 15, leader VACANT, status compromised, morale 45 — the worst figure on the strength return.\n\n**In plain terms:** an enemy officer held a seat on the ruling council, and after he defected nobody refilled it. The council became very good at governing around a hole, which is exactly the habit that failed it on Day 21."
+      },
+      {
+        "id": "th_sixty_minutes",
+        "title": "Sixty minutes, four votes, no majority",
+        "state": "closed",
+        "text": "Emergency division V-2021-002, tabled 14:45, deadline 15:45, chair marked SPEAKER ABSENT, quorum four of four. Suicide assault 2, negotiated exchange 1, withdraw and disperse 1. Expired unresolved.\n\n**In plain terms:** the council spent its hour failing to decide how to rescue people who had started rescuing themselves fifteen minutes before the vote was even tabled."
+      },
+      {
+        "id": "th_he_let_them",
+        "title": "He let them take him",
+        "state": "open",
+        "text": "Speaker L's capture was the method, not the setback. Inside, a decoy dyed green recited CONTAIN, ACCOUNT, RESTORE, ADHERE and a line about mending the fractured heart, surrendered no names, strengths or locations, and was assessed as cult-like rhetoric of low intelligence value.\n\n**In plain terms:** the Empire wrote down its enemy's entire legal doctrine in its own hand and filed it as raving, hours before acting on the assumption that there was nothing there to understand."
+      }
+    ],
+    "leads": [
+      {
+        "id": "lead_which_return",
+        "title": "Establish which casualty return went upward",
+        "state": "open",
+        "priority": "high",
+        "objective": "Identify the receiving office for each return and which one entered the Legion's own reporting chain.",
+        "why": "An institution files the account that makes its position defensible. Knowing which return was sent up, and to whom, would not tell us the true figure — but it would tell us which lie the Iron Legion needed, and that is frequently more useful than the truth.",
+        "exhibits": [
+          "ex_tl_two_returns",
+          "ex_tl_order120"
+        ]
+      },
+      {
+        "id": "lead_eleven_nodes",
+        "title": "Identify the other eleven Sonic Grid nodes",
+        "state": "open",
+        "priority": "high",
+        "objective": "Recover a copy of the node schedule naming the stations omitted from the archive's copy.",
+        "why": "The copy held here names only Aegis Command, which means it was distributed to people who needed the timings but were not trusted with the geography. Eleven more facilities are consuming throughput on the same terms and nobody has ever counted the people inside them.",
+        "exhibits": [
+          "ex_tl_grid"
+        ]
+      },
+      {
+        "id": "lead_seventh_seat",
+        "title": "Establish who benefits from the seventh seat staying empty",
+        "state": "open",
+        "priority": "normal",
+        "objective": "Determine whether any motion to refill the Scouts' council seat was ever tabled, and by whom it was resisted.",
+        "why": "Quorum is four and six votes carried everything, so the vacancy cost nothing procedurally and was never forced. A seat nobody needs filled is a seat somebody prefers empty, and the record does not yet show who.",
+        "exhibits": [
+          "ex_tl_council",
+          "ex_tl_cohorts"
+        ]
+      },
+      {
+        "id": "lead_resume_vote",
+        "title": "Determine whether the suspended response vote was ever resumed",
+        "state": "open",
+        "priority": "normal",
+        "objective": "Find any minute resuming or formally abandoning the suspended Day 21 response division.",
+        "why": "A suspended division is not a decided one. If it was never resumed then the faction's formal answer to the Iron Mandate does not exist, and everything done afterwards was done without a mandate anybody voted for.",
+        "exhibits": [
+          "ex_tl_crisis_vote"
+        ]
+      },
+      {
+        "id": "lead_decoy_brief",
+        "title": "Establish what the decoy was told to say, and by whom",
+        "state": "open",
+        "priority": "normal",
+        "objective": "Identify who briefed the green prisoner on the doctrine recital and the poisoned-mushroom cover story.",
+        "why": "The decoy held under interrogation and volunteered the word mushroom inside the building the mushrooms were about to empty. That is either extraordinary nerve or an extremely good briefing, and the difference decides how much of the escape was Speaker L's personal work.",
+        "exhibits": [
+          "ex_tl_interrogation",
+          "ex_tl_hardtack"
+        ]
+      }
+    ],
+    "sessions": [
+      {
+        "id": "s_tl_barrels",
+        "label": "The barrels aboard the Vigilance",
+        "date": "Day 12",
+        "event": "the_estragon_island_incident"
+      },
+      {
+        "id": "s_tl_infiltration",
+        "label": "Inside Aegis Command",
+        "date": "Days 16–21",
+        "event": "thornburys_field_journal"
+      },
+      {
+        "id": "s_tl_grid",
+        "label": "Twelve nodes and a paralysed dragon",
+        "date": "Day 21, morning",
+        "event": "star_shard_caves_tanuki_origin"
+      },
+      {
+        "id": "s_tl_order120",
+        "label": "Two returns for one afternoon",
+        "date": "Day 21, 14:30",
+        "event": "order_120"
+      }
+    ],
+    "relatedEvents": [
+      "order_120",
+      "iron_mandate",
+      "supernatural_sovereignty_act",
+      "fractured_heart",
+      "accountability_docket",
+      "the_estragon_island_incident"
+    ],
+    "exhibits": [
+      {
+        "id": "ex_tl_barrels",
+        "propId": "prop_tl_barrel_manifest",
+        "session": "s_tl_barrels",
+        "icon": "🛢️",
+        "kind": "ledger",
+        "category": "origin",
+        "title": "Cargo Return — The Barrels Weighed Wrong and Somebody Wrote It Down",
+        "secured": "Quartermaster's copy, lower holds",
+        "custody": "Archive — copy",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:radial-gradient(circle at 50% 40%,rgba(46,204,113,.10),transparent 70%),repeating-linear-gradient(135deg,rgba(255,255,255,.02) 0 8px,transparent 8px 16px)\"><div style=\"position:absolute;left:8%;top:58px;width:26px;height:34px;border:1px solid rgba(46,204,113,.34);border-radius:5px/8px\"></div><div style=\"position:absolute;left:19%;top:30px;width:26px;height:34px;border:1px solid rgba(46,204,113,.55);border-radius:5px/8px\"></div><div style=\"position:absolute;left:30%;top:58px;width:26px;height:34px;border:1px solid rgba(46,204,113,.34);border-radius:5px/8px\"></div><div style=\"position:absolute;left:41%;top:30px;width:26px;height:34px;border:1px solid rgba(46,204,113,.55);border-radius:5px/8px\"></div><div style=\"position:absolute;left:52%;top:58px;width:26px;height:34px;border:1px solid rgba(46,204,113,.34);border-radius:5px/8px\"></div><div style=\"position:absolute;left:63%;top:30px;width:26px;height:34px;border:1px solid rgba(46,204,113,.55);border-radius:5px/8px\"></div><div style=\"position:absolute;left:74%;top:58px;width:26px;height:34px;border:1px solid rgba(46,204,113,.34);border-radius:5px/8px\"></div><div style=\"position:absolute;left:85%;top:30px;width:26px;height:34px;border:1px solid rgba(46,204,113,.55);border-radius:5px/8px\"></div><div style=\"position:absolute;left:8%;top:30px;width:26px;height:34px;border:1px solid #2ecc71;border-radius:5px/8px;box-shadow:0 0 0 3px rgba(46,204,113,.18)\"></div><div style=\"position:absolute;left:0;right:0;bottom:9px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#2ecc71\">DECLARED PORK · WEIGHED LIGHT</div></div>",
+        "dc": 3,
+        "onRecord": "A cargo return for the Vigilance's lower holds, four lots, weights taken at the crane. Three lots agree with their declarations. Lot B does not: more than a hundred and fifty units of packed salt pork, every one of them materially under weight, all stowed outboard of the frames in void spaces that cannot be reached at standing height. The clerk noted the discrepancy and advised the shipper. [[roll:3|The lots that agree are the control|three lots weighed correct on the same crane on the same day, which removes the scale, the crane and the clerk as explanations and leaves only the contents of lot B.|a discrepancy in one lot out of four is unremarkable; shippers mis-declare constantly.]]",
+        "analysis": "## The document is competent, which is the problem\n\nWaluigi wants to begin by defending the clerk, because this exhibit is about to be used to describe a trafficking operation and the clerk is not part of it.\n\nEverything on this sheet is correct procedure. The weights were taken. The discrepancy was identified. It was measured against declaration. The shipper was advised in writing. No amended manifest came back, and that fact was recorded too. If you were grading the paperwork you would give it full marks.\n\nAnd more than a hundred and fifty people stayed in the barrels.\n\n### What the pattern cannot mean\n\nA barrel of packed salt pork has a known weight, which is why it is a standard trade unit. Lot B came in short by a wide margin, consistently, across every unit. Consistency is what makes this evidence rather than error. A failing scale produces scatter. A shipper skimming product produces scatter. What produces a uniform shortfall across a whole lot is a whole lot packed with the same wrong thing, to the same specification, by somebody working from an instruction.\n\n[[roll:4|Ask what is lighter than pork and needs an air gap|the answer is on the same sheet, in the stowage line. Lot B was placed in the void spaces outboard of the frames. Pork does not need ventilation and pork does not need to be outboard of anything. The two anomalies on this document only resolve together, and together they describe cargo that breathes.|nothing further; a weight column and a stowage column are routine entries, and it takes hindsight to read them as a pair.]]\n\n### The access problem\n\nThe stowage line does more work than the weight line. Void spaces outboard of the frames are not merely a hiding place — they are a hiding place chosen because retrieval is hard. A search party can walk the hold, read the manifest, tap a barrel and go away satisfied without ever reaching lot B, because reaching lot B requires being small enough to get between the frames.\n\nThat is the point this whole file turns on. The barrels were found by somebody who could enter a space that is not reachable at standing height, and the archive knows how that was done, because the controlled-issue register for the Mini-Mushroom records exactly one day of issue for confined-space access. The trafficker's protection was geometry. The counter to it was a controlled item drawn against a purpose written on a form.\n\n### What it founds\n\nEverything downstream exists because of what was in lot B. The survivors of these barrels are the Barrel Survivors on the cohort return — the largest single body in the Liberated Toads and, outside the compromised Scouts, the one carrying the lowest morale. The faction's origin is not a manifesto. It is a cargo discrepancy that somebody eventually went and looked at.\n\n[[roll:5|Note what the shipper did|nothing. No amended manifest was received, which means the shipper was content to leave a written, filed, formally advised discrepancy standing on the cargo return of an Imperial vessel. Either the shipper expected nobody to act on it, or the shipper knew who would be reading it. Both readings are worse than an error.|the silence is unremarkable; most advisories go unanswered and clerks stop expecting replies.]]\n\nWaluigi's filing note: the sheet did not fail. The sheet worked perfectly and produced a written record of a crime in progress, which then sat in a drawer. Documents do not rescue anybody. They only make it impossible, afterwards, to claim nobody knew.\n\nOne last thing worth pulling out of the header. [[roll:4|Check who the return was addressed to|the ship's own quartermaster, not an inspectorate. This document never left the vessel it indicted, which is why the discrepancy could be correctly recorded and still change nothing for months. Paper only travels as far as somebody sends it.|the addressee is routine and the distribution of a hold return tells you nothing about the cargo.]]",
+        "links": {
+          "events": [
+            "the_estragon_island_incident"
+          ],
+          "items": [
+            "mini_mushroom"
+          ],
+          "characters": [
+            "dan",
+            "elder_mudcap"
+          ]
+        }
+      },
+      {
+        "id": "ex_tl_mushroom",
+        "propId": "prop_tl_mushroom_docket",
+        "session": "s_tl_barrels",
+        "icon": "🍄",
+        "kind": "ledger",
+        "category": "materiel",
+        "title": "Stores Docket — One Authorised Day, and a Silence Afterwards",
+        "secured": "Controlled-issue register, commodity 44-M",
+        "custody": "Archive — copy",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:radial-gradient(circle at 50% 40%,rgba(46,204,113,.10),transparent 70%),repeating-linear-gradient(135deg,rgba(255,255,255,.02) 0 8px,transparent 8px 16px)\"><div style=\"position:absolute;left:50%;top:26px;transform:translateX(-50%);width:56px;height:30px;border-radius:28px 28px 4px 4px;background:rgba(46,204,113,.30);border:1px solid rgba(46,204,113,.55)\"></div><div style=\"position:absolute;left:50%;top:56px;transform:translateX(-50%);width:16px;height:26px;background:rgba(46,204,113,.18);border:1px solid rgba(46,204,113,.42);border-radius:0 0 5px 5px\"></div><div style=\"position:absolute;left:18%;top:92px;right:18%;height:1px;background:rgba(46,204,113,.35)\"></div><div style=\"position:absolute;left:0;right:0;bottom:9px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#2ecc71\">ISSUED ONCE · NEVER TO A KITCHEN</div></div>",
+        "dc": 3,
+        "onRecord": "The controlled-issue register for the Mini-Mushroom. One date, one stated purpose — access to the void spaces in the Vigilance's lower hold — and one named authority. After that, nothing: no issue to any kitchen, bakery or ration store, at any facility, on any date. [[roll:3|A register is a negative as well as a positive|it proves what was drawn and, just as usefully, what was not. This one certifies in writing that no mushroom ever legitimately entered a food chain.|the absence of later entries just means the item stopped being needed.]]",
+        "analysis": "## The same object, twice, doing opposite jobs\n\nWaluigi files this docket beside the cargo return deliberately, because the two documents catch one object at the two moments that matter, and nobody has put them side by side before.\n\n### First use: finding people\n\nOn the day the barrels were opened, the Mini-Mushroom was a tool for getting into a space that could not be entered at standing height. That is the whole entry — a purpose, an authority, a controlled item signed out for a confined-space job. It reads like a maintenance requisition, because that is what it was. The most consequential discovery in the faction's history is recorded in the same register as ladders and lamp oil.\n\n[[roll:4|Read the effect duration as an operational constraint|approximately ten minutes. Whoever went into the void spaces had ten minutes per dose to find what was in there and get back out to somewhere that returning to full size would not kill them. The barrels were not found by a leisurely search. They were found by somebody working against a clock, in the dark, between the frames.|the duration is a product note and tells you nothing about the search.]]\n\n### Second use: emptying a fortress\n\nLater the same commodity turns up baked into prisoners' hardtack at Aegis Command, and the register is emphatic that it did not get there through any authorised channel. No kitchen drew it. No bakery drew it. No ration store drew it, at any facility, on any date.\n\nThis is where bookkeeping becomes evidence. A controlled-issue register exists to make diversion visible — that is its only function. If mushrooms had been siphoned out of Imperial stores there would be an entry, a signature, a purpose line, something to audit. There is nothing at all. The supply that reached the cells never touched the Imperial system.\n\n[[roll:5|Ask where an unaudited supply comes from|from people who already had one. The Liberated Toads found their founding population using this item and had every reason to keep a stock of it. The escape was not supplied by corrupting Aegis Command's stores; it was supplied from outside, by a faction that had been in the mushroom business since the day it was born. The bread was the delivery mechanism, not the source.|the source is unrecoverable from a register that by definition records only what passed through it.]]\n\n### Why the pairing matters\n\nA power-up is a thing that makes you strong. This archive has never once used the Mini-Mushroom that way. Both times it appears at a decisive moment it is doing the same unglamorous job: making a person small enough to pass through a gap that the people in charge did not think of as a door.\n\nVoid spaces outboard of the frames. Floor drains under a cell block. Neither is a flaw in the design; both are consequences of it, invisible to anyone reasoning at standing height. Waluigi notes, without drawing the conclusion, that an Empire which builds fortresses and an Empire which builds cargo holds made precisely the same mistake and lost both times to the same fungus.\n\nAnd a final observation about the form itself. [[roll:3|Note that the purpose line was filled in at all|controlled-issue registers require a stated purpose, and whoever drew these wrote down honestly that they were going into the void spaces. The people who found the barrels documented their own search in advance, which is why this archive can prove the discovery was deliberate rather than accidental.|a purpose line is mandatory and its contents are usually boilerplate.]]",
+        "links": {
+          "events": [
+            "order_120"
+          ],
+          "items": [
+            "mini_mushroom"
+          ],
+          "characters": [
+            "speaker_l"
+          ]
+        }
+      },
+      {
+        "id": "ex_tl_cohorts",
+        "propId": "prop_tl_cohort_return",
+        "session": "s_tl_barrels",
+        "icon": "📋",
+        "kind": "ledger",
+        "category": "strength",
+        "title": "Strength Return — Eight Rows That Add Up and a Note Saying Do Not Add Them",
+        "secured": "Cohort Council, Day 21",
+        "custody": "Archive — copy",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:radial-gradient(circle at 50% 40%,rgba(46,204,113,.10),transparent 70%),repeating-linear-gradient(135deg,rgba(255,255,255,.02) 0 8px,transparent 8px 16px)\"><div style=\"position:absolute;left:10%;bottom:34px;width:5%;height:44px;background:#2ecc71;opacity:.55;border-radius:2px 2px 0 0\"></div><div style=\"position:absolute;left:21%;bottom:34px;width:5%;height:72px;background:#2ecc71;opacity:.85;border-radius:2px 2px 0 0\"></div><div style=\"position:absolute;left:32%;bottom:34px;width:5%;height:26px;background:#2ecc71;opacity:.55;border-radius:2px 2px 0 0\"></div><div style=\"position:absolute;left:43%;bottom:34px;width:5%;height:34px;background:#2ecc71;opacity:.85;border-radius:2px 2px 0 0\"></div><div style=\"position:absolute;left:54%;bottom:34px;width:5%;height:40px;background:#2ecc71;opacity:.55;border-radius:2px 2px 0 0\"></div><div style=\"position:absolute;left:65%;bottom:34px;width:5%;height:30px;background:#2ecc71;opacity:.85;border-radius:2px 2px 0 0\"></div><div style=\"position:absolute;left:76%;bottom:34px;width:5%;height:18px;background:#2ecc71;opacity:.55;border-radius:2px 2px 0 0\"></div><div style=\"position:absolute;left:87%;bottom:34px;width:5%;height:36px;background:#2ecc71;opacity:.85;border-radius:2px 2px 0 0\"></div><div style=\"position:absolute;left:76%;bottom:34px;width:5%;height:18px;background:#e67e22;border-radius:2px 2px 0 0\"></div><div style=\"position:absolute;left:0;right:0;top:14px;text-align:center;font-size:9px;letter-spacing:.12em;color:rgba(255,255,255,.45)\">EFFECTIVE AGAINST ESTABLISHMENT</div><div style=\"position:absolute;left:0;right:0;bottom:9px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#2ecc71\">SUMS TO 275 · IS NOT A POPULATION</div></div>",
+        "dc": 4,
+        "onRecord": "The Day 21 cohort return. Eight rows, effective strength against establishment, each with a leader, a status and a morale figure. Pond Patrol 23 of 30. Barrel Survivors 146 of 150. Chroniclers 12 of 20. Crafters 18 of 25. Wardens 22 of 35. Menders 15 of 20. Scouts 8 of 15, leader VACANT, status compromised, morale 45. Unassigned 31. At the foot, a roster note: the Barrel Survivors are also counted within their working cohorts, so the columns overlap and must not be totalled. [[roll:3|The note is doing something unusual|it is a clerk pre-emptively refusing a use of their own document. Most returns invite a total. This one forbids it, in writing, on the sheet.|it is a standard caveat of the kind that appears on most administrative returns.]]",
+        "analysis": "## A document that argues with its reader\n\nThe columns add to 275. The note says do not add the columns. Both statements are on the same sheet in the same hand, and the honest consequence has to be stated plainly: **the Liberated Toads' population is not recoverable from this document, and anybody quoting a figure is misreading it.**\n\nWaluigi finds that admirable and inconvenient in equal measure. A great deal of the tidier history written about this faction depends on a number its own strength return refuses to supply.\n\n### Why the overlap exists\n\nThe Barrel Survivors are not a unit. They are a **cohort of origin** — everybody who came out of lot B. A survivor who takes up smithing is a Crafter and a Barrel Survivor; one who takes a watch is a Warden and a Barrel Survivor. The 146 is therefore not a body of people standing anywhere. It is a fact about where 146 people came from, laid across a table that otherwise counts where people currently stand.\n\n[[roll:4|Notice which single row makes the table unaddable|Barrel Survivors at 146. Every other row is a working assignment. Remove that one row and the remainder are disjoint and could legitimately be summed. The clerk did not have to write the warning — the clerk could have moved the row. Keeping it and warning about it is a choice about memory rather than arithmetic.|the overlap is diffuse and cannot be attributed to any particular row.]]\n\n### The row that is a different kind of problem\n\nThe Scouts: 8 of 15, leader VACANT, status compromised, morale 45 — the lowest figure on the sheet by a wide margin, against 85 for the Pond Patrol.\n\nThis is the only row where all four columns fail at once, and the explanation is in the council's division record rather than here. The Scouts' council seat is the seat the Mole held before defecting to the Iron Legion. The cohort did not merely lose a leader; it learned its leader had been an enemy officer, which retroactively poisons every patrol report it filed and every route it ever recommended.\n\n[[roll:5|Read morale 45 as an intelligence assessment|it is one. A compromised cohort at 45 is telling you the surviving Scouts do not trust each other, because if the seat-holder was a Legion agent then any of the remaining eight could be. That is not sadness, it is an operational condition, and it is why the Scouts contribute nothing to the events of Day 21.|morale is a soft figure recorded by cohort leaders and reflects mood rather than capability.]]\n\n### What survives\n\nStrip out what cannot be totalled and this return still says three hard things. The fighting arm is small — 23 effective Pond Patrol. The medical arm is failing — Menders overwhelmed at 15 of 20. And a seventh of the leadership is missing, hostile and unreplaced.\n\nWaluigi's preference, marked and not concluded: a faction of this shape does not win a battle at Aegis Command. It survives one. The distinction will matter when the casualty returns arrive.\n\nOne figure on this return has not been discussed and should be. [[roll:4|Ask what the Unassigned at 31 are|people who came out of the barrels and have not yet been given a role, which makes them the only row on the sheet that is purely a measure of how much recovery is still outstanding. A faction with thirty-one unassigned survivors is a faction still absorbing its own founding disaster.|the Unassigned are an administrative remainder and carry no particular meaning.]]",
+        "links": {
+          "events": [
+            "order_120"
+          ],
+          "items": [],
+          "characters": [
+            "captain_fernback",
+            "scribe_dewdrop",
+            "elder_mudcap",
+            "the_mole"
+          ]
+        }
+      },
+      {
+        "id": "ex_tl_council",
+        "propId": "prop_tl_council_division",
+        "session": "s_tl_infiltration",
+        "icon": "🪑",
+        "kind": "order",
+        "category": "governance",
+        "title": "Division Record — Six Votes Out of Seven Seats, Four Times Running",
+        "secured": "Council minute book, Days 16–19",
+        "custody": "Archive — copy",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:radial-gradient(circle at 50% 40%,rgba(46,204,113,.10),transparent 70%),repeating-linear-gradient(135deg,rgba(255,255,255,.02) 0 8px,transparent 8px 16px)\"><div style=\"position:absolute;left:14%;top:44px;width:20px;height:20px;border-radius:50%;border:1px solid rgba(46,204,113,.55);background:rgba(46,204,113,.20)\"></div><div style=\"position:absolute;left:25%;top:44px;width:20px;height:20px;border-radius:50%;border:1px solid rgba(46,204,113,.55);background:rgba(46,204,113,.20)\"></div><div style=\"position:absolute;left:36%;top:44px;width:20px;height:20px;border-radius:50%;border:1px solid rgba(46,204,113,.55);background:rgba(46,204,113,.20)\"></div><div style=\"position:absolute;left:47%;top:44px;width:20px;height:20px;border-radius:50%;border:1px solid rgba(46,204,113,.55);background:rgba(46,204,113,.20)\"></div><div style=\"position:absolute;left:58%;top:44px;width:20px;height:20px;border-radius:50%;border:1px solid rgba(46,204,113,.55);background:rgba(46,204,113,.20)\"></div><div style=\"position:absolute;left:69%;top:44px;width:20px;height:20px;border-radius:50%;border:1px solid rgba(46,204,113,.55);background:rgba(46,204,113,.20)\"></div><div style=\"position:absolute;left:80%;top:44px;width:20px;height:20px;border-radius:50%;border:1px dashed #e74c3c;background:transparent\"></div><div style=\"position:absolute;left:0;right:0;top:78px;text-align:center;font-size:9px;letter-spacing:.12em;color:rgba(231,76,60,.85)\">SEAT 7 · VACANT SINCE DAY 16</div><div style=\"position:absolute;left:0;right:0;bottom:9px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#2ecc71\">QUORUM MET · COUNCIL CARRIES ON</div></div>",
+        "dc": 3,
+        "onRecord": "Four recorded divisions between Days 16 and 19. Scavenging doctrine 5–1–0. Emergency Resolution 17-A 6–0–0. Medical priority protocol 6–0–0. Raventree containment 5–1–0. Every one casts six votes. The seventh seat, held by the Scouts' representative, has been vacant since Day 16 and is not recorded as an abstention — it is simply absent from the arithmetic. Quorum is four; no division has been invalidated. [[roll:3|Check what 17-A actually granted|emergency powers to Speaker L and the creation of the Accountability Docket, carried with nobody against and nobody abstaining. The most consequential transfer of authority in the faction's history went through unanimously in a body missing a seventh of itself.|the resolution numbers are administrative references and the record does not summarise their content.]]",
+        "analysis": "## The empty chair votes every time by not being there\n\nWaluigi's interest is not in any single division but in the shape all four share: **six votes, four times running, with no line acknowledging the seventh seat.**\n\n### The difference between an abstention and a vacancy\n\nAn abstention is a decision. It appears in the record, it is attributable, and it can be criticised. A vacancy is arithmetic. The seat contributes nothing, is required to contribute nothing, and after a while stops appearing in the reader's mind at all.\n\nThe Mole's seat was not left empty out of sentiment. Filling it would have required the council to decide, on the record, who the Scouts' representative should be — which is a debate about whether the Scouts can be trusted, held in front of the Scouts. Quorum was four. Six was comfortable. The problem could be deferred indefinitely at no procedural cost, so it was.\n\n[[roll:4|Ask what the seat-holder knew before defecting|everything decided up to Day 16, and the deliberations behind it. The scavenging doctrine vote is dated Day 16 — the same day the Mole was exposed. Whether it was carried before or after the exposure is not stated, and that distinction decides whether the Iron Legion learned the faction's foraging pattern on the day it was set.|the record gives divisions and outcomes, not the movement of information around them.]]\n\n### Unanimity as a symptom\n\nTwo of the four divisions are 6–0–0. Waluigi distrusts unanimity in a body under threat — not because agreement is suspicious in itself, but because both unanimous votes are the ones that **transferred power away from the council**: emergency powers to the Speaker, and a triage protocol binding the council's own members into the same queue as everybody else.\n\nThe two split votes are both operational — how to scavenge, whether to ring Raventree. The council argued about tactics 5–1 and gave away its own authority 6–0.\n\n[[roll:5|Read the medical protocol against the strength return|the protocol establishes that core party members get no priority over other Toads. Set that beside the Menders at 15 of 20 and marked overwhelmed, and the vote stops being a statement of values and becomes a rationing rule with teeth. An overwhelmed medical cohort with no priority list is a cohort that must turn somebody away, and the council voted unanimously to remove its own escape hatch from that decision.|the protocol reads as an ethical declaration and the record does not connect it to the medical cohort's condition.]]\n\n### The consequence on Day 21\n\nThe habit formed here — carry on, quorum is met, six is enough — is the habit that walks into the emergency division at 14:45 with the Speaker's chair also empty. By then the council has had five days of practice at governing around an absence. The record shows that practice working perfectly well, right up to the afternoon when it does not.\n\nA closing note on what these divisions do not contain. [[roll:4|Look for any division concerning the Mole|there is none. The council recorded votes on scavenging, emergency powers, triage and a perimeter, but held no recorded division on the exposure of an enemy agent in its own chamber. The single most serious internal event of the period generated no minute at all.|the absence is unremarkable, since security matters would not normally be minuted.]]",
+        "links": {
+          "events": [
+            "accountability_docket",
+            "order_120"
+          ],
+          "items": [],
+          "characters": [
+            "speaker_l",
+            "the_mole",
+            "captain_fernback"
+          ]
+        }
+      },
+      {
+        "id": "ex_tl_crisis_vote",
+        "propId": "prop_tl_crisis_vote",
+        "session": "s_tl_order120",
+        "icon": "⏱️",
+        "kind": "order",
+        "category": "governance",
+        "title": "Emergency Division V-2021-002 — Two, One, One, and the Hour Ran Out",
+        "secured": "Council minute book, Day 21",
+        "custody": "Archive — copy",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:radial-gradient(circle at 50% 40%,rgba(46,204,113,.10),transparent 70%),repeating-linear-gradient(135deg,rgba(255,255,255,.02) 0 8px,transparent 8px 16px)\"><div style=\"position:absolute;left:50%;top:22px;transform:translateX(-50%);width:64px;height:64px;border-radius:50%;border:2px solid rgba(231,76,60,.55)\"></div><div style=\"position:absolute;left:50%;top:54px;width:26px;height:2px;background:#e74c3c;transform-origin:left center;transform:rotate(-58deg)\"></div><div style=\"position:absolute;left:50%;top:54px;width:20px;height:2px;background:rgba(231,76,60,.65);transform-origin:left center;transform:rotate(42deg)\"></div><div style=\"position:absolute;left:0;right:0;bottom:9px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#e74c3c\">TABLED 14:45 · DEADLINE 15:45</div></div>",
+        "dc": 4,
+        "onRecord": "An emergency division headed CRISIS RESPONSE: ORDER 120, proposed by Captain Fernback, tabled at 14:45 with a deadline of 15:45. The chair line reads SPEAKER ABSENT. CAPTAIN FERNBACK ASSUMING TEMPORARY COMMAND. Quorum four of four present. At freeze: suicide assault 2, negotiated exchange 1, withdraw and disperse 1. No option reached a majority within the hour and the division stands unresolved. [[roll:3|Count the seats present against the seats that exist|four, in a council of seven — one vacant since Day 16, one the Speaker's. The quorum line reads 4 of 4 because the body has quietly redefined itself as whoever is in the room.|four of four is a full house by the stated quorum and there is nothing further to read into it.]]",
+        "analysis": "## The only division in the record that ran out of time instead of votes\n\nEvery other division in this file resolves. This one expires. Waluigi considers it the most revealing document the Cohort Council ever produced, precisely because it decides nothing.\n\n### The arithmetic of deadlock\n\nFour votes, three options, split two-one-one. No majority is reachable unless somebody moves, and the options are not adjacent — suicide assault, negotiated exchange, withdraw and disperse are three different theories of what the faction is for. A vote between them is not a tactical choice. It is an identity crisis with a stopwatch running.\n\n[[roll:4|Ask who was not in the room|the Speaker, whose chair is marked absent, and the Scouts' seat, vacant since Day 16. The two missing seats are the leadership seat and the intelligence seat — precisely the two you would want during a crisis about a prison you cannot see inside. The council was deciding how to answer an atrocity with no speaker and no spymaster.|the absences are noted on the sheet and their significance is interpretation rather than record.]]\n\n### The word 'absent'\n\nThe chair line says SPEAKER ABSENT. It does not say captured, dead, missing or deposed. Somebody chose the most neutral available word for the most consequential line on the page.\n\nThe archive knows what the council did not: Speaker L had allowed himself to be taken deliberately, and at that moment was inside Aegis Command running the escape. The council recorded his absence as an administrative fact and voted around it. They were not deliberating in ignorance of a rescue. They were deliberating in ignorance that the rescue was already theirs.\n\n[[roll:5|Set the deadline against the time of the riot|the division was tabled at 14:45. The riot began at 14:30. The hour this council spent failing to agree had already been overtaken, at its start, by the event it was responding to. Every minute of that deliberation was spent debating whether to save people who were at that moment coming out through the floor drains.|the timings are close and the sequence cannot be reconstructed with confidence from the record alone.]]\n\n### Fernback\n\nA captain proposes the motion, assumes temporary command, and presides over an hour that produces nothing. Waluigi notes without malice that this is the same officer who ends the arc running an emergency military junta. This sheet is the first document in the archive where Fernback is the ranking voice in the room, and its outcome — deadlock, expiry, no decision — is the strongest argument available to anybody who later proposes that councils are too slow for wartime.\n\nWhether that argument was made in good faith is not on this sheet. What is on this sheet is a council failing publicly, in writing, with a timestamp, sixty minutes before it stopped being a council.\n\nOne detail of the sheet's construction deserves a look. [[roll:3|Ask who wrote the deadline|the proposer. Fernback tabled the motion and set the hour, which means the same officer chose both the question and the time available to answer it. A sixty-minute limit on a three-way split is a limit that predictably produces no majority, and predictably leaves the chair holding temporary command when it expires.|the deadline is a standard emergency provision and reading intent into it is unsupported.]]",
+        "links": {
+          "events": [
+            "order_120"
+          ],
+          "items": [],
+          "characters": [
+            "captain_fernback",
+            "speaker_l"
+          ]
+        }
+      },
+      {
+        "id": "ex_tl_interrogation",
+        "propId": "prop_tl_interrogation",
+        "session": "s_tl_infiltration",
+        "icon": "🎙️",
+        "kind": "note",
+        "category": "testimony",
+        "title": "Interrogation Record — The Green Prisoner Who Recited Doctrine and Gave Up Nothing",
+        "secured": "Aegis Command records section",
+        "custody": "Archive — copy",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:radial-gradient(circle at 50% 40%,rgba(46,204,113,.10),transparent 70%),repeating-linear-gradient(135deg,rgba(255,255,255,.02) 0 8px,transparent 8px 16px)\"><div style=\"position:absolute;left:50%;top:24px;transform:translateX(-50%);width:34px;height:44px;border-radius:16px 16px 6px 6px;background:rgba(46,204,113,.28);border:1px solid rgba(46,204,113,.6)\"></div><div style=\"position:absolute;left:22%;top:82px;width:34px;height:2px;background:rgba(255,255,255,.20)\"></div><div style=\"position:absolute;left:36%;top:82px;width:34px;height:2px;background:rgba(255,255,255,.20)\"></div><div style=\"position:absolute;left:50%;top:82px;width:34px;height:2px;background:rgba(255,255,255,.20)\"></div><div style=\"position:absolute;left:64%;top:82px;width:34px;height:2px;background:rgba(255,255,255,.20)\"></div><div style=\"position:absolute;left:0;right:0;bottom:9px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#2ecc71\">CONTAIN · ACCOUNT · RESTORE · ADHERE</div></div>",
+        "dc": 4,
+        "onRecord": "An interview note taken at Aegis Command on a prisoner presenting as Speaker L. Asked to account for his markedly green colouring, the subject states he ate a poisoned mushroom and the colour changed. Asked about his organisation he recites four words — CONTAIN, ACCOUNT, RESTORE, ADHERE — repeats them on request, and adds nothing. He offers a line of verse about mending the fractured heart. On dispositions: nil. No names, no strengths, no locations. The interviewing officer assesses the subject as cult-like rhetoric, low intelligence value, and suspends the interview. [[roll:3|Weigh the assessment against the content|the officer recorded a complete statement of a legal doctrine and filed it as raving. Everything needed to understand the enemy's aims was written down and then categorised as noise.|the assessment is fair; a prisoner reciting slogans under questioning genuinely is low-value.]]",
+        "analysis": "## A man explains restorative justice to the people torturing him\n\nWaluigi has read a great many interrogation notes. This is the only one in the archive where the interrogator captures the truth in full and dismisses it in the same paragraph.\n\n### What the four words are\n\nCONTAIN, ACCOUNT, RESTORE, ADHERE are the four pillars of the Accountability Docket — the Liberated Toads' own legal instrument, established under Emergency Resolution 17-A. They are not a battle cry. They are a procedure for dealing with people you have every reason to kill and have decided not to.\n\nThe verse belongs to the same instrument. *This is not retribution's art, but the mending of the fractured heart* is Speaker L's language for why the Docket's subjects remain allied rather than condemned. A prisoner in an Imperial cell recited the operating principle of a court that had specifically declined to execute its enemies, to an officer whose command was hours from an order that executed everybody.\n\n[[roll:4|Read the interrogation as a use of time|the subject repeats on request. Repetition is the cheapest way to fill an interview without adding information — every minute spent making an officer write the same four words again is a minute not spent on names, strengths or locations, and a minute in which the escape preparations continue undisturbed. This is not a man breaking. This is a man spending the clock.|repetition under questioning usually indicates a rehearsed script and little else.]]\n\n### The mushroom line\n\nThe cover story is the most interesting sentence on the page: *he ate a poisoned mushroom and the colour changed.*\n\nIt is a lie built out of the truth. The decoy was dyed green. But mushrooms were at that moment the operative fact of the entire facility — baked into the hardtack, waiting for the third bell. The subject volunteered the word *mushroom* to an Imperial interrogator inside the building the mushrooms were about to empty, and the officer wrote it down as an explanation for a skin condition.\n\n[[roll:5|Consider why that particular lie was chosen|a good cover story is one you can hold under repetition. A dye story invites questions about who dyed him and where the dye came from. A poisoning story is self-contained, unfalsifiable without a physician, and consistent with a prisoner's diet — which is to say it points the officer straight at the kitchens and dares him to look, knowing that a man who has already decided this prisoner is raving will not.|the choice of cover story is arbitrary and reading intent into it overstates what the note supports.]]\n\n### The consequence\n\nThe interview is suspended for low value. Shortly afterwards General Ironhand sees through the disguise instantly, and the afternoon follows. The archive should be precise about what this document proves: the Empire had the doctrine, in writing, in its own hand, and filed it as fanaticism. Order 120 was issued by an institution that had been told exactly what its enemy believed and had classified the answer as noise.\n\nFinally, the thing the note records without meaning to. [[roll:4|Count what the subject was never asked|there is no question on this sheet about the kitchens, the drains, the boiler house or the river. The officer asked about colouring and about organisation. A prisoner who volunteers a mushroom and is asked nothing further about food has been interrogated by somebody following a form rather than a suspicion.|interview notes are summaries and the absence of a question does not prove it was never put.]]",
+        "links": {
+          "events": [
+            "fractured_heart",
+            "accountability_docket",
+            "order_120"
+          ],
+          "items": [],
+          "characters": [
+            "speaker_l",
+            "bones",
+            "general_ironhand"
+          ]
+        }
+      },
+      {
+        "id": "ex_tl_hardtack",
+        "propId": "prop_tl_hardtack_req",
+        "session": "s_tl_order120",
+        "icon": "🍞",
+        "kind": "invoice",
+        "category": "materiel",
+        "title": "Kitchen Requisition — The Week the Bread Went Over Establishment",
+        "secured": "Aegis Command subsistence file",
+        "custody": "Archive — copy",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:radial-gradient(circle at 50% 40%,rgba(46,204,113,.10),transparent 70%),repeating-linear-gradient(135deg,rgba(255,255,255,.02) 0 8px,transparent 8px 16px)\"><div style=\"position:absolute;left:22%;top:34px;width:56px;height:38px;border-radius:6px;background:rgba(230,126,34,.22);border:1px solid rgba(230,126,34,.5)\"></div><div style=\"position:absolute;left:52%;top:28px;width:66px;height:48px;border-radius:6px;background:rgba(230,126,34,.34);border:1px solid rgba(230,126,34,.75)\"></div><div style=\"position:absolute;left:0;right:0;top:88px;text-align:center;font-size:9px;letter-spacing:.12em;color:rgba(230,126,34,.9)\">WASTAGE, BAKING</div><div style=\"position:absolute;left:0;right:0;bottom:9px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#e67e22\">SIGNED WITHOUT QUERY</div></div>",
+        "dc": 3,
+        "onRecord": "The weekly requisition for prisoners' hardtack, baked on site. For the preceding weeks the draw agrees with establishment. In the week of the incident it goes above establishment, and the variance is written on the sheet as wastage, baking. Stores countersigned without query. Ingredients drawn against this requisition are not separately itemised. [[roll:3|Ask what 'baked on site' makes possible|it puts the last stage of the food chain inside the facility, in the hands of kitchen staff, past every gate search. Anything that survives an oven can be introduced at the point where nothing is inspected any more.|on-site baking is standard at facilities of this size and carries no particular significance.]]",
+        "analysis": "## The most boring document in the file is the delivery mechanism\n\nWaluigi promised to prefer the boring document. This is the vindication of that preference: a requisition for bread, countersigned without comment, sitting at the operational centre of the largest prison break in Regal Empire history.\n\n### What a variance is for\n\nEvery quartermaster's system expects small discrepancies and provides a box to explain them. *Wastage, baking* is a real category — dough is lost, loaves burn, a batch fails. The box exists so that honest losses do not require an investigation.\n\nWhich makes it the ideal place to put a dishonest one. A variance explained in the approved vocabulary is a variance that stops being interesting. Nobody audits the wastage line; preventing that audit is what the wastage line is for.\n\n[[roll:4|Ask why the extra draw was necessary at all|because the mushrooms had to be baked into something, and that something had to reach prisoners without appearing as an extra issue. Concealing an object inside a ration means baking more ration than the roll requires. The variance is not the smuggling — the variance is the arithmetic shadow the smuggling casts on the paperwork.|the extra draw is unexplained, and connecting it to the mushrooms assumes the conclusion.]]\n\n### The countersignature\n\nStores countersigned without query. There are two readings and the document does not choose between them.\n\nThe first is complicity: somebody in stores knew and signed anyway. The second, which Waluigi finds likelier and more damning, is that the system worked exactly as designed. A variance in an approved category, on a routine weekly form, from a kitchen with a clean record, does not attract a query — it attracts a signature. The Iron Legion's institutional character, catalogued at length elsewhere in this archive, is precisely this: procedure followed correctly, at speed, without curiosity.\n\n[[roll:5|Set this beside the stores docket for the mushroom|the docket proves no mushroom was ever issued to a kitchen through controlled channels. This requisition proves the kitchen drew extra material in the relevant week. Together they establish that the additional input came from outside the facility's own stores and was laundered through the one line nobody inspects. Neither document proves it alone. The pair is the case.|the two documents concern different commodities in different registers and no link can be drawn between them from the paperwork.]]\n\n### The shape of the thing\n\nSpeaker L did not break into Aegis Command. He arranged for its kitchen to feed his people the tool of their own escape — on the facility's own ration strength, through the facility's own approved variance category, countersigned by the facility's own stores office.\n\nThe fortress supplied the weapon and the paperwork approved it. Waluigi has never respected a supply chain more.\n\nOne more feature of the form is worth naming. [[roll:4|Ask why ingredients are not separately itemised|because the requisition is written for portions, not components. A form that counts finished bread cannot show what went into it, which means the facility's own paperwork was structurally incapable of recording the one fact that mattered. The concealment did not defeat the system; the system had no field for it.|itemisation practice varies and the omission is an ordinary economy of paperwork.]]",
+        "links": {
+          "events": [
+            "order_120"
+          ],
+          "items": [
+            "mini_mushroom"
+          ],
+          "characters": [
+            "speaker_l"
+          ]
+        }
+      },
+      {
+        "id": "ex_tl_order120",
+        "propId": "prop_tl_order_120_signed",
+        "session": "s_tl_order120",
+        "icon": "📜",
+        "kind": "order",
+        "category": "instrument",
+        "title": "Order 120 — Four Clauses in Which the Word Never Appears",
+        "secured": "General Orders, Series 120",
+        "custody": "Archive — copy",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:radial-gradient(circle at 50% 40%,rgba(46,204,113,.10),transparent 70%),repeating-linear-gradient(135deg,rgba(255,255,255,.02) 0 8px,transparent 8px 16px)\"><div style=\"position:absolute;left:16%;top:30px;right:16%;height:2px;background:rgba(255,255,255,.14)\"></div><div style=\"position:absolute;left:16%;top:43px;right:16%;height:2px;background:rgba(255,255,255,.22)\"></div><div style=\"position:absolute;left:16%;top:56px;right:16%;height:2px;background:rgba(255,255,255,.14)\"></div><div style=\"position:absolute;left:16%;top:69px;right:16%;height:2px;background:rgba(255,255,255,.22)\"></div><div style=\"position:absolute;left:16%;top:88px;width:78px;height:2px;background:rgba(231,76,60,.75)\"></div><div style=\"position:absolute;left:16%;top:94px;font-size:8px;letter-spacing:.10em;color:rgba(231,76,60,.75)\">OFFICER COMMANDING</div><div style=\"position:absolute;left:0;right:0;bottom:9px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#e74c3c\">CUSTODY IS TO BE DISCONTINUED</div></div>",
+        "dc": 5,
+        "onRecord": "Order 120, as signed. Clause I assesses the detained population held under supernatural classification as an unrecoverable security liability. Clause II directs that custody of that population be discontinued. Clause III requires discontinuation in full — no trials, no ransoms, no exceptions on grounds of age, cohort or cooperation. Clause IV reminds officers that the instruction is lawful under emergency powers and that compliance is not discretionary. A countersign block for the officer commanding sits beneath. [[roll:4|Read clause III as the tell|clause II could be read innocently, since custody can be discontinued by release. Clause III forecloses that reading by ruling out trials, ransoms and exceptions — the mechanisms by which custody normally ends. Only one method survives the exclusions.|clause III is standard belt-and-braces drafting to prevent local discretion.]]",
+        "analysis": "## An atrocity drafted by somebody who intended to survive the paperwork\n\nWaluigi has held this document longer than any other in the file and keeps returning to one observation: **the word for what it orders appears nowhere on the page.**\n\n### The vocabulary\n\nA population is *assessed*. A liability is *unrecoverable*. Custody is *discontinued*. Discontinuation is *effected in full*. Compliance is *not discretionary*.\n\nThese are the verbs of stores management — the language for closing a warehouse, writing off damaged stock, winding up a contract. Applied to people they perform one specific service for the man signing: they let him issue the order without ever writing a sentence in which he kills anybody.\n\nThat is not squeamishness, it is drafting. A document saying *execute all prisoners* is evidence of intent in any tribunal that ever convenes. A document saying *custody is to be discontinued* obliges the tribunal to prove what the phrase meant, to whom, on what date, in what context — and every one of those is arguable.\n\n[[roll:4|Ask what clause IV is doing in an order|reassuring the people who have to carry it out. Clause IV is not an instruction, it is a legal opinion inserted into an operational document, and operational documents do not normally need to tell their readers they are lawful. The clause exists because the drafter expected hesitation, which means the drafter knew this was the kind of order a soldier might refuse.|clause IV is boilerplate reminding subordinates of the emergency framework in force.]]\n\n### The classification does the killing\n\nClause I is where the instrument turns, and it works by reference. *The detained population held under supernatural classification* — the order never says Toads. It kills a category, and the category was manufactured elsewhere: by the Supernatural Sovereignty Act, which outlawed organised supernatural entities, and by the Iron Mandate, which reclassified the Liberated Toads as one at nine o'clock that same morning.\n\nSo the sequence is: a statute defines a crime, a mandate assigns people to it, an order disposes of the people assigned. Each step is defensible in isolation. Nobody at any stage had to write down an intention to kill several hundred people, because the intention was distributed across three documents signed by different hands on different days.\n\n[[roll:5|Note the interval between the Mandate and this order|the Mandate passed at nine in the morning; this order issued at half past two the same afternoon. Five and a half hours from reclassification to disposal. An order this consequential drafted, approved and signed inside a working day is not a response to the reclassification — it is a plan that was waiting for it.|the interval is short, but the record does not establish when drafting began and urgent orders are routinely produced at speed.]]\n\n### Waluigi's filing note\n\nThe pen that signed this is catalogued in this archive as a bureaucratic weapon and the description is exact. Ironhand did not lose his temper. He managed a security breach, in the correct register, on the correct form, with a countersign block. The horror of Order 120 is not that it was written in rage. It is that it was written in the passive voice.\n\nA last look at the bottom of the page. [[roll:3|Consider the countersign block|it exists, and it is for the officer commanding rather than for a legal authority or a witness. An order of this magnitude carries one signature and no counter-authority, which means nobody but the signer was ever required to put their name to it. Responsibility was concentrated deliberately, and so was the evidence.|a countersign block is standard on general orders and implies nothing about the drafting.]]",
+        "links": {
+          "events": [
+            "order_120",
+            "iron_mandate",
+            "supernatural_sovereignty_act"
+          ],
+          "items": [
+            "ironhand_order120_pen"
+          ],
+          "characters": [
+            "general_ironhand"
+          ]
+        }
+      },
+      {
+        "id": "ex_tl_grid",
+        "propId": "prop_tl_grid_schedule",
+        "session": "s_tl_grid",
+        "icon": "📡",
+        "kind": "ledger",
+        "category": "infrastructure",
+        "title": "Node Schedule — Twelve Stations and a Column Called Throughput",
+        "secured": "Restricted, emitter network",
+        "custody": "Archive — copy",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:radial-gradient(circle at 50% 40%,rgba(46,204,113,.10),transparent 70%),repeating-linear-gradient(135deg,rgba(255,255,255,.02) 0 8px,transparent 8px 16px)\"><div style=\"position:absolute;left:12%;top:34px;width:9px;height:9px;border-radius:50%;background:rgba(155,89,182,.75);box-shadow:0 0 0 3px rgba(155,89,182,.16)\"></div><div style=\"position:absolute;left:26%;top:34px;width:9px;height:9px;border-radius:50%;background:rgba(155,89,182,.75);box-shadow:0 0 0 3px rgba(155,89,182,.16)\"></div><div style=\"position:absolute;left:40%;top:34px;width:9px;height:9px;border-radius:50%;background:rgba(155,89,182,.75);box-shadow:0 0 0 3px rgba(155,89,182,.16)\"></div><div style=\"position:absolute;left:54%;top:34px;width:9px;height:9px;border-radius:50%;background:rgba(155,89,182,.75);box-shadow:0 0 0 3px rgba(155,89,182,.16)\"></div><div style=\"position:absolute;left:68%;top:34px;width:9px;height:9px;border-radius:50%;background:rgba(155,89,182,.75);box-shadow:0 0 0 3px rgba(155,89,182,.16)\"></div><div style=\"position:absolute;left:82%;top:34px;width:9px;height:9px;border-radius:50%;background:rgba(155,89,182,.75);box-shadow:0 0 0 3px rgba(155,89,182,.16)\"></div><div style=\"position:absolute;left:12%;top:64px;width:9px;height:9px;border-radius:50%;background:rgba(155,89,182,.75);box-shadow:0 0 0 3px rgba(155,89,182,.16)\"></div><div style=\"position:absolute;left:26%;top:64px;width:9px;height:9px;border-radius:50%;background:rgba(155,89,182,.75);box-shadow:0 0 0 3px rgba(155,89,182,.16)\"></div><div style=\"position:absolute;left:40%;top:64px;width:9px;height:9px;border-radius:50%;background:rgba(155,89,182,.75);box-shadow:0 0 0 3px rgba(155,89,182,.16)\"></div><div style=\"position:absolute;left:54%;top:64px;width:9px;height:9px;border-radius:50%;background:rgba(155,89,182,.75);box-shadow:0 0 0 3px rgba(155,89,182,.16)\"></div><div style=\"position:absolute;left:68%;top:64px;width:9px;height:9px;border-radius:50%;background:rgba(155,89,182,.75);box-shadow:0 0 0 3px rgba(155,89,182,.16)\"></div><div style=\"position:absolute;left:82%;top:64px;width:9px;height:9px;border-radius:50%;background:rgba(155,89,182,.75);box-shadow:0 0 0 3px rgba(155,89,182,.16)\"></div><div style=\"position:absolute;left:12%;top:38px;right:20%;height:1px;background:rgba(155,89,182,.30)\"></div><div style=\"position:absolute;left:12%;top:68px;right:20%;height:1px;background:rgba(155,89,182,.30)\"></div><div style=\"position:absolute;left:0;right:0;bottom:9px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#9b59b6\">REPLACEMENT: AS AVAILABLE</div></div>",
+        "dc": 5,
+        "onRecord": "An operating schedule for the emitter network. Twelve nodes; node one is Aegis Command and the remaining stations are not named on this copy. Output is given in emitter-hours, and there is a fourth column headed throughput. The purpose note states that suppression is continuous and that interruption permits recovery in the target population. The throughput note defines throughput as units consumed per operating day, with replacement drawn from detained population as available. [[roll:4|Read the two notes together|suppression must be continuous, continuity requires consumption, and consumption is replaced from the cells. This is not a prison that also runs a machine. It is a machine whose fuel is held in a prison attached to it.|the notes are separate operational remarks and reading them as one system overstates the document.]]",
+        "analysis": "## Somebody had to choose a word for the thing in column four\n\nThey chose *throughput*. Waluigi has decided that this single word is the most revealing thing the Iron Legion ever wrote about itself, and this exhibit exists to explain why.\n\n### What the grid is for\n\nTwelve nodes hold a frequency in the air, and the frequency paralyses dragons. The archive knows this independently: at ten in the morning on the day of Order 120 a horn sounded near Dragon Mountain and the dragon Ignis-Major dropped out of the sky mid-flight, and the Great Dragon's account is that the Dragon–Empire war itself is a fabrication maintained by exactly this technology.\n\nSo the war that justifies the Empire's military posture is produced by a machine, and the machine is powered by prisoners.\n\n[[roll:3|Ask why the other eleven stations are unnamed on this copy|because a copy that names them is a copy that maps the network. Redaction by omission is the cheapest security there is, and it tells you the schedule went to people who needed the timings but were not trusted with the geography.|the omission is likely clerical; working copies frequently carry only the local station.]]\n\n### The euphemism, examined\n\n*Units consumed per operating day.* Read that slowly.\n\nThe noun is *units*. The verb is *consumed*. The rate is *per operating day* — the phrasing used for coal, oil and lamp wick, commodities whose depletion is expected, planned for and budgeted. The people in the cells at Aegis Command appear in the Empire's own operating documents as a **consumable with a burn rate**.\n\nAnd then: *replacement is drawn from detained population as available.* Not *as required* — **as available**. The constraint on the machine is not how much power it needs. It is how many people the Empire currently holds.\n\n[[roll:5|Follow what 'as available' implies about arrests|if replacement is limited by availability rather than demand, then every additional prisoner increases capacity, and any policy producing more detainees is also an energy policy. The Supernatural Sovereignty Act and the Iron Mandate criminalised whole categories of people, the latter five and a half hours before Order 120. The archive has no document connecting arrest quotas to node output and Waluigi will not assert one. But the incentive is on this page, in the Empire's own hand.|the phrase is standard supply language and inferring an arrest policy from it goes well beyond the evidence.]]\n\n### Why this reframes the whole file\n\nEvery other document here describes a prison break. This one describes what the prisoners were for.\n\nRobinson and his dragon were captured at ten in the morning and brought to node one. Order 120 issued at half past two. For four and a half hours that afternoon the facility held, simultaneously, the fuel supply, the machine, the dragon the machine had shot down, and the man who had just learned why. Waluigi marks a preference and declines to write the conclusion: an institution does not order the disposal of its own fuel supply unless something has made the fuel more dangerous than the shortage.\n\nOne phrase in the purpose note has not been examined. [[roll:4|Read 'interruption permits recovery in the target population'|it concedes that the effect is not permanent and must be maintained, which means every dragon currently paralysed is being held that way continuously, right now, by consumption at twelve stations. The suppression is not a historical act. It is an ongoing draw, and the schedule exists because somebody has to keep paying it.|the note is a technical caveat about emitter performance and nothing more.]]",
+        "links": {
+          "events": [
+            "order_120"
+          ],
+          "items": [],
+          "characters": [
+            "robinson",
+            "general_ironhand"
+          ]
+        }
+      },
+      {
+        "id": "ex_tl_two_returns",
+        "propId": "prop_tl_two_returns",
+        "session": "s_tl_order120",
+        "icon": "⚖️",
+        "kind": "ledger",
+        "category": "contradiction",
+        "title": "Two Casualty Returns for One Afternoon, Neither Withdrawn",
+        "secured": "Both returns as filed",
+        "custody": "Archive — copies of both",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:radial-gradient(circle at 50% 40%,rgba(46,204,113,.10),transparent 70%),repeating-linear-gradient(135deg,rgba(255,255,255,.02) 0 8px,transparent 8px 16px)\"><div style=\"position:absolute;left:8%;top:22px;width:38%;height:80px;border:1px solid rgba(46,204,113,.5);border-radius:6px\"></div><div style=\"position:absolute;right:8%;top:22px;width:38%;height:80px;border:1px solid rgba(231,76,60,.5);border-radius:6px\"></div><div style=\"position:absolute;left:50%;top:22px;width:1px;height:80px;background:rgba(255,255,255,.28)\"></div><div style=\"position:absolute;left:14%;top:48px;font-size:15px;font-weight:800;color:#2ecc71\">12 · 32</div><div style=\"position:absolute;right:14%;top:48px;font-size:15px;font-weight:800;color:#e74c3c\">3 · 67</div><div style=\"position:absolute;left:0;right:0;bottom:9px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#f1c40f\">SAME DAY · SAME BUILDING</div></div>",
+        "dc": 6,
+        "onRecord": "Two casualty returns describing the same engagement, at the same facility, on the same afternoon. Return A: 12 of their own killed, 17 recaptured, 32 of the enemy dead, 158 escaped, assessed a decisive victory. Return B: 3 missing, 67 enemy dead, 150 rioted, facility damaged. No reconciliation is on file and no amending return has been received against either document. [[roll:4|Establish that they cannot both be right|thirty-five enemy dead separate the two returns, and twelve killed is not a rounding of three missing. These are not two estimates of one number. They are two incompatible accounts of one afternoon, and the archive holds both as filed.|returns compiled in different offices routinely differ and this variance is within what confusion explains.]]",
+        "analysis": "## The centrepiece, and the reason this file was rebuilt\n\nWaluigi will state the thesis of the whole case here, because this is the exhibit that carries it: **an atrocity whose own paperwork cannot agree on the body count.** Not a mystery about what happened, but a documented failure of the institutions that were supposed to record it, preserved in two sheets that were never reconciled and never withdrawn.\n\n### Where they disagree\n\nOwn losses: twelve killed against three missing. *Killed* and *missing* are not the same claim — one asserts bodies, the other asserts absence, and an office that has bodies does not write missing.\n\nEnemy losses: thirty-two against sixty-seven. More than double.\n\nParticipants: a hundred and fifty-eight escaped against a hundred and fifty rioted. These are the closest figures on the sheet, and even they describe different events — escaping and rioting are not the same act, and only one of them implies anybody got out.\n\nAssessment: decisive victory against facility damaged.\n\n[[roll:5|Ask which return an institution files upward|the one that makes the filer's position defensible. A facility that has just lost its prisoners reports damage; a movement that has just recovered its people reports a victory. Neither office is necessarily lying. Both are answering the question their superiors will actually ask, and the two questions are different.|the direction of filing cannot be determined and speculating about motive is not analysis.]]\n\n### The two framings of half past two\n\nThe archive holds two accounts of the same clock time that are irreconcilable as written. One says every prisoner was executed and calls the day a catastrophic failure. The other says a hundred and fifty-eight people escaped and calls it a decisive victory.\n\nWaluigi has been asked more than once to resolve this and declines. The refusal is the position, not an evasion of it, and here is the reasoning so that others may disagree with it properly.\n\nAn order to execute everyone and an escape by a hundred and fifty-eight people are not mutually exclusive if the escape was already running when the order was issued — and the timings say it was, because the riot began at half past two while the council's response division was not tabled until 14:45. It is entirely possible that Order 120 was carried out against everybody it could still reach, that the number it could still reach was small, and that both offices then described the same afternoon truthfully from opposite ends of it.\n\n[[roll:6|Consider what neither return contains|a nominal roll. Neither document names a single casualty. Twelve killed or three missing, thirty-two dead or sixty-seven, and not one name on either sheet. An archive can argue about numbers forever precisely because nobody was ever required to write down who they were.|both returns are summary strength documents and nominal rolls are compiled separately as a matter of course.]]\n\n### What the file therefore says\n\nWaluigi marks a preference: Return A is the more circumstantial document, because it carries a recapture figure, and offices that invent victories do not usually invent seventeen people going back into cells.\n\nWaluigi declines to write the conclusion. Both returns were filed. Neither was withdrawn. The archive's job is to hold them both open, and to make certain that anybody quoting one of them knows the other exists.\n\nOne feature is common to both sheets and deserves the last word. [[roll:4|Note that both returns were preserved|neither was destroyed, and destroying the inconvenient one would have been trivial for either office. Two irreconcilable accounts survive because somebody, on both sides, filed rather than burned. The archive exists at all because bureaucracies keep paper even when the paper convicts them.|the survival of both documents is an accident of filing and carries no significance.]]",
+        "links": {
+          "events": [
+            "order_120"
+          ],
+          "items": [],
+          "characters": [
+            "general_ironhand",
+            "speaker_l",
+            "captain_fernback"
+          ]
+        }
+      },
+      {
+        "id": "ex_tl_boiler",
+        "propId": "prop_tl_boiler_log",
+        "session": "s_tl_grid",
+        "icon": "🔧",
+        "kind": "ledger",
+        "category": "forensics",
+        "title": "Boiler House Inspection — The Wall Came Down on Long Service Medals",
+        "secured": "Engineering, post-incident",
+        "custody": "Archive — copy",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:radial-gradient(circle at 50% 40%,rgba(46,204,113,.10),transparent 70%),repeating-linear-gradient(135deg,rgba(255,255,255,.02) 0 8px,transparent 8px 16px)\"><div style=\"position:absolute;left:18%;top:26px;width:64px;height:64px;border-radius:8px;border:1px solid rgba(230,126,34,.55);background:rgba(230,126,34,.10)\"></div><div style=\"position:absolute;left:30%;top:18px;width:14px;height:14px;border-radius:50%;background:rgba(241,196,15,.85)\"></div><div style=\"position:absolute;left:30%;top:32px;width:3px;height:12px;background:rgba(241,196,15,.6)\"></div><div style=\"position:absolute;right:16%;top:30px;width:2px;height:58px;background:rgba(231,76,60,.6)\"></div><div style=\"position:absolute;right:12%;top:56px;width:34px;height:2px;background:rgba(231,76,60,.6);transform:rotate(-18deg)\"></div><div style=\"position:absolute;left:0;right:0;bottom:9px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#e67e22\">RELIEF PREVENTED · EAST WALL LOST</div></div>",
+        "dc": 4,
+        "onRecord": "A post-incident engineering inspection of the boiler house relief valves. Every valve inspected failed to lift. From each housing an obstruction was recovered: a metal disc with a ribbon attached, identified as Imperial service medals, long service and campaign issue, ribbons intact. With relief prevented, pressure vented through the east elevation and the wall was lost. [[roll:3|Note that the ribbons were intact|these were not scrap discs picked out of a bin. They were complete decorations, ribbon and all, pushed into valve housings by somebody who had a supply of them and saw no need to disguise what they were.|the ribbon detail is an identification note and carries no further meaning.]]",
+        "analysis": "## The fortress was breached with its own decorations\n\nWaluigi will not pretend to neutrality about this exhibit. It is the most satisfying document in the archive, and the analysis will try to earn that reaction rather than merely express it.\n\n### The mechanism\n\nA relief valve exists to fail safe. Pressure rises, the valve lifts, steam vents, nothing explodes. It is the one component in a boiler house whose entire purpose is preventing catastrophe, and it is designed to work without human intervention precisely because humans cannot be relied on in the seconds available.\n\nJam the valves and you have not sabotaged the boiler. You have **weaponised** it. The steam still arrives; it simply has nowhere lawful to go, so it leaves through whatever is weakest — which proved to be the east elevation. The saboteur needed no explosives. The Empire had already installed tons of stored energy and helpfully surrounded it with a wall.\n\n[[roll:4|Ask why a disc was the right shape for the job|because a relief valve seats on a circular face, and a flat disc of roughly the right diameter will hold against rising pressure instead of being blown clear. This was not vandalism with whatever came to hand. Somebody knew the seat dimension and chose an object that matched it.|any small object jammed into a mechanism will foul it and the choice of a disc is coincidental.]]\n\n### The choice of object\n\nHere the exhibit stops being engineering.\n\nThere were presumably other flat metal discs inside an Imperial fortress. Coins. Washers. Blanks. What went into the valves were **medals for long and faithful service to the Empire**, ribbons still attached, in enough quantity to do every valve in the house.\n\nWaluigi has considered whether this was practical rather than symbolic — whether medals were simply what the saboteur could get. That reading does not survive the detail about the ribbons. Somebody improvising strips the ribbon off, because loose material can foul the seat or hang visibly from the housing. Leaving them attached is a decision, and the only thing it buys is that whoever opened the valve afterwards would know exactly what they were looking at.\n\n[[roll:5|Consider who has a drawer full of Imperial service medals|somebody who served, or somebody with access to the possessions of people who did. The archive cannot establish which from this document, and the distinction matters enormously: the first is a soldier's statement about their own service, the second is a prisoner's statement about their captors. Waluigi notes that the escape was organised from inside by a man who had let himself be captured, and leaves the inference to the reader.|the provenance is unrecoverable and speculation adds nothing to the engineering finding.]]\n\n### Where it sits in the sequence\n\nThe bread produced the shrinking. The drains produced the movement. The moss produced the navigation. This produced the **breach and the blinding** — steam through the east wall, drones and snipers staring into a white wall of it, and a hundred and fifty-eight people going over ziplines and off a cliff into water.\n\nFour documents, four stages, one supply chain. Speaker L beat a fortress with logistics, and the boiler house is where the logistics became visible to the naked eye.\n\nA final point about the inspection itself. [[roll:3|Ask why the obstructions were itemised rather than discarded|because an engineer inspecting a failure records what caused it, without regard to what the finding implies. This report was written by somebody doing their job properly, and in doing it properly they preserved the only physical evidence that the breach was sabotage rather than an accident.|the itemisation is routine and inspectors record recovered debris as a matter of course.]]",
+        "links": {
+          "events": [
+            "order_120"
+          ],
+          "items": [],
+          "characters": [
+            "speaker_l"
+          ]
+        }
+      },
+      {
+        "id": "ex_tl_noki",
+        "propId": "prop_tl_noki_consignment",
+        "session": "s_tl_grid",
+        "icon": "🌊",
+        "kind": "letter",
+        "category": "logistics",
+        "title": "Consignment Note — Freight That Only Makes Sense in Hindsight",
+        "secured": "Carrier's copy, river frontage",
+        "custody": "Archive — copy",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:radial-gradient(circle at 50% 40%,rgba(46,204,113,.10),transparent 70%),repeating-linear-gradient(135deg,rgba(255,255,255,.02) 0 8px,transparent 8px 16px)\"><div style=\"position:absolute;left:14%;top:62px;width:7px;height:7px;border-radius:50%;background:rgba(52,152,219,.7);box-shadow:0 0 6px 2px rgba(52,152,219,.30)\"></div><div style=\"position:absolute;left:23%;top:68px;width:7px;height:7px;border-radius:50%;background:rgba(52,152,219,.7);box-shadow:0 0 6px 2px rgba(52,152,219,.30)\"></div><div style=\"position:absolute;left:32%;top:62px;width:7px;height:7px;border-radius:50%;background:rgba(52,152,219,.7);box-shadow:0 0 6px 2px rgba(52,152,219,.30)\"></div><div style=\"position:absolute;left:41%;top:68px;width:7px;height:7px;border-radius:50%;background:rgba(52,152,219,.7);box-shadow:0 0 6px 2px rgba(52,152,219,.30)\"></div><div style=\"position:absolute;left:50%;top:62px;width:7px;height:7px;border-radius:50%;background:rgba(52,152,219,.7);box-shadow:0 0 6px 2px rgba(52,152,219,.30)\"></div><div style=\"position:absolute;left:59%;top:68px;width:7px;height:7px;border-radius:50%;background:rgba(52,152,219,.7);box-shadow:0 0 6px 2px rgba(52,152,219,.30)\"></div><div style=\"position:absolute;left:68%;top:62px;width:7px;height:7px;border-radius:50%;background:rgba(52,152,219,.7);box-shadow:0 0 6px 2px rgba(52,152,219,.30)\"></div><div style=\"position:absolute;left:77%;top:68px;width:7px;height:7px;border-radius:50%;background:rgba(52,152,219,.7);box-shadow:0 0 6px 2px rgba(52,152,219,.30)\"></div><div style=\"position:absolute;left:86%;top:62px;width:7px;height:7px;border-radius:50%;background:rgba(52,152,219,.7);box-shadow:0 0 6px 2px rgba(52,152,219,.30)\"></div><div style=\"position:absolute;left:12%;top:30px;right:12%;height:16px;border-radius:8px;border:1px dashed rgba(52,152,219,.45)\"></div><div style=\"position:absolute;left:0;right:0;bottom:9px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#3498db\">LAID IN DARKNESS · WEEKS EARLY</div></div>",
+        "dc": 4,
+        "onRecord": "A carrier's copy of a consignment note for goods received at the river frontage. Consignee not stated. Three items: living luminous moss, viable, to be kept damp; used cotton sheeting, serviceable; braided line, new. The handling note instructs that the moss trays be laid rather than stacked, placed in darkness and left undisturbed to establish. A standing arrangement holds submersible craft at the river frontage on call, with no date specified. [[roll:3|Ask what 'no date specified' costs the carrier|an open-ended commitment to keep craft available indefinitely, which is expensive and only worth agreeing to if the payer is credible and the cargo is people. Carriers do not hold submersibles on spec for freight.|an undated standing arrangement is a common commercial term and implies nothing about the cargo.]]",
+        "analysis": "## Every item is useless on the day it arrived\n\nThis is the exhibit Waluigi would show first to anybody who thinks the Aegis Command escape was improvised. It is a delivery note. It contains no weapons, no tools, nothing that looks like an escape. And read correctly it is the plan itself, filed as freight, weeks before anybody needed it.\n\n### Moss\n\nThe handling instruction is the tell: *laid, not stacked; placed in darkness; left undisturbed to establish.*\n\nLuminous moss is not a lamp. It is a living organism that must be installed and then given time. Somebody put glowing plants into dark places and walked away, knowing they would be useless for weeks and indispensable on a day not yet chosen. When prisoners came down through the floor drains at half past two the route was already lit — not by anything they carried, which could be dropped or confiscated, but by the walls, which nobody thinks to inspect.\n\n[[roll:4|Consider the alternative to moss|carried light. A lamp or torch is a thing a shrunken prisoner cannot hold, a thing a guard can take away, a thing that goes out, and a thing that reveals whoever carries it. Moss is none of those. It is navigation that cannot be confiscated, and choosing it means the planner had already worked out that the escapees would be very small and carrying nothing at all.|the choice of moss is opportunistic and reflects whatever the smugglers happened to supply.]]\n\n### Sheeting and line\n\nUsed cotton sheeting and braided line arrive on the same note. In the event, prisoners left the upper works on bedsheet ziplines. The archive has the outcome; this document has the requisition, and the interval between them is the whole argument.\n\nNote also that the sheeting is *used*. New linen consigned to a river frontage is a purchase; used linen is material that will not be missed and cannot be traced to a supplier. Even the second-hand nature of the goods is operational.\n\n[[roll:5|Ask what the note does not contain|any weapon, any tool, any explosive, and any name. There is no consignee. A note with no consignee cannot be worked backwards to a person, which means the most incriminating document in the escape was designed from the outset to be found and to be useless once found.|the missing consignee is a clerical omission of the kind common on carrier's copies.]]\n\n### The submersibles\n\nA standing arrangement, craft held on call, no date. This is the line that converts a delivery note into a conspiracy.\n\nEvery other item could conceivably be explained away. Moss is decorative, sheets are sheets, line is line. Nobody keeps submersibles waiting at a river frontage beneath an Imperial fortress on an open-ended arrangement for innocent reasons. The escapees dived fifty feet off a cliff into the water and were picked up, and this note establishes that the pickup was contracted before there was anything to pick up.\n\n### The thesis, stated plainly\n\nThe old version of this file argued that liberation is a logistics problem. It was right about that and wrong about everything else. Here is the version the evidence supports: **the escape from Aegis Command was a logistics operation, and it was won at the point of delivery, weeks early, in freight nobody inspected.** Bread, gas, drains, moss, medals, boilers, submersibles. Speaker L did not out-fight the Iron Legion. He out-supplied it.\n\nOne last look at what kind of document this is. [[roll:4|Consider that this is the carrier's copy, not the consignee's|the consignee's copy would name the consignee. This one survives precisely because it is the version held by the party with no reason to destroy it, which is how the most incriminating paper in the escape ended up in an archive: not through investigation, but through ordinary commercial filing by somebody who was simply paid to deliver.|carrier's copies are the commonest surviving form of consignment note and this proves nothing about intent.]]",
+        "links": {
+          "events": [
+            "order_120"
+          ],
+          "items": [],
+          "characters": [
+            "speaker_l"
+          ]
+        }
+      }
+    ]
+  }
+]

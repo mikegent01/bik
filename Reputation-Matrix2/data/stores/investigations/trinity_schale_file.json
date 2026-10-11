@@ -1,0 +1,176 @@
+[
+  {
+    "id": "trinity_schale_file",
+    "codename": "TRINITY SCHALE INTAKE",
+    "title": "What They Were Not Told",
+    "subtitle": "An acronym explained by accident, a programme discovered by being seen, and two questions nobody answered",
+    "status": "active",
+    "classification": "Open — accreting",
+    "arcIds": [
+      "kivotos_trinity"
+    ],
+    "opened": "5 Aethel, 1040 BF",
+    "lastFiled": "5 Aethel, 1040 BF — opened on the intake session",
+    "archivist": "Waluigi, Auditor-General",
+    "icon": "🎓",
+    "accent": "#4bb3ff",
+    "imageCaption": "Classroom 2-B, the morning the class found out what it was attached to. Waluigi has never been to Kivotos and has opinions about it anyway.",
+    "hook": "Eleven students found out they belong to an operational structure from a man who had not planned to tell them. What else has nobody bothered to mention?",
+    "plainSummary": [
+      {
+        "point": "The class was told what it is because one confused newcomer asked.",
+        "detail": "Nobody who had been at Trinity for years knew what SCHALE stood for. The disclosure was an accident of somebody not knowing they were supposed to already know."
+      },
+      {
+        "point": "The Equestrian liaison programme was not disclosed. It was spotted.",
+        "detail": "A diplomatic exchange with Canterlot was running through the school quietly. The advisor's stated problem was not that students were uninformed — it was that they saw."
+      },
+      {
+        "point": "Two questions were asked out loud and neither was answered.",
+        "detail": "Whether SCHALE does anything for students at the bottom of every list, and whether any of it amounts to purpose. Both audible, both heard, both met with a deployment rotation."
+      }
+    ],
+    "background": [
+      {
+        "id": "the_roll_call_at_trinity",
+        "kicker": "the morning the archive first stood inside Kivotos",
+        "why": "Kivotos had been in the record for years as Remi Akamatsu's birthplace, a wallet currency and a calendar, with no interior ever filed. Classroom 2-B is the first room in that city the archive has been inside, and everything in this file comes out of one morning in it."
+      },
+      {
+        "id": "remi_akamatsu_full_backstory",
+        "kicker": "the archive's only other Kivotan",
+        "why": "Born in Kivotos Residential District Seven and schooled at Gehenna Academy, Remi is the one person in the wider record who could say whether any of what Trinity told its students is normal for that city."
+      }
+    ],
+    "threads": [
+      {
+        "id": "th_missing_advisor",
+        "title": "The previous advisor of 2-B is unaccounted for",
+        "state": "open",
+        "text": "The replacement made a joke on his first morning about the last advisor having *mysteriously disappeared*, in air quotes. Eleven students heard it. Not one of them asked a follow-up question, and the record shows no surprise from anybody.\n\n**In plain terms:** an adult vanished from that classroom, the whole class already knew, and the new man thought it was funny enough to open with."
+      },
+      {
+        "id": "th_liaison_breach",
+        "title": "A diplomatic programme was run quietly through a school and got seen",
+        "state": "open",
+        "text": "The Kivotos–Canterlot liaison exchange was intended to be handled without announcement. Students observed personnel walking the school openly. The advisor identified the failure as a security-protocol lapse, opened an internal query, and instructed students to report further sightings to him directly rather than to friends or social media.\n\n**In plain terms:** the fix being applied is to the visibility, not to the secrecy."
+      },
+      {
+        "id": "th_supplementary",
+        "title": "Students classified supplementary may not be covered by anything",
+        "state": "open",
+        "text": "Shirasu Azusa asked, in a full classroom, whether SCHALE does anything for people already at the bottom of every list, and then said she is not on any list at all. Nobody contradicted her and nobody answered her. The classification exists, it was named aloud by the person it applies to, and its practical effect is undocumented.\n\n**In plain terms:** a child told a room she does not count, and the institution's silence was the most informative thing it said all morning."
+      },
+      {
+        "id": "th_resistance_characterisation",
+        "title": "The enemy has been characterised but never evidenced",
+        "state": "open",
+        "text": "The Resistance was described to the class in a single sentence — criminals who want to tear down everything Kivotos stands for — with no evidence offered and none available to any student present. The archive files this as the advisor's characterisation, attributed and dated, not as a finding.\n\n**In plain terms:** the class was told who the enemy is before it was told anything that would let it check."
+      }
+    ],
+    "leads": [
+      {
+        "id": "lead_find_previous_advisor",
+        "title": "Account for the previous advisor of Classroom 2-B",
+        "state": "open",
+        "priority": "critical",
+        "objective": "Establish what happened to the advisor who held Classroom 2-B before the current one, and why his disappearance was common enough knowledge that a joke about it needed no explanation.",
+        "why": "A teacher attached to a SCHALE operational classroom is gone, the students treat it as old news, and the replacement opened his first morning by joking about it. Either the school knows and has not told the class, or the class knows something the school has not written down. The roll sheet shows the new man arrived with names and no briefing, which suggests nobody told him either.",
+        "exhibits": [
+          "ex_trinity_roll_sheet"
+        ]
+      },
+      {
+        "id": "lead_liaison_scope",
+        "title": "Obtain the terms of the Kivotos–Canterlot liaison agreement",
+        "state": "open",
+        "priority": "high",
+        "objective": "Establish what the liaison programme actually permits, who authorised it, and what the internal query into the visibility failure concludes.",
+        "why": "The archive has a diplomatic programme running through a school that was never announced to the people in the school, and a conduct memo whose only recorded failure is that students noticed. The agreement's terms decide whether an unbriefed student body was an oversight or the design, and the query has no stated deadline, which is how queries end.",
+        "exhibits": [
+          "ex_liaison_memo"
+        ]
+      },
+      {
+        "id": "lead_supplementary_status",
+        "title": "Establish what the supplementary classification actually does",
+        "state": "open",
+        "priority": "high",
+        "objective": "Find out what 'supplementary student' means at Trinity in practice: what it changes about support, deployment, records and standing.",
+        "why": "Azusa named the classification herself and stated that it means she does not count for much either way. Nobody in the room disputed it, including the adult whose job would be to. If she is right, there is a category of student inside a SCHALE-attached classroom that the structure does not cover, and the archive cannot assess the deployment rotation without knowing who it leaves out.",
+        "exhibits": [
+          "ex_schale_pamphlet"
+        ]
+      },
+      {
+        "id": "lead_tsurugi_clearance",
+        "title": "Establish the basis of Kenzaki Tsurugi's weapons clearance",
+        "state": "open",
+        "priority": "medium",
+        "objective": "Determine who issued Tsurugi's existing clearance, under what training, and why it was disclosed to her classmates without her consent.",
+        "why": "A student in Classroom 2-B holds firearms clearance predating this advisor, and the class learned of it because he used it to punctuate an argument ninety seconds before writing NEED-TO-KNOW on the board. The pamphlet says restricted equipment follows certified instruction, so a certifying body exists and has a record. She also argued against arming the class, which makes her the only person present who treated the clearance as a responsibility.",
+        "exhibits": [
+          "ex_schale_pamphlet"
+        ]
+      }
+    ],
+    "sessions": [
+      {
+        "id": "s_trinity_roll_call",
+        "label": "The Roll Call at Trinity: a new advisor, eleven names, and the word nobody was supposed to explain",
+        "date": "5 Aethel, 1040 BF — one continuous morning in Classroom 2-B",
+        "event": "the_roll_call_at_trinity"
+      }
+    ],
+    "relatedEvents": [
+      "the_roll_call_at_trinity"
+    ],
+    "exhibits": [
+      {
+        "id": "ex_trinity_roll_sheet",
+        "propId": "prop_trinity_2b_roll_sheet",
+        "session": "s_trinity_roll_call",
+        "icon": "📋",
+        "kind": "note",
+        "category": "record",
+        "title": "A list of names handed to a man with no faces",
+        "secured": "5 Aethel, 1040 BF · Classroom 2-B, advisor's clipboard",
+        "custody": "Advisor's working copy; archive transcription",
+        "visual": "<div role=\"img\" aria-label=\"A clipboard roll sheet with eleven ticked lines\" style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(150deg,rgba(236,232,222,.96),rgba(206,200,188,.94));border:1px solid rgba(90,80,64,.34)\"><div style=\"position:absolute;left:34%;right:34%;top:6px;height:12px;border-radius:3px;background:rgba(70,62,52,.7)\"></div><div style=\"position:absolute;left:14%;right:14%;top:28px;bottom:26px;background:rgba(252,250,246,.95);box-shadow:0 0 0 1px rgba(90,80,64,.2) inset\"></div><div style=\"position:absolute;left:19%;right:30%;top:40px;height:5px;background:rgba(80,72,60,.5)\"></div><div style=\"position:absolute;left:19%;right:38%;top:54px;height:5px;background:rgba(80,72,60,.42)\"></div><div style=\"position:absolute;left:19%;right:26%;top:68px;height:5px;background:rgba(80,72,60,.42)\"></div><div style=\"position:absolute;left:19%;right:44%;top:82px;height:5px;background:rgba(80,72,60,.42)\"></div><div style=\"position:absolute;right:22%;top:64px;width:16px;height:16px;border-left:3px solid rgba(160,40,36,.8);border-bottom:3px solid rgba(160,40,36,.8);transform:rotate(-46deg)\"></div><div style=\"position:absolute;left:0;right:0;bottom:6px;text-align:center;font-size:10px;letter-spacing:.14em;font-weight:800;color:#6b5f4c\">ONE ENTRY CHECKED AGAINST THE WRONG STUDENT</div></div>",
+        "onRecord": "Eleven enrolled, eleven present. The register was read in listed order by an advisor on his first morning. One name was checked against the wrong student and corrected by the student concerned, loudly, while standing.",
+        "dc": 2,
+        "analysis": "## The error is the exhibit\n\nAny register can be misread. What matters is *how* this one was misread: the advisor reached a name he did not recognise, looked around for someone matching it, picked the nearest unfamiliar face, and ticked it with a confident flick of the wrist. He was working from names with no faces attached. [[roll:3|nobody briefed the replacement either|a school that hands a new advisor a bare list, with no photographs and no notes on a class it knows is unusual, has not prepared him — which puts him on the same footing as the students he is about to inform|first-day registers are routinely bare, and reading one badly is a mistake rather than evidence of institutional neglect]].\n\n## Read the attendance column sideways\n\nOne student answered inaudibly and was recorded as present by assumption. One was found hiding behind a desk. One did not raise a hand at all. One had to prompt twice before being found on the sheet. That is four of eleven whose presence the paperwork records more confidently than the room did. [[roll:4|the sheet flatters the morning|the register shows a clean eleven-for-eleven, which is exactly the document that will be filed upward, and it preserves none of the four irregularities that an advisor would want to know about next week|a register records attendance and was never meant to record manner, and asking it to is asking the wrong form for the wrong thing]].\n\nWaluigi's note for the file: this sheet will be correct forever and useful to nobody."
+      },
+      {
+        "id": "ex_schale_pamphlet",
+        "propId": "prop_schale_pamphlet_p6",
+        "session": "s_trinity_roll_call",
+        "icon": "📄",
+        "kind": "note",
+        "category": "policy",
+        "title": "Page six, and the five pages in front of it",
+        "secured": "5 Aethel, 1040 BF · produced from Ibaragi Yoshimi's bag, crumpled",
+        "custody": "Ibaragi Yoshimi",
+        "visual": "<div role=\"img\" aria-label=\"A crumpled pamphlet open at its last page\" style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(120deg,rgba(228,226,232,.96),rgba(198,198,208,.93));border:1px solid rgba(70,74,96,.3)\"><div style=\"position:absolute;left:10%;right:10%;top:16px;bottom:16px;background:rgba(250,250,253,.96);box-shadow:0 0 0 1px rgba(70,74,96,.18) inset\"></div><div style=\"position:absolute;left:50%;top:16px;bottom:16px;width:1px;background:rgba(70,74,96,.3)\"></div><div style=\"position:absolute;left:15%;right:56%;top:30px;height:6px;background:rgba(60,66,92,.62)\"></div><div style=\"position:absolute;left:15%;right:60%;top:44px;height:4px;background:rgba(90,96,120,.4)\"></div><div style=\"position:absolute;left:15%;right:54%;top:54px;height:4px;background:rgba(90,96,120,.4)\"></div><div style=\"position:absolute;left:54%;right:15%;top:30px;height:6px;background:rgba(150,40,36,.66)\"></div><div style=\"position:absolute;left:54%;right:20%;top:44px;height:4px;background:rgba(90,96,120,.45)\"></div><div style=\"position:absolute;left:54%;right:26%;top:54px;height:4px;background:rgba(90,96,120,.45)\"></div><div style=\"position:absolute;left:0;right:0;bottom:6px;text-align:center;font-size:10px;letter-spacing:.14em;font-weight:800;color:#4a5070\">NEED-TO-KNOW · CLAUSE 6.2</div></div>",
+        "onRecord": "Six pages. Five cover uniform standards, attendance, club registration, cafeteria hours and the academy anthem. Page six covers field rotation at advisor discretion, need-to-know information handling, and restricted equipment issued only under existing clearance.",
+        "dc": 3,
+        "analysis": "## The document is honest and almost nobody read it\n\nEverything the class was shocked to learn is printed on page six of a pamphlet they were all issued. Field rotations at advisor discretion. Need-to-know. Restricted equipment for the already-cleared. [[roll:3|the pamphlet is a disclosure that was designed not to land|putting the operational terms behind five pages of cafeteria hours is a way of having disclosed something without anyone being informed by it, and the single student who reached page six had to be unusually stubborn to do it|a short pamphlet with the substance at the back is ordinary document design and implies no intent whatever]].\n\n## Clause 6.3 has a body attached to it\n\nRestricted equipment follows *separate certified instruction* by *certified personnel*. That clause is not hypothetical — there is a student in Classroom 2-B who has already been through it. [[roll:4|somebody has a file the archive has not seen|a clearance issued under 6.3 implies an instructor, a certification and a record, none of which are at Trinity and none of which this advisor appeared to have read before he announced the clearance to the room|clearance may predate the classroom entirely and its paperwork may sit with a body that has no obligation to a school]].\n\n**And the plain thing, said once:** the only student who had read the terms was the one who refused to join anything and spent the whole session waiting for a reason to say she had done the reading. The institution's best-informed member was the one it had given the least reason to care."
+      },
+      {
+        "id": "ex_liaison_memo",
+        "propId": "prop_kivotos_canterlot_liaison_memo",
+        "session": "s_trinity_roll_call",
+        "icon": "🐴",
+        "kind": "order",
+        "category": "diplomatic",
+        "title": "The programme whose only recorded failure is being noticed",
+        "secured": "5 Aethel, 1040 BF · described in open class after a student question",
+        "custody": "Joint Liaison Office; described, not produced",
+        "visual": "<div role=\"img\" aria-label=\"A conduct memo with a visibility clause flagged\" style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(135deg,rgba(226,232,240,.96),rgba(196,206,222,.94));border:1px solid rgba(60,80,110,.32)\"><div style=\"position:absolute;left:12%;right:12%;top:18px;height:8px;background:rgba(50,74,112,.7)\"></div><div style=\"position:absolute;left:12%;right:34%;top:38px;height:5px;background:rgba(70,92,126,.5)\"></div><div style=\"position:absolute;left:12%;right:46%;top:52px;height:5px;background:rgba(70,92,126,.42)\"></div><div style=\"position:absolute;left:10%;right:10%;top:68px;height:26px;border:1px dashed rgba(150,40,36,.6);background:rgba(190,80,70,.12)\"></div><div style=\"position:absolute;left:14%;right:40%;top:76px;height:5px;background:rgba(150,40,36,.66)\"></div><div style=\"position:absolute;left:0;right:0;bottom:8px;text-align:center;font-size:10px;letter-spacing:.14em;font-weight:800;color:#3d5878\">HANDLING · QUIET</div></div>",
+        "onRecord": "A small-group cultural exchange between Kivotos and Canterlot, intended to build goodwill in advance of any need for formal coordination. Handling: quiet, not announced to student bodies. Liaison personnel are guests, escorted, scheduled outside general circulation. Status: visibility failure reported.",
+        "dc": 4,
+        "analysis": "## Read the status line before anything else\n\nThe programme has one logged failure and it is **visibility**. Not *students were not informed*. Not *escort schedule not maintained*. The incident is that somebody looked up in a corridor. [[roll:3|the fix is aimed at the seeing, not the secrecy|the advisor's instruction after the admission was to report future sightings to him directly rather than to friends or social media, which tightens observation reporting while changing nothing about what the school is told|an unannounced diplomatic programme is routine practice, and asking students not to broadcast guests' movements is ordinary protective handling rather than suppression]].\n\n## Two problems that met at a school\n\nThe advisor conceded the structural point when a student made it: the Resistance is an internal matter, the liaisons are external diplomacy, and the two intersecting at this school without coordination is — his words — exactly why SCHALE exists. [[roll:5|the intersection may not be coincidence|a quiet Canterlot exchange routed through the same academy whose classroom is being attached to operational rotations is a lot of significance for one building to hold by accident|Trinity is a large and prominent school, and the boring explanation for two programmes meeting there is that everything in Kivotos meets there]].\n\n## The unnamed someone\n\nTwice the advisor attributed failure to a *someone* who dropped a ball, and he named neither. The archive notes that the previous advisor of this same classroom is also an unnamed someone. Waluigi is keeping a column. It has two entries, both from the same hour, and no institution has yet volunteered a name for either. WAH."
+      }
+    ]
+  }
+]

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Read/write the four filing stores as world/date shards.
+"""Read/write the filing JSON stores as shards.
 
 Bundles (`data/events.json` etc.) stay for the static site — one fetch.
 Shards under `data/stores/` are what agents edit.
@@ -31,7 +31,17 @@ DATA = ROOT / "Reputation-Matrix2" / "data"
 STORES_DIR = DATA / "stores"
 MANIFEST_PATH = STORES_DIR / "manifest.json"
 
-KINDS = ("events", "characters", "locations", "battles")
+KINDS = (
+    "events", "characters", "locations", "battles",
+    "investigations", "commentaries", "articleAnalyses",
+)
+WORLD_KINDS = ("events", "characters", "locations", "battles")
+PER_ID_KINDS = ("investigations", "commentaries", "articleAnalyses")
+WRAPPER_KEYS = {
+    "investigations": "investigations",
+    "commentaries": "commentaries",
+    "articleAnalyses": "analyses",
+}
 WORLDS = ("material", "feyward", "shadeward", "mirror", "unsorted")
 SHARD_BYTES = 250_000
 
@@ -76,14 +86,43 @@ def bundle_path(kind: str) -> Path:
     return DATA / f"{kind}.json"
 
 
+def wrapper_key(kind: str) -> str:
+    return WRAPPER_KEYS.get(kind, kind)
+
+
 def rows_of(doc: Any, kind: str) -> list[dict]:
     if isinstance(doc, list):
         return [r for r in doc if isinstance(r, dict)]
     if isinstance(doc, dict):
-        inner = doc.get(kind) or doc.get("items")
+        inner = (doc.get(wrapper_key(kind)) or doc.get(kind)
+                 or doc.get("items") or doc.get("analyses"))
         if isinstance(inner, list):
             return [r for r in inner if isinstance(r, dict)]
+        if doc.get("id"):
+            return [doc]
     return []
+
+
+def readme_of(doc: Any) -> Any:
+    if isinstance(doc, dict):
+        return doc.get("_README")
+    return None
+
+
+def write_bundle(kind: str, rows: list[dict], readme: Any = None) -> None:
+    """Write the site bundle. Wrapped stores keep `_README` + inner key."""
+    path = bundle_path(kind)
+    wrap = WRAPPER_KEYS.get(kind)
+    if wrap:
+        doc: dict[str, Any] = {}
+        if readme is None and path.exists():
+            readme = readme_of(load_json(path))
+        if readme is not None:
+            doc["_README"] = readme
+        doc[wrap] = rows
+        path.write_text(dumps(doc), encoding="utf-8")
+        return
+    path.write_text(dumps(rows), encoding="utf-8")
 
 
 def _clp():
@@ -231,6 +270,13 @@ def _pack(groups: dict[str, list[dict]]) -> dict[str, list[dict]]:
 def assign_shard_keys(kind: str, records: list[dict],
                       loc_by_id, loc_by_name, name_keys) -> list[tuple[str, dict]]:
     """Return (relative shard key, record) in original order."""
+    if kind in PER_ID_KINDS:
+        out = []
+        for rec in records:
+            rid = str(rec.get("id") or "").strip() or "undated"
+            out.append((rid, rec))
+        return out
+
     classified: list[tuple[str, str, str, dict]] = []
     world_size: dict[str, int] = defaultdict(int)
     year_size: dict[tuple[str, str], int] = defaultdict(int)

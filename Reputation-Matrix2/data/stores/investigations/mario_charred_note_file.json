@@ -1,0 +1,717 @@
+[
+  {
+    "id": "mario_charred_note_file",
+    "codename": "ASH ON THE THRESHOLD",
+    "title": "The Farm Was Not the End",
+    "subtitle": "A charred note, three broken null cages, and a dead hero who may not have stayed dead",
+    "status": "active",
+    "classification": "Open — accreting",
+    "arcIds": [
+      "mario_disappearance"
+    ],
+    "opened": "4 Aethel, 1040 BF",
+    "lastFiled": "2 Aethel, 1035 BF (backfill) — the rot-zone at Star Hill: the fired pilot, the roof, the man with too many hands, and the notebook in a courier's satchel",
+    "archivist": "Waluigi, Auditor-General",
+    "icon": "🔥",
+    "accent": "#c46b32",
+    "imageCaption": "The note was burned decoratively. Waluigi resents decorative evidence.",
+    "hook": "The farm story used to have a timeline problem. The charred note replaces it with a resurrection problem.",
+    "plainSummary": [
+      {
+        "point": "The note does not confirm the eastern passage. It replaces it.",
+        "detail": "Years on a farm become three days, one death, and a waking afterward. That is not corroboration. That is a different story wearing one word of the old one."
+      },
+      {
+        "point": "Guild null cages allegedly failed three times in sequence.",
+        "detail": "If true, Mario is no longer merely missing. He is a procedural exception the Guild failed to contain on the page that claims to contain him."
+      },
+      {
+        "point": "The note wants four old files read as one wound.",
+        "detail": "Peach, the farm, the Mages' Guild, and the Star Fountain are forced onto one page. Even a forgery does that much honestly, because it reveals the writer's target list."
+      },
+      {
+        "point": "Somebody staged the paper physically as well as narratively.",
+        "detail": "The edges burned; the middle survived; the threshold kept the ash. The note was delivered to be discovered, not discarded."
+      },
+      {
+        "point": "The Promo Mario clipping is not a confirmed sighting of our Mario.",
+        "detail": "The Hollywood host learns the disappearance story from Waluigi's own article on a tablet. A counterpart, a performance and a promotional fabrication remain competing readings; nobody has authenticated the claimed photographs or souvenirs."
+      },
+      {
+        "point": "The newspaper's ending is not the ending.",
+        "detail": "The full account recovered the same evening reports a failed portal, a missing Luigi, a corrupted Mario out of a television, and a Wario Apparition dispersed by a flashlight. The clipping was a teaser; Waluigi filed the teaser and is amending the record."
+      },
+      {
+        "point": "Mario was alive in 1035 — the compound session proves it.",
+        "detail": "A cell photograph plus a same-night abduction by Wario's crew: Mario in Bowser's Mushroom Compound on 18 Harvestide 1035, then extracted to an unrecorded cell. The farm's death-and-waking sits inside a longer captivity, not at its end."
+      },
+      {
+        "point": "A second staged note exists, and its only reader is missing.",
+        "detail": "The courier's note was read once, by Luigi, on a collapsing bridge — and Luigi went over the lava falls carrying the reading. The file now holds one note it cannot trust and one note it cannot read."
+      },
+      {
+        "point": "Star Hill was flown to for Luigi and nothing about Luigi moved.",
+        "detail": "The pair crashed beside the clinic, met Mr. L in the open and in three copies, saw a road grow a mouth, and left on foot without seeing a patient. What changed hands was Waluigi's working notebook, taken at gunpoint by a courier who had an issued word for the hill — 'rot-zone' — and a route the archive does not have. The file reads the night as custody, not rescue."
+      }
+    ],
+    "background": [
+      {
+        "id": "star_fountain_reunion",
+        "kicker": "the reunion nobody can describe cleanly",
+        "why": "Mario and Luigi met at the Star Fountain in 1039 BF, embraced, flew together, and left the archive arguing over witness order and whether a third figure was present."
+      },
+      {
+        "id": "the_eastern_passage",
+        "kicker": "the farm story before the charred rewrite",
+        "why": "Waluigi's earlier farm file assembled merchants, journal fragments, and a death record into an impossible timeline. The new note keeps the farm and discards the years."
+      },
+      {
+        "id": "the_embassy_ambush_and_luigi_interrogation",
+        "kicker": "the first confession that the farm existed at all",
+        "why": "An emotional backseat confession from Luigi is where the farm entered the archive — the truth about Mario's disappearance on the farm, Harvestide 1035 BF. This new paper now tries to dictate what the farm meant."
+      },
+      {
+        "id": "the_lava_bridge_ambush_and_the_blue_luigi",
+        "kicker": "the night Mario was proved alive and Luigi was lost",
+        "why": "Two hours after the embassy interrogation, Waluigi tracked Luigi to Bowser's Mushroom Compound: a lava-bridge ambush, the nine seconds of Mister L, a yellow-caped courier's note that turned Luigi around mid-pursuit, and an impostor's capture — with Mario confirmed alive in a compound cell and extracted the same night to parts unknown."
+      }
+    ],
+    "brief": "**The short version.** An unsigned note burned neatly around the edges appeared at Waluigi's door before dawn and made the archive's least stable file worse.\n\nThe eastern farm used to be a timeline headache: too many claimed years between the Star Fountain reunion and the present day. The charred note solves that contradiction only by replacing the story entirely. According to the note, Mario reached the farm, lived there for three days, died there, woke up afterward, and later became something three Guild null cages could not hold.\n\nWaluigi is not accepting any of that merely because the note is dramatic. But dramatic lies still reveal where the liar wants the searchlight pointed. This file therefore treats the page in two ways at once: as an alleged confession and as a deliberate attempt to reorganize the Mario disappearance around Peach, the Guild, the farm, and the fountain all at once.\n\nThe archive's standing rule for this file is simple: do not ask first whether the note is true. Ask first what it is trying to replace.\n\n**Newspaper review — 5 Aethel, 1040 BF — provisional filing date.** The Promo Mario clipping adds a Hollywood host, a living Peach claimed offstage and a portal that sends two visitors home without Mario. It does not confirm either farm story. The host's grief follows a reading of Waluigi's own biography, so the archive must not count its own words as a new witness.\n\n**Compound session — 1035 record filed 6 Aethel, 1040 BF.** The embassy night did not end at the embassy. Two hours after Luigi slipped the backseat interrogation, Waluigi tracked him to Bowser's Mushroom Compound and walked into an ambush — and the night's wreckage holds the hardest Mario fact this file has ever carried: Mario was alive in the compound in 1035, photographed in a cell, abducted by Wario's crew the same night, and extracted to a cell whose location the record does not give. Whatever the farm did to him, it did not end him. The same night also produced a second staged paper — a courier's note, read once by Luigi and never seen again — and then lost the reader past the lava falls.",
+    "threads": [
+      {
+        "id": "th_three_days",
+        "title": "The farm story just lost several years",
+        "state": "open",
+        "text": "The earlier file broke because the farm required years the calendar would not supply. The charred note keeps the destination and throws away the duration. That is not a correction. It is a replacement narrative.\n\n**In plain terms:** someone looked at the same contradiction Waluigi did and chose not to solve it but to overwrite it."
+      },
+      {
+        "id": "th_null_cages",
+        "title": "If the cages truly failed, Guild procedure is no longer procedural",
+        "state": "open",
+        "text": "Three null-cage failures are either theatrical exaggeration or a direct statement that Mario's condition after the farm sits outside ordinary Guild containment. The file cannot live in the middle forever.\n\n**In plain terms:** either the note is bragging in fake legal language or the Mages' Guild has a problem it did not report."
+      },
+      {
+        "id": "th_performance",
+        "title": "Somebody wrote this to be found",
+        "state": "open",
+        "text": "Burned margins, untouched title, threshold placement, and confession-shaped pacing all point the same way: the note is performance art pretending to be recovered truth. Performance can still contain truth. It simply never arrives alone.\n\n**In plain terms:** the staging is part of the evidence, not a distraction from it."
+      },
+      {
+        "id": "th_promo_mario_identity",
+        "title": "A familiar face is not a route from the fountain",
+        "state": "open",
+        "text": "Darian asks whether the host is the missing Mario. The answer supplies a name, not a memory of the fountain or an account of how he reached Hollywood. The clipping also moves the disappearance to 955 BF, contradicting the later fountain record. A genuine journey could still have met a counterpart; a genuine counterpart would still not locate our Mario."
+      },
+      {
+        "id": "th_cut_at_the_farewell",
+        "title": "The paper stopped before the story did",
+        "state": "open",
+        "text": "The clipped ending sold a perfect return: sixty-second portal, charms, waving, goodbye. The recovered account records PORTAL FAILED and a missing brother. A source that cuts exactly at the moment a rescue becomes a problem is not an abridged source; it is a curated one.\n\n**In plain terms:** the farewell was the tell. I filed the farewell."
+      },
+      {
+        "id": "th_second_note",
+        "title": "Two notes, two stagings, five years apart",
+        "state": "open",
+        "text": "The charred note was burned decoratively and left to be found; the courier's note was folded once, smoke-darkened, delivered by hand at midnight, and read exactly once before vanishing with its reader. Different staging, same signature move: the paper arrives exactly where the auditor is standing, and the auditor never gets to keep it.\n\n**In plain terms:** somebody has been mailing Waluigi the truth in envelopes that dissolve, since 1035."
+      },
+      {
+        "id": "th_garden_above_fire",
+        "title": "A garden above fire is a place until it proves it is a metaphor",
+        "state": "open",
+        "text": "Luigi's recalled note turns the compound-night file from a missing-person search into a destination search. 'The star is not lost' points away from death; 'the garden above the fire' points upward from a heat source. The line could be Star Hill, a chamber above Bowser's lava systems, a castle greenhouse, or bait written by someone who knows exactly which phrases make burned brothers run.\n\n**In plain terms:** the next arc has a route phrase, not a map. Treat it like a trap that may still be saving someone."
+      },
+      {
+        "id": "th_tape_provenance",
+        "title": "Somebody recorded the argument, and nobody has asked who",
+        "state": "open",
+        "text": "The tape is the archive's only primary source on the brothers' argument and it has no origin. Wario held it; before Wario there is nothing. A cleaner dub appeared after the first filing, which means copies exist and someone controls their release.\n\n**In plain terms:** we trust the recording and we have never once asked who was holding the microphone, or why they were in the room."
+      },
+      {
+        "id": "th_the_director",
+        "title": "The man Wario bows to",
+        "status": "open",
+        "note": "A figure in a director's cap, carrying a script, whom Wario — producer of the entire two-filing ordeal — called Boss and bowed to. He knocked Wario unconscious for exceeding his brief ('you ruined MY show') and left with a folder and a small wired remote. If Wario produces the show, the Director owns it; the file's question chain now ends at his name.",
+        "text": "A figure in a director's cap, carrying a script, whom Wario — producer of the entire two-filing ordeal — called Boss and bowed to. He knocked Wario unconscious for exceeding his brief ('you ruined MY show') and left with a folder and a small wired remote. If Wario produces the show, the Director owns it; the file's question chain now ends at his name.",
+        "state": "open"
+      },
+      {
+        "id": "th_the_remote",
+        "title": "A control unit for Evil Mario, or the whole studio",
+        "status": "open",
+        "note": "Small, buttoned, with wires running from it, carried with the ease of long habit by a man who did not know he was watched. It would explain the costume rack — cape, leaf, fire, ice — and possibly the resetting rooms, the lying exits, and the applause track.",
+        "text": "Small, buttoned, with wires running from it, carried with the ease of long habit by a man who did not know he was watched. It would explain the costume rack — cape, leaf, fire, ice — and possibly the resetting rooms, the lying exits, and the applause track.",
+        "state": "open"
+      },
+      {
+        "id": "th_rot_zone",
+        "title": "The hill had a name before the courier said it",
+        "state": "open",
+        "text": "'Rot-zone' was said flat, like a shift code, by a man who had never been to Star Hill before his route put him there. Couriers do not coin; they are issued. Somebody who dispatches through Star Hill knew what the hill had become — a road that opens, a building that changes its own length — and sent a delivery through it anyway, with a word for it and an instruction to look for 'coordinates' in a notebook of burns and verse.\n\nThe thread is the depot, not the courier. Paulo is reading Waluigi's handwriting as he walks and will know what the archivist would do next. The dispatcher has never met him.\n\n**In plain terms:** the clinic is inside a zone somebody has already mapped and named. Find the map."
+      },
+      {
+        "id": "th_mr_l_at_star_hill",
+        "title": "The other one was outside the sickroom, in triplicate, and he let them go",
+        "state": "open",
+        "text": "The first witness record of Mr. L in this archive puts him in the open, reciting, outside the building an informant says holds Luigi unconscious. He lengthened under fire, threw a courier through a window with one hand, stood on a staircase in three copies, and followed nobody. The only person he harmed shot him first. The mouth in the road came out of the ground, not out of him; he stood beside it like a man beside his own car.\n\nTwo readings survive and both are bad. He was there for the building — and the other one was standing guard, or vigil, outside his own sickroom. Or he was there for the courier's delivery — in which case the thing with too many hands and the depot that issues 'rot-zone' are on the same hill for the same reason.\n\n**In plain terms:** he was waiting for somebody, and it was not the two men with the contract. The file should learn who before that somebody arrives."
+      }
+    ],
+    "leads": [
+      {
+        "id": "lead_identify_enforcer",
+        "title": "Identify the unnamed Guild arresting officer",
+        "state": "open",
+        "priority": "critical",
+        "objective": "Match the Section 1.6 arrest language and null-cage procedure in the note to a real Guild operator, then determine whether any such operator ever filed a failed containment report.",
+        "why": "If the speaker exists, the note becomes testimony instead of decorative fiction. If nobody inside the Guild talks that way on paper, the note was written by someone imitating the Guild from outside.",
+        "exhibits": [
+          "ex_charred_note",
+          "ex_threshold_slip"
+        ]
+      },
+      {
+        "id": "lead_test_ash",
+        "title": "Determine whether the note was burned before or after writing",
+        "state": "open",
+        "priority": "high",
+        "objective": "Have the residue examined by somebody more useful with fire than the person currently writing this sentence.",
+        "why": "Post-writing burns are staging. Pre-writing burns are recycled paper. Transit burns imply a courier method. The archive would like the category before accusing anybody of theatre more loudly than it already has.",
+        "exhibits": [
+          "ex_threshold_slip"
+        ]
+      },
+      {
+        "id": "lead_reconcile_fountain",
+        "title": "Rebuild the Star Fountain sequence with the note included",
+        "state": "open",
+        "priority": "high",
+        "objective": "Re-read every Star Fountain witness statement against the note's final confirmation and see what actually tightens instead of merely sounding impressive.",
+        "why": "If the fountain happened, and the farm death happened, and null cages fail afterward, then the order of events matters more than ever. The file does not get to keep treating the fountain as atmospheric rumor.",
+        "exhibits": [
+          "ex_charred_note"
+        ]
+      },
+      {
+        "id": "lead_verify_promo_mario",
+        "title": "Trace the clipping before announcing a recovered hero",
+        "state": "open",
+        "priority": "high",
+        "objective": "Identify the newspaper and issue; seek Darian Marsh and Alistair separately; request the alleged original film and souvenirs with their custody history. If the host can be reached, ask for a private memory or a route from the Star Fountain that was not supplied by the tablet.",
+        "why": "At present every new claim arrives through one unidentified publication. Independent witnesses or examinable objects could test the journey; identity would still need evidence beyond a shared name, cap and brother.",
+        "exhibits": [
+          "ex_promo_mario_clipping"
+        ]
+      },
+      {
+        "id": "lead_find_hollywood_luigi",
+        "title": "Find the Luigi in the green and blue",
+        "state": "open",
+        "priority": "high",
+        "objective": "Obtain the original 955 BF tape, the studio security footage including Camera Three, and any record of a figure in green and blue seen after the lights came back; ask Darian and Alistair separately whether they ever saw Luigi again after the monitors showed the question mark.",
+        "why": "The full account's only confirmed casualty is a person: Luigi, last seen present and then missing without a note. Impostors can be explained by glitches; a missing brother cannot. If the account is true, this is the one thread that does not depend on identifying the studio Mario at all.",
+        "exhibits": [
+          "ex_promo_mario_full_account"
+        ]
+      },
+      {
+        "id": "lead_read_cape_note",
+        "title": "Recover the courier's note — or its sole reader",
+        "state": "closed",
+        "priority": "critical",
+        "objective": "Recovered by proxy: Luigi survived and supplied the note's first known wording. Original paper still unrecovered.",
+        "why": "The note is the only object in this file that changed a decision in real time: Luigi read it and abandoned a rescue. Whatever it says outranks every other paper here, and no copy exists. Closed by s_garden_above_fire: the reader was recovered and the line was filed; the physical paper remains a separate custody problem.",
+        "exhibits": [
+          "ex_cape_note",
+          "ex_garden_above_fire_note"
+        ]
+      },
+      {
+        "id": "lead_locate_mario_cell",
+        "title": "Trace Mario's extraction route from the compound",
+        "state": "open",
+        "priority": "critical",
+        "objective": "Trace Wario's extraction route from the compound: where was Mario taken after the abduction, and who ordered the cell?",
+        "why": "The crew confessed the kidnapping on the record and named no destination. A living Mario was moved on 18 Harvestide 1035 and the file holds no arrival. Somewhere there is a cell with a history, and a ledger with a gap shaped exactly like a plumber.",
+        "exhibits": []
+      },
+      {
+        "id": "lead_find_garden_above_fire",
+        "title": "Find the garden above the fire",
+        "state": "open",
+        "priority": "critical",
+        "objective": "Identify and search every plausible 'garden above the fire' tied to the compound, Bowser's castle, Star Hill, or Mario's route; prioritize sites physically above lava or heat with living growth, stars, or maintained gardens.",
+        "why": "The recovered note text is the only instruction known to have changed Luigi's course during the compound night. The rescue closed the missing-reader problem and opened a destination problem; if the sentence was aid, someone is waiting there, and if it was bait, someone expected the party to follow it after Luigi survived.",
+        "exhibits": [
+          "ex_garden_above_fire_note",
+          "ex_dr_toad_clinic_chart"
+        ]
+      },
+      {
+        "id": "lead_tape_origin",
+        "title": "Establish who recorded the brothers' argument",
+        "state": "open",
+        "priority": "high",
+        "objective": "Trace the tape back past Wario: who made the original recording, where, and who produced the cleaner dub that surfaced after first filing.",
+        "why": "Every conclusion the archive has drawn about Mario and Luigi's falling-out now rests on one object with no provenance. If the recording was made deliberately, the person who made it had a reason to want this argument preserved, and that reason is a fact about the case the archive does not have. The dub proves copies exist and somebody is timing their release.",
+        "exhibits": [
+          "ex_wario_files_custody"
+        ]
+      },
+      {
+        "id": "lead_get_the_remote",
+        "title": "Get the Director's remote",
+        "state": "open",
+        "priority": "critical",
+        "objective": "Locate Director Mario or the device he carries; establish what it controls and whether it can be taken.",
+        "why": "One witness, hidden in an alcove, saw the only object in two filings that could explain the corrupted Mario's costume rack and the studio's resetting behaviour. The Director does not yet know he was seen — an advantage with a shelf life.",
+        "exhibits": []
+      },
+      {
+        "id": "lead_director_who_for",
+        "title": "Establish who the show is for",
+        "state": "open",
+        "priority": "high",
+        "objective": "Identify the audience the applause track plays to: a viewer beyond the windows, a recording, or nobody.",
+        "why": "The applause was real sound in an empty, silent facility. A show needs a viewer; the empty seats mean the viewer is somewhere the studio does not show. Every answer to this question names a person at the end of the Mario disappearance file.",
+        "exhibits": []
+      },
+      {
+        "id": "lead_luigi_notes",
+        "title": "Recover Luigi's notes on Wario's corruption",
+        "state": "open",
+        "priority": "high",
+        "objective": "Return to the maintenance terminal or to Luigi himself; secure the working file headed 'Wario's corruption'.",
+        "why": "The best evidence in this case was read over a man's shoulder through a ceiling vent. The terminal sits in a building that resets itself, and nobody has been back for it.",
+        "exhibits": [
+          "ex_luigi_studio_notes"
+        ]
+      },
+      {
+        "id": "lead_evil_marios_point",
+        "title": "Ask what Evil Mario wants",
+        "state": "open",
+        "priority": "medium",
+        "objective": "Interpret the corrupted Mario's single gesture — a raised finger pointing at the Director's exit — and establish whether he is a prisoner of the show or a performer with his own script.",
+        "why": "He survived the cape, the leaf, the fire, the ice, and the curtains, and used his one free moment to point the survivors at the man who owns him. Actors do not warn the audience unless they want the play to close.",
+        "exhibits": []
+      },
+      {
+        "id": "lead_star_hill_lockdown",
+        "title": "The Star Hill 'lockdown'",
+        "state": "open",
+        "priority": "high",
+        "objective": "Verify the radio report that Dr. Toad's Star Hill Clinic is locked down for 'medical complications' — and whether Luigi is still inside and reachable. Amended 2 Aethel, 1035 BF: the informant has since upgraded the report to a 'private wing, high security, consciousness fluxing'; the pair reached the street and a stairwell next door and never saw a patient. The claim stays unverified. The clinic now sits inside what a courier called a 'rot-zone'.",
+        "why": "The only source is Wario's own paid informant, relayed over a crackling radio by a creditor who profits from urgency — and the informant's second report, delivered in flight, added architecture without adding a witness. If the lockdown is real, someone with authority decided the patient should not be reachable exactly as his two-week rest order expired — and that decision has an author. If it is not, the three phrases that flew a helicopter into a roof were worth exactly the retainer that produced them.",
+        "exhibits": [
+          "ex_notebook_custody_slip"
+        ]
+      },
+      {
+        "id": "lead_pilot_in_the_hold",
+        "title": "Go back for the man in the hold",
+        "state": "open",
+        "priority": "critical",
+        "objective": "Reach the storehouse roof beside Dr. Toad's clinic and establish whether the pilot Wario dismissed at altitude is alive, injured, or gone from the rear hold of the wreck.",
+        "why": "He was fired for saying a hospital is not a landing pad and was behind a latched gate when the roof came up. After the crash the gate was open and the hold was dark, and both men who could have looked went down a stairwell. By the Enterprise's own paper his severance was 'transport to destination' — delivered — so nobody on the company's books is missing him. The archive filed the omission as its own. A filed omission is a debt.",
+        "exhibits": [
+          "ex_pilot_termination_notice"
+        ]
+      },
+      {
+        "id": "lead_paulos_route",
+        "title": "Trace Paulo's route backward to the depot that issues 'rot-zone'",
+        "state": "open",
+        "priority": "critical",
+        "objective": "Identify who dispatches couriers through Star Hill, what delivery Paulo was carrying before the notebook joined it, and who gave him the word 'rot-zone' and the instruction to look for 'coordinates'.",
+        "why": "The notebook with the Luigi notes is in that satchel, being read. Chasing the courier means chasing a man who now knows the archivist's handwriting and habits; chasing the route means reaching the one party who knew what Star Hill had become before sending a delivery through it. The depot knows the hill. It may also know the wing.",
+        "exhibits": [
+          "ex_notebook_custody_slip",
+          "ex_notebook_scrap_thorn"
+        ]
+      },
+      {
+        "id": "lead_who_mr_l_waited_for",
+        "title": "Establish who Mr. L was waiting for at Star Hill",
+        "state": "open",
+        "priority": "high",
+        "objective": "Determine whether the figure outside the clinic was there for the building, for the courier's delivery, or for someone who had not yet arrived — and whether the 'private wing' holds Luigi, Mr. L's point of origin, or nothing.",
+        "why": "A thing with three bodies and long hands let two men with a contract walk out of its building without following. It harmed only the man who shot it. The archive's first witness record of the other one is a record of restraint, and restraint has a reason. Whatever he was waiting for is on the same hill as the only reachable brother.",
+        "exhibits": []
+      }
+    ],
+    "sessions": [
+      {
+        "id": "s_charred_note",
+        "label": "The charred note at Waluigi's door",
+        "date": "4 Aethel, 1040 BF",
+        "event": "charred_note_at_waluigis_door"
+      },
+      {
+        "id": "s_promo_mario_newspaper",
+        "label": "Promo Mario — a newspaper read by Waluigi",
+        "date": "5 Aethel, 1040 BF — provisional filing date",
+        "event": "promo_mario_newspaper"
+      },
+      {
+        "id": "s_promo_mario_full_account",
+        "label": "Promo Mario — the full account recovered",
+        "date": "5 Aethel, 1040 BF — evening; same-day amendment",
+        "event": "promo_mario_newspaper"
+      },
+      {
+        "id": "s_compound_night",
+        "label": "The compound night — Mario confirmed alive, Luigi lost past the falls",
+        "date": "18 Harvestide, 1035 BF",
+        "event": "the_lava_bridge_ambush_and_the_blue_luigi"
+      },
+      {
+        "id": "s_garden_above_fire",
+        "label": "The garden above the fire — Luigi recovered and the note recalled",
+        "date": "18 Harvestide, 1035 BF",
+        "event": "the_garden_above_the_fire"
+      },
+      {
+        "id": "s_tape_and_wario_files",
+        "label": "The tape and the Wario files — the brothers' argument, recovered and played",
+        "date": "20 Harvestide, 1035 BF — the chair, the curtains, the sixth rewind",
+        "event": "the_tape_and_the_wario_files"
+      },
+      {
+        "id": "s_studio_cut",
+        "label": "The Cut and the Puppet Master — the button, the song, the word, and the man with the remote",
+        "date": "5 Aethel, 1040 BF",
+        "event": "the_cut_and_the_puppet_master"
+      },
+      {
+        "id": "s_debt_siege",
+        "label": "The Debt Siege and the Sixty-Thirty Split — the claw, the ice wall, and the contract that buys the next move",
+        "date": "2 Aethel, 1035 BF",
+        "event": "the_debt_siege_and_the_sixty_thirty_split"
+      },
+      {
+        "id": "s_rot_zone_star_hill",
+        "label": "The Rot-Zone at Star Hill — the fired pilot, the roof, the man with too many hands, and the notebook that left in a satchel",
+        "date": "2 Aethel, 1035 BF — night",
+        "event": "the_rot_zone_at_star_hill"
+      }
+    ],
+    "relatedEvents": [
+      "charred_note_at_waluigis_door",
+      "the_eastern_passage",
+      "star_fountain_reunion",
+      "the_embassy_ambush_and_luigi_interrogation",
+      "promo_mario_newspaper",
+      "the_lava_bridge_ambush_and_the_blue_luigi",
+      "the_garden_above_the_fire",
+      "the_tape_and_the_wario_files",
+      "the_cut_and_the_puppet_master",
+      "the_debt_siege_and_the_sixty_thirty_split",
+      "the_rot_zone_at_star_hill"
+    ],
+    "exhibits": [
+      {
+        "id": "ex_charred_note",
+        "propId": "prop_charred_note_secret_history_mario",
+        "session": "s_charred_note",
+        "icon": "🔥",
+        "kind": "note",
+        "category": "discovery",
+        "title": "The note itself",
+        "secured": "4 Aethel, 1040 BF · found outside a borrowed room before dawn",
+        "custody": "Archive — original in sleeve",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(135deg,rgba(70,42,30,.92),rgba(20,16,14,.98));border:1px solid rgba(196,107,50,.35)\"><div style=\"position:absolute;left:14%;right:14%;top:16px;bottom:18px;background:linear-gradient(180deg,#b18c63,#8e6f4b);box-shadow:0 0 0 2px rgba(0,0,0,.18) inset\"></div><div style=\"position:absolute;left:12%;right:12%;top:14px;height:8px;background:linear-gradient(90deg,transparent,rgba(20,10,6,.95) 10%,rgba(20,10,6,.95) 90%,transparent)\"></div><div style=\"position:absolute;left:12%;right:12%;bottom:12px;height:8px;background:linear-gradient(90deg,transparent,rgba(20,10,6,.95) 10%,rgba(20,10,6,.95) 90%,transparent)\"></div><div style=\"position:absolute;left:22%;top:38px;right:22%;text-align:center;font-size:11px;letter-spacing:.18em;color:#2a1810;font-weight:800\">SECRET HISTORY MARIO</div><div style=\"position:absolute;left:0;right:0;bottom:6px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#c46b32\">CENTER PRESERVED · MARGINS SACRIFICED</div></div>",
+        "onRecord": "Unsigned, folded once, and titled in a steady hand. The page stages a confrontation between Mario and an unnamed Guild officer, then records [[roll:4|three failed null-cage attempts|if that sequence is true, the note is no longer merely about where Mario went. It is about what Guild procedure no longer works on him.|a forger knows that three is the number that makes anything sound mythic.]].",
+        "dc": 4,
+        "analysis": "## The document is trying to replace, not confirm\n\nThe easiest mistake would be to read this as corroboration of the eastern passage because it repeats the word *farm*. That is exactly what the note wants. What it actually does is replace the old farm narrative with a new one that solves the timeline by murder. Years become three days. Peaceful death becomes death-and-return. The archive is being offered a cleaner contradiction, not a cleaner truth.\n\n## Why the null cages matter more than the confession line\n\nReaders will fixate on Peach because the writer intended them to. Waluigi is filing the more operational claim: [[roll:5|the cages fail without visible counterspell|if somebody wrote a fake confession, they still chose to attach it to Guild procedure breaking on contact. That is a very specific lie to tell unless the writer wants the Guild in the same room as Peach and the farm.|a melodramatic confession always wants impossible stage business around it. The cages may be scenery and nothing more.]]. A confession can be false in a hundred ordinary ways. A failed procedure narrows the field to fewer, worse explanations.\n\n## The final nod is not closure\n\nThe note ends by confirming the Star Fountain meeting with Luigi. That feels like resolution only if the reader has forgotten how many contradictory versions of the fountain already exist. A final nod does not settle those versions; it only means the writer knew the archive was hungry for that one point of confirmation and used it accordingly. [[roll:6|This page was written by someone who has read the Mario file, not by someone indifferent to it|the note touches exactly the archive's four rawest places in precisely the order that would keep Waluigi reading through the ash. That is audience design, not coincidence.|any reasonably informed liar could have heard the same rumors secondhand without ever opening the file.]].",
+        "links": {
+          "events": [
+            "charred_note_at_waluigis_door",
+            "the_eastern_passage",
+            "star_fountain_reunion"
+          ],
+          "characters": [
+            "mario",
+            "luigi",
+            "waluigi",
+            "princess_peach"
+          ]
+        }
+      },
+      {
+        "id": "ex_threshold_slip",
+        "propId": "prop_charred_note_custody_slip",
+        "session": "s_charred_note",
+        "icon": "📎",
+        "kind": "note",
+        "category": "record",
+        "title": "Threshold recovery slip",
+        "secured": "4 Aethel, 1040 BF · written immediately after pickup",
+        "custody": "Archive — original note and physical observations together",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(135deg,rgba(28,28,34,.96),rgba(14,14,18,.98));border:1px solid rgba(180,180,190,.2)\"><div style=\"position:absolute;left:18%;right:18%;top:18px;bottom:24px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.04)\"></div><div style=\"position:absolute;left:24%;top:30px;width:52%;height:2px;background:rgba(255,255,255,.18)\"></div><div style=\"position:absolute;left:24%;top:48px;width:44%;height:2px;background:rgba(255,255,255,.18)\"></div><div style=\"position:absolute;left:24%;top:66px;width:50%;height:2px;background:rgba(255,255,255,.18)\"></div><div style=\"position:absolute;left:50%;top:10px;margin-left:-8px;width:16px;height:28px;border:2px solid #9aa0ad;border-radius:9px 9px 4px 4px;border-bottom-color:transparent\"></div><div style=\"position:absolute;left:0;right:0;bottom:7px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#c7c9d1\">NO SEAL · NO COURIER · NO ACCIDENT</div></div>",
+        "onRecord": "The slip records no envelope, no seal, no footprint, and ash settled inward instead of outward across the threshold. [[roll:3|The page was placed, not dropped|dropped paper travels, catches damp, or loses ash where it lands. This did none of those things. Somebody delivered it with care and left without ceremony.|night air does strange things to light paper and stranger things to memory.]].",
+        "dc": 3,
+        "analysis": "## The burn is part of the argument\n\nThis slip exists because the archive has already been fooled once by treating dramatic paper as if only the words mattered. The words are not alone. The burn line is even, the title untouched, the ash held inward, and the fold still crisp. That is not what survival looks like. That is what arrangement looks like.\n\n## Why no courier is still evidence\n\nNo witness saw a messenger. Good. That only means the delivery method is unsolved, not that there was none. The absence of a courier matters because [[roll:4|the note was still delivered to a human threshold rather than to the general room|whoever placed it knew exactly which door was Waluigi's, which says either observation, inside access, or both. Random warning slips do not sort themselves by intended reader.|anybody in the cottage could have pointed at the correct door once and that fact proves very little.]]. Specific delivery is its own kind of signature.\n\n## Stagecraft narrows the sender more than content does\n\nPlenty of people would like Waluigi to stop asking where Mario went. Fewer would think to burn the margins, spare the title, and leave the page where the archivist would step over it first thing in the morning. [[roll:5|The sender is playing to Waluigi specifically, not merely to the archive in general|the note is not just information but audience design. It assumes vanity, suspicion, and the inability to leave a mystery alone, which Waluigi resents because it is accurate.|all theatrical anonymous messages are interchangeable and reading personal knowledge into one is self-flattery.]]. That does not name the sender. It does tell the file what kind of sender to look for.",
+        "links": {
+          "events": [
+            "charred_note_at_waluigis_door"
+          ],
+          "characters": [
+            "waluigi",
+            "mario"
+          ]
+        }
+      },
+      {
+        "id": "ex_promo_mario_clipping",
+        "propId": "prop_promo_mario_newspaper_clipping",
+        "session": "s_promo_mario_newspaper",
+        "icon": "📰",
+        "kind": "note",
+        "category": "record",
+        "title": "Promo Mario — the newspaper account",
+        "secured": "Reading copy filed 5 Aethel, 1040 BF — provisional filing date; source issue undated",
+        "custody": "Archive — abridged text only; no authenticated issue, photograph or souvenir",
+        "visual": "<div role=\"img\" aria-label=\"Illustrative newspaper excerpt marked unverified\" style=\"position:relative;height:132px;overflow:hidden;border:1px solid #b1a58d;border-radius:8px;background:#e9e1cd;color:#302b25\"><div style=\"position:absolute;inset:14px 12%;border-top:3px double #302b25;border-bottom:1px solid #302b25;text-align:center;padding:10px 0;font-weight:800;letter-spacing:.08em\">PROMO MARIO</div><div style=\"position:absolute;left:16%;right:16%;top:60px;height:30px;background:repeating-linear-gradient(transparent 0 5px,#a99f8c 5px 6px)\"></div><div style=\"position:absolute;bottom:9px;left:0;right:0;text-align:center;font-size:11px;font-weight:800;color:#7c342b\">READING COPY · UNVERIFIED</div></div>",
+        "onRecord": "The clipping names Darian and Alistair, describes the host reading Waluigi's Mario biography, claims a living Peach offstage, and sends the visitors—not Mario—through a portal. No publisher, original film or authenticated souvenir accompanies this reading copy. The host's identity remains unproved whether or not the trip happened.",
+        "dc": 4,
+        "analysis": "## A borrowed memory\n\nI dislike being quoted without getting an invitation. I dislike the temptation to count the quotation as confirmation more. The host's tears follow information supplied on the tablet; they do not establish knowledge he brought to the meeting. The question is what he could have told Darian before he read it.\n\n## A destination with no route\n\nEven a genuine photograph of the group would establish an encounter before it established an identity. The charms could support travel if their origin were tested. Neither supplies the missing journey from the Star Fountain. The clipping's portal takes Darian and Alistair away; it never brings Mario back.\n\n## The publicity question\n\n[[roll:4|I suspect the spotless corporate rescue is the selling point|Nintendo gets the show, the helpful celebrity call, the laboratory rescue and the souvenir farewell. That pattern gives me a reason to seek a sponsor or promotional source, not a reason to declare a forgery.|Grateful visitors might describe good hosts in exactly these terms. The flattering account could be sincere while remaining useless as proof of Mario's identity.]] Either reading leaves the same job: find an independent source. A die cannot authenticate a newspaper.",
+        "links": {
+          "events": [
+            "promo_mario_newspaper",
+            "charred_note_at_waluigis_door",
+            "star_fountain_reunion"
+          ],
+          "characters": [
+            "waluigi",
+            "mario",
+            "luigi",
+            "princess_peach"
+          ]
+        }
+      },
+      {
+        "id": "ex_promo_mario_full_account",
+        "propId": "prop_promo_mario_full_account",
+        "session": "s_promo_mario_full_account",
+        "icon": "📜",
+        "kind": "note",
+        "category": "record",
+        "title": "The full account — the part the clipping cut",
+        "secured": "Read 5 Aethel, 1040 BF (evening) — same-day amendment",
+        "custody": "Archive — transcription only; no original page, film or independently held souvenir",
+        "visual": "<div role=\"img\" aria-label=\"Recovered account page marked as an amendment\" style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(135deg,rgba(20,20,26,.96),rgba(8,8,12,.99));border:1px solid rgba(170,130,255,.35)\"><div style=\"position:absolute;left:12%;right:12%;top:16px;bottom:16px;border:1px dashed rgba(170,130,255,.5);background:rgba(170,130,255,.05)\"></div><div style=\"position:absolute;left:20%;right:20%;top:26px;text-align:center;font-size:12px;letter-spacing:.2em;color:#d9c8ff;font-weight:800\">FULL ACCOUNT</div><div style=\"position:absolute;left:26%;right:26%;top:52px;height:2px;background:linear-gradient(90deg,transparent,#8a4bff,transparent)\"></div><div style=\"position:absolute;left:30%;right:30%;top:64px;text-align:center;font-size:24px;color:#6b3fd4;font-weight:900\">?</div><div style=\"position:absolute;left:0;right:0;bottom:7px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#9a7fe6\">REVISION 2 · SAME-DAY AMENDMENT</div></div>",
+        "onRecord": "The account records a portal that never opened, a tape labeled only 955 BF, a funeral, a drowning image, a question-mark cipher, Luigi's disappearance, a corrupted Mario leaving a television, and a Wario Apparition sung into the studio and dispersed by a flashlight. It also records the studio Mario answering 'do you have a brother?' with a brother — and never producing a route from the Star Fountain.",
+        "dc": 4,
+        "analysis": "## The farewell was the tell\n\nI did not file a newspaper. I filed its last paragraph. The clipping reported a successful portal and I never once asked whether the machine worked, because the paragraph was built to close. The full account reports PORTAL FAILED in capital letters on the monitor. A source with a beautiful ending deserves one question before it is filed, and I asked none. [[roll:4|the paper cut at the moment the rescue stopped being useful to print|every cut after the farewell removes either the failure or the missing brother, and it removes both|an editor may simply have run out of column space and the order of events is coincidental]].\n\n## The date is the same bad math, twice\n\nThe clipping placed the disappearance in 955 BF and I treated it as one more flaw in an unverified paper. The full account insists on the same year, and now so does the studio host, and neither of them mentions the 1039 BF fountain at all. That is not a date error any more. That is a second source telling the archive the assassination and the disappearance were one event. [[roll:5|the 955 number is being repeated to the archive on purpose|the charred note, the clipping and the full account all choose the same year, which is either one shared source or one shared instruction|different tellers of an old story can share one stale date without coordinating anything]].\n\n## What the account adds, and what it cannot do\n\nIt adds Luigi's disappearance, a figure wearing Mario's face out of a television, and a Wario Apparition that behaves like a performance rather than a person. It cannot add identity: Darian and Alistair remain the only witnesses, the studio Mario still offers no private memory, and the corrupted Mario is filed as something that wears the name, not as a Mario. The Doughnut World reading is Darian's theory inside the account, and a theory inside one source is still one source. [[roll:3|the account is internally specific where the clipping was vague|it names machines, monitors, song lines and a camera number, which is more texture than a promotional page needs unless somebody wanted it trusted|vivid specifics are exactly what a good fabrication adds, so specificity is not authentication]].\n\n## The instruction I am stealing from a steward\n\nBreak-room Camera Three showed a figure in green and blue with hollow black eyes, and Alistair said: don't go there. I am filing that instruction beside the lead. Whatever that figure was, it was not Luigi, and the account does not need it to be. [[roll:4|an impostor was placed where a missing man would be looked for|if the studio wanted the archive to believe Luigi was safe, it chose the cheapest possible stand-in — wrong hat, wrong height, no face|a frightened person behind crates on a security feed can look wrong through any camera, and this read is only as strong as the monitor's quality]].\n",
+        "links": {
+          "events": [
+            "promo_mario_newspaper",
+            "charred_note_at_waluigis_door",
+            "star_fountain_reunion",
+            "the_toad_god_interview_and_the_star_shard"
+          ],
+          "characters": [
+            "waluigi",
+            "mario",
+            "luigi",
+            "princess_peach",
+            "wario"
+          ]
+        }
+      },
+      {
+        "id": "ex_cape_note",
+        "propId": "prop_cape_note_still_unread",
+        "session": "s_compound_night",
+        "icon": "✉️",
+        "kind": "note",
+        "category": "discovery",
+        "title": "The note nobody filed",
+        "secured": "Never — witnessed 18 Harvestide 1035, approx. 23:00, on the lava bridge",
+        "custody": "None — object unrecovered; tag filed in absence",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(135deg,rgba(30,26,40,.95),rgba(10,10,14,.98));border:1px solid rgba(150,150,170,.3)\"><div style=\"position:absolute;left:38%;right:38%;top:22px;bottom:24px;background:linear-gradient(180deg,#cfc39a,#a89a72);box-shadow:0 0 0 2px rgba(0,0,0,.25) inset\"></div><div style=\"position:absolute;left:38%;right:38%;top:50%;height:2px;background:rgba(60,50,30,.6)\"></div><div style=\"position:absolute;left:0;right:0;bottom:6px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#9a9ab0\">FOLDED ONCE · NEVER OPENED ON THE RECORD</div></div>",
+        "onRecord": "Folded once, smoke-darkened, leaf-shaped oil stain; delivered with nine spoken words; read once by Luigi; carried past the falls. Contents unfiled. [[roll:4|the stain proves the leaf rode with the note|the oil mark is leaf-shaped and sits where the Tanuki Leaf rested in the courier's palm, attested by the auditor at six feet|stains travel — smoke and lava-oil coat everything on that bridge, and shapes lie]].",
+        "dc": 5,
+        "analysis": "## The most important unread document in the building\n\nThis tag exists because the archive holds a paper it has never opened, and refuses to pretend otherwise. The courier crossed a collapsing bridge to deliver it, spoke nine words with it, and left it in Luigi's hands — and Luigi read it, and turned around mid-pursuit, and flew into the dark past screaming. [[roll:5|the note changed a decision in real time|Luigi abandoned an active rescue the moment he finished reading — no debate, no delay, mid-stride|burns, shock, and a tanuki transformation scramble decisions on their own, and the reading may have coincided with panic]]. Whatever those folds contain outranks every other paper in this file, and no copy exists.\n\n## What the delivery proves without the text\n\nNine spoken words, flatly placed, each like a tile: a name, an instruction, a verdict on everything. The courier knew Luigi by name, knew where he would be standing, and knew the bridge would not hold — and came anyway, on foot, at midnight. Delivery that precise is not a message service. It is an appointment.\n\n## Why the file waits\n\nThe recovery target is the reader, not the paper. Luigi carried the only reading past the falls, and readers can be found. [[roll:3|Luigi is the exhibit now|the note went wherever he went, and he went over the falls alive enough to be carried — missing, not confirmed dead|the falls feed a lava system that keeps nothing, and hope is not a custody chain]]. The tag stays open. The file waits. Bring any recovery to the auditor in person.",
+        "links": {
+          "events": [
+            "the_lava_bridge_ambush_and_the_blue_luigi"
+          ],
+          "characters": [
+            "waluigi",
+            "luigi"
+          ]
+        }
+      },
+      {
+        "id": "ex_forged_guild_pass",
+        "propId": "prop_forged_guild_pass_compound",
+        "session": "s_compound_night",
+        "icon": "🎫",
+        "kind": "passport",
+        "category": "forensics",
+        "title": "The pass that opened the Guild",
+        "secured": "18–19 Harvestide 1035 · surrendered at the compound gate, approx. 00:40",
+        "custody": "Archive — original in sleeve",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(135deg,rgba(46,32,58,.95),rgba(16,12,20,.98));border:1px solid rgba(180,130,220,.3)\"><div style=\"position:absolute;left:16%;right:16%;top:20px;bottom:26px;background:linear-gradient(180deg,#d8ccb0,#b3a684);box-shadow:0 0 0 2px rgba(0,0,0,.2) inset\"></div><div style=\"position:absolute;left:22%;right:22%;top:38px;text-align:center;font-size:11px;letter-spacing:.2em;color:#4a3a60;font-weight:800\">DAY-PASS · FORM 12-B</div><div style=\"position:absolute;left:30%;top:62px;width:34px;height:34px;border-radius:50%;background:radial-gradient(circle,rgba(150,60,150,.85),rgba(90,30,90,.9));transform:rotate(-12deg)\"></div><div style=\"position:absolute;left:0;right:0;bottom:6px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#b48cdc\">SEAL AFFIXED (IN CRAYON)</div></div>",
+        "onRecord": "Crayon seal, misspelled form, self-signed doorwarden line; carried six intruders through the Guild's halls. Hand unidentified. [[roll:2|the pass is self-made|bearer line and doorwarden signature share one hand, the seal is crayon, and the form's own revision number is misspelled|a professional forger could imitate an amateur hand — but professionals do not sign both lines]].",
+        "dc": 2,
+        "analysis": "## Twenty seconds and a pocket crayon\n\nThis pass is the worst forgery in the archive and the most successful one on record. Six intruders walked the Mages' Guild halls on the strength of a form that misspells its own revision number, sealed in crayon, signed by its own bearer in the official's box. It worked. Nobody challenged it. The crew reached their target, took him, and left — and the Guild has never acknowledged any of it.\n\n## What the door let through\n\nA door that opens for this opens for anything with confidence and a pocket crayon. [[roll:3|the Guild's door procedure failed open|six intruders, one crayon pass, no challenge recorded anywhere in the night's account|the crew may have had help inside beyond the paper — a pass this bad surviving contact suggests either no inspection at all or inspection that looked away]]. Either reading ends in the same place: the shut door that refused Luigi and the open door that admitted Wario were operated by the same institution, on the same night.\n\n## Custody and the suspect who rhymes\n\nWario surrendered this pass without argument at the compound gate and claims he found six of them. Authorship is unestablished and the handwriting comparison is pending. The archive notes, without asserting, that the spelling errors have a distinctive voice — and that the voice is hungry.",
+        "links": {
+          "events": [
+            "the_lava_bridge_ambush_and_the_blue_luigi"
+          ],
+          "characters": [
+            "waluigi",
+            "wario"
+          ]
+        }
+      },
+      {
+        "id": "ex_garden_above_fire_note",
+        "propId": "prop_courier_note_garden_above_fire",
+        "session": "s_garden_above_fire",
+        "icon": "✉️",
+        "kind": "note",
+        "category": "discovery",
+        "title": "The note's first recovered sentence",
+        "secured": "18 Harvestide 1035 — recalled by Luigi at Star Hill after rescue; original still unrecovered",
+        "custody": "Archive transcription only; no paper, no handwriting, no courier, one injured reader",
+        "visual": "<div role=\"img\" aria-label=\"Folded note over orange glow\" style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(180deg,rgba(18,10,8,.98),rgba(72,26,6,.95));border:1px solid rgba(255,180,80,.32)\"><div style=\"position:absolute;left:31%;right:31%;top:24px;height:64px;background:linear-gradient(180deg,#d8c995,#aa9460);box-shadow:0 0 0 2px rgba(0,0,0,.3) inset;transform:rotate(-3deg)\"></div><div style=\"position:absolute;left:22%;right:22%;bottom:18px;height:12px;border-radius:50%;background:radial-gradient(ellipse,rgba(255,117,24,.75),rgba(255,117,24,0))\"></div><div style=\"position:absolute;left:0;right:0;bottom:6px;text-align:center;font-size:10px;letter-spacing:.14em;font-weight:800;color:#ffd28a\">GARDEN ABOVE FIRE · TEXT ONLY</div></div>",
+        "onRecord": "Luigi, burned and intermittently delirious but responsive, recalled the note as: 'The star is not lost. Find the garden above the fire.' The original note remains missing; this exhibit records the reading, not the document.",
+        "dc": 5,
+        "analysis": "## The old tag is now incomplete, not wrong\n\nThe earlier exhibit said the note was unread by the archive. That was true then. Luigi's rescue changes the state of the file: the note has a remembered sentence, but still no paper, no hand, and no route. [[roll:3|separate text recovery from document custody|the archive has gained words without gaining the object, so handwriting, fold marks, ink, and delivery trace remain unavailable|a remembered exact phrase from the sole reader may be enough for field action even without custody]].\n\n## The first half denies death\n\n'The star is not lost' is not a location. It is reassurance. It tells Luigi that someone or something he believed gone can still be found. The easiest reading is Mario; the dangerous reading is that someone knows Luigi will hear Mario in the word star and move before asking who wrote it. [[roll:5|the line is written for Luigi's emotional wound|it answers loss before giving directions, which means the writer expected grief to be the obstacle, not geography|stars are common Mushroom Kingdom imagery, and the wording may be ordinary poetic encouragement]].\n\n## The second half gives the next door\n\n'Garden above the fire' is a route phrase with two axes: growth and heat, up and down. Bowser's compound has fire below but no filed garden above it; Star Hill has stars and high ground but no filed fire below it; Bowser's castle may have both if one counts greenhouses over lava systems, and Waluigi resents that this sentence makes Bowser's interior design relevant. [[roll:6|start with places that physically satisfy both nouns|the courier chose concrete words under crisis conditions; concrete words usually beat metaphors in rescue notes|a manipulator may deliberately choose concrete bait because investigators over-trust nouns they can map]].",
+        "links": {
+          "events": [
+            "the_garden_above_the_fire",
+            "the_lava_bridge_ambush_and_the_blue_luigi",
+            "charred_note_at_waluigis_door"
+          ],
+          "characters": [
+            "waluigi",
+            "luigi",
+            "mario"
+          ]
+        }
+      },
+      {
+        "id": "ex_dr_toad_clinic_chart",
+        "propId": "prop_dr_toad_luigi_burn_chart",
+        "session": "s_garden_above_fire",
+        "icon": "🩺",
+        "kind": "note",
+        "category": "medical",
+        "title": "The chart that closes the rescue phase",
+        "secured": "18 Harvestide 1035 — Dr. Toad's Star Hill Clinic",
+        "custody": "Clinic copy; archive transcription filed with Waluigi margin",
+        "visual": "<div role=\"img\" aria-label=\"Clinic chart and bandage\" style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(135deg,rgba(235,245,255,.95),rgba(185,215,230,.92));border:1px solid rgba(80,120,150,.38)\"><div style=\"position:absolute;left:18%;right:18%;top:18px;bottom:18px;background:rgba(255,255,255,.82);box-shadow:0 0 0 2px rgba(70,110,140,.18) inset\"></div><div style=\"position:absolute;left:25%;right:25%;top:34px;height:8px;background:#7aa7c7\"></div><div style=\"position:absolute;left:25%;right:37%;top:54px;height:6px;background:#c7d7e1\"></div><div style=\"position:absolute;left:25%;right:30%;top:69px;height:6px;background:#c7d7e1\"></div><div style=\"position:absolute;right:22%;bottom:22px;width:42px;height:14px;border-radius:999px;background:repeating-linear-gradient(45deg,#fff,#fff 5px,#e4d2c4 5px,#e4d2c4 10px);transform:rotate(-12deg)\"></div><div style=\"position:absolute;left:0;right:0;bottom:5px;text-align:center;font-size:10px;letter-spacing:.14em;font-weight:800;color:#4e758c\">NO ADVENTURING · UNDERLINED</div></div>",
+        "onRecord": "Dr. Toad records serious but treatable burns, mostly second-degree, with confusion plausibly caused by pain, heat exposure, shock, and exhaustion. Face unburned. Rest ordered for two weeks.",
+        "dc": 3,
+        "analysis": "## Why the chart matters to a disappearance file\n\nA medical chart is not usually a clue, which is why it is useful here. It establishes Luigi alive, responsive, injured in a way consistent with the falls, and not merely performing a disappearance. [[roll:3|the rescue phase has a clinical endpoint|the chart converts found-in-a-tunnel into treated-at-a-clinic, closing the immediate search objective with a dated body and diagnosis|a clinic chart proves condition at arrival, not what happened before arrival]].\n\n## Delirium cuts both ways\n\nThe chart warns that pain and exhaustion can scramble speech. That weakens the note reading if the reader wants certainty, but strengthens the superstars scene if the reader wants truth: delirium does not invent the name Mario from nothing in a room full of rivals. [[roll:4|the question exposes the wound even if the route phrase is imperfect|Luigi addresses someone absent and asks whether the bond still exists; that is not a tactical report, it is the injury underneath the burns|trauma speech can braid memory, fear, and present faces until no single target can be proved]].",
+        "links": {
+          "events": [
+            "the_garden_above_the_fire"
+          ],
+          "characters": [
+            "luigi",
+            "waluigi",
+            "wario",
+            "dr_toad"
+          ],
+          "locations": [
+            "dr_toads_star_hill_clinic"
+          ]
+        }
+      },
+      {
+        "id": "ex_wario_files_custody",
+        "propId": "prop_wario_files_custody_slip",
+        "session": "s_tape_and_wario_files",
+        "icon": "📼",
+        "kind": "invoice",
+        "category": "provenance",
+        "title": "The archive's best source, and its worst chain of custody",
+        "secured": "20 Harvestide, 1035 BF · reconstructed after disclosure",
+        "custody": "Wario, prior to disclosure; provenance before that unestablished",
+        "visual": "<div role=\"img\" aria-label=\"A cassette tape with an unlabelled spine\" style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(145deg,rgba(28,26,32,.97),rgba(18,17,20,.97));border:1px solid rgba(140,130,160,.3)\"><div style=\"position:absolute;left:16%;right:16%;top:26px;bottom:34px;border-radius:6px;background:rgba(48,44,54,.95);box-shadow:0 0 0 1px rgba(170,160,190,.28) inset\"></div><div style=\"position:absolute;left:30%;top:52px;width:26px;height:26px;border-radius:50%;border:5px solid rgba(190,180,205,.5)\"></div><div style=\"position:absolute;right:30%;top:52px;width:26px;height:26px;border-radius:50%;border:5px solid rgba(190,180,205,.5)\"></div><div style=\"position:absolute;left:24%;right:24%;top:34px;height:11px;background:rgba(225,220,235,.82)\"></div><div style=\"position:absolute;left:0;right:0;bottom:8px;text-align:center;font-size:10px;letter-spacing:.14em;font-weight:800;color:#a79ec2\">SPINE LABEL BLANK</div></div>",
+        "onRecord": "One audio tape carrying the brothers' argument, held by Wario prior to disclosure. No record establishes who recorded it, on whose instruction, or how it reached him. A cleaner dub surfaced after first filing, materially better in quality, source unstated.",
+        "dc": 3,
+        "analysis": "## A primary source with no beginning\n\nThe archive spent two filings reconstructing this argument from the word of a blue-painted impostor who was not in the room, and then a tape arrived and settled it. Waluigi has written at length about what the tape says. This exhibit is about the part he skipped: **somebody was in that room with a recorder running, and that somebody is not in the file.** [[roll:3|the recording was deliberate|a clean two-voice capture of a private argument is not an accident of a machine left on — somebody chose the room, the moment and the placement|domestic recordings of this era are often continuous, and a running machine catching one conversation proves choice by nobody]].\n\n## The second dub is the louder problem\n\nA better copy surfaced *after* first filing. Waluigi amended his reading, as an auditor must. What he did not do at the time, and does now, is note what a second dub implies: copies exist, somebody made them, and somebody decided when this archive got the good one. [[roll:4|the timing of the better dub is itself information|whoever released the improved copy did so only after reading what the archive concluded from the poor one, which makes the disclosure responsive rather than cooperative|dubs surface for dull reasons constantly, and an archive that reads intent into every delivery will eventually read intent into a postal delay]].\n\nThe tape is true. Waluigi stands behind every line of his reading of it. He would simply like it on the record that the most important document in the Mario file entered the archive through a man who sells things, with no history attached, and that nobody has asked him where he got it."
+      },
+      {
+        "id": "ex_luigi_studio_notes",
+        "session": "s_studio_cut",
+        "propId": "prop_luigi_studio_notes",
+        "icon": "🖥️",
+        "kind": "screen",
+        "category": "evidence",
+        "title": "Luigi's screen — notes on Wario's corruption",
+        "secured": "unrecovered",
+        "custody": "The maintenance terminal, inside a studio that resets itself; read from a ceiling vent by Darian and Alistair",
+        "visual": "<div role=\"img\" aria-label=\"A maintenance terminal in blue light\" style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(145deg,rgba(12,20,34,.97),rgba(6,10,18,.97));border:1px solid rgba(96,165,250,.35)\"><div style=\"position:absolute;left:16px;top:16px;font-size:34px\">🖥️</div><div style=\"position:absolute;left:16px;bottom:16px;color:#93c5fd;font-size:11px;letter-spacing:.14em;text-transform:uppercase\">Unrecovered · read from the vent</div><div style=\"position:absolute;right:18px;top:18px;color:#64748b;font-size:11px;text-align:right;line-height:1.5\">maintenance room<br>blue light</div><div style=\"position:absolute;right:18px;bottom:16px;color:#bfdbfe;font-size:12px\">one heading: Wario's corruption</div></div>",
+        "dc": 4,
+        "onRecord": "A live workstation inside the studio: four security panes, a studio map with exits this filing proves lie, and a working file headed Wario's corruption. Its operator typed that he had to find Mario and fix this, twice, before standing up with a flashlight. [[roll:4|Read the operator through his own screen|Luigi came to the studio to find his brother and stayed at the only terminal that watches everything — including, for one continuous stretch, the vent above him. He never looked up. The watchers were being watched and nobody in the room knew it.|The screen shows a man searching. It does not show who left the terminal logged in for him.]]",
+        "analysis": "## Why this screen matters more than the fight\n\nThe fight was a production. This terminal is the first object in two filings that does not reset, does not perform, and does not lie: real feeds, a real map, a working file. Somebody gave the studio a nervous system, and Luigi — not the Director, not Wario — is the one who found the optic nerve.\n\nThe heading is the evidence. **Wario's corruption**, written by the brother who has the least to gain and the most to lose by naming Wario, corroborates the archive's own suspicion from the tape file: Wario is not the top of this. A file headed 'corruption' is a file about a process — who corrupted what, in what order, and who signed the budget. The Director's cigar-snap confirms the chain of command the heading implies.\n\nThe unrecovered status is the argument for urgency. The break room resets. The curtains come down on command. There is no reason to believe the maintenance room's memory survives a reset, and every reason to believe the only copy of a brother's investigation is sitting on a machine that answers to the man with the remote."
+      },
+      {
+        "id": "ex_sixty_thirty_contract",
+        "propId": "prop_sixty_thirty_contract",
+        "session": "s_debt_siege",
+        "icon": "📜",
+        "kind": "contract",
+        "category": "evidence",
+        "title": "The Contract of Accord — 60/30 split on the 'No Longer Brothers' publication",
+        "secured": "Signed 2 Aethel, 1035 BF; original held by Wario as collateral until the first payment",
+        "custody": "Drafted by Waluigi under siege and passed through the ice-wall breach; accepted by the mechanical claw and retained by Wario",
+        "visual": "<div role=\"img\" aria-label=\"A hastily inked contract page by candlelight, frost along one edge\" style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(145deg,#e9e1cd,#d8ccae);border:1px solid #b1a58d;color:#302b25\"><div style=\"position:absolute;left:16px;top:14px;font-size:30px\">📜</div><div style=\"position:absolute;left:58px;top:16px;font-weight:800;letter-spacing:.06em\">CONTRACT OF ACCORD</div><div style=\"position:absolute;left:58px;top:38px;font-size:11px\">sixty–thirty &middot; collateral clause &middot; 'the fist' cessation</div><div style=\"position:absolute;left:16px;bottom:14px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#6b5d44\">Held by Wario &middot; frost-damaged edge</div><div style=\"position:absolute;right:16px;bottom:12px;font-size:22px;opacity:.5\">❄️</div></div>",
+        "dc": 3,
+        "onRecord": "One leaf, drafted in under a minute by candlelight with a mechanical fist idling outside: parties, [[roll:3|the split written as 'sixty thirty'|that is ninety. Ten points of the proceeds are unassigned, and neither signatory noticed — whoever spots the orphaned ten percent first owns the next negotiation.|a rushed hand rounds numbers. Without the original in front of you, the missing ten points stay a rumour — and the original is in Wario's keeping.]] on the 'No Longer Brothers' publication, roughly 150 gold logged as 'A START' against the disputed 14,783-gold principal, a cessation clause that names 'the fist', and a collateral clause leaving the original in Wario's keeping until the first payment. [[roll:4|frost damage along one edge|the damage crosses the ink in places — the page was written FIRST and passed through the ice wall second. The terms were composed under siege, not prepared in advance.|frost is frost. Paper near that much ice that night could have caught it anywhere.]]",
+        "analysis": "## What the hasty hand gave away\n\nThe split is written as 'sixty thirty'. That is ninety. Ten points of the proceeds are unassigned, and neither signatory noticed — one was being sieged and the other was dancing. Whoever first notices the orphaned ten percent owns the next negotiation, and the document's custody means Wario gets to read it as often as he likes.\n\nSecond reading: the accord quietly makes Luigi's testimony a *revenue event*. Two signatures now depend on reaching a patient that a radio says is locked away. If the lockdown has an author, that author just acquired two motivated adversaries — one of whom monogrammes his siege equipment."
+      },
+      {
+        "id": "ex_notebook_scrap_thorn",
+        "propId": "prop_notebook_scrap_thorn",
+        "session": "s_rot_zone_star_hill",
+        "icon": "🌵",
+        "kind": "note",
+        "category": "evidence",
+        "title": "The scrap in the thorn — one corner of Waluigi's working notebook",
+        "secured": "Recovered by Wario from the thorn bush at the alley mouth, 2 Aethel, 1035 BF; held by Waluigi",
+        "custody": "Torn from the notebook as the courier walked past the thorn reading; the rest of the book left with him",
+        "visual": "<div role=\"img\" aria-label=\"A torn corner of lined paper caught on a thorn, lamplight behind\" style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(145deg,#1f2a1f,#0f140f);border:1px solid rgba(163,230,53,.28);color:#e7e5d8\"><div style=\"position:absolute;left:16px;top:14px;font-size:30px\">🌵</div><div style=\"position:absolute;left:58px;top:16px;font-weight:800;letter-spacing:.06em\">SCRAP &middot; REAR SIGNATURES</div><div style=\"position:absolute;left:58px;top:38px;font-size:11px;color:#c7d2b8\">playing-card size &middot; torn corner inward &middot; one margin intact</div><div style=\"position:absolute;left:16px;bottom:14px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#a3b18a\">Held by Waluigi &middot; the rest is in a satchel</div><div style=\"position:absolute;right:16px;bottom:12px;font-size:22px;opacity:.5\">📓</div></div>",
+        "dc": 4,
+        "onRecord": "One corner of one ruled page, about the size of a playing card, with three partial lines in Waluigi's hand and the third struck through. [[roll:4|the tear runs from the corner inward, fibres dragged toward the margin|a page pulled by a thumb tears along the gutter; this tore as an OPEN book went past a thorn. The courier was reading the back signatures as he walked — the pages that are verse and water and a man who did not knock, not the pages that are Luigi. Whoever told him the notebook held 'coordinates' did not tell him where to look.|the corner is wet from the road and the fibres will not say which way they went. The scrap proves the book was open in the street. It does not prove which page he opened first.]] The lines are filed on the paper itself. They are not about Luigi.",
+        "analysis": "## What a torn corner says about the hand that lost it\n\nThe scrap is the only part of the notebook in the archive, and it is the wrong part — the back, where the verse lives, not the front, where the burns and the garden and the brothers are. That is good news wearing a bad face. A courier who opens a stolen book at the back is a courier who was told the book mattered and not what was in it. He was issued a target, not a page number.\n\nSecond reading: he did not notice the tear. A man checking a book for coordinates checks its edges; a man *reading* a book turns pages with his thumb and lets the hill take a corner. He was reading. Which means that by the time he reached the corner and the dark, Paulo knew more about the man he had robbed than the man knows about him — and the archive has one playing card's worth of the exchange."
+      },
+      {
+        "id": "ex_pilot_termination_notice",
+        "propId": "prop_wario_pilot_termination_notice",
+        "session": "s_rot_zone_star_hill",
+        "icon": "📎",
+        "kind": "order",
+        "category": "evidence",
+        "title": "Notice of termination — the pilot, dismissed at altitude",
+        "secured": "Unrecovered — the original is bulldog-clipped to the instrument panel of the wreck on the storehouse roof; reconstructed from memory by the archivist",
+        "custody": "Written by Wario in flight; read by Waluigi by the glow of a gauge; left with the aircraft",
+        "visual": "<div role=\"img\" aria-label=\"A yellow personnel slip under a bulldog clip on an instrument panel\" style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(145deg,#f1dd8a,#d9bf5a);border:1px solid #a8893a;color:#3a2e12\"><div style=\"position:absolute;left:16px;top:14px;font-size:30px\">📎</div><div style=\"position:absolute;left:58px;top:16px;font-weight:800;letter-spacing:.06em\">NOTICE OF TERMINATION</div><div style=\"position:absolute;left:58px;top:38px;font-size:11px\">reason: REDUNDANT (OWNER FLYING) &middot; severance: REAR HOLD</div><div style=\"position:absolute;left:16px;bottom:14px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#6b5a2a\">Unrecovered &middot; still on the roof</div><div style=\"position:absolute;right:16px;bottom:12px;font-size:22px;opacity:.5\">🚁</div></div>",
+        "dc": 3,
+        "onRecord": "A square of yellow company paper, stamped, written twenty minutes before the crash: position, effective 'immediately (airborne)', reason, severance, and the exchange that caused it — 'I don't think we should land on a hospital' / 'You're right. You don't think.' [[roll:3|the severance line reads TRANSPORT TO DESTINATION (REAR HOLD)|the destination was Star Hill and the aircraft reached it, on its side, on a roof. By the Enterprise's own paper the severance was DELIVERED — which means the company's books will show this man as paid out and closed, and nobody in the Enterprise will be looking for him. The archive has to.|the line is a joke in Wario's hand and may mean nothing more than that he was pleased with himself at altitude. The man in the hold is missing either way.]]",
+        "analysis": "## The only correct opinion of the night, filed by its victim's employer\n\nStrip the joke off and the notice is a witness statement: a professional pilot, employed by the man flying, refused to land on a hospital and was removed from the controls for it. Everything that followed — the roof, the bar, the courier, the notebook — follows from a cockpit with the wrong man in it, and the paper that put him there is stamped.\n\nThe lead this exhibit opens is not about Wario's judgement; the archive has a shelf on that. It is about a *person*. The hold's gate was open after the crash and the hold was dark, and the two men who could have looked went down a stairwell instead. By the Enterprise's own filing his severance was 'transport to destination', delivered. He is therefore closed on the only books that would otherwise miss him. That is why he is first in the recommendation and why this slip is filed as evidence rather than as comedy."
+      },
+      {
+        "id": "ex_notebook_custody_slip",
+        "propId": "prop_notebook_custody_slip",
+        "session": "s_rot_zone_star_hill",
+        "icon": "📓",
+        "kind": "ledger",
+        "category": "evidence",
+        "title": "Custody slip — the working notebook, lost under duress to a courier named Paulo",
+        "secured": "Logged 3 Aethel, 1035 BF, the morning after; the object itself is in a satchel on a route the archive does not have",
+        "custody": "Waluigi's desk → Waluigi's coat → the cobbles → Wario's boot → thrown to Paulo at gunpoint → the dark end of the main street, read as he walked",
+        "visual": "<div role=\"img\" aria-label=\"A custody ledger line for a notebook, with the holder's column reading a courier's name\" style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(145deg,#2a1f33,#140d1a);border:1px solid rgba(192,132,252,.3);color:#efe6f7\"><div style=\"position:absolute;left:16px;top:14px;font-size:30px\">📓</div><div style=\"position:absolute;left:58px;top:16px;font-weight:800;letter-spacing:.06em\">CUSTODY &middot; WORKING NOTEBOOK</div><div style=\"position:absolute;left:58px;top:38px;font-size:11px;color:#d8c7ea\">desk &rarr; coat &rarr; cobbles &rarr; boot &rarr; satchel</div><div style=\"position:absolute;left:16px;bottom:14px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#b794d6\">Holder: 'Paulo' &middot; route unknown</div><div style=\"position:absolute;right:16px;bottom:12px;font-size:22px;opacity:.5\">🔫</div></div>",
+        "dc": 5,
+        "onRecord": "A custody line the archive had refused to open for two weeks, by agreement with the notebook's author, now opened by its loss: contents as far as they can be stated, the chain from desk to satchel, and the holder's stated purpose — 'coordinates' to get clear of 'this rot-zone'. [[roll:5|the holder asked a book of burns and verse for COORDINATES|he was not guessing. A man who robs on instinct takes the coat with the contract in it; this one asked for a specific kind of information from a specific object and smiled at the COVER. Somebody at the other end of his route named the notebook to him before he ever saw it — which means Waluigi's working book was on a list before Star Hill, and the list has an author who knows what the archivist carries.|a frightened man with a gun asks the nearest object for a way out. 'Coordinates' may be what he calls any writing he cannot read in the dark. The slip records the demand; it cannot yet prove the demand was briefed.]]",
+        "analysis": "## Why the slip is the real exhibit and the notebook is the real event\n\nFor two weeks the archive held a notebook it would not log, because its author said a notebook is not evidence until somebody else reads it. Somebody else is reading it. The slip exists because the author's rule, applied honestly, now cuts the other way — and because a loss with a *named holder* is a loss the archive can pursue. 'Paulo' is a name said with a gun in hand, which is how most names enter this file, and it is enough to open a column.\n\nThe argument the slip carries is the one the whole session turns on. Nothing about Luigi moved at Star Hill; the informant's wing is as unverified at dawn as it was at dusk. What moved was paper, and it moved in one direction — toward a route with an owner. Read the night as a rescue and it is a failure. Read it as custody and it is the first clean evidence in this file of who is *acquiring*, and what: not the contract, not the gold, but the notes on the only reachable brother. Wario called it a hostile takeover in the street. The slip is the archive agreeing with him in writing, which it does not do lightly."
+      }
+    ]
+  }
+]

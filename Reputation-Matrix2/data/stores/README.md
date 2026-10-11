@@ -1,8 +1,9 @@
 # Filing stores — shards
 
-Four bundles feed the static site (`events.json`, `characters.json`,
-`locations.json`, `battles.json`). Those files are **generated**. Edit the
-shards in this folder; then run:
+The filing bundles that feed the static site (`events.json`,
+`characters.json`, `locations.json`, `battles.json`, plus
+`investigations.json`, `commentaries.json`, `articleAnalyses.json`) are
+**generated**. Edit the shards in this folder; then run:
 
 ```bash
 python3 tools/build-json-stores.py --build --check
@@ -23,6 +24,9 @@ stores/
   characters/          ← no calendar; one file per world (then -b, -c)
   locations/
   battles/             ← same world/year shape as events
+  investigations/      ← one file per arc (`shadeward_feyward_ruined.json`)
+  commentaries/        ← one file per commentary
+  articleAnalyses/     ← one file per reading
   manifest.json        ← generated: id → shard, plus original order
 ```
 

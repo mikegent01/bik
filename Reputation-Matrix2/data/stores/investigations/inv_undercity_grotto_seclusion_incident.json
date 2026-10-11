@@ -1,0 +1,25 @@
+[
+  {
+    "id": "inv_undercity_grotto_seclusion_incident",
+    "codename": "THE SECLUSION INCIDENT AT THE UNDERCITY GROTTO",
+    "title": "Aftermath: The Seclusion Incident at the Undercity Grotto",
+    "subtitle": "The archive requires answers.",
+    "status": "stub",
+    "classification": "Generated Investigation",
+    "opened": "Chillwind 15, 923 BF",
+    "archivist": "Waluigi, Auditor-General",
+    "icon": "🕵️",
+    "accent": "#4a9c6d",
+    "plainSummary": [
+      {
+        "point": "Following the pivotal event within the Undercity's hidden grotto, Waluigi found himself in a state of profound reflection and heightened awareness.",
+        "detail": "The key turned once more, sealing behind him the ancient treasures and secrets he had uncovered. The resounding click of the door symbolized both closure and new beginnings—closure to a chapter steeped in history, and a new beginning for his role as an influential figure in the Undercity. The weight in his hand—the artifact that represented the balance—had felt heavier with each step deeper into the grotto. Now, it seemed lighter, but not due to any diminishment of responsibility. Instead, he felt a renewed sense of purpose and clarity. The artifacts' pulsating presence had left him with an understanding that actions taken tonight would ripple through time, influencing future decisions and events. Waluigi emerged from the grotto, his steps steady but deliberate. The whispers of centuries past seemed to fade into the background, replaced by a renewed sense of duty. His path forward was clear: to maintain the balance, to act swiftly with the knowledge gained tonight, and to ensure that secrets long kept did not lead to the loss of harmony in the Undercity. The Undercity inhabitants noticed his altered demeanor, seeing in him a leader more confident and resolute. Waluigi knew that he had taken on a monumental task but also that he was capable of navigating this path with wisdom and strength. The balance was fragile, but so too were the lives of those who depended on it."
+      }
+    ],
+    "leads": [],
+    "sessions": [],
+    "relatedEvents": [],
+    "exhibits": [],
+    "_stubNote": "Flipped from active by tools/fix-investigation-stubs.py: the article this arc cites has not been written. Listed in docs/worklists/investigation-stubs.md."
+  }
+]

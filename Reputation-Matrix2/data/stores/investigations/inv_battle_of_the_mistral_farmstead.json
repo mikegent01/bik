@@ -1,0 +1,32 @@
+[
+  {
+    "id": "inv_battle_of_the_mistral_farmstead",
+    "codename": "BATTLE OF THE MISTRAL FARMSTEAD",
+    "title": "Aftermath: Battle of the Mistral Farmstead",
+    "subtitle": "The archive requires answers.",
+    "status": "active",
+    "classification": "Generated Investigation",
+    "opened": "Chillwind 15, 722 BF",
+    "archivist": "Waluigi, Auditor-General",
+    "icon": "🕵️",
+    "accent": "#4a9c6d",
+    "plainSummary": [
+      {
+        "point": "Following the intense Siege and Counter-Siege phase of the Battle of Mistral Farmstead, Block Farm Village emerged battered but resilient.",
+        "detail": "The village's initial population had dwindled significantly due to casualties and disease, yet those who remained were hardened by the ordeal. Supplies, which had been stretched to their limits during the siege, were gradually replenished thanks to the successful alliance with neighboring villages. The cooperation among these allied communities proved invaluable in bolstering morale and re-establishing a semblance of normalcy within the village. The leadership's strategic decisions paid off; the combined forces successfully disrupted the Shadow Guild’s operations, weakening their grip over the region. This victory did not come without cost; numerous villagers lost their lives or were left permanently disabled. The aftermath saw the village undertaking extensive rebuilding efforts and implementing strict public health measures to combat lingering diseases. The alliance was solidified further as these villages learned valuable lessons in unity and preparedness for future challenges. Block Farm Village’s leadership emerged stronger, determined not only to defend but also to rebuild a prosperous community amidst the shadows cast by past conflicts."
+      }
+    ],
+    "leads": [],
+    "sessions": [
+      {
+        "id": "s_battle_of_the_mistral_farmstead",
+        "label": "Battle of the Mistral Farmstead",
+        "event": "battle_of_the_mistral_farmstead"
+      }
+    ],
+    "relatedEvents": [
+      "battle_of_the_mistral_farmstead"
+    ],
+    "exhibits": []
+  }
+]
