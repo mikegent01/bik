@@ -45,13 +45,13 @@ about **sequence**, and the sequence is not optional.
 | # | Step | Output | Why it is here and not later |
 |---:|---|---|---|
 | 1 | **Read the transcript. Build the beat list.** | A numbered list of what happened | You cannot tell what is new canon until you have the whole session in front of you |
-| 2 | **Locations first.** | `locations.json` entries created or amended | The event's `location` field must resolve. Writing the scene teaches you what the place is; filing the place first stops you inventing it twice |
-| 3 | **Characters second.** | `characters.json` entries created or amended | `participants[]` must resolve. Names get decided here, under the naming rule — not mid-paragraph |
+| 2 | **Locations first.** | a shard under `data/stores/locations/` | The event's `location` field must resolve. Writing the scene teaches you what the place is; filing the place first stops you inventing it twice |
+| 3 | **Characters second.** | a shard under `data/stores/characters/` | `participants[]` must resolve. Names get decided here, under the naming rule — not mid-paragraph |
 | 4 | **XP determined third.** | The `xpAwards[]` rows, written out before the prose | XP is a judgement about what the session was worth. Make it while the beats are still a list. Written after the prose, it becomes a reward for whichever scene you enjoyed writing |
 | 4b | **Spoils — register what was picked up.** | `inventory.json` items + holdings; the sheets follow by themselves | The beat list says who pocketed what. One registry line per object, while the list is in front of you; `tools/spoils-to-changes.py` (the suite runs it) puts it on the Foundry sheet and the table is asked before it lands |
-| 5 | **THEN write the event.** | `events.json` entry | Everything it points at already exists |
+| 5 | **THEN write the event.** | a shard under `data/stores/events/<world>/` | Everything it points at already exists |
 | 6 | **Exhibits — file the paper the story mentions.** | `data/props.json` entries + `[[prop:…]]` triggers in the prose | The prose decides which documents exist. Written before the prose, you invent paperwork nobody needed; written after, you file exactly what the scene already promised the reader |
-| 7 | **File the session into the investigation.** | A `sessions[]` row, new exhibits and leads in `investigations.json` | The arc file is where the paper is *argued about*. It can only cite exhibits that already exist, so it comes after Step 6 — and before the front page, because the front page links to it |
+| 7 | **File the session into the investigation.** | A `sessions[]` row in `data/stores/investigations/<id>.json` | The arc file is where the paper is *argued about*. It can only cite exhibits that already exist, so it comes after Step 6 — and before the front page, because the front page links to it |
 | 8 | **Update the main index page.** | `mainPage.json` + `SITE_UPDATES` (feed is automatic) | An event nobody can find from the front page is not filed |
 | 9 | **Artifacts last.** | RNN pending list, broadcast if owed, any images or pages | These are downstream of the filing and cheap to redo. The filing is not |
 

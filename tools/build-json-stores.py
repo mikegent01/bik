@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Shard the four filing JSON stores, and rebuild the site bundles from them.
+"""Shard the filing JSON stores, and rebuild the site bundles from them.
 
 Source of truth (what you edit):
 
-    Reputation-Matrix2/data/stores/<kind>/<world>/<year>.json
+    Reputation-Matrix2/data/stores/<kind>/…
 
 Generated (what the site fetches — do not hand-edit):
 
@@ -11,6 +11,9 @@ Generated (what the site fetches — do not hand-edit):
     Reputation-Matrix2/data/characters.json
     Reputation-Matrix2/data/locations.json
     Reputation-Matrix2/data/battles.json
+    Reputation-Matrix2/data/investigations.json
+    Reputation-Matrix2/data/commentaries.json
+    Reputation-Matrix2/data/articleAnalyses.json
 
 `--split` reads the current bundles once and writes the shard tree.
 `--build` concatenates shards in original order back into the bundles.

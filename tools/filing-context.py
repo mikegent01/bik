@@ -9,9 +9,9 @@ The stores are too big to Read into an agent context:
     battles.json       ~622 KB
     investigations.json ~794 KB
 
-A median event is ~33 KB. The four filing stores are sharded under
-`data/stores/<kind>/<world>/` — Read one shard, or this tool. Bundles
-(`events.json` etc.) are generated; do not hand-edit them.
+A median event is ~33 KB. Filing stores are sharded under `data/stores/`
+— Read one shard, or this tool. Bundles (`events.json` etc.) are
+generated; do not hand-edit them.
 
 Usage:
     python3 tools/filing-context.py sizes
