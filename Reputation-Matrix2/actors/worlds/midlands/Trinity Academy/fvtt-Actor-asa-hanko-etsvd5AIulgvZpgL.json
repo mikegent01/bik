@@ -1069,6 +1069,20 @@
     },
     "midi-qol": {
       "onUseMacroParts": {}
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "skirmisher"
+        ],
+        "reasons": [
+          "No inference signals — fallback pool pick for \"humanoid\": skirmisher"
+        ],
+        "confidence": 0,
+        "version": 3,
+        "timestamp": 1791338636559,
+        "manuallyOverridden": false
+      }
     }
   },
   "_stats": {
@@ -1078,7 +1092,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791171687825,
-    "modifiedTime": 1791325788514,
+    "modifiedTime": 1791338636567,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

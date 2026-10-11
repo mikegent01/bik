@@ -6,11 +6,15 @@ Live Foundry VTT actor exports for the campaign. **Import the plain
 
 | File | Use |
 |---|---|
-| `fvtt-Actor-*.json` | Repaired, import-ready. Use these. |
-| `fvtt-Actor-*-NO-SPECIES.json` | Same, with the species removed — import these when you intend to add a species through Plutonium. |
-| `original-fvtt-Actor-*.json` | Untouched exports, kept as the regression corpus. Do not import. |
+| `worlds/<world>/` | Live sheets. This is what the suite and the site use. |
+| `cast/` | Public party packet. |
+| `fvtt-Actor-*.json` (this folder) | Generated extras (Aurelian PC, Oracle, motorbike). Party sheets live under `worlds/`. |
 | `fvtt-Actor-lady-aurelian-corvinarus-PC.json` | Aurelian as a playable character — see below. |
 | `fvtt-Actor-wario-motorbike.json` | Wario's motorbike as an NPC vehicle — see below. |
+
+`Players.json`, `midlands-all-actors.json`, `original-fvtt-Actor-*` and
+`*-NO-SPECIES.json` are **not in git**. Drop a Foundry export locally if
+you need the intake pipeline; `.gitignore` keeps it off the remote.
 
 Every character now ships both variants:
 
@@ -32,10 +36,10 @@ restrict to one species, so they have no variant. Wario's motorbike is
 likewise an NPC — a vehicle, not a character — so it has no species variant
 and no `-NO-SPECIES` copy.
 
-## Intake: Players.json → originals → import-ready
+## Intake: local Foundry export → originals → import-ready
 
-The party's live export is `Players.json` in the repo root: a single file
-holding all twelve actors. Foundry imports one actor per file, so the intake
+The party's live export is a local `Players.json` (gitignored) if you drop
+one in the repo root. Foundry imports one actor per file, so the intake
 pipeline splits it and feeds the existing rebuild:
 
 ```bash

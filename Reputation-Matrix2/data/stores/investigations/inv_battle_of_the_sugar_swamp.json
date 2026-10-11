@@ -1,0 +1,32 @@
+[
+  {
+    "id": "inv_battle_of_the_sugar_swamp",
+    "codename": "BATTLE OF THE SUGAR SWAMP",
+    "title": "Aftermath: Battle of the Sugar Swamp",
+    "subtitle": "The archive requires answers.",
+    "status": "active",
+    "classification": "Generated Investigation",
+    "opened": "Veridia 15, 722 BF",
+    "archivist": "Waluigi, Auditor-General",
+    "icon": "🕵️",
+    "accent": "#4a9c6d",
+    "plainSummary": [
+      {
+        "point": "Following the strategic withdrawal from Sugar Swamp, the Kremlings faced an internal reevaluation of their tactics and strategies.",
+        "detail": "Their renewed emphasis on intelligence gathering and careful planning reflected a shift towards more prolonged engagements, signaling a change in their operational approach. The Pastry Folk’s diplomatic efforts had initially sparked mixed reactions; some factions saw them as potential allies against the unpredictable Kremlings, while others viewed them with suspicion, fearing opportunism. The slow but steady alliances formed by the Pastry Folk with smaller factions marked a significant shift in the region's power dynamics. However, these gains came at a cost—estrangement from some previously allied groups who felt betrayed or threatened. The tension in Sugar Swamp remained high; skirmishes continued as both sides tested each other’s resolve and prepared for future confrontations. The Kremlings' experience highlighted the importance of adaptability and strategic flexibility. Their willingness to engage diplomatically underscored their understanding that sheer force was insufficient, emphasizing the need for comprehensive strategy. The Pastry Folk, now poised to expand their influence, faced challenges in managing diverse alliances. They understood the responsibility to maintain stability amidst these shifts. As Sugar Swamp simmered with ongoing conflicts, both sides prepared for the next potential tipping point. Each move, each engagement, was crucial as they vied for dominance within the volatile region."
+      }
+    ],
+    "leads": [],
+    "sessions": [
+      {
+        "id": "s_battle_of_the_sugar_swamp",
+        "label": "Battle of the Sugar Swamp",
+        "event": "battle_of_the_sugar_swamp"
+      }
+    ],
+    "relatedEvents": [
+      "battle_of_the_sugar_swamp"
+    ],
+    "exhibits": []
+  }
+]

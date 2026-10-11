@@ -172,6 +172,23 @@ Same events, same length. One is a report; the other is a scene.
 steam, glint, hands, breath, gold, grit, plaster, mustache. The audit script
 counts them.
 
+### The Fact vs. Texture Boundary — never invent load-bearing reality
+
+Sensory density makes prose physical, but it must never become a licence to
+hallucinate plot points. There is a strict line between **atmospheric texture**
+and **load-bearing facts**:
+
+| Category | What it covers | Permitted? | Source |
+|---|---|---|---|
+| **Atmospheric texture** | The chill in the air, dust motes in the lantern light, creaking floorboards, the grain of an oak desk, the smell of burnt oil, sweat, ticking radiators | **YES** — dramatize freely to ground the scene (§1) | Contextual craft |
+| **Load-bearing facts** | Injuries (cuts, wounds, limp), physical props (signed notices, folders, keys, ledgers), who entered/exited, item custody, transaction numbers, who spoke a line, ultimatums | **NO** — strictly anchored to the session log | Must be on the table or sheet |
+
+> **The trap:** Pushing to hit a sensory quota without this boundary causes writers
+> and models to invent a cut over Wario's eye, a bulldog-clip legal notice, or
+> a sudden physical brawl that never happened in the session.
+> **Rule:** Dramatize how the room felt, sounded, and looked; never invent a prop,
+> wound, or plot turn the players did not create.
+
 ---
 
 ## 2A. The banned-word rule
@@ -221,16 +238,21 @@ you get a shorter report. Add commentary to hit a number and you get padding.
 
 | Scope | Typical | Second look past |
 |---|---:|---|
-| Whole event | **4,500–6,500** | 7,500 — split |
+| Standard event | **4,500–6,500** | 7,500 — check pacing |
+| Landmark / multi-act climax | **7,500–10,000** | >10,000 — split into Part I / II |
 | Section / Part | **350–450** | <250 or >700 |
-| Sections per event | **10–14** | 8–16 |
+| Sections per event | **10–14** | 8–18 |
 | Story paragraph | **30–40** | 3–6 sentences |
 | Waluigi aside | **40–70** | 90 → promote to note |
 | Analysis per section | **~120 total** | one aside, or two short |
 
 **These are aim, not target.** A session that ran long makes a filing that runs
-long. Never cut story-critical material to land inside a band — if it cannot be
-trimmed without sounding worse, do not trim it. Improve it instead.
+long. *Wario Bank* runs ~13,200 words and is the best-rated filing in the archive.
+**Never cut story-critical dialogue, verses, or character turns merely to land inside
+a word-count band.** If a filing genuinely exceeds 10,000 words because the session
+spanned multiple complete narrative arcs, apply the **Clean Split Rule**: file
+*Part I: The Incursion* and *Part II: The Reckoning* as linked sister events
+rather than starving dialogue to fit a single page.
 
 ---
 
@@ -391,43 +413,74 @@ headings (Imp style) still works — keep part lengths in band either way.
 
 ---
 
-## 8A. Transcript-to-story rule — do not paste the log
+## 8A. Transcript-to-story rule — how dialogue survives remastering
 
-A transcript is source material, not article prose. Do **not** paste dialogue
-word-for-word unless the exact quote is itself evidence. Convert the log into a
-scene: choose the physical beats, preserve the important lines, compress repeated
-prompting, remove table-side scaffolding, and write what the moment *felt like*
-inside the archive.
+A transcript is source material, not article prose. But remastering a transcript
+does **not** mean purging dialogue into dry third-person summary.
 
-Use this rule especially for Waluigi afterstories, filing notes, and addenda. If
-Waluigi updates an older record, write the update as Waluigi would file it: what
-annoyed him, what scared him, what he noticed in the room, what paper he filed,
-what door refused to open, and why the refusal matters. Do not write a raw chat
-log with speaker labels.
+§2 says **“Quote it”**; §8A says **“Don't paste the log.”** These two rules work
+together through the **“Physical Anchor + Kept Line”** standard:
+1. **Physical Anchor:** Ground the moment in the room — the door banging, a hand
+   clenched on a coin, the silence, a radiator ticking (§1–2).
+2. **Kept Line:** Deliver the exact spoken words that carried the weight.
 
-Good transformation:
+### The Dialogue Tier System — what survives verbatim vs. what is compressed
+
+The most damaging failure in session filing is cutting load-bearing dialogue
+(like Mr. L’s mustache verse or the “Mario” reveal) under the mistaken belief
+that §8A bans quoting. Dialogue is split into two distinct tiers:
+
+| Tier | What belongs here | Treatment |
+|---|---|---|
+| **Tier 1: Protected Dialogue** *(Must survive verbatim)* | • **Verses, rhymes, poetry, and refrains** (Mr. L’s verse, songs, formal oaths)<br>• **Bombshell reveals & name-drops** (naming “Mario”, unmaskings, hidden identities)<br>• **Ultimatums, prices, and contract terms** (exact debts, deadlines, threats)<br>• **Pivotal retorts & catchphrases** that alter the scene’s direction | **Verbatim quotes.** Never summarize poetry into “he spoke in rhyme about his mustache.” Never hide a namedrop inside narrative paraphrase. |
+| **Tier 2: Compressed Dialogue** *(Remaster into prose)* | • **Procedural back-and-forth** (“Did you hear me?”, “Wait, let me look”, “What do you do?”)<br>• **Looping complaints & shouting ruts** (Wario demanding his invoice four times before moving)<br>• **Table scaffolding & rules mechanics** (dice negotiations, coordinate checking) | **Compress into physical narrative.** Turn three repetitive turns of shouting into one decisive action plus the single best kept line. |
+
+### Worked transformation — from transcript to remastered scene
+
+**The Raw Log (fragment):**
+> *Mr. L:* "Through green and grit the mustache twines / while yellow teeth count crooked lines. Look close, accountant. Does the shape strike fear, or merely memory?"
+> *Wario:* "I don't care about your facial hair! I care about forty thousand coins! Pay up or I break the glass!"
+> *Wario:* "Did you hear me? Forty thousand!"
+> *Mr. L:* "He barks of coins because he cannot speak the name. Say it, fat man. Say Mario."
+
+**Bad Transformation (Extreme A — over-compressed report):**
+> Mr. L delivered a verse mocking Wario's greed and suggested he was afraid of his brother. Wario produced a bulldog-clipped invoice, bleeding from a cut over his eye, and demanded payment before Mr. L mentioned Mario. *(Result: Verse erased, dialogue butchered into summary, fake props and fake injuries hallucinated).*
+
+**Bad Transformation (Extreme B — transcript dump):**
+> *Mr. L leaned forward.* "Through green and grit the mustache twines / while yellow teeth count crooked lines. Look close, accountant. Does the shape strike fear, or merely memory?"
+> *Wario shouted.* "I don't care about your facial hair! I care about forty thousand coins! Pay up or I break the glass!"
+> *Wario added.* "Did you hear me? Forty thousand!"
+> *Mr. L replied.* "He barks of coins because he cannot speak the name. Say it, fat man. Say Mario." *(Result: No prose, no room physics, no sound beats, just chat logs with italics).*
+
+**The Gold Standard (Remastered — physical anchor + protected lines kept verbatim):**
+> The green-capped figure leaned over the counting table. In the gloom beneath the visor, the white gloved finger traced the edge of the ledger.
+>
+> > *“Through green and grit the mustache twines*  
+> > *while yellow teeth count crooked lines.*  
+> > *Look close, accountant. Does the shape strike fear, or merely memory?”*
+>
+> Wario did not look at the shape. His thumbs were jammed hard into his belt, the leather groaning under his weight as he leaned his bulk across the mahogany.
+>
+> **“I don’t care about your facial hair! I care about forty thousand coins! Pay up or I break the glass!”**
+>
+> The words hit the brass fixtures and died against the dark velvet curtains. Mr. L did not flinch. His gloved thumb tapped once against the table.
+>
+> **“He barks of coins because he cannot speak the name,”** Mr. L said softly. **“Say it, fat man. Say Mario.”**
+>
+> *WAH! The M-word! In the ledger room! Wario’s blood pressure visibly rose three atmospheres. If an invoice had a pulse, this was the moment it flatlined.*
+
+### The §8A Checklist
 
 ```text
-Transcript: "You don't have Gamma clearance." / "That is not a real clearance."
-Filing: The clerk did not accuse Waluigi of being wrong. He did something worse:
-he made the old word stop working. Gamma clearance was not denied; it was no
-longer recognized.
+□ Tier 1 lines (verses, songs, reveals, name-drops, formal terms) kept verbatim.
+□ Tier 2 loops (repetition, ping-pong dialogue, table steering) compressed.
+□ Every preserved quote has a physical anchor (eyes, hands, furniture, sound).
+□ No load-bearing props or injuries invented to bridge dialogue gaps (§2).
+□ Speaker labels replaced with natural prose attribution and character action.
+□ Waluigi asides welded directly to the spoken shock or reveal above them.
 ```
 
-Guidelines:
-
-```text
-□ Preserve exact quotes only when the wording is evidence or character-defining.
-□ Remove repeated "does he answer?" / table steering prompts.
-□ Replace player/GM labels with in-world roles or names.
-□ Keep the scene physical: doors, lights, hands, paper, silence, machinery.
-□ Let Waluigi's feeling become analysis, not pasted argument.
-□ If he was there: I said / I heard. He does not hide behind “the record.”
-□ If the record is later-dated, date it where it belongs and explain provenance
-  through a filing note or addendum; do not force it into present-tense site time.
-```
-
-The archive is not a transcript dump. It is a remastered record.
+The archive is not a transcript dump, and it is not a lifeless summary. It is a **remastered scene**.
 
 ---
 
@@ -932,8 +985,9 @@ at it without explaining it. Readers finish the filing themselves.
 
 ```
 · Does the prose show beats, or report them?
-· Dialogue where people are talking?
-· Could a reader picture each scene?
+· Dialogue where people are talking — Tier 1 kept verbatim, Tier 2 compressed? (§8A)
+· Did all verses, rhymes, songs, reveals, and key name-drops survive?
+· Could a reader picture each scene without inventing unearned injuries/props? (§2)
 · Does every aside earn its place?
 · Is there a unit that runs clean with no commentary?
 · Does any unit want to be two — or two want to be one?
@@ -959,6 +1013,12 @@ at it without explaining it. Readers finish the filing themselves.
   both copies in sync, kill-order phrasing only where meant (§9E)
 □ Living-article growth pass run: python3 tools/check-story-growth.py <id>;
   useful related/arc edits made or deliberately skipped (§9F)
+□ Transcript fidelity check:
+  - Every verse, poem, song, or refrain from the log survived verbatim
+  - Every reveal line, named entity, and bombshell statement is present
+  - No invented load-bearing props, injuries, or causes (§2)
+  - All sheet state changes (HP, items gained/lost) match the session record
+```
 ```
 
 Run the numbers: [`AUDIT_SCRIPTS.md` → Event audit](AUDIT_SCRIPTS.md#event-audit).

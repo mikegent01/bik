@@ -1,0 +1,25 @@
+[
+  {
+    "id": "inv_ruin_recovery_1023_bf",
+    "codename": "THE QUIET RECLAMATION OF FORGOTTEN RUINS",
+    "title": "Aftermath: The Quiet Reclamation of Forgotten Ruins",
+    "subtitle": "The archive requires answers.",
+    "status": "stub",
+    "classification": "Generated Investigation",
+    "opened": "Chillwind 15, 1023 BF",
+    "archivist": "Waluigi, Auditor-General",
+    "icon": "🕵️",
+    "accent": "#4a9c6d",
+    "plainSummary": [
+      {
+        "point": "The riders from Rohan returned home with tales of the hillfort's relics under the cloak of morning light.",
+        "detail": "The cache they had uncovered spoke volumes about a past now buried beneath layers of time, but it also left them with an uneasy feeling, as if the stories behind those artifacts were incomplete or lost to time. Waluigi’s mind lingered on the irony of history—how empires rise and fall while leaving behind only their forgotten relics. The local scholars, who examined the collection, found evidence that suggested a blend of cultural influences not previously known in this region. This discovery opened new avenues for historical research but also raised more questions than answers. The pottery shards and metalwork hinted at once-flourishing trade routes and alliances that had since vanished into obscurity. The hillfort itself, now quiet and still, was left to its own devices. It stood as a silent testament to the passage of time, its stones indifferent to the stories they held. As the days passed, the hillfort continued its slow decline, with only the artifacts from the cache serving as reminders of its former glory. Waluigi returned to his quarters, the weight of the past heavy on his mind. He realized that while the hillfort and its treasures belonged to history, he was part of a present where the lessons of the past could shape future decisions. The call in the wind, though distant, resonated with him—a reminder that all things have their end, but understanding is what truly matters."
+      }
+    ],
+    "leads": [],
+    "sessions": [],
+    "relatedEvents": [],
+    "exhibits": [],
+    "_stubNote": "Flipped from active by tools/fix-investigation-stubs.py: the article this arc cites has not been written. Listed in docs/worklists/investigation-stubs.md."
+  }
+]

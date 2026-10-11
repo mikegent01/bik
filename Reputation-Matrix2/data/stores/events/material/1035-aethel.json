@@ -1,0 +1,414 @@
+[
+  {
+    "id": "the_debt_siege_and_the_sixty_thirty_split",
+    "name": "The Debt Siege and the Sixty-Thirty Split",
+    "title": "The Debt Siege and the Sixty-Thirty Split: Wario's Claw, the Ice Wall, and the Contract of Accord",
+    "date": "2 Aethel, 1035 BF — late evening, two weeks after the Star Hill rescue",
+    "timeCode": "TC:1035-09-02/MAT",
+    "timeWindow": "2 Aethel, 1035 BF — one evening: the balcony reading, the helicopter siege of the outpost, the ice-wall defence, the negotiation, and the departure for Star Hill",
+    "era": "The Mushroom Kingdom Regency Era (1030s BF) — Mario's Disappearance Arc",
+    "type": "Session Event / Siege Negotiation / Arc Bridge",
+    "location": "Waluigi's Outpost — the balcony, the main study, and the airspace above it; below Wario's mountaintop residence",
+    "status": "Resolved into a truce — the 60/30 publishing contract is signed and held by Wario as collateral; the pair depart by helicopter for Dr. Toad's Star Hill Clinic, which Wario's informant reports under lockdown",
+    "outcome": "No blood, one door. Waluigi paid roughly 150 gold on the spot, then talked a mechanical siege down into a signed publishing accord: sixty-thirty on the 'No Longer Brothers' narrative once Luigi's testimony is recovered, the contract itself held by Wario as collateral until the first payment. The siege ended the moment the paper changed hands. The pair left together, by helicopter, for Star Hill.",
+    "summary": "Two weeks after the rescue, Waluigi read 'No Longer Brothers — Revision 2' aloud on his own balcony and Wario answered with a helicopter, a searchlight, and a W-stamped mechanical claw. Four strikes took the study door; an Ice Storm and a borrowed Flash-Freeze took it back. The shouting match found the real grievance — the 14,783-gold ledger — and the negotiation found the real exit: a 60/30 split on publication. The radio then supplied the next problem: Star Hill Clinic is reportedly locked down, with Luigi inside.",
+    "description": "*Two weeks of quiet, and then the quiet turned out to be a billing cycle. I have now defended my life's work with its own subject matter: froze the study to save the papers about the brothers who burned. The contract that ended it is the first document Wario has ever held that pays him more if I publish. I am choosing to find that reassuring, loudly, where he can hear me.*",
+    "image": "assets/images/events/debt-siege-sixty-thirty/debt-siege-01-ice-wall.jpg",
+    "imageCaption": "The study after the fourth strike: the W-claw caught in the Flash-Freeze wall, the searchlight through the window, and the Contract of Accord drying by candlelight. The painter could not hear the shouting, which was the only mercy of the evening.",
+    "keyBattles": [],
+    "notableFeatures": [
+      "'No Longer Brothers — Revision 2' read aloud on the balcony — the working title and both quoted lines are now on the record",
+      "The 14,783-gold ledger surfaces again, with the disputed 15% monthly interest Waluigi insists he never authorized",
+      "The W-stamped mechanical claw — deployed from a helicopter against a private residence over an invoice",
+      "Ice Storm (−10 MP) and the 'Atmospheric Displacement' treatise's Flash-Freeze — a scholar sealing his own study to save it",
+      "The Contract of Accord — sixty-thirty split on publication, held by Wario as collateral until the first payment",
+      "Radio chatter: Dr. Toad's Star Hill Clinic under lockdown for 'medical complications' — unverified, source is Wario's own informant"
+    ],
+    "participants": [
+      {
+        "id": "waluigi",
+        "name": "Waluigi",
+        "role": "Read the revision aloud, lost the door, held the study with Ice Storm and a borrowed Flash-Freeze, paid 150 gold down, and negotiated the sixty-thirty accord through his own ice wall"
+      },
+      {
+        "id": "wario",
+        "name": "Wario",
+        "role": "Brought a helicopter, a searchlight and a W-stamped claw to a billing dispute; stopped the fist at the word 'settlement'; took the contract as collateral and redirected the whole machine toward Star Hill"
+      }
+    ],
+    "sections": [
+      {
+        "name": "I. The Revision on the Balcony",
+        "icon": "📝",
+        "overview": "Two weeks of quiet is a long time in this archive, and I had spent all fourteen days of it the same way: on the balcony, at the patio table, with the night sky open above me and Wario's residence sitting on its peak like a paperweight on the horizon. You cannot renovate away a sightline. I have asked.\n\nThe draft in my hands was 'No Longer Brothers — Revision 2, Working Title', and a working title is a confession that the work is not done. I read it aloud, because a draft read silently lies to its author. The cold took each line as I gave it: *\"He didn't just walk away; he walked into a void where our shared history was erased by his own choice.\"* A good sentence. Too good — the kind that sounds true because it is well dressed — and I crossed out two of its neighbours for keeping bad company. The ink bled where the pen dug in. My verdict, spoken to nobody: *\"This won't work. It needs to be more refined for publishing.\"*\n\nI read the last line anyway, the one underlined so hard the nib had nearly torn the wood-pulp: *\"If he is no longer my brother, then I am finally free from his shadow.\"* The words went out over the stone railing and did not come back. Somewhere below a dog barked twice, sharp enough to make the page tremble in my grip — or the page trembled on its own; the record permits both readings. Then a gust crossed the patio and took the candle, and I sat in the dark with the smell of spent wick and damp stone and distant woodsmoke, the title of my own paper going cold in my hands. Up on the peak, though I did not know it yet, somebody had been watching my light burn.",
+        "waluigi_note": "Editing aloud is a professional practice, not a performance. Everything after this section happened because a man with a telescope and a ledger decided otherwise. I stand by the method, and I am invoicing him for the candle."
+      },
+      {
+        "name": "II. The Light Leaves the Mountain",
+        "icon": "🔭",
+        "overview": "I was packing up when the mountain moved. Papers into the satchel, the grimoire a familiar weight against my side, boots clicking on stone that had already gone cold for the night — and then light, where no light belongs at that hour. A flare from the upper windows of Wario's residence, hard and white, cutting down the slope like somebody had opened a furnace door. I stood still and watched a speck detach itself from the house and start down the mountainside, deliberate as a finger moving down a column of figures.\n\nThen the speck stopped being a speck. The sound arrived first, the way bad news does: a low thrum through the stones of the balcony, into the patio table, into my teeth. The shape lifted off the peak and resolved into rotors and a searchlight, and the searchlight was not sweeping the valley. It was coming here.\n\n*\"What in the world is he doing with a chopper?!\"* I said it aloud to the same cold air that had taken my draft, and the air declined to answer. The downdraft arrived ahead of the machine itself, flattening my coat against my back, snapping the loose corner of every paper I had not yet bagged. I counted my options the way you count teeth after a fall: the door behind me, the satchel on my shoulder, the distance between the two.\n\nThe helicopter did not hover politely at the property line. It came in low over the patio, belly nearly skimming the railing, and the first words of the negotiation — because that is what this evening was, though neither of us had said so yet — came down through a loudhailer, distorted by turbine whine and the particular acoustics of a man who has never once modulated his volume indoors or out: *\"GET OUT HERE!\"*",
+        "waluigi_note": "Fourteen days of silence and his opening position was a searchlight. Note the order of events for the ledger: he watched my candle first, and billed me second. The surveillance was free. It is the only thing he has ever given me at no charge."
+      },
+      {
+        "name": "III. \"YOU'RE HIDING AGAIN\"",
+        "icon": "🔦",
+        "overview": "The searchlight found me before I found the door. It pinned me against the stone wall the way a collector pins a moth — white glare, two dimensions, nowhere to file a complaint. I ran for the balcony door with the satchel banging my hip and the draft clutched in one fist, boots skidding on tile the frost had already licked, and the helicopter swept low enough on its pass that I felt the belly of the machine go over me like a hand checking a shelf for dust.\n\n*\"YOU'RE HIDING AGAIN!\"* The loudhailer cracked on the word 'hiding' — there was something in the voice beyond the usual volume, a fray at the edges I would have called panic in a man who permitted himself any.\n\n*\"WAH! Hiding?! No — I am researching! Yeah, researching!\"* I gave him the truth at the top of my lungs, which is the one register in which the truth sounds exactly like a lie. *\"Luigi is still in the hospital, so—\"*\n\nHe did not let the sentence land. *\"RESEARCHING? YOU'VE BEEN RESEARCHING FOR WEEKS!\"* And then, through the rotor wash and the rattling windowpanes, the line that mattered more than every decibel around it: *\"THE DOCTOR SAYS HE CAN'T MOVE YET! WE NEED TO MOVE!\"*\n\nI want the record to hold that line the way I held it, mid-stumble, over the threshold: the doctor says. Present tense. Somebody had been checking on the patient — recently, personally, or through somebody paid to be personal. It was not me. I had spent two weeks interrogating a draft about the brothers while the only brother still reachable lay in a clinic bed, and the man I file under 'allied capitalist hazard' had fresher information about him than the archive did.",
+        "waluigi_note": "He shouted a timekeeping dispute at me — weeks, I said two days later it had been two days, and we were both wrong by the calendar. But 'the doctor says he can't move yet' was current intelligence. File the evening's first wound here: the greedy man was better informed about the hurt one than I was."
+      },
+      {
+        "name": "IV. The Claw with the W",
+        "icon": "🦾",
+        "overview": "The helicopter's underbelly opened and delivered the evening's thesis. A mechanical claw on a reinforced arm — yellow and black, scaled like a drawbridge winch, and painted on its housing, in case posterity should wonder whose fist was coming through a scholar's door at midnight, a single enormous 'W'. The man monogrammes his siege equipment. I noted it even while running, because that is the job.\n\nIt swung out like a grappling hook and came down on the balcony stones close enough that the shock of it travelled up through my boot heels. Talons the size of fireplace pokers scraped across the patio, gathering a screech of granite, and I lunged for the entrance with my lungs full of rotor wash and grit. *\"Weeks? No, no — it's been two days, right?\"* I shouted it mid-stride, a man litigating the calendar while the calendar tried to kill him. The answer came back frayed and furious: *\"TWO DAYS? YOU'RE LOSING YOUR MIND!\"*\n\nThe claw snapped forward as I reached the handle. It hit the frame beside my head — the impact went through the door, through the wall, through the building's bones and into mine — and for one breath the metal talons and my fingers shared the same square foot of architecture. I threw my weight forward. The door slammed with a sound like a book closing on a century, and the engine roar cut to a ringing, pressurized silence.\n\nI stood in my own hallway, back against the oak, holding a crossed-out draft and approximately none of my composure. On the other side of two inches of wood: a fist the size of a wardrobe, and a creditor.",
+        "waluigi_note": "Respect for the door, which held the first exchange and is the only party to this evening that performed beyond its specification. It will be remembered. It will also, knowing my counterparty, be invoiced to me somehow."
+      },
+      {
+        "name": "V. Four Strikes on Oak",
+        "icon": "🚪",
+        "overview": "The silence lasted as long as it took him to convert the claw from a hand into an argument. Then the first strike came, and the heavy oak groaned the way old wood groans when it understands the situation before you do. I retreated through the hallway into the main study — my study, the good room, the one with the shelves that go up into the dark and the drafting tables cluttered with half-finished maps and scrolls whose provenance I would rather not shout through a door.\n\nThe air in there is always thick with old parchment and dry wax. That night it also carried frost off my own coat and the metallic taste the rotor wash had left on my tongue. The second strike put a splintering crack through the room like a rifle report. The third punched a chunk out of the frame, and through the gap came lamplight-coloured chaos: wind, grit, and my research answering the draft — loose sheets of 'The Tape' lifting off the drafting table and drifting toward the breach as if volunteering for evidence.\n\n*\"OPEN THE DOOR!\"* The voice came through the wood muffled but undiminished, rattling the glass in the lanterns.\n\nI was cornered between a bookshelf and the heavy mahogany table, running the arithmetic a man runs when the machine is bigger than he is: I could not beat the fist. Every second I spent deciding, it spent crushing the frame that stood between it and months of compiled work. A smaller claw — pincers, delicate, horrible — poked through a crack higher up and snapped at the air, tasting the room.",
+        "waluigi_note": "The fist was never going to take the research. It was going to destroy it incidentally, which is worse, because there is nobody to negotiate with inside the word 'incidentally'. That distinction is why everything in the next section happened."
+      },
+      {
+        "name": "VI. Ice Storm in My Own Study",
+        "icon": "❄️",
+        "overview": "I dove behind the mahogany table and made the only choice a scholar gets when the room is the hostage: freeze the library to save it. *\"Ice Storm,\"* I said — you say the words sharply or you say them twice — and pushed the mana through the syllables with a desperation I will edit out of every future retelling. The temperature in the study dropped like a verdict. Frost erupted from behind the table in a jagged crystalline wave, rolled over the carpets, and slammed into the door and the breaching fist together.\n\nThe physics did their work gratis: freezing moisture expanding inside split oak, cracking with loud pops, rime sheeting over yellow-and-black steel, slicking the talons until the arm lurched and lost its purchase on the frame. Ten points of mana, and worth every one. The gears behind the claw ground and complained; the fist jerked in its jagged white cage.\n\nMy own breath came out as weather. Everything on the drafting tables wore a skin of frost — maps, scrolls, the drifting pages of 'The Tape' now pinned mid-flight like insects in amber. I had bought a pause, not a victory, and the pause was already cracking at its edges.",
+        "waluigi_note": "Yes: I defended the papers about the brothers who burned by freezing the room. Somewhere a poet is insufferable about this, and I will not be providing their name to the archive."
+      },
+      {
+        "name": "VII. The Shelf Pays Rent",
+        "icon": "📚",
+        "overview": "A library earns its keep exactly once. With the fist grinding against my first frost and the pause shrinking, I went to the nearest shelf and pulled titles the way a drowning man pulls at water — *\"there has to be something in here that will help\"* — and the shelf, for the first time in its pampered existence, helped.\n\nA leather-bound treatise with a frost-touched seal: 'Atmospheric Displacement', a specialist text on keeping high-energy environments contained. I did not read it; there is no reading at that tempo. I flipped it open across the drafting table and let my fingers run the pages for a technique with the right shape, and found one with a name even a panicking man could operate: Flash-Freeze. Take any gas or moisture and solidify it. A wall, in other words. A wall made of exactly what the room was already full of.\n\nBehind me the door gave another shudder, and wood shards skipped across the desk like thrown teeth. The smaller pincer-claw was working the upper crack wider, patient as interest. I put my palm flat on the open page, took the shape of the technique into my head sideways — borrowed, not learned; the distinction matters to wizards and to nobody else at midnight — and turned back toward the breach with the last of my mana gathering cold behind my teeth.",
+        "waluigi_note": "Months from now some scholar will ask whether I had a licence for an unstudied displacement technique. The answer is that the licencing office was unavailable, on account of a fist. The book goes back on the shelf with a commendation."
+      },
+      {
+        "name": "VIII. The Wall",
+        "icon": "🧊",
+        "overview": "*\"Flash-Freeze!\"* I poured everything left into it — the sting of the cold coming back up my own arms was the receipt — and the frost on the door stopped being weather and became architecture.\n\nIt petrified. The sheet of rime thickened into a jagged, glassy wall, flowing up into the splintered frame, sealing the shards of the ruined door in place like flaws in crystal. The expansion caught the mechanical fist mid-advance and closed on it with the sound of a vise closing on bone — a metal groan rising into a high screech of gears as the machine behind the wood discovered what every creditor eventually discovers: the asset can refuse.\n\nFor a moment, the first true moment since the light left the mountain, the thudding stopped. The study stood blue-white and silent: frost webbed across the shelves, my breath hanging in sheets, the trapped claw ticking as its joints cooled, and somewhere beyond the ice the steady beat of rotors, patient, like a man drumming fingers on a desk the size of the sky.\n\nThrough two inches of oak and a hand's-width of ice, the siege finally introduced itself honestly. But that belongs to the next section; this one ends with the wall, because the wall is the only thing I built all evening that did exactly what I asked.",
+        "waluigi_note": "The ledger of the defence, for auditors: one Ice Storm, one borrowed Flash-Freeze, forty points of mana spent in total, zero pages lost. Put it next to his fuel bill and his monogrammed grapple and tell me again which of us is bad with money."
+      },
+      {
+        "name": "IX. It Was Never About the Brothers",
+        "icon": "💰",
+        "overview": "We argued through the ice, and the argument shed its costumes one at a time, in descending order of dignity.\n\n*\"WARIO! You're-a coocoo crazy! My house — you-a DESTROYED it! WAH!\"* — a reasonable opening from the owner of the house.\n\n*\"YOUR HOUSE? I'M SAVING THE RECORDS!\"* Costume one: rescuer. It held for a sentence. *\"THEY'RE THE ONLY PROOF!\"* Costume two: archivist-by-force, a man who had decided my narrative was evidence and evidence was his. There was desperation under it that I had not heard from him before, a crack in the boom. And when I pressed — *\"wait, this isn't about before, is it?\"* — the last costume came off with its coat: *\"IT'S ABOUT THE DEBT!\"*\n\nThere it was. Fourteen thousand, seven hundred and eighty-three gold pieces, delivered through a frozen door at full volume, matching the figure in his own file to the coin. *\"The-a... partnership expenses? You-a still remember that — I thought you-a paused it! WAH! I haven't authorized 15% monthly interest on anything, you LIE!\"* His answer ignored the interest entirely and went to scripture: *\"THE CONTRACT IS BINDING, WALUIGI!\"* A shard of my wall cracked loose and fell at the sheer volume of it.\n\nAnd then the sentence that reclassified the whole evening, screamed by a man who by his own account had not slept in days: *\"EVERYONE IS DISTRACTED BY THE LOST BROTHER, BUT I AM THE ONLY ONE LOOKING AT THE NUMBERS!\"* The record files his delivery as unhinged and his bookkeeping as immaculate, and notes with some discomfort that both can be true at once.",
+        "waluigi_note": "I dispute the principal, the interest, and the hour of collection, in that order, in writing, forever. But the figure had not drifted a single coin in all these years. The most trustworthy thing about the man is the most alarming thing about him."
+      },
+      {
+        "name": "X. The Pouch and the Word 'Settlement'",
+        "icon": "🪙",
+        "overview": "De-escalation came in two currencies, and the first was the old-fashioned kind.\n\n*\"Alright, alright — I'll pay-a you some money, just please, no more destroying my house.\"* The change in him was audible through ice and oak together: *\"GOLD! I WANT THE GOLD!\"* — the frantic edge gone for exactly one half-second, replaced by a booming, almost childlike glee, and beneath the rotor noise I could hear, unmistakably, the rhythmic thud of a large man dancing.\n\nI went into my tunic for the worn leather pouch I keep for personal expenditures and tipped it out on the study\n floor — heavy coins ringing on cold stone, roughly a hundred and fifty gold once the rolling ones were chased down. *\"There. Are you-a happy?\"*\n\n*\"THAT'S A START, WALUIGI!\"* He did not count it. That is the detail the record wants kept: the man who knows his principal to the coin did not count the coins. The mechanical fist had gone still at the word 'settlement' the way a struck bell goes quiet — it was never about this amount, or honestly about any amount reachable by pouch. It was about the ledger seeing movement. The fist idled. The dancing stopped. Somewhere above, the searchlight drifted off my window for the first time in an hour, and the negotiation proper could finally begin.",
+        "waluigi_note": "A hundred and fifty gold against fourteen thousand is not a payment, it is a pulse — proof of life from the debt. He priced it accordingly and so did I. The real instrument was always going to be made of paper, not metal."
+      },
+      {
+        "name": "XI. The Sixty-Thirty Split",
+        "icon": "📜",
+        "overview": "Then I made the offer that ended the siege, shouted through my own ice wall with the last of my breath and most of my pride.\n\n*\"Listen — how about this. Once we get Luigi back, we use his-a testimony — I publish the 'No Longer Brothers' narrative, and we split-a the profits. I'll give you the bigger— the sixty-thirty split, WAH! Just stop destroying my house!\"*\n\n*\"A SIXTY-THIRTY SPLIT?!\"* His voice went up past the turbine's register. And then — silence. The longest of the night. Through the wall I could hear him breathing, heavy and deliberate, the sound of a man running numbers in the dark. The ice ticked. The rotors beat. My heart audited itself.\n\nThe grinding gear-sound that followed was the arm withdrawing — fully, cleanly, out of my wall and off my property line. *\"THEN YOU BETTER START WRITING THE CONTRACT BEFORE I CHANGE MY MIND!\"*\n\nI wrote it at the drafting table in under a minute, in a hand I will deny under oath, and passed it out through the breach. The great claw took the page with a delicacy that frightened me more than the four strikes had — pincers like a surgeon who moonlights as a pickpocket. A low chuckle came through clearly for the first time all evening, with the turbine suddenly under it instead of over it. *\"A PROPER DEAL,\"* he growled, frantic rage gone, cold satisfaction in its chair. *\"I'LL HOLD THE CONTRACT AS COLLATERAL UNTIL THE FIRST PAYMENT IS SETTLED.\"*\n\nThe hand retracted into the dark. I stood in the ringing quiet of my ruined doorway and breathed like a man who had just co-signed something with the weather.",
+        "waluigi_note": "I have made the ledger my co-author. He is now financially upstream of my publication schedule, which is the most dangerous editing decision of my career and — I will say it once, quietly, here — probably the correct one."
+      },
+      {
+        "name": "XII. The Golden Cage Report",
+        "icon": "📡",
+        "overview": "I walked out onto my own balcony like a visitor, through grit and shattered rime, and looked up at him.\n\nWario stood at the platform's edge with the searchlights behind him, silhouetted like a statue commissioned by itself, grinning the grin of a man holding collateral. *\"YOU'VE GOT A GOOD HEAD ON YOUR SHOULDERS, WALUIGI,\"* he bellowed, eyes gleaming like the coins still on my study floor. *\"NOW WE JUST HAVE TO FIND THAT GREEN IDIOT BEFORE THE DEBT COLLECTORS GET BORED!\"*\n\n*\"Luigi is still with Doctor Toad,\"* I said, boarding the platform — quietly, but boarding. *\"I haven't checked on him since that night. You have informants. Is he still there?\"* Wario grabbed the radio and barked: *\"REPORT! STATUS OF THE STAR HILL CLINIC, IMMEDIATELY!\"* Static. Then a frantic voice confirming that Dr. Toad's facility is under heavy lockdown, for 'medical complications'.\n\n*\"Wah? They're-a locking the injured man up?\"*\n\n*\"THEY CALL IT 'PROTECTION'. I CALL IT A CONVENIENT EXCUSE FOR DELAYING MY PAYMENT!\"* He gripped my shoulder with a hand like a dock clamp, eyes wide, voice dropping into the register he saves for money in danger: *\"IF HE'S STILL IN THAT CLINIC, EVERY SECOND WE WAIT IS A SECOND THEY GET TO HIDE HIS ASSETS!\"*\n\nThe helicopter banked off my ruined balcony toward Star Hill with both signatories of the Contract of Accord aboard. Below us my outpost shrank to a lit doorway with no door in it. Ahead, a clinic that had stopped answering, two weeks into a two-week rest order, with the only reachable brother inside.",
+        "waluigi_note": "The lockdown claim has exactly one source: an informant paid by the man who profits from urgency, relayed at volume by that same man. I boarded anyway. File both halves of that sentence — the scepticism and the boots — because the archive should remember I carried both aboard."
+      }
+    ],
+    "aftermath": "The outpost stands, minus a door and plus a frost scar. The Contract of Accord travels in Wario's keeping — the first paper he has ever held that pays him more if Waluigi publishes, which aligns the two of them more honestly than any apology could. The 150 gold is logged against a principal neither party agrees on. The next move was chosen by a radio: Star Hill Clinic, the lockdown report, and whatever 'medical complications' turns out to mean when the people saying it know they are being recorded. What 'medical complications' turned out to mean is filed in the sequel: the helicopter never reached the clinic door, and the man in Luigi's clothes was standing in the street outside it. See *The Rot-Zone at Star Hill*.",
+    "effects": {
+      "wario_enterprise": 3
+    },
+    "reputationChanges": {
+      "waluigi": {
+        "wario_enterprise": 3
+      },
+      "wario": {
+        "wario_enterprise": 2,
+        "mushroom_regency": -2
+      }
+    },
+    "reputationNotes": {
+      "waluigi": "Paid on the spot under siege, then converted a hostile collection action into a signed revenue-sharing accord — the Enterprise respects nothing more than a counterparty who closes.",
+      "wario": "The Enterprise books a signed contract and a first payment; the Regency books a helicopter assault on a private residence over an invoice. Both entries are accurate."
+    },
+    "relatedArticles": [
+      "the_garden_above_the_fire",
+      "the_lava_bridge_ambush_and_the_blue_luigi",
+      "the_tape_and_the_wario_files",
+      "waluigis_outpost",
+      "dr_toads_star_hill_clinic",
+      "waluigi",
+      "wario",
+      "luigi",
+      "mario",
+      "wario_enterprise",
+      "the_rot_zone_at_star_hill"
+    ],
+    "waluigiAssessment": "1. The siege read as a rescue of records for exactly two sentences, and as a collection action for the rest of its life. File the first reading as what Wario needed to believe and the second as what the machinery was built for.\n2. The 14,783-gold figure arrived through a frozen door matching the ledger in Wario's own file to the coin. Whatever else the man has lost — sleep, proportion, a door that was not his — the numbers have not drifted. That consistency is the most trustworthy thing about him and the most alarming.\n3. The Star Hill lockdown is radio chatter from a paid informant, relayed by a creditor who profits from urgency. It enters the investigation as a lead with a named source, not as a fact. If it proves true, the question is not 'is Luigi safe' but 'who decided he should be unreachable, and on which day of the rest order.'\n4. The sixty-thirty split is the real event here. Every prior paper between these two recorded what one of them owed the other. This is the first that pays them both for the same outcome. Watch what that does to the siege equipment.",
+    "xpAwards": [
+      {
+        "xpKey": "waluigi",
+        "articleId": "waluigi",
+        "name": "Waluigi",
+        "cat": "diplomacy",
+        "xp": 300,
+        "title": "Event — The Debt Siege and the Sixty-Thirty Split",
+        "desc": "Talked a mechanical siege down into a signed 60/30 publishing accord through his own ice wall, while the door was still losing"
+      },
+      {
+        "xpKey": "waluigi",
+        "articleId": "waluigi",
+        "name": "Waluigi",
+        "cat": "magic",
+        "xp": 150,
+        "title": "Event — The Debt Siege and the Sixty-Thirty Split",
+        "desc": "Ice Storm under fire, then a Flash-Freeze learned from a shelf mid-siege — sealed his own study rather than lose the research"
+      },
+      {
+        "xpKey": "wario",
+        "articleId": "wario",
+        "name": "Wario",
+        "cat": "chaos",
+        "xp": 200,
+        "title": "Event — The Debt Siege and the Sixty-Thirty Split",
+        "desc": "Brought a helicopter, a searchlight and a monogrammed siege claw to a billing dispute, and narrated the whole thing by loudhailer"
+      },
+      {
+        "xpKey": "wario",
+        "articleId": "wario",
+        "name": "Wario",
+        "cat": "diplomacy",
+        "xp": 100,
+        "title": "Event — The Debt Siege and the Sixty-Thirty Split",
+        "desc": "Stopped the fist at the word 'settlement', took paper instead of walls, and left with a contract that pays him to cooperate"
+      }
+    ]
+  },
+  {
+    "id": "the_rot_zone_at_star_hill",
+    "name": "The Rot-Zone at Star Hill",
+    "title": "The Rot-Zone at Star Hill: A Fired Pilot, a Roof That Was Not a Landing Pad, the Man With Too Many Hands, and the Notebook That Left in a Courier's Satchel",
+    "date": "2 Aethel, 1035 BF — night, continuing without a break from the Debt Siege; the helicopter leg from the outpost to Star Hill",
+    "timeCode": "TC:1035-09-02/MAT",
+    "timeWindow": "2 Aethel, 1035 BF — one night: the helicopter leg from Waluigi's Outpost, the crash on a roof beside Dr. Toad's clinic, the corridor behind the steel door, the street, and the loss of the notebook; Waluigi unconscious for 'three heartbeats of the market'",
+    "era": "The Mushroom Kingdom Regency Era (1030s BF) — Mario's Disappearance Arc",
+    "type": "Session Event / Crash and Retreat / Arc Escalation",
+    "location": "Star Hill — the airspace over the valley, a roof near Dr. Toad's Star Hill Clinic, the alley and steel door beside it, the clinic's ground-floor corridor, and the street outside",
+    "status": "Unresolved — the clinic was not reached past the corridor behind the steel door; Luigi was not seen; Waluigi's working notebook is in the possession of a courier named Paulo; Mr. L was sighted outside the clinic, in several copies, and addressed Paulo as 'Mario'; the fired pilot's fate is unrecorded",
+    "summary": "Waluigi and Wario fly for Star Hill in a helicopter Wario is piloting himself, the real pilot fired for asking for a raise and left in the rear hold. Below, Mr. L recites verse at an armed courier, Paulo, calls him Mario, and opens the street into a mouth. The crash, a steel door, a jammed pistol and a ricochet end with Paulo walking off reading Waluigi's notebook, and one scrap left in a thorn.",
+    "description": "*The siege ended with a signature and the next thing began with a lurch. This is the leg from my outpost to Star Hill, and it is a record of things lost in order: a pilot to a raise, a helicopter to a roof, an hour of Wario to a steel bar, three heartbeats of me to a ricochet, and my notebook to a courier who called Wario purple boy and walked off reading. The street's half of the night is Mr. L's and Paulo's, and I have kept their verses and their best lines exactly as they were said.*",
+    "participants": [
+      {
+        "id": "waluigi",
+        "name": "Waluigi",
+        "role": "Banged on the pilot's seat and found Wario flying; lost his notebook out of the helicopter and recovered it at the crash site; slapped Wario awake inside the corridor; held a pistol's attention with a speech about one per cent of his capacity; ran with the book as a shield and went down to a ricochet; woke with an empty pocket"
+      },
+      {
+        "id": "wario",
+        "name": "Wario",
+        "role": "Fired the pilot for asking for a raise and flew the transport helicopter onto a roof; dragged Waluigi out under fire; burst the steel door and was knocked cold by a falling bar; refused Paulo twice, then threw him the notebook; named the night a hostile takeover"
+      },
+      {
+        "id": "mr_l",
+        "name": "Mr. L",
+        "role": "Recited verse in the street about a mustache, a bridge and a brother; transformed under fire; threw Paulo into the clinic with one hand; raised a mouth of flesh and an eye out of the ground; called Paulo 'Mario'; appeared in several copies; flickered out of reality at the end"
+      },
+      {
+        "id": "paulo",
+        "name": "Paulo",
+        "role": "Courier on a delivery he never put down; shot at Mr. L and was thrown into the clinic; held a pistol on Waluigi twice; named the place a 'rot-zone' and asked for 'coordinates' to 'clear my debt'; took the notebook from Wario at gunpoint and left reading it"
+      },
+      {
+        "id": "luigi",
+        "name": "Luigi",
+        "role": "Mistaken for the man in lime green by Waluigi from the air; not seen; the Star Hill lead on him is carried over from the earlier file and unverified"
+      },
+      {
+        "id": "dr_toad",
+        "name": "Dr. Toad",
+        "role": "Proprietor of the clinic where Paulo was thrown through the wall; not seen this night"
+      }
+    ],
+    "outcome": "The clinic was not reached past the corridor behind the steel door. Nobody in this record saw Luigi, and the lead that he is held inside Star Hill is carried over from the earlier file and unchanged.\n\nFiled as settled: Wario's transport helicopter is a wreck on a roof beside Dr. Toad's clinic. Waluigi's working notebook — the Luigi notes, the new story — is in the possession of a courier who gave his name as Paulo and who read it as he walked away. A scrap of one page, recovered from a thorn, is the only part of it in the archive. Mr. L was seen in the street in a lengthened form with long hands, red eyes and a huge mouth, and later in several copies; the ground in front of the clinic raised flesh and teeth and an eye; the building shook and grew while they were inside it.\n\nFiled as open: the fate of the pilot Wario fired and put in the rear hold. Why Mr. L addressed Paulo as 'Mario', who 'skinny T' is, and what the bridge over the king's inferno has to do with a courier. What 'rot-zone' means, who gave Paulo the word, what 'coordinates' he expected in a notebook, and what debt he meant to clear with it. What is written on the scrap from the thorn; the record does not say.\n\nAlso filed, because it is true: Wario refused the notebook to Paulo twice, then threw it when the trigger finger tightened. Waluigi was unconscious. He is taking Wario's word for the rest, in writing, which he has never done before.",
+    "notableFeatures": [
+      "‘I'M FLYING, YOU STRING BEAN!’ — Wario in the pilot's seat; the real pilot fired for asking for a raise and put in the rear hold ‘for consultation’",
+      "‘Who's that man you see who grooms his 'stache so well?’ — Mr. L's refrain, recited across four verses at a courier with a gun",
+      "‘Cool but who asked — wait, I know the number — zero!’ — Paulo answering a verse with one of his own",
+      "‘It just makes you a bigger target.’ / ‘I didn't know skinny T wore green.’ — Paulo, to a man with a mouth too wide for his face",
+      "‘I did love you, Mario — but why did you twist the knife in the gash?’ — Mr. L, with a mouth of flesh and teeth open in the road; Paulo: ‘I don't know who your brother was’",
+      "‘One per cent of my capacity’ — Waluigi's speech at a pistol, held exactly as long as the gun took to stall",
+      "‘Rot-zone,’ ‘coordinates,’ ‘clear my debt’ — the courier's own words, with a gun at Waluigi's forehead",
+      "‘Hand it over’ / ‘purple boy’ — Wario refuses twice, throws the notebook on the third demand; the only part of it left is one scrap kept by a thorn"
+    ],
+    "keyBattles": [],
+    "relatedArticles": [
+      "the_debt_siege_and_the_sixty_thirty_split",
+      "the_tape_and_the_wario_files",
+      "the_garden_above_the_fire",
+      "the_lava_bridge_ambush_and_the_blue_luigi",
+      "dr_toads_star_hill_clinic",
+      "waluigis_outpost",
+      "waluigi",
+      "wario",
+      "mr_l",
+      "paulo",
+      "luigi",
+      "mario",
+      "dr_toad",
+      "wario_enterprise"
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "wario_enterprise": 2
+      },
+      "wario": {
+        "wario_enterprise": -3,
+        "mushroom_regency": -2
+      }
+    },
+    "effects": {
+      "wario_enterprise": -2
+    },
+    "reputationNotes": {
+      "waluigi": "Held a pistol's attention with a finger and a speech, then chose the notebook over a surrender and was carried for it; the Enterprise respects a man who will not hand over the asset, even when it was the wrong call.",
+      "wario": "A transport helicopter written off on a roof, a pilot dismissed at altitude and left unaccounted for, and a client-side asset — the notebook — surrendered to an armed courier. The Regency books an unlicensed aircraft down beside a civilian clinic; the Enterprise books the loss and, quietly, the reason for it.",
+      "_record": "No faction gained standing tonight. Wario's Enterprise lost a machine and a man; the Regency gained another reason to ask what Wario does with helicopters near hospitals. Mr. L, Paulo and the rot-zone belong to nobody the archive can bill yet."
+    },
+    "aftermath": "The record stops at the crash site with Mr. L gone, the notebook gone, and one scrap of it recovered from a thorn. Wario's helicopter stays where it fell. The pilot he put in the rear hold has not been accounted for, and this filing says so plainly so that somebody asks.\n\nThe Contract of Accord is not lost: Wario still holds a signed sixty-thirty split on a narrative whose working notes are in a courier's satchel. The scrap from the thorn is filed as an exhibit. The custody of the notebook is [[prop:prop_notebook_custody_slip|logged as a loss under duress]], with a named holder, which means the archive can cite it and the holder can be found.\n\nStar Hill is not a clinic in any sense this record can defend. The ground opened; the building shook and grew; a courier who had never been there before had a word for it, and a man in lime green called him Mario.",
+    "waluigiAssessment": "**1. We did not reach the clinic and I am not going to dress that up.** We got as far as a corridor behind a steel door, with walls of flesh and a courier with a gun. Nothing about Luigi is more certain than it was at the outpost. Everything about Star Hill is worse.\n\n**2. Mr. L is on the record, and he took a courier for Mario.** The verses were about a mustache, a bridge over the king's inferno and a brother who let go. Paulo did not know the brother and called him a bastard. I am not drawing the line under that. I am filing it where the next filing can find it.\n\n**3. The notebook.** Wario refused it, asked for a processing fee, threatened to call the courier's father, and gave it up on the third demand. I would not have given it up at all. That is the difference between us and I am not going to pretend it is smaller than it is.\n\n**4. 'Rot-zone' is the most important word in this filing and I was shot at before I could ask about it.** 'Coordinates' and 'clear my debt' came with it. A courier does not coin a word like that; he is issued it, with a route. Somebody at the other end of Paulo's delivery knows what Star Hill has become and has a name for it, and that somebody's courier now has my notes.\n\n**5. The pilot.** He asked for a raise, was fired, and was in a steel box when the roof came up. I did not go back. That is mine. It is the first line of the next filing whether I want it to be or not.\n\n**Recommendation:** track the paper trail — the delivery, the route, the depot that issues the word 'rot-zone' — before chasing the courier, who is reading my handwriting as he walks and will therefore know what I would do next. Send somebody who is not me for the man in the hold.",
+    "xpAwards": [
+      {
+        "xpKey": "waluigi",
+        "articleId": "waluigi",
+        "name": "Waluigi",
+        "cat": "survival",
+        "xp": 250,
+        "title": "Event — The Rot-Zone at Star Hill",
+        "desc": "Walked away from a crashed helicopter, a growing corridor, and a ricochet a hand's width from his ear; woke three heartbeats later and asked where his notebook was",
+        "date": "2 Aethel, 1035 BF — night, continuing without a break from the Debt Siege; the helicopter leg from the outpost to Star Hill",
+        "dateSort": 10350902
+      },
+      {
+        "xpKey": "waluigi",
+        "articleId": "waluigi",
+        "name": "Waluigi",
+        "cat": "social",
+        "xp": 150,
+        "title": "Event — The Rot-Zone at Star Hill",
+        "desc": "Held a pistol's attention with a speech about one per cent of his capacity, exactly as long as the gun took to stall",
+        "date": "2 Aethel, 1035 BF — night, continuing without a break from the Debt Siege; the helicopter leg from the outpost to Star Hill",
+        "dateSort": 10350902
+      },
+      {
+        "xpKey": "wario",
+        "articleId": "wario",
+        "name": "Wario",
+        "cat": "chaos",
+        "xp": 200,
+        "title": "Event — The Rot-Zone at Star Hill",
+        "desc": "Fired the pilot for asking for a raise, flew a transport helicopter at a hospital on a stolen manual, and put it on a roof",
+        "date": "2 Aethel, 1035 BF — night, continuing without a break from the Debt Siege; the helicopter leg from the outpost to Star Hill",
+        "dateSort": 10350902
+      },
+      {
+        "xpKey": "wario",
+        "articleId": "wario",
+        "name": "Wario",
+        "cat": "loyalty",
+        "xp": 250,
+        "title": "Event — The Rot-Zone at Star Hill",
+        "desc": "Dragged Waluigi out of a wreck under fire, then gave up the notebook to an armed courier when the trigger finger tightened, with Waluigi unconscious beside him",
+        "date": "2 Aethel, 1035 BF — night, continuing without a break from the Debt Siege; the helicopter leg from the outpost to Star Hill",
+        "dateSort": 10350902
+      }
+    ],
+    "image": "assets/images/events/rot-zone-star-hill/rot-01-roof-wreck.jpg",
+    "imageCaption": "A roof beside Dr. Toad's clinic, minutes after the skid caught it. The transport helicopter on its side, a ruptured pipe flaring, and Wario dragging Waluigi from the wreck while gunfire comes from the street. The red light inside the wreck is still going.",
+    "sections": [
+      {
+        "name": "I. The Pilot's Seat",
+        "icon": "🚁",
+        "overview": "The rotors came up through the soles of Waluigi's boots, a thrum as steady as a second pulse, and his own heart had fallen into step with it. Through the open door the night was a smear of grey and black, and the wind went past in one long hiss too loud to hear anything inside. Far below, the mountains stood along the flight path like sentinels that had seen this kind of thing before. Before this he had been a thief in a crumbling house. Now he was a passenger, and the lights of the clinic were coming up on the horizon, one lonely spark in the dark.\n\nThe helicopter hit a pocket of rough air and dropped. Waluigi's body swung toward the rail and his hand found cold metal, knuckles gone white around it.\n\n**“WAH! What are you doing?”**\n\nHe was out of his seat before he thought about it, one fist hammering the back of the pilot's chair. It did not feel like a pilot's chair. It was too wide.\n\n**“I'M FLYING, YOU STRING BEAN!”** Wario's face swung round, purple to the ears, and one thick glove clamped on Waluigi's shoulder to hold him upright. **“DON'T TOUCH THE CONTROLS! THAT PILOT IS ON MY TAB, AND I DON'T PAY FOR BROKEN EQUIPMENT!”**\n\nWaluigi's eyes went to the seat, then to the man in it, then to the seat again. The pilot was gone. In his place sat Wario, hands strangling the stick.\n\n*WAH! I want it on the record that I did not notice who was flying the helicopter I was riding in. I noticed the rotors. I noticed the cold. A man built like a vending machine was at the controls, and I was looking at mountains.*",
+        "waluigi_note": "Wario was the only person in that cockpit with a reason to be there and no qualifications to match it. I walked past the seat and it never occurred to me to look. I am putting that first, because everything after it follows from it."
+      },
+      {
+        "name": "II. Off the Balance Sheet",
+        "icon": "🧾",
+        "overview": "Waluigi looked around the cabin for anyone at all. Webbing, a coil of cable, crates shuddering with the airframe. No pilot.\n\n**“Where did the actual pilot go?”**\n\n**“THE PILOT WAS A LIABILITY! HE ASKED FOR A RAISE, SO I FIRED HIM!”** Wario did not turn. His knuckles were white on the grips. **“NOW I'M THE CAPTAIN, AND THE CAPTAIN DOESN'T TAKE ORDERS FROM THE CARGO!”**\n\n**“He was on the plane midair — what-a do you mean?”**\n\n**“HE'S IN THE REAR HOLD! I PUT HIM THERE FOR ‘CONSULTATION’!”** The words had to fight the engines to reach Waluigi's ears. **“HE'LL BE FINE — OR HE'LL GET A VERY LOUD SEAT FOR THE NEXT TWO HOURS! EITHER WAY, HE'S OFF MY BALANCE SHEET!”**\n\nWaluigi looked at the window, then at the man holding the machine in the sky, and asked the only question left. How was he doing this?\n\n**“I DON'T NEED TO KNOW HOW, I JUST KNOW IT WORKS!”** Wario wrenched a heavy lever and the cabin tilted, loose cable sliding across the floor. **“I STUDIED THE MANUAL! WELL — I STOLE THE MANUAL AND READ THE PARTS WITH PICTURES! IT'S ALL ABOUT MOMENTUM, AND I HAVE A LOT OF MOMENTUM!”**\n\n*WAH! The parts with pictures. I have watched this man sign a contract by its pictures. The pilot, who had read the words, was in a steel box behind us, and nobody went back to open it. I was belted in, he was flying, and the only man who could have corrected him was latched in the dark.*",
+        "waluigi_note": "He was dismissed for asking for a raise. That is the whole stated reason and I am not improving on it. The man who had read the words was in the hold. The man who had read the pictures had the stick."
+      },
+      {
+        "name": "III. No Refunds",
+        "icon": "🗺️",
+        "overview": "Waluigi pulled the harness across his chest until the buckle bit. **“You better be sure about this.”**\n\n**“BETTER IS FOR PEOPLE WHO DON'T OWN THE MAP!”** Wario barked. **“I DON'T GUESS, I CALCULATE! AND MY CALCULATION SAYS WE LAND ON THAT ROOF OR WE DON'T LAND AT ALL — NO REFUNDS!”**\n\nWaluigi held his breath. Wario slapped a button on the dash and a warning light began to flash. **“HOLD YOUR BREATH THEN, STRINGS-BEAN, IT SAVES THE OXYGEN FOR THE PROFIT! WATCH THE GEARS DROP! WARIO SEES THE LANDING ZONE, AND THE LANDING ZONE OWES ME A FEE!”**\n\n**“It was a metaph — WAIT, SLOW DOWN, WAHHH!”**\n\nIn the street below, between the lamps, stood a figure in lime-green overalls and a lime-green cap. Not Luigi's green. Waluigi saw that, and said the name anyway.\n\n**“THAT IS LUIGI IN THE STREET! HE IS STANDING THERE!”**\n\n**“THAT'S NOT A LANDING ZONE, THAT'S A PAYDAY!”** Wario's eyes bulged against the windscreen. **“HE LOOKS LIKE HE'S WAITING FOR SOMETHING — PROBABLY THE BILL I'M ABOUT TO SEND HIM!”**\n\nA second shape had stepped into the lamplight and was talking to the green one.\n\n**“WAH! Who is that?”**\n\n**“THAT'S A DISTRACTION! A DEBT COLLECTOR IN DISGUISE!”** The stick went over and the cabin tilted until Waluigi's stomach came up behind his teeth. **“I DON'T CARE WHO HE IS. IF HE'S TALKING TO THE GREEN ONE, HE'S INTERFERING WITH MY ACQUISITION!”**\n\n*WAH! I said the green was wrong and then I called it Luigi anyway, in the same breath, with my finger out. That is the sentence I would like struck from the record. It will not be, because I am the one writing it down.*",
+        "waluigi_note": "The green was not Luigi's green. I knew it from the air and said the name regardless. If a later filing turns on that mistake, it turns on me."
+      },
+      {
+        "name": "IV. The Man Who Grooms His 'Stache",
+        "icon": "🥸",
+        "overview": "Two scenes ran at once from here, one hour of one night split across a street and a helicopter, and the street went first.\n\nIn front of Dr. Toad's clinic the man in lime green planted his boots, dropped one shoulder, and began to recite as if the whole street were his audience.\n\n> *Who's that man you see who grooms his 'stache so well?*  \n> *This mystery will be unsolved by those whole souls fell to his hell.*\n\nThe courier he said it to had a heavy leather satchel across his chest and no patience at all. **“Who's that in the street stumbling like a drunken bum — get fucked, get out of my way.”** A gun came out. **“Do you not see the gun.”**\n\nAbove them the helicopter banked, and the rotor noise swallowed everything but the shapes. Waluigi dug a notepad out of his coat and jabbed a finger at the two figures. **“Look there, talking to each other! Luigi is there — he is talking!”** The deck tipped, the notebook slid out of his grip across the floor, and the voices came up through the thrum thin as wire.\n\nMr. L went on, unbothered by the gun.\n\n> *Now behold the twilight of the so-called-a-hero,*  \n> *who somehow found it easy to betray he who he claimed to love,*  \n> *the one who laid me low from up above.*\n\n**“Cool but who asked — wait, I know the number — zero! I gotta go, you made me slow, I'm getting sick of ya.”** The courier's thumb was white on the grip.\n\n**“They will see us!”** Waluigi lunged for the notebook as the craft lurched, fingers closing on air. **“WAH! Get this damn thing under control!”**\n\nIt went out the open door. Pages fluttered and spun, a pale leaf dropping into the dark, and the helicopter's shadow slid across the cobblestones and put both men into sudden night. The man with the gun looked up at the blades.\n\n**“THEY'RE LOOKING AT US!”** Wario shouted. **“THAT MEANS THEY CAN SEE THE PROFIT!”** The cabin filled with the smell of scorched oil.\n\n*WAH! My notebook went out the door with that verse still unwritten. Whatever the man was saying about a mustache, I caught it in pieces and lost the paper meant to hold it. I would like it noted that I reached.*",
+        "waluigi_note": "The refrain is ‘who's that man you see who grooms his 'stache so well.’ I caught it in pieces from a rocking helicopter and have the rest only from the other page of the night. I have kept every word as that page gave it."
+      },
+      {
+        "name": "V. A Bigger Target",
+        "icon": "🎯",
+        "overview": "Mr. L changed in the middle of a breath. The lime-green shoulders swelled, the arms ran long, the hands opened at the ends of them like tools, and the eyes went red. The mouth kept widening past the place where a mouth stops. He laughed, and the laugh came up from somewhere under the pavement.\n\n**“What the fuck is that thing?”** Paulo said.\n\nHe did not step back. He levelled the gun at the middle of the horror and let the muzzle settle. **“I don't give a damn what kind of freak show you're running, just get your oversized head out of my way.”** He spat a glob of phlegm onto the cracked pavement. **“You think some spooky transformation makes you special? It just makes you a bigger target. Move. Now.”**\n\n> *Glad you're here. Now it's too late to escape!*  \n> *You will know the fear I felt as I began to melt in the flames of hate!*\n\n**“Jesus Christ, you're the ugliest thing I've ever seen, fuckin' die! I didn't know skinny T wore green.”**\n\n> *Witness who's behind the mask — desecrated —*  \n> *you should have been afraid to ask.*  \n> *Now in my desolation you will bask!*\n\n**“Buncha fancy words for making dudes dead. Nothing I haven't heard before. Eat lead — die, motherfucker!”**\n\nMr. L charged. The gun cracked and kept cracking, a steady burst that strobed everything white, and Paulo's heavy boot came up and drove into the creature's midsection. He rolled behind a cracked pillar with the satchel pinned against his ribs, breath sawing. **“I don't care how much you ‘melted’ or who you were before. You're just a fucking target blocking my route.”**\n\nHe kept his head down. **“You want to talk about desolation? You're the one standing in front of a gun with nothing but hot air coming out your mouth!”**",
+        "waluigi_note": "Skinny T. He said it like a man naming somebody he knew. I do not know who it is and I will not guess in a filing, so I am leaving it exactly where he put it."
+      },
+      {
+        "name": "VI. Clips a Roof",
+        "icon": "💥",
+        "overview": "The skid caught a jagged edge of roof, and the helicopter did not so much fall as get tripped. The blades sheared off in a spray of sparks, the ground came up with sickening speed, and the world ended in a grind of metal and glass.\n\nThen nothing. A ringing in the ears. Steam hissing somewhere, something burning a little way off, dust that tasted of copper and pulverized brick. Through the shattered window the street lay quiet, and smoke drifted in from the wreck.\n\n**“...At least we're on the ground,”** Wario wheezed from the cockpit, head lolling against torn upholstery. **“Now I just have to figure out how much the repairs are going to cost me.”**\n\nOut in the street, boots began to crunch on broken glass.\n\nWaluigi coughed. **“Look over there. We have to get down.”** Gunfire was going off somewhere beyond the smoke.\n\n**“GUNSHOTS? THAT'S JUST THE SOUND OF A BAD INVESTMENT!”** Wario kicked the side door open and seized Waluigi by the collar. **“GET OUT! MOVE YOUR LEGS OR I'M CHARGING YOU FOR THE MEDICAL BILLS!”** A round smacked into brick beside them and flung dust across the glass. **“WE MOVE NOW, OR WE BECOME PART OF THE DEBRIS!”**\n\nDown in the street Mr. L's long hand came whistling past Paulo's shoulder and Paulo threw himself left against a wall. **“You're going to pay for that! I don't care about your tantrum or your goddamn ‘desolation,’ I just want to finish this delivery.”** Two rounds went into the floor at the creature's feet and raised a cloud of grit. **“Keep coming closer if you want to see what happens when my black powder hits your face!”**\n\nOne hand closed around him and threw him into the clinic. He hit plaster and wood and rolled, coughing, the gun still in his fist. **“Get your filthy claws off me! You think throwing me inside makes it easier for you?”** A shot went at the door frame. **“I'm still here, you overgrown freak, and I'm still pissed enough to bury you!”**\n\nWaluigi fought Wario's grip all the way across the pavement. **“STRUGGLING IS A WASTE OF CALORIES! JUST MOVE!”** Wario hauled him clear and flung him down. **“THEY'RE SHOOTING BECAUSE THEY DON'T LIKE THE COMPETITION — NOW GET OUT BEFORE I SELL YOUR BOOTS TO THE SCRAP DEALER! RUN! RUN LIKE YOU'RE ESCAPING A TAX AUDIT!”** He kicked a piece of debris across the street for a distraction, and they ran for the alley.\n\n*WAH! Gunshots, a bad investment. This from the man who called the roof an acquisition right up to the moment it hit us. I asked for neither and I was invoiced for both. He has never once offered a refund.*",
+        "waluigi_note": "The notebook came down in the same street as the helicopter. I did not see where. I was being carried."
+      },
+      {
+        "name": "VII. The Mouth in the Road",
+        "icon": "🦷",
+        "overview": "Mr. L stood in the middle of the street with his arms hanging past his knees and told a story.\n\n> *Standing at the bridge over the king's inferno, hand in hand,*  \n> *I thought that we'd fight together,*  \n> *and I never lost trust in my bro*  \n> *until he plunged me in the inferno.*\n\n**“Save your tragic little soap opera for someone who gives a damn!”** Paulo had his back flat to the clinic wall, gasping, the gun jumping in his hands. **“I don't give a shit about your brother or your bridge, I just want you out of my way.”** He fired a wild blast at the ceiling to bring the debris down.\n\nThe ground answered. Fire climbed out of the cracks in the road.\n\n> *For his betrayal the world shall burn —*  \n> *those who feel no guilt, those who have no sense of shame,*  \n> *all will play my game, all will perish all the same!*  \n> *Know my name!*\n\n**“I don't care about your names or your games.”** Paulo's face twisted against the heat. **“You think I'm some hero who's gonna stand here and listen to you whine about shame?”** A burst went into the creature's chest. **“I just want the damn delivery made!”**\n\nThen the road opened. Flesh came up through the cobbles, wet and pink, and teeth with it, row on row, until the ground in front of the clinic was the inside of a mouth. Mr. L twisted his head backwards in a way no neck was built for and pointed one long finger at the courier.\n\n**“I did love you, Mario — but why did you twist the knife in the gash?”**\n\nFor one breath nothing moved. Paulo's finger stayed on the trigger.\n\n**“I don't know who your brother was, but he sounds like an absolute bastard.”** Three heavy shots went into the fleshy mass. **“Stop screaming my name like we're some kind of friends — you're just another waste of space on my route.”**\n\n*WAH! Mario. He said it to a courier with a satchel and a gun, and the courier took it for an insult to his route. Whatever Mr. L thought he was looking at, it was not what stood there. I filed the verse. I am still looking at the name.*",
+        "waluigi_note": "He called a courier Mario. The bridge, the inferno and the knife read to me like the Lava Bridge Ambush told by the man who went in. That is my reading, not something either of them said.",
+        "image": "assets/images/events/rot-zone-star-hill/rot-02-mouth-in-the-road.jpg",
+        "imageCaption": "The street in front of the clinic: the man in black and lime green lengthened past the shape of a man, the ground opened into flesh and teeth, and a courier with a pistol standing in front of it. The clothes stayed Luigi's clothes."
+      },
+      {
+        "name": "VIII. A Steel Door",
+        "icon": "🚪",
+        "overview": "The refrain came round again, with an eye in it.\n\n> *Who's that man you see who grooms his 'stache so well,*  \n> *who's the one who saw me as an empty shell*  \n> *to throw into the pyre, to damn within the fire?*  \n> *No need for apologies — long past overdue.*  \n> *Your sins you'll rue.*\n\nAn eyeball pushed up out of the fleshy mouth and swivelled, wet and enormous.\n\n**“I told you once, I don't give a damn about your poetry!”** Paulo spat on the floor. **“You keep talking like I'm some hero who owes you something. I just want to finish my job and get paid.”** The pistol cracked point-blank at the eye, the sound hammering down the hall. **“Stop looking for an apology from someone who doesn't know your name!”**\n\nIn the alley Waluigi was still fighting the hand on his collar, and he had just seen where Wario was taking him.\n\n**“That's-a not tax collectors, Wario, let go of me! FIRE! FIRE! WAH, WE ARE GOING TO DIE!”**\n\n**“TAXES OR NOT, THE FLAMES DON'T CARE ABOUT YOUR ACCOUNTING!”** Wario's grip closed until it bruised. **“IF WE STAY IN THE OPEN, WE'RE JUST TARGET PRACTICE FOR THE UNEMPLOYED!”**\n\nA ruptured pipe let go ahead of them. Orange flame blossomed up the wall and the heat hit like a slammed oven door, singeing the hair on Waluigi's arms. Wario put a shoulder into him and drove him forward through a cloud of scorching soot. **“GET DOWN! GET LOW!”**\n\nHe threw Waluigi at a heavy steel door at the mouth of the alley and Waluigi hit the ground hard. Wario went through it after him with his whole weight. The door burst open, and a steel bar fell out of the dark above it and caught him across the back of the head.\n\nHe went down like a dropped safe. When Waluigi looked up, the corridor beyond was all fleshy walls, and the monster, and Paulo, every one of them turned toward him.\n\n*WAH! I was dragged to that door and I said fire. I said it twice. It was the only thing I said all night that was correct, and nobody has thanked me for it. I would like that corrected in the next filing.*",
+        "waluigi_note": "I am filing two fires: Mr. L's, climbing out of the road, and a pipe in the alley. I cannot tell from here whether they were the same fire, so I am keeping them as two until someone shows me otherwise."
+      },
+      {
+        "name": "IX. One Per Cent",
+        "icon": "🔫",
+        "overview": "Waluigi crawled to Wario's shoulder with the monster looming over both of them. Mr. L's voice crawled out of the corridor, layered and grinding, like stones in a mill. **“Do you hear that? That is the sound of your hope curdling.”** The wet walls shifted. **“Let me peel away every layer of your resolve until nothing remains.”**\n\nWaluigi slapped Wario across the face.\n\n**“WAH! YOU TOUCH MY FACE?!”** Wario's eyes snapped open, bloodshot and wild. He heaved up and his body buckled under him. **“I'm awake! I'm alert! I'm being assaulted by a coward!”** His gaze slid past Waluigi to the fleshy mass and the pulsing eye. **“Is that thing... is it on the invoice? No. It doesn't have a permit! I'll charge you double for this! EXTRA_STRESS_FEE!”**\n\nA crate scraped. Paulo stood up from behind it with the gun levelled at Waluigi's face. **“Who the fuck are you!”**\n\nWaluigi pushed himself up against the crumbling masonry. His legs shook. He was running on one per cent of what he had, and he put every drop of it into his voice.\n\n**“Waluigi is not a fool!”** One long finger rose between the muzzle and his eye. **“I am the master of ice, the keeper of the grimoire, and the only person in this wretched corridor with a coherent grasp on the current situation! Put that crude piece of iron away before you pull the trigger and discover it won't do a lick of good against something with — sub-surface intentions!”** He swallowed. **“Your shouting is giving me a headache, and if my head explodes, I shall be forced to file a very lengthy complaint against your estate in the afterlife!”**\n\nMore of them came out of the dark, copies of the green thing, all pointing at the little group, and one long arm reached out to take hold. Paulo swung round and raked the limbs with a wide arc of lead, the muzzle flash jerking the corridor white. **“I don't care who's dying, I just need to get through this damn door! Get your hands off my satchel or I'll break every finger you've got left!”**\n\n**“Back! Get back from me!”**\n\nThen the gun stalled. Paulo looked at it, and up, and said, **“Son of a bitch.”** He threw the pistol on the floor and ran for the exit.\n\n*WAH! One per cent of my capacity. I said it to a loaded gun, and what I meant was a dead battery and a finger. It held exactly as long as the gun took to jam, and I did not blink. That is how most of my great moments have worked.*",
+        "waluigi_note": "The speech bought one jam. The copies pointed and reached and said nothing, and I am filing them as copies, not as Mr. L, because only the one with the voice ever spoke."
+      },
+      {
+        "name": "X. The Maw",
+        "icon": "🏃",
+        "overview": "Waluigi took Wario's hand and pulled. **“We are giving up on the Star-a clinic. Let's go.”**\n\n**“LET GO OF MY HAND! THIS IS PRIVATE PROPERTY!”** Wario's body dragged across the grimy floor like a sack of coin, boots scraping, and the voice that came out of him cracked down the middle. **“I have — inventory! I have assets!”** He did not fight the grip. He had nothing left to fight it with.\n\nThe voice followed them down the corridor. **“Do not flee. Your legs will only carry you deeper into the maw of your own making. There is no exit from what has already been marked for consumption.”**\n\nWaluigi ran behind the man who had just bolted out ahead of him, the wet teeth of the walls closing at his shoulders. He hit the door with his whole body and the cool night air slapped Wario in the face. **“GET ME OUT! GET ME OUT OF THIS STINKING HOLE! My boots! My glorious shoes are getting ruined by this — this organic sludge!”** He folded onto the dirt, gasping and clutching his head. **“I'm filing a claim... for every single scratch...”**\n\nWhen Waluigi looked back, Mr. L stood in the doorway, flickering like a candle in a draught. **“You believe you have crossed a threshold. But there is no ‘outside’ for one already marked. The gate remains open, and I am very, very patient.”** A thick mist began to curl over the sill.\n\nThe building groaned and began to grow. **“Wario, we got to get outta here!”** Waluigi heaved him up over his shoulder and ran for the wreck.\n\n**“PUT ME DOWN! I AM NOT A BAG OF POTATOES! I'm going to — sue — for the bruising of my ribs!”** Wario's head thumped against Waluigi's back with every stride.\n\nBehind them the voice drifted over the dark. **“Flight is merely a change in altitude. The rot remains within you.”**",
+        "waluigi_note": "I said ‘Star-a clinic.’ The accent comes out when I am frightened. I chose the man I was dragging over whatever was in that building, and I would choose him again."
+      },
+      {
+        "name": "XI. Two Options",
+        "icon": "⚖️",
+        "overview": "The helicopter lay where it had come down, ticking as it cooled. Beyond it the clinic stood with its windows dark. Waluigi stopped between them with Wario's weight on his back and understood that he had two doors to choose from: carry on with the mission, or try to get the machine back in the air.\n\nMr. L's voice came from nowhere, from the air between the two. **“Choice is a cruel needle, sewing your desperation into the fabric of your fate. Pick your poison, little spark.”**\n\n**“THE HELICOPTER! IT'S THE ONLY THING WITH A MOTOR!”** Wario clung to Waluigi's arm like a burr. **“If we don't get that bird in the air, I'm going to be property of this land!”**\n\nSomething pale caught Waluigi's eye in the dust beside the wreck: his notebook, lying on the ground. When he looked up again the monster was gone. In its place was the round black eye of a gun, a hand's breadth from his forehead.\n\n**“Get that piece of junk out of your hand before I put one in yours!”** Paulo had come out of nowhere, jaw clenched, one hand lunging for the barrel. **“You think you're making a choice? You're just picking which way you want to bleed. Give me the notebook! If it's got the coordinates, I can get us clear of this rot-zone in five minutes!”**\n\n**“Th-the notebook — WAH! Why would you need it at all?”**\n\n**“Because I'm the one who has to deal with the fallout of your failure, you moron! I don't care about ‘why.’ I just need what's inside so I can clear my debt and get out of this god-forsaken crater!”** He slammed his satchel to the ground and dust jumped around it. **“Hand it over before someone decides your head looks better with a hole in it!”**\n\n**“THE NOTEBOOK! IT'S THE ONLY THING LEFT WITH ANY VALUE!”** Wario's voice cracked. **“Give it to him, you fool! It's the only way out of this contract!”**\n\n*WAH! Coordinates. Rot-zone. Clear my debt. Three phrases from a man with a gun at my forehead, and I asked him why he wanted a story. I should have asked him where he got the words. He had the gun. I had the question, and I spent it on the wrong thing.*",
+        "waluigi_note": "Those three phrases did not sound like a courier's own. They sounded issued, with a route. I was too busy being shot at to ask, and it is the first question in the next filing."
+      },
+      {
+        "name": "XII. The Notebook as a Shield",
+        "icon": "📖",
+        "overview": "Waluigi dove for the notebook, snatched it off the ground and hauled it up between his head and the gun. He did not run for the helicopter. He ran for the clinic.\n\n**“NO! THE HELICOPTER IS THE EXIT! DON'T GO BACK!”** Wario's grip slipped on his clothes and he nearly went off Waluigi's back. **“You're going to get us sued! The medical fees alone for this trip will be astronomical!”**\n\n**“YOU IDIOT! YOU'RE RUNNING INTO THE NEST!”** The rifle blast tore through the shout. The muzzle flash lit the debris in a violent strobe, and the round struck a piece of jagged metal a hand's width from Waluigi's ear with a flat scream that went through his skull like a slammed door. **“If you go back there, you're just volunteering for a funeral! The clinic is a death trap! You're choosing the grave over the getaway!”**\n\n**“THE CLINIC IS A LIABILITY!”** Wario shrieked into his collar. **“But if we don't — well, at least the settlement will be bigger! Whatever is in that building, it has to have more gold than this wasteland!”**\n\nWaluigi's legs stopped being his. The ground came up and hit him in the face. Copper filled his mouth, grit ground against his cheek, and a high thin ringing drowned out Wario and Paulo both. The notebook skidded away across the dirt with its pages fluttering, and the world went dark.\n\n*WAH! I used my own prose for armour. It is a poor material and I would use it again, which is the whole problem with me in a single sentence. The paper stopped nothing. The metal did. Wario was right about the helicopter, and I will say so exactly once.*",
+        "waluigi_note": "Wario argued for the helicopter, called the clinic a liability, and then said it must hold more gold than the wasteland. Frightened men say all three. I am filing all three."
+      },
+      {
+        "name": "XIII. Hand It Over",
+        "icon": "🤝",
+        "overview": "Paulo watched the body for a second and a half. Then he thumbed in a fresh load and swung the gun on Wario. **“Seems like he couldn't take the heat.”** The muzzle came up level with the big purple chest. **“Hand it over.”**\n\nWario had the notebook clutched against him, one fist locked over the cover, his back against a piece of jagged wreckage. **“YOU'RE GOING TO PAY FOR THAT! YOU'RE GOING TO PAY IN INTEREST!”**\n\n**“Hand it over.”**\n\n**“Wario doesn't share! Wario keeps his assets!”** His voice cracked and kept going. **“You want the book? Then you pay the processing fee! I'll call your father! I'll have you blacklisted from every trade route in the kingdom!”**\n\nPaulo's finger went white on the trigger. **“Last chance.”**\n\n**“FINE! FINE! TAKE THE DAMN THING!”**\n\nThe notebook left Wario's hands. He threw it, then scrabbled backwards across the dirt like a crab, eyes squeezed shut. **“There! It's yours! Wario is retiring from this negotiation! Just take the asset and let me live to see my next audit!”**\n\nThe notebook hit the courier's chest and he caught it against the satchel. He smiled, thin and tired, and began to back away.\n\n**“Now let's see what you wrote down here, purple boy.”**\n\n**“HEY! THAT'S PRIVATE PROPERTY! That's an intellectual property violation! You haven't even signed the non-disclosure agreement!”** Wario clawed after him, and his legs gave out halfway across the dirt. He ended up face-down in the dust with one arm stretched toward the corner of the street. **“You're going to be audited! Wario will find your house! Wario will seize your shoes!”**\n\nPaulo turned a page with his thumb and walked on, reading. The satchel stayed on his shoulder. The street swallowed him.\n\n*WAH! I was unconscious for this and I believe every word, which is a sentence I have never written about Wario before. He refused the book twice and gave it up on the third demand, when the finger went white. I am filing the order, because I would rather not file only the last part.*",
+        "waluigi_note": "Whatever Wario is, he held a notebook he did not own against a gun for as long as it took the finger to go white. I would not have given it up at all. That is the difference between us, and it is smaller than I would like.",
+        "image": "assets/images/events/rot-zone-star-hill/rot-03-purple-boy.jpg",
+        "imageCaption": "The crash site after the shot. Wario with his hands empty, Waluigi face-down in the dirt, and Paulo walking off into the dark reading the notebook, pistol lowered, satchel on his shoulder."
+      },
+      {
+        "name": "XIV. Three Heartbeats of the Market",
+        "icon": "🌵",
+        "overview": "Down in the dark, Waluigi tried to wake up. A voice came through the haze like stone grinding on bone.\n\n**“Awaken, and face the tally of your choices. The ‘purple boy’ seeks his prize in the dark, while you crawl toward the light of a very cold sun.”** It had a rattling edge, two voices clashing like gears. **“But remember: every page turned is a debt incurred in blood.”**\n\nFrom somewhere far off, Wario's voice, cracked and small: **“HURRY UP! GET UP! You're going to miss the audit!”**\n\nHe saw Luigi's shape standing over him, and it was not Luigi. It was Mr. L, and a long gray hand was reaching down.\n\n**“An eye for an eye. Such a primitive, charmingly violent sentiment. Wake, little scholar. The tally must be settled before the ink on your fate dries forever.”**\n\n**“GET UP!”** Wario screamed. **“DON'T LET HIM TOUCH THE ASSETS! If he touches you, the contract is voided!”**\n\nWaluigi woke screaming. **“WAH!”**\n\n**“WAH! YOU SAID IT!”** Wario was scrambling toward him on hands and knees. **“That's the spirit of a winner! Now get up and grab that notebook before the debt collectors find us both!”**\n\n**“What happened? Is that thing gone? How long was I out?”**\n\n**“TIME IS MONEY, AND YOU'RE WASTING BOTH! You were out for three heartbeats of the market! Three!”** Mr. L's shadow was already pulling thin. **“You were gone long enough for the tally to shift. The debt remains, even if the face of the collector changes.”** Then it flickered, and went out of the air like a sheet pulled through a window.\n\n**“What was that thing?”**\n\n**“A BAD INVESTMENT! A debt-collector from a different ledger — a shadow that feeds on failures!”**\n\nWaluigi's hand went to his coat, then to the dirt around him. **“My notebook? WAH? Where did it go? My notes! My new story I was writing — it had information about Luigi!”**\n\n**“THE NOTES! THE INTEL! THE ASSETS!”** Wario thrashed through the debris, clawing at the dust, and came up with [[prop:prop_notebook_scrap_thorn|a scrap of paper]] he had pulled out of a thorn. **“Here! A piece! It's not the whole thing, but it's a start!”**\n\n**“Who took my-a notebook!”**\n\n**“THEY'RE SCRAPPING THE STOCK! Some thief, some scavenger, some low-level bottom-feeder is trying to steal our monopoly!”** He drove a fist into his own palm. **“If they have those notes on the green one, they've just declared a hostile takeover of our interests! Give me a direction! Where did you last see it? We track the paper trail!”**\n\nWaluigi did not answer. The scrap was in his fingers, and the rest of the notebook was somewhere around a corner with a courier who was reading it as he walked.\n\n*WAH! Wario did not say courier. He had thrown the book himself, and what he gave me was thief, scavenger, bottom-feeder. I was not there for the handover. I have one scrap that a thorn kept. It is in my coat, and that is all I will say about it.*",
+        "waluigi_note": "Three heartbeats was Wario's count. I do not have a better one. A man who has just been hit by a steel bar and a man who has just been put down by a ricochet are not reliable timekeepers, and I am not going to improve on it."
+      }
+    ]
+  }
+]

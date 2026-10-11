@@ -1239,6 +1239,22 @@
         "basis": "era",
         "from": null
       }
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "disciplined",
+          "tactician"
+        ],
+        "reasons": [
+          "Keyword \"guard\" in name/biography → disciplined",
+          "INT 16 ≥ 16 → tactician overlay"
+        ],
+        "confidence": 0.6666666666666666,
+        "version": 3,
+        "timestamp": 1791338846632,
+        "manuallyOverridden": false
+      }
     }
   },
   "_stats": {
@@ -1248,7 +1264,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791261791204,
-    "modifiedTime": 1791325780416,
+    "modifiedTime": 1791338846640,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

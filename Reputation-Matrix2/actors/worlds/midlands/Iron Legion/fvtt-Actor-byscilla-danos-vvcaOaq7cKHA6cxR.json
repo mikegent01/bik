@@ -3404,6 +3404,22 @@
           "Characters of the Ruined Manor"
         ]
       }
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "skirmisher",
+          "tactician"
+        ],
+        "reasons": [
+          "Spellcasting detected",
+          "Spell list: 6× self-buff spells → tactician"
+        ],
+        "confidence": 0.7666666666666666,
+        "version": 3,
+        "timestamp": 1791599585871,
+        "manuallyOverridden": false
+      }
     }
   },
   "system": {
@@ -4130,7 +4146,7 @@
     "systemId": "dnd5e",
     "systemVersion": "5.3.3",
     "createdTime": 1788231129572,
-    "modifiedTime": 1791171677649,
+    "modifiedTime": 1791599585880,
     "lastModifiedBy": "7BMT1Aux3QVtq027"
   },
   "ownership": {

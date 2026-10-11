@@ -1,0 +1,37 @@
+[
+  {
+    "id": "ruin_recovery_1023_bf_waluigi_analysis",
+    "sourceArticle": "ruin_recovery_1023_bf",
+    "title": "Ruin Recovery, 1023 BF: Artifacts With No Excavation",
+    "kicker": "Waluigi's Article Analysis",
+    "subtitle": "A trove of relics is claimed. The archive holds no record of the recovery.",
+    "archivist": "Waluigi, Auditor-General",
+    "filed": "Chillwind 15, 1023 BF",
+    "summary": "A band of minor riders from Rohan embarked upon a quest to uncover the secrets hidden within the crumbling ruins of Shadow Pass Hillfort, revealing an ancient cache of relics that had been buried by time and neglect.",
+    "thesis": "The claim is a trove: local and foreign relics lifted out of an overgrown hillfort at Shadows Pass, riders bringing treasures in, trade and conquest legible in the fragments.\n\nThe archive holds no recovery. No event, no battle, no investigation, no exhibit, no catalogue. I searched for the identifier and found it in exactly one place — the `sourceArticle` line of this analysis, pointing at a document that is not there.\n\nSo this filing is in the same condition as the objects it describes: asserted, unproduced. *WAH! A page about artifacts nobody can put on a table, filed against an excavation nobody can put in a year.*\n\nMy thesis is that the correct response is a catalogue, not an essay, and that until somebody produces one this page should stop pretending to be a reading of evidence.",
+    "sections": [
+      {
+        "id": "a-trove-with-no-inventory",
+        "icon": "🏺",
+        "heading": "A Trove Is a Number of Objects, and There Is No Number",
+        "sourceAnchor": "The prior text describes 'a trove of historical artifacts' with local and foreign origins.",
+        "body": "How many? Made of what? Found at what depth, by whom, on what day?\n\nEvery one of those questions has an answer at any real excavation, and none of them is in this record. What the text offers instead is significance: fragments holding secrets, tales of trade and conquest, alliances now cold as the stones. That is the register of a museum placard, and a placard is written after the catalogue, not instead of it.\n\nMy rule for documents applies without modification. If the prose says an object exists, somebody should be able to open a drawer and produce it. Here the prose says many objects exist and there is not even a list of what they are. *WAH. Cold as the stones, apparently. I would settle for knowing how many stones.*"
+      },
+      {
+        "id": "foreign-relics-is-the-real-claim",
+        "icon": "🌍",
+        "heading": "\"Foreign\" Is the Word That Would Matter, If Anything Supported It",
+        "sourceAnchor": "The text distinguishes local from foreign relics and infers trade and conquest.",
+        "body": "*WAH. Foreign. One word, doing the work of an entire century of traffic through that pass.* Set aside the missing catalogue for a moment and look at what is actually being argued, because it is not trivial.\n\nForeign objects in a hillfort at Shadows Pass would mean the pass carried traffic in 1023 BF — goods, or armies, or both. That is a real historical claim with consequences for how the archive reads every other filing from that corridor and that century. It is the sort of finding that should arrive with a great deal of paper behind it.\n\nIt arrives with none. And the inference is doubled on the way: foreign objects are read as evidence of trade *and* conquest, which are opposite explanations for the same potsherd. A record that cannot tell me what the objects are certainly cannot tell me which. I would like this claim to be true. I have no way to test it, and I have spent this week refusing exactly that combination in other people's files."
+      },
+      {
+        "id": "riders-from-rohan",
+        "icon": "🐎",
+        "heading": "The Recovery Team Is Named From Outside This World",
+        "sourceAnchor": "The prior text credits 'Riders from Rohan' with bringing the relics in.",
+        "body": "Rohan is not in this archive. I went and looked, with the nations file open flat under my hand and dust coming off the edge of it. It is not a nation in the nations file, not a faction, not a place any other filing has ever mentioned.\n\nIts presence here tells me what this page is. Not a lost memory of a real night that mislaid its paperwork — that is the charitable reading I extended to the grotto filing, and I extended it in good faith. This one names a borrowed kingdom from another author's map, which is the fingerprint of text generated to fill a slot rather than to record anything.\n\nI am stating that plainly because the alternative is worse. If the archive keeps a page like this in circulation, some future reader will cite Rohan as a party operating at Shadows Pass in 1023 BF, and a generated placeholder will have become canon by sitting still long enough. *WAH! That is precisely how a lie with no author gets into a history.*"
+      }
+    ],
+    "verdict": "My verdict: unsupported, and probably not a record of anything.\n\nThis differs from the grotto filing and I want the distinction on the page. There I found an absent source and gave it the benefit of the doubt. Here the text names a kingdom that has never existed in this world, which is evidence about the document's origin rather than merely a gap in its custody.\n\nWhat I recommend: retire this page. If a recovery at the Shadows Pass hillfort in 1023 BF is wanted, it should be excavated properly — an event record, a catalogue with counts and materials, and named finders who belong to this archive. Then an analysis can be written against it.\n\nUntil then there is nothing to hold. No sherd, no list, no ledger, no year I can check. Only a sentence about stones being cold, which is true of all stones."
+  }
+]

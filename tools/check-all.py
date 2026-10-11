@@ -38,6 +38,7 @@ def main() -> int:
 
     py = sys.executable or "python3"
     checks: list[tuple[str, list[str], Path]] = [
+        ("json stores", [py, "tools/build-json-stores.py", "--check"], ROOT),
         ("local paths", [py, "tools/check-local-paths.py"], ROOT),
         ("injury table", [py, "tools/generate-injury-table.py", "--check"], ROOT),
         ("injury table tiers", [py, "tools/tests/test-injury-tables.py"], ROOT),
@@ -116,6 +117,7 @@ def main() -> int:
         # NPC Forge: the generator's activities, the faction draft, the cut,
         # the hand-off brief and the page's HTTP, on a sandbox copy.
         ("npc forge", [py, "tools/tests/test-npc-forge.py"], ROOT),
+        ("npc forge asset review", [py, "tools/tests/test-npc-forge-assets.py"], ROOT),
         # The control panel start.py serves at /panel (the start page that
         # replaced the tkinter window): its routes, the page, the launcher.
         ("control panel", [py, "tools/tests/test-control-panel.py"], ROOT),

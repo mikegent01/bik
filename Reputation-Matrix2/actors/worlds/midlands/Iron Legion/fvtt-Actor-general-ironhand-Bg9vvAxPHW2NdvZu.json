@@ -1202,6 +1202,23 @@
     },
     "midi-qol": {
       "onUseMacroParts": {}
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "assassin",
+          "disciplined"
+        ],
+        "reasons": [
+          "Sneak Attack detected",
+          "Leadership detected",
+          "Keyword \"commander\" in name/biography → disciplined"
+        ],
+        "confidence": 1,
+        "version": 3,
+        "timestamp": 1791599582194,
+        "manuallyOverridden": false
+      }
     }
   },
   "_stats": {
@@ -1211,7 +1228,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791171677742,
-    "modifiedTime": 1791325780611,
+    "modifiedTime": 1791599582202,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

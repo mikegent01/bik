@@ -44,7 +44,7 @@ import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ACTORS = os.path.join(ROOT, "Reputation-Matrix2", "actors")
-SRC = os.path.join(ACTORS, "original-fvtt-Actor-lady-aurelian-corvinarus-ADErrUjJaehXfDni.json")
+SRC = os.path.join(ACTORS, "fvtt-Actor-lady-aurelian-corvinarus-ADErrUjJaehXfDni.json")
 DST = os.path.join(ACTORS, "fvtt-Actor-lady-aurelian-corvinarus-PC.json")
 
 LEVEL = 9

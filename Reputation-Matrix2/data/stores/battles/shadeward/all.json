@@ -1,0 +1,1622 @@
+[
+  {
+    "id": "shattering_shadow_anchor",
+    "name": "The Shattering of the Shadow Anchor",
+    "date": "Day 23, 1040 BF",
+    "location": "Dining Hall and Courtyard, Shadow Estate",
+    "type": "Assassination / Supernatural Sabotage",
+    "result": "Strategic Victory — Anchor destroyed, color and fire magic restored",
+    "belligerents": {
+      "attackers": {
+        "name": "Disaster Inc. (Depowered Wing)",
+        "factionId": "disaster_inc",
+        "commander": "Green T (Tactical MVP)"
+      },
+      "defenders": {
+        "name": "Orangus Cornelius & Vampire Court",
+        "factionId": "onyx_hand",
+        "commander": "Orangus Cornelius"
+      }
+    },
+    "casualties": {
+      "attackers": "Archie (temporarily lost his dignity floating like a feather)",
+      "defenders": "The Shadow Anchor (SHATTERED), Orangus Cornelius (severe blunt force trauma and silver poisoning)"
+    },
+    "summary": "This is the climax of the infamous Shadow Estate dinner party. Stripped of his fire magic, Archie Miser had to rely on Bowser's fists and Green T's absolute ruthlessness. The battle involved a giant vampire bat, a defenestration, and Green T sniping a magical purple crystal hidden inside a hollow statue. The destruction of the Anchor brought color and fire back to the Shadowfell. Waluigi was not there, but he considers this the single greatest piece of property damage in the campaign's history, and Waluigi knows property damage.",
+    "description": "Waluigi must remind the reader of the stakes: Archie Miser woke up on a marble floor without his magic. The Shadowfell's entropy was so high, and its energy so low, that Archie couldn't even conjure a spark. Waluigi finds the idea of Archie without fire hilarious, but practically speaking, it meant Disaster Inc. was walking into a vampire lord's dining room completely unarmed. Except for Bowser, who is genetically a weapon, and Green T, who had apparently smuggled a flintlock pistol in his trousers.\n\n**Phase 1: The Raw Meat and the Ultimatum**\nThe dinner began with Orangus Cornelius serving raw, dripping meat. Bowser ate it in one bite because Bowser has the palate of a garbage disposal. Cornelius then demanded a debt from Archie for burning his greenhouse in the material plane. This is typical aristocratic behavior—they invite you to dinner, serve you terrible food, and then ask you to pay for landscaping. When Cornelius threatened to turn Bowser's shell into a soup bowl, diplomacy officially ended.\n\nGreen T, sitting at the CHILDREN'S TABLE wearing a bib, kicked his table over, drew his weapon, and declared he had the key to the 'Anchor'. Cornelius panicked. This was the moment Waluigi wishes he could have painted and hung in the Louvre.\n\n**Phase 2: The Defenestration of Cornelius**\nBowser flipped the main dining table, sending raw meat and coagulated blood-wax flying. Archie, realizing he was useless in a magical fight, grabbed a silver candlestick and actually hit a vampire with it. Waluigi respects the improvisation. Silver burns vampires, which is a universally known fact that vampires arrogantly ignore until someone hits them with the tableware.\n\nBowser then tackled Orangus Cornelius straight through the dining room window and into the courtyard. Waluigi has thrown people out of rings, off karts, and into bottomless pits, but tackling a vampire lord through a gothic window is objectively excellent showmanship.\n\n**Phase 3: The Bat and the Crystal**\nIn the courtyard, Cornelius revealed his true form: a giant bat monster. Bowser, unfazed, simply bit the bat's wing. Waluigi wants to note that biting a giant undead bat requires a level of immune system confidence that Waluigi does not possess. \n\nArchie jumped out the window to help, but because the Shadowfell's gravity is fundamentally broken, he floated down slowly like a dandelion. Undignified! But this slow descent allowed Archie to see the battlefield from a tactical angle. When Bowser threw Cornelius into a winged statue, the statue shattered, revealing it was hollow. Inside pulsed a glowing purple crystal. The Anchor.\n\n**Phase 4: The Shot**\nArchie realized the crystal was maintaining the plane's suppression. He yelled for Bowser to smash it, but Cornelius lunged to protect it. Time slowed down. Green T, standing at the shattered window above like a sniper in a tuxedo, took aim. \n\nThe bullet hit the crystal. The Anchor shattered into dust.\n\nThe effect was instantaneous. Reality cracked. Colors—reds, oranges, yellows—bled violently back into the monochrome world. The planar suppression collapsed. Archie felt heat return to his hands and immediately ignited. The Shadow Estate's absolute control over the local dimension was broken. Disaster Inc. had successfully lobotomized a vampire stronghold, and they did it before dessert.",
+    "aftermath": "The shattering of the Shadow Anchor permanently altered the local physics of the Shadow Estate. Color returned, making the gothic architecture look incredibly tacky in Waluigi's opinion. More importantly, it restored the party's magical capabilities. Orangus Cornelius was severely wounded, opening the door for Vivian's succession claim and throwing the Onyx Hand into utter chaos. It also attracted the Mages' Guild, who showed up to 'manage the anomaly' and immediately started billing people for property damage. Typical.",
+    "relatedArticles": [
+      "shadow_estate",
+      "archie_miser",
+      "green_t",
+      "bowser"
+    ],
+    "reputationChanges": {
+      "bowser": {
+        "onyx_hand": 20
+      },
+      "green_t": {
+        "onyx_hand": -15,
+        "disaster_inc": 30
+      },
+      "waluigi": {
+        "disaster_inc": 10
+      }
+    },
+    "effects": {
+      "disaster_inc": 20
+    },
+    "reputationNotes": {
+      "bowser": "Bowser's brute force secured a strategic victory and impressed the Mages' Guild.",
+      "green_t": "Green T's tactical brilliance earned respect from both allies and enemies, but also cost him friends within the Onyx Hand.",
+      "waluigi": "Waluigi found the destruction of the Shadow Anchor hilarious, further cementing Disaster Inc.'s reputation for property damage."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T15:47:45+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    },
+    "image": "assets/images/battles/shattering-shadow-anchor/shattering-shadow-anchor-01.jpg",
+    "imageCaption": "The courtyard below the defenestration: the bat wheeling, and the purple crystal cracked through."
+  },
+  {
+    "id": "skirmish_mazebound",
+    "name": "Skirmish in the Mazebound Grove",
+    "date": "Day 28, 1040 BF",
+    "location": "The Mazebound Grove, Shadow Estate",
+    "type": "Ambush / Unwanted Musical Number",
+    "result": "Survival — Party escaped, but Dan was captured",
+    "belligerents": {
+      "attackers": {
+        "name": "The Mazebound",
+        "factionId": "onyx_hand",
+        "commander": "Lead Mazebound"
+      },
+      "defenders": {
+        "name": "Markop, Remi, Dan (Parallel), Salam, Eager",
+        "factionId": "disaster_inc",
+        "commander": "Markop"
+      }
+    },
+    "casualties": {
+      "attackers": "Several Mazebound (melted by undead remedy)",
+      "defenders": "Parallel Dan (Captured), Party Morale (damaged by terrible rhyming)"
+    },
+    "summary": "Waluigi hates musicals. He especially hates musicals where the chorus tries to strangle you. Markop's rescue team was ambushed in a petrified hedge maze by the 'Mazebound'—grey-skinned ghouls who sing theatrical patter-songs while ripping you apart. The party survived, but Dan was dragged away into the hedges. Waluigi considers this the most undignified battle of the campaign.",
+    "description": "After the Shadow Anchor shattered, the estate's grounds became even more hostile. Markop, leading Remi, Dan, Salam, and Eager, ventured into the estate's hedge maze looking for Archie. Instead of Archie, they found the Mazebound.\n\n**The Ambush**\nThe Mazebound are hunched, snub-nosed humanoids with glowing white eyes and sharp nails. But their physical threat is secondary to their psychological warfare: they sing. They leaped out of the hedges doing 'jazz hands' and immediately launched into a rhyming chorus: 'Welcome to the grove, welcome to the gray! You'll never find the fountain so you might as well stay!'\n\nWaluigi finds this deeply offensive. If you are going to taunt your enemies, do it with a sharp laugh or a magnificent monologue. Do not do a choreographed routine in a hedge maze.\n\n**The Choreographed Violence**\nThe fight was chaotic. The Mazebound encircled the party, specifically targeting their weaknesses while singing a rapid patter-song: 'Check the Turtle! Big and loud! Check the Archer! Check the Whip! Check the Toads—one blue, one green? Or is he purple? Is he mean?'\n\nMarkop, proving his absolute pragmatism, ignored the music and coated his sword in an 'undead remedy.' When a Mazebound lunged, Markop struck, melting the creature's grey skin off its bones. Remi, still suffering from blood loss, tried to stab a Mazebound, but her dagger had no effect on its thick skin. The creature mocked her, attempting to give her a 'goodbye kiss' before Remi dodged and Salam provided covering fire.\n\n**The Abduction of Dan**\nThe tragedy of this skirmish was Dan. Or rather, the 'Parallel Dan'. While Markop was bashing heads and Eager was tripping ghouls with his whip, the Mazebound swarmed Dan. They dragged him backward into the impenetrable petrified hedges. \n\nBowser arrived moments later, entirely missing the musical number, and completely incinerated a section of the maze with his fire breath. But it was too late. Dan was gone, and the Mazebound retreated into the shadows, leaving only the echo of their terrible singing.",
+    "aftermath": "The party was forced to press forward without Dan, deeply unnerved by the encounter. They eventually found the groundskeeper's cottage and discovered Archie's discarded pouch and watch, proving Archie had survived but was on the run. Waluigi hopes he never has to fight the Mazebound. Waluigi refuses to participate in a duet with a zombie.",
+    "relatedArticles": [
+      "shadow_estate",
+      "markop",
+      "dan_the_toad",
+      "remi"
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "onyx_hand": -15
+      },
+      "markop": {
+        "disaster_inc": 5,
+        "onyx_hand": -3
+      },
+      "remi_akamatsu_full_backstory": {
+        "disaster_inc": -2
+      }
+    },
+    "effects": {
+      "onyx_hand": -10
+    },
+    "reputationNotes": {
+      "waluigi": "Waluigi considers this the most undignified battle, deeply offended by the Mazebound's musical taunts.",
+      "markop": "Markop's pragmatism shines as he coats his sword in an undead remedy to defeat the Mazebound.",
+      "remi_akamatsu_full_backstory": "Remi's dagger proves ineffective against the Mazebound, lowering her standing among her allies."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T21:47:14+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    },
+    "image": "assets/images/battles/skirmish-mazebound/skirmish-mazebound-01.jpg",
+    "imageCaption": "The Mazebound come down the petrified hedge in formation, singing. The chorus line is not a figure of speech."
+  },
+  {
+    "id": "remi_petrification",
+    "name": "The Petrification of Remi",
+    "date": "1-2 Harvestide, 1040 BF",
+    "location": "Shadow Estate — Lyranth's Workshop",
+    "type": "Ambush / Trap / Petrification Event",
+    "result": "Remi petrified; status of Oracle's Deck unknown; rescue required",
+    "belligerents": {
+      "attackers": {
+        "name": "Shadow Estate Conspirators",
+        "factionId": "shadow_estate",
+        "commander": "The Archivist (orchestrator), Lyranth (executor)"
+      },
+      "defenders": {
+        "name": "Disaster Inc. (separated)",
+        "factionId": "disaster_inc",
+        "commander": "Remi (victim), Bowser (withdrew), Markop, Toads"
+      }
+    },
+    "casualties": {
+      "attackers": "One imp crushed by Bowser",
+      "defenders": "Remi petrified; one bloody toadburt 'erased' by the Archivist"
+    },
+    "summary": "What began as a search for Archie became a coordinated trap. Imps led Remi to a locked room. The Archivist threatened to kill her friends with transformed monsters. Bowser retreated to save lives. Guards blocked every exit except one. That exit led to a medusa's workshop. Remi is now stone. The Oracle's Deck—prophecy cards of significant power—are with her or nearby. Rescue is urgent. Time may be limited.",
+    "description": "Waluigi documents this event with the urgency it deserves. Remi is PETRIFIED. This is not a metaphor for being scared. She has been turned to STONE by a medusa's gaze and is currently a statue in a workshop full of statues.\n\n## Sequence of Events\n\n### Day 1: The Setup\n\nThe Onyx Hand guards had been behaving strangely around Remi:\n\n**The 'Cure':** Guards claimed they would cure Remi of 'purpleeyetus'—the toads were skeptical, but Remi trusted them because 'they said they were going to help.'\n\n**The Ring:** A guard delivered a letter 'from your vampire friends' containing a 'friendship ring.' The letter used handwriting Remi recognized from a guest book. The ring leaked faint smoke. Remi kept it.\n\n**The Anklet:** When Remi declined a second ring, guards offered a 'friendship anklet.' Remi declined due to no accompanying letter. The guards were PERSISTENT.\n\n**The 'Accident':** A guard 'tripped' into Remi, cutting her eye with a gash—just as Markop was asking to examine her eyes. Convenient timing.\n\n**Strategic Repositioning:** Guards moved into blocking positions: 5 at the corner door, 5 cornering toads, 5 blocking Bowser, Markop, and Remi. Battle seemed imminent.\n\n**Marcus Ashford's Intervention:** The Onyx Hand representative appeared, de-escalated the situation, gave Remi a potion that turned her eyes blue (curing the purple condition), and pickpocketed a letter from Bowser.\n\n### Day 2: The Trap Springs\n\nRemi's ring leaked black smoke. Guards claimed it needed 'recharging' due to 'leaking entropy.'\n\nMarkop completed a ritual revealing:\n- The ring contained necromancy magic\n- Another ring in Remi's pocket contained destructive magic\n- Magical signatures in the walls suggested surveillance\n\nThe toads observed Marcus steal Bowser's paper but said nothing until later—triggering confrontation when Bowser noticed his missing paperwork.\n\nMarcus taunted everyone with rhyming verse, read part of Bowser's letter aloud, and mocked the 'three-eyed failure' (Archie), the 'dwarf and toads,' and Bowser's lost throne.\n\nThe group decided to find Archie at the airship. Marcus claimed Archie's 'eyes rolled so far back he lost the plot.'\n\n### The Library Trap\n\nRemi headed downstairs to the library. Imps claimed they had 'found Archie' and led her to a room.\n\nThe room was locked.\n\nBowser shouted 'REMI NO' and busted down the door. He grabbed an imp and crushed it—blood emerged, confirming they were real creatures. He threw the corpse to a flower plant.\n\nRemi entered the Archivist's room. The door locked behind her.\n\nThe Archivist snapped his fingers and declared:\n- She was 'free to go'\n- Her friends would 'die at the hands of imps'\n- He had 'erased' a bloody toadburt found in the room\n- He told 'FNG' to leave\n\nBowser saw the imps transform into giants, demons, and monsters. Overwhelming force.\n\nThe Archivist smiled as he 'led Remi to the exit door.'\n\nBowser thought: 'I don't want these people to die. Hjumpik wouldn't like this.' He left the grand entrance open and retreated—allowing others to escape the transformed creatures.\n\n### The Workshop\n\nRemi found only one way forward. Guards blocked every door. She was alone.\n\nOne door remained: the workshop.\n\nShe entered.\n\nLyranth waited—a medusa with marble-pale skin covered in vibrant paint, crown of snakes swaying, surrounded by her partially-completed masterpieces. Statues of stunning artistry. Statues that were once people.\n\nLyranth glared at Remi.\n\nShe said: 'Smile.'\n\nRemi turned to stone.\n\n## Critical Assets at Risk\n\n**The Oracle's Deck:** Remi possesses magical tarot cards that predict the future—cards that showed Hjumpik navigating the Maze of Time, Markop wrestling the Arachnid Matriarch, and Lady Aurelian Corvinarus in the Feywild. These cards are significant prophetic artifacts.\n\n- Are they petrified with Remi?\n- Did they fall when she transformed?\n- Can they function while their bearer is stone?\n\n**Intelligence:** Remi gathered significant information throughout the estate—Ryan's diary, guard patterns, power dynamics. This intelligence is now inaccessible.\n\n**The Rings:** Remi possessed at least two magical rings—one necromantic, one destructive. These artifacts are now with her statue.\n\n## Rescue Parameters\n\nMedusa petrification has varying reversibility:\n\n**Time Sensitivity:** Some petrification becomes permanent after hours or days. Immediate action may be critical.\n\n**Reversal Methods:** Specific spells, alchemical agents, or medusa-specific countermeasures might reverse the transformation.\n\n**Lyranth's Cooperation:** The medusa herself might be able to reverse her work—if persuaded, threatened, or bargained with.\n\n**Estate Resources:** The Shadow Estate's infirmary or other facilities might possess reversal capabilities—though trusting estate resources seems inadvisable given who orchestrated the trap.\n\n## Rescue Challenges\n\n**Location Unknown:** Bowser, Markop, and the toads fled transformed monsters. They may not know Remi entered the workshop. They may not know she's petrified.\n\n**The Archivist:** The orchestrator remains active, commands transformed creatures, and has demonstrated willingness to 'erase' people.\n\n**Lyranth:** Even if rescuers reach the workshop, they face a medusa. Looking at her means petrification. Fighting her requires not looking. This is difficult.\n\n**Succession Crisis:** The broader estate remains in chaos. Vivian hunts through corridors. Guards have divided loyalties. Resources are contested.\n\n## Waluigi's Assessment\n\nThis was not random violence. This was a COORDINATED TRAP:\n\n1. Isolate Remi from allies\n2. Threaten allies with overwhelming force to ensure separation\n3. Block all exits except one\n4. Funnel victim to Lyranth\n5. Petrify\n\nThe Archivist orchestrated this. Lyranth executed it. The guards facilitated it. Someone wanted Remi neutralized specifically—possibly for the Oracle's Deck, possibly for her gathered intelligence, possibly for reasons not yet apparent.\n\nRescue is URGENT. Waluigi cannot help directly from the Feywild. The toads, Bowser, and Markop must realize Remi is missing, deduce her location, and mount a rescue operation against a medusa in a vampire estate during a succession crisis while transformed monsters roam the corridors.\n\nThe odds are not good. But Disaster Inc. has survived worse odds. Waluigi has to believe they'll find a way.\n\nWAH.",
+    "aftermath": "Remi remains petrified. Her allies are scattered, potentially unaware of her fate. The Archivist's trap succeeded. Lyranth has a new potential sculpture. Time is unknown but likely limited.",
+    "relatedArticles": [
+      "remi",
+      "lyranth",
+      "the_archivist",
+      "shadow_estate",
+      "disaster_inc",
+      "bowser",
+      "markop"
+    ],
+    "reputationChanges": {
+      "bowser": {
+        "shadow_estate": -15
+      },
+      "remi_akamatsu_full_backstory": {
+        "disaster_inc": -15
+      },
+      "waluigi": {
+        "disaster_inc": 10,
+        "shadow_estate": 5
+      },
+      "markop": {
+        "disaster_inc": -8,
+        "shadow_estate": 3
+      }
+    },
+    "effects": {
+      "disaster_inc": -20,
+      "shadow_estate": 20
+    },
+    "reputationNotes": {
+      "bowser": "King of the Koopas withdrew in time but now faces a petrified ally.",
+      "remi_akamatsu_full_backstory": "Artificer Remi is now a statue due to Shadow Estate's trap.",
+      "waluigi": "Archivist Waluigi orchestrated the successful trap, earning respect from his faction while alienating others.",
+      "markop": "Markop tried to help but was unsuccessful; he lost a fellow toad to the enemy."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T21:54:43+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    },
+    "image": "assets/images/battles/remi-petrification/remi-petrification-01.jpg",
+    "imageCaption": "Lyranth's workshop with one more statue in it than it had that morning. The Oracle's Deck is somewhere in this room."
+  },
+  {
+    "id": "dinner_climax_vote",
+    "name": "The Dinner's Climax: The Vote",
+    "date": "Day 23, 1040 BF (20:00)",
+    "location": "Shadow Estate, Shadowfell",
+    "type": "Political Assassination / Escape",
+    "result": "Orangus Cornelius shot with silver; Vivian claims title of Heir",
+    "belligerents": {
+      "attackers": {
+        "name": "Green T & Archie Miser",
+        "factionId": null,
+        "commander": "Green T (the absolute LEGEND)"
+      },
+      "defenders": {
+        "name": "Onyx Hand / Vampire Lords",
+        "factionId": "onyx_hand",
+        "commander": "Orangus Cornelius"
+      }
+    },
+    "casualties": {
+      "attackers": "Usk (finger severed by Archie as proof of loyalty — Waluigi has FEELINGS about this)",
+      "defenders": "Orangus Cornelius (shot with silver bullet by Green T)"
+    },
+    "summary": "The Shadow Estate dinner party—a horrifying vampiric social ritual where guests were forced to vote on who would be killed—ended when Green T pulled a gun loaded with silver bullets from the CHILDREN'S TABLE and shot the head vampire lord. Archie had to cut off Usk's finger to maintain his cover. Vivian revealed himself and claimed the Heir title. Bowser breathed fire at vampires. People jumped through windows. Waluigi was stuck in the FEYWILD during all of this and he is DEVASTATED he missed it because it sounds like the greatest moment of the entire campaign.",
+    "description": "Waluigi was not at this battle. Waluigi was in the Feywild negotiating with a fairy countess about whether shadows count as personal property. So everything in this account comes from Archie, Green T, and Bowser, each of whom tells the story differently depending on who's buying the drinks.\n\nArchie's version emphasizes the political complexity and his masterful navigation of vampiric social dynamics. Green T's version emphasizes the part where he shot a vampire. Bowser's version emphasizes fire. Waluigi has attempted to combine these accounts into something coherent while noting that he trusts approximately forty percent of what Archie says, eighty percent of what Green T says, and one hundred percent of what Bowser says because Bowser is too straightforward to lie convincingly.\n\nThe dinner itself was a formal affair in the Shadow Estate's dining hall. Candelabras. Elaborate place settings. Food that the vampire hosts couldn't eat but served to their living guests as a gesture of either hospitality or mockery—and with vampires, those words might mean the same thing. The vampires sat at the head of the table looking ELEGANT and IMMORTAL and HUNGRY in a way that had nothing to do with the food.\n\nArchie attended as 'Darman Knightly,' the fake identity he'd constructed to survive Shadow Estate politics. Maintaining this cover meant suppressing every natural Archie instinct—no fireballs, no arguments with authority, no setting things on fire when conversations got uncomfortable. By all accounts, the effort was ENORMOUS. Archie pretending to be a calm, reasonable person is like Waluigi pretending to be SHORT. The disguise only holds if nobody looks too closely.\n\nGreen T had been placed at the CHILDREN'S TABLE.\n\nThe children's table. The vampire lords dismissed Green T—a man who can transform into a giant, who survived the destruction of the Tea Leaf Syndicate, who was dragged through a mirror dimension and came back—as a minor figure not worthy of the adults' table. They sat him with whatever children or subordinates attend vampire dinner parties.\n\nThis was their mistake. Their CATASTROPHIC mistake. Because Green T used the insult as cover. While the vampires focused on Archie's diplomatic performance at the main table, Green T spent the dinner observing. The room's layout. The exits. The guard positions. The load-bearing social dynamics. He sat at the children's table eating whatever they served and PLOTTING, and nobody watched him because nobody watches the children's table.\n\nWaluigi loves this. Waluigi loves EVERYTHING about this. The arrogance of the vampires dismissing someone to the children's table. The patience of Green T sitting there planning violence. The irony of the greatest threat in the room being the one they didn't think was important enough to watch. This is why you NEVER underestimate people. Waluigi knows this because Waluigi has been underestimated his ENTIRE LIFE and look what he's accomplished.\n\n**The Vote**\nThe dinner's true purpose emerged during the final course. The vampire lords announced a tradition: a vote among the guests to determine which attendee would be killed.\n\nJust—a VOTE. To decide who DIES. Over dessert.\n\nThe vote was mandatory. Refusing to participate meant you were volunteering yourself. Each guest had to name someone, and the person with the most votes would be taken. The vampires presented this with the casual formality of someone suggesting after-dinner charades, except instead of charades it was MURDER and instead of fun it was HORRIFYING.\n\nWaluigi has been to some bad dinner parties. Waluigi has been to dinners where the food was terrible, where the conversation was awkward, where Wario told the same story about his garlic investments for the FIFTH time. But Waluigi has never been to a dinner where the dessert course included voting for someone's execution. The Corvinarus family's social calendar operates on a different moral plane than anything Waluigi has previously encountered, and that plane is BAD.\n\nArchie, maintaining his Darman cover, voted for the Archivist. Waluigi has thought about this choice extensively and he still can't decide if it was calculated survival or panicked finger-pointing. With Archie, the honest answer is probably 'yes to both simultaneously.' The man operates on instincts that he rationalizes afterward, and his instincts said 'vote for someone other than myself,' which is logical if morally questionable.\n\n**The Finger**\nTo prove his loyalty to the vampire lords—because apparently voting for someone's death wasn't ENOUGH proof—Archie was required to sever Usk's finger.\n\nUsk. An ally. Someone who had fought beside Archie. Trusted Archie. And Archie was told: cut off his finger, or your cover is blown, and blown covers mean blown EVERYTHING.\n\nArchie did it.\n\nWaluigi has complicated feelings about this. On one hand, Archie was in an impossible situation. The cover was keeping him alive. Dropping the cover meant death—not just his death but potentially everyone's death. The finger was the price of survival, and in war, prices like that get paid.\n\nOn the other hand: he cut off a friend's FINGER.\n\nYou can rationalize it. You can explain the tactical necessity. You can argue there was no other choice. But at the end of the day, Usk is missing a finger and Archie is the one who took it, and no amount of strategic justification changes the fact that trust, once cut, doesn't grow back any more than the finger does.\n\nWaluigi has been betrayed before. Waluigi has been left off team rosters, excluded from parties, forgotten by people he thought were friends. But nobody has ever cut off Waluigi's finger to impress a vampire, and if they DID, Waluigi would have a hard time hearing their apology over the sound of his MISSING FINGER.\n\nThe look on Usk's face, according to witnesses, was not the look of someone who understood tactical necessity. It was the look of someone who had just learned something terrible about someone they thought they knew. Waluigi wonders if Usk and Archie have spoken since. Waluigi wonders what that conversation would even sound like. 'Sorry about the finger, but you understand, there were vampires'? Some things don't have adequate apologies.\n\n**The Shot Heard Across the Shadowfell**\nGreen T chose the moment of maximum chaos—everyone reeling from the vote, from Archie's gruesome loyalty demonstration, from the casual monstrousness of vampire dinner traditions—to act.\n\nHe stood up from the children's table.\n\nHe produced a firearm.\n\nWaluigi needs to address the question everyone asks: HOW did Green T smuggle a gun into a vampire dinner party? Waluigi has asked Green T this directly. Green T smiled and changed the subject. Waluigi respects a man who keeps his methods private. Waluigi ALSO keeps his methods private, mostly because people react badly when Waluigi explains his methods.\n\nThe gun was loaded with SILVER bullets. Silver. The one material that vampires cannot shrug off. The one weakness in their immortal, arrogant, dinner-party-hosting, children's-table-assigning aristocratic existence. And Green T had brought it to dinner in his pocket.\n\nHe aimed at Orangus Cornelius—senior vampire lord, Onyx Hand authority figure, centuries-old undead aristocrat who had survived wars and revolutions and the collapse of empires—and fired.\n\nThe bullet hit.\n\nThe CHILDREN'S TABLE shot the HEAD VAMPIRE.\n\nWaluigi WISHES he could have seen Orangus Cornelius's face. The expression of a vampire lord who has spent centuries being the most dangerous person in every room, realizing that the LEAST important guest just put a silver bullet in him. The moment of comprehension. The fraction of a second between 'this cannot be happening' and 'this is absolutely happening.'\n\nWaluigi would pay—would pay ACTUAL COINS—for a painting of that moment. He would hang it in his bedroom. He would hang it EVERYWHERE. He would commission MULTIPLE paintings in different artistic styles. Impressionist Orangus getting shot. Cubist Orangus getting shot. One of those paintings made entirely of dots, showing Orangus getting shot. The artistic possibilities are ENDLESS.\n\n**Vivian's Revelation**\nIn the middle of the chaos—because this story apparently did not have ENOUGH going on—the thrall known as 'Vivesna' chose this moment to make a revelation. Vivesna was actually Vivian. Male, not female as the vampires had believed. And Vivian claimed the title of Heir to the Corvinarus line.\n\nDuring a gunfight. At a dinner party. In the Shadowfell. After someone just shot the host.\n\nThe TIMING. Waluigi appreciates dramatic timing more than almost anyone—Waluigi has spent his entire life perfecting dramatic timing—and even HE thinks Vivian's reveal was a masterclass. You wait for the exact moment when everyone is too busy dodging silver bullets to process what you've just said, and you claim a hereditary title. By the time the vampires recovered enough to object, the claim was already on the record. Brilliant. Insane. Possibly both.\n\nVivian had apparently been hiding in plain sight for—how long? Years? Decades? Time gets weird with vampires. However long it was, Vivian had maintained a false identity within the Corvinarus household, waiting for the right moment to reveal the truth. And the right moment, apparently, was 'immediately after Green T shoots the senior lord with silver.'\n\nWaluigi respects the audacity. Waluigi questions the sanity. Waluigi acknowledges that, in the vampire world, audacity and sanity might be less distinguishable than they are elsewhere.\n\n**The Escape**\nArchie and Green T made for the nearest window. Not the nearest DOOR—the nearest WINDOW. They went through it—glass, frame, decorative molding, and all—and landed in the rose garden below.\n\nWaluigi has jumped through a lot of windows in his career. Party exits, sports mishaps, that one incident at Wario's house that nobody talks about. He knows from experience that rose bushes are NOT ideal landing surfaces. They have thorns. The thorns go through clothing. The landing is undignified. You spend the next week finding thorns in uncomfortable places.\n\nBut rose bushes are significantly better than a room full of angry vampires, so Waluigi supports the decision. Strategic window exit is a valid tactical choice when the alternative is being eaten by immortal aristocrats.\n\nBowser stayed. Because Bowser is BOWSER. Bowser does not fit through windows. Bowser does not flee from fights. Bowser does not understand the concept of tactical withdrawal. What Bowser DOES understand is fire, and he employed that understanding generously.\n\nBowser breathed fire at the vampire lords.\n\nNow, the Shadowfell suppresses MAGICAL fire. Archie's fire spells were useless in this plane—the dimensional physics simply wouldn't allow it. But Bowser's fire isn't magical. Bowser's fire is BIOLOGICAL. It comes from his gut, not his spellbook. And the Shadowfell, apparently, cannot suppress the fire of a giant turtle dragon who is genetically MADE of fury.\n\nThe distinction between magical fire and biological fire is academic in most situations. In THIS situation, it was the difference between 'helpless against vampires' and 'BREATHING FIRE AT VAMPIRES WHILE YOUR FRIENDS ESCAPE THROUGH A WINDOW.' Bowser's flames bought time. They created chaos. They forced the vampire lords to deal with a fire-breathing dinosaur in their dining room instead of pursuing the people who had just shot their leader and dived into the rosemary.\n\n**The Rose Garden**\nArchie and Green T landed in the Shadow Estate's rose garden—a monochrome nightmare of grey roses and black thorns that had clearly been designed by someone who thought 'cheerful' was a disease. The garden provided temporary cover but not safety. Vampire thralls were mobilizing. The lords who weren't currently on fire were organizing pursuit.\n\nThe escape from the garden to the estate's perimeter involved more running than fighting—moving fast through hedge mazes and ornamental arrangements while pursuers closed from multiple directions. Green T's knowledge of the estate's layout, gathered during his time at the children's table, proved invaluable. He'd mapped the exits. He'd identified the guard positions. He'd done reconnaissance while everyone assumed he was eating appetizers and feeling sorry for himself.\n\nThe lesson here is one Waluigi has known his entire life: never dismiss anyone. The person you think is least important might be the one who destroys everything you've built. Green T was seated at the children's table because the vampires thought he didn't matter. Green T shot their leader because they gave him time to plan. Arrogance is expensive. The vampires paid in silver.\n\n**Bowser's Exit**\nBowser eventually extracted himself from the dining hall through a combination of fire, physical force, and what witnesses described as 'enthusiastic property damage.' The wall he exited through reportedly did not survive the experience. Neither did several pieces of furniture, two decorative pillars, and a portrait of some Corvinarus ancestor who probably deserved it.\n\nBowser rejoined the others outside the estate proper, and the group made for the dimensional boundary that would eventually allow return to the physical plane. The pursuit continued but grew disorganized—the vampires were dealing with injuries, succession chaos, and the basic question of what had just happened to their nice dinner party.\n\nWaluigi wasn't there. Waluigi was in the Feywild arguing with a mushroom about property rights. But hearing about this afterward—Green T at the children's table, the silver bullet, the window escape, Bowser breathing biological fire at immortal aristocrats—Waluigi felt something he doesn't feel often.\n\nHe felt PROUD. Proud of his allies. Proud of Green T's patience and courage. Proud of Bowser's unmovable stubbornness. Even grudgingly proud of Archie, who kept a cover alive long enough for the moment to matter, even if the price was a friend's finger.\n\nWaluigi missed the greatest dinner party exit in the history of dinner parties, and that will bother him for the rest of his life. But knowing it HAPPENED—knowing that the people Waluigi fights alongside are capable of THAT—makes Waluigi feel like maybe being on this team isn't the cosmic insult he usually considers it to be.\n\nMaybe.\n\nDon't tell anyone Waluigi said that. WAH.",
+    "aftermath": "Orangus Cornelius took a silver bullet, which for a vampire lord is considerably worse than a regular bullet—silver wounds don't heal the way normal damage does, and the metaphysical implications within the Corvinarus power structure were severe. A wounded patriarch is a vulnerable patriarch, and vampire politics does not treat vulnerability kindly. Factions within the Onyx Hand began positioning themselves to take advantage before the blood from the gunshot had even dried.\n\nVivian's claim to the Heir title threw the family's succession into chaos, creating fractures within the Onyx Hand that multiple parties would attempt to exploit. A legitimate heir emerging from the thrall population raised questions about bloodline, about who else might be hiding in plain sight, about the entire social order the Corvinarus had maintained for centuries. The claim couldn't be ignored, and it couldn't be easily dismissed.\n\nThe Shadow Estate dinner marked the absolute end of any diplomatic pretense between the party and the vampire lords—from this point forward, the relationship was pure hostility. The vampires had been shot, embarrassed, set on fire, and had their walls broken. These are not injuries that immortal aristocrats forgive. Ever.\n\nArchie's severing of Usk's finger remained an open wound—figuratively and literally—in the party's internal trust. Some costs cannot be justified retroactively. Some debts cannot be repaid. Archie maintained his cover and probably saved lives, but he did it by maiming someone who trusted him, and that mathematics doesn't balance cleanly.\n\nGreen T's reputation reached legendary status. A man who had survived the destruction of his criminal empire, been dragged through a mirror dimension, escaped the Deep Mirror, and then shot a vampire lord with silver from the children's table was not someone anyone would underestimate again. Green T proved that dismissal is dangerous. He proved that patience and planning can defeat age and power. He proved that sometimes the most important person in the room is the one you're ignoring.\n\nBowser's fire proved that the Shadowfell's anti-magic properties had limits, which would inform tactical planning for any future operations in the plane. Biological abilities function where magical ones don't. This is useful information for anyone planning Shadowfell incursions, though Waluigi hopes he never needs it.\n\nAnd Waluigi, stuck in the Feywild, heard about all of it secondhand and experienced the unique agony of knowing he missed the single coolest thing any of his friends had ever done. Every version of the story he's heard has been slightly different. Every retelling has added details or embellished moments. By now, the legend of the dinner party assassination has probably grown beyond the actual event.\n\nWaluigi doesn't mind. Some stories deserve to grow. Some moments deserve to become legends. Green T shooting Orangus Cornelius from the children's table is one of those moments, and Waluigi will tell that story at every opportunity, adding his own embellishments, making sure the world knows what happened at the Shadow Estate.\n\nBecause the world SHOULD know. The world should know that arrogance has consequences. The world should know that the person you dismiss might be the person who destroys you. The world should know that Waluigi's allies are MAGNIFICENT, even when Waluigi isn't there to see it.\n\nWAH!",
+    "relatedArticles": [
+      "shadow_estate",
+      "planar_fracture",
+      "onyx_hand",
+      "corvinarus_family",
+      "green_t",
+      "archie_miser"
+    ],
+    "reputationChanges": {
+      "archie_miser": {
+        "onyx_hand": -15
+      },
+      "green_t": {
+        "onyx_hand": 30
+      },
+      "bowser": {
+        "onyx_hand": -5
+      }
+    },
+    "effects": {
+      "onyx_hand": -20
+    },
+    "reputationNotes": {
+      "archie_miser": "Severed a vampire lord's finger, saving lives but at great personal cost.",
+      "green_t": "Shot the head vampire lord with a silver bullet, becoming a legendary sniper.",
+      "bowser": "Breathed fire at vampires, contributing to their embarrassment."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T22:04:26+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    },
+    "image": "assets/images/battles/dinner-climax-vote/dinner-climax-vote-01.jpg",
+    "imageCaption": "The dining hall as the vote came apart. Reconstructed from three accounts that agree on the table and on nothing else."
+  },
+  {
+    "id": "vivian_corvinarus_corridor_fight",
+    "name": "The Vivian Corridor Ambush",
+    "date": "Day 1 of Harvestide, 1040 BF",
+    "location": "Maintenance Corridors, Shadow Estate (Shadowfell)",
+    "type": "Ambush / Pursuit / Succession Violence",
+    "result": "Tactical Draw — Vivian wounded and disarmed of spell components; Markop nearly killed; necromancer's wand recovered",
+    "belligerents": {
+      "attackers": {
+        "name": "Vivian Corvinarus (as 'Vinvessa')",
+        "factionId": "onyx_hand",
+        "commander": "Vivian Corvinarus (solo, having dropped the Vivesna thrall disguise)"
+      },
+      "defenders": {
+        "name": "Markop and Bowser",
+        "factionId": "disaster_inc",
+        "commander": "Markop (barely conscious for the first half)"
+      }
+    },
+    "casualties": {
+      "attackers": "Vivian — axe wound to the side, blunt trauma to head (LAUGHED about both), spell components destroyed, necromancer's wand lost",
+      "defenders": "Markop — nearly killed by crimson beam, armor barely intact, saved by divine intervention; Bowser — minor injuries from holding the door"
+    },
+    "summary": "The moment Vivian Corvinarus stopped pretending to be a harmless thrall named Vivesna and started hunting party members through the Shadow Estate's corridors. Markop woke up being DRAGGED by Bowser because the Corvinarus succession claimant was chasing them with an axe and magic that shouldn't work in the Shadowfell but DID because the Corvinarus bloodline apparently doesn't follow dimensional rules. Markop survived a crimson death beam only because he whispered a prayer at exactly the right moment. Bowser found a necromancer's wand and asked 'Is this a magic wand?' Waluigi wasn't there but the secondhand account made him grateful for the Feywild's fairy politics, which is something Waluigi NEVER expected to feel.",
+    "description": "Waluigi is reconstructing this fight from Markop's account. Markop does not exaggerate. When Markop says something was desperate, Waluigi translates that as 'we were seconds from death and only survived through luck, divine intervention, and Bowser being Bowser.'\n\n## Phase 1: The Drag\n\nMarkop regained consciousness while being hauled across stone floors by his tail. Bowser was dragging him through dim corridors while footsteps echoed behind them—Vivian's footsteps, measured and unhurried, because Vivian apparently felt no need to RUN when pursuing prey through a manor he'd spent weeks mapping from the inside as 'Vivesna.'\n\nThis is the advantage of the triple identity. Vivian had been a THRALL in this estate. He knew the corridors. He knew the patrol routes. He knew which doors locked and which didn't, which hallways dead-ended and which connected. Markop and Bowser were running blind in enemy territory. Vivian was hunting in his own HOME.\n\nMarkop managed to push himself upright enough to ask 'What happened?' Bowser's answer was characteristically direct: 'Running away from that guy.' Bowser had held Vivian off with fire breath earlier, buying enough time to drag Markop to temporary safety.\n\n## Phase 2: The Maintenance Room\n\nThey barricaded in a groundskeeper's maintenance room. Waluigi notes the strange details: among the gardening tools and clay pots were ordinary vegetables. NORMAL vegetables. Not shadow-formed, not residue-covered. Carrots and whatever else grows in haunted vampire manor gardens. In a dimension of death and entropy, someone had been doing AGRICULTURE.\n\nThis strikes Waluigi as oddly significant. The Shadow Estate isn't just a vampire court—it's a functioning household with servants, groundskeepers, and vegetable gardens. It's ALIVE in ways that the death dimension it occupies shouldn't allow. Someone is maintaining normalcy here. Whether that's comforting or terrifying depends on perspective.\n\nBowser braced the door with his full weight. Bowser weighs approximately as much as several large vehicles. The door held for about thirty seconds.\n\n## Phase 3: The Breach\n\nVivian hacked through the door with an axe. Not magic—STEEL. While posing as Vivesna the thrall, Vivian had presumably had access to the estate's tool rooms, weapon stores, and service corridors. He knew where the axes were. He'd probably catalogued them.\n\nThe methodical axe strikes demonstrated something important: Vivian doesn't NEED magic. He's trained with physical weapons. He adapts his approach to circumstances. When the dimension suppresses spellcasting, he picks up an axe. When circumstances favor magic, he casts a death beam. This tactical flexibility makes him significantly more dangerous than a pure mage or a pure fighter.\n\nWhen the door burst open, Vivian entered with the calm of someone walking into a room he owns. Smoke bomb first—thick, blinding cloud. Professional entry technique. Then advance through the concealment.\n\nMarkop deflected the smoke and pushed past Vivian into the corridor. Bowser struck from the side—a solid hit across Vivian's head that staggered him. Markop followed with his battle axe, cutting into Vivian's side through the red robes.\n\nVivian bled. Vivian LAUGHED.\n\nWaluigi has discussed this with Markop and confirmed: the laugh was not manic or unhinged. It was AMUSED. Like someone who had been inconvenienced rather than injured. The Corvinarus bloodline's relationship with physical damage is apparently very different from normal biology.\n\n## Phase 4: The Crimson Beam\n\nVivian dropped to one knee. Not from pain—from PREPARATION. Chanting began. Magic gathered with an intensity that the Shadowfell's suppression field should have prevented.\n\n'The Shadowfell suppresses magic,' Vivian said. Then, with a smile that Markop described as 'the most unsettling thing in a dimension full of vampires': 'But not this magic.'\n\nThe crimson beam nearly ended Markop. Full force, overwhelming impact, armor at structural failure. A whispered prayer to his god produced a divine shield that absorbed JUST ENOUGH to keep him standing. The margin between survival and death was measured in faith.\n\nThis is the moment the Shadow Estate became a fundamentally different kind of threat. Magic that ignores planar suppression. A combatant who was invisible for weeks as a thrall. The Corvinarus succession isn't just political theater—it's WARFARE, conducted by someone with capabilities nobody prepared for because nobody knew Vivian HAD them.\n\n## Phase 5: Component Destruction\n\nMarkop's combat instincts saved the moment. He scattered and burned Vivian's spell components—the physical materials needed to channel the crimson beam. Without components, the attack couldn't be easily repeated.\n\nBowser found the necromancer's wand on the ground and picked it up with innocent curiosity. 'Ooooh. Is this a magic wand?' Markop, still recovering from near-death, managed: 'I'm not sure.'\n\nRemi later confirmed: necromancer's wand. Cold to the touch. Death-aspected. The kind of focus that channels efficiently in the Shadowfell's death-energy environment. Whatever Vivian's magic draws from, necromantic tools are part of the toolkit.\n\nVivian withdrew. Not defeated—his injuries didn't seem to bother him enough for that. Not victorious—his primary weapon had been neutralized. He withdrew because the engagement had served its purpose.\n\nWaluigi believes that purpose was DEMONSTRATION. Vivian wasn't trying to kill Markop and Bowser in that corridor. He was trying to prove he COULD.\n\nThe message received. WAH.",
+    "aftermath": "Vivian retreated into the Shadow Estate's depths, presumably reverting to another identity or finding a new hiding spot. His weeks as 'Vivesna' gave him intimate knowledge of every corner of the manor. The necromancer's wand is now in party hands—a potential asset if anyone can safely wield it, a liability if it's tracked or cursed. Markop's armor is barely functional. The revelation that Vivian can cast through Shadowfell suppression has rewritten the threat assessment for everyone trapped in this dimension. The Corvinarus succession is no longer a background political drama. It's an active hunting ground, and Vivian knows the territory better than anyone alive.",
+    "relatedArticles": [
+      "vivian_corvinarus",
+      "markop",
+      "bowser",
+      "shadow_estate",
+      "onyx_hand",
+      "corvinarus_family"
+    ],
+    "reputationChanges": {
+      "markop": {
+        "onyx_hand": -15,
+        "disaster_inc": 10
+      },
+      "bowser": {
+        "onyx_hand": 5
+      },
+      "waluigi": {
+        "disaster_inc": 5
+      }
+    },
+    "effects": {
+      "onyx_hand": -10,
+      "disaster_inc": 5
+    },
+    "reputationNotes": {
+      "markop": "Survives another attempt by the Onyx Hand to eliminate the party.",
+      "bowser": "Partially saves Markop's life, but is also forced to flee with his reputation damaged.",
+      "waluigi": "Becomes more cautious about recording details of their activities in the Shadowfell."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T22:05:21+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    },
+    "image": "assets/images/battles/vivian-corvinarus-corridor-fight/vivian-corvinarus-corridor-fight-01.jpg",
+    "imageCaption": "The maintenance corridors, the axe, and Bowser hauling Markop backward out of the beam's line. Vivesna is not in this picture; Vivian Corvinarus is."
+  },
+  {
+    "id": "the_spotlight_chase_hellhound_skirmish",
+    "name": "The Hellhound Trophy-Room Skirmish",
+    "date": "14th Harvestside, 1040 BF",
+    "location": "Shadow Estate corridor network and trophy room approach",
+    "type": "Running Skirmish / Pursuit Contact",
+    "result": "Party tactical survival — hellhound driven off, pursuit continues, Black Crystal remains hidden with Markop",
+    "belligerents": [
+      "disaster_inc",
+      "onyx_hand"
+    ],
+    "casualties": "Hellhound driven off; no confirmed party deaths; Eager injured; multiple arrows and one dagger embarrassed.",
+    "summary": "A brief but revealing skirmish during the Shadow Estate pursuit. Rattles held a hellhound, Markop attempted a coordinated flank, Eager panicked and missed, Remi missed two arrows, and Dan clumsily struck hard enough to make the beast flee. The fight ended when knights and Lyranth arrived demanding the Black Crystal from the wrong target.",
+    "description": "Waluigi is classifying the hellhound engagement as a skirmish rather than a full battle because the fight was brief, messy, and interrupted by larger pursuit forces. That does not make it unimportant. Small fights reveal habits. This one revealed several.\n\nRattles engaged first, proving again that the skeleton's comic timing should not obscure his willingness to stand in front of danger. Markop attempted to coordinate a two-sided strike with Eager, using himself as the reliable pressure point and Eager as the second angle. The plan was tactically sound. Eager's nerves were not. Instead of closing, he threw a simple dagger, missed, and announced the plan's death with a metallic clink.\n\nRemi opened an empty room because curiosity remains one of her primary movement modes. Markop called her back. She fired two arrows and missed by an impressive margin, which Waluigi attributes to chase stress, bad angles, and the fact that the Shadow Estate had spent the last several minutes turning her life into musical theater.\n\nDan began by tending Eager, then was ordered into the actual fight. His approach was clumsy. His swing was not. The hellhound screamed and fled into another room. This is the rare case where poor form still produced a useful tactical result.\n\nThe skirmish ended not because the party achieved clean control, but because knights and Lyranth arrived and converted the fight into a pursuit. The important outcome was not the hellhound's defeat. It was that the party remained mobile long enough to reach the trophy room and then Tymnas's cottage.\n\nWaluigi's tactical conclusion: Markop remains the group's stabilizing combat thinker; Rattles is more reliable than his bones imply; Eager requires courage training or fewer hellhounds; Remi under chase pressure loses accuracy; Dan's clumsiness can still land if pointed in the correct direction.\n\nWAH.",
+    "aftermath": "The party fled into the trophy room and then toward Tymnas’s cottage. Lyranth’s wrong accusation against Eager confirmed that enemy intelligence knew about the Black Crystal but not its actual carrier.",
+    "relatedArticles": [
+      "shadow_estate_spotlight_cookie_cottage",
+      "shadow_estate",
+      "markop",
+      "rattles",
+      "eager",
+      "remi_akamatsu_full_backstory",
+      "salam",
+      "lyranth"
+    ],
+    "reputationChanges": {
+      "markop": {
+        "onyx_hand": 5
+      },
+      "dan": {
+        "onyx_hand": 3
+      },
+      "remi_akamatsu_full_backstory": {
+        "onyx_hand": -2
+      }
+    },
+    "effects": {
+      "onyx_hand": 10
+    },
+    "reputationNotes": {
+      "markop": "Stabilized the tactical situation by coordinating a two-sided strike.",
+      "dan": "Successfully fought despite clumsy form, aiding in the hellhound's flight.",
+      "remi_akamatsu_full_backstory": "Under pressure, lost accuracy and contributed to the chase confusion."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T22:07:30+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    },
+    "image": "assets/images/battles/the-spotlight-chase-hellhound-skirmish/the-spotlight-chase-hellhound-skirmish-01.jpg",
+    "imageCaption": "The trophy room under one light: Rattles holding the hellhound while everybody else misses."
+  },
+  {
+    "id": "the_midnight_skirmish",
+    "name": "The Midnight Skirmish",
+    "date": "28 Harvestide, 1040 BF",
+    "location": "Markop’s Bedroom, Shadow Estate",
+    "type": "Midnight Intrusion / Assassination Attempt",
+    "result": "Intruder Repelled — Remi Akamatsu de-escalated the situation by being polite and firm.",
+    "belligerents": {
+      "attackers": {
+        "name": "Unknown Shadow Guard",
+        "factionId": "onyx_hand"
+      },
+      "defenders": {
+        "name": "Remi Akamatsu and Markop (Sleeping)",
+        "factionId": "disaster_inc"
+      }
+    },
+    "casualties": {
+      "attackers": "Guard fell off bed, dignity lost.",
+      "defenders": "None."
+    },
+    "summary": "A guard climbed through a window and held a sword to Markop’s throat. Remi Akamatsu, already awake, told him to be quiet. The guard, confused by the request, retreated.",
+    "description": "Waluigi finds this the most effective combat tactic ever recorded. Just tell the enemy to be quiet. WAH.",
+    "relatedArticles": [
+      "the_midnight_audit_of_harvestide_28",
+      "remi_akamatsu_full_backstory",
+      "markop",
+      "tymnas"
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "onyx_hand": -15
+      },
+      "remi_akamatsu_full_backstory": {
+        "disaster_inc": 30
+      }
+    },
+    "effects": {
+      "disaster_inc": 20
+    },
+    "reputationNotes": {
+      "waluigi": "Waluigi's strategy backfires as his own archivist de-escalates the situation.",
+      "remi_akamatsu_full_backstory": "Remi Akamatsu shows her skills in defusing tense situations."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T22:12:21+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    },
+    "image": "assets/images/battles/the-midnight-skirmish/the-midnight-skirmish-01.jpg",
+    "imageCaption": "A sword at Markop's throat, a guard through the window, and Remi already awake and telling him to keep it down."
+  },
+  {
+    "id": "siege_of_dreadful_grove",
+    "name": "The Siege of the Dreadful Grove",
+    "date": "15-16 Harvestide, 1040 BF",
+    "location": "The Dreadful Grove, Shadowfell",
+    "type": "Guerrilla Warfare / Magical Siege",
+    "result": "Stalemate — Archie Miser escaped; Grove spirits pacified.",
+    "belligerents": {
+      "attackers": {
+        "name": "Onyx Hand Shadow-Walkers",
+        "factionId": "onyx_hand"
+      },
+      "defenders": {
+        "name": "Archie Miser & Grove Spirits",
+        "factionId": "disaster_inc"
+      }
+    },
+    "casualties": {
+      "attackers": "Several shadow-stalkers vaporized.",
+      "defenders": "Severe tree trauma; Archie Miser’s dignity."
+    },
+    "summary": "Following his drowning in the Dream-Duel, Archie Miser woke up to find the Onyx Hand attempting to clear the grove of his presence. He used the remnants of his entropy-fire to hold them back long enough to reach Shadeward Manor.",
+    "description": "Waluigi has heard that the trees were screaming. Waluigi doesn’t like screaming trees—they are bad for the ears and even worse for the property value. Archie apparently set half the grove on fire again. Classic Archie. WAH.",
+    "relatedArticles": [
+      "archie_miser",
+      "the_grove_of_woe_incident"
+    ],
+    "reputationChanges": {
+      "archie_miser": {
+        "disaster_inc": 15
+      }
+    },
+    "effects": {},
+    "reputationNotes": {
+      "archie_miser": "Escaped with dignity intact, arsonist proves a match for the Onyx Hand."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T22:18:56+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    },
+    "image": "assets/images/battles/siege-of-dreadful-grove/siege-of-dreadful-grove-01.jpg",
+    "imageCaption": "Archie woke from drowning in the Dream-Duel to find the Onyx Hand closing in on the grove around him."
+  },
+  {
+    "id": "battle_imp_ambush_shadow_estate",
+    "name": "The Imp Ambush of Harvestide 29 (Siege at Tymnas's Cottage)",
+    "conflict": "The Shadowfell Crisis — Era of Entropy",
+    "date": "29 Harvestide, 1040 BF",
+    "location": "Tymnas's Cottage & The Shadow Estate Hedge Maze",
+    "belligerents": {
+      "attackers": {
+        "name": "The Deceased Archivist's Imp Taskforce (9 Armored Flying Imps & Right-Hand Commander)",
+        "factionId": "archivist_estate"
+      },
+      "defenders": {
+        "name": "Disaster Inc. & Allies (Markop, Remi Akamatsu, Feyward Dan, Eager, Salam, Rattles, Tymnas)",
+        "factionId": "disaster_inc"
+      }
+    },
+    "casualties": {
+      "attackers": "Chief Imp (Right-Hand Man) sliced in half across dining table by Markop; 4+ subordinate imps slain by high-speed slashing and snares.",
+      "defenders": "Remi Akamatsu severely poisoned in washroom window ambush; Markop exhausted; cottage doors and windows breached."
+    },
+    "summary": "A nine-imp mercenary force representing the deceased Archivist surrounded Tymnas's Cottage at dawn, demanding the return of their master's stolen ledger. After Markop argued 'self-defense' against the Archivist's erasure threats, the imps launched a multi-axis ambush. While Dan's multi-dimensional eye exposed cloaked imps at the front door, an infiltration team breached the washroom window, drenching Remi Akamatsu in toxic poison. Markop rushed to her defense, slicing the imp commander in half across the dining table before a chilling phantom knock echoed at the empty threshold.",
+    "description": "# BATTLE RECORD: THE IMP AMBUSH OF HARVESTIDE 29\n### Tactical Analysis of the Shadow Estate Cottage Defense\n### Filed by Waluigi, Auditor-General of Residential Warfare and Flying Pest Control\n\nWaluigi has analyzed many defensive engagements, but the **29 Harvestide Imp Ambush at Tymnas's Cottage** stands as the clearest demonstration of how quickly a peaceful morning tea can degenerate into an invisible, toxic indoor skirmish. WAH!\n\n---\n\n## 1. Tactical Setup: The Dawn Tapping & The 9-Imp Encirclement\n\nAt dawn, Markop Judi was awakened by a rhythmic tapping on the lead-paned window of Tymnas's Cottage. Hovering outside was an imp dressed in rusted miniature chainmail armor. \n- **The Accusation**: The imp accused Markop of murdering the Archivist.\n- **The Defense**: Markop argued *\"Self-defense,\"* noting that the Archivist had threatened to erase the party's genetic lineage from existence.\n- **The Ultimatum**: The imp demanded the return of the Archivist's ledger or threatened an immediate assault by his nine-man army.\n\n---\n\n## 2. Frontal Assault: Dan's Sentry Eye & The Porch Defense\n\nWhen the imps initiated their charge, Markop armed Tymnas with a short sword and stationed Eager, Salam, and Rattles at the front door.\n- **The Invisibility Cloak**: The attacking imps activated planar cloaking, rendering themselves invisible to ordinary sight.\n- **Parallel Dan's Sensory Eye**: Feyward Dan opened his third multi-dimensional sensory eye, piercing the invisibility cloaking and calling out enemy coordinates to Eager.\n- **The Counter-Strike**: Eager executed a high-speed slashing attack on the lead imp, while Salam landed a crucial guerilla backstab that broke the first wave.\n\n---\n\n## 3. Rear Infiltration: The Bathroom Window Poison Ambush\n\nRecognizing that the front porch choke-point was holding, an elite fireteam of imps bypassed the front and infiltrated the narrow washroom window at the rear of the cottage.\n- **The Drenching**: Remi Akamatsu, isolated in the bathroom while preparing her gear, was ambushed from behind and drenched in a heavy, burning toxic poison.\n- **Remi's Retaliation**: Despite agonizing chemical burns across her back, Remi drew her dual hand crossbows and fired a volley that suppressed the window intruders and alerted the main room.\n\n---\n\n## 4. Kitchen Climax: Markop & The Right-Hand Man\n\nMarkop and Tymnas charged into the central kitchen dining parlor to relieve Remi.\n- **The Commander's Resistance**: The imp leader—boasting of his status as the Archivist's right-hand man—shrugged off conventional light weapon hits.\n- **The Table Execution**: Markop swung his massive battleaxe in a full horizontal arc, slicing the imp commander cleanly in half across Tymnas's circular timber dining table.\n- **Last Words**: As he expired on the table, the commander wheezed: *\"Tell my wife I love her...\"*—a dramatic death monologue that Waluigi classifies as shameless emotional manipulation.\n\n---\n\n## 5. The Phantom Knock & Aftermath\n\nWith their commander dead, the remaining imps retreated into the Hedge Maze. However, as the cottage fell silent, a slow, deliberate knock echoed at the front door:\n*Knock. Knock. Knock.*\nWhen Markop opened the door, the porch was completely empty—nothing stood outside except the ash-gray fog of the Shadowfell, leaving the cottage in a state of high alert. WAH!",
+    "relatedArticles": [
+      "tymnas_cottage_and_hedge_maze",
+      "the_imp_ambush_of_harvestide_29",
+      "markop",
+      "remi_akamatsu_full_backstory",
+      "dan_the_toad",
+      "eager",
+      "salam",
+      "tymnas",
+      "rattles"
+    ],
+    "reputationChanges": {
+      "markop": {
+        "archivist_estate": -15,
+        "disaster_inc": 10
+      },
+      "remi_akamatsu_full_backstory": {
+        "archivist_estate": -30,
+        "disaster_inc": 20
+      },
+      "dan": {
+        "archivist_estate": -8,
+        "disaster_inc": 5
+      }
+    },
+    "effects": {
+      "archivist_estate": -20,
+      "disaster_inc": 15
+    },
+    "reputationNotes": {
+      "markop": "Markop defended the party with a fatal slice to the imp commander.",
+      "remi_akamatsu_full_backstory": "Remi Akamatsu was poisoned by an infiltration team, nearly dying in the attack.",
+      "dan": "Dan's multi-dimensional eye exposed cloaked imps and helped repel attackers."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T22:23:17+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    },
+    "image": "assets/images/battles/battle-imp-ambush-shadow-estate/battle-imp-ambush-shadow-estate-01.jpg",
+    "imageCaption": "Nine imps around Tymnas's cottage at dawn, come for the dead Archivist's ledger."
+  },
+  {
+    "id": "green_t_and_archie_vs_the_scorncrow",
+    "name": "Green T and Archie vs. the Scorncrow (The Giant Form, the Cloud, and the Branches Full of Bodies)",
+    "date": "30 Harvestide, 1040 BF — later that night from the cottage side, concurrent with Archie's Shadowfell-return chain",
+    "location": "The grove beyond Tymnas's cottage under the controlled storm (no registered location id; this record declines to invent one)",
+    "type": "Named Duel / Monster Suppression / Concurrent Storm Engagement",
+    "result": "No decision. Green T's giant form briefly flattened the Scorncrow and shook the cottage itself, but the Scorncrow stood back up, the grove joined the fight, and the giant form began to fail before the field could be resolved.",
+    "engagement": {
+      "combatants": 5,
+      "ledgerWindow": "the later watches of 30 Harvestide, 1040 BF — one short grove exchange felt as an earthquake at the cottage · roughly 1–2 hours, same night; no calendar day passed (still 1040 BF)",
+      "scale": "A named two-man assault against one field-sovereign scarecrow plus the bats, branches, and swinging deadweight the grove kept contributing after contact"
+    },
+    "belligerents": {
+      "attackers": {
+        "name": "Archie Miser and Green T",
+        "combatants": [
+          {
+            "name": "Archie Miser",
+            "role": "storm-cloud rider, staff caster, loud advocate of deforestation",
+            "fate": "wounded",
+            "leader": true,
+            "fateNote": "thrown off the cloud by the opening scythe and struck again by a branch later"
+          },
+          {
+            "name": "Green T",
+            "role": "threshold returnee, pistol carrier, giant-form enforcer",
+            "fate": "wounded",
+            "fateNote": "held the giant form long enough to stomp the Scorncrow and then started spending himself back out of it"
+          }
+        ]
+      },
+      "defenders": {
+        "name": "The Scorncrow's Grove",
+        "leader": "The Scorncrow",
+        "combatants": [
+          {
+            "name": "The Scorncrow",
+            "role": "grove sovereign, scythe user, primary target",
+            "fate": "stood",
+            "leader": true,
+            "fateNote": "trampled under giant force and got back up laughing"
+          },
+          {
+            "name": "Bat Swarm",
+            "role": "face-blinding screen around the Scorncrow",
+            "fate": "stood"
+          },
+          {
+            "name": "The Hanging Branches",
+            "role": "secondary striking mass — branches laden with bodies",
+            "fate": "stood"
+          }
+        ]
+      }
+    },
+    "casualties": "No confirmed dead. Archie twice battered. Green T winded by his own size. The Scorncrow flattened and unhelpfully functional. One electric spear committed to the wrong scale of war.",
+    "summary": "Green T returned to Tymnas's cottage marked by Mazebound residue and, after a gunpoint threshold argument, cut across the grove to Archie. The Scorncrow answered with a scythe from the dark, knocked Archie off his storm cloud, and survived being stepped on by Green T's giant form. The grove shook hard enough to throw Eager off the cottage roof and announce the battle to every witness indoors.",
+    "description": "Waluigi is filing this one from the edge of two witness sets: the people in the cottage who felt the grove turn into a seismic argument, and the two men actually in the grove, both of whom are unreliable in different and useful ways. Archie remembers a fight as a sequence of insults interrupted by force. Green T remembers a fight as a problem of angles, visibility, and how long a body can hold a shape before the shape starts spending the body back. Between them the archive has enough to say what happened and not enough to pretend it ended cleanly.\n\nThe important correction up front: Green T did not arrive at the grove as Archie's rescuer in any simple heroic sense. He arrived because the controlled storm still needed investigating, the cottage had become a terrible holding pattern, and Archie happened to be in the line where those two facts met. The reunion matters only because the Scorncrow answered it immediately.\n\n## Phase One: The Greeting and the Scythe\n\nGreen T found Archie under the storm with exactly long enough for one exchange before the grove objected.\n\n“Long time no see,” Green T said.\n\nArchie, apparently satisfied that the world would provide no more useful sentiment than that, gave the tactical brief in the same breath he used to complain about it.\n\n“The Scorncrow is off his rocker. We have to beat him.”\n\nNo map. No measured distance. No clean statement of where the line was. Just the enemy named and the imperative attached.\n\nThen the scythe came out of the dark.\n\nThe first serious move of the engagement belonged entirely to the Scorncrow. No warning cry anybody trusted, no stomping approach through brush, no grand declaration. The weapon simply arrived. It flew at Archie fast enough to interrupt the conversation before either man had finished deciding how to stand beside the other. Archie fell from the cloud under the impact or the forced dodge; the field record is cleaner about the result than the mechanism. He hit ground hard. The Scorncrow descended after the throw and tried to end the matter before Green T could turn a meeting into a side.\n\nArchie got the staff up in time. That is the whole reason there was a second phase.\n\nThe staff and the scythe met in a contest of leverage ugly enough to count as truth. Archie blocked low and then high, pushing upward until the Scorncrow had to shift its footing. The push did not win the fight. It bought time. Battle records exist because time bought under force is often the only real currency anyone leaves the field with.\n\n## Phase Two: Mortal Limit, Unsuitable Plan\n\nGreen T asked whether Archie was all right, which is the kind of question people ask when they already know the answer has lost all practical value. Archie responded the only way he was ever going to: by powering the staff and throwing force straight back at the thing trying to kill him.\n\nThe Scorncrow parried.\n\nThat matters more than Archie's strike landing would have mattered, because it tells the archive what class of opponent this still is. Parrying a charged staff attack in the middle phase of an ambush means the Scorncrow is not merely durable. It remains technical while angry.\n\nGreen T then proposed the first team plan of the battle: Archie makes fire, Green T turns it into a bullet, and the grove stops being a grove. A good battlefield theory should survive contact with the people expected to perform it. This one lasted exactly until Archie reminded him of the obvious.\n\n“I am still mortal like you.”\n\nThat sentence deserves to sit in the middle of the record where the reader can find it later. Archie is frequently described by allies and enemies alike as if he were an environmental event with hair. He objected to that reading in the fight itself. Whatever else the storm cloud, staff, prior planar nonsense, and pyromantic reputation have turned him into politically, he still understands a scythe on the ground as something that can kill him in the ordinary way.\n\nThis is relevant because it explains the next tactical choice. Archie does not counter the bad plan with retreat. He counters it with a different bad plan he likes better.\n\nA team attack, he suggests. Green T shoots. Archie infuses. Flame bullet or electric bullet. It is exactly the kind of battlefield innovation people invent when they are one part improviser and one part exhausted.\n\nThey do not actually get to use that plan in the form stated, because scale changes the fight before ammunition can.\n\n## Phase Three: Giant Form and False Solution\n\nArchie retook height first. He used the storm cloud to widen the space between himself and the Scorncrow, which is both tactically sensible and emotionally revealing: every surviving account of Archie in danger contains a beat in which he tries to create room before he tries to create certainty.\n\nGreen T, on the ground, tried to answer with movement and found ordinary movement inadequate. Annoyance did the rest. The record's cleanest consensus is also its least believable one: Green T grew. Not by illusion, not by symbolic description, but physically and disastrously enough that the grove stopped functioning as cover and started functioning as a measurement problem.\n\nHe rose over shrub and grove and low tree. He became visible from the cottage roof. He altered the footing of the battlefield by acquiring more of it.\n\nThen he stepped on the Scorncrow.\n\nThis is the battle's loudest moment and also the one most likely to mislead a reader. Yes, the giant form landed. Yes, the Scorncrow went under it. Yes, Archie cheered for immediate deforestation like a man whose politics had briefly become landscaping. None of those facts equal victory.\n\nThe stomp is decisive only in the weaker sense that it changes the scale of everything after it. The ground shakes. Roots strain. The cottage feels it. Eager later loses the roof because of it. But a stomp that does not keep the enemy down is not a resolution. It is a reveal.\n\nWhat it reveals is twofold. First, Green T's giant form is powerful enough to make the grove react as terrain. Second, the Scorncrow's problem is not merely surviving damage. It is surviving humiliation fast enough to counterattack with laughter still available.\n\n*WAH! The archive is contractually obliged to point out that “I stepped on it” and “it stayed solved” are two entirely separate lines in any competent report. Children confuse them. Waluigi does not.*\n\n## Phase Four: The Cottage Learns the Shape of the Fight\n\nA named duel becomes a session-changing engagement the moment uninvolved witnesses get physically thrown around by it.\n\nThe quake from Green T's giant form reached the cottage hard enough to create a second battlefield of bad decisions. Remi called it an earthquake because no less ridiculous name presented itself quickly enough. Eager climbed the roof because of course he did. One of the Toads saw the giant first. Eager saw it second and reacted with enough shock to fall backward off the roof and onto Dan, who was already one-handed and in no mood to become structural support for surprised people.\n\nThis is not cottage comedy. It is battle evidence. The witnesses at the house did not need a visual of the Scorncrow itself to confirm the engagement had crossed from private danger into environmental event. If a support structure loses a man because the offsite fight changes what balance means, the fight has escaped its own perimeter.\n\nWario's contribution at this phase is, for once, analytically useful. He walked outside expecting to play benefactor and stopped at “holy moly,” which is the sort of involuntary measurement only a reliable coward gives you. Wario does not understate large dangers when they might interfere with commerce. The fact that he abandoned style that quickly tells the archive the giant form looked exactly as bad as the roof witnesses claimed.\n\n## Phase Five: The Scorncrow Stands Back Up\n\nThe Scorncrow's recovery defines the battle more than the stomp does.\n\nIt came back wrong and active. It needled Green T's leg. It laughed. Bats swarmed Green T's face until his scale became a disadvantage—more target, not more clarity. The branches themselves entered the exchange next, striking with the bodies hanging from them. Green T stumbled into leaves. Archie, who had regained enough position to keep cheering, caught a branch hit and lost that comfort in a hurry.\n\nThis is the point at which the grove stops being background and becomes the Scorncrow's extended body. A conventional monster can be flattened and then measured by whether it moves again. The Scorncrow, by contrast, operates in a field that keeps helping it after contact. Bats, branches, swinging deadweight, bad footing, mockery. The archive is not looking at a duel plus scenery. It is looking at a duel inside an ecosystem committed to the same outcome.\n\nGreen T's next statement matters because it identifies the cost curve while the curve is still rising.\n\n“I don't know how long I can hold this form.”\n\nThat is the sentence of the battle. Everything before it is spectacle. Everything after it is accounting.\n\nHis giant form is not a stable state. It is an expenditure. Once that is admitted on the field, the battle stops being “Can Green T kill the Scorncrow if large enough?” and becomes “Can Green T resolve the field before size converts itself into weakness?” No surviving witness suggests that he could. What they suggest instead is that the field began outrunning the body that had briefly dominated it.\n\nArchie's answer—to ask about weapons, then offer the electric spear—shows he understood this too, though in the irritated shorthand unique to him. A tiny pistol in giant hands is not a weapon solution; it is a joke the battle is telling about scale. The electric spear clinking uselessly at Green T's feet makes the same point from the opposite direction. The right weapons existed for the wrong bodies and the right body existed at the wrong size.\n\nThat is not failure in the moral sense. It is battlefield mismatch.\n\n## Phase Six: No Decision, Only Exposure\n\nBy the end of the recorded exchange, nobody had won the grove.\n\nArchie was still alive, still shouting, still trying to convert terror into forward motion by sheer noise. Green T was still giant, but not indefinitely. The Scorncrow was still standing, and that fact alone is enough to settle the result line. A named battle in which one side gets stepped on by a giant and remains combat capable is not a victory for the giant. It is an unresolved engagement with a very memorable middle.\n\nWhat the pair did achieve was exposure. They forced the field into the open. The cottage now knows that Green T can enlarge to impossible scale. The cottage now knows the controlled storm reaches all the way to root and roof. The cottage now knows the Scorncrow can survive direct overwhelming contact and answer it with field-wide retaliation. Those are not small gains. They are simply not the same thing as solving the problem.\n\nThe grove remained in enemy hands when the recorded phase closed.\n\nWaluigi's ruling is that this battle belongs on the archive because it changes how every later plan around the cottage must be written. Before this engagement, Green T was a suspicious knock in the rain and the Scorncrow was an external monster somewhere in the dark. After it, Green T is verified in the most inconvenient possible way, and the Scorncrow is no longer an offstage threat but a thing that can absorb giant-force contact, destabilize the ground out to the cottage, and keep laughing.\n\nThat is a battle result, even without a corpse count worth celebrating.",
+    "keyMoments": [
+      {
+        "time": "opening",
+        "who": "Green T",
+        "act": "Finds Archie under the storm",
+        "result": "One exchange of recognition before the grove answers for the Scorncrow"
+      },
+      {
+        "time": "opening",
+        "who": "The Scorncrow",
+        "act": "Thrown scythe",
+        "result": "Archie is knocked out of the cloud before a coordinated attack can form",
+        "decisive": true
+      },
+      {
+        "time": "early",
+        "who": "Archie",
+        "act": "Staff block and push",
+        "result": "Buys time on the ground and forces the Scorncrow back one step"
+      },
+      {
+        "time": "early",
+        "who": "Archie and Green T",
+        "act": "Team-attack proposal",
+        "result": "Flame-bullet theory stated, never cleanly executed"
+      },
+      {
+        "time": "middle",
+        "who": "Green T",
+        "act": "Giant transformation",
+        "result": "The battlefield becomes visible from the cottage roof",
+        "decisive": true
+      },
+      {
+        "time": "middle",
+        "who": "Green T",
+        "act": "Direct stomp",
+        "result": "The Scorncrow goes under, the grove shakes, the cottage feels it like an earthquake",
+        "decisive": true
+      },
+      {
+        "time": "late",
+        "who": "The Scorncrow's grove",
+        "act": "Counterpressure",
+        "result": "Bats blind Green T, branches strike both attackers, and the stomp fails to settle the field",
+        "decisive": true
+      },
+      {
+        "time": "late",
+        "who": "Green T",
+        "act": "Admits the cost of size",
+        "result": "The giant form becomes a timer instead of a solution"
+      },
+      {
+        "time": "last mark",
+        "who": "Archie",
+        "act": "Electric spear attempt",
+        "result": "The weapon falls uselessly at giant scale — no finishing blow follows"
+      }
+    ],
+    "aftermath": "The grove remained unresolved and the controlled storm remained active. The pair proved the field can be shaken, not yet cleared. The cottage now has battle witnesses who were not in the grove and therefore cannot go back to imagining the danger as somebody else's problem.",
+    "waluigiAssessment": "The stomp was spectacular and insufficient. Green T's giant form turned the Scorncrow from rumor into architecture, but the recovery proved the grove is a system, not a target. Archie was right that he is still mortal; Green T was right that size costs. Both truths are now in the file, which is more than the Scorncrow suffered permanently.",
+    "relatedArticles": [
+      "green_t_at_the_door_and_the_scorncrow_underfoot",
+      "archies_return_to_shadow_estate",
+      "the_tree_of_woe_engagement",
+      "green_t",
+      "archie_miser",
+      "remi_akamatsu_full_backstory",
+      "markop",
+      "eager",
+      "dan",
+      "salam",
+      "wario",
+      "tymnas_cottage_and_hedge_maze"
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "custodians_of_causality": -15
+      },
+      "green_t": {
+        "mazebounds": -5,
+        "custodians_of_causality": 5
+      },
+      "archie_miser": {
+        "custodians_of_causality": -3
+      }
+    },
+    "effects": {
+      "custodians_of_causality": -10
+    },
+    "reputationNotes": {
+      "waluigi": "Waluigi's report on the chaotic battle has Custodians of Causality questioning his methods.",
+      "green_t": "Green T earned temporary respect from Custodians for his giant form but lost reputation with Mazebounds for the mess left behind.",
+      "archie_miser": "Archie Miser's direct involvement in the conflict with The Scorncrow has Custodians of Causality reconsidering their trust."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-29T17:59:32+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    },
+    "timeWindow": "roughly 1–2 hours, same night; no calendar day passed (still 1040 BF)",
+    "image": "assets/images/battles/green-t-and-archie-vs-the-scorncrow/green-t-and-archie-vs-the-scorncrow-01.jpg",
+    "imageCaption": "The grove under the controlled storm: the giant mid-stride, the scythe coming out of the dark, and nothing about it resolved."
+  },
+  {
+    "id": "the_scorncrow_skirmish_battle",
+    "name": "The Scorncrow Skirmish (Garlic, the Swing, and the Vanish)",
+    "date": "30 Harvestide, 1040 BF — the overgrown grove, the night of the threshold storm",
+    "location": "The overgrown grove battlefield on the Shadow Estate grounds (Shadowfell)",
+    "type": "Grove Skirmish / Monster Suppression (unresolved)",
+    "result": "No decision. The party spent its anti-fey elixir, bonked, shot, and pinned the Scorncrow, and the Scorncrow vanished in smoke and crow-feathers, declaring it was not a monster. No party casualty; no kill; the target escaped.",
+    "engagement": {
+      "combatants": 11,
+      "ledgerWindow": "the overgrown grove, continuing straight out of the threshold storm on 30 Harvestide, 1040 BF · roughly 1–2 hours, same night; no calendar day passed (still 1040 BF)",
+      "scale": "A squad-level engagement with one field-sovereign scarecrow plus its bat-swarm and the trees themselves, resolved by the Scorncrow's refusal to be a target"
+    },
+    "belligerents": {
+      "attackers": {
+        "name": "Disaster Inc. & the Liberated Toads",
+        "combatants": [
+          {
+            "name": "Markop",
+            "role": "vanguard, bonked the Scorncrow, the only one who could take a hit",
+            "fate": "stood",
+            "leader": true,
+            "fateNote": "vanguard — the only one who could take a hit, and therefore the only one who did"
+          },
+          {
+            "name": "Remi Akamatsu",
+            "role": "declined the impaling swing, shot the tree and pulled the bats out",
+            "fate": "stood"
+          },
+          {
+            "name": "Giant Green T",
+            "role": "observation tower, lifted Remi to spot the Scorncrow",
+            "fate": "stood",
+            "fateNote": "spent the giant form visibly carrying the observation tower duty"
+          },
+          {
+            "name": "Archie Miser",
+            "role": "fire-armour shield, manual deforestation advocate",
+            "fate": "stood"
+          },
+          {
+            "name": "Eager",
+            "role": "critical shortbow shot, aimed at the roots to pin the monster",
+            "fate": "stood"
+          },
+          {
+            "name": "Mossy",
+            "role": "silent advance on the tree",
+            "fate": "stood"
+          },
+          {
+            "name": "Feyward Dan",
+            "role": "guarded Archie from a bush",
+            "fate": "stood"
+          },
+          {
+            "name": "Wario",
+            "role": "motorbike stall in the leaves",
+            "fate": "stood"
+          }
+        ]
+      },
+      "defenders": {
+        "name": "The Scorncrow's Grove",
+        "leader": "The Scorncrow",
+        "combatants": [
+          {
+            "name": "The Scorncrow",
+            "role": "grove sovereign, scythe-user, summoned an impaling swing",
+            "fate": "fled",
+            "leader": true,
+            "fateNote": "vanished in smoke and crow-feathers declaring it was not a monster"
+          },
+          {
+            "name": "Bat Swarm",
+            "role": "face-blinding screen, burst from the tree when shot",
+            "fate": "fled",
+            "fateNote": "burst out of the tree when shot and scattered into the night"
+          },
+          {
+            "name": "The Evil Tree",
+            "role": "the Scorncrow's form — thick, patient, and not rooted",
+            "fate": "stood"
+          }
+        ]
+      }
+    },
+    "casualties": "No confirmed dead on either side. The party spent its elixir; the Scorncrow lost a bat-swarm and its dignity. The Scorncrow escaped via smoke and crow-feathers.",
+    "summary": "Fresh from Wario's shop with garlic-coated weapons and a Wario-branded anti-fey elixir, Markop's squad marched on the Scorncrow at the overgrown grove. Remi declined the swing the monster summoned, shot the tree, and pulled out a bat-swarm; Eager landed a critical shot aimed at the roots; Markop bonked it as vanguard. The Scorncrow laughed, vanished in smoke, declared it was not a monster, and left the party holding the field and nothing else.",
+    "description": "Waluigi files this as the second engagement with the Scorncrow in a single night, and the first time the party brought a plan. It did not help as much as they hoped, because the Scorncrow does not lose so much as decline to participate.\n\n## The Plan Was Garlic\n\nMarkop carried the Skull Piercer and a warhammer, both bought by Remi, both still warm, both covered in garlic. The squad drank Wario's anti-fey elixir and marched in behind the Toads' anthem. Wario arrived on a motorbike to take command and stalled in the leaves. The plan survived exactly until contact.\n\n## The Swing and the Bats\n\nRemi walked onto the field. The Scorncrow summoned a playground swing beside her and asked if she wanted to swing again. Markop shouted that it would impale her. Remi shot the tree instead, and the bats came out.\n\n## The Pinning and the Vanish\n\nMossy advanced. Eager put a critical shot into the Scorncrow's feet to pin it down. Markop bonked it. The Scorncrow laughed, exploded into smoke and crow-feathers, and said it was not a monster. Giant Green T lifted Remi to his shoulder to spot it; she saw only him.",
+    "keyMoments": [
+      {
+        "time": "contact",
+        "who": "Remi",
+        "act": "Declines the Scorncrow's impaling swing and shoots the tree instead",
+        "result": "the bats pour out; the tree shows it is not a passive target"
+      },
+      {
+        "time": "turning",
+        "who": "Eager",
+        "act": "Lands a critical shortbow shot aimed at the roots to pin the Scorncrow down",
+        "result": "the Scorncrow laughs and reveals it is not rooted"
+      },
+      {
+        "time": "climax",
+        "who": "Markop",
+        "act": "Vanguard, bonks the Scorncrow",
+        "result": "the Scorncrow vanishes in smoke and crow-feathers — 'I am not a monster'"
+      },
+      {
+        "time": "after",
+        "who": "Giant Green T",
+        "act": "Lifts Remi to his shoulder to spot the Scorncrow",
+        "result": "she sees only the giant; the target is gone"
+      }
+    ],
+    "aftermath": "**Result by objective:** the party wanted to pin and destroy the Scorncrow; it escaped. No party casualty, which the party counts as a win, and which the Scorncrow probably counts as entertainment. The elixir is spent and the motorbike is still stalled.\n\n**Carry-forward:** the Scorncrow now knows the party hits at the roots, and that they brought garlic and a giant. It left through the air, proving it is a territory rather than a target. Next engagement needs a way to hold it still.",
+    "waluigiAssessment": "The party did everything right and the monster simply left. That is not a tactical failure; it is a refusal by the enemy to be where the plan is. Waluigi files this as a draw that the party will have to pay for the second it assumes the Scorncrow stays gone. WAH.",
+    "relatedArticles": [
+      "the_scorncrow_skirmish",
+      "green_t_at_the_door_and_the_scorncrow_underfoot",
+      "the_tree_of_woe_engagement",
+      "markop",
+      "green_t",
+      "remi_akamatsu_full_backstory",
+      "wario",
+      "archie_miser",
+      "eager",
+      "mossy",
+      "dan_the_toad",
+      "rattles",
+      "liberated_toads"
+    ],
+    "reputationChanges": {
+      "markop": {
+        "disaster_inc": 5,
+        "toad_gang": -3
+      },
+      "remi_akamatsu_full_backstory": {
+        "disaster_inc": 4,
+        "toad_gang": -2
+      },
+      "green_t": {
+        "disaster_inc": 3,
+        "toad_gang": -1
+      }
+    },
+    "effects": [],
+    "reputationNotes": {
+      "markop": "Markop bonked the Scorncrow, earning respect from his team but angering the gang.",
+      "remi_akamatsu_full_backstory": "Remi shot the tree and pulled out a bat-swarm, gaining her team's trust but alienating the gang.",
+      "green_t": "Green T lifted Remi to spot the Scorncrow, earning respect from his allies but displeasing the gang."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-31T04:45:15+00:00",
+      "fields": [
+        "reputationChanges",
+        "reputationNotes"
+      ]
+    },
+    "xpAwards": [
+      {
+        "xpKey": "markop",
+        "articleId": "markop",
+        "name": "Markop",
+        "cat": "combat",
+        "xp": 300,
+        "title": "Battle — The Scorncrow Skirmish — Combat",
+        "desc": "Vanguard who bonked the Scorncrow and stepped to the front line because nobody else could survive a hit.",
+        "date": "30 Harvestide, 1040 BF",
+        "dateSort": 10400830
+      },
+      {
+        "xpKey": "markop",
+        "articleId": "markop",
+        "name": "Markop",
+        "cat": "survival",
+        "xp": 200,
+        "title": "Battle — The Scorncrow Skirmish — Survival",
+        "desc": "Stood as the only absorbent member of the squad and came out of the grove unharmed.",
+        "date": "30 Harvestide, 1040 BF",
+        "dateSort": 10400830
+      },
+      {
+        "xpKey": "remi",
+        "articleId": "remi_akamatsu_full_backstory",
+        "name": "Remi Akamatsu",
+        "cat": "combat",
+        "xp": 250,
+        "title": "Battle — The Scorncrow Skirmish — Combat",
+        "desc": "Declined the Scorncrow's impaling swing, shot the tree, and pulled the bat-swarm out of the wound.",
+        "date": "30 Harvestide, 1040 BF",
+        "dateSort": 10400830
+      },
+      {
+        "xpKey": "remi",
+        "articleId": "remi_akamatsu_full_backstory",
+        "name": "Remi Akamatsu",
+        "cat": "survival",
+        "xp": 180,
+        "title": "Battle — The Scorncrow Skirmish — Survival",
+        "desc": "Waited out the earthquake and read the swing for what it was — the trap, not the invitation.",
+        "date": "30 Harvestide, 1040 BF",
+        "dateSort": 10400830
+      },
+      {
+        "xpKey": "eager",
+        "articleId": "eager",
+        "name": "Eager",
+        "cat": "combat",
+        "xp": 280,
+        "title": "Battle — The Scorncrow Skirmish — Combat",
+        "desc": "Loosed a critical shortbow shot from the bush, aimed deliberately at the roots to pin the Scorncrow in place.",
+        "date": "30 Harvestide, 1040 BF",
+        "dateSort": 10400830
+      },
+      {
+        "xpKey": "greent",
+        "articleId": "green_t",
+        "name": "Green T",
+        "cat": "survival",
+        "xp": 200,
+        "title": "Battle — The Scorncrow Skirmish — Survival",
+        "desc": "Spent the giant form visibly carrying the observation tower duty and lifting Remi to his shoulder.",
+        "date": "30 Harvestide, 1040 BF",
+        "dateSort": 10400830
+      },
+      {
+        "xpKey": "greent",
+        "articleId": "green_t",
+        "name": "Green T",
+        "cat": "technique",
+        "xp": 150,
+        "title": "Battle — The Scorncrow Skirmish — Technique",
+        "desc": "Turned the giant form into an observation platform — a tower that also announced itself across the grove.",
+        "date": "30 Harvestide, 1040 BF",
+        "dateSort": 10400830
+      },
+      {
+        "xpKey": "archie",
+        "articleId": "archie_miser",
+        "name": "Archie Miser",
+        "cat": "combat",
+        "xp": 220,
+        "title": "Battle — The Scorncrow Skirmish — Combat",
+        "desc": "Engaged the Scorncrow head-on, attempted literal deforestation, and flew to Markop for healing.",
+        "date": "30 Harvestide, 1040 BF",
+        "dateSort": 10400830
+      },
+      {
+        "xpKey": "archie",
+        "articleId": "archie_miser",
+        "name": "Archie Miser",
+        "cat": "magic",
+        "xp": 180,
+        "title": "Battle — The Scorncrow Skirmish — Arcane",
+        "desc": "Cast a barrier of fire around his body like armour and used it to reach the front of the field.",
+        "date": "30 Harvestide, 1040 BF",
+        "dateSort": 10400830
+      },
+      {
+        "xpKey": "archie",
+        "articleId": "archie_miser",
+        "name": "Archie Miser",
+        "cat": "social",
+        "xp": 120,
+        "title": "Battle — The Scorncrow Skirmish — Social",
+        "desc": "Reconciled with Markop after being presumed dead — 'long story short, stuff happened.'",
+        "date": "30 Harvestide, 1040 BF",
+        "dateSort": 10400830
+      },
+      {
+        "xpKey": "originaldan",
+        "articleId": "dan",
+        "name": "Dan",
+        "cat": "combat",
+        "xp": 150,
+        "title": "Battle — The Scorncrow Skirmish — Combat",
+        "desc": "Came out of a bush to guard Archie while the wizard worked the tree.",
+        "date": "30 Harvestide, 1040 BF",
+        "dateSort": 10400830
+      },
+      {
+        "xpKey": "originaldan",
+        "articleId": "dan",
+        "name": "Dan",
+        "cat": "loyalty",
+        "xp": 100,
+        "title": "Battle — The Scorncrow Skirmish — Loyalty",
+        "desc": "Stood the guard post beside Archie without being asked, then held it.",
+        "date": "30 Harvestide, 1040 BF",
+        "dateSort": 10400830
+      },
+      {
+        "xpKey": "mossy",
+        "articleId": "mossy",
+        "name": "Mossy",
+        "cat": "combat",
+        "xp": 120,
+        "title": "Battle — The Scorncrow Skirmish — Combat",
+        "desc": "Advanced on the tree in silence, the one counterweight to the shouting.",
+        "date": "30 Harvestide, 1040 BF",
+        "dateSort": 10400830
+      },
+      {
+        "xpKey": "wario",
+        "articleId": "wario",
+        "name": "Wario",
+        "cat": "social",
+        "xp": 100,
+        "title": "Battle — The Scorncrow Skirmish — Social",
+        "desc": "Declared command of the field, then stalled his motorbike in the leaves and branches.",
+        "date": "30 Harvestide, 1040 BF",
+        "dateSort": 10400830
+      }
+    ],
+    "timeWindow": "roughly 1–2 hours, same night; no calendar day passed (still 1040 BF)",
+    "image": "assets/images/battles/the-scorncrow-skirmish-battle/the-scorncrow-skirmish-battle-01.jpg",
+    "imageCaption": "Garlic-coated weapons, Wario-branded elixir, and the bat swarm coming out of the tree Remi shot."
+  },
+  {
+    "id": "the_skittering_grove_descent_battle",
+    "name": "The Belly of the Beast (The Unmasking, the Sealed Door, and the Descent)",
+    "date": "30 Harvestide, 1040 BF — continuing straight out of the grove skirmish, the night of the threshold storm",
+    "location": "The overgrown grove beyond Tymnas's cottage, and the Skittering Grove inside the Scorncrow's tree (Shadowfell) — identified on arrival by Markop as the Silent Grove, the Arachnid Matriarch's cleared lair on Raventree Manor's grounds",
+    "type": "Grove Skirmish / Forced Entry / Interior Ambush (unresolved)",
+    "result": "No decision, and a worse position than the last one. The Scorncrow was unmasked at point-blank range — human blood under the face — and withdrew into the mouth of its own tree. The shadow servants were destroyed to the last. Archie's all-in fire cast killed the tree and sealed the exit; Markop shut and reopened the jaws. Five of the party descended by rope into the Skittering Grove — which Markop recognised, alone among them, as the Silent Grove they had cleared after the Arachnid Matriarch, down to the stump the loot was stacked on. Remi and Wario were already webbed and separated, the motorbike was recovered but unrideable, and Legion soldiers were found among the brood.",
+    "engagement": {
+      "combatants": 14,
+      "ledgerWindow": "the overgrown grove into the Skittering Grove, continuous from the Scorncrow Skirmish on 30 Harvestide, 1040 BF · several hours at most; no calendar day passed",
+      "scale": "A squad-level engagement in two halves: an outdoor skirmish against the Scorncrow and its shadow servants, then an interior ambush by an ettercap-and-spider brood on ground the party could not leave"
+    },
+    "belligerents": {
+      "attackers": {
+        "name": "Disaster Inc. & the Liberated Toads",
+        "combatants": [
+          {
+            "name": "Markop",
+            "role": "cleared the last servants, worked the jaws open and shut, set the marching order, rigged the descent rope",
+            "fate": "stood",
+            "leader": true,
+            "fateNote": "the only member to solve the door twice and the only one who wrote his reasoning down"
+          },
+          {
+            "name": "Remi Akamatsu",
+            "role": "pinned under the fallen Scorncrow; fired a musket into its face at point-blank range",
+            "fate": "stood",
+            "fateNote": "separated inside the grove, webbed twice by the ettercap, missed a bow shot at a spider"
+          },
+          {
+            "name": "Archie Miser",
+            "role": "ground tremor, the airborne slam, and the all-in fire cast",
+            "fate": "stood",
+            "fateNote": "spent every reserve of magic; eyes turned to fire; killed the tree and sealed the exit doing it"
+          },
+          {
+            "name": "Wario",
+            "role": "freed the motorbike, destroyed two shadow servants, rode into the tree's mouth",
+            "fate": "stood",
+            "fateNote": "inside: motorbike attacked first and lost, took four Murder of Crows attacks, and retreated on morale"
+          },
+          {
+            "name": "Feyward Dan",
+            "role": "first target of the murder of crows; self-healed and took the front of the marching order",
+            "fate": "fell",
+            "fateNote": "knocked unconscious at Archie's feet, stabilised by Salam, then healed himself at the cost of all his magic"
+          },
+          {
+            "name": "Salam",
+            "role": "crossed open ground under crow-fire to stabilise the paladin",
+            "fate": "stood"
+          },
+          {
+            "name": "Eager",
+            "role": "awakened the Shadow Blade on the downed Scorncrow",
+            "fate": "stood",
+            "fateNote": "broke off the strike rather than let it carry into Remi on the ground"
+          },
+          {
+            "name": "Mossy",
+            "role": "silent descent into the grove",
+            "fate": "stood"
+          },
+          {
+            "name": "The Guard",
+            "role": "unnamed spearman inside the grove — the only friendly attack recorded in the interior log",
+            "fate": "stood",
+            "fateNote": "webbed twice, hit by Web Strand, reeled in on a line, and still put a spear into the ettercap for 5"
+          }
+        ]
+      },
+      "defenders": {
+        "name": "The Scorncrow's Grove and the Brood Inside It",
+        "leader": "The Scorncrow",
+        "combatants": [
+          {
+            "name": "The Scorncrow",
+            "role": "opened by removing the paladin, then by destroying the party's mobility; Murder of Crows multiattack, Shadow Jump",
+            "fate": "fled",
+            "leader": true,
+            "fateNote": "lost its face to a point-blank musket — human blood — and withdrew into the mouth of its own tree"
+          },
+          {
+            "name": "Shadow Servants",
+            "role": "swarmed Wario and the motorbike while it was stuck in the dirt",
+            "fate": "fell",
+            "fateNote": "two dusted by Wario, the remainder by Markop's swing; none left standing"
+          },
+          {
+            "name": "Ettercap",
+            "role": "interior ambusher — multiattack, Web, Web Strand (DC 12 Dex) and Reel",
+            "fate": "stood",
+            "fateNote": "morale BOLD (81–84) throughout; webbed Remi twice and reeled the guard in on a strand"
+          },
+          {
+            "name": "Giant Green Spiders",
+            "role": "Web attacks (DC 12 Str) against the guard, then a rush",
+            "fate": "stood",
+            "fateNote": "morale BOLD (81–84); never checked, never withdrew"
+          },
+          {
+            "name": "The Tree",
+            "role": "the ground, the door, and the throat",
+            "fate": "fell",
+            "fateNote": "killed by Archie's all-in fire cast — and sealed the only exit as it died"
+          },
+          {
+            "name": "Legion Soldiers",
+            "role": "present inside the Skittering Grove, unexplained",
+            "fate": "stood",
+            "fateNote": "no marched route accounts for them; contact not yet joined"
+          }
+        ]
+      }
+    },
+    "casualties": "No confirmed dead among the party. Feyward Dan went unconscious and was stabilised and self-healed. Every shadow servant was destroyed. The tree was killed. The Scorncrow lost its face and the archive's assumption about what it is. Wario's motorbike took two Murder of Crows attacks for 14, went missing inside, and was later recovered unrideable.",
+    "summary": "The Scorncrow opened by putting the paladin down with a murder of crows. Salam stabilised him under fire; Archie tremored the ground and learned again that crows do not need it; the Scorncrow offered a spiked swing and Archie slammed it out of the air onto Remi, who fired a musket into its face at zero range and found human blood. Wario and Markop destroyed the shadow servants, the Scorncrow fled into the mouth of its own tree, and the party followed: Wario by motorbike, Remi after him, both into cobwebs. Archie emptied his magic into one fire cast that killed the tree and sealed the exit; Markop pried the jaws and rigged a rope; five descended into the Skittering Grove — the Silent Grove again, recognised only by Markop — and found ettercaps, giant green spiders, a webbed guard holding a line alone, and Legion soldiers.",
+    "description": "Waluigi files this as the second engagement against the Scorncrow in as many hours and the first one in which anybody learned anything.\n\n## The Unmasking\n\nThe crows took Feyward Dan first. That is a target selection, not a swarm, and it should be read as one. Salam crossed open ground to stabilise him on the condition that somebody keep the frightening thing looking elsewhere, and Archie volunteered by planting a staff in the earth and shaking it. The Scorncrow laughed — *oh, you little thing* — and its crows carried it off the failing ground. Then it offered the swing: a branch, pointed and spiked.\n\nArchie jumped into it. He knew where it would land. Remi was standing right there. It came down on her, and she found herself at point-blank range with a musket and no other move.\n\nThe face came off. The blood was human.\n\n## The Mouth\n\nWario dusted two shadow servants; Markop's swing took the rest. The motorbike came free and Wario rode at everything at once. The Scorncrow laughed, and jumped into the tree's mouth.\n\nWhat followed was two men solving the same door in opposite directions inside a minute. Archie, unanswered by the friends who had gone in, fired a bolt of fire that scarred the bark, fired again to the same result, worked out that fire is weakened in this domain, and then poured every reserve he had into a single cast until his eyes turned to fire. The tree died and the exit sealed. Markop, thinking he might widen the way, pulled a plate of bark — and the jaws shut.\n\n## The Interior Log\n\nInside, the Scorncrow's multiattack went to the motorbike before it went to the man: Murder of Crows twice on the machine (16 to hit at disadvantage, 14 damage), then twice on Wario (17, 13), then Shadow Jump as a bonus action to be elsewhere. The brood followed: an ettercap at BOLD 84 dashing at Remi, giant green spiders webbing an unnamed guard (DC 12 Strength), a Web Strand (DC 12 Dexterity) and a Reel dragging him in on a line, and two web attacks putting Remi down. Wario retreated on morale. The guard put a spear into the ettercap for 5, which is the only friendly attack the interior log records.\n\n## The Descent\n\nMarkop pried the jaws open again, found darkness and then a pit, and tested it with a torch. The torch came back out of the trunk — and inside, Remi heard people saying somebody was going to burn them all down. They descended anyway, on Markop's rope, in a marching order set with reasons: paladin front, squishy wizard middle, centaur rear. At the bottom was the Skittering Grove, and Markop knew it on sight: the Silent Grove, the Matriarch's forest, cleared by this party on Raventree Manor's grounds and now reached through a scarecrow's mouth. He walked to the stump they had piled the loot on and put a hand on it. Nobody else recognised a thing. In it were the spiders, the wrapped fruit hanging from the boughs, Wario's recovered motorbike that no centaur can ride, and Legion soldiers.",
+    "keyMoments": [
+      {
+        "time": "opening",
+        "who": "The Scorncrow",
+        "act": "Puts Feyward Dan down with a murder of crows before touching anyone else",
+        "result": "the party's healer is on the ground in the first exchange; Salam leaves cover to stabilise him"
+      },
+      {
+        "time": "contact",
+        "who": "Archie Miser",
+        "act": "Slams the Scorncrow out of the air knowing it will land on Remi",
+        "result": "the Scorncrow falls on top of her — 'I'll make sure it's worth it'"
+      },
+      {
+        "time": "turning",
+        "who": "Remi Akamatsu",
+        "act": "Realises she is at point-blank range and fires the musket into the Scorncrow's face",
+        "result": "the face comes off; the blood is human; three filings' worth of assumption is overturned"
+      },
+      {
+        "time": "break",
+        "who": "The Scorncrow",
+        "act": "Laughs and jumps into the mouth of its own tree",
+        "result": "the fight moves inside, on the enemy's terms"
+      },
+      {
+        "time": "climax",
+        "who": "Archie Miser",
+        "act": "Pours every reserve of weakened magic into one fire cast until his eyes turn to fire",
+        "result": "the tree dies and the only exit is sealed with two of the party inside"
+      },
+      {
+        "time": "after",
+        "who": "Markop",
+        "act": "Pries the jaws, tests the pit with a torch, sets a marching order with reasons and rigs the rope",
+        "result": "five descend into the Skittering Grove — spiders, wrapped bodies, and Legion soldiers; Markop identifies it as the Silent Grove"
+      }
+    ],
+    "aftermath": "**Result by objective:** the party wanted the Scorncrow destroyed and the tree uprooted. The tree is dead, the Scorncrow is not, and the party is inside the corpse with no exit. Waluigi declines to call that half a win.\n\n**Carry-forward:** Archie has no magic. Feyward Dan has no magic. Remi is webbed and separated. Wario has retreated once on the log and lost his motorbike to the thing that recovered it. The brood never failed a morale check. And Feyward Dan's estimate stands unrefuted — the party has not seen half the Scorncrow's power.\n\n**Open question:** how the Iron Legion got inside a place with one mouth that had to be pried open by a centaur. There is a second way in, and it is currently the party's only way out.",
+    "relatedArticles": [
+      "the_belly_of_the_beast",
+      "the_scorncrow_skirmish",
+      "the_scorncrow_skirmish_battle",
+      "skittering_grove",
+      "scorncrow",
+      "markop",
+      "remi_akamatsu_full_backstory",
+      "archie_miser",
+      "wario",
+      "dan_the_toad",
+      "salam",
+      "eager",
+      "mossy"
+    ],
+    "reputationChanges": {},
+    "effects": {
+      "disaster_inc": 6,
+      "iron_legion": -3
+    },
+    "reputationNotes": {
+      "_record": "Personal deltas for this engagement are filed on its event, the_belly_of_the_beast. This record carries the factional outcome only, so the session is not counted twice into any operator's standing."
+    },
+    "image": "assets/images/events/belly-of-the-beast/belly-02-jaws-and-rope.jpg",
+    "imageCaption": "The descent: the tree's jaws pried open, the rope going down into the pit, and the only torch anybody brought."
+  },
+  {
+    "id": "judgement_in_the_grove_battle",
+    "name": "Judgement in the Grove",
+    "date": "1 Aethel, 1040 BF — just past midnight on the Shadowfell clock, the Skittering Grove inside the Scorncrow's tree, continuing straight out of the descent",
+    "location": "The Skittering Grove, inside the Scorncrow's tree (Shadowfell)",
+    "type": "Grove battle / execution",
+    "result": "Scorncrow killed; party position deteriorated. The grove was reinforced from every direction as the Scorncrow fell.",
+    "engagement": {
+      "combatants": 16,
+      "ledgerWindow": "the Skittering Grove inside the Scorncrow's tree, continuous from the descent on 30 Harvestide, 1040 BF and running past midnight onto 1 Aethel on the Shadowfell clock",
+      "scale": "A squad-level engagement in three phases: a disorganised fight in smoke and web, a duel closed by divine favour, and an execution followed immediately by reinforcement from every direction."
+    },
+    "belligerents": {
+      "attackers": {
+        "name": "Disaster Inc. & the Liberated Toads",
+        "factionId": "disaster_inc",
+        "commander": "Markop",
+        "combatants": [
+          {
+            "name": "Markop",
+            "leader": true,
+            "fate": "wounded",
+            "role": "closed the distance under the scythe, called thunder into the warhammer, and executed the kneeling Scorncrow",
+            "fateNote": "skull split by the scythe and fought on; took the scythe from the body"
+          },
+          {
+            "name": "Remi Akamatsu",
+            "fate": "stood",
+            "role": "swapped the crossbow for the musket and landed two direct hits, reloading in the open between them",
+            "fateNote": "webbed and clawed, armour destroyed, rammed clear by Mossy and separated in the woods"
+          },
+          {
+            "name": "Feyward Dan",
+            "fate": "stood",
+            "role": "stood in front of the entire party including Markop and turned the brood with a mushroom-studded holy symbol",
+            "fateNote": "killed the ettercap in concert with Eager"
+          },
+          {
+            "name": "Eager",
+            "fate": "wounded",
+            "role": "sneak attack into Dan's distraction; concerted kill on the ettercap",
+            "fateNote": "grazed by the scythe wake; ran into a spidery bush; healed himself with duct tape"
+          },
+          {
+            "name": "Archie Miser",
+            "fate": "stood",
+            "role": "faked a fireball and delivered a firebolt; refused the Scorncrow's recruitment offer",
+            "fateNote": "grazed by the scythe wake; negotiated the temporary Legion alliance that ends in his own arrest"
+          },
+          {
+            "name": "Salam",
+            "fate": "fell",
+            "role": "missed the ettercap, then held position as the second wave came in",
+            "fateNote": "clawed across the face and unconscious; the wound will scar; not recovered"
+          },
+          {
+            "name": "Wario",
+            "fate": "stood",
+            "role": "an off-screen punch and a declaration that he was tired of running",
+            "fateNote": "had been running for approximately six seconds"
+          },
+          {
+            "name": "Mossy",
+            "fate": "stood",
+            "role": "rammed Remi clear of a killing bite at a dead run",
+            "fateNote": "later stood on an unconscious man's ribcage on Remi's instruction until something cracked"
+          },
+          {
+            "name": "Embercap",
+            "fate": "stood",
+            "role": "arrived with the encircling wave; fire past Markop's shoulder into the ettercap"
+          }
+        ]
+      },
+      "defenders": {
+        "name": "The Scorncrow and the brood of the Skittering Grove",
+        "factionId": "unaligned",
+        "commander": "The Scorncrow",
+        "combatants": [
+          {
+            "name": "The Scorncrow",
+            "leader": true,
+            "fate": "fell",
+            "role": "hurled the cleaving scythe, split Markop's skull, and offered Archie a place on the tree of love",
+            "fateNote": "killed on its knees, unmasked, identifying itself as human and asking a paladin for mercy"
+          },
+          {
+            "name": "Ettercap",
+            "fate": "fell",
+            "role": "webbed and clawed Remi; broke off to meet Dan and Eager",
+            "fateNote": "killed by a concerted strike from Feyward Dan and Eager"
+          },
+          {
+            "name": "Giant green spiders",
+            "fate": "stood",
+            "role": "web and claw across the canopy; two dropped by Remi's musket",
+            "fateNote": "reinforced from every direction as the Scorncrow fell"
+          }
+        ]
+      },
+      "thirdParty": {
+        "name": "Iron Legion grove detachment",
+        "factionId": "iron_legion",
+        "commander": "Unnamed guard",
+        "combatants": [
+          {
+            "name": "Iron Legion guards",
+            "fate": "withdrew",
+            "role": "called for pest control and retreated, then attempted to arrest Archie Miser mid-battle",
+            "fateNote": "negotiated a temporary alliance; at least one guard killed by a spider"
+          }
+        ]
+      }
+    },
+    "casualties": "The Scorncrow killed. At least one ettercap killed by Dan and Eager in concert; two more dropped by Remi's musket. At least one Iron Legion guard killed. Salam unconscious with a facial wound that will scar. Markop's skull split. Remi webbed, clawed and separated; armour destroyed.",
+    "summary": "Remi swapped to the musket and hit twice through the smoke. The Scorncrow's thrown scythe grazed Eager, Archie and Dan on one line. Dan stood in front of the whole party and turned the brood with a holy symbol; he and Eager killed the ettercap. Markop called thunder into his warhammer, took a scythe to the skull, and killed the Scorncrow while it knelt asking a paladin for mercy. Mossy rammed Remi clear of a killing bite. Embercap and a second wave encircled the grove and Salam fell.",
+    "description": "The engagement had three distinct phases. The first was a disorganised fight in smoke and web where nobody could hold direction and Remi walked into the enemy by accident. The second was the Scorncrow choosing to spread its cleaving scythe across three bodies rather than kill one, and the Iron Legion breaking and calling for pest control. The third was Markop closing the distance and refusing to be talked to — through the recruitment offer, through the childhood claim, through the surrender, and through the appeal to his office. The kill did not end the battle. Reinforcements arrived from every direction as the body fell, and the session ended with Salam unconscious.",
+    "keyMoments": [
+      {
+        "time": "opening",
+        "who": "Remi Akamatsu",
+        "act": "Returns the crossbow arrow to her pocket and takes the musket instead",
+        "result": "two direct hits through the smoke, with a reload in the open between them"
+      },
+      {
+        "time": "opening",
+        "who": "The Scorncrow",
+        "act": "Hurls the cleaving scythe, shrouded in magic, trailing a chilling cold",
+        "result": "grazes Eager, Archie and Dan on one line rather than killing any of them"
+      },
+      {
+        "time": "collapse",
+        "who": "Iron Legion guards",
+        "act": "Break and call for pest control",
+        "result": "'We gotta call pest control. RETREAT!'"
+      },
+      {
+        "time": "turn",
+        "who": "Feyward Dan",
+        "act": "Stands in front of the entire party, including Markop, and raises a mushroom-studded holy symbol",
+        "result": "the brood is turned; he and Eager kill the ettercap together"
+      },
+      {
+        "time": "turn",
+        "who": "Markop",
+        "act": "Calls divine favour held since before the rope; thunder comes through a ceiling with no sky",
+        "result": "the warhammer lands, the Scorncrow's block fails, and it flinches for the first time in four engagements"
+      },
+      {
+        "time": "turn",
+        "who": "The Scorncrow",
+        "act": "Splits Markop's skull with the scythe and claims the tree as its childhood home",
+        "result": "'Made it my treehouse when I was little' — the second physical claim after the human blood"
+      },
+      {
+        "time": "parley",
+        "who": "The Scorncrow",
+        "act": "Offers Archie a place on the tree of love: 'Do you think the worst person can change?'",
+        "result": "refused — 'I'm on the side of good, despite all my accidental crimes'"
+      },
+      {
+        "time": "parley",
+        "who": "Iron Legion guards",
+        "act": "Attempt to arrest Archie Miser in the middle of a losing fight",
+        "result": "a temporary alliance instead, ending with Archie's arrest — 'this won't last'"
+      },
+      {
+        "time": "rescue",
+        "who": "Mossy",
+        "act": "Rams Remi side-on at a dead run as a spider comes down to bite",
+        "result": "she is thrown clear through the branches and lands alone in the woods"
+      },
+      {
+        "time": "decision",
+        "who": "The Scorncrow",
+        "act": "Kneels, says it is human and not a monster, and asks a paladin by his office to spare it",
+        "result": "Markop kills it and picks up the scythe"
+      },
+      {
+        "time": "aftermath",
+        "who": "Remi Akamatsu",
+        "act": "Finds a breathing man with a red punch mark and has Mossy stand on his chest to wake him",
+        "result": "a crack is heard — 'welp, I killed a guy in his sleep'"
+      },
+      {
+        "time": "aftermath",
+        "who": "The brood",
+        "act": "Embercap and giant spiders encircle the grove from every direction",
+        "result": "Salam is clawed across the face and falls; a Legion guard is killed"
+      }
+    ],
+    "aftermath": "The Scorncrow is dead and the grove is not cleared. Salam is unconscious and unrecovered. Remi is separated with an unconscious man whose ribs Mossy cracked on her order. The Legion alliance is temporary and ends in Archie's arrest.",
+    "relatedArticles": [
+      "judgement_in_the_grove",
+      "the_belly_of_the_beast",
+      "scorncrow",
+      "markop",
+      "remi_akamatsu_full_backstory",
+      "skittering_grove"
+    ],
+    "reputationChanges": {},
+    "effects": {
+      "iron_legion": -6,
+      "disaster_inc": 5
+    },
+    "reputationNotes": {
+      "_record": "Personal deltas for this engagement are filed on its event, judgement_in_the_grove. This record carries the factional outcome only, so the session is not counted twice into any operator's standing."
+    },
+    "image": "assets/images/events/judgement-in-the-grove/jig-01-warhammer.jpg",
+    "imageCaption": "The Skittering Grove, where the Scorncrow was brought down on its knees."
+  },
+  {
+    "id": "the_grove_floor_battle",
+    "name": "The Grove Floor (The Fall of Feyward Dan, the Whispered Fireball, and the Fist)",
+    "date": "1 Aethel, 1040 BF — straight on from the sentry arrangement, the Shadowfell clock past two in the morning",
+    "location": "The Skittering Grove — the grove floor between the fires and the stump (Shadowfell)",
+    "type": "Grove battle / last stand / fighting withdrawal concluded",
+    "status": "Concluded — the giant green spider and the ettercaps are dead; the party is going back to the stump to rest",
+    "result": "Party victory at cost: the giant green spider and every ettercap on the grove floor killed; Feyward Dan dropped to zero hit points and recovered; Eager left on two hit points; Archie out of spells. No deaths.",
+    "engagement": {
+      "combatants": 9,
+      "ledgerWindow": "the Skittering Grove, continuous from the sentry arrangement of 1 Aethel, 1040 BF on the Shadowfell clock",
+      "scale": "A squad-level engagement in three movements: a scattering from the stump, a last spell over a fallen man, and a clean-up ended by hand."
+    },
+    "belligerents": {
+      "attackers": {
+        "name": "Disaster Inc. & the Liberated Toads",
+        "factionId": "disaster_inc",
+        "commander": "Markop",
+        "combatants": [
+          {
+            "name": "Markop",
+            "leader": true,
+            "fate": "wounded",
+            "role": "held the stump, revved the motorbike past an ettercap, healed Eager, killed the last ettercap with his fist",
+            "fateNote": "bleeding; 'healthier than the other guys'"
+          },
+          {
+            "name": "Eager",
+            "fate": "wounded",
+            "role": "killed the giant green spider; wrestled the ettercap off Dan and threw him clear; final stand took one of the last two",
+            "fateNote": "two hit points left; carried the electric sphere out"
+          },
+          {
+            "name": "Archie Miser",
+            "fate": "stood",
+            "role": "put Dan's body down and whispered Fireball over it",
+            "fateNote": "woozy, out of spells"
+          },
+          {
+            "name": "Feyward Dan",
+            "fate": "fell",
+            "role": "dropped the longsword for the shield to defend the party",
+            "fateNote": "webbed, fell at zero, dropped again on the catch, healed up by Salam; Permanent Injury Table 59 — Sprained Thumb"
+          },
+          {
+            "name": "Salam",
+            "fate": "stood",
+            "role": "fired from the bike, then put the bow down and healed Dan up",
+            "fateNote": "called weak by the Toads"
+          }
+        ]
+      },
+      "defenders": {
+        "name": "The brood of the Skittering Grove",
+        "factionId": "unaligned",
+        "commander": "The giant green spider",
+        "combatants": [
+          {
+            "name": "The giant green spider",
+            "leader": true,
+            "fate": "fell",
+            "role": "the grove's best fighter, two filings unwounded",
+            "fateNote": "killed by Eager, past the fires, with no ceremony the record kept"
+          },
+          {
+            "name": "Ettercaps",
+            "fate": "fell",
+            "role": "webbed Dan and dropped him; closed on Archie",
+            "fateNote": "one left in the dust by the motorbike, the rest killed by the whispered Fireball, Eager's final stand and Markop's fist"
+          }
+        ]
+      }
+    },
+    "casualties": "No deaths on the party side. Feyward Dan to zero hit points and recovered (Permanent Injury Table 59 — Sprained Thumb, one week); Eager to two hit points; Archie spent; Markop bleeding. The giant green spider and every ettercap on the grove floor killed.",
+    "summary": "The sentry arrangement failed exactly as the archive said it would — the stump was the plan and everyone ran from it — and the grove fight was won anyway: Eager killed the giant green spider, Dan took the shield and fell for it, Archie whispered the first real Fireball on his record over Dan's body, Eager's final stand took one of the last two ettercaps, and Markop, who never left the stump, killed the last one with his fist.",
+    "description": "Continuous from the sentry arrangement. Archie ran deeper in; Eager followed and killed the giant green spider. Dan, one-armed, dropped the longsword for the shield. Markop watched the party run from the stump and stayed at it, revving the motorbike; Salam fired from the bike; Markop left an ettercap in the dust. Dan was webbed and fell; Archie screamed — the pact's signal, meaning something else. Eager wrestled the ettercap off Dan and threw him to Archie, who missed the catch, held the body, thought about running, put it down and whispered Fireball. Two ettercaps left; Eager's final stand took one; Eager stumbled backwards into Markop ('Hello.'); Salam healed Dan; Eager survived the next hit on Markop's healing with two hit points; Markop pushed Eager aside and killed the last ettercap with his fist. 'What about Remi? We can't rest now' lost to the Toads: back to the stump.",
+    "keyMoments": [
+      {
+        "time": "opening",
+        "who": "Eager",
+        "act": "Follows Archie deeper in and kills the giant green spider",
+        "result": "the grove's best fighter dead, past the fires, with no ceremony the record kept"
+      },
+      {
+        "time": "opening",
+        "who": "Feyward Dan",
+        "act": "Drops the longsword and takes up the one-handed shield",
+        "result": "one arm, one tool: the one that protects other people"
+      },
+      {
+        "time": "middle",
+        "who": "Markop",
+        "act": "Stays at the stump while the party runs from it and revs the motorbike",
+        "result": "an ettercap left in the dust; the plan held at one point"
+      },
+      {
+        "time": "middle",
+        "who": "Archie Miser",
+        "act": "Puts Dan's body down and whispers Fireball",
+        "result": "the ettercaps' ring broken; Archie out of spells"
+      },
+      {
+        "time": "closing",
+        "who": "Eager",
+        "act": "Final stand on one of the last two, then walks backwards into Markop",
+        "result": "'Hello.' — two hit points left after the next hit"
+      },
+      {
+        "time": "closing",
+        "who": "Salam",
+        "act": "Puts the bow down and heals Dan up",
+        "result": "Dan back on his feet"
+      },
+      {
+        "time": "closing",
+        "who": "Markop",
+        "act": "Pushes Eager aside and kills the last ettercap with his fist",
+        "result": "the grove floor fight concluded"
+      }
+    ],
+    "aftermath": "The grove is fought through and the party is going back to the stump to rest. Dan's thumb is splinted for a week (Permanent Injury Table 59). Eager has the electric sphere. The Iron Legion appears nowhere in the record of the fight.",
+    "waluigiAssessment": "The plan held at exactly one point and nobody went to it. The table's own post-mortem — Archie spent every crowd-control spell and everyone left — is the correct one; the archive declines to improve on it.",
+    "relatedArticles": [
+      "the_way_i_started_it",
+      "you_said_leave_no_one_behind",
+      "judgement_in_the_grove_battle",
+      "skittering_grove",
+      "markop",
+      "eager",
+      "archie_miser",
+      "dan_the_toad",
+      "salam"
+    ],
+    "reputationChanges": {
+      "eager": {
+        "liberated_toads": 4
+      },
+      "archie_miser": {
+        "liberated_toads": 3
+      },
+      "salam": {
+        "liberated_toads": 2
+      },
+      "markop": {
+        "liberated_toads": -1
+      }
+    },
+    "effects": {
+      "liberated_toads": 1
+    },
+    "reputationNotes": {
+      "_record": "Standing moved only among the Toads, who went back to the stump with the people who had just bled for them."
+    },
+    "image": "assets/images/events/the-way-i-started-it/twisi-04-the-fist.jpg",
+    "imageCaption": "The last ettercap had one hit point. Markop had a fist."
+  }
+]

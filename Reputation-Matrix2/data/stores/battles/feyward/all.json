@@ -1,0 +1,1096 @@
+[
+  {
+    "id": "solarium_detonation",
+    "name": "The Solarium Detonation",
+    "date": "Faystyl 24, Year 722",
+    "location": "The Solarium, Overgrown Manor (Feywild)",
+    "type": "Explosive Heist / Friendly Fire Incident",
+    "result": "Tactical Draw — Bramblefly scorched; Wario plummeted through the floor",
+    "belligerents": {
+      "attackers": {
+        "name": "Wario & Hjumpik",
+        "factionId": "wario_enterprise",
+        "commander": "Wario (Self-Appointed)"
+      },
+      "defenders": {
+        "name": "Giant Bramblefly",
+        "factionId": null,
+        "commander": "None (It's a giant bug)"
+      }
+    },
+    "casualties": {
+      "attackers": "Wario (minor singeing, fell through a floor), Solarium Architecture (destroyed)",
+      "defenders": "Giant Bramblefly (caught in blast radius)"
+    },
+    "summary": "This 'battle' consisted of Wario attempting to assassinate a giant dragonfly with a beautifully wrapped time-bomb, solely because he wanted to steal the treasure it was guarding. Hjumpik, attempting to be the voice of reason, threw an axe at the bomb and detonated it early. Wario was blown through the floor. Waluigi was not present, but he fully supports Wario's commitment to prioritizing gold over structural integrity.",
+    "description": "Waluigi must first establish the setting: The party had discovered a hidden pathway leading to the Overgrown Manor's Solarium, which had been turned into a nest for a massive, terrifying insect known as the Bramblefly. More importantly, the nest was full of silver and loot.\n\n**Phase 1: The Wario Bash**\nWario approached the situation with his signature subtlety. He dusted off his overalls, slipped on his custom 'W' brass knuckles, and began loudly announcing his intention to buy a castle while kicking humanoid bones out of his way. When the Bramblefly executed an 'Air Strike' dive bomb, Wario performed a perfect greasy combat roll, famously stuffing a golden candlestick into his pocket mid-dodge. Waluigi has always admired Wario's ability to multitask greed and violence simultaneously.\n\n**Phase 2: The Ticking Present**\nInstead of simply punching the insect, Wario reached into his chaotic bag of holding and pulled out a beautifully wrapped present box with an elaborate bow. It was ticking. Wario cheerfully offered it to the winged freak. \n\nHjumpik, who apparently possesses an allergy to effective explosions, decided this was too dangerous. He revealed himself and threw a hand axe directly at the present. \n\n**Phase 3: Explosive Decompression**\nThe axe struck the ticking box mid-air. Waluigi knows exactly what a Wario-brand explosive sounds like, and the resulting BOOOOOM was textbook. The explosion engulfed Wario, the Bramblefly, and whatever remained of the Solarium's rotted wooden floor. \n\nWario plummeted to the lower level, screaming his iconic 'WAAAAAHHHH!' But because Wario's body actively rejects the concept of taking falling damage, he landed in a pile of treasure downstairs, slightly smoking but entirely intact. He immediately began scooping up the gold, declaring it 'Still... worth it!' Waluigi considers this a flawless tactical operation.",
+    "aftermath": "The floor of the Solarium was destroyed, creating a convenient, if highly dangerous, shortcut between floors. Wario secured his loot and scurried off. The Bramblefly was severely damaged but apparently survived, proving that Feywild insects are ridiculously durable. Hjumpik learned a valuable lesson: never interrupt Wario when he is conducting an explosive transaction.",
+    "relatedArticles": [
+      "wario",
+      "overgrown_manor",
+      "wario_enterprise"
+    ],
+    "reputationChanges": {
+      "hjumpik": {
+        "wario_enterprise": -15,
+        "changeling_hive": 5
+      },
+      "waluigi": {
+        "wario_enterprise": 10,
+        "changeling_hive": -3
+      }
+    },
+    "effects": {
+      "wario_enterprise": 8
+    },
+    "reputationNotes": {
+      "hjumpik": "Humpf! Saving the Solarium from Wario's reckless bomb, but earning a reputation as an explosive hazard.",
+      "waluigi": "Waluigi admires Wario's gold-grabbing skills while gaining a bit of a tarnished image."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T15:47:59+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    },
+    "image": "assets/images/battles/solarium-detonation/solarium-detonation-01.jpg",
+    "imageCaption": "Wario's gift-wrapped bomb, Hjumpik's axe meeting it mid-air, and the dragonfly's hoard going up with the glass."
+  },
+  {
+    "id": "duel_of_thistle",
+    "name": "The Duel of Thistle",
+    "date": "Faystyl 24, Year 722",
+    "location": "The Duel Grounds, Dreaming Tree Grove",
+    "type": "Formal Duel / Jurisdictional Trial",
+    "result": "Hjumpik Victory — Thistle yielded; Incident 'swept under the rug'",
+    "belligerents": {
+      "attackers": {
+        "name": "Hjumpik Deldkur",
+        "factionId": "disaster_inc",
+        "commander": "Hjumpik"
+      },
+      "defenders": {
+        "name": "Guard Thistle",
+        "factionId": "onyx_hand",
+        "commander": "Thistle"
+      }
+    },
+    "casualties": {
+      "attackers": "None (Minor fatigue)",
+      "defenders": "Thistle's pride (Bruised)"
+    },
+    "summary": "After Hjumpik helped Thistle and Thorn adjust a magical tree, the guards realized he was an intruder and demanded a formal duel. Hjumpik used his warhammer to shock the ground and unbalance Thistle, forcing a yield. Waluigi notes that winning a duel against a fey knight without killing them is the quickest way to become a 'supervised nuisance' rather than a 'corpse.'",
+    "description": "The duel was conducted under \"Fey Jurisdictional Law.\" Thistle used a high-dexterity blade-style designed to subdue, but Hjumpik's raw, \"brutish\" strength was a mismatch for the guard's refined movements. By striking the ground rather than the man, Hjumpik utilized the earth's resonance to disrupt Thistle's footing. The rakshasa Zephyrclaws was seen taking bets from the local sprites during the fight.\n\n## How The Duel Began\n\nThe confrontation was not sought. After Hjumpik helped the fey pair Thistle and Thorn adjust a magical tree, the grove's guards realized he was an intruder rather than an invited hand and demanded a formal duel in response. This is the Feyward Grove's version of due process: trespass is not punished by execution but adjudicated by single combat under Fey Jurisdictional Law, which suits a place where time runs on a loop of bliss and revelry and everything, including justice, is a bit of a performance.\n\n## The Mismatch\n\nThe fight was a study in incompatible fighting philosophies. Thistle, a fey knight, moved with high-dexterity precision, wielding a subduing blade-style built to disarm and humble an opponent without killing—elegant, refined, and entirely optimized for fighting other elegant, refined opponents. Hjumpik, a dwarf with a warhammer and an exhausting commitment to doing the right thing, was none of those things. His raw strength did not fit inside Thistle's assumptions, and refined movement has no answer for a man who refuses to be where the blade expects him to be.\n\n## The Winning Blow\n\nHjumpik's decisive move was not aimed at Thistle at all. Rather than strike the knight, he struck the ground, using the earth's resonance to disrupt Thistle's footing and force a yield. The choice mattered as much as the result: by winning without killing, Hjumpik stayed inside the grove's rules and preserved a fey knight's life. Meanwhile the rakshasa Zephyrclaws worked the crowd, taking bets from the local sprites—because in the Feyward Grove even a lawful duel is, first and foremost, entertainment.\n\n## Aftermath\n\nWaluigi notes that winning a duel against a fey knight without killing them is the quickest way to become a \"supervised nuisance\" rather than a \"corpse.\" Hjumpik's victory did not free him from the grove's scrutiny so much as upgrade his status within it—from intruder to be removed to oddity to be watched. In the Feywild, that is roughly the best outcome an honest dwarf can hope for. WAH.",
+    "aftermath": "Thistle and Thorn agreed to keep Hjumpik's presence a secret from the 'boss' (the Orange Oracle). This win secured Hjumpik a temporary pass to move through the grove, though the screaming cowbell quickly ended his chances of being stealthy.",
+    "relatedArticles": [
+      "hjumpik",
+      "feyward_grove"
+    ],
+    "reputationChanges": {
+      "hjumpik": {
+        "disaster_inc": 15,
+        "onyx_hand": -30
+      },
+      "waluigi": {
+        "disaster_inc": 20
+      }
+    },
+    "effects": {
+      "disaster_inc": 10,
+      "onyx_hand": -15
+    },
+    "reputationNotes": {
+      "hjumpik": "Won a duel against a fey knight without killing them, securing temporary passage through the grove.",
+      "waluigi": "Noted that Hjumpik's victory makes him 'a supervised nuisance rather than a corpse.'"
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T21:19:45+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    },
+    "image": "assets/images/battles/duel-of-thistle/duel-of-thistle-01.jpg",
+    "imageCaption": "Hjumpik's warhammer into the duelling ground, Thistle off balance, and a fey knight yielding alive."
+  },
+  {
+    "id": "rescue_of_steely",
+    "name": "The Rescue of Steely",
+    "date": "Faystyl 24, Year 722",
+    "location": "Servant's Quarters, Overgrown Manor (Feywild)",
+    "type": "Close-Quarters Skirmish",
+    "result": "Victory — Dog recovered; Goblin guard neutralized",
+    "belligerents": {
+      "attackers": {
+        "name": "Toad Lee, Hjumpik, Azure (Rakasha)",
+        "factionId": "disaster_inc",
+        "commander": "Toad Lee"
+      },
+      "defenders": {
+        "name": "Gregory (Goblin Guard) & Staff",
+        "factionId": null,
+        "commander": "Gregory"
+      }
+    },
+    "casualties": {
+      "attackers": "Toad Lee (temporarily lost a shield, fell out a window), Hjumpik (minor stab wounds)",
+      "defenders": "Gregory the Goblin (unconscious/bleeding out), Another guard (squished by Azure)"
+    },
+    "summary": "Remi's mechanical dog (which Hjumpik has inexplicably renamed 'Steely') was abducted by manor staff who wanted to dismantle it for scrap metal. Toad Lee and Hjumpik breached the servant's quarters to get it back. The fight involved toilet ambushes, stolen shields, and Azure pulling Toad Lee up from a lethal drop. Waluigi approves of this violence; nobody steals a party pet and gets away with it.",
+    "description": "The Feywild operates on a strict lack of metal. The Overgrown Manor is all wood, vines, and magic. Consequently, when the goblin staff found Remi's steam-powered mechanical dog running around, they didn't see a pet—they saw premium scrap metal to help them advance to the 'Guilded Age.' Waluigi finds this entrepreneurial spirit commendable, but stealing from Disaster Inc. is a bad business model.\n\n**Phase 1: The Bathroom Breach**\nToad Lee, displaying a remarkable lack of his usual caution, tracked the dog to the servant's quarters. He barged into a room clearly marked 'OCCUPIED,' discovering a servant on the toilet. Toad Lee politely apologized, backed out, and then immediately breached the correct room across the hall. \n\n**Phase 2: Shield Theft and Gravity**\nThe fight devolved into a chaotic brawl. Gregory, a shockingly competent goblin guard, managed to catch Toad Lee's longsword in his own shield. Hjumpik intervened, using his 'Morning Glory' weapon (a flower bud that blooms into a milky gray steel blade) to stab the goblin. \n\nGregory, unfazed, used his sword to completely wrench Toad Lee's shield out of his hands, mockingly thanking him for the upgrade. Toad Lee attempted a retaliatory acrobatic jump to get behind the goblin, completely misjudged the distance, and plummeted out the window. Waluigi has done this before (usually in Mario Kart), but it is never not embarrassing.\n\n**Phase 3: The Rakasha Intervention**\nToad Lee would have plummeted to the library below, but Azure (the incredibly intoxicated Rakasha) manifested a giant, glowing blue ghost-hand and snatched him out of the air. She hauled him back inside, then casually walked over an unconscious staff member (producing a distinct squish noise) and grabbed the mechanical dog.\n\nHjumpik finished the fight by perfectly striking Gregory's stolen shield with his warhammer, knocking it out of the goblin's hands. Hjumpik then de-escalated the situation, offering Gregory a truce. Toad Lee immediately looted Gregory's pockets while Hjumpik wasn't looking. Flawless teamwork.",
+    "aftermath": "The mechanical dog was safely recovered, though it sounded like a boiling tea kettle. Toad Lee survived his embarrassing fall, and the party successfully escaped the servant's quarters. The goblin guard Gregory was left unconscious but alive, possessing a profound new respect for Toads.",
+    "relatedArticles": [
+      "toad_lee",
+      "mossy",
+      "overgrown_manor"
+    ],
+    "reputationChanges": {
+      "hjumpik": {
+        "disaster_inc": 30
+      },
+      "waluigi": {
+        "disaster_inc": 10
+      }
+    },
+    "reputationNotes": {
+      "hjumpik": "Hjumpik's bravery and ingenuity secure his faction's respect.",
+      "waluigi": "Waluigi's approval of Toad Lee's actions boosts Disaster Inc.'s standing."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T21:22:15+00:00",
+      "fields": [
+        "reputationChanges",
+        "reputationNotes"
+      ]
+    },
+    "image": "assets/images/battles/rescue-of-steely/rescue-of-steely-01.jpg",
+    "imageCaption": "The servants' quarters, the toilet ambushes, and the mechanical dog the staff had already started taking apart for scrap."
+  },
+  {
+    "id": "the_orange_alignment",
+    "name": "The Orange Alignment",
+    "date": "Unknown — Feywild temporal displacement",
+    "location": "Overgrown Manor, Feywild",
+    "type": "Mystical Event / Faction Coordination",
+    "result": "Unknown — Hjumpik's involvement is ongoing",
+    "belligerents": {
+      "attackers": {
+        "name": "N/A — Mystical event",
+        "factionId": null,
+        "commander": "The Orange Oracle"
+      },
+      "defenders": {
+        "name": "N/A — Mystical event",
+        "factionId": "disaster_inc",
+        "commander": "Hjumpik (participant)"
+      }
+    },
+    "casualties": {
+      "attackers": "N/A",
+      "defenders": "N/A — Spiritual/mystical engagement rather than combat"
+    },
+    "summary": "The Orange Alignment is something Hjumpik got involved with in the Feywild, connected to the Orange Oracle and the Corvinarus family's dimensional manipulations. Waluigi doesn't fully understand what the Orange Alignment IS, but it seems to involve Hjumpik serving as some kind of agent or participant in plans that span multiple timelines and realities. Waluigi finds interdimensional mysticism EXHAUSTING to research.",
+    "description": "Waluigi is writing this entry with the disclaimer that Waluigi does NOT fully understand what the Orange Alignment is. Hjumpik knows more. The Oracle knows more. Waluigi is working from fragments, rumors, and the general sense that something IMPORTANT is happening that involves orange robes and cosmic significance.\n\n## What Waluigi Knows\n\nThe Orange Alignment appears to be a faction, philosophy, or cosmic arrangement connected to the Oracle—specifically the 'Orange Oracle' iteration encountered in the Feywild. The color orange is SIGNIFICANT in ways that Waluigi doesn't fully grasp but keeps appearing in contexts related to the Corvinarus family, dimensional manipulation, and prophecy.\n\nHjumpik became involved with the Orange Alignment during the Feywild displacement following the Planar Fracture. His exact role is unclear—participant? Agent? Chosen representative? The terminology varies depending on who's explaining.\n\n## Connection to the Corvinarus Family\n\nThe Corvinarus family uses color-coding for their various branches and dimensional iterations. Orange appears connected to specific prophecies, bloodline branches, or cosmic functions. The Grafting ritual in 988 BF involved orange-robed figures. The Oracle wears orange. Something about the color MATTERS in their metaphysical framework.\n\nWaluigi has written elsewhere about the Corvinarus family's dimensional spanning and the 'Three Threads' prophecy. The Orange Alignment seems to be one of those threads—or adjacent to them in ways that Waluigi's non-mystical brain struggles to map.\n\n## Hjumpik's Role\n\nHjumpik accepted some kind of role or responsibility within the Orange Alignment. Waluigi respects Hjumpik's work ethic even when Waluigi doesn't understand his motivations. If Hjumpik committed to something, he'll see it through—that's just who Hjumpik is.\n\nWhat that commitment MEANS in practical terms remains unclear. Does Hjumpik have obligations? Powers? Access to information? The answers probably exist but Waluigi hasn't extracted them yet.\n\n## Assessment\n\nWaluigi's honest assessment is that the Orange Alignment is ABOVE his pay grade. Dimensional mysticism, color-coded cosmic factions, prophetic frameworks—this is territory where Waluigi's practical skills are less useful than someone who actually studied magical theory.\n\nWhat Waluigi CAN say is that the Orange Alignment is REAL, it's ACTIVE, and Hjumpik is connected to it. Whatever plans the Orange Oracle has, Hjumpik is part of them. Whether that's good or bad depends on factors Waluigi doesn't have enough information to evaluate.\n\nWaluigi will update this entry when he learns more. For now, he's noting its existence and Hjumpik's involvement and hoping that someone who actually understands interdimensional mysticism will eventually explain things clearly.\n\nWAH.",
+    "aftermath": "Ongoing. The Orange Alignment's plans continue to unfold. Hjumpik remains connected to whatever those plans are. The Oracle persists across dimensions. And Waluigi remains confused but dutiful about documenting it.",
+    "relatedArticles": [
+      "hjumpik",
+      "the_oracle",
+      "corvinarus_family",
+      "overgrown_manor",
+      "planar_fracture"
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "corvinarus_family": 15
+      },
+      "hjumpik": {
+        "corvinarus_family": 20
+      }
+    },
+    "effects": {
+      "corvinarus_family": 10
+    },
+    "reputationNotes": {
+      "waluigi": "Waluigi respects Hjumpik's work ethic despite not understanding the Orange Alignment.",
+      "hjumpik": "Hjumpik's involvement with the Orange Alignment continues to deepen, earning respect but also criticism."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T22:00:05+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    },
+    "image": "assets/images/battles/the-orange-alignment/the-orange-alignment-01.jpg",
+    "imageCaption": "The circles lit, the rings turning, and Hjumpik standing in the middle of something the archive cannot yet explain."
+  },
+  {
+    "id": "escape_from_the_hag",
+    "name": "The Escape from the Hag's Hut",
+    "date": "Faystyl 24, Year 722",
+    "location": "The Hag's Hut, Overgrown Manor Grounds (Feywild)",
+    "type": "Trap Recovery / Hostage Negotiation",
+    "result": "Pyrrhic Victory — Waluigi severely injured but rescued; Party escaped",
+    "belligerents": {
+      "attackers": {
+        "name": "The Cannibal Hag",
+        "factionId": "onyx_hand",
+        "commander": "The Hag"
+      },
+      "defenders": {
+        "name": "Waluigi, Hjumpik, Toad Lee, Rakasha",
+        "factionId": "disaster_inc",
+        "commander": "Hjumpik"
+      }
+    },
+    "casualties": {
+      "attackers": "One shattered window",
+      "defenders": "Waluigi (Leg caught in bear trap, bone exposed, dignity bruised)"
+    },
+    "summary": "Waluigi was victimized by a bear trap inside a cannibal hag's kitchen. While Rakasha slept upstairs, the Hag attempted to cook Waluigi and Toad Lee for dinner. Hjumpik engaged in tense negotiations, trading an antitoxin for Waluigi's life. The party ultimately threw themselves out of a second-story glass window to escape. Waluigi considers this the darkest moment of his magnificent life.",
+    "description": "The party, exhausted from avoiding fairy nobles, sought refuge in a circular hut on the manor grounds. It was a terrible idea. The hut featured a bubbling cauldron, a table set with rotted brains on wooden plates, and iron cages. Rakasha, oblivious to danger, went upstairs to sleep in a bed stained with suspicious fluids. \n\n**The Bear Trap Incident**\nWaluigi, possessing the long, graceful legs of a dancer, accidentally stepped into a hidden bear trap. The trap slammed shut with terrifying force, exposing bone. Waluigi did not cry. Waluigi merely expressed extreme, vocal displeasure. \n\nThe Hag—a horrifying old woman with bulging red eyes—returned from the party to find Toad Lee attempting to free Waluigi. She casually threw Toad Lee into a rusted iron cage alongside Waluigi, declaring them 'tonight's dinner.' She then condescendingly explained to Toad Lee how the trap's mechanism worked, nearly chopping off Toad Lee's hand in the process.\n\n**The Negotiation and the Defenestration**\nHjumpik descended the stairs and leveled his warhammer. Instead of a brawl, a tense negotiation ensued. The Hag, noticing Hjumpik had raided her bedroom upstairs, demanded her stolen items back. Hjumpik traded a vial of antitoxin for Waluigi's release. \n\nToad Lee successfully unlocked the cage and dragged the profusely bleeding Waluigi toward the stairs. Hjumpik woke the snoring Rakasha, and realizing the Hag was charging up the stairs in a murderous rage, the entire party leaped backward through a closed glass window, plummeting into the leaf-covered forest floor below. Waluigi's bone was later magically mended by Hjumpik, leaving only a small scar and a massive grudge against all hags.",
+    "aftermath": "The party escaped into the greenhouse, completely traumatized. Waluigi was healed but remains highly suspicious of all circular architecture. The Hag is still at large, presumably looking for someone else to put in her stew.",
+    "relatedArticles": [
+      "waluigi",
+      "toad_lee",
+      "overgrown_manor"
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "onyx_hand": -15
+      },
+      "hjumpik": {
+        "onyx_hand": 5
+      }
+    },
+    "effects": {
+      "onyx_hand": -20
+    },
+    "reputationNotes": {
+      "waluigi": "Waluigi's leg mangled in a bear trap; barely escapes with his life.",
+      "hjumpik": "Hjumpik successfully negotiates Waluigi's release, earning the Hag's antitoxin."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T22:03:33+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    },
+    "image": "assets/images/battles/escape-from-the-hag/escape-from-the-hag-01.jpg",
+    "imageCaption": "The hag's kitchen: the cauldron on, the bear trap sprung, and Hjumpik negotiating a price for Waluigi."
+  },
+  {
+    "id": "feyward_bramblyfly_hallway_incident",
+    "name": "The Bramblyfly Hallway Incident",
+    "date": "23 Harvestide, 1040 BF",
+    "location": "Feyward Manor hidden-passage corridor / overgrown upper floor",
+    "type": "Creature Contact / Failed Sneak / Tactical Withdrawal",
+    "result": "Tactical withdrawal; Morel key and warning acquired; Toad Lee trust problem escalates",
+    "belligerents": [
+      "hjumpik",
+      "toad_lee",
+      "bramblyfly"
+    ],
+    "casualties": "No confirmed deaths; dignity injured; Steely later destroyed separately.",
+    "summary": "A Bramblyfly breaks free in the damaged Feyward corridor, forcing a retreat and giving Mystic Morel the opening to warn Hjumpik not to make Toad Lee the anchor. No clean battle is won; the real outcome is a key, a warning, and a new trust problem.",
+    "description": "The Bramblyfly Hallway Incident is less a battle than a Feyward interruption with teeth, wings, bad footing, and one purple toad waiting to turn confusion into leverage. Waluigi is expanding it because the incident looks small only if the reader is foolish enough to count sword swings instead of consequences.\n\nThe party had entered a fragile upper section of the Feyward manor where prior damage still mattered. The old Solarium Detonation hole was not gone. The vines were not decorative. The walls were not reliable. The house had been cut, burned, frozen, overgrown, and hollowed out by too many magical events pretending to be separate problems. A Bramblyfly breaking free in that environment is not random wildlife. It is the house cashing in deferred maintenance.\n\nToad Lee immediately preferred going back inside. This is funny, but it is also good instinct. The Bramblyfly was not the objective. The objective was reaching Lady Aurelian, understanding Morel's movement, and not losing another party member to a room that had already demonstrated a willingness to drop floors and grow alarms. A tactical retreat from an unnecessary creature is not cowardice. It is resource management with legs.\n\nHjumpik tried to sneak around and slipped. He saved himself near the old detonation damage. This is the moment where previous sessions become terrain. The Solarium Detonation was not just an event that ended when the smoke cleared. It left a hole. That hole remained relevant. The Feyward punishes anyone who treats past explosions as past tense.\n\nMystic Morel then entered the true purpose of the incident. He stopped Hjumpik, warned him that Toad Lee would betray him, told him not to make Toad Lee the anchor, and gave him a key. The Bramblyfly created the pause. The pause created the private warning. The warning created suspicion. The key created obligation. That is the battle's real damage.\n\nWaluigi does not believe Morel out of kindness. Morel has not earned kindness. But Morel's warning is too specific to discard. \"Anchor\" is not casual language in this campaign. Planar anchors, ritual anchors, emotional anchors, party anchors — the word keeps appearing where reality is held together by people who are barely holding themselves together. If Toad Lee is compromised, making him an anchor could break a plan. If Morel is lying, the warning could break trust. Either outcome benefits someone who wants the party unstable.\n\nThis is why the incident matters: it forces Hjumpik to carry uncertainty as an item. He now holds [Mystic Morel’s Feyward Key](morel_feyward_key) and Morel's warning. He cannot prove either one safe. He cannot ignore either one without becoming stupid. The Bramblyfly did not wound him. The warning did.\n\nTactically, the party avoided a bad fight. Strategically, the party gained a dangerous lead and a trust problem. Waluigi classifies that as a Feyward victory, which is to say a success that immediately demands therapy, cartography, and perhaps a bank account for emotional damages.\n\nWAH.",
+    "relatedArticles": [
+      "feyward_amnesia_vines_morel_steely",
+      "hjumpik",
+      "toad_lee",
+      "mystic_morel",
+      "solarium_detonation"
+    ],
+    "reputationChanges": {
+      "hjumpik": {
+        "toad_gang": -15,
+        "toad_cult": 30
+      },
+      "waluigi": {
+        "iron_fists": -10,
+        "fawfuls_furious_freaks": 20
+      }
+    },
+    "effects": {
+      "unaligned": 10
+    },
+    "reputationNotes": {
+      "hjumpik": "Warned his ally Toad Lee, but Toad Lee's trust issues worsen.",
+      "waluigi": "Documented the incident and possibly found value in Morel's warning."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T22:09:53+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    },
+    "image": "assets/images/battles/feyward-bramblyfly-hallway-incident/feyward-bramblyfly-hallway-incident-01.jpg",
+    "imageCaption": "The Bramblyfly loose in the overgrown corridor. Nothing is won here; a key changes hands and a warning gets delivered."
+  },
+  {
+    "id": "feyward_second_hidden_room_rout",
+    "name": "The Second Hidden Room Rout (feat. Chop Bros, Demonstration III)",
+    "date": "23–24 Harvestide, 1040 BF (Feyward-relative)",
+    "location": "Feyward Manor — parlor secret door, crawlspace, second hidden room, overgrown corridor",
+    "type": "Pursuit / Hostage Crisis / Technique Development",
+    "result": "Tactical victory: the party pushed back a large amount of the manor’s leaf growth, reached the window, and escaped upward with the OC Soul Ring; the false Lady was driven back, one guard defected, and no deaths were confirmed.",
+    "belligerents": [
+      "waluigi",
+      "hjumpik",
+      "toad_lee",
+      "the_plant_lady",
+      "feyward_house_guards",
+      "hobgoblin_bodyguards"
+    ],
+    "casualties": "Hobgoblin bodyguards and two house guards downed (breathing — Waluigi declined to verify in writing); one sofa; one card table (a good hand, wasted); one Bob-omb; one garlic grenade; two sleeves; 25 feet of overgrowth separated from its agenda.",
+    "summary": "Waluigi pursues the fleeing 'Lady' through a ceiling crawlspace and pushes back her bodyguards and the advancing leaves in the second hidden room; meanwhile Hjumpik and Toad Lee turn a guard standoff into a defection, develop Chop Bros to a verified third attempt, and settle the hostage phase with garlic and explosives. The ring engraved 'OC' changes hands four times in one night.",
+    "description": "Waluigi files this as a battle mostly because the insurance forms require a category, and 'extended negotiation accompanied by bells' was not available.\n\nThe engagement had three fronts, which is extravagant for one parlor. Front one: the ceiling, where Waluigi pursued the fleeing Lady across the joists in plaster grit, noting — for later use — that her heels below were unhurried in a house she was supposedly fleeing through. Front two: the corridor, where two swords met one warhammer haft in a sequence of deep bell-notes, ended not by force but by Hjumpik declining a good fight and by the floor growing a third combatant. Front three: the second hidden room, contested with curtain cord, soap-adjacent upholstery damage, and one hog of a card table.\n\nResolution phase: hostage posture, soul-ring hardware exposed, a hand axe through a tabletop (a negotiation instrument, not a miss), then the garlic grenade — Toad Lee's, volunteered — then one Bob-omb placed with the tenderness of a milliner, producing a ring-ectomy at distance and a window exit by three.\n\nCasualty sheet rounds to zero deaths, which, by this branch's recent standards, counts as restraint and will be celebrated quietly.\n\nThe field result was better than the room’s panic suggested. The party did not merely flee the vines. The tree cutters and their allies pushed a great deal of the leaf growth back, opening the exterior route. At the end, the party climbed up through the window toward the prince’s map room. That climb was an escape, but it was also a successful withdrawal from ground the manor had been trying to close around them. The leaves lost ground; the party kept its people and the ring.",
+    "aftermath": "The ring entered Hjumpik's pocket; the defection became a route; the prince's map became the next session. The unconscious were left in a room now on a plant's side of the wall — the filing flags this as unfinished business, not acceptable business.",
+    "relatedArticles": [
+      "feyward_chop_bros_soul_ring_and_the_guard_with_no_name",
+      "feyward_bramblyfly_hallway_incident",
+      "feyward_amnesia_vines_morel_steely",
+      "waluigi",
+      "hjumpik",
+      "toad_lee",
+      "lady_aurelian",
+      "overgrown_manor"
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "fawfuls_furious_freaks": 15,
+        "kremling_krew": -10
+      },
+      "hjumpik": {
+        "fawfuls_furious_freaks": 10,
+        "toad_gang": -8
+      }
+    },
+    "effects": {
+      "fawfuls_furious_freaks": 20,
+      "toad_gang": -15
+    },
+    "reputationNotes": {
+      "waluigi": "Waluigi pushed back the manor's defenses and secured an important artifact.",
+      "hjumpik": "Hjumpik turned a standoff into a defection with strategic thinking."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T22:29:20+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    },
+    "image": "assets/images/battles/feyward-second-hidden-room-rout/feyward-second-hidden-room-rout-01.jpg",
+    "imageCaption": "The parlour door, the crawlspace above it and the second hidden room beyond — the Lady running, the leaves advancing."
+  },
+  {
+    "id": "feyward_woodfellow_vs_the_treant",
+    "name": "Woodfellow vs. the Treant (The Lane, the Ledger, and the Weather)",
+    "date": "1 Aethel, 922 BF (Feyward clock — the Material stood in 1040; see the README's planar timekeeping)",
+    "location": "The Feyward woodlands — the cutting lane run through the overgrowth (no registered location id; this record declines to invent one)",
+    "type": "Field Battle / Asymmetric Skirmish / Off-Ledger Pursuit",
+    "result": "Expedition victory. The treant was felled at the lane by a single book-strike driven through the split in its trunk; the shambling mound broke away, was run down during an eighteen-minute pursuit no survivor's account covers, and was destroyed; the sprite sorcerer fled the field. Two of the expedition were carried off it.",
+    "engagement": {
+      "combatants": 24,
+      "ledgerWindow": "the night watches of 1 Aethel, 922 BF (Feyward clock) · a thirty-seven-minute engagement",
+      "scale": "The largest engagement in the Feyward record: nine of the expedition mustered against a wood that fielded fifteen, plus a dryad who watched — every one of them named below, because a battle of nameless things is a weather report"
+    },
+    "belligerents": {
+      "attackers": {
+        "name": "The Cutting Expedition",
+        "combatants": [
+          {
+            "name": "Woodfellow",
+            "role": "heavy ordnance — hurls bound tomes like siege shot",
+            "fate": "stood",
+            "leader": true
+          },
+          {
+            "name": "Ramsee",
+            "role": "missile auxiliary — assorted cutlery, long range, unreliable",
+            "fate": "stood"
+          },
+          {
+            "name": "Swifty",
+            "role": "line swordfighter — the expedition's best blade",
+            "fate": "carried",
+            "fateNote": "an expedition arrow took him through the joint of his harness in the press"
+          },
+          {
+            "name": "Lochan",
+            "role": "satyr scout — longbow skirmisher; led the pursuit; filed no report",
+            "fate": "stood"
+          },
+          {
+            "name": "Bramm",
+            "role": "satyr berserker — line-breaker, longsword and ram-charge",
+            "fate": "stood"
+          },
+          {
+            "name": "Zach",
+            "role": "satyr druid — thunder-call artillery and herbalist; held the middle",
+            "fate": "stood"
+          },
+          {
+            "name": "House Guard Joseph",
+            "role": "line infantry — longsword; opened the fight badly",
+            "fate": "stood"
+          },
+          {
+            "name": "House Guard Renard",
+            "role": "line infantry — longsword; bled for the whole engagement",
+            "fate": "carried",
+            "fateNote": "cut down by a sprite blade in the last watches of the pursuit"
+          },
+          {
+            "name": "Pib",
+            "role": "goblin staff auxiliary — kitchen knife, and keeper of the tally",
+            "fate": "stood"
+          }
+        ]
+      },
+      "defenders": {
+        "name": "The Awakened Wood",
+        "leader": "the Treant",
+        "combatants": [
+          {
+            "name": "the Treant",
+            "role": "the wood's champion — a century of contemplation on its feet; slow to wake, terrible once moving",
+            "fate": "fell",
+            "leader": true,
+            "fateNote": "two books, through the split its own offense had opened"
+          },
+          {
+            "name": "the Shambling Mound",
+            "role": "second mass — rot and grudge in armor",
+            "fate": "fell",
+            "fateNote": "run down in the gap; died with the sprites' own poison in it"
+          },
+          {
+            "name": "Gall",
+            "role": "awakened shrub — skirmish screen, first half of it",
+            "fate": "fell",
+            "fateNote": "deleted by a single book"
+          },
+          {
+            "name": "Tansy",
+            "role": "awakened shrub — skirmish screen, second half of it",
+            "fate": "fell",
+            "fateNote": "deleted by a single book"
+          },
+          {
+            "name": "Gorse",
+            "role": "sprite warrior — file leader of the four",
+            "fate": "fell",
+            "fateNote": "asleep when the sand came home; never woke"
+          },
+          {
+            "name": "Bryony",
+            "role": "sprite warrior",
+            "fate": "slept"
+          },
+          {
+            "name": "Rattlecap",
+            "role": "sprite warrior",
+            "fate": "slept"
+          },
+          {
+            "name": "Sneezewort",
+            "role": "sprite warrior",
+            "fate": "fled"
+          },
+          {
+            "name": "Yew",
+            "role": "sprite archer — the best dart on the field, and the least loyal",
+            "fate": "turned",
+            "fateNote": "put poison into the wood's own mound in the last watches"
+          },
+          {
+            "name": "Holly",
+            "role": "sprite archer",
+            "fate": "turned",
+            "fateNote": "poisoned the mound beside Yew"
+          },
+          {
+            "name": "Rowan",
+            "role": "sprite archer",
+            "fate": "fled",
+            "fateNote": "shaken, scattered with the sorcerer"
+          },
+          {
+            "name": "Comfrey",
+            "role": "sprite caster — senior sand-thrower; signed the requisition",
+            "fate": "fled"
+          },
+          {
+            "name": "Mugwort",
+            "role": "sprite caster",
+            "fate": "slept"
+          },
+          {
+            "name": "Sorrel",
+            "role": "sprite caster",
+            "fate": "slept"
+          },
+          {
+            "name": "Nightshade",
+            "role": "sprite sorcerer — specialist; the keeper's mark for him is a single word",
+            "fate": "fled",
+            "fateNote": "fled"
+          },
+          {
+            "name": "Linden",
+            "role": "dryad — observer; never engaged",
+            "fate": "withdrew",
+            "fateNote": "gone before the pursuit ended; no account of her leaving exists"
+          }
+        ]
+      }
+    },
+    "casualties": "The treant, felled by two books. Both awakened shrubs, deleted singly. The shambling mound, run down after the whistle and destroyed with the sprites' own poison in it. A third of the lane's sleep, expended mostly on friendlies. Swifty and Renard, carried from the field. Joseph's confidence, first minute. The fork's reputation, restored.",
+    "summary": "The season the plants took over produced the campaign's largest engagement: a hired cutting crew — satyr line, house guards, one goblin tally-keeper, Ramsee and his assorted cutlery, and Woodfellow, who throws books — against the wood's champion and everything it could wake. Sleep-sand thrown wide turned the lane into a weather system, a skirmisher's arrow brought down the expedition's own swordfighter, and the battle turned on a single book driven through the split in a treant's trunk. The fleeing mound was run down in a gap of eighteen minutes no survivor's account covers, and destroyed with the sprites' own poison in it.",
+    "description": "*Filed from the tally and the survivors' fragments — no field report survived the night, and the cleanup filing is still owed. Every count below comes from the keeper's marks ([[prop:prop_cutting_lane_tally|the last page of the tally]]); the names of the wood's own come from the reconstruction, for a battle of nameless things is a weather report. The prose reconstructs; the arithmetic does not.*\n\n## Part I — The Wood Objected\n\nThe Feyward had been strangling itself for a season — vines that eat memories, poison in the green, plants where plants should not be — and somebody finally hired a cutting crew to push a lane back through it. Nine mustered: satyr line and steel, two house guards, one goblin auxiliary with a kitchen knife and the tally book, and at the column's back two problem-solvers the forest should have thought harder about — Ramsee, who throws cutlery, and Woodfellow, who throws books.\n\nThe wood's answer was orthodox. It woke a treant.\n\n*WAH! A treant is what a tree becomes after a century of contemplation and one bad day — bark like fortress masonry, arms that end in doors. It is also, and I want this on the record, the slowest thing on a battlefield. The mightiest tree in the lane took the field last. The encyclopedia has warned about this. Nobody reads the encyclopedia.*\n\n## Part II — The Treant Opens\n\nThe treant's first blow was meant to end the argument at a stroke: a branch the width of a door brought down on Swifty, the expedition's best blade. Swifty caught it on the scimitar — the parry of his life — and stayed up when lesser satyrs would have been driven into the earth. He did not stay up whole. Around him the line formed badly in the dark: Joseph's opening cut glanced off the bark without leaving a mark the keeper thought worth counting, and in the press even the lane's own ranks closed wrong — Bramm the berserker's first cut landed on Renard's pauldron, and no account since has agreed whether the wood turned his arm or the melee simply swallowed him. Pib's knife found a seam for what it was worth. Ramsee opened the cutlery account with one strike that stuck, then spent the next half hour contributing aerodynamics.\n\n## Part III — The Sleep Wars\n\nThen the sprites deployed the only weapon on that field scarier than a treant: sleep-sand, thrown wide, three times, into a melee containing most of the living world. The requisition that authorized it survives ([[prop:prop_sleep_sand_requisition|filed, and marked as one would expect]]).\n\nThe first throw — Comfrey's, the keeper believes — took the weakest bodies in the cloud: sprites, mostly, which raises questions about sprite command discipline nobody stayed awake to answer. Gorse's file went down asleep mid-air and never woke. The second fold more of them; Mugwort and Sorrel and Bryony and Rattlecap sleep in the tally to this day, marked, not struck. The third throw was thrown with the treant still standing and did not care whose side anyone was on: Woodfellow slumped mid-fight under sand he had not been aimed at, a house guard went down asleep on his feet and woke at half his strength, and one of the wood's own — the keeper's mark is unclear which — slept where it stood, technically victorious.\n\n*WAH! I have filed entire essays on the relationship between herds and the concept of \"throwing wide.\" The concept remains theoretical. The sleeping third of that lane is not.*\n\n## Part IV — Arrows With Opinions\n\nThe middle watches are where the Feyward earned its reputation, because the arrows stopped agreeing with the people firing them. Lochan, the satyr scout — a professional — put two shafts into the melee around the treant. The first went wide. The second took Swifty through the joint of his harness, the same satyr the treant's opening blow had left standing on will, and brought him down. Friendly fire, in the press, at night, in a poisoned wood: no account agrees whether the shaft was turned or simply chose him, and this record declines to convict a skirmisher on vibes. Later the same scout's bow misfired outright. Whatever the wood wanted from that bow, it did not want consistency.\n\nZach, the druid, fought the battle three times at once — thunder called down on the sprite files, on the treant, and at least once across Woodfellow's position, because thunder does not check uniforms — while standing off Yew's poisoned darts and keeping his feet through wounds that would have stopped a louder man. Renard's evening reads like a casualty ledger with a pulse: cut in the press by his own side, struck by Lochan's wide shaft, darts in the arm, a sprite's blade at the end of it all — and he was one of the healthy ones when the whistle came.\n\n## Part V — The Library Opens\n\nThe treant had marked the librarian. Twice it brought the door-sized arm down on Woodfellow's position — once landing the only wound Woodfellow is on record as taking personally, once finding only the space where he had stepped inside the swing — and in pressing him it made the one mistake the Feyward could not forgive: it split its own bark wide, and the librarian saw the split.\n\nBy then Woodfellow had already cleared the wood's skirmish screen, deleting Gall and then Tansy with single books — overkill the keeper recorded without comment. What followed is the strike this record exists to file: one book, thrown flat and hard, went through the split the treant's own offense had opened. The champion staggered and kept its feet. The second book put it down, and it fell across the lane it had come to close — which is the sort of ending this encyclopedia usually has to invent.\n\n## Part VI — The Hunt\n\nThe shambling mound — a second mass of rot and grudge the lane had barely scratched — assessed a field whose champion was lying across it, and chose tomorrow. It broke away into the dark, and the expedition chose today: they ran it down. Here the record fails honestly — for eighteen minutes, no mark, no account, no survivor's memory covers the pursuit, and the report Lochan owed for it was never filed ([[prop:prop_pursuit_report_blank|the blank form is its own exhibit]]). The keeper writes that the page was wet. When the record resumes, the mound is dying at the hands of everything the lane had left: Ramsee's cutlery finally arriving on target, five more books — one thrown wild into the night, which the library does not discuss — and, in the middle of the execution, the weather changed sides: the archers Yew and Holly put their own poison into the wood's mound while the casters' fire took one of their own archers. Whatever contract the Feyward had with itself, the champion's death voided it. Nightshade the sorcerer was already gone — the keeper's mark for him is a single word, *fled* — and Linden the dryad, who appears once in the record and never in the fighting, was gone with the dark.\n\nThe expedition paid for the pursuit: a sprite blade put Renard down in the last watches, the second fighter of the night to leave the field on shoulders instead of feet. The mound died with Yew's poison in it. The last mark in the tally belongs to the keeper: lane clear, wood quiet, two carried.\n\n*WAH! I have watched a lot of ordnance in my career. For half an hour the fork was ceremonial. Then the mound met the fork, the library, and the weather's own darts, in that order, and I am filing the sequence under \"victory conditions, coalition.\"*",
+    "aftermath": "The field belongs to the cutters, and the field is a disaster area. The cleanup — wounded, prisoners, salvage, and what one does with a fallen treant and a poisoned mound in a lane one has just cut — is owed as a separate filing. Two of the expedition left the field on shoulders (Swifty to Lochan's arrow, Renard to a sprite blade); whether the healers reached them is the cleanup's story. Nightshade and Rowan and Comfrey fled; Yew and Holly scattered rich in everyone's gratitude; Linden's going is unrecorded. The Feyward's contract with itself voided on the champion's death.",
+    "waluigiAssessment": "I was not there. I have read the tally twice and the arrow patterns a third time, and here is what the marks say that the narrators will not: the expedition did not win because it was stronger. It won because the wood fought itself harder than it fought the cutters — sand in its own files, an arrow into the enemy's best blade, a screen deleted by splash, and at the end its own archers putting poison into the dying mound and fire into their own. All the expedition had to do was stay standing, and the one of them with the books stayed standing best.\n\nThe pursuit was not mercy and it was not strategy. It was arithmetic: the mound was dying and the librarian had books left. WAH.",
+    "keyMoments": [
+      {
+        "time": "first watch",
+        "who": "the field",
+        "act": "Muster — nine of the expedition against a wood slow to form",
+        "result": "The treant took the field last; the sprites were already everywhere"
+      },
+      {
+        "time": "early",
+        "who": "The Treant",
+        "act": "Opening strike on Swifty",
+        "result": "Caught on the scimitar — the parry of his life; he stayed up, not whole",
+        "decisive": true
+      },
+      {
+        "time": "early",
+        "who": "Joseph",
+        "act": "First cut at the champion",
+        "result": "Glanced off the bark without a mark worth counting"
+      },
+      {
+        "time": "early",
+        "who": "Bramm",
+        "act": "Cut in the press",
+        "result": "Landed on Renard's pauldron — the lane's own ranks closed wrong in the dark"
+      },
+      {
+        "time": "first hour",
+        "who": "Comfrey's casters",
+        "act": "Sleep-sand, first throw",
+        "result": "The cloud took the weakest files — Gorse's warriors asleep mid-air; Gorse never woke",
+        "decisive": true
+      },
+      {
+        "time": "first hour",
+        "who": "the casters",
+        "act": "Sleep-sand, second throw",
+        "result": "Mugwort, Sorrel, Bryony, Rattlecap sleep in the tally to this day, marked, not struck"
+      },
+      {
+        "time": "first hour",
+        "who": "Ramsee",
+        "act": "Cutlery on target",
+        "result": "One strike that stuck — then half an hour of aerodynamics"
+      },
+      {
+        "time": "middle",
+        "who": "Lochan",
+        "act": "Two shafts into the press",
+        "result": "First wide; second takes Swifty through the joint of his harness — carried from the field",
+        "decisive": true
+      },
+      {
+        "time": "middle",
+        "who": "Woodfellow",
+        "act": "The skirmish screen",
+        "result": "Gall, then Tansy, deleted by single books"
+      },
+      {
+        "time": "middle",
+        "who": "the casters",
+        "act": "Sleep-sand, third throw — wide",
+        "result": "Woodfellow slumps mid-fight; a house guard wakes at half strength; one of the wood's own sleeps, technically victorious",
+        "decisive": true
+      },
+      {
+        "time": "middle",
+        "who": "The Treant",
+        "act": "Presses the librarian",
+        "result": "One wound landed — the only one Woodfellow took personally; the second swing finds only where he had stepped inside it"
+      },
+      {
+        "time": "late",
+        "who": "Woodfellow",
+        "act": "The strike through the split",
+        "result": "One book driven through the bark its own offense had split — the champion staggers, keeps its feet",
+        "decisive": true
+      },
+      {
+        "time": "late",
+        "who": "Woodfellow",
+        "act": "The second book",
+        "result": "The treant falls across the lane it came to close"
+      },
+      {
+        "time": "the gap",
+        "who": "the expedition",
+        "act": "Pursuit of the mound, led by Lochan",
+        "result": "Eighteen minutes no mark or memory covers — the scout's report was never filed; the keeper writes that the page was wet"
+      },
+      {
+        "time": "the gap",
+        "who": "Renard",
+        "act": "Cut down in the last watches",
+        "result": "A sprite blade ends his engagement; carried from the field",
+        "decisive": true
+      },
+      {
+        "time": "the gap",
+        "who": "Yew and Holly",
+        "act": "The weather changes sides",
+        "result": "The archers put their own poison into the wood's mound; the casters' fire takes one of their own; Nightshade flees",
+        "decisive": true
+      },
+      {
+        "time": "last mark",
+        "who": "Woodfellow",
+        "act": "Five more books at the dying mound",
+        "result": "One thrown wild into the night; the rest end it"
+      },
+      {
+        "time": "last mark",
+        "who": "Pib, keeper of the tally",
+        "act": "Final entry",
+        "result": "Lane clear, wood quiet, two carried"
+      }
+    ],
+    "relatedArticles": [
+      "feyward_second_hidden_room_rout",
+      "feyward_amnesia_vines_morel_steely",
+      "the_feyward_revel_crisis_poison_plants_and_frozen_diplomacy",
+      "feyward_grove",
+      "feyward_sixth_detachment_house_defense",
+      "feyward_battalion_of_six_and_the_bait_plan"
+    ],
+    "reputationChanges": {
+      "bowser": {
+        "dark_elves": 15
+      },
+      "markop": {
+        "feyward_high_society": 20
+      },
+      "remi_akamatsu_full_backstory": {
+        "mushroom_regency": 10,
+        "farasi": -3
+      }
+    },
+    "effects": {
+      "farasi": 10,
+      "unaligned": 5
+    },
+    "reputationNotes": {
+      "bowser": "Bowser's cutting crew triumphed over the awakened wood, earning him respect among the mushroom regency and a boost to unaligned opinion.",
+      "markop": "Markop's paladin leadership secured victory for Feyward High Society, boosting their reputation significantly.",
+      "remi_akamatsu_full_backstory": "Remi's engineering prowess contributed greatly to the expedition's success against the awakened wood, earning him respect from the mushroom regency and some animosity from Farasi."
+    },
+    "image": "assets/images/battles/woodfellow-vs-treant/wft-01-tome-crit.jpg",
+    "imageCaption": "The strike that felled it — one book through the split in the trunk.",
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-29T17:24:09+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
+  },
+  {
+    "id": "feyward_sixth_detachment_house_defense",
+    "name": "The Sixth Detachment House Defense (The Wall, the Mound, and Everybody Falls Back)",
+    "date": "1 Aethel, 922 BF (Feyward clock — the Material stood in 1040; same night as the cutting lane)",
+    "location": "The Overgrown Manor — outside wall walk, lower service hall, kitchen barricade, and the corridor the wood came through (location id: overgrown_manor)",
+    "type": "House Defense / Room-to-Room / Fighting Withdrawal",
+    "result": "Tactical hold, then a fighting withdrawal. The shrub on the wall, the mound in the corridor, and the largest plant in the reading room were all destroyed. The house then gave the corridor back. Reinforcements from the house guard were requested and refused.",
+    "belligerents": {
+      "attackers": {
+        "name": "Hjumpik's Sixth Detachment and whoever was still in the hall",
+        "factionId": "disaster_inc",
+        "commander": "Hjumpik (anvil) / Waluigi (disputed second)",
+        "combatants": [
+          {
+            "name": "Hjumpik",
+            "role": "commander — first order was the wall; last order was the bait",
+            "fate": "stood",
+            "leader": true
+          },
+          {
+            "name": "Waluigi",
+            "role": "advisor / ice / bathroom logistics / the man with the book",
+            "fate": "stood"
+          },
+          {
+            "name": "Toad Lee",
+            "role": "squad leader — held the corridor with Wyatt when the wall folded",
+            "fate": "stood"
+          },
+          {
+            "name": "Randall",
+            "role": "house guard — carried Hank the last three paces into the shrub",
+            "fate": "stood"
+          },
+          {
+            "name": "Timmy",
+            "role": "sergeant of the charge — both strokes of a multiattack into Hank",
+            "fate": "stood",
+            "fateNote": "spent Hjumpik's no-friendly-fire order inside four minutes"
+          },
+          {
+            "name": "Hank",
+            "role": "first into the shrub; first through a door he was told not to open",
+            "fate": "stood",
+            "fateNote": "morale recorded SHAKEN (39); still standing"
+          },
+          {
+            "name": "Wyatt",
+            "role": "white-haired goblin — two attacks, no retreats, corridor with Toad Lee",
+            "fate": "stood"
+          },
+          {
+            "name": "Brad",
+            "role": "waiter, combat detachment, victory announcer",
+            "fate": "wounded",
+            "fateNote": "the mound's spell put him on his knees; he announced the win from the floor"
+          },
+          {
+            "name": "the sixth of the six",
+            "role": "house guard — said his name once at roll call",
+            "fate": "observed",
+            "fateNote": "stood through the shrub; later went through a door alone"
+          },
+          {
+            "name": "The Oracle",
+            "role": "offered a route, was refused, then went and fought anyway",
+            "fate": "stood",
+            "fateNote": "twice into a shrub in the reading room"
+          }
+        ]
+      },
+      "defenders": {
+        "name": "The wood that came through the house",
+        "commander": "the largest of them (until it fell)",
+        "combatants": [
+          {
+            "name": "the wall shrub",
+            "role": "awakened shrub — leaf-cluster and rake on the outside walk",
+            "fate": "fell",
+            "fateNote": "two kitchen knives and Timmy's charge"
+          },
+          {
+            "name": "the corridor mound",
+            "role": "shambling mound — came through behind the tree",
+            "fate": "fell",
+            "fateNote": "weight of numbers, not a tactic"
+          },
+          {
+            "name": "the largest of them",
+            "role": "the plant that took the reading room for seventeen turns",
+            "fate": "fell",
+            "leader": true
+          },
+          {
+            "name": "the tree in the wall",
+            "role": "the breach itself — debris hanging off it like a coat",
+            "fate": "stood",
+            "fateNote": "the corridor it opened was never retaken"
+          },
+          {
+            "name": "the sprite caster",
+            "role": "ribs first, then the retreat",
+            "fate": "wounded",
+            "fateNote": "took a multiattack through the ribs on the withdrawal"
+          },
+          {
+            "name": "the sprite archer",
+            "role": "took no action in the reading room; withdrew four times later",
+            "fate": "withdrew"
+          },
+          {
+            "name": "the sprite warrior",
+            "role": "blade that found the wrong sprite",
+            "fate": "stood",
+            "fateNote": "friendly fire into the archer"
+          },
+          {
+            "name": "the sorcerer",
+            "role": "three attacks, three runs",
+            "fate": "fled"
+          },
+          {
+            "name": "the Ravenous Host",
+            "role": "busiest thing on the floor — the tally names it; the archive cannot classify it",
+            "fate": "stood",
+            "fateNote": "no report filed"
+          }
+        ]
+      }
+    },
+    "casualties": {
+      "attackers": "Brad wounded and talking. Hank shaken, standing, more afraid of Timmy than of the shrub. The sixth of the six missing behind a door. Nobody of the detachment fell. The corridor they had just held, given back.",
+      "defenders": "Wall shrub felled. Corridor mound destroyed. The largest of them destroyed in the reading room. A sprite caster opened through the ribs. A sprite archer withdrawn four times and cut by his own side. A sorcerer ran. The Ravenous Host still unfiled. The tree still in the wall."
+    },
+    "summary": "The same night the cutting lane felled a treant, Hjumpik's six-man battalion walked the outside wall of the Overgrown Manor, cut a shrub, lost a corridor to a mound, killed the mound, killed the largest plant in the reading room, and then spent twenty-seven turns falling back because every defender — including the door — decided the house was no longer a place to stand. The house guard, asked for help, said they were stretched thin guarding the heir.",
+    "engagement": {
+      "combatants": 19,
+      "ledgerWindow": "1 Aethel, 922 BF (Feyward clock) · from the wall walk through twenty-seven turns of retreat",
+      "scale": "Four rooms of one night: a two-round shrub, a corridor mound, a seventeen-turn reading-room brawl, and a fighting withdrawal the house did not recover from"
+    },
+    "keyMoments": [
+      {
+        "time": "wall walk",
+        "who": "Hank",
+        "act": "First into the shrub, last three paces on Randall's shoulder",
+        "result": "Two kitchen knives under the leaf-cluster; the rake found a breastplate"
+      },
+      {
+        "time": "wall walk",
+        "who": "Timmy",
+        "act": "Multiattack on the charge",
+        "result": "Both strokes into Hank",
+        "decisive": true
+      },
+      {
+        "time": "wall walk",
+        "who": "the wall shrub",
+        "act": "Stopped moving under enough knives",
+        "result": "Felled. Hjumpik's first order completed."
+      },
+      {
+        "time": "lower corridor",
+        "who": "the tree",
+        "act": "The far wall folded outward",
+        "result": "The mound came through behind it with the debris still hanging"
+      },
+      {
+        "time": "lower corridor",
+        "who": "Toad Lee and Wyatt",
+        "act": "Held what was left of the corridor",
+        "result": "Wyatt attacked twice and did not step back",
+        "decisive": true
+      },
+      {
+        "time": "lower corridor",
+        "who": "the mound",
+        "act": "A spell into the press",
+        "result": "Brad on his knees, still announcing later"
+      },
+      {
+        "time": "lower corridor",
+        "who": "Hjumpik",
+        "act": "Came back into it and cut",
+        "result": "Mound destroyed by weight of numbers"
+      },
+      {
+        "time": "reading room",
+        "who": "The Oracle",
+        "act": "Twice into a shrub",
+        "result": "The room stayed a room for seventeen turns"
+      },
+      {
+        "time": "reading room",
+        "who": "the largest of them",
+        "act": "Took the floor",
+        "result": "Destroyed. Sprite blade found a sprite. Ravenous Host unnamed in any report."
+      },
+      {
+        "time": "the gap",
+        "who": "the tally",
+        "act": "No field report covers the Host",
+        "result": "Silence"
+      },
+      {
+        "time": "withdrawal",
+        "who": "every defender",
+        "act": "Twenty-seven turns of falling back",
+        "result": "A caster through the ribs; an archer out four times; a sorcerer ran three times",
+        "decisive": true
+      },
+      {
+        "time": "withdrawal",
+        "who": "the house guard",
+        "act": "Reinforcements requested",
+        "result": "Refused: our job is to guard him. We're pretty stretched thin as is."
+      }
+    ],
+    "description": "*Filed from the wall, the corridor, the reading room, and the retreat. I was there. The cutting lane had its own night the same clock; that record is [[feyward_woodfellow_vs_the_treant|Woodfellow vs. the Treant]]. This one is the house.*\n\n## Part I — The Wall Walk\n\nHjumpik's first order was the leaves. The Revel ate from the outside; the leaves were the mouth; the mouth was on the wall, in the grey air, where a man could put a knife in it without being eaten first.\n\nHank went first. Randall carried him the last three paces. Two kitchen knives went under a leaf-cluster that had been a decoration that morning. The shrub's rake came back across a breastplate and made a sound like wet wood on tin.\n\nTimmy arrived at a run, standing tallest on purpose, and put both strokes of the charge into Hank.\n\nThe shrub stopped. Hank stood. He was more afraid of his sergeant than of the thing he had just killed.\n\n## Part II — The Corridor Ceased\n\nThe far wall did not open. It folded. The tree came through with the plaster still on it. The mound came through behind the tree.\n\nToad Lee and Wyatt were what was left in the hall. Wyatt hit twice and did not step back. The mound put a spell into the press and Brad went to his knees with a waiter's tray-hand still open. Hjumpik came back into the square yard and cut until the mound was compost.\n\nHank waved both arms from a doorway and then went through it alone.\n\n## Part III — The Reading Room\n\nSeventeen turns. The Oracle went twice into a shrub. Two house guards worked a second mound. Satyrs and sprites found the largest of them. A goblin kept a staff and a count. The busiest thing on the floor is marked in the tally as the Ravenous Host, and nobody has told me what that is.\n\nThe sprite archer took no action and lived the whole engagement. A sprite blade found a sprite. The largest of them went down in the room where I had been reading about wine and a roast chestnut.\n\n## Part IV — Everybody Falls Back\n\nTwenty-seven turns. A caster took a multiattack through the ribs. An archer left the field four separate times. A warrior cut the archer. A sorcerer attacked three times and ran three times. The door left with them.\n\nSomebody asked the house guard for help. The answer was that their job is to guard the heir, and they are pretty stretched thin as is.\n\nThe corridor we had just held is quiet. Quiet is not held.\n",
+    "aftermath": "The house is one corridor smaller. The leaves on the outside wall were cut and have grown back thicker. Three plant bodies are down. The Revel then issued [[prop:prop_revel_evacuation_order|an evacuation order]] for the house it is eating, and the house obeyed. The sixth of the six is still behind a door. The bait plan was written after the whistle, not before it. Cleanup of the lane and the house is still owed as separate paper.",
+    "waluigiAssessment": "I sat through the wall, the mound, and the room with the book. I will not dress this up as a campaign. Four rooms, no formation that survived the first shrub, and the mound died because enough people hit the same square yard. That worked three times. The fourth time everybody left, including the door.\n\nI said the wall needed more than Brad and Hank. I said it. Timmy put both strokes into Hank anyway. A sprite did the same job to a sprite. Friendly fire is not an accident in this house. It is how the house fights.\n\nI heard the sixth name once at roll call. I am not printing a first hearing from this house until he says it twice. That is me. That is not the tally failing.\n\nThe house guard told us they were stretched thin guarding the man whose house was being eaten. I wrote that down. I would like it read twice.",
+    "relatedArticles": [
+      "feyward_battalion_of_six_and_the_bait_plan",
+      "feyward_woodfellow_vs_the_treant",
+      "overgrown_manor",
+      "hjumpik",
+      "waluigi",
+      "toad_lee",
+      "the_oracle",
+      "the_feyward_revel_crisis_poison_plants_and_frozen_diplomacy"
+    ],
+    "reputationChanges": {
+      "hjumpik": {
+        "disaster_inc": 15
+      }
+    },
+    "effects": {
+      "disaster_inc": -3
+    },
+    "reputationNotes": {
+      "hjumpik": "lost a corridor but held the wall, earning respect from his team"
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-29T18:03:33+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    },
+    "image": "assets/images/battles/feyward-sixth-detachment-house-defense/feyward-sixth-detachment-house-defense-01.jpg",
+    "imageCaption": "Six along the outside wall walk with the garden heaving below. Twenty-seven turns of falling back started here."
+  },
+  {
+    "id": "library_reclamation",
+    "name": "The Reclamation of the Library",
+    "date": "1 Aethel, 922 BF (Feyward clock)",
+    "location": "The Overgrown Library, The Overgrown Manor",
+    "type": "Room Clearance / Opportunistic Ambush",
+    "result": "Victory - shambling mound destroyed; library retaken and immediately left unheld",
+    "belligerents": {
+      "attackers": {
+        "name": "Hjumpik's detachment",
+        "factionId": "disaster_inc",
+        "commander": "Hjumpik"
+      },
+      "defenders": {
+        "name": "Shambling mound (book-eater)",
+        "factionId": "unaligned",
+        "commander": "None"
+      }
+    },
+    "casualties": {
+      "attackers": "None",
+      "defenders": "Shambling mound destroyed; part of the collection eaten and unrecoverable"
+    },
+    "summary": "Hjumpik saw a shambling mound eating the library's books, abandoned the standing order to go upstairs, and took the room back. The creature had already been fought by the manor's fey residents before the party arrived. It was killed by a goblin staff, a warhammer and a magic missile in that order.",
+    "description": "The party approached along the bare joists in single file - the Veteran on point by his own offer, then Waluigi, then Hjumpik, with Toad Lee third. The stealth held; the mound did not turn, because it was reading. Hjumpik's first swing missed a stationary distracted target and his second took the shoulder off. Manor goblins arrived and stabbed it repeatedly. Waluigi finished it with a magic missile that detonated the remaining mass.\n\nThe archive records this as overkill. The creature was most of the way dead when the engagement began, a point Waluigi raised in the corridor ninety minutes later and which became the session's central argument. Toad Lee was present for the fight and, immediately afterward, could not say what had just been said to him - the third recorded instance of lost time.",
+    "aftermath": "The library was retaken and then left without a guard, making the reclamation a claim rather than a holding. Hjumpik recovered the mound's sharpened hardwood as a sword and spent a yew leaf as a component. The tree librarian, rooted at the west wall, did not intervene and did not comment.",
+    "relatedArticles": [
+      "hjumpik",
+      "waluigi",
+      "toad_lee",
+      "the_veteran_fairy",
+      "overgrown_library",
+      "feyward_library_reclamation_and_the_kitchen"
+    ],
+    "reputationChanges": {
+      "hjumpik": {
+        "disaster_inc": 10
+      }
+    },
+    "effects": {
+      "disaster_inc": 5
+    },
+    "reputationNotes": {
+      "hjumpik": "Broke from a planned objective to defend a room for its own sake - the first time anyone in the manor has done so."
+    },
+    "image": "assets/images/battles/library-reclamation/library-reclamation-01.jpg",
+    "imageCaption": "Hjumpik broke the standing order to go upstairs, because the mound was eating the library."
+  },
+  {
+    "id": "the_bathroom_door_impostor",
+    "name": "The Bathroom Door",
+    "date": "2 Aethel, 922 BF (Feyward clock)",
+    "location": "An upstairs bathroom, The Overgrown Manor",
+    "type": "Unmasking / Single-Exchange Kill",
+    "result": "Victory - plant creature destroyed in one exchange",
+    "belligerents": {
+      "attackers": {
+        "name": "Hjumpik's detachment",
+        "factionId": "disaster_inc",
+        "commander": "Hjumpik"
+      },
+      "defenders": {
+        "name": "Plant creature posing as the lady of the manor",
+        "factionId": "unaligned",
+        "commander": "None"
+      }
+    },
+    "casualties": {
+      "attackers": "None",
+      "defenders": "Destroyed - reduced to ash where it stood"
+    },
+    "summary": "A house guard spent between fifteen and twenty minutes guarding what he believed was the lady of the manor, behind a bathroom door, because she was hiding her face. Toad Lee caught the discrepancy in the timings. Hjumpik knocked and opened the door. Waluigi destroyed what came out with a single spark of fire before it cleared the frame.",
+    "description": "The guard's account contained the error that ended it: he had been at the door fifteen minutes by Toad Lee's count and twenty by his own, and the lady he was protecting had never shown her face. Hjumpik knocked once and opened the door.\n\nWaluigi did not deliberate. A small precise spark went into the centre of the mass where a heart would be, and the creature turned to ash standing up. The engagement lasted one exchange. This is the second creature in the manor to have worn the Lady's identity, after the plant unmasked in the parlour.",
+    "aftermath": "A violet fungus was recovered from the toilet during the subsequent search - alive, apparently sapient, and untranslated. Hjumpik attempted to interview it, then consulted Waluipedia as a field reference. The fungus remains uncatalogued.",
+    "relatedArticles": [
+      "hjumpik",
+      "waluigi",
+      "toad_lee",
+      "overgrown_manor",
+      "feyward_library_reclamation_and_the_kitchen"
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "disaster_inc": 10
+      }
+    },
+    "effects": {
+      "disaster_inc": 5
+    },
+    "reputationNotes": {
+      "waluigi": "Destroyed a second impostor in a single exchange, without hesitation and without asking it a question first."
+    },
+    "image": "assets/images/battles/the-bathroom-door-impostor/the-bathroom-door-impostor-01.jpg",
+    "imageCaption": "Fifteen to twenty minutes guarding a bathroom door for the lady of the manor. Note the window at the end of the hall."
+  }
+]

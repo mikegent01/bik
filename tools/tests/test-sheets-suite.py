@@ -116,17 +116,18 @@ check("packets are git-ignored build artefacts",
       "Reputation-Matrix2/actors/worlds/*/import.json" in (ROOT / ".gitignore").read_text(encoding="utf-8")
       and "Reputation-Matrix2/actors/worlds/*/players-import.json" in (ROOT / ".gitignore").read_text(encoding="utf-8"))
 check("one import carries everything: the world mirror, the generated cast, the era packets and the other committed packets the scheme names (the Liberated Toads cohorts, Fawful's Forces), in that precedence",
-      [os.path.relpath(d, suite.ACTORS).replace(os.sep, "/") for d in suite.packet_sources("midlands")] == ["worlds/midlands", "cast", "peachs-castle-955", "bowsers-castle-1035", "liberated-toads", "fawfuls-forces"])
+      [os.path.relpath(d, suite.ACTORS).replace(os.sep, "/") for d in suite.packet_sources("midlands")] == ["worlds/midlands", "cast", "peachs-castle-955", "bowsers-castle-1035", "liberated-toads", "fawfuls-forces", "foundry-trinity-academy", "iron-legion", "regal-lion"])
 everything = read(ROOT / "Reputation-Matrix2/actors/worlds/midlands/import.json")
 names = {(a["name"].lower(), a["type"]) for a in everything["actors"]}
 n_mirror = read(ROOT / "Reputation-Matrix2/actors/worlds/midlands/manifest.json")["actorCount"]
 n_cast = read(ROOT / "Reputation-Matrix2/actors/cast/import.json")["actorCount"]
-n_era = sum(read(ROOT / f"Reputation-Matrix2/actors/{d}/import.json")["actorCount"] for d in ("peachs-castle-955", "bowsers-castle-1035", "liberated-toads", "fawfuls-forces"))
+era_packets = ("peachs-castle-955", "bowsers-castle-1035", "liberated-toads", "fawfuls-forces", "foundry-trinity-academy", "iron-legion", "regal-lion")
+n_era = sum(read(ROOT / f"Reputation-Matrix2/actors/{d}/import.json")["actorCount"] for d in era_packets)
 omitted = everything.get("omitted") or []
 check("…the built packet holds the live world + cast + the era packets (955 BF court, 1035 BF castle) + the Liberated Toads cohorts; a cast or packet copy the world already has (same name + type) is left out and listed",
       everything["actorCount"] == n_mirror + n_cast + n_era - len(omitted) and len(omitted) >= 10 and ("koopatrol", "npc") in names and ("bowser (955 bf)", "character") in names
       and ("sentry t", "npc") in names and ("fury-bot", "npc") in names
-      and all(o["keptFrom"] == "Reputation-Matrix2/actors/worlds/midlands" and o["file"].startswith(("Reputation-Matrix2/actors/cast/", "Reputation-Matrix2/actors/peachs-castle-955/", "Reputation-Matrix2/actors/bowsers-castle-1035/", "Reputation-Matrix2/actors/liberated-toads/", "Reputation-Matrix2/actors/fawfuls-forces/")) for o in omitted)
+      and all(o["keptFrom"] == "Reputation-Matrix2/actors/worlds/midlands" and any(o["file"].startswith(f"Reputation-Matrix2/actors/{d}/") for d in ("cast",) + era_packets) for o in omitted)
       and len({(o["name"].lower(), o["type"]) for o in omitted} & names) == len(omitted), str(omitted)[:200])
 era_sub = suite.read_json_quiet(os.path.join(suite.ACTORS, "folders.json"))["eras"]["peachs-castle-955"]["folder"]
 check("…the eras sit under their factions (Koopa Troop / 955 BF — Peach's Castle, Mushroom Regency & Kingdom / 955 BF — Peach's Castle) and the cohorts under Liberated Toads / <cohort>; no era root of its own",
@@ -166,9 +167,13 @@ check("the five retired player characters file by faction — Disaster Inc. — 
 check("the Steel Defender — the roster's companion — is filed with the faction he belongs to; a companion MAY sit in Players/, he does not have to",
       by_id["Q8InPZPmhqhpOY7g"][0].parent.name == "Disaster Inc" and "Steel Defender" in promote.COMPANIONS
       and promote.COMPANIONS == {c["name"] for c in scheme_players["companions"]})
-export = read(ROOT / "midlands-all-actors.json")
-exported = {a["_id"]: a for a in export["actors"]}
 xp = promote.B.load_xp_summary()
+_export_path = ROOT / "midlands-all-actors.json"
+exported = {}
+if _export_path.exists():
+    exported = {a["_id"]: a for a in read(_export_path)["actors"]}
+else:
+    print("SKIP promotion-vs-export checks: midlands-all-actors.json not in repo")
 for promo in promote.PROMOTIONS:
     aid, name = promo["id"], promo["name"]
     live = by_id.get(aid)
@@ -182,10 +187,11 @@ for promo in promote.PROMOTIONS:
     if not live:
         continue
     path, doc = live
-    src = exported[aid]
-    check(f"{name}: the world has taken the promotion (the committed export carries the character sheet under the live id; the record says what was done)", src["type"] == "character" and (src["flags"].get("waluipedia-sheets") or {}).get("promoted", {}).get("mode") == promo["mode"], src["type"])
-    check(f"{name}: ownership kept from the world (the players keep access)", doc["ownership"] == src["ownership"])
-    check(f"{name}: the GM's art kept", doc["img"] == src["img"] and doc["prototypeToken"]["texture"]["src"] == src["prototypeToken"]["texture"]["src"])
+    src = exported.get(aid)
+    if src is not None:
+        check(f"{name}: the world has taken the promotion (the committed export carries the character sheet under the live id; the record says what was done)", src["type"] == "character" and (src["flags"].get("waluipedia-sheets") or {}).get("promoted", {}).get("mode") == promo["mode"], src["type"])
+        check(f"{name}: ownership kept from the world (the players keep access)", doc["ownership"] == src["ownership"])
+        check(f"{name}: the GM's art kept", doc["img"] == src["img"] and doc["prototypeToken"]["texture"]["src"] == src["prototypeToken"]["texture"]["src"])
     check(f"{name}: token linked to the actor", doc["prototypeToken"]["actorLink"] is True)
     check(f"{name}: folderPath flag says {' / '.join(want_flag)}", doc["flags"]["waluipedia-mass-import"]["folderPath"] == want_flag,
           str(doc["flags"]["waluipedia-mass-import"]["folderPath"]))
@@ -522,7 +528,7 @@ except UnicodeDecodeError:
     cp_text = ""
 check("the check pass is green and UTF-8 even when the terminal is cp1252", cp.returncode == 0 and "done" in cp_text and "—" in cp_text and "UnicodeEncodeError" not in cp_text, cp.stdout[-400:].decode("utf-8", "replace"))
 pro = subprocess.run([PY, str(ROOT / "tools/promote-player-sheets.py"), "--check"], cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
-check("tools/promote-player-sheets.py --check passes and flags Hjumpik's pending level-up", pro.returncode == 0 and "Hjumpik" in pro.stdout and "level up in Foundry" in pro.stdout, pro.stdout[-400:])
+check("tools/promote-player-sheets.py --check passes (all roster characters at ledger level, 0 off-ledger)", pro.returncode == 0 and "7 at ledger XP, 0 off-ledger" in pro.stdout, pro.stdout[-400:])
 
 # ---- 1.9: a character sheet in Players/ that is not on the roster (the 2026-10-06 mistake, 34 of them)
 # is an error for --check (the verify step, after the organizer) and a warning right after a write

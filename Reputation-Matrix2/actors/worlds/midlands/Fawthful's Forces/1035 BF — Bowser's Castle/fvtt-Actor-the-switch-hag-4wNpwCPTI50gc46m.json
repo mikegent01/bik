@@ -1226,6 +1226,22 @@
         "basis": "era",
         "from": null
       }
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "skirmisher",
+          "tactician"
+        ],
+        "reasons": [
+          "Creature type \"fey\" → skirmisher",
+          "Creature type \"fey\" → tactician"
+        ],
+        "confidence": 0.6666666666666666,
+        "version": 3,
+        "timestamp": 1791338856786,
+        "manuallyOverridden": false
+      }
     }
   },
   "_stats": {
@@ -1235,7 +1251,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791261791461,
-    "modifiedTime": 1791325780482,
+    "modifiedTime": 1791338856793,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

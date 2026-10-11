@@ -1348,6 +1348,24 @@
     },
     "midi-qol": {
       "onUseMacroParts": {}
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "disciplined",
+          "fearless",
+          "undead-disciplined"
+        ],
+        "reasons": [
+          "Creature type \"construct\" → disciplined",
+          "Creature type \"construct\" → fearless",
+          "Keyword \"shadow\" in name/biography → undead-disciplined"
+        ],
+        "confidence": 1,
+        "version": 3,
+        "timestamp": 1791339197591,
+        "manuallyOverridden": false
+      }
     }
   },
   "_stats": {
@@ -1357,7 +1375,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791324113043,
-    "modifiedTime": 1791325780030,
+    "modifiedTime": 1791339197599,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

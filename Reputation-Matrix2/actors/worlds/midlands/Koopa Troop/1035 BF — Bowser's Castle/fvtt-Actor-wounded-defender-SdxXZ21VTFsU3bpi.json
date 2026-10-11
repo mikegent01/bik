@@ -819,6 +819,20 @@
         "basis": "era",
         "from": null
       }
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "skirmisher"
+        ],
+        "reasons": [
+          "No inference signals — fallback pool pick for \"humanoid\": skirmisher"
+        ],
+        "confidence": 0,
+        "version": 3,
+        "timestamp": 1791339301990,
+        "manuallyOverridden": false
+      }
     }
   },
   "_stats": {
@@ -828,7 +842,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791261790419,
-    "modifiedTime": 1791325781108,
+    "modifiedTime": 1791339301996,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

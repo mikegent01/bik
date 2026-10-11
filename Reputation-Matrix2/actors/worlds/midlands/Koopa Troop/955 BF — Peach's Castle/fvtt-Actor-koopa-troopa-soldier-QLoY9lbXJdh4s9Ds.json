@@ -1114,6 +1114,20 @@
           "Bowser's Incursion"
         ]
       }
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "disciplined"
+        ],
+        "reasons": [
+          "Keyword \"soldier\" in name/biography → disciplined"
+        ],
+        "confidence": 0.3333333333333333,
+        "version": 3,
+        "timestamp": 1791340762947,
+        "manuallyOverridden": false
+      }
     }
   },
   "_stats": {
@@ -1123,7 +1137,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791171682166,
-    "modifiedTime": 1791325781480,
+    "modifiedTime": 1791340762956,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

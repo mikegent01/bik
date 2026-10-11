@@ -16,7 +16,7 @@ import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, "Reputation-Matrix2", "actors",
-                   "original-fvtt-Actor-lady-aurelian-corvinarus-ADErrUjJaehXfDni.json")
+                   "fvtt-Actor-lady-aurelian-corvinarus-ADErrUjJaehXfDni.json")
 
 B, C, D, P, R, S, WL, WZ = "bard cleric druid paladin ranger sorcerer warlock wizard".split()
 

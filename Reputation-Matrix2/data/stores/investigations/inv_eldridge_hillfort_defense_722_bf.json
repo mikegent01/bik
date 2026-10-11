@@ -1,0 +1,32 @@
+[
+  {
+    "id": "inv_eldridge_hillfort_defense_722_bf",
+    "codename": "DEFENSE OF ELDRIDGE HILLFORT",
+    "title": "Aftermath: Defense of Eldridge Hillfort",
+    "subtitle": "The archive requires answers.",
+    "status": "active",
+    "classification": "Generated Investigation",
+    "opened": "Firstlight 15, 722 BF",
+    "archivist": "Waluigi, Auditor-General",
+    "icon": "🕵️",
+    "accent": "#4a9c6d",
+    "plainSummary": [
+      {
+        "point": "Aftermath of the Raid on Eldridge Hillfort: Following the raid, purification teams from neighboring settlements arrived to restore order and health within the hillfort.",
+        "detail": "The immediate task was to address the sanitation issues caused by the battle, ensuring that any infectious agents were neutralized. New water sources were vital, and after a series of challenges, the discovery of a hidden spring brought much-needed relief. The hillfort’s leaders prioritized both short-term repairs and long-term strategic planning. They fortified existing defenses, reinforcing walls and improving watchtowers to better withstand potential future attacks. Simultaneously, they began reorganizing supply lines and engaging in diplomacy with nearby settlements for additional support and resources. Despite the optimism brought by the spring, Eldridge Hillfort remained on high alert. The people knew that rebuilding was crucial but also understood the importance of preparing for further conflict. This dual focus reflected a deep understanding of their environment and the unyielding nature of survival. The hillfort stood as both a symbol of resilience and a reminder of the ongoing struggle to maintain order in an ever-threatened world."
+      }
+    ],
+    "leads": [],
+    "sessions": [
+      {
+        "id": "s_eldridge_hillfort_defense_722_bf",
+        "label": "Defense of Eldridge Hillfort",
+        "event": "eldridge_hillfort_defense_722_bf"
+      }
+    ],
+    "relatedEvents": [
+      "eldridge_hillfort_defense_722_bf"
+    ],
+    "exhibits": []
+  }
+]

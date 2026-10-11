@@ -8,8 +8,8 @@
   :root { color-scheme: dark; --bg:#14161a; --panel:#1d2026; --line:#2c313a; --ink:#e8e6e0; --dim:#9aa0a8; --acc:#7CFC00; --acc2:#32CD32; --warn:#f0b429; --bad:#ef6b6b; --ok:#6fd28a; }
   * { box-sizing: border-box; }
   body { margin:0; background:var(--bg); color:var(--ink); font:14px/1.45 system-ui, "Segoe UI", sans-serif; }
-  a { color:var(--acc2); }
-  header { display:flex; align-items:center; gap:14px; padding:10px 16px; border-bottom:1px solid var(--line); background:var(--panel); position:sticky; top:0; z-index:5; flex-wrap:wrap; }
+  a { color:var(--acc2); text-decoration:none; } a:hover { text-decoration:underline; }
+  header { display:flex; align-items:center; gap:14px; padding:10px 16px; border-bottom:1px solid var(--line); background:var(--panel); position:sticky; top:0; z-index:10; flex-wrap:wrap; }
   header h1 { font-size:18px; margin:0; letter-spacing:.3px; }
   header h1 small { color:var(--dim); font-weight:normal; font-size:12px; margin-left:8px; }
   .spacer { flex:1; }
@@ -20,9 +20,9 @@
   button.primary { background:#2a4a1e; border-color:var(--acc2); } button.danger { border-color:var(--bad); }
   input, select, textarea { background:#111318; color:var(--ink); border:1px solid #3a414c; border-radius:6px; padding:5px 7px; font:inherit; }
   textarea { width:100%; min-height:64px; resize:vertical; }
-  main { display:grid; grid-template-columns: 300px 1fr; gap:0; min-height:calc(100vh - 54px); }
-  aside { border-right:1px solid var(--line); padding:14px; background:#181b20; }
-  section.work { padding:14px 18px; }
+  main { display:grid; grid-template-columns: 320px 1fr; gap:0; min-height:calc(100vh - 54px); }
+  aside { border-right:1px solid var(--line); padding:14px; background:#181b20; overflow-y:auto; }
+  section.work { padding:14px 18px; overflow-y:auto; }
   h2 { font-size:14px; text-transform:uppercase; letter-spacing:.8px; color:var(--dim); margin:18px 0 8px; }
   h2:first-child { margin-top:0; }
   .roster { padding:8px 10px; border:1px solid var(--line); border-radius:8px; margin-bottom:8px; cursor:pointer; }
@@ -30,27 +30,44 @@
   .roster b { display:block; } .roster small { color:var(--dim); }
   .bar { display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin:8px 0; }
   .bar label { color:var(--dim); font-size:13px; display:inline-flex; align-items:center; gap:4px; }
-  .grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap:12px; margin-top:10px; }
-  .card { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:10px; display:grid; grid-template-columns: 112px 1fr; gap:10px; }
-  .card .pic { width:112px; height:112px; border-radius:8px; background: repeating-conic-gradient(#2a2e36 0 25%, #1d2026 0 50%) 0 0/16px 16px; display:flex; align-items:center; justify-content:center; overflow:hidden; cursor:pointer; }
-  .card .pic img { max-width:100%; max-height:100%; }
-  .card .pic span { color:var(--dim); font-size:12px; text-align:center; padding:6px; }
-  .card h3 { margin:0 0 2px; font-size:15px; } .card .meta { color:var(--dim); font-size:12px; margin-bottom:6px; }
-  .badges { display:flex; gap:4px; flex-wrap:wrap; margin:4px 0; }
+  .grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap:14px; margin-top:10px; }
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:12px; display:grid; grid-template-columns: 92px 1fr; gap:12px; }
+  .art-review { display:flex; flex-direction:column; gap:8px; }
+  .thumb-slot { display:flex; flex-direction:column; align-items:center; gap:2px; }
+  .thumb-slot small { color:var(--dim); font-size:10px; text-transform:uppercase; letter-spacing:.5px; font-weight:600; }
+  .pic { width:88px; height:68px; border-radius:6px; border:1px solid var(--line); display:flex; align-items:center; justify-content:center; overflow:hidden; cursor:pointer; background: repeating-conic-gradient(#2a2e36 0 25%, #1d2026 0 50%) 0 0/12px 12px; }
+  .pic.has-art { border-color:#4a5464; }
+  .pic:hover { border-color:var(--acc2); }
+  .pic img { max-width:100%; max-height:100%; object-fit:contain; }
+  .pic span { color:var(--dim); font-size:11px; text-align:center; padding:4px; }
+  .card-body { display:flex; flex-direction:column; gap:4px; min-width:0; }
+  .card-head { display:flex; align-items:baseline; justify-content:space-between; gap:6px; flex-wrap:wrap; }
+  .card h3 { margin:0; font-size:15px; } .card .meta { color:var(--dim); font-size:12px; }
+  .badges { display:flex; gap:4px; flex-wrap:wrap; margin:2px 0; }
   .badge { font-size:11px; padding:1px 6px; border-radius:8px; border:1px solid var(--line); color:var(--dim); }
   .badge.on { border-color:var(--ok); color:var(--ok); }
-  .card .tools { display:flex; gap:6px; flex-wrap:wrap; margin-top:6px; }
-  .card .tools button { padding:3px 8px; font-size:12px; }
-  .card.full { grid-column: 1 / -1; grid-template-columns: 1fr; }
+  .badge.rep { border-color:var(--ok); color:var(--ok); background:rgba(111,210,138,.12); font-weight:600; }
+  .framing-row { display:flex; align-items:center; gap:6px; margin:2px 0 4px; font-size:12px; color:var(--dim); flex-wrap:wrap; }
+  .framing-row select { padding:3px 6px; font-size:12px; }
+  .btn-xs { padding:3px 7px; font-size:11px; border-radius:4px; }
+  .workflow-tools { display:flex; gap:6px; flex-wrap:wrap; margin-top:6px; }
+  .workflow-tools button { padding:4px 9px; font-size:12px; }
+  .sub-tools { display:flex; gap:6px; flex-wrap:wrap; margin-top:4px; align-items:center; }
+  .sub-tools button { padding:3px 7px; font-size:11px; }
   .log { background:#0f1114; border:1px solid var(--line); border-radius:8px; padding:8px 10px; font:12px/1.5 ui-monospace, Consolas, monospace; max-height:220px; overflow:auto; white-space:pre-wrap; color:#c9d1d9; }
   progress { width:100%; height:8px; accent-color:var(--acc2); }
-  .muted { color:var(--dim); } .err { color:var(--bad); }
-  details { margin:8px 0; } summary { cursor:pointer; color:var(--dim); }
+  .muted { color:var(--dim); } .err { color:var(--bad); } .ok { color:var(--ok); }
+  details { margin:8px 0; } summary { cursor:pointer; color:var(--dim); user-select:none; }
   form.new label { display:block; margin:6px 0 2px; color:var(--dim); font-size:12px; }
-  form.new input, form.new select { width:100%; }
+  form.new input, form.new select, form.new textarea { width:100%; }
   .hint { font-size:12px; color:var(--dim); margin:6px 0; }
-  #viewer { position:fixed; inset:0; background:rgba(0,0,0,.85); display:none; align-items:center; justify-content:center; z-index:20; }
-  #viewer img { max-width:92vw; max-height:92vh; background: repeating-conic-gradient(#2a2e36 0 25%, #1d2026 0 50%) 0 0/24px 24px; }
+  #viewer { position:fixed; inset:0; background:rgba(0,0,0,.85); display:none; align-items:center; justify-content:center; z-index:30; cursor:pointer; }
+  #viewer img { max-width:92vw; max-height:92vh; background: repeating-conic-gradient(#2a2e36 0 25%, #1d2026 0 50%) 0 0/24px 24px; border-radius:8px; box-shadow:0 0 24px rgba(0,0,0,.8); }
+  .modal { position:fixed; inset:0; background:rgba(0,0,0,.8); display:none; align-items:center; justify-content:center; z-index:25; padding:16px; }
+  .modal-box { background:var(--panel); border:1px solid var(--line); border-radius:10px; width:100%; max-width:800px; max-height:85vh; display:flex; flex-direction:column; padding:16px; gap:12px; }
+  .modal-head { display:flex; align-items:center; justify-content:space-between; }
+  .modal-head h3 { margin:0; font-size:16px; }
+  .modal-body { flex:1; overflow-y:auto; background:#0f1114; border:1px solid var(--line); border-radius:6px; padding:12px; font:12px/1.5 ui-monospace, Consolas, monospace; white-space:pre-wrap; color:#c9d1d9; }
 </style>
 </head>
 <body>
@@ -75,7 +92,7 @@
         <label>Name</label><input id="nfName" placeholder="Koopa Troop patrols">
         <label>Foundry group folder</label><select id="nfGroup"></select>
         <label>Plan (CR per entry)</label><input id="nfPlan" value="0.5,0.5,1,2,2,3,4,5">
-        <label>Framing</label><select id="nfFraming"><option value="">full body (roster default)</option><option value="fullbody">full body</option><option value="bust">bust</option><option value="head">head shot</option></select>
+        <label>Framing preset</label><select id="nfFraming"><option value="fullbody">make full body (roster default)</option><option value="bust">bust</option><option value="head">head shot</option></select>
         <div class="hint">Drafts templated statblocks per tier (they import today) with placeholder looks; write the real roster in <code>data/forge/&lt;packet&gt;.json</code> and the looks right here. The group and sub-folders are added to <code>actors/folders.json</code>.</div>
         <button type="submit" class="primary">Draft roster</button>
       </form>
@@ -96,22 +113,50 @@
       <form class="new" id="inputForm" onsubmit="return false">
         <label>Website match</label><input id="siteMatch" placeholder="e.g. Iron Legion (blank = every article)">
         <label>At most</label><input id="siteLimit" type="number" value="8" min="1" max="40">
-        <label>Framing for new entries</label><select id="inFraming"><option value="">roster default</option><option value="fullbody">make full body</option><option value="bust">bust</option><option value="head">head shot</option></select>
+        <label>Framing for new entries</label><select id="inFraming"><option value="fullbody">make full body</option><option value="bust">bust</option><option value="head">head shot</option></select>
         <button id="btnCollectSite" class="primary">Collect roster from the website</button>
         <div class="hint">Adds website articles that have prose and no forge entry yet — the article's summary + description become the entry's look, so the render recipe writes itself.</div>
-        <label>Render folder</label><input id="ingestDir" placeholder="folder the image model writes to">
+
+        <label style="margin-top:10px">Custom rows / file input</label>
+        <textarea id="rawInputRows" placeholder='[{"name": "Koopa Sentry", "look": "A vigilant green koopa with a halberd", "tier": "1", "framing": "fullbody"}]&#10;or one line per character: Name: Look description'></textarea>
+        <label class="badge" style="cursor:pointer;display:inline-block;margin:4px 0">Load input file (.json, .csv) <input type="file" id="inputFileRows" accept=".json,.csv,.txt" hidden></label>
+        <div class="bar" style="margin:4px 0">
+          <button id="btnDraftFromInput">Draft roster from input</button>
+          <button id="btnCollectFromInput">Collect input into roster</button>
+        </div>
+
+        <label style="margin-top:10px">Render folder</label><input id="ingestDir" placeholder="folder the image model writes to">
         <button id="btnIngest">Auto-collect renders from folder</button>
         <div class="hint">Files <i>and cuts</i> every PNG in that folder matching a pending job (by entry id or name) — no drag &amp; drop. Headless twin: <code>npc-forge.py ingest &lt;packet&gt; --dir … --watch</code>. Prompts for any image model: <code>npc-forge.py prompt &lt;packet&gt;</code>.</div>
       </form>
     </details>
-    <h2>How it flows</h2>
-    <div class="hint">1 · pick or draft a roster · 2 · <b>Run loop</b> renders every entry without art on your Comfy (Qwen-Image-2.1), cuts the plate, rebuilds the actors · 3 · commit <code>data/forge</code>, <code>npc-forge/&lt;packet&gt;/renders</code>, <code>portraits/&lt;packet&gt;</code>, <code>actors/&lt;packet&gt;</code> — the suite's Sync carries the packet into Foundry.<br><br>No GPU here? <b>Hand-off brief</b> writes the prompts and file names; drop the finished PNGs on the cards (or into the renders folder) and press <b>Cut + build</b>.</div>
+    <h2>Workflow &amp; Pipeline</h2>
+    <div class="hint">
+      <b>1. Gather / Match:</b> Load Foundry folder or collect website articles.<br>
+      <b>2. Review &amp; Generate:</b> Check each character's current art, prompt &amp; framing ("make full body"), render missing.<br>
+      <b>3. Remove Background (Step 2):</b> Cut render or source image into a transparent full-body usable sprite.<br>
+      <b>4. Replace Current Image:</b> Replace asset on website (<code>characters.json</code>) and in Foundry (world mirror &amp; packet actors). Batchable via settings below.
+    </div>
   </aside>
   <section class="work">
     <div id="work"><p class="muted">Loading…</p></div>
   </section>
 </main>
 <div id="viewer" onclick="this.style.display='none'"><img id="viewerImg" alt=""></div>
+<div id="promptsModal" class="modal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3 id="promptsTitle">AI Render Prompts</h3>
+      <button onclick="$('#promptsModal').style.display='none'">Close</button>
+    </div>
+    <div id="promptsBody" class="modal-body"></div>
+    <div class="bar">
+      <button id="btnCopyAllPrompts" class="primary">Copy All Prompts</button>
+      <button id="btnOpenJobsJson">Open Jobs JSON</button>
+      <span id="promptsStatus" class="muted"></span>
+    </div>
+  </div>
+</div>
 <script>
 const $ = (s, r=document) => r.querySelector(s);
 const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -149,7 +194,8 @@ function renderRosters() {
     if (r.error) { d.innerHTML = `<b>${esc(r.packet)}</b><small class="err">${esc(r.error)}</small>`; }
     else {
       const c = r.counts;
-      d.innerHTML = `<b>${esc(r.name)}</b><small>${esc(r.packet)} · ${c.entries} entries · ${c.plates}/${c.entries} plates · ${c.actors} actors</small>`;
+      const repText = c.replaced ? ` · ${c.replaced} replaced` : "";
+      d.innerHTML = `<b>${esc(r.name)}</b><small>${esc(r.packet)} · ${c.entries} entries · ${c.plates}/${c.entries} plates · ${c.actors} actors${repText}</small>`;
       d.onclick = () => { selected = r.packet; localStorage.setItem("forge.packet", selected); renderRosters(); renderWork(); };
     }
     box.appendChild(d);
@@ -208,31 +254,55 @@ function renderWork() {
     <h2>${esc(r.name)} <span class="muted" style="text-transform:none;letter-spacing:0">— ${esc(r.title || "")}</span></h2>
     <div class="hint">roster <code>${esc(r.path)}</code> · renders <code>${esc(r.renders_dir)}/</code> · plates <code>${esc(r.portraits_dir)}/</code> · actors <code>${esc(r.actors_dir)}/</code> · ${folderInfo}</div>
     <div class="bar">
-      <label><input type="checkbox" id="stRender" ${canRender ? "checked" : "disabled"}> render</label>
-      <label><input type="checkbox" id="stCut" checked> cut</label>
-      <label><input type="checkbox" id="stBuild" checked> build</label>
-      <label><input type="checkbox" id="onlyMissing" checked> only entries without a Forge render</label>
-      <label>seeds <select id="seedMode"><option value="roster">from the roster</option><option value="random">roll new (written back)</option></select></label>
-      <label>retries <input id="retries" type="number" value="1" min="0" max="4" style="width:52px"></label>
-      <label>steps <input id="sampSteps" type="number" placeholder="25" min="4" max="60" style="width:60px"></label>
-      <label>cfg <input id="cfg" type="number" placeholder="1" step="0.5" min="1" max="8" style="width:56px"></label>
+      <label><input type="checkbox" id="stRender" ${canRender ? "checked" : "disabled"}> 1. render</label>
+      <label><input type="checkbox" id="stCut" checked> 2. remove bg (cut)</label>
+      <label><input type="checkbox" id="stBuild" checked> 3. build</label>
+      <label><input type="checkbox" id="stReplace"> 4. replace current images</label>
+      <label><input type="checkbox" id="onlyMissing" checked> only missing art</label>
+      <label>seeds <select id="seedMode"><option value="roster">from roster</option><option value="random">roll new</option></select></label>
+      <label>retries <input id="retries" type="number" value="1" min="0" max="4" style="width:48px"></label>
+      <label>steps <input id="sampSteps" type="number" placeholder="25" min="4" max="60" style="width:52px"></label>
+      <label>cfg <input id="cfg" type="number" placeholder="1" step="0.5" min="1" max="8" style="width:50px"></label>
     </div>
     <div class="bar">
       <button id="run" class="primary" ${job && job.alive ? "disabled" : ""}>Run loop</button>
-      <button id="cutBuild" ${job && job.alive ? "disabled" : ""}>Cut + build</button>
+      <button id="btnBatchAdopt" ${job && job.alive ? "disabled" : ""} title="Adopt existing full-body sprites from portraits/player/fullbody/ for all entries that have one">Batch Adopt Sprites</button>
+      <button id="btnBatchRemoveBg" ${job && job.alive ? "disabled" : ""} title="Step 2: Remove background for all renders in roster">Batch Remove BG</button>
+      <button id="btnBatchReplace" ${job && job.alive ? "disabled" : ""} class="primary" title="Step 5 & 6: Replace current images on Website and Foundry for all cut sprites">Batch Replace Images</button>
       <button id="build" ${job && job.alive ? "disabled" : ""}>Build actors</button>
+      <button id="btnPrompts" title="View/copy AI render prompts">Prompts / AI Handoff</button>
       <button id="handoff">Hand-off brief</button>
-      <button id="jobsJson" title="The render jobs as JSON lines (prompts, seeds, sizes, file names)">Jobs JSON</button>
       <button id="stop" class="danger" ${job && job.alive ? "" : "disabled"}>Stop</button>
       <span id="status" class="muted"></span>
     </div>
+    <details>
+      <summary>Batching &amp; Replacement Settings…</summary>
+      <div class="bar">
+        <label><input type="checkbox" id="repWeb" checked> Replace website full-body sprite (<code>characters.json</code> <code>fullBody</code>)</label>
+        <label><input type="checkbox" id="repLead" checked> Update website lead portrait (<code>image</code>)</label>
+        <label><input type="checkbox" id="repFoundry" checked> Replace Foundry actor &amp; token (world mirror + packet)</label>
+        <label><input type="checkbox" id="repFile"> Overwrite original file if in <code>portraits/</code></label>
+      </div>
+    </details>
     <div id="jobBox" style="display:${job ? "block" : "none"}">
       <progress id="prog" max="${job ? job.total || 1 : 1}" value="${job ? job.done : 0}"></progress>
       <div class="log" id="log">${job ? esc(job.log.join("\n")) : ""}</div>
     </div>
     <details><summary>Recipe (style · framing · negative) — edits are saved to the roster</summary>
-      <label class="hint">style</label><textarea id="rStyle">${esc(r.style || "")}</textarea>
-      <label class="hint">framing</label><textarea id="rFraming">${esc(r.framing || "")}</textarea>
+      <div class="bar" style="margin-bottom:8px">
+        <label>Style family:
+          <select id="rStylePreset">
+            <option value="gritty" ${r.style_preset === "gritty" ? "selected" : ""}>Gritty Inked / Dark Fantasy (Trinity, Iron Legion, Wario)</option>
+            <option value="painterly" ${r.style_preset === "painterly" ? "selected" : ""}>Painterly Dark (Merric, Archie, Mossy)</option>
+            <option value="anime" ${r.style_preset === "anime" ? "selected" : ""}>Anime Cel (Remi)</option>
+            <option value="cartoon" ${r.style_preset === "cartoon" ? "selected" : ""}>Cartoon Cel (Mario &amp; Luigi, Toads)</option>
+            <option value="custom" ${r.style_preset === "custom" ? "selected" : ""}>Custom</option>
+          </select>
+        </label>
+        <span class="muted" style="font-size:12px">Matches the character's faction/shelf</span>
+      </div>
+      <label class="hint">style prompt</label><textarea id="rStyle">${esc(r.style || "")}</textarea>
+      <label class="hint">framing (roster default)</label><textarea id="rFraming">${esc(r.framing || "")}</textarea>
       <label class="hint">negative</label><textarea id="rNegative">${esc(r.negative || "")}</textarea>
       <div class="bar"><label>canvas <input id="rW" type="number" value="${r.render_size[0]}" style="width:70px"> × <input id="rH" type="number" value="${r.render_size[1]}" style="width:70px"></label>
       <label>plate <input id="rPlate" type="number" value="${r.plate_size}" style="width:64px"> px</label><button id="saveRecipe">Save recipe</button></div>
@@ -241,52 +311,207 @@ function renderWork() {
   const cards = $("#cards");
   for (const e of r.entries) cards.appendChild(card(r, e, job && job.alive));
   $("#run").onclick = () => startRun(r, steps());
-  $("#cutBuild").onclick = () => startRun(r, ["cut", "build"]);
+  const STYLE_MAP = {
+    "gritty": "Gritty dark fantasy illustration, heavy inked comic linework, cross-hatching, textured parchment paper, muted desaturated palette, semi-realistic proportions, detailed character concept art.",
+    "painterly": "Moody painterly digital concept art, dark fantasy archive plate, loose detailed brushwork, atmospheric cinematic lighting, textured oil painting surface.",
+    "anime": "Clean anime cel shading, crisp linework, vibrant flat colours, modern anime concept art.",
+    "cartoon": "Clean cel-shaded cartoon character art in the style of Mario & Luigi RPG concept art, bold dark outlines, flat colours, simple shading."
+  };
+  $("#rStylePreset").onchange = (ev) => {
+    const val = ev.target.value;
+    if (STYLE_MAP[val]) {
+      $("#rStyle").value = STYLE_MAP[val];
+    }
+  };
+  $("#btnBatchAdopt").onclick = async () => {
+    try {
+      setStatus("adopting existing full-body sprites…");
+      const o = await api("/api/use-fullbody", {packet: r.packet});
+      setStatus(`✓ Adopted ${o.count} existing full-body sprite(s)!`);
+      await refresh();
+    } catch (x) { setStatus(x.message, true); }
+  };
+  $("#btnBatchRemoveBg").onclick = async () => {
+    try { setStatus("removing backgrounds…"); const o = await api("/api/remove-bg", {packet: r.packet}); setStatus(`background removed for ${o.count} entr(ies) → ready to review/replace`); await refresh(); } catch (x) { setStatus(x.message, true); }
+  };
+  $("#btnBatchReplace").onclick = async () => {
+    try {
+      setStatus("replacing current assets in Website & Foundry…");
+      const o = await api("/api/replace", {packet: r.packet, replace_website: $("#repWeb").checked, replace_foundry: $("#repFoundry").checked, replace_lead: $("#repLead").checked, replace_file: $("#repFile")?.checked || false});
+      setStatus(`✓ Replaced ${o.count} character image(s) on Website & Foundry!`); await refresh();
+    } catch (x) { setStatus(x.message, true); }
+  };
   $("#build").onclick = async () => { try { setStatus("building…"); const o = await api("/api/build", {packet: r.packet}); setStatus(`built ${o.actors} actors → ${o.import}` + (o.pending.length ? ` (${o.pending.length} awaiting art)` : "")); await refresh(); } catch (x) { setStatus(x.message, true); } };
   $("#handoff").onclick = async () => { try { const o = await api("/api/handoff", {packet: r.packet, only_missing: $("#onlyMissing").checked}); setStatus(`wrote ${o.handoff} (${o.count} jobs)`); window.open(fileUrl(o.handoff, true)); } catch (x) { setStatus(x.message, true); } };
-  $("#jobsJson").onclick = () => window.open("/api/jobs?packet=" + encodeURIComponent(r.packet));
+  $("#btnPrompts").onclick = () => openPromptsModal(r);
   $("#stop").onclick = () => api("/api/stop", {});
   $("#saveRecipe").onclick = async () => {
-    try { await api("/api/roster", {packet: r.packet, fields: {style: $("#rStyle").value, framing: $("#rFraming").value, negative: $("#rNegative").value,
+    try { await api("/api/roster", {packet: r.packet, fields: {style: $("#rStyle").value, style_preset: $("#rStylePreset").value, framing: $("#rFraming").value, negative: $("#rNegative").value,
       render_size: [+$("#rW").value || 1408, +$("#rH").value || 768], plate_size: +$("#rPlate").value || 512}}); setStatus("recipe saved"); await refresh(); } catch (x) { setStatus(x.message, true); }
   };
 }
-function steps() { const s = []; if ($("#stRender").checked) s.push("render"); if ($("#stCut").checked) s.push("cut"); if ($("#stBuild").checked) s.push("build"); return s; }
-function setStatus(t, bad) { const s = $("#status"); if (s) { s.textContent = t; s.className = bad ? "err" : "muted"; } }
+function steps() {
+  const s = [];
+  if ($("#stRender") && $("#stRender").checked) s.push("render");
+  if ($("#stCut") && $("#stCut").checked) s.push("cut");
+  if ($("#stBuild") && $("#stBuild").checked) s.push("build");
+  if ($("#stReplace") && $("#stReplace").checked) s.push("replace");
+  return s;
+}
+function setStatus(t, bad) { const s = $("#status"); if (s) { s.textContent = t; s.className = bad ? "err" : "ok"; } }
 
 function card(r, e, busy) {
   const d = document.createElement("div");
   d.className = "card";
-  const shownArt = e.plate || e.render || e.source_img;
-  const pic = shownArt ? `<img src="${fileUrl(shownArt, true)}" alt="">` : `<span>${e.source_has_img ? "art in Foundry" : "no art yet"}</span>`;
-  const picTitle = e.plate ? "plate (click to view)" : e.render ? "render, not cut yet" : e.source_img ? "current Foundry art (click to view)" : e.source_has_img ? "Foundry art is outside this repo" : "no render";
+  const baseArt = e.base_img || e.source_img || e.site_img;
+  const baseHtml = baseArt ? `<img src="${fileUrl(baseArt, true)}" alt="Base reference">` : `<span>none</span>`;
+  const renderHtml = e.render ? `<img src="${fileUrl(e.render, true)}" alt="Render">` : `<span>none</span>`;
+  const plateHtml = e.plate ? `<img src="${fileUrl(e.plate, true)}" alt="Sprite">` : `<span>none</span>`;
+  const canRender = state.connection.connected && state.connection.can_render;
+
   d.innerHTML = `
-    <div class="pic" title="${picTitle}">${pic}</div>
-    <div>
-      <h3>${esc(e.name)}</h3>
+    <div class="art-review">
+      <div class="thumb-slot" title="Base reference image (portrait/source) used for rendering — click to view">
+        <div class="pic ${baseArt ? 'has-art' : ''}" data-view="base">${baseHtml}</div>
+        <small>Base Image</small>
+      </div>
+      <div class="thumb-slot" title="AI Render (on background) — click to view">
+        <div class="pic ${e.render ? 'has-art' : ''}" data-view="render">${renderHtml}</div>
+        <small>Render</small>
+      </div>
+      <div class="thumb-slot" title="Transparent Full-Body Sprite / Plate — click to view">
+        <div class="pic ${e.plate ? 'has-art' : ''}" data-view="plate">${plateHtml}</div>
+        <small>Sprite</small>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-head">
+        <h3>${esc(e.name)}</h3>
+        <div class="badges">
+          <span class="badge ${baseArt ? "on" : ""}" title="Base reference image">${baseArt ? "base: " + esc(e.base_image_name || "ref") : "no base"}</span>
+          <span class="badge ${e.render ? "on" : ""}">render</span>
+          <span class="badge ${e.plate ? "on" : ""}">sprite</span>
+          <span class="badge ${e.actor ? "on" : ""}">actor</span>
+          ${e.replaced ? '<span class="badge rep">✓ replaced</span>' : ''}
+        </div>
+      </div>
       <div class="meta">CR ${esc(crText(e.cr))} · ${esc(e.type)} · ${esc(e.folder)}${e.tier ? " · " + esc(e.tier) : ""}${e.token_size > 1 ? " · " + e.token_size + "×" + e.token_size : ""}</div>
-      <div class="badges"><span class="badge ${e.render ? "on" : ""}">render</span><span class="badge ${e.plate ? "on" : ""}">plate</span><span class="badge ${e.actor ? "on" : ""}">actor</span><span class="badge">seed ${esc(e.seed)}</span></div>
+      <div class="framing-row">
+        <label>Framing:
+          <select data-framing>
+            <option value="fullbody" ${e.framing_preset === "fullbody" ? "selected" : ""}>Full body (sprite)</option>
+            <option value="bust" ${e.framing_preset === "bust" ? "selected" : ""}>Bust portrait</option>
+            <option value="head" ${e.framing_preset === "head" ? "selected" : ""}>Headshot</option>
+            <option value="custom" ${e.framing_preset === "custom" ? "selected" : ""}>Custom</option>
+          </select>
+        </label>
+        <button data-make-fullbody class="btn-xs" title="Make full body image framing preset">Make full body</button>
+        ${e.existing_fullbody && !e.plate ? `<button data-use-fullbody class="btn-xs primary" title="Adopt established sprite from portraits/player/fullbody/">Adopt existing sprite</button>` : ''}
+      </div>
       <textarea data-look placeholder="look — what the Forge draws">${esc(e.look)}</textarea>
-      <div class="tools">
-        <button data-save>Save look</button>
-        <button data-render ${busy || !(state.connection.connected && state.connection.can_render) ? "disabled" : ""}>Render this one</button>
-        <button data-cut ${busy || !e.render ? "disabled" : ""}>Cut</button>
-        <label class="badge" style="cursor:pointer">drop/upload render <input type="file" accept="image/png,image/webp,image/jpeg" data-upload hidden></label>
-        <button data-prompt title="Copy the full prompt">Copy prompt</button>
+      <div class="workflow-tools">
+        <button data-render ${busy || !canRender ? "disabled" : ""} title="${baseArt ? 'Step 1: Render character using base reference image' : 'Step 1: Render character from text prompt'}">1. Render${baseArt ? ' (ref)' : ''}</button>
+        <button data-cut ${busy || (!e.render && !baseArt) ? "disabled" : ""} title="Step 2: Remove background and create transparent sprite">2. Remove BG</button>
+        <button data-replace ${busy || !e.plate ? "disabled" : ""} class="primary" title="Step 3: Replace current image on Website and Foundry">3. Replace image</button>
+      </div>
+      <div class="sub-tools">
+        <button data-save class="btn-xs">Save look</button>
+        <button data-prompt class="btn-xs" title="Copy full prompt for AI">Copy prompt</button>
+        <label class="badge" style="cursor:pointer" title="Upload custom base image for this character">Set Base <input type="file" accept="image/png,image/webp,image/jpeg" data-upload-base hidden></label>
+        ${baseArt ? `<button data-clear-base class="btn-xs" title="Clear base image (render purely from text prompt)">Clear base</button>` : ''}
+        ${e.base_img && e.source_img && e.base_img !== e.source_img ? `<button data-reset-base class="btn-xs" title="Reset base image to original source portrait">Reset base</button>` : ''}
+        <label class="badge" style="cursor:pointer" title="Upload finished render">Upload Render <input type="file" accept="image/png,image/webp,image/jpeg" data-upload hidden></label>
       </div>
     </div>`;
-  const view = (p) => { $("#viewerImg").src = fileUrl(p, true); $("#viewer").style.display = "flex"; };
-  $(".pic", d).onclick = () => { if (e.plate) view(e.plate); else if (e.render) view(e.render); else if (e.source_img) view(e.source_img); };
-  $("[data-save]", d).onclick = async () => { try { await api("/api/entry", {packet: r.packet, id: e.id, fields: {look: $("[data-look]", d).value}}); setStatus(`${e.name}: look saved`); await refresh(); } catch (x) { setStatus(x.message, true); } };
+
+  const view = (p) => { if (!p) return; $("#viewerImg").src = fileUrl(p, true); $("#viewer").style.display = "flex"; };
+  $("[data-view='base']", d).onclick = () => view(baseArt);
+  $("[data-view='render']", d).onclick = () => view(e.render);
+  $("[data-view='plate']", d).onclick = () => view(e.plate);
+
+  if ($("[data-use-fullbody]", d)) {
+    $("[data-use-fullbody]", d).onclick = async () => {
+      try {
+        setStatus(`${e.name}: adopting existing full-body sprite…`);
+        await api("/api/use-fullbody", {packet: r.packet, id: e.id});
+        setStatus(`✓ ${e.name}: adopted existing sprite!`);
+        await refresh();
+      } catch (x) { setStatus(x.message, true); }
+    };
+  }
+  if ($("[data-upload-base]", d)) {
+    $("[data-upload-base]", d).onchange = async (ev) => {
+      const f = ev.target.files[0]; if (!f) return;
+      try {
+        setStatus(`${e.name}: uploading base image ${f.name}…`);
+        const resp = await fetch(`/api/upload-base?packet=${encodeURIComponent(r.packet)}&id=${encodeURIComponent(e.id)}`, {method: "POST", body: await f.arrayBuffer()});
+        const j = await resp.json(); if (!resp.ok) throw new Error(j.error);
+        setStatus(`✓ ${e.name}: base image set to ${f.name}`);
+        await refresh();
+      } catch (x) { setStatus(x.message, true); }
+    };
+  }
+  if ($("[data-clear-base]", d)) {
+    $("[data-clear-base]", d).onclick = async () => {
+      try {
+        await api("/api/clear-base", {packet: r.packet, id: e.id});
+        setStatus(`${e.name}: base image cleared (will render text-to-image)`);
+        await refresh();
+      } catch (x) { setStatus(x.message, true); }
+    };
+  }
+  if ($("[data-reset-base]", d)) {
+    $("[data-reset-base]", d).onclick = async () => {
+      try {
+        await api("/api/reset-base", {packet: r.packet, id: e.id});
+        setStatus(`${e.name}: base image reset to original portrait`);
+        await refresh();
+      } catch (x) { setStatus(x.message, true); }
+    };
+  }
+
+  $("[data-make-fullbody]", d).onclick = async () => {
+    try {
+      await api("/api/entry", {packet: r.packet, id: e.id, fields: {framing: "fullbody"}});
+      setStatus(`${e.name}: framing set to full body`); await refresh();
+    } catch (x) { setStatus(x.message, true); }
+  };
+  $("[data-framing]", d).onchange = async (ev) => {
+    try {
+      await api("/api/entry", {packet: r.packet, id: e.id, fields: {framing: ev.target.value}});
+      setStatus(`${e.name}: framing updated`); await refresh();
+    } catch (x) { setStatus(x.message, true); }
+  };
+  $("[data-save]", d).onclick = async () => {
+    try { await api("/api/entry", {packet: r.packet, id: e.id, fields: {look: $("[data-look]", d).value}}); setStatus(`${e.name}: look saved`); await refresh(); } catch (x) { setStatus(x.message, true); }
+  };
   $("[data-render]", d).onclick = () => startRun(r, ["render", "cut", "build"], [e.id], false);
-  $("[data-cut]", d).onclick = () => startRun(r, ["cut", "build"], [e.id], false);
-  $("[data-prompt]", d).onclick = async () => { try { await navigator.clipboard.writeText(e.prompt); setStatus("prompt copied"); } catch { prompt("Prompt", e.prompt); } };
+  $("[data-cut]", d).onclick = async () => {
+    try {
+      setStatus(`${e.name}: removing background…`);
+      const o = await api("/api/remove-bg", {packet: r.packet, id: e.id});
+      setStatus(`${e.name}: transparent sprite cut (healed ${o.cut[0]?.healed || 0}px)`); await refresh();
+    } catch (x) { setStatus(x.message, true); }
+  };
+  $("[data-replace]", d).onclick = async () => {
+    try {
+      setStatus(`${e.name}: replacing current image…`);
+      const o = await api("/api/replace", {packet: r.packet, id: e.id, replace_website: $("#repWeb") ? $("#repWeb").checked : true,
+        replace_foundry: $("#repFoundry") ? $("#repFoundry").checked : true, replace_lead: $("#repLead") ? $("#repLead").checked : true,
+        replace_file: $("#repFile")?.checked || false});
+      setStatus(`✓ ${e.name}: replaced on Website & Foundry!`); await refresh();
+    } catch (x) { setStatus(x.message, true); }
+  };
+  $("[data-prompt]", d).onclick = async () => {
+    try { await navigator.clipboard.writeText(e.prompt); setStatus("prompt copied"); } catch { prompt("Prompt", e.prompt); }
+  };
   $("[data-upload]", d).onchange = async (ev) => {
     const f = ev.target.files[0]; if (!f) return;
-    try { setStatus(`${e.name}: uploading ${f.name}…`);
+    try {
+      setStatus(`${e.name}: uploading ${f.name}…`);
       const resp = await fetch(`/api/upload-render?packet=${encodeURIComponent(r.packet)}&id=${encodeURIComponent(e.id)}`, {method: "POST", body: await f.arrayBuffer()});
       const j = await resp.json(); if (!resp.ok) throw new Error(j.error);
-      setStatus(`${e.name}: render saved and cut` + (j.audit && j.audit.length ? " — AUDIT " + JSON.stringify(j.audit) : "") + " — press Build actors"); await refresh();
+      setStatus(`${e.name}: render saved & transparent sprite cut`); await refresh();
     } catch (x) { setStatus(x.message, true); }
   };
   d.ondragover = (ev) => { ev.preventDefault(); d.style.borderColor = "var(--acc2)"; };
@@ -298,7 +523,7 @@ function crText(cr) { return cr === 0.5 ? "1/2" : cr === 0.25 ? "1/4" : cr === 0
 
 async function startRun(r, stepsWanted, ids, onlyMissing) {
   try {
-    const body = {packet: r.packet, steps: stepsWanted, ids: ids || null, only_missing: onlyMissing === undefined ? $("#onlyMissing").checked : onlyMissing,
+    const body = {packet: r.packet, steps: stepsWanted, ids: ids || null, only_missing: onlyMissing === undefined ? ($("#onlyMissing") ? $("#onlyMissing").checked : true) : onlyMissing,
       seed_mode: $("#seedMode") ? $("#seedMode").value : "roster", retries: +($("#retries")?.value || 1),
       sampler_steps: +($("#sampSteps")?.value) || null, cfg: $("#cfg")?.value ? +$("#cfg").value : null};
     const j = await api("/api/run", body);
@@ -318,6 +543,28 @@ async function tick() {
     state.job = job;
     if (!job || !job.alive) { clearInterval(poll); poll = null; await refresh(); }
   } catch { clearInterval(poll); poll = null; }
+}
+
+async function openPromptsModal(r) {
+  const modal = $("#promptsModal");
+  $("#promptsTitle").textContent = `AI Render Prompts — ${r.name} (${r.entries.length} jobs)`;
+  $("#promptsStatus").textContent = "loading prompts…";
+  modal.style.display = "flex";
+  try {
+    const data = await api("/api/prompts?packet=" + encodeURIComponent(r.packet), undefined, "GET");
+    const lines = [];
+    for (const p of data.prompts || []) {
+      lines.push(`### ${p.name} (${p.id})\n` +
+                 (p.base_image ? `Base Image: ${p.base_image}\n` : `Base Image: (none — text-to-image)\n`) +
+                 `Framing: ${p.framing}\nSeed: ${p.seed}\nPrompt: ${p.prompt}\nNegative: ${p.negative}\nRender: ${p.render}\n`);
+    }
+    $("#promptsBody").textContent = lines.join("\n");
+    $("#promptsStatus").textContent = `${data.prompts.length} prompt(s) ready`;
+    $("#btnCopyAllPrompts").onclick = async () => {
+      try { await navigator.clipboard.writeText(lines.join("\n")); $("#promptsStatus").textContent = "Copied to clipboard!"; } catch { prompt("Prompts", lines.join("\n")); }
+    };
+    $("#btnOpenJobsJson").onclick = () => window.open("/api/jobs?packet=" + encodeURIComponent(r.packet));
+  } catch (x) { $("#promptsBody").textContent = "Error loading prompts: " + x.message; }
 }
 
 $("#connect").onclick = async () => { renderComfy(await api("/api/connect", {url: $("#comfyUrl").value.trim() || null})); await refresh(); };
@@ -364,6 +611,55 @@ $("#btnIngest").onclick = async () => {
     await refresh(); setStatus(o.collected.length ? `collected + cut ${o.collected.map((c) => c.id).join(", ")}` : "nothing in that folder matched a pending job");
   } catch (x) { alert(x.message); }
 };
+
+function parseCustomRows(text) {
+  text = (text || "").trim();
+  if (!text) return [];
+  if (text.startsWith("[") || text.startsWith("{")) {
+    try {
+      const parsed = JSON.parse(text);
+      if (Array.isArray(parsed)) return parsed;
+      if (Array.isArray(parsed.rows)) return parsed.rows;
+      if (Array.isArray(parsed.entries)) return parsed.entries;
+    } catch (e) {}
+  }
+  return text.split("\n").map(l => l.trim()).filter(Boolean).map((line, idx) => {
+    const colon = line.indexOf(":");
+    if (colon > 0) {
+      return {id: `row-${idx+1}`, name: line.slice(0, colon).trim(), look: line.slice(colon+1).trim()};
+    }
+    return {id: `row-${idx+1}`, name: line, look: ""};
+  });
+}
+$("#inputFileRows").onchange = (ev) => {
+  const f = ev.target.files[0];
+  if (!f) return;
+  const reader = new FileReader();
+  reader.onload = (e) => { $("#rawInputRows").value = e.target.result; };
+  reader.readAsText(f);
+};
+$("#btnDraftFromInput").onclick = async () => {
+  const rows = parseCustomRows($("#rawInputRows").value);
+  if (!rows.length) return alert("Enter rows in JSON format or line format (Name: Look) first");
+  const name = prompt("Roster name for this input:", rows[0].name ? rows[0].name + " Squadron" : "Custom Roster");
+  if (!name) return;
+  const packet = name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  try {
+    const r = await api("/api/draft", {packet, name, rows, framing: $("#inFraming").value || null});
+    selected = r.packet; localStorage.setItem("forge.packet", selected);
+    await refresh(); setStatus(`drafted ${r.counts.entries} entries from input into ${r.packet}`);
+  } catch (x) { alert(x.message); }
+};
+$("#btnCollectFromInput").onclick = async () => {
+  if (!selected) return alert("pick or draft a roster first");
+  const rows = parseCustomRows($("#rawInputRows").value);
+  if (!rows.length) return alert("Enter rows in JSON format or line format (Name: Look) first");
+  try {
+    const o = await api("/api/collect", {packet: selected, rows, framing: $("#inFraming").value || null});
+    await refresh(); setStatus(`collected ${o.added.length} entr(ies) from input into ${selected}`);
+  } catch (x) { alert(x.message); }
+};
+
 refresh().then(loadFactions).catch((x) => { $("#work").innerHTML = `<p class="err">${esc(x.message)}</p>`; });
 </script>
 </body>

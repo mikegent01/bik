@@ -1116,6 +1116,20 @@
           "The Court"
         ]
       }
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "disciplined"
+        ],
+        "reasons": [
+          "Keyword \"guard\" in name/biography → disciplined"
+        ],
+        "confidence": 0.3333333333333333,
+        "version": 3,
+        "timestamp": 1791338729843,
+        "manuallyOverridden": false
+      }
     }
   },
   "_stats": {
@@ -1125,7 +1139,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791171682675,
-    "modifiedTime": 1791325785572,
+    "modifiedTime": 1791338729853,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

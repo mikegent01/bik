@@ -1074,6 +1074,22 @@
     },
     "midi-qol": {
       "onUseMacroParts": {}
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "predator",
+          "guardian"
+        ],
+        "reasons": [
+          "Creature type \"monstrosity\" → predator",
+          "Keyword \"guardian\" in name/biography → guardian"
+        ],
+        "confidence": 0.6666666666666666,
+        "version": 3,
+        "timestamp": 1791339541251,
+        "manuallyOverridden": false
+      }
     }
   },
   "_stats": {
@@ -1083,7 +1099,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791171686629,
-    "modifiedTime": 1791325787190,
+    "modifiedTime": 1791339541259,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

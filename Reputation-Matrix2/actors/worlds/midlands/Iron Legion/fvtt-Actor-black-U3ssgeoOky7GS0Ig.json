@@ -1074,6 +1074,22 @@
     },
     "midi-qol": {
       "onUseMacroParts": {}
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "undead-disciplined",
+          "pack-hunter"
+        ],
+        "reasons": [
+          "Keyword \"shadow\" in name/biography → undead-disciplined",
+          "Keyword \"wolf\" in name/biography → pack-hunter"
+        ],
+        "confidence": 0.6666666666666666,
+        "version": 3,
+        "timestamp": 1791599586827,
+        "manuallyOverridden": false
+      }
     }
   },
   "_stats": {
@@ -1083,7 +1099,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791171677622,
-    "modifiedTime": 1791325780499,
+    "modifiedTime": 1791599586834,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

@@ -12635,16 +12635,7 @@
             "title": "Features",
             "icon": "modules/plutonium/media/icon/subclass/phb-fighter-phb-champion.webp",
             "configuration": {
-              "items": [
-                {
-                  "uuid": "Actor.kzNSSjAedvhKTfZC.Item.AWQNgTmsXmLi59NW",
-                  "optional": false
-                },
-                {
-                  "uuid": "Actor.kzNSSjAedvhKTfZC.Item.zq530QAGHOhwsgDr",
-                  "optional": false
-                }
-              ],
+              "items": [],
               "optional": false,
               "spell": {
                 "ability": [
@@ -12763,8 +12754,8 @@
         "systemVersion": "5.3.3",
         "coreVersion": "14.367",
         "systemId": "dnd5e",
-        "createdTime": 1791335174643,
-        "modifiedTime": 1791335174643,
+        "createdTime": 1791338052134,
+        "modifiedTime": 1791338187354,
         "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,

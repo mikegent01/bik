@@ -1226,6 +1226,20 @@
         "basis": "era",
         "from": null
       }
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "predator"
+        ],
+        "reasons": [
+          "Creature type \"monstrosity\" → predator"
+        ],
+        "confidence": 0.3333333333333333,
+        "version": 3,
+        "timestamp": 1791338851592,
+        "manuallyOverridden": false
+      }
     }
   },
   "_stats": {
@@ -1235,7 +1249,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791261791331,
-    "modifiedTime": 1791325780447,
+    "modifiedTime": 1791338851600,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

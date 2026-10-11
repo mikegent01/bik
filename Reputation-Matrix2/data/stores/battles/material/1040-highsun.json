@@ -1,0 +1,199 @@
+[
+  {
+    "id": "aegis_command_riot",
+    "name": "The Aegis Command Riot (Order 120)",
+    "date": "Highsun 21, 1040 BF",
+    "location": "Aegis Command, Imperial Processing Facility",
+    "type": "Prison Break / Sabotage",
+    "result": "Decisive Toad Victory — 158 Prisoners Escaped; Aegis Compromised",
+    "belligerents": {
+      "attackers": {
+        "name": "The Liberated Toads (Infiltrators & Prisoners)",
+        "factionId": "liberated_toads",
+        "commander": "Speaker L (Mastermind)"
+      },
+      "defenders": {
+        "name": "The Iron Legion",
+        "factionId": "iron_legion",
+        "commander": "General Marcus Ironhand"
+      }
+    },
+    "casualties": {
+      "attackers": "12 KIA, 17 recaptured, Bones (severely wounded and exposed)",
+      "defenders": "32 KIA, massive infrastructure damage, total loss of narrative control"
+    },
+    "summary": "General Ironhand issued Order 120 to execute all Toad prisoners. Speaker L responded by proving he had already rigged the entire fortress to explode. Using peppermint gas, mini-mushrooms baked into bread crusts, and a decoy Speaker L painted green, 158 Toads broke out of the Legion's most secure facility. Waluigi has never respected Speaker L more. It was a masterclass in chaotic logistics.",
+    "description": "Waluigi must correct the historical record: The Iron Legion thought they were conducting a purge. Speaker L was conducting a symphony of sabotage.\n\n**Phase 1: The Bread Code and the Green Fog**\nSpeaker L, operating through a hacked terminal, synchronized a flawless prison break. Kitchen sympathizers smuggled 'Mini-Mushrooms' inside the prisoners' hardtack rations. At the ringing of the third bell, the laundry vents began spewing a custom-synthesized peppermint gas designed specifically to choke Imperial lungs while leaving Toads unharmed. \n\n**Phase 2: The Miniature Escape**\nAs the guards choked, the prisoners consumed the Mini-Mushrooms, shrinking to a fraction of their size to slip out of their cuffs and down the floor drains. They followed paths of bioluminescent moss planted weeks in advance by Noki smugglers. It was an underground highway of tiny, angry amphibians.\n\n**Phase 3: Boiler Sabotage and Extraction**\nToads jammed the boiler pressure valves with discarded Imperial service medals—a touch of poetic irony that Waluigi deeply appreciates. The resulting steam explosion blew out the east wall, blinding the Legion's drones and snipers. The prisoners poured out, utilizing makeshift ziplines made of bedsheets, and dove off a 50-foot cliff into the river where Noki submersibles were waiting.\n\n**The Aftermath:**\nGeneral Ironhand's 'Order 120' was meant to erase a problem. Instead, it exposed the Iron Legion as hollow. They lost 158 prisoners, their base was humiliated, and they discovered their 'Speaker L' captive was just a decoy dyed green. However, Bones was unmasked and stabbed by Ironhand during the chaos, leaving his fate uncertain. Waluigi takes notes: never put Waluigi in a cell, because Waluigi will turn the plumbing into a weapon. WAH!",
+    "aftermath": "The myth of the Iron Legion's invincibility was shattered. The refugees fled toward the Whispering Caves and eventually the Mushroom Kingdom borders. The Legion is now out for blood, and Speaker L has solidified his position as a terrifyingly competent tactical mastermind.",
+    "relatedArticles": [
+      "liberated_toads",
+      "iron_legion",
+      "general_ironhand",
+      "speaker_l",
+      "midlands_diet",
+      "supernatural_sovereignty_act",
+      "fractured_heart"
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "liberated_toads": 30,
+        "iron_legion": -15
+      },
+      "bowser": {
+        "liberated_toads": -5,
+        "iron_legion": 20
+      }
+    },
+    "effects": {
+      "liberated_toads": 20
+    },
+    "reputationNotes": {
+      "waluigi": "Waluigi greatly admires Speaker L's tactical genius.",
+      "bowser": "Bowser respects the Toads' ingenuity but fears the Legion's retaliation."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T21:50:49+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    },
+    "image": "assets/images/battles/aegis-command-riot/aegis-command-riot-01.jpg",
+    "imageCaption": "158 out through the gate on peppermint gas and a decoy, with the whole fortress already rigged behind them."
+  },
+  {
+    "id": "battle_of_the_mirror_room",
+    "name": "Battle of the Mirror Room",
+    "date": "Highsun 21, 1040 BF",
+    "image": "assets/images/battles/battle-of-the-mirror-room/mirror-room-solarium-01.png",
+    "imageCaption": "Mages surveying the scene after the battle",
+    "location": "The Solarium, Raventree Manor",
+    "type": "Supernatural Containment",
+    "result": "Complicated Draw — Monster shattered; Red Hjumpik manifested",
+    "belligerents": {
+      "attackers": {
+        "name": "Disaster Inc. & The Oracle",
+        "factionId": "disaster_inc",
+        "commander": "Hjumpik"
+      },
+      "defenders": {
+        "name": "The Shard Stalker (Mirror Terror)",
+        "factionId": null,
+        "commander": "None"
+      }
+    },
+    "casualties": {
+      "attackers": "Green T (temporarily lost in the mirror), Dan (injured hands), Party Trust (severely damaged)",
+      "defenders": "The Shard Stalker (Turned to stone by Mages' Guild)"
+    },
+    "summary": "The party engaged a Shard Stalker inside a solarium filled with mirrors. The monster bounced between reflections, creating an infinitely frustrating game of whack-a-mole. Bowser punched the glass until his knuckles bled. Hjumpik was pulled into the mirror realm, faced a blue copy of himself, and eventually, a 'Red Hjumpik' stepped out into the real world. Waluigi officially declares mirrors to be the worst invention in history.",
+    "description": "Waluigi hates reflections. They are never as handsome as the original. But in Raventree Manor, reflections actively try to kill you.\n\n**The Engagement**\nThe Shard Stalker teleported between the dozen free-standing mirrors in the ruined Solarium, attacking from impossible angles. Archie, showing incredible restraint, threw flaming twigs and controlled bonfires instead of his signature Fireball, earning nods from the Mages' Guild observers. Dan, despite having only one functional arm, swung his axe at the glass while Toad Lee tried to coordinate defensive formations.\n\n**The Mirror Realm**\nBowser, furious that the monster was using trickery, began physically punching the mirrors, shattering them with his bare hands. During the chaos, Hjumpik was pulled THROUGH the glass into a floating, inverse library. There, he encountered a 'Blue Hjumpik' that warned him: 'If you strike me, you strike yourself.'\n\n**The Red Emergence**\nBack in the physical world, as the final mirrors shattered, a 'Red Hjumpik' stepped out. He looked identical, but his demeanor was... off. He smiled too much. The Mages' Guild, swooping in like the bureaucratic vultures they are, captured the remains of the Shard Stalker in a null cage, turning it to stone. They also demanded to study the Red Hjumpik. \n\nWaluigi watched from a safe distance. The party survived, but they are now traveling with a version of their friend who might just be a reflection wearing his skin. Waluigi is keeping one hand on his tennis racket at all times.",
+    "aftermath": "The Mages' Guild claimed the petrified monster, removing evidence of the anomaly. The Oracle, annoyed that the monster wasn't truly 'killed,' ushered the party toward the final Summoning Room, noting that the ritual would now require blood to complete.",
+    "relatedArticles": [
+      "raventree_manor",
+      "hjumpik",
+      "archie_miser",
+      "the_oracle"
+    ],
+    "reputationChanges": {
+      "bowser": {
+        "disaster_inc": 15
+      },
+      "archie_miser": {
+        "mages_guild": 10
+      },
+      "waluigi": {
+        "disaster_inc": -3,
+        "mages_guild": 5
+      },
+      "hjumpik": {
+        "disaster_inc": -10,
+        "mages_guild": 8
+      }
+    },
+    "effects": {
+      "disaster_inc": 20,
+      "mages_guild": 15
+    },
+    "reputationNotes": {
+      "bowser": "Bowser's raw strength impresses the dwarven tactical specialist Hjumpik.",
+      "archie_miser": "Archie's self-restraint in combat gains him respect from Mages' Guild observers.",
+      "waluigi": "Waluigi is annoyed by the Mages' Guild's claim of the Shard Stalker, yet they capture his friend.",
+      "hjumpik": "Hjumpik faces a 'Red Hjumpik,' an unsettling reflection who may be more than just an illusion."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T22:00:34+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
+  },
+  {
+    "id": "primordial_wyrm_awakening",
+    "name": "The Awakening of the Primordial Wyrm",
+    "date": "Highsun 22-27, 1040 BF",
+    "location": "Valley of Bowser, Dark Lands",
+    "type": "Cosmic Containment Failure / Resistance Campaign",
+    "result": "Koopa Resistance Victory — Wyrm re-sealed; Kamek captured; Valley ruined",
+    "belligerents": {
+      "attackers": {
+        "name": "Kamek & Corrupted Legion",
+        "factionId": "koopa_troop",
+        "commander": "Regent Sorcerer Kamek"
+      },
+      "defenders": {
+        "name": "Koopa Resistance (Workers & Soldiers)",
+        "factionId": "koopa_troop",
+        "commander": "General Hammer Bro"
+      }
+    },
+    "casualties": {
+      "attackers": "Kamek (power stripped, imprisoned), Corrupted Koopa forces (eradicated)",
+      "defenders": "38 Resistance members KIA (including Demolitions Bob-omb and the Heroic Shy Guy), The entire Valley ecosystem"
+    },
+    "summary": "While Bowser was away, Kamek decided to play god. He dug under the castle and awakened the Primordial Wyrm—a cosmic parasite older than the stars that the Koopa Dynasty was originally founded to keep locked up. A ragtag resistance of Goombas, Shy Guys, and Hammer Bros had to blow up seven anchor crystals to re-seal the beast. Waluigi respects the sheer, apocalyptic ambition of Kamek, but it was a terrible real estate decision.",
+    "description": "Waluigi must clarify the true nature of the Koopa Kingdom. Bowser’s ancestors were not just tyrants who liked lava; they were *wardens*. Their castle was built as a lid on a metaphysical prison holding the Primordial Wyrm, a reality-eating entity. Kamek, believing he could harness this power to defeat the Iron Legion and Mario, reversed the polarity of the prison seals.\n\n**The Coup and the Corruption**\nDeclaring himself the 'Regent Sorcerer,' Kamek began feeding loyal troops to the Wyrm, turning them into purple-veined, hollowed-out husks. The valley sky turned purple, and the earth vibrated with the creature's hunger. \n\n**The Working-Class Resistance**\nWith Bowser weeks away in the Midlands, the kingdom was saved not by royalty, but by the construction crew. A Koopa Foreman, a Hammer Bro Sergeant, a Demolitions Bob-omb, and a deeply traumatized Shy Guy formed the 'Koopa Resistance.' They discovered the original blueprints for the seven seals holding the Wyrm. \n\n**The Seven Seals**\nIn a desperate, multi-day campaign, the Resistance struck the anchors. The final battle took place at the Volcanic Shrine. Kamek, now thirty feet tall and warping reality, erased entire squads from existence. The detonator broke, forcing the Demolitions Bob-omb to sacrifice himself to shatter the final crystal. The Shy Guy walked directly into the Wyrm's light to detonate another anchor from the inside. \n\nWith the anchors destroyed, the prison reformed, dragging the Wyrm—and Kamek's borrowed power—back into the earth.",
+    "aftermath": "Bowser returned to find his valley in ruins, but his kingdom saved by the grunts he usually ignores. He promoted the Hammer Bro to General and sentenced Kamek to eternal imprisonment in the very pit he opened. The Koopa Troop is battered, but unified by trauma. Waluigi sheds a single tear for the Bob-omb. What a way to go.",
+    "relatedArticles": [
+      "koopa_troop",
+      "bowser"
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "koopa_troop": 15
+      },
+      "bowser": {
+        "koopa_troop": -10
+      }
+    },
+    "effects": {
+      "koopa_troop": 10
+    },
+    "reputationNotes": {
+      "waluigi": "Waluigi respects Kamek's ambition but despises his real estate decision.",
+      "bowser": "Bowser unites the Koopa Troop by promoting Hammer Bro and sentencing Kamek."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T22:01:20+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    },
+    "image": "assets/images/battles/primordial-wyrm-awakening/primordial-wyrm-awakening-01.jpg",
+    "imageCaption": "What Kamek dug up under the castle. The Koopa Dynasty was founded to keep this locked away."
+  }
+]

@@ -1071,6 +1071,20 @@
     },
     "midi-qol": {
       "onUseMacroParts": {}
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "assassin"
+        ],
+        "reasons": [
+          "No inference signals — fallback pool pick for \"humanoid\": assassin"
+        ],
+        "confidence": 0,
+        "version": 3,
+        "timestamp": 1791338520878,
+        "manuallyOverridden": false
+      }
     }
   },
   "_stats": {
@@ -1080,7 +1094,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791261797990,
-    "modifiedTime": 1791325783011,
+    "modifiedTime": 1791410643264,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

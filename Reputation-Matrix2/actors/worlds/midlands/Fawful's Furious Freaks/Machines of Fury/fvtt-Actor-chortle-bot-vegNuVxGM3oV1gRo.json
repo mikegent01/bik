@@ -1384,6 +1384,27 @@
     },
     "midi-qol": {
       "onUseMacroParts": {}
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "disciplined",
+          "fearless",
+          "undead-disciplined",
+          "hive-minded"
+        ],
+        "reasons": [
+          "Creature type \"construct\" → disciplined",
+          "Creature type \"construct\" → fearless",
+          "Keyword \"shadow\" in name/biography → undead-disciplined",
+          "Keyword \"guard\" in name/biography → disciplined",
+          "Keyword \"swarm\" in name/biography → hive-minded"
+        ],
+        "confidence": 1,
+        "version": 3,
+        "timestamp": 1791339220068,
+        "manuallyOverridden": false
+      }
     }
   },
   "_stats": {
@@ -1393,7 +1414,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791324112568,
-    "modifiedTime": 1791325779974,
+    "modifiedTime": 1791339220078,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

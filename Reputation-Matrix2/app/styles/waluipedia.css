@@ -3963,3 +3963,21 @@ body.ra-picking #content :is(p,li,h1,h2,h3,h4,blockquote):hover{outline:1px dash
 .chr-meta{display:flex;gap:8px;flex-wrap:wrap;font-size:10px;color:var(--muted);margin-top:2px}
 .chr-race{font-weight:700}
 @media (max-width:520px){.chr-wall{grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:9px}}
+
+
+/* Item Report / Spoils Section in XP Panel */
+.item-report-block{margin-top:14px;padding-top:12px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:8px}
+.item-report-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.item-report-head h4{margin:0;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--accent2)}
+.item-report-kicker{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+.item-report-list{display:flex;flex-direction:column;gap:7px}
+.item-report-row{display:flex;align-items:flex-start;gap:9px;border:1px solid var(--border);border-radius:8px;background:var(--bg2);padding:7px 10px;font-size:12px;transition:border-color .15s ease}
+.item-report-row:hover{border-color:var(--accent2)}
+.item-report-icon{font-size:16px;line-height:1;padding-top:2px;flex:0 0 20px;text-align:center}
+.item-report-details{flex:1;min-width:0}
+.item-report-title-row{display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:2px}
+.item-report-name{font-weight:800;color:var(--text)}
+.item-report-badge{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;border-radius:4px;padding:1px 5px;background:rgba(255,255,255,.06);border:1px solid var(--border);color:var(--muted)}
+.item-report-badge.recipient{background:rgba(224,180,0,.12);border-color:rgba(224,180,0,.3);color:var(--accent2)}
+.item-report-badge.status{background:rgba(46,204,113,.12);border-color:rgba(46,204,113,.3);color:#2ecc71}
+.item-report-desc{font-size:11px;color:var(--muted);line-height:1.35}

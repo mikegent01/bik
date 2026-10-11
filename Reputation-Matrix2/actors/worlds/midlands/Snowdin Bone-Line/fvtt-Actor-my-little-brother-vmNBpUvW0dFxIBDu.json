@@ -1197,6 +1197,22 @@
     },
     "midi-qol": {
       "onUseMacroParts": {}
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "predator",
+          "disciplined"
+        ],
+        "reasons": [
+          "Creature type \"monstrosity\" → predator",
+          "Keyword \"patrol\" in name/biography → disciplined"
+        ],
+        "confidence": 0.6666666666666666,
+        "version": 3,
+        "timestamp": 1791338687648,
+        "manuallyOverridden": false
+      }
     }
   },
   "_stats": {
@@ -1206,7 +1222,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791171686945,
-    "modifiedTime": 1791325787552,
+    "modifiedTime": 1791338687657,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

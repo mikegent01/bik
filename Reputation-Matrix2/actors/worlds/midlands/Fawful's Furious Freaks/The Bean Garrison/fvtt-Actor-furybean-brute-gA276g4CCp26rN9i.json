@@ -1913,6 +1913,20 @@
     },
     "midi-qol": {
       "onUseMacroParts": {}
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "undead-disciplined"
+        ],
+        "reasons": [
+          "Keyword \"shadow\" in name/biography → undead-disciplined"
+        ],
+        "confidence": 0.3333333333333333,
+        "version": 3,
+        "timestamp": 1791339480843,
+        "manuallyOverridden": false
+      }
     }
   },
   "_stats": {
@@ -1922,7 +1936,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791324113668,
-    "modifiedTime": 1791325780083,
+    "modifiedTime": 1791339480854,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

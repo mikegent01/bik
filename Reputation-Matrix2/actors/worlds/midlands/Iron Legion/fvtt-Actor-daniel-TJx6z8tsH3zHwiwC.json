@@ -1136,6 +1136,20 @@
     },
     "midi-qol": {
       "onUseMacroParts": {}
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "disciplined"
+        ],
+        "reasons": [
+          "No inference signals — fallback pool pick for \"humanoid\": disciplined"
+        ],
+        "confidence": 0,
+        "version": 3,
+        "timestamp": 1791598000879,
+        "manuallyOverridden": false
+      }
     }
   },
   "_stats": {
@@ -1145,7 +1159,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791171677684,
-    "modifiedTime": 1791325780533,
+    "modifiedTime": 1791598000888,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

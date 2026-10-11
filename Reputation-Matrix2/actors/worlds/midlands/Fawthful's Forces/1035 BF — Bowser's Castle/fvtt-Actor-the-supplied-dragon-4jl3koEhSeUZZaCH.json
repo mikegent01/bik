@@ -2060,6 +2060,25 @@
         "basis": "era",
         "from": null
       }
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "fearless",
+          "tactician",
+          "brute"
+        ],
+        "reasons": [
+          "Creature type \"dragon\" → fearless",
+          "Creature type \"dragon\" → tactician",
+          "Legendary Resistance detected",
+          "High HP (184) melee combatant → brute/frontliner"
+        ],
+        "confidence": 1,
+        "version": 3,
+        "timestamp": 1791338852605,
+        "manuallyOverridden": false
+      }
     }
   },
   "_stats": {
@@ -2069,7 +2088,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791261791403,
-    "modifiedTime": 1791325780464,
+    "modifiedTime": 1791338852617,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

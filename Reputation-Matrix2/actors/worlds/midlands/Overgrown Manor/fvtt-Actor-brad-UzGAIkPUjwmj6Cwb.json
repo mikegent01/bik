@@ -2,7 +2,7 @@
   "_id": "UzGAIkPUjwmj6Cwb",
   "name": "Brad",
   "type": "npc",
-  "img": "portraits/brad_the_waiter.jpg",
+  "img": "portraits/full_bodybrad_the_waiter.jpg",
   "system": {
     "abilities": {
       "str": {
@@ -580,7 +580,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "portraits/brad_the_waiter.jpg",
+      "src": "portraits/full_bodybrad_the_waiter.jpg",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -647,7 +647,7 @@
         "ring": null,
         "background": null
       },
-      "effects": 1,
+      "effects": 0,
       "subject": {
         "scale": 1,
         "texture": null
@@ -660,7 +660,148 @@
       "disposition": false
     },
     "movementAction": null,
-    "flags": {},
+    "flags": {
+      "monks-tokenbar": {
+        "include": [
+          "default",
+          "default"
+        ]
+      },
+      "levels-3d-preview": {
+        "model3d": [
+          ",",
+          ","
+        ],
+        "imageTexture": [
+          ",",
+          ","
+        ],
+        "material": [
+          "none",
+          "none"
+        ],
+        "color": [
+          "#ffffff,#ffffff",
+          "#ffffff,#ffffff"
+        ],
+        "scale": [
+          1,
+          1
+        ],
+        "auraRange": [
+          0,
+          0
+        ],
+        "auraColor": [
+          "#ffffff,#ffffff",
+          "#ffffff,#ffffff"
+        ],
+        "ParticleType": [
+          "none",
+          "none"
+        ],
+        "ParticlePosition": [
+          "surface",
+          "surface"
+        ],
+        "enableParticleHidden": [
+          true,
+          true
+        ],
+        "ParticleIntensity": [
+          1,
+          1
+        ],
+        "ParticleSprite": [
+          "modules/levels-3d-preview/assets/particles/emberssmall.png,modules/levels-3d-preview/assets/particles/emberssmall.png",
+          "modules/levels-3d-preview/assets/particles/emberssmall.png,modules/levels-3d-preview/assets/particles/emberssmall.png"
+        ],
+        "ParticleRadius": [
+          0,
+          0
+        ],
+        "ParticleScale": [
+          1,
+          1
+        ],
+        "ParticleColor": [
+          "#ffffff,#ffffff",
+          "#ffffff,#ffffff"
+        ],
+        "ParticleColor2": [
+          "#ffffff,#ffffff",
+          "#ffffff,#ffffff"
+        ],
+        "baseColor": [
+          ",",
+          ","
+        ],
+        "disableBase": [
+          true,
+          true
+        ],
+        "removeBase": [
+          true,
+          true
+        ],
+        "solidBaseMode": [
+          "default",
+          "default"
+        ],
+        "stem": [
+          true,
+          true
+        ],
+        "enableAnim": [
+          true,
+          true
+        ],
+        "animIndex": [
+          0,
+          0
+        ],
+        "animSpeed": [
+          1,
+          1
+        ],
+        "flatTokenStyle": [
+          "default",
+          "default"
+        ],
+        "forceFlyingMode": [
+          true,
+          true
+        ],
+        "autoCenter": [
+          true,
+          true
+        ],
+        "rotationX": [
+          0,
+          0
+        ],
+        "rotationY": [
+          0,
+          0
+        ],
+        "rotationZ": [
+          0,
+          0
+        ],
+        "offsetX": [
+          0,
+          0
+        ],
+        "offsetY": [
+          0,
+          0
+        ],
+        "offsetZ": [
+          0,
+          0
+        ]
+      }
+    },
     "randomImg": false,
     "appendNumber": false,
     "prependAdjective": false
@@ -1071,6 +1212,20 @@
     },
     "midi-qol": {
       "onUseMacroParts": {}
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "assassin"
+        ],
+        "reasons": [
+          "No inference signals — fallback pool pick for \"humanoid\": assassin"
+        ],
+        "confidence": 0,
+        "version": 3,
+        "timestamp": 1791601386157,
+        "manuallyOverridden": false
+      }
     }
   },
   "_stats": {
@@ -1080,7 +1235,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791171680844,
-    "modifiedTime": 1791325785732,
+    "modifiedTime": 1791601566908,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

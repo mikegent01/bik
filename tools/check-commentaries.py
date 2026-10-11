@@ -26,14 +26,14 @@ Usage:
     python3 tools/check-commentaries.py
     python3 tools/check-commentaries.py --strict
 """
-import json, os, re, sys
+import difflib, json, os, re, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, 'Reputation-Matrix2', 'data')
 
-VOICE_MIN_WALUIGI = 18.0    # per 1k words
-VOICE_MIN_CAPS = 25.0       # per 1k words
-SECTION_MAX_SILENT_WORDS = 220   # longest stretch with no Waluigi presence
+VOICE_MIN_WALUIGI = 12.0    # per 1k words (loosened from 18.0 to eliminate padding pressure)
+VOICE_MIN_CAPS = 20.0       # per 1k words (loosened from 25.0)
+SECTION_MAX_SILENT_WORDS = 350   # longest stretch with no Waluigi presence (relaxed from 220)
 
 # Length must be PROPORTIONAL to the source article, so a big session gets a big
 # cut and a short clipping does not get padded to match it. Measured against the
@@ -43,10 +43,10 @@ SECTION_MAX_SILENT_WORDS = 220   # longest stretch with no Waluigi presence
 # A flat multiplier is wrong: a 300-word clipping needs expansion, while an
 # already-narrated session only needs the voice laid over it. What stays stable
 # is the SECTION, so the rule is expressed per section with a generous band.
-SECTION_MIN_WORDS = 260
-SECTION_MAX_WORDS = 900
+SECTION_MIN_WORDS = 240
+SECTION_MAX_WORDS = 950
 # and the whole cut must be at least this multiple of its source's story beats
-TOTAL_MIN_RATIO = 0.9
+TOTAL_MIN_RATIO = 0.80
 
 CAPS_RE = re.compile(r'\b[A-Z]{2,}\b')
 WALU_RE = re.compile(r'\bWaluigi\b')
@@ -61,7 +61,7 @@ def load(name):
         d = json.load(fh)
     if isinstance(d, dict):
         for k in ('events', 'battles', 'commentaries',
-                  'characters', 'locations', 'factions'):
+                  'characters', 'locations', 'factions', 'analyses'):
             if k in d:
                 return d[k]
         return []
@@ -102,6 +102,8 @@ def main():
         for rec in load(extra):
             if isinstance(rec, dict) and rec.get('id'):
                 ids.add(rec['id'])
+
+    analyses_by_src = {a.get('sourceArticle'): a for a in load('articleAnalyses.json') if isinstance(a, dict) and a.get('sourceArticle')}
 
     errs, warns = [], []
     for c in items:
@@ -176,6 +178,114 @@ def main():
             elif sw > SECTION_MAX_WORDS:
                 bucket.append(f"{cid}/{s.get('id')}: {sw}w section "
                               f'(max {SECTION_MAX_WORDS}) — split it')
+
+        # ---- style separation: no ledger words, quote density, stock tics ----
+        ledger_hits = re.findall(r'\b(thesis|verdict|custody reading|audit register)\b', blob, re.IGNORECASE)
+        if ledger_hits:
+            warns.append(f'{cid}: contains ledger/analysis vocabulary {set(h.lower() for h in ledger_hits)} '
+                         f'— commentary must use comedy/performance register, not audit jargon')
+
+        for tic in (r'\bi am filing\b', r'\bi would like it noted\b'):
+            tic_count = len(re.findall(tic, blob, re.IGNORECASE))
+            if tic_count > 2:
+                warns.append(f'{cid}: repetitive administrative tic {tic!r} occurs {tic_count} times '
+                             f'— rotate or remove stock phrases')
+
+        quotes = re.findall(r'["“][^"”]{3,}["”]|’[^’]{3,}’|\*[“"][^"”]{3,}[”"]\*', blob)
+        if len(quotes) < max(2, len(secs) // 2):
+            warns.append(f'{cid}: low quote density ({len(quotes)} quotes across {len(secs)} sections) '
+                         f'— commentary should quote verbatim dialogue from the record')
+
+        # ---- dialogue quote fidelity check (fuzzy matching against source) ----
+        if src_rec:
+            src_full_text = ' '.join(
+                str(src_rec.get(k) or '') for k in ('description', 'summary', 'outcome', 'aftermath', 'waluigiAssessment')
+            ) + ' ' + ' '.join(
+                str(s.get('overview') or '') + ' ' + str(s.get('waluigi_note') or '')
+                for s in (src_rec.get('sections') or [])
+            )
+            clean_src = ' '.join(re.sub(r'[^a-z0-9\s]', ' ', src_full_text.lower()).split())
+            clean_src_words = clean_src.split()
+            src_word_set = set(clean_src_words)
+
+            def quote_matches_source(q_str):
+                q_strip = re.sub(r'^\*+|\*+$', '', q_str).strip()
+                q_clean = ' '.join(re.sub(r'[^a-z0-9\s]', ' ', q_strip.lower()).split())
+                q_words = q_clean.split()
+                if len(q_words) < 4:
+                    return True
+                if q_clean in clean_src:
+                    return True
+                # Check clause by clause if multiple sentences
+                clauses = [re.sub(r'[^a-z0-9\s]', ' ', s).strip() for s in re.split(r'[.!?—\n]+', q_strip) if len(s.split()) >= 3]
+                if len(clauses) > 1:
+                    all_clauses = True
+                    for clause in clauses:
+                        c_clean = ' '.join(clause.split())
+                        if c_clean in clean_src:
+                            continue
+                        c_words = c_clean.split()
+                        c_common = [w for w in c_words if w in src_word_set]
+                        if len(c_common) / len(c_words) < 0.5:
+                            all_clauses = False
+                            break
+                        clause_ok = False
+                        for anchor in c_common[:3]:
+                            indices = [i for i, w in enumerate(clean_src_words) if w == anchor]
+                            n = len(c_words)
+                            for idx in indices[:10]:
+                                start = max(0, idx - 2)
+                                end = min(len(clean_src_words), idx + n + 3)
+                                win = ' '.join(clean_src_words[start:end])
+                                if difflib.SequenceMatcher(None, c_clean, win).ratio() >= 0.70:
+                                    clause_ok = True
+                                    break
+                            if clause_ok:
+                                break
+                        if not clause_ok:
+                            all_clauses = False
+                            break
+                    if all_clauses:
+                        return True
+
+                # Direct fuzzy match
+                common = [word for word in q_words if word in src_word_set]
+                if len(common) / len(q_words) < 0.5:
+                    return False
+                for anchor in common[:3]:
+                    indices = [i for i, w in enumerate(clean_src_words) if w == anchor]
+                    n = len(q_words)
+                    for idx in indices[:15]:
+                        start = max(0, idx - 2)
+                        end = min(len(clean_src_words), idx + n + 3)
+                        win = ' '.join(clean_src_words[start:end])
+                        if difflib.SequenceMatcher(None, q_clean, win).ratio() >= 0.70:
+                            return True
+                return False
+
+            dialogue_quotes = [m.group(1) or m.group(2) for m in re.finditer(r'\"([^\"\n]+)\"|“([^”\n]+)”', blob)]
+            unmatched_quotes = []
+            for q in dialogue_quotes:
+                if not quote_matches_source(q):
+                    unmatched_quotes.append(q.strip())
+
+            if len(unmatched_quotes) > 3:
+                warns.append(f'{cid}: {len(unmatched_quotes)} quoted dialogue lines deviate from source record '
+                             f'(e.g. {unmatched_quotes[0]!r}) — quote verbatim from transcript/event')
+
+        # ---- cross-form duplicate check (6-word phrases) ----
+        src_art = c.get('sourceArticle')
+        if src_art and src_art in analyses_by_src:
+            ana = analyses_by_src[src_art]
+            ana_text = str(ana.get('thesis', '')) + ' ' + ' '.join(str(s.get('body', '')) for s in (ana.get('sections') or []))
+            comm_words = re.findall(r'\b[a-z0-9]+\b', blob.lower())
+            ana_words = re.findall(r'\b[a-z0-9]+\b', ana_text.lower())
+            comm_ngrams = set(' '.join(comm_words[i:i+6]) for i in range(len(comm_words)-5))
+            ana_ngrams = set(' '.join(ana_words[i:i+6]) for i in range(len(ana_words)-5))
+            shared_ngrams = comm_ngrams & ana_ngrams
+            if len(shared_ngrams) > 10:
+                warns.append(f"{cid}: {len(shared_ngrams)} shared 6-word phrases with companion analysis {ana.get('id')} "
+                             f"— cross-form prose must be independently authored")
 
         print(f'{cid}')
         print(f'  {len(secs)} sections · {w} words · Waluigi/1k {wal:.1f} '

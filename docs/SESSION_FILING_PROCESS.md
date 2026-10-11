@@ -18,6 +18,21 @@ them is a writing problem.
 > Locations first. Characters second. XP third. Prose fourth.
 > Exhibits, broadcast, home feed, and every other artifact come after the prose.
 
+**Token gate.** Edit a shard under `data/stores/`, not the generated
+bundle. Pull the one record (and participant stubs) first:
+
+```bash
+python3 tools/filing-context.py search events <text>
+python3 tools/filing-context.py packet <event-id>
+python3 tools/filing-context.py stub characters <id>
+python3 tools/filing-context.py stub locations <id>
+python3 tools/build-json-stores.py --build --check
+```
+
+World folders: `material` (real world), `feyward`, `shadeward`, `mirror`.
+Year in the filename; month only when that year would exceed ~250 KB.
+See `Reputation-Matrix2/data/stores/README.md`.
+
 Nothing here is about style. Style lives in
 [`STORY_FORMAT_GUIDE.md`](STORY_FORMAT_GUIDE.md) (events) and
 [`WHATIF_FORMAT_GUIDE.md`](WHATIF_FORMAT_GUIDE.md) (what-ifs). This document is
@@ -30,13 +45,13 @@ about **sequence**, and the sequence is not optional.
 | # | Step | Output | Why it is here and not later |
 |---:|---|---|---|
 | 1 | **Read the transcript. Build the beat list.** | A numbered list of what happened | You cannot tell what is new canon until you have the whole session in front of you |
-| 2 | **Locations first.** | `locations.json` entries created or amended | The event's `location` field must resolve. Writing the scene teaches you what the place is; filing the place first stops you inventing it twice |
-| 3 | **Characters second.** | `characters.json` entries created or amended | `participants[]` must resolve. Names get decided here, under the naming rule — not mid-paragraph |
+| 2 | **Locations first.** | a shard under `data/stores/locations/` | The event's `location` field must resolve. Writing the scene teaches you what the place is; filing the place first stops you inventing it twice |
+| 3 | **Characters second.** | a shard under `data/stores/characters/` | `participants[]` must resolve. Names get decided here, under the naming rule — not mid-paragraph |
 | 4 | **XP determined third.** | The `xpAwards[]` rows, written out before the prose | XP is a judgement about what the session was worth. Make it while the beats are still a list. Written after the prose, it becomes a reward for whichever scene you enjoyed writing |
 | 4b | **Spoils — register what was picked up.** | `inventory.json` items + holdings; the sheets follow by themselves | The beat list says who pocketed what. One registry line per object, while the list is in front of you; `tools/spoils-to-changes.py` (the suite runs it) puts it on the Foundry sheet and the table is asked before it lands |
-| 5 | **THEN write the event.** | `events.json` entry | Everything it points at already exists |
+| 5 | **THEN write the event.** | a shard under `data/stores/events/<world>/` | Everything it points at already exists |
 | 6 | **Exhibits — file the paper the story mentions.** | `data/props.json` entries + `[[prop:…]]` triggers in the prose | The prose decides which documents exist. Written before the prose, you invent paperwork nobody needed; written after, you file exactly what the scene already promised the reader |
-| 7 | **File the session into the investigation.** | A `sessions[]` row, new exhibits and leads in `investigations.json` | The arc file is where the paper is *argued about*. It can only cite exhibits that already exist, so it comes after Step 6 — and before the front page, because the front page links to it |
+| 7 | **File the session into the investigation.** | A `sessions[]` row in `data/stores/investigations/<id>.json` | The arc file is where the paper is *argued about*. It can only cite exhibits that already exist, so it comes after Step 6 — and before the front page, because the front page links to it |
 | 8 | **Update the main index page.** | `mainPage.json` + `SITE_UPDATES` (feed is automatic) | An event nobody can find from the front page is not filed |
 | 9 | **Artifacts last.** | RNN pending list, broadcast if owed, any images or pages | These are downstream of the filing and cheap to redo. The filing is not |
 
@@ -68,6 +83,9 @@ the first thing a hurried filing drops.
 
 Mark each beat as **new canon** (a place, person, object, or fact the archive
 does not have yet) or **existing canon**. The new-canon marks become steps 2–4.
+Also flag **Protected Dialogue** ([`STORY_FORMAT_GUIDE.md` §8A](STORY_FORMAT_GUIDE.md#8a-transcript-to-story-rule--how-dialogue-survives-remastering)):
+verses, songs, refrains, pivotal reveals, and load-bearing name-drops that must
+survive verbatim in the prose rather than being compressed into summary.
 
 ---
 
@@ -251,6 +269,15 @@ checklist lives there too. Two process rules that are not style rules:
 2. **Length is not a failure.** The bands in the format guide are aim, not
    target. A session that ran long produces a filing that runs long. Do not
    trim story-critical material to land inside a band — improve it instead.
+   Multi-act landmark climaxes can scale up to 10,000 words or take a clean
+   two-part split (§4).
+3. **Protect Tier 1 dialogue verbatim.** Consult the dialogue tiering rules
+   ([`STORY_FORMAT_GUIDE.md` §8A](STORY_FORMAT_GUIDE.md#8a-transcript-to-story-rule--how-dialogue-survives-remastering)).
+   Verses, songs, riddles, and pivotal reveals must survive intact with physical
+   anchors. Never summarize verse into generic description.
+4. **Respect the Fact vs. Texture Boundary.** Sensory texture, atmospheric
+   grounding, and physical weight should be rich and vivid, but never invent
+   unrecorded injuries, missing limbs, or new weapons to hit sensory targets (§2).
 
 Append the event to `Reputation-Matrix2/data/events.json`. Match the file's
 existing indentation. Validate the JSON parses before moving on.

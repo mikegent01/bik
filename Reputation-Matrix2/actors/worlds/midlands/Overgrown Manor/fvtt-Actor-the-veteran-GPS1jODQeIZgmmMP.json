@@ -1074,6 +1074,25 @@
     },
     "midi-qol": {
       "onUseMacroParts": {}
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "skirmisher",
+          "tactician",
+          "disciplined"
+        ],
+        "reasons": [
+          "Creature type \"fey\" → skirmisher",
+          "Creature type \"fey\" → tactician",
+          "Keyword \"veteran\" in name/biography → disciplined",
+          "Keyword \"goblin\" in name/biography → skirmisher"
+        ],
+        "confidence": 1,
+        "version": 3,
+        "timestamp": 1791595370832,
+        "manuallyOverridden": false
+      }
     }
   },
   "_stats": {
@@ -1083,7 +1102,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791171681331,
-    "modifiedTime": 1791325785868,
+    "modifiedTime": 1791595370839,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

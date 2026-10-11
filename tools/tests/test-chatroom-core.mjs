@@ -3731,6 +3731,69 @@ check('voice: a studio stream that errors is read for WHY — turned-away profil
   })());
 }
 
+// ---------- round 16: anti-repetition, anti-generic, scene creation & handovers ----------
+{
+  check('anti-repetition: intra-turn loops and sentence stutters are detected and cleaned', (() => {
+    const loopText = 'He pointed at the safe. He pointed at the safe. Waluigi stared back.';
+    const found = RP.findRepetitionLoops(loopText);
+    const cleaned = RP.cleanRepetitionLoops(loopText);
+    return found.hasLoop && found.loops.length >= 1 && cleaned === 'He pointed at the safe. Waluigi stared back.';
+  })());
+
+  check('anti-repetition: player turn echoing is detected at the start of a reply', (() => {
+    const userText = 'I drop the ledger on the table and ask about the missing gold.';
+    const botEcho = '*You drop the ledger on the table.* Wario glares at you.';
+    const nonEcho = '*Wario slams his fist on the mahogany.* "Where is the rest?"';
+    return RP.detectEcho(botEcho, userText).hasEcho === true &&
+      RP.detectEcho(nonEcho, userText).hasEcho === false;
+  })());
+
+  check('anti-repetition: structural and cadence formula loops are identified', (() => {
+    const prior = [
+      'WAH! THE LEDGER IS MINE! I will sue you for every coin! *Wario shakes his fist.*',
+      'WAH! YOU CHEATED ME! The contract is void! *Wario shakes his fist.*'
+    ];
+    const rep = RP.repetitionCheck('WAH! GIVE ME THE CASH! Every coin is mine! *Wario shakes his fist.*', prior);
+    return rep.repeated === true && rep.hits.length > 0;
+  })());
+
+  check('anti-generic: stock AI clichés are caught and concrete grounding checked', (() => {
+    const cliché = 'A smirk played across his lips as a chill went down his spine. The tension was palpable in the room.';
+    const grounded = 'Wario counted the thirty brass coins, slammed the iron safe shut, and pocketed the bent key.';
+    const cRes = RP.genericCheck(cliché);
+    const gRes = RP.genericCheck(grounded);
+    return cRes.isGeneric === true && cRes.cliches.length >= 2 &&
+      gRes.isGeneric === false && gRes.hasGrounding === true;
+  })());
+
+  check('continuity: item transfers between characters in prose are accurately detected', (() => {
+    const cast = [RP.normChar({ id: 'wario', name: 'Wario' }), RP.normChar({ id: 'waluigi', name: 'Waluigi' })];
+    const hand = RP.handoverScan('Wario handed the brass key to Waluigi with a grunt.', cast);
+    const take = RP.handoverScan('Waluigi took the ledger from Wario and held it tight.', cast);
+    return hand.length === 1 && hand[0].giver === 'Wario' && hand[0].receiver === 'Waluigi' && hand[0].item === 'brass key' &&
+      take.length === 1 && take[0].giver === 'Wario' && take[0].receiver === 'Waluigi' && take[0].item === 'ledger';
+  })());
+
+  check('scene creation: dynamic scene parsing matches archive cast and extracts new NPCs', (() => {
+    const desc = 'Wario and Waluigi cornering a nervous clerk in the counting house, while an armored guard watches.';
+    const archive = {};
+    const castById = {
+      wario: RP.normChar({ id: 'wario', name: 'Wario' }),
+      waluigi: RP.normChar({ id: 'waluigi', name: 'Waluigi' }),
+    };
+    const res = RP.parseSceneDescription(desc, archive, castById);
+    return res.cast.length === 2 && res.cast.some(c => c.name === 'Wario') && res.cast.some(c => c.name === 'Waluigi') &&
+      res.newChars.length >= 1 && res.newChars.some(n => /clerk|guard/i.test(n.name));
+  })());
+
+  check('directives: bare directive lines are stripped cleanly without leaking into prose', (() => {
+    const text = 'Here is the real treasure.\nMOOD: Wario furious 2\nTake it before anyone notices.';
+    const parsed = RP.parseDirectives(text, ['Wario']);
+    return parsed.directives.length === 1 && parsed.directives[0].kind === 'mood' &&
+      parsed.clean === 'Here is the real treasure.\nTake it before anyone notices.';
+  })());
+}
+
 check('build: chatroom.html and workflow/roleplay.html match their sources', built);
 
 console.log(ok ? 'ALL CHATROOM CORE TESTS PASS' : 'CHATROOM CORE TESTS FAILED');

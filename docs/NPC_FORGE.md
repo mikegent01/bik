@@ -31,10 +31,25 @@ machines, the Bean Garrison and two lieutenants, CR 1/2–7 — see
 | `python3 tools/npc-forge.py draft <packet> --faction <id> --name "…" [--plan 0.5,1,2,5]` | a new roster for a faction with templated statblocks per tier (they import today) and placeholder looks |
 | `python3 tools/npc-forge.py run <packet> [--all] [--random-seeds] [--steps render,cut,build]` | the loop on Comfy: render every entry without art, cut, rebuild |
 | `python3 tools/npc-forge.py cut <packet>` | cut whatever renders are in the folder and rebuild (no Comfy needed) |
+| `python3 tools/npc-forge.py remove-bg <packet> [--ids …]` | Step 2: remove background from renders or source images to make transparent sprites |
+| `python3 tools/npc-forge.py replace <packet> [--ids …]` | Step 5 & 6: replace current images on the website and in Foundry with full-body sprites |
 | `python3 tools/npc-forge.py handoff <packet>` | write `handoff.md` + `jobs.jsonl` for the entries without a render |
 | `python3 tools/build-forge-packets.py [<packet>] [--check] [--list]` | the generator alone (what `check-all` runs) |
 | `python3 tools/build-forge-packets.py plates <packet> [--force]` | the cut alone |
 | `python3 tools/build-forge-packets.py prompts <packet>` | the render jobs as JSON lines |
+
+## The 6-Step Workflow
+
+1. **Match layout & gather assets:** Load an art roster from existing Foundry folders (`import-foundry`) or collect character articles from the website (`characters.json`).
+2. **Style family & base image resolution:**
+   - **Style presets:** Matches each faction to its shelf style family (`gritty` for Trinity Academy, Iron Legion, and Dark Fantasy; `painterly` for Merric/Archie; `anime` for Remi; `cartoon` for Toads and Mario & Luigi).
+   - **Base reference image:** Automatically resolves existing character portraits (`source_img` / `site_img` / `portraits/<id>.png`). The renderer feeds this into the Qwen 2.1 graph as `<image1>` to anchor facial likeness, hair, clothing, and colors.
+   - **Custom base image:** Upload a custom base image, reset to source portrait, or clear base for text-to-image mode.
+   - **Adopt existing sprite:** Instantly adopts established transparent full-body plates from `portraits/player/fullbody/` into the packet roster.
+3. **Review & regenerate:** Inspect each entry's Base Reference Image, Render and Sprite thumbnails side by side. Use framing presets like **"make full body image"** (`fullbody`, `bust`, `head`) and render or regenerate into full-body usable sprites.
+4. **Remove background (Step 2):** Click **Remove BG** on an entry or **Batch Remove BG** to key out the background and heal edges, producing a 512×512 transparent RGBA sprite plate.
+5. **Replace current image:** Click **Replace image** to update the website article (`characters.json` `fullBody` sprite and lead `image`) and the Foundry actors (`source_actor` in the world mirror and `actors/<packet>/` packet actor).
+6. **Batching:** Configure batch replacement settings in the top bar to batch-replace all ready sprites across both the website and Foundry in a single click.
 
 **On the page:** pick a roster (or *New roster from a faction…*), tick the
 steps, press **Run loop**. Each card shows the plate (or the render, or

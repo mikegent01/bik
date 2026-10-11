@@ -1141,6 +1141,25 @@
     },
     "midi-qol": {
       "onUseMacroParts": {}
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "assassin",
+          "disciplined",
+          "tactician"
+        ],
+        "reasons": [
+          "Sneak Attack detected",
+          "Leadership detected",
+          "Keyword \"captain\" in name/biography → tactician",
+          "Keyword \"guard\" in name/biography → disciplined"
+        ],
+        "confidence": 1,
+        "version": 3,
+        "timestamp": 1791338796403,
+        "manuallyOverridden": false
+      }
     }
   },
   "_stats": {
@@ -1150,7 +1169,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791171677114,
-    "modifiedTime": 1791325779824,
+    "modifiedTime": 1791338796410,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },
