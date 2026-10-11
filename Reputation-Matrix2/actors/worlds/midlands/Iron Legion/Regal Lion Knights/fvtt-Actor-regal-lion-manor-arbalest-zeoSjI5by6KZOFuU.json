@@ -2,7 +2,7 @@
   "_id": "zeoSjI5by6KZOFuU",
   "name": "Regal Lion Manor Arbalest",
   "type": "npc",
-  "img": "icons/svg/mystery-man.svg",
+  "img": "portraits/regal-lion/regal-lion-manor-arbalest.png",
   "system": {
     "abilities": {
       "str": {
@@ -232,7 +232,7 @@
       },
       "cr": 2,
       "biography": {
-        "value": "<p><em>The Regal Lion packet sheet — Regal Lion Manor Arbalest.</em> Built by <code>tools/build-forge-packets.py</code> from the NPC Forge roster <code>data/forge/regal-lion.json</code> (entry <code>regal-lion-manor-arbalest</code>): Medium humanoid (human), Lawful Neutral; CR 2 (proficiency +2, to hit +5 with DEX); AC 15 (studded leather &amp; steel cuirass), hit points 38 (6d8+12), speed 30 ft.. A GM scene kit for the The Regal Lion article's present (1040 BF), not a filed event; the faction article stays the authority.</p><p>Positioned on manor balustrades and the greenhouse iron catwalks, these arbalests scan the grounds for encroaching monstrosities and planar incursions.</p><p><strong>Role:</strong> crossbow marksman · <strong>tier:</strong> Rampart Marksman · <strong>folder:</strong> Iron Legion / Regal Lion Knights.</p><h3>Art</h3><p><strong>Awaiting its plate.</strong> The render <code>npc-forge/regal-lion/renders/regal-lion-manor-arbalest.png</code> has not been cut yet; run the NPC Forge (or <code>tools/build-forge-packets.py plates regal-lion</code>) and rebuild. Seed 610006. Prompt: <q>Clean cel-shaded character art in the style of dark fantasy military concept art, bold dark outlines, polished steel and gold lion crest heraldry, dark navy blue and crimson surcoats, cold iron plate, flat colours, crisp shading. An eagle-eyed marksman in a dark navy tunic with steel shoulder cops and leather archery bracers, aiming a large heavy mechanical steel arbalest crossbow with a lion-motif stirrup. Full body, whole figure visible, three-quarter view, centred, isolated on a plain flat solid magenta background (#FF00FF), no floor, no ground shadow, no text, no border.</q></p>",
+        "value": "<p><em>The Regal Lion packet sheet — Regal Lion Manor Arbalest.</em> Built by <code>tools/build-forge-packets.py</code> from the NPC Forge roster <code>data/forge/regal-lion.json</code> (entry <code>regal-lion-manor-arbalest</code>): Medium humanoid (human), Lawful Neutral; CR 2 (proficiency +2, to hit +5 with DEX); AC 15 (studded leather &amp; steel cuirass), hit points 38 (6d8+12), speed 30 ft.. A GM scene kit for the The Regal Lion article's present (1040 BF), not a filed event; the faction article stays the authority.</p><p>Positioned on manor balustrades and the greenhouse iron catwalks, these arbalests scan the grounds for encroaching monstrosities and planar incursions.</p><p><strong>Role:</strong> crossbow marksman · <strong>tier:</strong> Rampart Marksman · <strong>folder:</strong> Iron Legion / Regal Lion Knights.</p><h3>Art</h3><p>Token plate <code>portraits/regal-lion/regal-lion-manor-arbalest.png</code> — NPC Forge render, seed 610006, cut from a flat #FF00FF field. Prompt: <q>Clean cel-shaded character art in the style of dark fantasy military concept art, bold dark outlines, polished steel and gold lion crest heraldry, dark navy blue and crimson surcoats, cold iron plate, flat colours, crisp shading. An eagle-eyed marksman in a dark navy tunic with steel shoulder cops and leather archery bracers, aiming a large heavy mechanical steel arbalest crossbow with a lion-motif stirrup. Full body, whole figure visible, three-quarter view, centred, isolated on a plain flat solid magenta background (#FF00FF), no floor, no ground shadow, no text, no border.</q></p>",
         "public": ""
       },
       "ideal": "",
@@ -580,7 +580,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "icons/svg/mystery-man.svg",
+      "src": "portraits/regal-lion/regal-lion-manor-arbalest.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -1172,245 +1172,6 @@
       }
     },
     {
-      "_id": "0QIO5z6ak0yHsq2C",
-      "name": "Suppression Bolt",
-      "type": "feat",
-      "img": "icons/magic/lightning/bolt-strike-blue.webp",
-      "system": {
-        "description": {
-          "value": "<p>Fires a weighted steel quarrel at a target within 100 feet. The target must succeed on a DC 13 Dexterity saving throw or take 2d8 piercing damage and have its movement speed reduced to 0 until the start of its next turn.</p>",
-          "chat": ""
-        },
-        "type": {
-          "value": "monster",
-          "subtype": ""
-        },
-        "uses": {
-          "spent": 0,
-          "max": "",
-          "recovery": []
-        },
-        "activities": {
-          "jGYkXihhJjdQIu9N": {
-            "_id": "jGYkXihhJjdQIu9N",
-            "type": "save",
-            "name": "",
-            "img": null,
-            "sort": 0,
-            "activation": {
-              "type": "action",
-              "value": 1,
-              "condition": "",
-              "override": false
-            },
-            "consumption": {
-              "targets": [],
-              "scaling": {
-                "allowed": false,
-                "max": ""
-              },
-              "spellSlot": true
-            },
-            "description": {
-              "chatFlavor": ""
-            },
-            "duration": {
-              "concentration": false,
-              "value": "",
-              "units": "inst",
-              "special": "",
-              "override": false
-            },
-            "effects": [],
-            "range": {
-              "value": "100 ft",
-              "units": "ft",
-              "special": "",
-              "override": false
-            },
-            "target": {
-              "template": {
-                "count": "",
-                "contiguous": false,
-                "type": "",
-                "size": "",
-                "width": "",
-                "height": "",
-                "units": "ft",
-                "stationary": false
-              },
-              "affects": {
-                "count": "",
-                "type": "",
-                "choice": false,
-                "special": ""
-              },
-              "prompt": true,
-              "override": false
-            },
-            "uses": {
-              "spent": 0,
-              "max": "",
-              "recovery": []
-            },
-            "flags": {},
-            "visibility": {
-              "level": {},
-              "requireAttunement": false,
-              "requireIdentification": false,
-              "requireMagic": false
-            },
-            "save": {
-              "ability": [
-                "dex"
-              ],
-              "dc": {
-                "calculation": "",
-                "formula": "13"
-              }
-            },
-            "damage": {
-              "parts": [
-                {
-                  "number": 2,
-                  "denomination": 8,
-                  "bonus": "",
-                  "types": [
-                    "piercing"
-                  ],
-                  "custom": {
-                    "enabled": false,
-                    "formula": ""
-                  },
-                  "scaling": {
-                    "mode": "",
-                    "number": null,
-                    "formula": ""
-                  }
-                }
-              ],
-              "onSave": "half",
-              "critical": {
-                "allow": false
-              }
-            },
-            "useConditionText": "",
-            "useConditionReason": "",
-            "effectConditionText": "",
-            "otherActivityId": null,
-            "macroData": {
-              "name": "",
-              "command": ""
-            },
-            "ignoreTraits": {
-              "idi": false,
-              "idr": false,
-              "idv": false,
-              "ida": false,
-              "idm": false
-            },
-            "midiProperties": {
-              "ignoreTraits": [],
-              "triggeredActivityId": "none",
-              "triggeredActivityConditionText": "",
-              "triggeredActivityTargets": "targets",
-              "triggeredActivityRollAs": "self",
-              "triggeredActivityConsume": true,
-              "triggeredActivityConfigure": true,
-              "autoConsume": false,
-              "forceConsumeDialog": "default",
-              "forceRollDialog": "default",
-              "forceDamageDialog": "default",
-              "confirmTargets": "default",
-              "autoTargetType": "any",
-              "autoTargetAction": "default",
-              "automationOnly": false,
-              "otherActivityCompatible": true,
-              "otherActivityAsParentType": true,
-              "identifier": "",
-              "displayActivityName": false,
-              "rollMode": "default",
-              "chooseEffects": false,
-              "toggleEffect": false,
-              "ignoreFullCover": false,
-              "removeChatButtons": "default",
-              "magicEffect": false,
-              "magicDamage": false,
-              "noConcentrationCheck": false,
-              "skipConcentrationCheck": false,
-              "autoCEEffects": "default"
-            },
-            "isOverTimeFlag": false,
-            "overTimeProperties": {
-              "saveRemoves": true,
-              "rollAs": "target",
-              "preRemoveConditionText": "",
-              "postRemoveConditionText": ""
-            },
-            "regionBehavior": {
-              "enabled": false,
-              "dispositionFilter": -1,
-              "excludeSource": true,
-              "oncePerTurn": true,
-              "wallRestriction": "none",
-              "regionVisibility": 2,
-              "attachToken": "default",
-              "rules": []
-            },
-            "regionLight": {
-              "enabled": false,
-              "dim": 0,
-              "bright": 0,
-              "color": null,
-              "alpha": 0.5,
-              "luminosity": 0.5,
-              "animationType": "",
-              "animationSpeed": 5,
-              "animationIntensity": 5
-            },
-            "otherActivityAsParentType": true,
-            "friendlySave": "default"
-          }
-        },
-        "source": {
-          "custom": "Waluipedia campaign",
-          "book": "",
-          "page": "",
-          "license": "",
-          "revision": 1,
-          "rules": "2024"
-        },
-        "advancement": {},
-        "identifier": "",
-        "crewed": false,
-        "enchant": {},
-        "prerequisites": {
-          "items": [],
-          "repeatable": false
-        },
-        "properties": [],
-        "requirements": ""
-      },
-      "effects": [],
-      "flags": {},
-      "sort": 300000,
-      "folder": null,
-      "ownership": {
-        "default": 0
-      },
-      "_stats": {
-        "coreVersion": "14.367",
-        "systemId": "dnd5e",
-        "systemVersion": "5.3.3",
-        "createdTime": 1791410640794,
-        "modifiedTime": 1791410640794,
-        "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
-      }
-    },
-    {
       "_id": "uegOuJlHQaLpL1x2",
       "name": "Rampart Vantage",
       "type": "feat",
@@ -1509,6 +1270,9 @@
     },
     "scene-packer": {
       "hash": "4b8d8833ea49b61f9f3b9172064808fee62799a7"
+    },
+    "midi-qol": {
+      "onUseMacroParts": {}
     }
   },
   "_stats": {
@@ -1518,7 +1282,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791410640794,
-    "modifiedTime": 1791410640795,
+    "modifiedTime": 1791640224347,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

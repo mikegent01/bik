@@ -116,11 +116,14 @@ check('local inset spreads the clustered POIs into pickable pins', inset && inse
 check('cluster click also zooms the main map in', dense.host.querySelector('.atlas-v2-world').style.transform.includes('scale(4.8'), dense.host.querySelector('.atlas-v2-world').style.transform);
 const density = dense.host.querySelector('[data-action="density"]');
 check('density toggle exists', !!density);
+check('auto density is the default and thins a crowded sheet at continent zoom',
+  density.dataset.density === 'auto' && (dense.host.querySelector('[data-visible]').textContent || '').includes('tucked'),
+  `${density.dataset.density} · ${dense.host.querySelector('[data-visible]').textContent || ''}`);
 density.click();
-check('density key mode tucks most pins', (dense.host.querySelector('[data-visible]').textContent || '').includes('tucked'), dense.host.querySelector('[data-visible]').textContent || '');
+check('density all mode unrolls the sheet', density.dataset.density === 'all' && dense.host.querySelectorAll('[data-poi]').length === dense.handle.getPois().length,
+  `${density.dataset.density} · ${dense.host.querySelectorAll('[data-poi]').length} of ${dense.handle.getPois().length}`);
 density.click();
-check('density all mode unrolls the sheet', dense.host.querySelectorAll('[data-poi]').length === dense.handle.getPois().length,
-  `${dense.host.querySelectorAll('[data-poi]').length} of ${dense.handle.getPois().length}`);
+check('density key mode tucks most pins', density.dataset.density === 'key' && (dense.host.querySelector('[data-visible]').textContent || '').includes('tucked'), dense.host.querySelector('[data-visible]').textContent || '');
 
 /* ---- filed detail extras ---- */
 survey.handle.select('poi_lw_bloodmoon_manor');

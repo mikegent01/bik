@@ -86,7 +86,26 @@ export const TRANSIT_MODES = {
   },
 };
 
-export const TRANSIT_MODES_ORDER = ['train', 'boat', 'road', 'path', 'arcane'];
+TRANSIT_MODES.air = {
+  id: 'air',
+  label: 'Airship Line',
+  shortLabel: 'Airship',
+  icon: '🎈',
+  glyph: '🛩️',
+  color: '#c4b5fd',
+  secondaryColor: '#7c3aed',
+  speedMph: 55,
+  speedLabel: '55 mph (Airship Packet)',
+  strokeClass: 'route-air',
+  description: 'Scheduled airship packet crossing terrain a road or rail line cannot, between docks and landing masts.',
+};
+
+export const TRANSIT_MODES_ORDER = ['train', 'boat', 'road', 'path', 'arcane', 'air'];
+
+/* The atlas files lines as rail/road/trail/boat/air (data/maps/map-routes.js);
+   this engine says train/road/path/boat/air. One table keeps them honest. */
+export const ROUTE_MODE_ALIAS = Object.freeze({ rail: 'train', road: 'road', trail: 'path', boat: 'boat', air: 'air', arcane: 'arcane' });
+export const TRANSIT_MODE_TO_ROUTE = Object.freeze({ train: 'rail', road: 'road', path: 'trail', boat: 'boat', air: 'air', arcane: 'arcane' });
 
 /* ---------------- pure utility helpers ---------------- */
 
@@ -577,6 +596,12 @@ export function buildTransitNetwork(map, pois, opts = {}) {
     };
   });
 
+  return assembleNetwork(map, stations, routes);
+}
+
+/* Station metrics, roles and the summary — shared by the computed network
+   (buildTransitNetwork) and the filed one (networkFromRoutes). */
+function assembleNetwork(map, stations, routes) {
   // Build station lookup & station connection degrees
   const stationById = new Map();
   const routesByStation = new Map();
@@ -616,6 +641,10 @@ export function buildTransitNetwork(map, pois, opts = {}) {
       case 'arcane':
         st.stationRole = 'Warp Conduit Node';
         st.stationIcon = '🌀';
+        break;
+      case 'air':
+        st.stationRole = 'Airship Dock & Mooring Mast';
+        st.stationIcon = '🎈';
         break;
       case 'road':
         st.stationRole = st.degree >= 3 ? 'Major Highway Junction' : 'Coaching Post & Waystation';
@@ -669,17 +698,89 @@ export function buildTransitNetwork(map, pois, opts = {}) {
 
 /* ---------------- svg rendering ---------------- */
 
+/**
+ * Smooth path through a start, optional hand-filed waypoints, and an end.
+ * Catmull-Rom converted to cubic Béziers; the line passes exactly through every
+ * waypoint, so a filed `via` is a promise about where the line runs.
+ */
+export function waypointPathD(points) {
+  const pts = (points || []).filter(p => p && Number.isFinite(Number(p.x)) && Number.isFinite(Number(p.y)))
+    .map(p => [Number(p.x), Number(p.y)]);
+  if (pts.length < 2) return '';
+  const f = n => n.toFixed(2);
+  if (pts.length === 2) return `M ${f(pts[0][0])},${f(pts[0][1])} L ${f(pts[1][0])},${f(pts[1][1])}`;
+  let d = `M ${f(pts[0][0])},${f(pts[0][1])}`;
+  for (let i = 0; i < pts.length - 1; i++) {
+    const p0 = pts[Math.max(0, i - 1)], p1 = pts[i], p2 = pts[i + 1], p3 = pts[Math.min(pts.length - 1, i + 2)];
+    const c1 = [p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6];
+    const c2 = [p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6];
+    d += ` C ${f(c1[0])},${f(c1[1])} ${f(c2[0])},${f(c2[1])} ${f(p2[0])},${f(p2[1])}`;
+  }
+  return d;
+}
+
+/**
+ * Turn the atlas's FILED routes (data/maps/map-routes.js) into the engine's
+ * network shape, so the classifier's metrics, station roles and dossiers apply
+ * without recomputing which lines exist. The filing stays the source of truth:
+ * mode, via, name, status and capacity are taken from it, never re-inferred.
+ *
+ * @param {object} map
+ * @param {Array}  pois    the sheet's POIs
+ * @param {Array}  routes  filed routes ({id, from, to, mode, via, ...})
+ * @param {object} [opts]  { statusOf(route, u, v) → status } to derive status
+ */
+export function networkFromRoutes(map, pois, routes, opts = {}) {
+  const byId = new Map((pois || []).filter(p => p && p.id).map(p => [p.id, p]));
+  const stationMap = new Map();
+  const out = [];
+  (routes || []).forEach((r, idx) => {
+    const u = byId.get(r.from), v = byId.get(r.to);
+    if (!u || !v) return;
+    const mode = ROUTE_MODE_ALIAS[r.mode] || 'road';
+    const meta = TRANSIT_MODES[mode] || TRANSIT_MODES.road;
+    const dPct = euclideanDistance(u, v);
+    const base = classifyTransitRoute(u, v, map, dPct);
+    const miles = base.distanceMiles;
+    [u, v].forEach(st => { if (!stationMap.has(st.id)) stationMap.set(st.id, { ...st }); });
+    const su = stationMap.get(u.id), sv = stationMap.get(v.id);
+    const status = typeof opts.statusOf === 'function' ? (opts.statusOf(r, u, v) || r.status || 'open') : (r.status || 'open');
+    out.push({
+      id: r.id,
+      index: idx,
+      u: su, v: sv, from: su, to: sv,
+      name: r.name || generateRouteName(u, v, mode),
+      line: r.line || '',
+      via: r.via || [],
+      mode,
+      modeMeta: meta,
+      industrialization: base.industrialization,
+      distancePct: dPct,
+      distanceMiles: miles,
+      travelTime: formatTravelTime(miles, meta.speedMph, mode),
+      freight: determineFreight(u, v, mode),
+      status,
+      capacity: r.capacity || 1,
+    });
+  });
+  return assembleNetwork(map, [...stationMap.values()], out);
+}
+
 export function routeSvgD(route) {
   if (!route || !route.u || !route.v) return '';
+  if (Array.isArray(route.via) && route.via.length) {
+    return waypointPathD([route.u, ...route.via, route.v]);
+  }
   const x1 = Number(route.u.x) || 0;
   const y1 = Number(route.u.y) || 0;
   const x2 = Number(route.v.x) || 0;
   const y2 = Number(route.v.y) || 0;
 
-  if (route.mode === 'boat') {
-    // Gentle nautical curve
-    const mx = (x1 + x2) / 2 + (y2 - y1) * 0.08;
-    const my = (y1 + y2) / 2 - (x2 - x1) * 0.08;
+  if (route.mode === 'boat' || route.mode === 'air') {
+    // Gentle nautical curve; an airship line arcs higher so it reads as flight
+    const bow = route.mode === 'air' ? 0.16 : 0.08;
+    const mx = (x1 + x2) / 2 + (y2 - y1) * bow;
+    const my = (y1 + y2) / 2 - (x2 - x1) * bow;
     return `M ${x1.toFixed(2)},${y1.toFixed(2)} Q ${mx.toFixed(2)},${my.toFixed(2)} ${x2.toFixed(2)},${y2.toFixed(2)}`;
   }
 
@@ -764,7 +865,15 @@ export function transitRouteDossierHtml(route, network) {
       <div class="atlas-v2-transit-stat">
         <span>Classification</span>
         <b>${esc(indTier.label)}</b>
-      </div>
+      </div>${route.status ? `
+      <div class="atlas-v2-transit-stat">
+        <span>Status</span>
+        <b>${esc(humanize(route.status))}</b>
+      </div>` : ''}${route.capacity ? `
+      <div class="atlas-v2-transit-stat">
+        <span>Capacity</span>
+        <b>${esc(['', 'Light', 'Standard', 'Heavy'][route.capacity] || 'Light')}</b>
+      </div>` : ''}
     </div>
 
     <div class="atlas-v2-transit-meter">

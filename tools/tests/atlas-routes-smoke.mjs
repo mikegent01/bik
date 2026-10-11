@@ -53,6 +53,33 @@ ok(host.querySelectorAll('.atlas-v2-route').length === 0, 'Routes toggle hides r
 toggle?.click();
 ok(host.querySelectorAll('.atlas-v2-route').length >= 10, 'Routes toggle restores route geometry');
 
+/* Typed lines carry capacity and status; the layer sits above the borders and
+   below the labels; a route opens its dossier. */
+ok([...host.querySelectorAll('.atlas-v2-route')].every(el => /\bcap-[123]\b/.test(el.getAttribute('class')) && /\bstatus-\w+/.test(el.getAttribute('class'))), 'every route carries a capacity tier and a status');
+{
+  const layer = host.querySelector('.atlas-v2-overlay, [data-overlay]') || host.querySelector('.atlas-v2-routes').parentElement;
+  const kids = [...layer.children];
+  const iBorders = kids.findIndex(el => el.classList.contains('atlas-v2-borders'));
+  const iRoutes = kids.findIndex(el => el.classList.contains('atlas-v2-routes'));
+  const iLabel = kids.findIndex(el => el.classList.contains('atlas-v2-plotlabel'));
+  ok(iBorders >= 0 && iRoutes > iBorders, 'routes are drawn above the province fills');
+  ok(iLabel < 0 || iLabel > iRoutes, 'province labels are drawn above the routes');
+}
+/* Lines end at stations: a ring around each served pin, junctions named. */
+{
+  const stations = [...host.querySelectorAll('.atlas-v2-station')];
+  ok(stations.length >= 10, `routes end at visible stations (${stations.length})`);
+  ok(stations.some(el => el.classList.contains('hub') && el.textContent.trim().length > 0), 'junction stations are larger and carry their name');
+  ok(host.querySelectorAll('.atlas-v2-route-casing').length > 0 && host.querySelectorAll('.atlas-v2-route-detail-rail').length > 0, 'rail is drawn as a cased line with ties');
+}
+{
+  const hit = host.querySelector('.atlas-v2-route-hit');
+  ok(!!hit, 'every route has a click target');
+  hit?.dispatchEvent(new dom.window.Event('click', { bubbles: true }));
+  const side = host.querySelector('.atlas-v2-sidebar');
+  ok(/atlas-v2-transit-dossier/.test(side ? side.innerHTML : ''), 'clicking a route opens its logistics dossier');
+}
+
 const journeyHost = dom.window.document.createElement('div');
 dom.window.document.body.appendChild(journeyHost);
 mountAtlasMapV2(journeyHost, 'mushroom_kingdom_full', {

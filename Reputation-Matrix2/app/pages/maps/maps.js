@@ -1,3 +1,8 @@
+// DEPRECATED: this is the legacy Tactical Maps page (maps-view.html / maps.html).
+// The live map is atlas-map-v2.js, mounted from index.html. This page is kept
+// only because the navigation menu and the *-maps.html redirect stubs still
+// land here. Do not extend it; remove it with those links once they point at
+// the atlas.
 // maps.js - Main map module entry point
 
 import { state, loadState, saveState } from '../../core/state.js';

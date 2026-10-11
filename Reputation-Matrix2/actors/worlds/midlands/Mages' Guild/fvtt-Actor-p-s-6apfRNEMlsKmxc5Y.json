@@ -1,6 +1,6 @@
 {
   "_id": "6apfRNEMlsKmxc5Y",
-  "name": "X.O.",
+  "name": "P.S",
   "type": "npc",
   "img": "portraits/xo.jpg",
   "system": {
@@ -232,7 +232,7 @@
       },
       "cr": 1,
       "biography": {
-        "value": "<p><em>Waluipedia cast sheet \u2014 X.O..</em> Built by <code>tools/build-character-sheets.py</code>, generated from the article's own words. XP ledger: level 2, power rating 5 \u2192 CR 1 as a priest. Numbers are a GM-ready reading of the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p><p><strong>The Divine Daughter</strong> \u2014 Iron Fists Guild</p><p>Status: Active \u2014 wielding influence within the Iron Fists Guild through her mother Commander G</p><p>X.O. is Commander G's daughter and a destabilizing influence within the Iron Fists Guild's Swiftsoul Chapter. She exhibits profound narcissistic entitlement, a god complex that would embarrass actual deities, and a tendency to view Guild operations as theatrical performances staged for her personal amusement. Her demands for dramatic, often cruel, operational protocols may be responsible for the chaotic nature of the Swiftsoul incident\u2014including the elaborate framing of Archie Miser.</p><h3>Evidence</h3><ul><li><strong>Mace</strong> \u2014 \u201cThe Divine Daughter\u201d</li><li><strong>Shadow Step</strong> \u2014 \u201cThe Swiftsoul incident bears hallmarks of X.O.'s influence: - The 'Burn Notice' protocol was reportedly demanded by X.O. for dramatic effect, overruling more pragmatic options - The elaborate framing of\u201d</li><li><strong>Leadership</strong> \u2014 \u201cActive \u2014 wielding influence within the Iron Fists Guild through her mother Commander G\u201d</li><li><strong>Keen Records</strong> \u2014 \u201cUnderworld analysts use the term 'Kamidere' to describe X.O.'s personality type: someone who genuinely believes themselves to be divine or semi-divine, expects worship from those around them, and reacts with extreme\u201d</li><li><strong>Spellcasting</strong> \u2014 \u201cThe Divine Daughter\u201d</li></ul><p>Article: <code>#/article/xo</code> (characters). Site sheet: <code>#/sheets/xo</code>.</p>",
+        "value": "<p><em>Waluipedia cast sheet — X.O..</em> Built by <code>tools/build-character-sheets.py</code>, generated from the article's own words. XP ledger: level 2, power rating 5 → CR 1 as a priest. Numbers are a GM-ready reading of the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p><p><strong>The Divine Daughter</strong> — Iron Fists Guild</p><p>Status: Active — wielding influence within the Iron Fists Guild through her mother Commander G</p><p>X.O. is Commander G's daughter and a destabilizing influence within the Iron Fists Guild's Swiftsoul Chapter. She exhibits profound narcissistic entitlement, a god complex that would embarrass actual deities, and a tendency to view Guild operations as theatrical performances staged for her personal amusement. Her demands for dramatic, often cruel, operational protocols may be responsible for the chaotic nature of the Swiftsoul incident—including the elaborate framing of Archie Miser.</p><h3>Evidence</h3><ul><li><strong>Mace</strong> — “The Divine Daughter”</li><li><strong>Shadow Step</strong> — “The Swiftsoul incident bears hallmarks of X.O.'s influence: - The 'Burn Notice' protocol was reportedly demanded by X.O. for dramatic effect, overruling more pragmatic options - The elaborate framing of”</li><li><strong>Leadership</strong> — “Active — wielding influence within the Iron Fists Guild through her mother Commander G”</li><li><strong>Keen Records</strong> — “Underworld analysts use the term 'Kamidere' to describe X.O.'s personality type: someone who genuinely believes themselves to be divine or semi-divine, expects worship from those around them, and reacts with extreme”</li><li><strong>Spellcasting</strong> — “The Divine Daughter”</li></ul><p>Article: <code>#/article/xo</code> (characters). Site sheet: <code>#/sheets/xo</code>.</p>",
         "public": ""
       },
       "ideal": "",
@@ -1269,7 +1269,7 @@
         },
         {
           "feature": "Leadership",
-          "quote": "Active \u2014 wielding influence within the Iron Fists Guild through her mother Commander G",
+          "quote": "Active — wielding influence within the Iron Fists Guild through her mother Commander G",
           "source": "article"
         },
         {
@@ -1313,8 +1313,8 @@
         "reasons": [
           "Leadership detected",
           "Spellcasting detected",
-          "Keyword \"commander\" in name/biography \u2192 disciplined",
-          "Keyword \"shadow\" in name/biography \u2192 undead-disciplined"
+          "Keyword \"commander\" in name/biography → disciplined",
+          "Keyword \"shadow\" in name/biography → undead-disciplined"
         ],
         "confidence": 1,
         "version": 3,

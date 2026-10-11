@@ -11,9 +11,9 @@
     "counts": {
       "characters": 257,
       "sheets": 251,
-      "generated": 3,
+      "generated": 4,
       "eras": 3,
-      "existing": 248,
+      "existing": 247,
       "party": 18,
       "skipped": 6
     },
@@ -183,14 +183,7 @@
       "sheetName": "Archie Miser",
       "source": "live",
       "file": "actors/worlds/midlands/Players/fvtt-Actor-archie-miser-pi25oGpjW0lCFtuF.json",
-      "alternates": [
-        {
-          "file": "actors/fvtt-Actor-archie-miser-pi25oGpjW0lCFtuF.json",
-          "name": "Archie Miser",
-          "source": "intake",
-          "kind": "pc"
-        }
-      ],
+      "alternates": [],
       "party": true,
       "partyWhy": "party roster (actors/folders.json)",
       "group": "Disaster Inc.",
@@ -1398,12 +1391,6 @@
           "name": "Dan",
           "source": "live",
           "kind": "pc"
-        },
-        {
-          "file": "actors/fvtt-Actor-feyward-dan-IlzuThuR8upTtqtF.json",
-          "name": "Feyward Dan",
-          "source": "intake",
-          "kind": "pc"
         }
       ],
       "party": true,
@@ -1726,14 +1713,7 @@
       "sheetName": "Eager",
       "source": "live",
       "file": "actors/worlds/midlands/Players/fvtt-Actor-eager-VudZ3W313Y4FILs0.json",
-      "alternates": [
-        {
-          "file": "actors/fvtt-Actor-eager-VudZ3W313Y4FILs0.json",
-          "name": "Eager",
-          "source": "intake",
-          "kind": "pc"
-        }
-      ],
+      "alternates": [],
       "party": true,
       "partyWhy": "party roster (actors/folders.json)",
       "group": "Disaster Inc.",
@@ -2714,14 +2694,7 @@
       "sheetName": "Hjumpik Deldkur",
       "source": "live",
       "file": "actors/worlds/midlands/Players/fvtt-Actor-hjumpik-deldkur-Qir5aDX8bkL5lt1c.json",
-      "alternates": [
-        {
-          "file": "actors/fvtt-Actor-hjumpik-deldkur-Qir5aDX8bkL5lt1c.json",
-          "name": "Hjumpik Deldkur",
-          "source": "intake",
-          "kind": "pc"
-        }
-      ],
+      "alternates": [],
       "party": true,
       "partyWhy": "party roster (actors/folders.json)",
       "group": "Disaster Inc.",
@@ -4174,14 +4147,7 @@
       "sheetName": "Markop Judi",
       "source": "live",
       "file": "actors/worlds/midlands/Players/fvtt-Actor-markop-judi-le5OCgY5x5nnKvkt.json",
-      "alternates": [
-        {
-          "file": "actors/fvtt-Actor-markop-judi-le5OCgY5x5nnKvkt.json",
-          "name": "Markop Judi",
-          "source": "intake",
-          "kind": "pc"
-        }
-      ],
+      "alternates": [],
       "party": true,
       "partyWhy": "party roster (actors/folders.json)",
       "group": "Disaster Inc.",
@@ -5608,14 +5574,7 @@
       "sheetName": "Remi",
       "source": "live",
       "file": "actors/worlds/midlands/Players/fvtt-Actor-remi-wBy4aV2AGHNqT4l1.json",
-      "alternates": [
-        {
-          "file": "actors/fvtt-Actor-remi-wBy4aV2AGHNqT4l1.json",
-          "name": "Remi",
-          "source": "intake",
-          "kind": "pc"
-        }
-      ],
+      "alternates": [],
       "party": true,
       "partyWhy": "party roster (actors/folders.json)",
       "group": "Disaster Inc.",
@@ -5858,14 +5817,7 @@
       "sheetName": "Salam",
       "source": "live",
       "file": "actors/worlds/midlands/Disaster Inc/fvtt-Actor-salam-2TkQ7lDU0DJBrx9J.json",
-      "alternates": [
-        {
-          "file": "actors/fvtt-Actor-salam-2TkQ7lDU0DJBrx9J.json",
-          "name": "Salam",
-          "source": "intake",
-          "kind": "npc"
-        }
-      ],
+      "alternates": [],
       "party": true,
       "partyWhy": "former player character (actors/folders.json players.retired)",
       "group": "Disaster Inc.",
@@ -7688,14 +7640,7 @@
       "sheetName": "Toad Lee",
       "source": "live",
       "file": "actors/worlds/midlands/Disaster Inc/fvtt-Actor-toad-lee-mEqlzuZoafEdiApl.json",
-      "alternates": [
-        {
-          "file": "actors/fvtt-Actor-toad-lee-mEqlzuZoafEdiApl.json",
-          "name": "Toad Lee",
-          "source": "intake",
-          "kind": "pc"
-        }
-      ],
+      "alternates": [],
       "party": true,
       "partyWhy": "former player character (actors/folders.json players.retired)",
       "group": "Disaster Inc.",
@@ -9267,14 +9212,7 @@
       "sheetName": "Waluigi",
       "source": "live",
       "file": "actors/worlds/midlands/Disaster Inc/fvtt-Actor-waluigi-BmWNDwbxPQHU3Bbn.json",
-      "alternates": [
-        {
-          "file": "actors/fvtt-Actor-waluigi-BmWNDwbxPQHU3Bbn.json",
-          "name": "Waluigi",
-          "source": "intake",
-          "kind": "pc"
-        }
-      ],
+      "alternates": [],
       "party": true,
       "partyWhy": "former player character (actors/folders.json players.retired)",
       "group": "Disaster Inc.",
@@ -9346,14 +9284,7 @@
       "sheetName": "Wario",
       "source": "live",
       "file": "actors/worlds/midlands/Disaster Inc/fvtt-Actor-wario-dEhGeFofEfnIG24J.json",
-      "alternates": [
-        {
-          "file": "actors/fvtt-Actor-wario-dEhGeFofEfnIG24J.json",
-          "name": "Wario",
-          "source": "intake",
-          "kind": "pc"
-        }
-      ],
+      "alternates": [],
       "party": true,
       "partyWhy": "former player character (actors/folders.json players.retired)",
       "group": "Disaster Inc.",
@@ -9524,8 +9455,8 @@
       "name": "X.O.",
       "title": "The Divine Daughter",
       "sheetName": "X.O.",
-      "source": "live",
-      "file": "actors/worlds/midlands/Mages' Guild/fvtt-Actor-x-o-6apfRNEMlsKmxc5Y.json",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-xo.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -9535,6 +9466,35 @@
         "level": 2,
         "powerLevel": 5
       },
+      "role": "priest",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Mace",
+          "quote": "The Divine Daughter",
+          "source": "title"
+        },
+        {
+          "feature": "Shadow Step",
+          "quote": "The Swiftsoul incident bears hallmarks of X.O.'s influence: - The 'Burn Notice' protocol was reportedly demanded by X.O. for dramatic effect, overruling more pragmatic options - The elaborate framing of",
+          "source": "article"
+        },
+        {
+          "feature": "Leadership",
+          "quote": "Active — wielding influence within the Iron Fists Guild through her mother Commander G",
+          "source": "article"
+        },
+        {
+          "feature": "Keen Records",
+          "quote": "Underworld analysts use the term 'Kamidere' to describe X.O.'s personality type: someone who genuinely believes themselves to be divine or semi-divine, expects worship from those around them, and reacts with extreme",
+          "source": "article"
+        },
+        {
+          "feature": "Spellcasting",
+          "quote": "The Divine Daughter",
+          "source": "title"
+        }
+      ],
       "kind": "npc",
       "abilities": {
         "str": 10,

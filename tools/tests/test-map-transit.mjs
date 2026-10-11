@@ -9,14 +9,15 @@ import {
   classifyTransitRoute, determineFreight, generateRouteName, selectTransitStations,
   buildTransitNetwork, routeSvgD, transitSvg, transitRouteDossierHtml,
   transitNetworkOverviewHtml, stationTransitDetailHtml,
+  waypointPathD, networkFromRoutes, ROUTE_MODE_ALIAS, TRANSIT_MODE_TO_ROUTE,
 } from '../../Reputation-Matrix2/app/pages/maps/map-transit.js';
 
 const fail = [], ok = [];
 const check = (label, cond, extra = '') => (cond ? ok : fail).push(label + (extra !== '' ? ' — ' + extra : ''));
 
 /* ---------------- 1. transit modes metadata ---------------- */
-check('all 5 transit modes defined', Object.keys(TRANSIT_MODES).length === 5);
-check('transit modes order covers every key', TRANSIT_MODES_ORDER.length === 5 && TRANSIT_MODES_ORDER.every(k => TRANSIT_MODES[k]));
+check('all 6 transit modes defined', Object.keys(TRANSIT_MODES).length === 6);
+check('transit modes order covers every key', TRANSIT_MODES_ORDER.length === 6 && TRANSIT_MODES_ORDER.every(k => TRANSIT_MODES[k]));
 check('train mode has speed and icon', TRANSIT_MODES.train.speedMph === 65 && TRANSIT_MODES.train.icon === '🚂');
 check('boat mode has naval speed and icon', TRANSIT_MODES.boat.speedMph === 18 && TRANSIT_MODES.boat.icon === '⛵');
 check('road mode has stagecoach speed and icon', TRANSIT_MODES.road.speedMph === 15 && TRANSIT_MODES.road.icon === '🛣️');
@@ -187,6 +188,31 @@ check('transit network generation is deterministic',
   netRun1.routes.length === netRun2.routes.length &&
   netRun1.summary.totalMiles === netRun2.summary.totalMiles &&
   netRun1.routes[0].id === netRun2.routes[0].id);
+
+/* ---- filed routes -> engine network, waypoints, air ---- */
+check('air mode is a typed line with an airship speed', TRANSIT_MODES.air && TRANSIT_MODES.air.icon === '🎈' && TRANSIT_MODES.air.speedMph > TRANSIT_MODES.boat.speedMph);
+check('route vocabulary maps both ways', Object.entries(ROUTE_MODE_ALIAS).every(([k, v]) => TRANSIT_MODES[v] && TRANSIT_MODE_TO_ROUTE[v] === k));
+check('a two-point path is a straight line', waypointPathD([{ x: 0, y: 0 }, { x: 10, y: 10 }]) === 'M 0.00,0.00 L 10.00,10.00');
+{
+  const d = waypointPathD([{ x: 0, y: 0 }, { x: 10, y: 20 }, { x: 30, y: 20 }]);
+  check('a waypoint path runs through every filed waypoint', d.startsWith('M 0.00,0.00') && d.includes('10.00,20.00') && d.trim().endsWith('30.00,20.00') && (d.match(/C /g) || []).length === 2, d);
+  check('invalid waypoints are dropped, not drawn to NaN', !/NaN/.test(waypointPathD([{ x: 1, y: 1 }, { x: 'x', y: 2 }, { x: 5, y: 5 }])));
+}
+{
+  const mk = MAP_DATA.mushroom_kingdom_full;
+  const a = mk.pointsOfInterest[0], b = mk.pointsOfInterest[1];
+  const net = networkFromRoutes(mk, mk.pointsOfInterest, [
+    { id: 'r1', from: a.id, to: b.id, mode: 'rail', status: 'closed', capacity: 3, via: [{ x: 50, y: 50 }], name: 'Test Express' },
+    { id: 'r2', from: a.id, to: 'missing', mode: 'road' },
+  ], { statusOf: r => r.status });
+  check('filed routes become engine routes; dangling ones are dropped', net.routes.length === 1 && net.routes[0].id === 'r1');
+  check('the filed mode, name, status and capacity are kept', net.routes[0].mode === 'train' && net.routes[0].name === 'Test Express' && net.routes[0].status === 'closed' && net.routes[0].capacity === 3);
+  check('the engine adds distance, time and freight to a filed route', net.routes[0].distanceMiles > 0 && !!net.routes[0].travelTime && !!net.routes[0].freight);
+  check('a filed via drives the drawn path', routeSvgD(net.routes[0]).includes(' C '));
+  const dossier = transitRouteDossierHtml(net.routes[0], net);
+  check('the dossier shows status and capacity', /Closed/.test(dossier) && /Heavy/.test(dossier));
+  check('stations carry a role', net.stations.every(st => st.stationRole));
+}
 
 console.log(`\n${ok.length} passed, ${fail.length} failed`);
 ok.forEach(l => console.log('  ok   ' + l));

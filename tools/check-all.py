@@ -242,6 +242,14 @@ def main() -> int:
         checks.append(("province census snapshot", ["node", "tools/build-province-census.mjs", "--check"], ROOT))
         checks.append(("province census", ["node", "tools/check-province-census.mjs"], ROOT))
         checks.append(("province census card", ["node", "tools/tests/test-atlas-province-card.mjs"], ROOT))
+        # Province borders as shared arcs: one frontier walked by both
+        # neighbours, smoothed with junctions pinned and no pin changing side.
+        checks.append(("province border arcs", ["node", "tools/tests/test-map-province-arcs.mjs"], ROOT))
+        checks.append(("transport routes", ["node", "tools/tests/test-map-routes.mjs"], ROOT))
+        # The mounted renderer's border sides need jsdom (not committed:
+        # npm install jsdom@26.1.0 --no-save); skipped when it is absent.
+        if (ROOT / "node_modules" / "jsdom").is_dir():
+            checks.append(("atlas border geometry", ["node", "tools/tests/atlas-borders-geometry.mjs"], ROOT))
         # Sidebar drawers: the 0fr collapse needs exactly one .navbody child.
         checks.append(("sidebar collapse", ["node", "tools/tests/test-nav-collapse.mjs"], ROOT))
         checks.append(("crime and punishment", ["node", "tools/tests/test-crime-and-punishment.mjs"], ROOT))

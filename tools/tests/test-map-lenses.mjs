@@ -234,9 +234,19 @@ const plainMarkers = [...plainHost.querySelectorAll('.atlas-v2-marker')];
 check('the default sheet clusters nothing',
   plainMarkers.every(m => !m.classList.contains('atlas-v2-cluster')),
   `${plainMarkers.filter(m => m.classList.contains('atlas-v2-cluster')).length} clusters`);
-check('the default sheet draws every filed location',
-  plainMarkers.length === new Set(MAP_DATA.midlands_full.pointsOfInterest.filter(Boolean).map(p => p.id)).size,
-  `${plainMarkers.length} markers`);
+const filedIds = new Set(MAP_DATA.midlands_full.pointsOfInterest.filter(Boolean).map(p => p.id));
+/* Default density is auto: a crowded sheet read from far away shows its key
+   pins (selectable), never a carpet of dots. */
+check('the default sheet thins a crowded overview to key locations',
+  plainMarkers.length > 0 && plainMarkers.length < filedIds.size / 2,
+  `${plainMarkers.length} of ${filedIds.size} markers`);
+const allHost = dom.window.document.createElement('div');
+dom.window.document.body.appendChild(allHost);
+mountAtlasMapV2(allHost, 'midlands_full', { pinDensity: 'all' });
+allHost.querySelector('[data-map-art]').dispatchEvent(new dom.window.Event('load'));
+check('"all" density draws every filed location as its own dot',
+  allHost.querySelectorAll('.atlas-v2-marker').length === filedIds.size,
+  `${allHost.querySelectorAll('.atlas-v2-marker').length} markers`);
 
 /* The real complaint: markers were eating the map. Hit area must stay small. */
 const blocked = plainMarkers.reduce((n, m) => {
@@ -249,11 +259,11 @@ check('markers leave the map clickable underneath',
 
 check('a big-dot toggle is offered for fatter targets',
   !!plainHost.querySelector('[data-action="bigpins"]'));
-check('big dots are off unless asked for',
-  !plainHost.classList.contains('atlas-v2-bigpins'));
+check('big dots are on by default',
+  plainHost.classList.contains('atlas-v2-bigpins') && plainHost.querySelector('[data-action="bigpins"]').classList.contains('active'));
 plainHost.querySelector('[data-action="bigpins"]').dispatchEvent(new dom.window.MouseEvent('click', { bubbles: true }));
-check('the big-dot toggle enlarges the targets',
-  plainHost.classList.contains('atlas-v2-bigpins'));
+check('the big-dot toggle returns to small dots',
+  !plainHost.classList.contains('atlas-v2-bigpins'));
 
 /* ---------------- dots hold still ----------------
    A marker that swells under the cursor makes the sheet feel like it is

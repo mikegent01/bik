@@ -53,6 +53,7 @@ from __future__ import annotations
 
 import argparse
 import copy
+import datetime
 import filecmp
 import hashlib
 import json
@@ -628,6 +629,69 @@ def write_text(path, text):
     os.replace(tmp, path)
 
 
+def write_if_changed(path, text):
+    """write_text, but a file that already holds exactly `text` is left alone
+    (same bytes, same mtime): a split of 500 actors then touches only the
+    sheets that moved. Returns True when the file was written."""
+    try:
+        with open(path, encoding="utf-8") as fh:
+            if fh.read() == text:
+                return False
+    except (OSError, ValueError):
+        pass
+    write_text(path, text)
+    return True
+
+
+# Foundry stamps these on every write — the sync's own included — so a mirror
+# that carried them changed in git whenever anything touched an actor, content
+# or not. The mirror leaves them out; combine puts the export's time back into
+# the packet (a build artefact), which is all the module's newer-than check reads.
+VOLATILE_STATS = ("modifiedTime", "lastModifiedBy")
+
+
+def strip_volatile_stats(node):
+    """Drop VOLATILE_STATS from every `_stats` in the document (actor, items, effects). Returns the count."""
+    n = 0
+    if isinstance(node, dict):
+        st = node.get("_stats")
+        if isinstance(st, dict):
+            for k in VOLATILE_STATS:
+                if k in st:
+                    del st[k]
+                    n += 1
+        for v in node.values():
+            n += strip_volatile_stats(v)
+    elif isinstance(node, list):
+        for v in node:
+            n += strip_volatile_stats(v)
+    return n
+
+
+def iso_ms(stamp):
+    """An ISO-8601 Zulu stamp as epoch milliseconds, or None."""
+    try:
+        return int(datetime.datetime.fromisoformat(str(stamp).replace("Z", "+00:00")).timestamp() * 1000)
+    except (TypeError, ValueError):
+        return None
+
+
+def stripped_export_ms(base):
+    """The export time (ms) of the mirror `base` belongs to, when its split
+    left the volatile stats out; None for any other tree (cast, era packets)."""
+    d = os.path.abspath(base)
+    for _ in range(3):
+        m = os.path.join(d, "manifest.json")
+        if os.path.exists(m):
+            try:
+                man = read_json(m)
+            except (OSError, ValueError):
+                return None
+            return iso_ms(man.get("exportedAt")) if man.get("volatileStats") == "stripped" else None
+        d = os.path.dirname(d)
+    return None
+
+
 def get_path(obj, dotted):
     cur = obj
     for key in dotted.split("."):
@@ -755,6 +819,7 @@ def split(export_path, out_dir, flat=False, prune=False):
     folders_by_id = {f.get("_id"): f for f in folders if isinstance(f, dict)}
     written, paths, unresolved, repaired, dropped = [], [], {}, [], []
     kept = [a for a in actors if isinstance(a, dict) and a.get("name")]
+    changed = 0
     for actor in kept:
         path = folder_path_of(actor, folders_by_id)
         doc = copy.deepcopy(actor)
@@ -766,6 +831,7 @@ def split(export_path, out_dir, flat=False, prune=False):
         repaired.extend((actor.get("name"), *f) for f in repair_identifiers(doc))
         # art served by start.py comes back as the repo path it was built from
         relink_images(doc, lambda p: art_path(p) or p)
+        strip_volatile_stats(doc)
         if path is None:
             # folder id without a name: keep the id, stamp nothing, file at the top
             unresolved[actor.get("folder")] = unresolved.get(actor.get("folder"), 0) + 1
@@ -774,7 +840,7 @@ def split(export_path, out_dir, flat=False, prune=False):
             set_folder_flag(doc, path)
             target_dir = out_dir if flat else os.path.join(out_dir, *[dir_name(p) for p in path])
         target = os.path.join(target_dir, actor_filename(doc))
-        write_text(target, render(doc))
+        changed += write_if_changed(target, render(doc))
         written.append(target)
         paths.append(" / ".join(path or []))
     manifest = {
@@ -788,6 +854,8 @@ def split(export_path, out_dir, flat=False, prune=False):
         "lastSync": meta.get("lastSync"),  # module 1.7.1: {applied: {stamp, at, exportedAt}, seen} — what the table took from a packet
         "source": os.path.relpath(os.path.abspath(export_path), ROOT).replace(os.sep, "/"),
         "actorCount": len(written),
+        "volatileStats": "stripped",  # _stats.modifiedTime / lastModifiedBy are not mirrored; combine stamps exportedAt instead
+        "filesChanged": changed,
         "folders": sorted({p for p in paths if p}),
         "identifiersRepaired": [{"actor": a, "item": i, "key": k, "from": b, "to": t} for a, i, k, b, t in repaired],
         "leftoversDropped": [{"actor": a, "item": i, "type": t, "applied": l} for a, i, t, l in dropped],
@@ -869,10 +937,15 @@ def combine(dirs, folder_prefix=None, world=None, ignore_dirs=False, scheme=None
     rows, omitted = [], []
     seen_names = {}
     for base_index, base in enumerate(dirs):
+        export_ms = stripped_export_ms(base)
         for path, rel_parts in actor_files([base]):
             doc = load_actor_file(path)
             if doc is None:
                 continue
+            if export_ms and not (doc.get("_stats") or {}).get("modifiedTime"):
+                # the mirror's copy is as old as its export: the module keeps a
+                # world actor that changed after that, exactly as before
+                doc.setdefault("_stats", {})["modifiedTime"] = export_ms
             key = (str(doc.get("name") or "").strip().lower(), doc.get("type"))
             if dedupe:
                 first = seen_names.get(key)
@@ -1756,7 +1829,7 @@ def main(argv=None):
             print(f"  repaired {r['actor']} · {r['item']} · {r['key']} {r['from']!r} -> {r['to']!r}")
         for r in manifest["leftoversDropped"]:
             print(f"  dropped {r['actor']} · {r['item']} [{r['type']}] — broken, and the sheet's {r['type']} is {r['applied']}")
-        print(f"split: {len(written)} actors from {manifest['exportedFrom'] or args.export} "
+        print(f"split: {len(written)} actors ({manifest['filesChanged']} file(s) changed) from {manifest['exportedFrom'] or args.export} "
               f"into {len(manifest['folders'])} folder path(s) -> {args.out}"
               + (f", {len(manifest['identifiersRepaired'])} identifier(s) repaired" if manifest["identifiersRepaired"] else "")
               + (f", {len(manifest['leftoversDropped'])} leftover(s) dropped" if manifest["leftoversDropped"] else ""))

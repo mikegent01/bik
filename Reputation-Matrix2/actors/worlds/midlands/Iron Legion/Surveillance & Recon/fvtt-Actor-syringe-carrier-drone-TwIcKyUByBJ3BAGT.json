@@ -1293,6 +1293,9 @@
     },
     "scene-packer": {
       "hash": "3b2ff20fa7a665da7c078de4d1c35ecd2827a4ba"
+    },
+    "midi-qol": {
+      "onUseMacroParts": {}
     }
   },
   "_stats": {
@@ -1302,7 +1305,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791410641076,
-    "modifiedTime": 1791410641077,
+    "modifiedTime": 1791640224430,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

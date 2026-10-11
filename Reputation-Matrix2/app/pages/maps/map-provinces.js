@@ -21,8 +21,16 @@
 // stability — with population as a logged fourth, so a 40,000-toad city does
 // not outvote the castle that actually commands it.
 //
-// Zero DOM, zero imports, zero randomness: the browser and the node tests must
-// derive the same province from the same pins, forever.
+// Zero DOM, zero randomness, one pure import (map-province-arcs.js, itself zero
+// DOM and zero imports): the browser and the node tests must derive the same
+// province from the same pins, forever.
+//
+// Islands: a province can own a lone pin whose tile sits wholly inside another
+// province's land. That is an annotation pretending to be territory, so after
+// the first tiling those detached pieces are absorbed by the province that
+// encircles them (see `absorbIslands`). Filed claims still win in one case: the
+// ONLY piece of a hand-filed province is never absorbed — that would erase a
+// region the archive filed.
 
 const PROVINCE_CENSUS = {
   /* A leftover pin joins a province if a seed is this close (percent of the
@@ -61,6 +69,8 @@ const PROVINCE_CENSUS = {
      the archive filed that extent, the archive keeps it. */
   maxPoisPerProvince: 40,
 };
+
+import { buildProvinceOutlines } from './map-province-arcs.js';
 
 const PROVINCE_SUFFIX = ['Province', 'Canton', 'Shire', 'County', 'Prefecture', 'Duchy', 'Palatinate', 'Margraviate'];
 const MARCH_SUFFIX = 'March';
@@ -537,7 +547,7 @@ function boxAround(seed, box, pad) {
   return [[minX, minY], [maxX, minY], [maxX, maxY], [minX, maxY]];
 }
 
-function provinceAnchors(provinces, box) {
+function provinceAnchors(provinces, box, skipCenter) {
   const raw = [];
   const add = (prov, x, y, key) => {
     if (!Number.isFinite(Number(x)) || !Number.isFinite(Number(y))) return;
@@ -554,7 +564,7 @@ function provinceAnchors(provinces, box) {
     pins.forEach(poi => add(prov, poi.x, poi.y, `${prov.id}|${idOf(poi)}`));
     /* A center anchor stitches a multi-pin province into one territory instead
        of leaving only detached POI islands. */
-    if (pins.length > 1) add(prov, prov.x, prov.y, `${prov.id}|center`);
+    if (pins.length > 1 && !(skipCenter && skipCenter.has(prov.id))) add(prov, prov.x, prov.y, `${prov.id}|center`);
   });
 
   const seen = new Set();
@@ -611,7 +621,7 @@ export function provinceBorders(provinces, opts = {}) {
   const box = opts.box || { minX: 0, minY: 0, maxX: 100, maxY: 100 };
   const solid = list.filter(p => !p.vacant && (p.pois || []).length);
   const cellsByProvince = new Map();
-  anchorCells(provinceAnchors(solid, box), box).forEach(cell => {
+  anchorCells(provinceAnchors(solid, box, opts.skipCenter), box).forEach(cell => {
     const id = cell.anchor.prov.id;
     if (!cellsByProvince.has(id)) cellsByProvince.set(id, []);
     cellsByProvince.get(id).push(cell.polygon);
@@ -671,6 +681,79 @@ export function filedDelta(filedControl, census) {
 /* ---------------- the whole build ---------------- */
 
 /**
+ * Tile the sheet, find islands, hand each one's pins to the province that
+ * encircles it, and tile again — until nothing is left to absorb (4 passes at
+ * most, so a chain of absorptions cannot loop).
+ *
+ * An island is a province's own outer loop that touches no rim and borders one
+ * other province (map-province-arcs.js). Two cases:
+ *   · it holds pins        → those pins join the host province
+ *   · it holds none        → it was the province's centre anchor landing in
+ *                            foreign land; that anchor is dropped
+ * A hand-filed province keeps its ONLY piece however small it is.
+ *
+ * Returns the final provinces (with geometry) and what was absorbed.
+ */
+function absorbIslands(groups, makeProvinces, opts) {
+  const absorbed = [];
+  const skipCenter = new Set();
+  const byKey = new Map(groups.map(g => [g.key, g]));
+  /* Inside the loop, or within 0.1 of its edge. Two pins filed at one
+     coordinate are nudged 0.06 apart before tiling, so the filed point itself
+     lands exactly on the border between their tiles. */
+  const inRing = (pt, ring) => {
+    let hit = false, edge = Infinity;
+    for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+      const [xi, yi] = ring[i], [xj, yj] = ring[j];
+      if ((yi > pt[1]) !== (yj > pt[1]) && pt[0] < (xj - xi) * (pt[1] - yi) / (yj - yi) + xi) hit = !hit;
+      const dx = xi - xj, dy = yi - yj, len2 = dx * dx + dy * dy;
+      const t = len2 ? Math.max(0, Math.min(1, ((pt[0] - xj) * dx + (pt[1] - yj) * dy) / len2)) : 0;
+      edge = Math.min(edge, Math.hypot(pt[0] - (xj + dx * t), pt[1] - (yj + dy * t)));
+    }
+    return hit || edge <= 0.1;
+  };
+  let provinces = [];
+  let dirty = true; // `provinces` is stale until it has been tiled after the last change
+  for (let pass = 0; pass < 4; pass++) {
+    provinces = provinceBorders(makeProvinces(Array.from(byKey.values())), { ...opts, skipCenter });
+    dirty = false;
+    const solid = provinces.filter(p => !p.vacant);
+    const outlines = buildProvinceOutlines(solid);
+    if (!outlines.islands.length) break;
+    const piecesOf = new Map();
+    outlines.islands.forEach(isl => piecesOf.set(isl.province, (piecesOf.get(isl.province) || 0) + 1));
+    let changed = false;
+    outlines.islands.forEach(isl => {
+      const from = byKey.get(isl.province), to = byKey.get(isl.host);
+      const prov = solid.find(p => p.id === isl.province);
+      if (!from || !to || !prov) return;
+      const wholeProvince = (outlines.rings.get(isl.province) || []).length === 1;
+      if (from.kind !== 'merged' && wholeProvince) return; // archive filed this region; it stays
+      const pins = (from.pois || []).filter(poi => inRing([Number(poi.x), Number(poi.y)], isl.ring));
+      if (!pins.length) {
+        if (!skipCenter.has(isl.province)) { skipCenter.add(isl.province); changed = true; }
+        return;
+      }
+      const moving = new Set(pins.map(idOf));
+      from.pois = from.pois.filter(poi => !moving.has(idOf(poi)));
+      to.pois = to.pois.concat(pins);
+      pins.forEach(poi => absorbed.push({ poiId: idOf(poi), name: poi.name || '', from: from.key, to: to.key }));
+      changed = true;
+    });
+    if (!changed) break;
+    dirty = true;
+  }
+  /* A sheet province left with nothing is not a claim anybody filed: drop it.
+     (A hand-filed one stays as a vacant claim, as before.) */
+  const empty = Array.from(byKey.values()).filter(g => g.kind === 'merged' && !g.pois.length).map(g => g.key);
+  empty.forEach(k => byKey.delete(k));
+  if (empty.length || dirty) {
+    provinces = provinceBorders(makeProvinces(Array.from(byKey.values())), { ...opts, skipCenter });
+  }
+  return { provinces, absorbed };
+}
+
+/**
  * Build the province census for one map sheet.
  *
  * @param {object} map      the MAP_DATA record being rendered
@@ -687,7 +770,7 @@ export function buildProvinceCensus(map, allMaps, opts = {}) {
   const filed = filedProvincesFor(map, allMaps, mine, opts);
   const groups = assignPois(here, filed, opts);
 
-  const provinces = groups
+  const makeProvinces = list => list
     .map(g => {
       const census = censusOf(g.pois, opts);
       const seatPoi = g.pois.find(p => idOf(p) === census.seatPoiId) || g.pois[0] || null;
@@ -717,7 +800,7 @@ export function buildProvinceCensus(map, allMaps, opts = {}) {
     .sort((a, b) => (b.census.power - a.census.power) || (a.name < b.name ? -1 : 1))
     .map((prov, i) => ({ ...prov, rank: i + 1 }));
 
-  const withGeometry = provinceBorders(provinces, opts);
+  const { provinces: withGeometry, absorbed } = absorbIslands(groups, makeProvinces, opts);
   const sheet = censusOf(here, opts);
 
   return {
@@ -728,6 +811,7 @@ export function buildProvinceCensus(map, allMaps, opts = {}) {
     duplicatePins: Math.max(0, raw.filter(finite).length - here.length),
     filedProvinces: filed.length,
     provinces: withGeometry,
+    absorbed,
     census: sheet,
     rollup: nationRollup(withGeometry, sheet),
     config: Object.assign({}, PROVINCE_CENSUS, (opts && opts.census) || {}),

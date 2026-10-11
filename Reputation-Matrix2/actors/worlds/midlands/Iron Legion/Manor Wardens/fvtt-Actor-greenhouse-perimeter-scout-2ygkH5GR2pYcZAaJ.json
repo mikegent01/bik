@@ -2,7 +2,7 @@
   "_id": "2ygkH5GR2pYcZAaJ",
   "name": "Greenhouse Perimeter Scout",
   "type": "npc",
-  "img": "icons/svg/mystery-man.svg",
+  "img": "portraits/regal-lion/greenhouse-perimeter-scout.png",
   "system": {
     "abilities": {
       "str": {
@@ -232,7 +232,7 @@
       },
       "cr": 1,
       "biography": {
-        "value": "<p><em>The Regal Lion packet sheet — Greenhouse Perimeter Scout.</em> Built by <code>tools/build-forge-packets.py</code> from the NPC Forge roster <code>data/forge/regal-lion.json</code> (entry <code>greenhouse-perimeter-scout</code>): Medium humanoid (elf), Neutral; CR 1 (proficiency +2, to hit +5 with DEX); AC 15 (treated leather &amp; agility), hit points 27 (5d8+5), speed 35 ft.. A GM scene kit for the The Regal Lion article's present (1040 BF), not a filed event; the faction article stays the authority.</p><p>Tasked with tracking rust monster movements and clearing fungal growth around the abandoned botanical conservatories.</p><p><strong>Role:</strong> hazard tracker · <strong>tier:</strong> Corrosion Watcher · <strong>folder:</strong> Iron Legion / Manor Wardens.</p><h3>Art</h3><p><strong>Awaiting its plate.</strong> The render <code>npc-forge/regal-lion/renders/greenhouse-perimeter-scout.png</code> has not been cut yet; run the NPC Forge (or <code>tools/build-forge-packets.py plates regal-lion</code>) and rebuild. Seed 610010. Prompt: <q>Clean cel-shaded character art in the style of dark fantasy military concept art, bold dark outlines, polished steel and gold lion crest heraldry, dark navy blue and crimson surcoats, cold iron plate, flat colours, crisp shading. A lithe elven scout in dark green camouflage leathers and protective glass goggles, carrying a compound shortbow and a bandolier of glass solvent flasks across her chest. Full body, whole figure visible, three-quarter view, centred, isolated on a plain flat solid magenta background (#FF00FF), no floor, no ground shadow, no text, no border.</q></p>",
+        "value": "<p><em>The Regal Lion packet sheet — Greenhouse Perimeter Scout.</em> Built by <code>tools/build-forge-packets.py</code> from the NPC Forge roster <code>data/forge/regal-lion.json</code> (entry <code>greenhouse-perimeter-scout</code>): Medium humanoid (elf), Neutral; CR 1 (proficiency +2, to hit +5 with DEX); AC 15 (treated leather &amp; agility), hit points 27 (5d8+5), speed 35 ft.. A GM scene kit for the The Regal Lion article's present (1040 BF), not a filed event; the faction article stays the authority.</p><p>Tasked with tracking rust monster movements and clearing fungal growth around the abandoned botanical conservatories.</p><p><strong>Role:</strong> hazard tracker · <strong>tier:</strong> Corrosion Watcher · <strong>folder:</strong> Iron Legion / Manor Wardens.</p><h3>Art</h3><p>Token plate <code>portraits/regal-lion/greenhouse-perimeter-scout.png</code> — NPC Forge render, seed 610010, cut from a flat #FF00FF field. Prompt: <q>Clean cel-shaded character art in the style of dark fantasy military concept art, bold dark outlines, polished steel and gold lion crest heraldry, dark navy blue and crimson surcoats, cold iron plate, flat colours, crisp shading. A lithe elven scout in dark green camouflage leathers and protective glass goggles, carrying a compound shortbow and a bandolier of glass solvent flasks across her chest. Full body, whole figure visible, three-quarter view, centred, isolated on a plain flat solid magenta background (#FF00FF), no floor, no ground shadow, no text, no border.</q></p>",
         "public": ""
       },
       "ideal": "",
@@ -583,7 +583,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "icons/svg/mystery-man.svg",
+      "src": "portraits/regal-lion/greenhouse-perimeter-scout.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -1583,6 +1583,9 @@
     },
     "scene-packer": {
       "hash": "447123f508c978bb8cc74682990d42dc383c94b2"
+    },
+    "midi-qol": {
+      "onUseMacroParts": {}
     }
   },
   "_stats": {
@@ -1592,7 +1595,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791410640427,
-    "modifiedTime": 1791410640427,
+    "modifiedTime": 1791640224238,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },

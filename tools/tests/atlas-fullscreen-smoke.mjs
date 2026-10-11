@@ -50,7 +50,9 @@ check('button starts labelled Full screen', expandBtn() && expandBtn().textConte
   String(expandBtn() && expandBtn().textContent));
 fireImgLoad(host);
 const markers = host.querySelectorAll('[data-poi]').length;
-check('pins render after image load', markers > 50, `${markers} markers`);
+/* A crowded sheet read from far away defaults to key pins (auto density), so
+   the count is the key set, not every filed pin. */
+check('pins render after image load', markers > 20, `${markers} markers`);
 
 // --- expand ---
 expandBtn().click();

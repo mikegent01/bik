@@ -21,6 +21,24 @@ export const TRANSPORT_MODES = Object.freeze({
     road: { label: 'Road', icon: '🛣️', color: '#d9e2f2', dash: '5 3' },
     trail: { label: 'Trail', icon: '🥾', color: '#b79470', dash: '2 4' },
     boat: { label: 'Boat', icon: '⛵', color: '#62d7e8', dash: '8 4' },
+    air: { label: 'Airship', icon: '🎈', color: '#c4b5fd', dash: '1 5' },
+});
+
+/* How a line is doing. Filed explicitly on a link, or derived by the atlas
+   (a line that crosses a contested frontier reads as contested). */
+export const ROUTE_STATUS = Object.freeze({
+    open: { label: 'Open' },
+    strained: { label: 'Strained' },
+    contested: { label: 'Contested' },
+    closed: { label: 'Closed' },
+    planned: { label: 'Planned' },
+});
+
+/* Capacity is a tier, not a number nobody filed: 1 light, 2 standard, 3 heavy. */
+export const ROUTE_CAPACITY = Object.freeze({
+    1: { label: 'Light' },
+    2: { label: 'Standard' },
+    3: { label: 'Heavy' },
 });
 
 const DEFAULT_OPTIONS = Object.freeze({
@@ -36,8 +54,32 @@ const cleanMode = mode => {
     if (value === 'boat' || value === 'ferry' || value === 'water') return 'boat';
     if (value === 'road' || value === 'highway') return 'road';
     if (value === 'trail' || value === 'path') return 'trail';
+    if (value === 'air' || value === 'airship' || value === 'flight') return 'air';
     return '';
 };
+
+const cleanStatus = status => {
+    const value = String(status || '').toLowerCase();
+    return ROUTE_STATUS[value] ? value : 'open';
+};
+
+/* A filed tier (1-3 or light/standard/heavy) wins; otherwise the line carries as
+   much as the development at its two ends and its mode can support. */
+const cleanCapacity = value => {
+    if (value === 1 || value === 2 || value === 3) return value;
+    const text = String(value || '').toLowerCase();
+    if (text === 'light' || text === 'low') return 1;
+    if (text === 'standard' || text === 'medium') return 2;
+    if (text === 'heavy' || text === 'high') return 3;
+    return 0;
+};
+function capacityOf(mode, industrialization, filed) {
+    const explicit = cleanCapacity(filed);
+    if (explicit) return explicit;
+    if (mode === 'trail') return 1;
+    const tier = industrialization >= 16 ? 3 : industrialization >= 8 ? 2 : 1;
+    return mode === 'rail' ? Math.max(2, tier) : tier;
+}
 
 const finite = value => Number.isFinite(Number(value));
 const distance = (a, b) => Math.hypot((Number(a.x) || 0) - (Number(b.x) || 0), (Number(a.y) || 0) - (Number(b.y) || 0));
@@ -121,15 +163,22 @@ function routeRecord(from, to, options = {}) {
     if (!from || !to || poiId(from) === poiId(to)) return null;
     const mode = inferTransportMode(from, to, options);
     const meta = TRANSPORT_MODES[mode];
+    const industrialization = Math.round(((industrializationScore(from) + industrializationScore(to)) / 2) * 10) / 10;
     return {
         id: options.id || `route_${poiId(from)}_${poiId(to)}`,
         from: poiId(from),
         to: poiId(to),
         mode,
         label: options.label || `${meta.icon} ${meta.label}`,
+        /* `name` is the line's own name ("Toad Town Express"); `line` groups
+           several legs into one named line. Both are optional filings. */
+        name: options.name ? String(options.name) : '',
+        line: options.line ? String(options.line) : '',
+        status: cleanStatus(options.status),
+        capacity: capacityOf(mode, industrialization, options.capacity),
         distance: Math.round(distance(from, to) * 10) / 10,
-        industrialization: Math.round(((industrializationScore(from) + industrializationScore(to)) / 2) * 10) / 10,
-        via: Array.isArray(options.via) ? options.via.filter(point => finite(point && point.x) && finite(point && point.y)) : [],
+        industrialization,
+        via: Array.isArray(options.via) ? options.via.filter(point => finite(point && point.x) && finite(point && point.y)).map(point => ({ x: Number(point.x), y: Number(point.y) })) : [],
     };
 }
 
@@ -196,11 +245,25 @@ export function buildTransportNetwork(map, config = {}) {
     const fallback = filed.length ? [] : fallbackRoutes(map, opts, filed);
     const routes = [...filed, ...fallback].slice(0, opts.maxRoutes);
     const routePois = new Set(routes.flatMap(route => [route.from, route.to]));
+    /* Stations are the pins a route actually touches; degree makes a junction
+       readable without drawing a second layer. */
+    const degree = {};
+    routes.forEach(route => {
+        degree[route.from] = (degree[route.from] || 0) + 1;
+        degree[route.to] = (degree[route.to] || 0) + 1;
+    });
+    const lines = {};
+    routes.forEach(route => {
+        if (!route.line) return;
+        (lines[route.line] = lines[route.line] || []).push(route.id);
+    });
     return {
         mapId: map && map.id || '',
         routes,
         hubs: hubsFor(map, opts).map(poi => poiId(poi)),
         routePois,
+        degree,
+        lines,
         count: routes.length,
     };
 }

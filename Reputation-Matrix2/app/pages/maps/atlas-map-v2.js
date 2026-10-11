@@ -7,8 +7,10 @@ import { getFaction, getFactionColor } from '../../../systems/faction-registry.j
 import { hashColor, initial, isSafeLogo, topCats, legendChips } from './map-lenses.js';
 import { typeColor, typeLabel, familiesPresent } from './map-poi-types.js';
 import { buildProvinceCensus, shortlist as rankShortlist, uniquePins } from './map-provinces.js';
+import { buildProvinceOutlines, polylineD, ringsD } from './map-province-arcs.js';
 import { PROVINCE_POLITICS } from '../../../data/support/politics-data.js';
-import { buildTransportForMap, TRANSPORT_MODES } from '../../../data/maps/map-routes.js';
+import { buildTransportForMap, TRANSPORT_MODES, ROUTE_CAPACITY } from '../../../data/maps/map-routes.js';
+import { networkFromRoutes, routeSvgD, transitRouteDossierHtml } from './map-transit.js';
 
 const esc = value => String(value ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
 const format = value => Math.round(value || 0).toLocaleString();
@@ -329,8 +331,15 @@ function dynamicClusterRadius(count, scale, plane, journeyOnly, densityMode, box
    is worse than a crowded sheet. Every location draws as its own dot; 'key'
    thins the sheet by importance if the reader wants that, and clustering is
    available but no longer the default anyone lands on. */
-const PIN_DENSITY_ORDER = ['all', 'key', 'smart'];
+const PIN_DENSITY_ORDER = ['auto', 'all', 'key', 'smart'];
+/* Auto is the default: while a crowded sheet is read from far away only the
+   key pins draw, because a hundred dots at continent scale cannot be told apart
+   or clicked; once the reader pushes in (or the sheet is sparse) every pin
+   draws. Thresholds mirror the clusterer's own "sparse sheet" line. */
+const AUTO_KEY_MIN_PINS = 60;
+const AUTO_KEY_BELOW_ZOOM = 4;
 const PIN_DENSITY = {
+  auto: { label: '◐ Auto', hint: 'key locations while crowded and zoomed out, every pin once you zoom in' },
   all: { label: '• All POIs', hint: 'every location, one dot each' },
   key: { label: '◆ Key only', hint: 'seats, articles, top pins' },
   smart: { label: '✨ Cluster', hint: 'auto-clustered' },
@@ -503,9 +512,9 @@ function detailHtml(poi, pois) {
 
 /* ---------------- the province layer ---------------- */
 
-/* Province paths are now straight polygon paths. The fill and border ink share
-   the same points, so the visible border is the actual boundary and selected
-   POIs do not appear to sit outside a softened/smoothed blob. */
+/* Raw cell paths: the fallback when a province has no arc outline. The normal
+   path is map-province-arcs.js, where fill and border ink share the same
+   smoothed arc points and a guard keeps every pin inside its province. */
 function polygonPathD(polygon) {
   const poly = (polygon || []).filter(pt => pt && Number.isFinite(pt[0]) && Number.isFinite(pt[1]));
   if (poly.length < 3) return '';
@@ -554,80 +563,99 @@ function provincePathD(prov) {
   return provincePolygons(prov).map(polygonPathD).filter(Boolean).join(' ');
 }
 
-/* Border ink is display work, so it lives here and not in the model. The
-   model may hand back a compound province made of many POI-anchor cells; this
-   layer pairs the cell edges, drops edges inside the same province, and inks
-   only real shared borders plus the outside rim. */
-function provinceEdgeInk(provinces, colorOf) {
-  const all = (provinces || []).filter(p => provincePolygons(p).length || (p.polygon && p.polygon.length >= 3));
-  const list = all.filter(p => !p.vacant);
-  const eps = 0.055;
-  const edgesOf = list.map(prov => provincePolygons(prov).flatMap(poly => (poly || []).map((pt, i) => {
-    const q = poly[(i + 1) % poly.length];
-    return { prov, p: pt, q, len: Math.hypot(q[0] - pt[0], q[1] - pt[1]), shared: [] };
-  }).filter(e => e.len >= 0.02)));
-  const offLine = (pt, e) => Math.abs((e.q[0] - e.p[0]) * (pt[1] - e.p[1]) - (e.q[1] - e.p[1]) * (pt[0] - e.p[0])) / (e.len || 1);
-  const sameSegKey = (provA, provB, p, q) => {
-    const a = `${p[0].toFixed(2)},${p[1].toFixed(2)}`;
-    const b = `${q[0].toFixed(2)},${q[1].toFixed(2)}`;
-    const pts = [a, b].sort().join('~');
-    return [provA.id, provB.id].sort().join('|') + '|' + pts;
-  };
-  for (let i = 0; i < list.length; i++) {
-    for (let j = i; j < list.length; j++) {
-      for (const ea of edgesOf[i]) {
-        const ux = (ea.q[0] - ea.p[0]) / ea.len, uy = (ea.q[1] - ea.p[1]) / ea.len;
-        for (const eb of edgesOf[j]) {
-          if (ea === eb) continue;
-          if (i === j && ea.prov.id !== eb.prov.id) continue;
-          if (offLine(eb.p, ea) > eps || offLine(eb.q, ea) > eps) continue;
-          if (offLine(ea.p, eb) > eps || offLine(ea.q, eb) > eps) continue;
-          const u0 = (eb.p[0] - ea.p[0]) * ux + (eb.p[1] - ea.p[1]) * uy;
-          const u1 = (eb.q[0] - ea.p[0]) * ux + (eb.q[1] - ea.p[1]) * uy;
-          const lo = Math.max(0, Math.min(u0, u1)), hi = Math.min(ea.len, Math.max(u0, u1));
-          if (hi - lo < 0.18) continue;
-          const wx = (eb.q[0] - eb.p[0]) / eb.len, wy = (eb.q[1] - eb.p[1]) / eb.len;
-          const s0 = (ea.p[0] - eb.p[0]) * wx + (ea.p[1] - eb.p[1]) * wy;
-          const s1 = (ea.q[0] - eb.p[0]) * wx + (ea.q[1] - eb.p[1]) * wy;
-          ea.shared.push({ other: eb.prov, lo, hi });
-          eb.shared.push({ other: ea.prov, lo: Math.max(0, Math.min(s0, s1)), hi: Math.min(eb.len, Math.max(s0, s1)) });
-        }
-      }
-    }
-  }
-  const crownOf = prov => prov.census.controller || prov.census.claimant || 'unclaimed';
-  const at = (e, t) => [e.p[0] + (e.q[0] - e.p[0]) * (t / e.len), e.p[1] + (e.q[1] - e.p[1]) * (t / e.len)];
-  const line = (p, q, cls, color, attrs = '') => `<line class="${cls}" ${attrs}x1="${p[0]}" y1="${p[1]}" x2="${q[0]}" y2="${q[1]}"${color ? ` style="--plot:${esc(color)}"` : ''} vector-effect="non-scaling-stroke"/>`;
+/* Vacant hand-filed claims are drawn over ground the survey gave to somebody
+   else, so they are inked as their own boxes rather than as shared borders. */
+function claimEdgeInk(claims, colorOf) {
+  const line = (p, q, color, owner) => `<line class="atlas-v2-edge rim vacant" data-edge-owner="${esc(owner)}" x1="${p[0]}" y1="${p[1]}" x2="${q[0]}" y2="${q[1]}" style="--plot:${esc(color)}" vector-effect="non-scaling-stroke"/>`;
   const ink = [];
-  const drawn = new Set();
-  edgesOf.forEach(edges => edges.forEach(e => {
-    const rimCls = 'atlas-v2-edge rim';
-    const rimColor = colorOf(e.prov);
-    const spans = e.shared.slice().sort((a, b) => a.lo - b.lo);
-    let cursor = 0;
-    spans.forEach(s => {
-      if (s.lo > cursor + 0.05) ink.push(line(at(e, cursor), at(e, Math.min(s.lo, e.len)), rimCls, rimColor, `data-edge-owner="${esc(e.prov.id)}" `));
-      const p = at(e, s.lo), q = at(e, s.hi);
-      cursor = Math.max(cursor, s.hi);
-      if (s.other.id === e.prov.id) return; // same province: do not ink cell seams
-      const key = sameSegKey(e.prov, s.other, p, q);
-      if (drawn.has(key)) return;
-      drawn.add(key);
-      const same = crownOf(e.prov) === crownOf(s.other);
-      const hot = e.prov.census.contested || s.other.census.contested;
-      const cls = same ? 'atlas-v2-edge inner' : 'atlas-v2-edge frontier' + (hot ? ' hot' : '');
-      ink.push(line(p, q, cls, '', `data-edge-provinces="${esc(e.prov.id)} ${esc(s.other.id)}" `));
-    });
-    if (cursor < e.len - 0.05) ink.push(line(at(e, cursor), at(e, e.len), rimCls, rimColor, `data-edge-owner="${esc(e.prov.id)}" `));
-  }));
-  all.filter(p => p.vacant).forEach(prov => {
+  (claims || []).filter(p => p.vacant).forEach(prov => {
     (prov.polygon || []).forEach((pt, i, poly) => {
       const q = poly[(i + 1) % poly.length];
       if (Math.hypot(q[0] - pt[0], q[1] - pt[1]) < 0.02) return;
-      ink.push(line(pt, q, 'atlas-v2-edge rim vacant', colorOf(prov), `data-edge-owner="${esc(prov.id)}" `));
+      ink.push(line(pt, q, colorOf(prov), prov.id));
     });
   });
   return ink.join('');
+}
+
+/* Frontiers are inked from the shared arcs built by map-province-arcs.js: one
+   path per arc, drawn once, with both neighbours' fills walking the same
+   points. The rim is the sheet edge and is never softened. */
+function arcEdgeInk(outlines, provinces, colorOf) {
+  const byId = new Map(provinces.map(p => [p.id, p]));
+  const crownOf = prov => prov.census.controller || prov.census.claimant || 'unclaimed';
+  return outlines.arcs.map(arc => {
+    const d = polylineD(arc.points) + (arc.closed ? ' Z' : '');
+    if (d.length < 4) return '';
+    const a = byId.get(arc.sides[0]);
+    if (!a) return '';
+    if (arc.rim) {
+      return `<path class="atlas-v2-edge rim" fill="none" data-edge-owner="${esc(a.id)}" style="--plot:${esc(colorOf(a))}" vector-effect="non-scaling-stroke" d="${esc(d)}"/>`;
+    }
+    const b = byId.get(arc.sides[1]);
+    if (!b) return '';
+    const hot = a.census.contested || b.census.contested;
+    const cls = crownOf(a) === crownOf(b) ? 'atlas-v2-edge inner' : 'atlas-v2-edge frontier' + (hot ? ' hot' : '');
+    return `<path class="${cls}" fill="none" data-edge-provinces="${esc(a.id)} ${esc(b.id)}" vector-effect="non-scaling-stroke" d="${esc(d)}"/>`;
+  }).join('');
+}
+
+/* Outlines are a pure function of the census, which is fixed for a mount; the
+   overlay repaints on every zoom, so build them once per province list. */
+const OUTLINE_CACHE = new WeakMap();
+
+function outlinesFor(provinces) {
+  let outlines = OUTLINE_CACHE.get(provinces);
+  if (!outlines) {
+    outlines = buildProvinceOutlines(provinces);
+    OUTLINE_CACHE.set(provinces, outlines);
+  }
+  return outlines;
+}
+
+/* Where a province's name sits: the centroid of its biggest outline, kept only
+   if it really lies inside the province (a crescent's centroid can be outside
+   it). The seed pin is the fallback — it is where the survey put the seat, not
+   where the territory's middle is, which is why labels used to crowd one pin. */
+function labelAnchors(provinces) {
+  const out = new Map();
+  const outlines = outlinesFor(provinces);
+  const area = ring => {
+    let a = 0;
+    for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) a += (ring[j][0] + ring[i][0]) * (ring[j][1] - ring[i][1]);
+    return a / 2;
+  };
+  const inside = (pt, rings) => {
+    let hit = false;
+    rings.forEach(ring => {
+      for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+        const [xi, yi] = ring[i], [xj, yj] = ring[j];
+        if ((yi > pt[1]) !== (yj > pt[1]) && pt[0] < (xj - xi) * (pt[1] - yi) / (yj - yi) + xi) hit = !hit;
+      }
+    });
+    return hit;
+  };
+  provinces.forEach(prov => {
+    const rings = outlines.rings.get(prov.id) || [];
+    let best = null, bestA = 0;
+    rings.forEach(r => { const a = Math.abs(area(r)); if (a > bestA) { best = r; bestA = a; } });
+    let pt = null;
+    if (best && bestA > 0) {
+      let cx = 0, cy = 0, signed = 0;
+      for (let i = 0, j = best.length - 1; i < best.length; j = i++) {
+        const f = best[j][0] * best[i][1] - best[i][0] * best[j][1];
+        signed += f;
+        cx += (best[j][0] + best[i][0]) * f;
+        cy += (best[j][1] + best[i][1]) * f;
+      }
+      if (signed) {
+        const c = [cx / (3 * signed), cy / (3 * signed)];
+        if (Number.isFinite(c[0]) && Number.isFinite(c[1]) && inside(c, rings)) pt = c;
+      }
+    }
+    out.set(prov.id, pt ? { x: Math.round(pt[0] * 100) / 100, y: Math.round(pt[1] * 100) / 100 } : { x: prov.x, y: prov.y });
+  });
+  return out;
 }
 
 /* The province layer is filled first and inked second. Contested/unreadable
@@ -639,10 +667,13 @@ function bordersSvg(provinces, colorOf, mapId = 'sheet') {
   if (!list.length) return '';
   const solid = list.filter(prov => !prov.vacant);
   const claims = list.filter(prov => prov.vacant);
+  const outlines = outlinesFor(provinces);
   const pathFor = prov => {
     const color = colorOf(prov);
     const cls = `atlas-v2-plot${prov.census.contested ? ' contested' : ''}${prov.vacant ? ' vacant' : ''}`;
-    return `<path class="${cls}" data-province="${esc(prov.id)}" style="--plot:${esc(color)}" d="${esc(provincePathD(prov))}"><title>${esc(prov.name)}${prov.census.contested ? ' — contested' : (prov.census.controller ? '' : ' — unclaimed')}</title></path>`;
+    const smooth = !prov.vacant && outlines.rings.get(prov.id);
+    const d = smooth && smooth.length ? ringsD(smooth) : provincePathD(prov);
+    return `<path class="${cls}" fill-rule="evenodd" data-province="${esc(prov.id)}" style="--plot:${esc(color)}" d="${esc(d)}"><title>${esc(prov.name)}${prov.census.contested ? ' — contested' : (prov.census.controller ? '' : ' — unclaimed')}</title></path>`;
   };
   const fills = solid.map(pathFor).join('');
   const claimFills = claims.map(pathFor).join('');
@@ -654,8 +685,8 @@ function bordersSvg(provinces, colorOf, mapId = 'sheet') {
     : '';
   return `<svg class="atlas-v2-borders" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">`
     + defs
-    + `<g class="atlas-v2-survey-clip"${clipped}><g class="atlas-v2-fills">${fills}</g><g class="atlas-v2-edges">${provinceEdgeInk(solid, colorOf)}</g></g>`
-    + `<g class="atlas-v2-claims"><g class="atlas-v2-fills">${claimFills}</g><g class="atlas-v2-edges">${provinceEdgeInk(claims, colorOf)}</g></g>`
+    + `<g class="atlas-v2-survey-clip"${clipped}><g class="atlas-v2-fills">${fills}</g><g class="atlas-v2-edges">${arcEdgeInk(outlines, solid, colorOf)}</g></g>`
+    + `<g class="atlas-v2-claims"><g class="atlas-v2-fills">${claimFills}</g><g class="atlas-v2-edges">${claimEdgeInk(claims, colorOf)}</g></g>`
     + `</svg>`;
 }
 
@@ -805,6 +836,23 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
   const census = (opts.provinces === false || journeyOnly) ? null
     : buildProvinceCensus(map, MAP_DATA, { pois, politics: PROVINCE_POLITICS, ...(opts.provinceCensus || {}) });
   const provinceList = census && census.provinces.length > 1 ? census.provinces : [];
+
+  /* The filed transport layer, run through the transit engine: distances,
+     times, station roles and dossiers come from map-transit.js; which lines
+     exist, their mode and their waypoints stay as filed in map-routes.js. A line
+     with no filed status reads as contested where it crosses a frontier the
+     census marks as disputed. */
+  const poiProvince = new Map();
+  provinceList.forEach(prov => (prov.pois || []).forEach(p => poiProvince.set(p.id, prov)));
+  const derivedStatus = (route, u, v) => {
+    if (route.status && route.status !== 'open') return route.status;
+    const a = poiProvince.get(u.id), b = poiProvince.get(v.id);
+    if (a && b && a.id !== b.id && ((a.census && a.census.contested) || (b.census && b.census.contested))) return 'contested';
+    return 'open';
+  };
+  const labelAt = provinceList.length ? labelAnchors(provinceList) : new Map();
+  const transitNet = visibleRoutes.length ? networkFromRoutes(map, pois, visibleRoutes, { statusOf: derivedStatus }) : null;
+  const transitRouteById = new Map((transitNet ? transitNet.routes : []).map(r => [r.id, r]));
   const provinceById = new Map(provinceList.map(p => [p.id, p]));
   const pinProvince = new Map();
   provinceList.forEach(prov => prov.poiIds.forEach(id => pinProvince.set(id, prov)));
@@ -918,8 +966,8 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
       <button type="button" data-action="wiki" title="Show only pins that open a wiki article">📖 Wiki</button>
       ${provinceList.length ? `<button type="button" data-action="plots" class="${plotsOn ? 'active' : ''}" title="Merge the pins into provinces and draw the borders the census can prove">🗺️ Provinces</button>` : ''}
       ${visibleRoutes.length && !journeyOnly ? `<button type="button" data-action="routes" class="active" title="Show or hide the inferred transport network">🚆 Routes</button>` : ''}
-      <button type="button" data-action="density" data-density="all" title="Cycle marker density: every location, key locations only, or auto-clustered">${PIN_DENSITY.all.label}</button>
-      <button type="button" data-action="bigpins" title="Bigger, easier-to-hit dots — for touch, or when precision aiming is a nuisance">⬤ Big dots</button>
+      <button type="button" data-action="density" data-density="auto" title="Cycle marker density: auto, every location, key locations only, or clustered">${PIN_DENSITY.auto.label}</button>
+      <button type="button" data-action="bigpins" class="active" title="Bigger, easier-to-hit dots (on by default) — click to return to small dots">⬤ Big dots</button>
       <button type="button" data-action="shortlist" title="Rank the pins on this sheet and pick one to act on">🎯 Choose a pin</button>
       <span data-visible>${pois.length} markers</span>
     </div>
@@ -963,10 +1011,10 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     drill: [],
     scale: 1, tx: 0, ty: 0, box: { left: 0, top: 0, w: 1, h: 1 }, mode: startMode, selected: null, wikiOnly: false,
     plots: plotsOn, routes: visibleRoutes.length > 0 && !journeyOnly && opts.routes !== false, province: null, board: null, pickIndex: 0, nonce: 0, dragged: false, labelZoom: 1,
-    pinDensity: PIN_DENSITY[opts.pinDensity] ? opts.pinDensity : 'all',
+    pinDensity: PIN_DENSITY[opts.pinDensity] ? opts.pinDensity : 'auto',
     /* Big-target mode: same dots, bigger hit areas, for touch and for anyone
        who would rather aim at a disc than a point. Opt-in, off by default. */
-    bigPins: false,
+    bigPins: true,
   };
   /* One colour source for the census: the same registry the pins and the
      demographics panel already read, so a province and its capital agree. */
@@ -1212,13 +1260,43 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     const lines = visibleRoutes.map(route => {
       const from = transportById.get(route.from);
       const to = transportById.get(route.to);
-      const points = [`${from.x},${from.y}`]
-        .concat((route.via || []).map(point => `${point.x},${point.y}`))
-        .concat([`${to.x},${to.y}`]).join(' ');
       const mode = TRANSPORT_MODES[route.mode] || TRANSPORT_MODES.trail;
-      return `<polyline class="atlas-v2-route atlas-v2-route-${esc(route.mode)}" points="${esc(points)}" style="--route:${esc(mode.color)};--route-dash:${esc(mode.dash)}" vector-effect="non-scaling-stroke"><title>${esc(mode.icon)} ${esc(mode.label)} · ${esc(from.name)} to ${esc(to.name)} · industrialization ${esc(route.industrialization)}</title></polyline>`;
+      const tr = transitRouteById.get(route.id);
+      const d = tr ? routeSvgD(tr) : `M ${from.x},${from.y} L ${to.x},${to.y}`;
+      const status = (tr && tr.status) || route.status || 'open';
+      const cap = (tr && tr.capacity) || route.capacity || 1;
+      const name = (tr && tr.name) || `${from.name} to ${to.name}`;
+      const tip = `${mode.icon} ${name} · ${mode.label} · ${(ROUTE_CAPACITY[cap] || ROUTE_CAPACITY[1]).label} capacity · ${status}`;
+      const cls = `atlas-v2-route atlas-v2-route-${esc(route.mode)} cap-${cap} status-${esc(status)}`;
+      /* Line weight follows capacity; rail and road get a dark casing so they
+         read as built lines, with ties / a centre line on top. Sea, air and
+         trail stay dashed and light. */
+      const w = (1.5 + (cap - 1) * 0.8).toFixed(1);
+      const built = route.mode === 'rail' || route.mode === 'road';
+      return `<g data-route="${esc(route.id)}" style="--w:${w}px">`
+        + (built ? `<path class="atlas-v2-route-casing" d="${esc(d)}" vector-effect="non-scaling-stroke"/>` : '')
+        + `<path class="${cls}" fill="none" style="--route:${esc(mode.color)};--route-dash:${esc(mode.dash)}" vector-effect="non-scaling-stroke" d="${esc(d)}"><title>${esc(tip)}</title></path>`
+        + (built ? `<path class="atlas-v2-route-detail atlas-v2-route-detail-${esc(route.mode)}" d="${esc(d)}" vector-effect="non-scaling-stroke"/>` : '')
+        + `<path class="atlas-v2-route-hit" fill="none" data-route-id="${esc(route.id)}" vector-effect="non-scaling-stroke" d="${esc(d)}"/>`
+        + `</g>`;
     }).join('');
     return `<svg class="atlas-v2-routes" viewBox="0 0 100 100" preserveAspectRatio="none" aria-label="Transport routes">${lines}</svg>`;
+  }
+
+  /* Stations are drawn as markers, not as SVG circles: the pins under them are
+     tiny dots, so a line ending at a pin ended at nothing. A ring in the line's
+     own colour makes each terminal a place; junctions (three or more lines) are
+     larger and carry their name. They are counter-scaled like pins and sit
+     under them, so the pin inside stays the click target. */
+  function stationsHtml() {
+    if (!state.routes || !transitNet || journeyOnly) return '';
+    return transitNet.stations.filter(st => (st.degree || 0) >= 1).map(st => {
+      const lead = (st.connections || []).slice().sort((a, b) => (b.capacity || 1) - (a.capacity || 1))[0];
+      const color = lead && lead.modeMeta ? lead.modeMeta.color : '#e8f0ff';
+      const hub = (st.degree || 0) >= 3;
+      const tip = `${st.name} · ${st.stationRole || 'Station'} · ${st.degree} line${st.degree === 1 ? '' : 's'}`;
+      return `<span class="atlas-v2-station${hub ? ' hub' : ''}" data-station="${esc(st.id)}" style="left:${Number(st.x)}%;top:${Number(st.y)}%;--station:${esc(color)}" title="${esc(tip)}">${hub ? `<em>${esc(st.name)}</em>` : ''}</span>`;
+    }).join('');
   }
 
   function transportLegendHtml() {
@@ -1230,7 +1308,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     return Object.entries(counts).map(([mode, count]) => {
       const meta = TRANSPORT_MODES[mode] || TRANSPORT_MODES.trail;
       return `<span class="atlas-v2-route-key"><i style="background:${esc(meta.color)}"></i>${esc(meta.icon)} ${esc(meta.label)} ${count}</span>`;
-    }).join('');
+    }).join('') + '<span class="atlas-v2-route-key atlas-v2-route-key-note">line weight = capacity · red dashed = closed · amber = contested</span>';
   }
 
   function placePins() {
@@ -1283,13 +1361,18 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
       && (!state.wikiOnly || wikiId(poi));
     let displayPois = inScope.filter(matches);
     const unfilteredMatches = displayPois.length;
-    if (state.pinDensity === 'key' && !journeyOnly) displayPois = displayPois.filter(isKeyPin);
+    /* What 'auto' resolves to right now. A drilled-in scope is already the
+       small answer to a crowd, so it counts the scoped pins, not the sheet. */
+    const density = state.pinDensity === 'auto'
+      ? (inScope.length > AUTO_KEY_MIN_PINS && (state.scale || 1) < AUTO_KEY_BELOW_ZOOM ? 'key' : 'all')
+      : state.pinDensity;
+    if (density === 'key' && !journeyOnly) displayPois = displayPois.filter(isKeyPin);
     if (!displayPois.length && unfilteredMatches) displayPois = inScope.filter(matches).slice(0, 1);
     currentVisiblePois = displayPois.slice();
     const min = values.length ? Math.min(...values) : 0;
-    const radius = dynamicClusterRadius(displayPois.length, state.scale, plane, journeyOnly, state.pinDensity, state.box, state.drill.length > 0);
+    const radius = dynamicClusterRadius(displayPois.length, state.scale, plane, journeyOnly, density, state.box, state.drill.length > 0);
     const clusterOpts = {
-      maxSize: state.pinDensity === 'smart' ? Math.max(18, Math.ceil(displayPois.length / 12)) : 4,
+      maxSize: density === 'smart' ? Math.max(18, Math.ceil(displayPois.length / 12)) : 4,
       score: p => (lensVal(p) * 2) + defaultPinScore(p) + (isKeyPin(p) ? 999 : 0),
     };
     const clusters = provinceList.length
@@ -1333,7 +1416,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
        its ink means: how many provinces, and how many of them are contested —
        now shown by plain fill/labels instead of hatch marks. */
     const contestedCount = provinceList.filter(p => p.census.contested).length;
-    const densityHint = PIN_DENSITY[state.pinDensity]?.hint || 'auto-clustered';
+    const densityHint = state.pinDensity === 'auto' ? (density === 'key' ? 'key locations — zoom in for every pin' : 'every location') : (PIN_DENSITY[state.pinDensity]?.hint || 'auto-clustered');
     const clusterHint = clusterCount ? ` · ${clusterCount} cluster${clusterCount === 1 ? '' : 's'}` : '';
     const keyHint = hiddenKeyCount ? ` · ${hiddenKeyCount} tucked` : '';
     const plotHint = state.plots && provinceList.length ? ` · 🗺️ ${provinceList.length} provinces${contestedCount ? ` · ⚔ ${contestedCount} contested` : ''}` : '';
@@ -1343,7 +1426,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
         lensEl.innerHTML = `<i style="background:${lens.color}"></i>${format(min)} – ${format(max)} ${esc(lens.unit)} · pin size = ${esc(lens.sizeLabel || lens.label)} · ${esc(densityHint)}${clusterHint}${keyHint}${major.size ? ' · ◎ top 5 ringed' : ''}${toks.length ? ` · 🛰️ ${toks.length} party` : ''} · ${legendChips(cats.cats, cats.more)}${plotHint}`;
       } else lensEl.innerHTML = `<i style="background:${lens.color}"></i>${format(min)} – ${format(max)} ${esc(lens.unit)} · pin size = ${esc(lens.label)} · ${esc(densityHint)}${clusterHint}${keyHint}${major.size ? ' · ◎ top 5 ringed' : ''}${toks.length ? ` · 🛰️ ${toks.length} party` : ''}${plotHint}`;
     }
-    overlay.innerHTML = transportPathSvg() + (state.plots ? bordersSvg(provinceList, plotColor, map.id) + provinceLabelsHtml() : '') + journeyPathSvg() + clusters.map(group => {
+    overlay.innerHTML = (state.plots ? bordersSvg(provinceList, plotColor, map.id) : '') + transportPathSvg() + stationsHtml() + (state.plots ? provinceLabelsHtml() : '') + journeyPathSvg() + clusters.map(group => {
       const poi = group[0];
       const faction = factionMeta(poi.factionId);
       const cat = lens.categorical ? lens.catOf(poi) : null;
@@ -1449,6 +1532,31 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
         if (prov) selectProvince(prov);
       });
     });
+    /* A route opens its logistics dossier: terminals, distance, status and
+       capacity. The back button returns to whatever pin was selected. */
+    overlay.querySelectorAll('[data-route-id]').forEach(el => {
+      el.addEventListener('click', ev => {
+        ev.stopPropagation();
+        if (state.dragged) return;
+        const tr = transitRouteById.get(el.dataset.routeId);
+        if (!tr) return;
+        sidebar.innerHTML = transitRouteDossierHtml(tr, transitNet);
+        sidebar.querySelectorAll('[data-jump-poi]').forEach(btn => btn.addEventListener('click', () => {
+          const target = pois.find(p => p.id === btn.dataset.jumpPoi);
+          if (!target) return;
+          select(target, null, stopByPoi.get(target.id));
+          centerOn(target.x, target.y, Math.max(state.scale, 4));
+          placePins();
+        }));
+        const back = sidebar.querySelector('[data-transit-back]');
+        if (back) back.addEventListener('click', () => { sidebar.innerHTML = detailHtml(state.selected || null, pois); });
+        const frame = sidebar.querySelector('[data-transit-frame-route]');
+        if (frame) frame.addEventListener('click', () => {
+          centerOn((tr.u.x + tr.v.x) / 2, (tr.u.y + tr.v.y) / 2, Math.max(2.5, Math.min(state.scale || 1, 6)));
+          placePins();
+        });
+      });
+    });
     if (toks.length) {
       /* A party token is now the same size as the places it stands among, and
          it PULSES. Size was the wrong way to say "someone is here" — it just
@@ -1499,12 +1607,20 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     }).sort((a, b) => (b.prov.area || 0) - (a.prov.area || 0) || (b.prov.census.power || 0) - (a.prov.census.power || 0));
     const placed = [];
     const kept = new Set(state.province ? [state.province] : []);
+    /* Overview hierarchy: the whole continent shows only its largest provinces;
+       the rest earn a name as the reader zooms toward them. The selected
+       province is always named and does not count against the cap. */
+    const cap = zoom < 1.6 ? 14 : zoom < 4 ? 32 : Infinity;
+    let shown = 0;
     items.forEach(it => {
+      const at = labelAt.get(it.prov.id) || it.prov;
+      it.x = at.x; it.y = at.y;
       if (kept.has(it.prov.id)) { placed.push(it); return; }
-      const x = it.prov.x, y = it.prov.y;
-      if (placed.some(b => Math.abs(b.prov.x - x) < b.hw + it.hw && Math.abs(b.prov.y - y) < b.hh + it.hh)) return;
+      if (shown >= cap) return;
+      if (placed.some(b => Math.abs(b.x - it.x) < b.hw + it.hw && Math.abs(b.y - it.y) < b.hh + it.hh)) return;
       placed.push(it);
       kept.add(it.prov.id);
+      shown++;
     });
     return kept;
   }
@@ -1523,7 +1639,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     return provinceList.map(prov => {
       const c = prov.census;
       const crown = c.contested ? '⚔ contested' : c.controller ? `${c.claimantShare}%` : '';
-      return `<div class="atlas-v2-plotlabel${c.contested ? ' contested' : ''}${c.neutral ? ' neutral' : ''}${state.province === prov.id ? ' on' : ''}${kept.has(prov.id) ? '' : ' tucked'}" data-plotlabel="${esc(prov.id)}" style="left:${prov.x}%;top:${prov.y}%" title="${esc(prov.name)} — open its dossier"><b>${esc(prov.name)}</b>${crown ? `<i>${esc(crown)}</i>` : ''}</div>`;
+      return `<div class="atlas-v2-plotlabel${c.contested ? ' contested' : ''}${c.neutral ? ' neutral' : ''}${state.province === prov.id ? ' on' : ''}${kept.has(prov.id) ? '' : ' tucked'}" data-plotlabel="${esc(prov.id)}" style="left:${(labelAt.get(prov.id) || prov).x}%;top:${(labelAt.get(prov.id) || prov).y}%" title="${esc(prov.name)} — open its dossier"><b>${esc(prov.name)}</b>${crown ? `<i>${esc(crown)}</i>` : ''}</div>`;
     }).join('');
   }
 
@@ -1809,6 +1925,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     event.currentTarget.classList.toggle('active', state.routes);
     placePins();
   });
+  host.classList.toggle('atlas-v2-bigpins', state.bigPins);
   const bigPinsBtn = host.querySelector('[data-action="bigpins"]');
   if (bigPinsBtn) bigPinsBtn.addEventListener('click', event => {
     state.bigPins = !state.bigPins;
@@ -1823,6 +1940,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     densityBtn.textContent = d.label;
     densityBtn.dataset.density = state.pinDensity;
     densityBtn.classList.toggle('active', state.pinDensity !== 'smart');
+    densityBtn.title = d.hint;
   }
   renderDensityButton();
   if (densityBtn) densityBtn.addEventListener('click', () => {

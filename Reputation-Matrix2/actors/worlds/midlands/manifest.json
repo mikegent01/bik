@@ -1,18 +1,18 @@
 {
   "format": "waluipedia-actors/1",
   "exportedFrom": "midlands",
-  "exportedAt": "2026-10-10T03:38:57.675Z",
+  "exportedAt": "2026-10-10T13:52:25.365Z",
   "system": "dnd5e",
   "systemVersion": "5.3.3",
   "coreVersion": "14.367",
-  "exportedBy": "waluipedia-mass-import 1.9.4 (create Item)",
+  "exportedBy": "waluipedia-mass-import 1.9.4 (update Actor)",
   "lastSync": {
     "applied": {
-      "stamp": "data:c33751a49d2618c8bf966b289c4a6e01d93faecc",
-      "at": "2026-10-07T22:04:03.867Z",
+      "stamp": "data:9c6f7e1814aa652a27af527ca7d582f9909bdaf6",
+      "at": "2026-10-10T13:50:24.820Z",
       "exportedAt": "2026-10-07T02:41:26.422Z"
     },
-    "seen": "data:c33751a49d2618c8bf966b289c4a6e01d93faecc"
+    "seen": "data:9c6f7e1814aa652a27af527ca7d582f9909bdaf6"
   },
   "source": "midlands-all-actors.json",
   "actorCount": 535,
@@ -2490,6 +2490,12 @@
       "file": "Mages' Guild/fvtt-Actor-kyle-coinsoul-Gi1W7RCATgDcBQWi.json"
     },
     {
+      "name": "P.S",
+      "type": "npc",
+      "_id": "6apfRNEMlsKmxc5Y",
+      "file": "Mages' Guild/fvtt-Actor-p-s-6apfRNEMlsKmxc5Y.json"
+    },
+    {
       "name": "Parson Pellinost",
       "type": "npc",
       "_id": "74wawSSf7Yk9MUkH",
@@ -2518,12 +2524,6 @@
       "type": "npc",
       "_id": "l7YG88HtRZneApbC",
       "file": "Mages' Guild/fvtt-Actor-valorian-stormweave-l7YG88HtRZneApbC.json"
-    },
-    {
-      "name": "X.O.",
-      "type": "npc",
-      "_id": "6apfRNEMlsKmxc5Y",
-      "file": "Mages' Guild/fvtt-Actor-x-o-6apfRNEMlsKmxc5Y.json"
     },
     {
       "name": "Captain of the Palace Guard (955 BF)",

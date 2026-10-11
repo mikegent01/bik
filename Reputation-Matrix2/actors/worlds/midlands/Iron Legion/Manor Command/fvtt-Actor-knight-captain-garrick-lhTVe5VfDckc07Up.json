@@ -2,7 +2,7 @@
   "_id": "lhTVe5VfDckc07Up",
   "name": "Knight-Captain Garrick",
   "type": "npc",
-  "img": "icons/svg/mystery-man.svg",
+  "img": "portraits/regal-lion/sir-garrick-lionheart.png",
   "system": {
     "abilities": {
       "str": {
@@ -232,7 +232,7 @@
       },
       "cr": 5,
       "biography": {
-        "value": "<p><em>The Regal Lion packet sheet — Knight-Captain Garrick.</em> Built by <code>tools/build-forge-packets.py</code> from the NPC Forge roster <code>data/forge/regal-lion.json</code> (entry <code>sir-garrick-lionheart</code>): Medium humanoid (human), Lawful Good; CR 5 (proficiency +3, to hit +7 with STR); AC 18 (Regal Lion full plate &amp; buckler), hit points 85 (10d8+40), speed 30 ft.. A GM scene kit for the The Regal Lion article's present (1040 BF), not a filed event; the faction article stays the authority.</p><p>Senior commander of the Regal Lion detachment at Raventree Manor. While Byscilla handles logistics and containment with cold detachment, Garrick ensures knightly morale and personal valor remain unbroken.</p><p><strong>Role:</strong> paladin champion · <strong>tier:</strong> Regal Lion Captain · <strong>folder:</strong> Iron Legion / Manor Command.</p><h3>Art</h3><p><strong>Awaiting its plate.</strong> The render <code>npc-forge/regal-lion/renders/sir-garrick-lionheart.png</code> has not been cut yet; run the NPC Forge (or <code>tools/build-forge-packets.py plates regal-lion</code>) and rebuild. Seed 610003. Prompt: <q>Clean cel-shaded character art in the style of dark fantasy military concept art, bold dark outlines, polished steel and gold lion crest heraldry, dark navy blue and crimson surcoats, cold iron plate, flat colours, crisp shading. A heroic, seasoned knight in ornate silver and polished gold plate armor emblazoned with the roaring Regal Lion crest, wearing a crimson cloak. Holding a large flaming broadsword with a lion-head crossguard. Full body, whole figure visible, three-quarter view, centred, isolated on a plain flat solid magenta background (#FF00FF), no floor, no ground shadow, no text, no border.</q></p>",
+        "value": "<p><em>The Regal Lion packet sheet — Knight-Captain Garrick.</em> Built by <code>tools/build-forge-packets.py</code> from the NPC Forge roster <code>data/forge/regal-lion.json</code> (entry <code>sir-garrick-lionheart</code>): Medium humanoid (human), Lawful Good; CR 5 (proficiency +3, to hit +7 with STR); AC 18 (Regal Lion full plate &amp; buckler), hit points 85 (10d8+40), speed 30 ft.. A GM scene kit for the The Regal Lion article's present (1040 BF), not a filed event; the faction article stays the authority.</p><p>Senior commander of the Regal Lion detachment at Raventree Manor. While Byscilla handles logistics and containment with cold detachment, Garrick ensures knightly morale and personal valor remain unbroken.</p><p><strong>Role:</strong> paladin champion · <strong>tier:</strong> Regal Lion Captain · <strong>folder:</strong> Iron Legion / Manor Command.</p><h3>Art</h3><p>Token plate <code>portraits/regal-lion/sir-garrick-lionheart.png</code> — NPC Forge render, seed 610003, cut from a flat #FF00FF field. Prompt: <q>Clean cel-shaded character art in the style of dark fantasy military concept art, bold dark outlines, polished steel and gold lion crest heraldry, dark navy blue and crimson surcoats, cold iron plate, flat colours, crisp shading. A heroic, seasoned knight in ornate silver and polished gold plate armor emblazoned with the roaring Regal Lion crest, wearing a crimson cloak. Holding a large flaming broadsword with a lion-head crossguard. Full body, whole figure visible, three-quarter view, centred, isolated on a plain flat solid magenta background (#FF00FF), no floor, no ground shadow, no text, no border.</q></p>",
         "public": ""
       },
       "ideal": "",
@@ -582,7 +582,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "icons/svg/mystery-man.svg",
+      "src": "portraits/regal-lion/sir-garrick-lionheart.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -1189,227 +1189,6 @@
       }
     },
     {
-      "_id": "PvAN4It90ofHAhBZ",
-      "name": "Challenger's Roar",
-      "type": "feat",
-      "img": "icons/magic/sonic/scream-wail-shout-teal.webp",
-      "system": {
-        "description": {
-          "value": "<p>Captain Garrick roars a challenge in the name of the Regal Lion. Hostile creatures within 30 feet must succeed on a DC 14 Wisdom saving throw or have disadvantage on attack rolls against any target other than Garrick for 1 minute.</p>",
-          "chat": ""
-        },
-        "type": {
-          "value": "monster",
-          "subtype": ""
-        },
-        "uses": {
-          "spent": 0,
-          "max": "",
-          "recovery": []
-        },
-        "activities": {
-          "20SNWaQgOTp3NlT5": {
-            "_id": "20SNWaQgOTp3NlT5",
-            "type": "save",
-            "name": "",
-            "img": null,
-            "sort": 0,
-            "activation": {
-              "type": "bonus",
-              "value": 1,
-              "condition": "",
-              "override": false
-            },
-            "consumption": {
-              "targets": [],
-              "scaling": {
-                "allowed": false,
-                "max": ""
-              },
-              "spellSlot": true
-            },
-            "description": {
-              "chatFlavor": ""
-            },
-            "duration": {
-              "concentration": false,
-              "value": "",
-              "units": "inst",
-              "special": "",
-              "override": false
-            },
-            "effects": [],
-            "range": {
-              "value": "30 ft",
-              "units": "ft",
-              "special": "",
-              "override": false
-            },
-            "target": {
-              "template": {
-                "count": "",
-                "contiguous": false,
-                "type": "",
-                "size": "",
-                "width": "",
-                "height": "",
-                "units": "ft",
-                "stationary": false
-              },
-              "affects": {
-                "count": "",
-                "type": "",
-                "choice": false,
-                "special": ""
-              },
-              "prompt": true,
-              "override": false
-            },
-            "uses": {
-              "spent": 0,
-              "max": "",
-              "recovery": []
-            },
-            "flags": {},
-            "visibility": {
-              "level": {},
-              "requireAttunement": false,
-              "requireIdentification": false,
-              "requireMagic": false
-            },
-            "save": {
-              "ability": [
-                "wis"
-              ],
-              "dc": {
-                "calculation": "",
-                "formula": "14"
-              }
-            },
-            "damage": {
-              "parts": [],
-              "onSave": "none",
-              "critical": {
-                "allow": false
-              }
-            },
-            "useConditionText": "",
-            "useConditionReason": "",
-            "effectConditionText": "",
-            "otherActivityId": null,
-            "macroData": {
-              "name": "",
-              "command": ""
-            },
-            "ignoreTraits": {
-              "idi": false,
-              "idr": false,
-              "idv": false,
-              "ida": false,
-              "idm": false
-            },
-            "midiProperties": {
-              "ignoreTraits": [],
-              "triggeredActivityId": "none",
-              "triggeredActivityConditionText": "",
-              "triggeredActivityTargets": "targets",
-              "triggeredActivityRollAs": "self",
-              "triggeredActivityConsume": true,
-              "triggeredActivityConfigure": true,
-              "autoConsume": false,
-              "forceConsumeDialog": "default",
-              "forceRollDialog": "default",
-              "forceDamageDialog": "default",
-              "confirmTargets": "default",
-              "autoTargetType": "any",
-              "autoTargetAction": "default",
-              "automationOnly": false,
-              "otherActivityCompatible": true,
-              "otherActivityAsParentType": true,
-              "identifier": "",
-              "displayActivityName": false,
-              "rollMode": "default",
-              "chooseEffects": false,
-              "toggleEffect": false,
-              "ignoreFullCover": false,
-              "removeChatButtons": "default",
-              "magicEffect": false,
-              "magicDamage": false,
-              "noConcentrationCheck": false,
-              "skipConcentrationCheck": false,
-              "autoCEEffects": "default"
-            },
-            "isOverTimeFlag": false,
-            "overTimeProperties": {
-              "saveRemoves": true,
-              "rollAs": "target",
-              "preRemoveConditionText": "",
-              "postRemoveConditionText": ""
-            },
-            "regionBehavior": {
-              "enabled": false,
-              "dispositionFilter": -1,
-              "excludeSource": true,
-              "oncePerTurn": true,
-              "wallRestriction": "none",
-              "regionVisibility": 2,
-              "attachToken": "default",
-              "rules": []
-            },
-            "regionLight": {
-              "enabled": false,
-              "dim": 0,
-              "bright": 0,
-              "color": null,
-              "alpha": 0.5,
-              "luminosity": 0.5,
-              "animationType": "",
-              "animationSpeed": 5,
-              "animationIntensity": 5
-            },
-            "otherActivityAsParentType": true,
-            "friendlySave": "default"
-          }
-        },
-        "source": {
-          "custom": "Waluipedia campaign",
-          "book": "",
-          "page": "",
-          "license": "",
-          "revision": 1,
-          "rules": "2024"
-        },
-        "advancement": {},
-        "identifier": "",
-        "crewed": false,
-        "enchant": {},
-        "prerequisites": {
-          "items": [],
-          "repeatable": false
-        },
-        "properties": [],
-        "requirements": ""
-      },
-      "effects": [],
-      "flags": {},
-      "sort": 300000,
-      "folder": null,
-      "ownership": {
-        "default": 0
-      },
-      "_stats": {
-        "coreVersion": "14.367",
-        "systemId": "dnd5e",
-        "systemVersion": "5.3.3",
-        "createdTime": 1791410640273,
-        "modifiedTime": 1791410640273,
-        "lastModifiedBy": "7BMT1Aux3QVtq027",
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
-      }
-    },
-    {
       "_id": "F8wikTyRxsYXNJlI",
       "name": "Aura of the Regal Lion",
       "type": "feat",
@@ -1508,6 +1287,9 @@
     },
     "scene-packer": {
       "hash": "0eda523c85717d2fd17797d95531543e78028ad3"
+    },
+    "midi-qol": {
+      "onUseMacroParts": {}
     }
   },
   "_stats": {
@@ -1517,7 +1299,7 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791410640273,
-    "modifiedTime": 1791410640274,
+    "modifiedTime": 1791640224171,
     "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },
