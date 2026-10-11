@@ -6,6 +6,21 @@ To ensure readability and maintainability, this project follows a modular struct
 
 A key example of this philosophy is the handling of game data. Instead of large, monolithic data files, information is broken down into smaller, thematic modules. For instance, the detailed legal codes for different faction archetypes (`laws-data-militaristic.js`, `laws-data-democratic.js`, etc.) are kept in separate files and aggregated by a central `laws-data.js` file. This keeps each file focused on a single concept, improving organization and making it easier to add or modify data without affecting unrelated systems.
 
+## ⚠ STANDING ORDER — Don't load the stores
+
+The four filing bundles are **generated**. Edit a shard under
+`data/stores/<kind>/<world>/`, then rebuild. **Never Read `events.json`
+whole.**
+
+```bash
+python3 ../tools/filing-context.py packet <event-id>
+python3 ../tools/build-json-stores.py --build --check
+```
+
+Worlds: `material` (real world), `feyward`, `shadeward`, `mirror`. Agent
+brief: [`../CLAUDE.md`](../CLAUDE.md). Map:
+[`data/stores/README.md`](data/stores/README.md).
+
 ## ⚠ STANDING ORDER — The Rakasha News Network Weekly Broadcast
 
 **A new Rakasha News Network (RNN) broadcast must be produced every week in which applicable new events exist.** This rule is self-executing: whenever a new event is created, this instruction is to be read and followed as part of filing that event. Do not wait to be asked.

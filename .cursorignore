@@ -1,0 +1,21 @@
+# Same list as .claudeignore — fat dumps stay out of default context.
+midlands-all-actors.json
+Players.json
+bowser.json
+
+Reputation-Matrix2/data/shop-effect-details.json
+Reputation-Matrix2/data/shop-effect-details-slim.json
+Reputation-Matrix2/data/abilityShop.json
+Reputation-Matrix2/data/provinceCensus.json
+Reputation-Matrix2/data/crafting.json
+
+Reputation-Matrix2/actors/worlds/*/import.json
+Reputation-Matrix2/actors/worlds/*/players-import.json
+
+AI-PLAN-RECOMMENDATION.md
+Unselected files/
+node_modules/
+__pycache__/
+*.tmp
+*.zip
+workflow/saves/

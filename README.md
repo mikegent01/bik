@@ -40,6 +40,13 @@ understand what changed and why without opening a single file.
    philosophy below — especially rules 3 and 4).
 7. **Small diffs, matched indentation.** Never reformat a whole data file to
    add one entry. Match the file's existing style exactly.
+8. **Don't load the stores.** The four filing bundles (`events.json`,
+   `characters.json`, `locations.json`, `battles.json`) are **generated**.
+   Edit a shard under `Reputation-Matrix2/data/stores/<kind>/<world>/`,
+   then `python3 tools/build-json-stores.py --build --check`. Pull one
+   record with `python3 tools/filing-context.py`. Layout:
+   [`Reputation-Matrix2/data/stores/README.md`](Reputation-Matrix2/data/stores/README.md).
+   Brief: [`CLAUDE.md`](CLAUDE.md).
 
 ---
 

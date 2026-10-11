@@ -18,6 +18,21 @@ them is a writing problem.
 > Locations first. Characters second. XP third. Prose fourth.
 > Exhibits, broadcast, home feed, and every other artifact come after the prose.
 
+**Token gate.** Edit a shard under `data/stores/`, not the generated
+bundle. Pull the one record (and participant stubs) first:
+
+```bash
+python3 tools/filing-context.py search events <text>
+python3 tools/filing-context.py packet <event-id>
+python3 tools/filing-context.py stub characters <id>
+python3 tools/filing-context.py stub locations <id>
+python3 tools/build-json-stores.py --build --check
+```
+
+World folders: `material` (real world), `feyward`, `shadeward`, `mirror`.
+Year in the filename; month only when that year would exceed ~250 KB.
+See `Reputation-Matrix2/data/stores/README.md`.
+
 Nothing here is about style. Style lives in
 [`STORY_FORMAT_GUIDE.md`](STORY_FORMAT_GUIDE.md) (events) and
 [`WHATIF_FORMAT_GUIDE.md`](WHATIF_FORMAT_GUIDE.md) (what-ifs). This document is

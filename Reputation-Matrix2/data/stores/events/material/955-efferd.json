@@ -1,0 +1,358 @@
+[
+  {
+    "id": "the_unlocked_cell_955_bf",
+    "timeCode": "TC:0955-06-12T01:00/MAT",
+    "name": "The Unlocked Cell",
+    "title": "A Ceremonial Guard, a Koopa Who Was Never Locked In, and the Handshake Under Peach's Castle — 955 BF",
+    "date": "Efferd, 955 BF — one night, 1 a.m. to past dawn; the month is inferred (the last month of the reign, a kart night), the hours are the account's own",
+    "timeWindow": "One night in Efferd, 955 BF: the one o'clock post, a chamberlain in a new suit, five wrong rooms, the dungeon, the handshake, Bowser through the door, a captain's death, an orb, a bolt, five hours of pipe, and a bean shop at dawn",
+    "era": "Late Peach Reign — the last month before Highsun 1, 955 BF; the Arrangement, witnessed before it had a name",
+    "type": "Session Event / Historical — 955 BF / A Guard's Night",
+    "location": "Peach's Castle — the ceremonial post, the ballroom, the dining hall, a tower storage room, the dungeon; then the warp drains under the castle to Fawful's Bean Badge in Toad Town",
+    "status": "Filed — the guard is alive and in a bean shop he does not trust; his son is in the custody of the people who shot at him; the Koopa who was never locked in holds a fat vial; Bowser is awake under the castle and the brothers are busy with him; the Guild has a plan with Fawful's name on it and a cloak over the name",
+    "summary": "One o'clock in the morning at Peach's Castle, 955 BF, a month or so before the assassination. John Lee, a ceremonial guard, stands his lantern post while the castle stays up for the kart broadcast and talks about a prisoner nobody describes and a meeting the Mario brothers are coming to mediate. He jumps four times at the news, gets questioned for it, gets lectured by a Toadsworth in a new suit who has the keys to every door, and then gets lost — the ballroom, a wall of heavy Toads, the dining hall where his own small son is up past midnight with the maid Marilyn, a hooded figure in a corridor, a tower full of crates — until two guards walk him down to the dungeon. The cell is unlocked. The prisoner is a Koopa, who says *so you finally came to free me — oh. It's you.* The escort falls down dead. Fawful arrives, shakes the Koopa's hand — *I HAVE VICTORY* — and three Mages' Guild hoods walk in behind him saying the Guild is already in place and will not act yet. John Lee runs for the captain; Bowser comes through the wall instead — *SURPRISE, IT'S ME* — breathes fire, kills the captain, asks for Peach and has never heard of Fawful. A Guild mage puts Bowser down with one small orb and the Toads cheer the Guild. The brothers arrive late; Luigi trips on a striped sock. John Lee says the Guild works with Fawful. Toadsworth calls him a lost dog and tells the Guild to dispatch of him; the bolt misses. Five hours of drains and one stomped Goomba later he is in Fawful's Bean Badge, where the Koopa who led him into an ambush tells him his son is being taken care of, Fawful puts on a Guild cloak and explains the vacuum shroom, and the only people who will walk him to his boy are the ones he has just said he does not trust.",
+    "description": "*This is a 955 BF filing and the archive did not have anybody in the building. Waluigi was not born. What the archive has is the account of the guard himself — a ceremonial guard, which is to say a Toad whose job was to stand next to a lantern and look like the kingdom was fine — in his own order and, where I quote him, his own words. The account reached this desk by the route described in the last note, and I have handled it the way the file handles every 955 paper: as a witness, not as a verdict.*\n\n*What it witnesses is the thing the capital file has been arguing about from the wrong end for fifteen years. The Loyalists have a dead chamberlain's journal saying* the Guild provided the method, the Regency provided the opportunity. *The Regency has a forgery claim. Nobody, until this account, had a person who stood in a dungeon corridor and watched the method shake hands with the opportunity. He did not understand what he was looking at. He is a ceremonial guard. That is exactly why I believe him: nobody invents a night in which they get lost five times.*\n\n*A reading note before the record. The account calls the Toad in the new suit* the chancellor. *In 955 BF the palace held two Toadsworths — the Elder as Royal Chamberlain, the son already styled Chancellor — and the account does not sort them. A new suit, the keys to every door, and the authority to tell the Mages' Guild whom to kill is a chamberlain's night, not a chancellor's. The archive files the man against Toadsworth the Elder and says so here, once, so that nobody downstream mistakes my reading for the guard's.*",
+    "participants": [
+      {
+        "id": "john_lee",
+        "name": "John Lee",
+        "role": "Ceremonial guard on the one o'clock lantern post; jumped four times at the news the brothers were coming; got lost five times in the right direction; watched the handshake; warned the captain; took a dead Toad's shortsword, a letter and the captain's sash; was called a lost dog and shot at by the Guild on the Chamberlain's word; stomped one Goomba in five hours of pipe; asked the people he does not trust to walk him to his son"
+      },
+      {
+        "id": "toadsworth_sr",
+        "name": "Toadsworth the Elder",
+        "role": "The Toad in the new suit the account calls the chancellor — 'I have the keys to every door'; told a guard to bask in his inferiority; after the orb, called the only witness to the handshake a lost dog and told the Mages' Guild to dispatch of him"
+      },
+      {
+        "id": "the_koopa_prisoner",
+        "name": "The Koopa Prisoner",
+        "role": "The prisoner nobody would describe; sat in an unlocked cell; 'so you finally came to free me — oh. It's you.'; shook Fawful's hand and said he never thought he would work with a bean; by his own account at the Bean Badge led the escort into the ambush and alerted the castle to Bowser's attack; holds the fat vial"
+      },
+      {
+        "id": "fawful",
+        "name": "Fawful",
+        "role": "Walked into a palace dungeon and shook a Koopa's hand — 'I HAVE VICTORY'; a bean Bowser had never heard of; at dawn in his own shop, put on a Mages' Guild cloak, explained the vacuum shroom, and asked a ceremonial guard to join"
+      },
+      {
+        "id": "mages_guild",
+        "name": "Mages' Guild",
+        "role": "Three hoods in the dungeon behind Fawful — 'the guild is already in place; we won't act yet'; one small orb that put Bowser down in one; the bolt that missed John Lee; two operatives in the bean shop at dawn who are, by their own word, protecting his son"
+      },
+      {
+        "id": "bowser",
+        "name": "Bowser",
+        "role": "'SURPRISE, IT'S ME' — came through the wall uninvited to a meeting the brothers were not at, breathed fire, killed the captain, asked to be taken to Peach, had never heard of Fawful, and was put down by one orb from a hood; five hours later, awake under the castle, screaming, the ground shaking, keeping the brothers busy"
+      },
+      {
+        "id": "captain_of_the_palace_guard_955",
+        "name": "The Captain of the Palace Guard",
+        "role": "Questioned a guard for jumping; was warned about the dungeon by that guard; was killed by Bowser's fire for standing between him and Peach; his sash left the castle wrapped around John Lee's arms"
+      },
+      {
+        "id": "mario",
+        "name": "Mario",
+        "role": "Expected to mediate a meeting with 'this toad guy'; arrived after Bowser was already on the floor; five hours later, by the Guild's account, busy with Bowser under the castle"
+      },
+      {
+        "id": "luigi",
+        "name": "Luigi",
+        "role": "Arrived late beside his brother and tripped over a striped sock in a palace that had just been on fire; busy with Bowser by dawn"
+      },
+      {
+        "id": "toad_lee",
+        "name": "Toad Lee",
+        "role": "A small boy at the dining-hall table past midnight with the maid Marilyn — John Lee's son; by dawn 'being taken care of' in the Guild's custody, in the Guild's words, so that he 'won't have to worry about being trafficked'"
+      },
+      {
+        "id": "marilyn_the_chambermaid",
+        "name": "Marilyn",
+        "role": "The maid at the dining-hall table with the boy at one in the morning; the last person the account places with Toad Lee before the Guild had him"
+      }
+    ],
+    "outcome": "Nothing was prevented. The handshake happened and three people who were not supposed to be in a palace dungeon walked out of it unhindered; the only two Toads who tried to stop anything that night — the escort and the captain — are dead, and the man who saw the most is the one the Chamberlain told the Guild to kill. Bowser's incursion was stopped by one Guild orb in front of a hall of Toads who cheered, which is the first time the archive can date the Guild being loved in that building. The brothers were late and are now busy. John Lee left Peach's Castle with a shortsword that was not his, a letter that was not addressed to him, and the captain's sash on both forearms, and reached Fawful's Bean Badge through the drains to find the prisoner there first. His son is in the Guild's custody and the Guild describes that as protection. Fawful has a Mages' Guild cloak and a vacuum shroom and a plan to feed the second to Bowser so that Bowser inhales the brothers. The guard wants to disappear, then wants his son, and the only escort on offer is the people he has just said he does not trust. The Arrangement, which the capital file holds as a dead man's disputed journal, is on this record as a corridor with people in it.",
+    "notableFeatures": [
+      "'So you finally came to free me — oh. It's you.' — the prisoner's greeting to the one guard who did not know the cell was unlocked",
+      "'I HAVE VICTORY' / 'never thought I'd work with a bean' — the handshake under Peach's Castle, with three Guild hoods behind it saying the Guild is already in place and will not act yet",
+      "'SURPRISE, IT'S ME' — Bowser, uninvited to a meeting the brothers had not reached, asking to be taken to Peach, with no idea who Fawful was",
+      "One small orb — a hood put Bowser on the floor in one, and a hall full of Toads cheered the Mages' Guild",
+      "'Like a lost dog. A nuisance to the Toads is a nuisance to us. Mages' Guild — dispatch of them.' — the Chamberlain, in a new suit, about the only witness",
+      "The captain's sash wound around both forearms; a dead Toad's shortsword; a letter reading 'meet me in Fawful's bean shop' — what a ceremonial guard carried out of the castle",
+      "Five hours of warp drains under the castle; one Goomba stomped; a second ambush out of a pipe",
+      "The vacuum shroom and the fat vial — inhaled, the Koopa King sucks up everything, the brothers included; the castle's wards, the Guild notes, are still active",
+      "'Your son is being taken care of. Toad Lee won't have to worry about being trafficked in our care.' — the Guild, on custody",
+      "'Are you stupid? You just said you don't trust us. We're protecting your son.' — the Guild, on escorts"
+    ],
+    "keyBattles": [],
+    "relatedArticles": [
+      "the_arrangement",
+      "highsun_1_955_bf_the_day_of",
+      "first_month_incidents",
+      "peachs_castle",
+      "fawfuls_bean_badge",
+      "toad_town",
+      "john_lee",
+      "toad_lee",
+      "the_koopa_prisoner",
+      "captain_of_the_palace_guard_955",
+      "marilyn_the_chambermaid",
+      "toadsworth_sr",
+      "chancellor_toadsworth",
+      "fawful",
+      "mages_guild",
+      "bowser",
+      "mario",
+      "luigi",
+      "princess_peach"
+    ],
+    "reputationChanges": {},
+    "effects": {},
+    "reputationNotes": {
+      "_record": "No 1040 standing moves on a 955 filing: the guard is not on the matrix, the Guild of this night is eighty-five years from the Guild that bills the capital, and Fawful's shop no longer trades. What the record books is older than standing — it is the first dated night the archive has of a hall of Toads cheering the Mages' Guild inside Peach's Castle, and of the Chamberlain giving the Guild a kill order out loud."
+    },
+    "aftermath": "By the time the account stops, the castle has been on fire, the brothers are in it, and the Chamberlain has not been asked a single question. John Lee is in a bean shop with the prisoner who led him into the ambush, two Guild operatives, one Goomba and Fawful in a borrowed cloak, and the conversation has moved from whether he will join to how he will be escorted. His son is wherever the Guild keeps the children it is protecting. The vacuum shroom has not been used yet; the fat vial has not been opened; Bowser is awake somewhere under the castle and the ground is shaking.\n\nThe capital file takes the night as its first witnessed session — see the Who Signed file, where the night posting, the letter and the shop card are filed as exhibits and argued over. The night posting is the one document in the archive that puts a named guard on a named post at the hour the journals' 'positions were cleared' is supposed to describe, and it is a month early, which is either the rehearsal or the thing itself.\n\nWhat the account does not tell us: what happened to Marilyn; whether the hooded figure in the corridor was one of the three in the dungeon; who killed the escort; what the Guild's small orb was; where the Koopa got the fat vial; and whether the ceremonial guard took the escort or went for his son alone. The next account, if there is one, starts at the shop door.",
+    "waluigiAssessment": "**1. The Arrangement has a corridor now.** For fifteen years this file has argued about a journal. Tonight it has a witness who watched a Koopa walk out of an unlocked cell, shake Fawful's hand, and be joined by three hoods who said the Guild was already in place. He did not know what the Arrangement was. He still does not. That is the strongest kind of witness there is, and I am filing him before anybody with a motive gets to him first — which, given who told the Guild to shoot him, has already been tried once.\n\n**2. The Chamberlain gave a kill order out loud, in front of Toads, and the Toads cheered the people he gave it to.** Read that twice. The orb had just put Bowser down; the hall was grateful; and into that gratitude a Toad in a new suit said *dispatch of them* about a ceremonial guard, and nobody in the hall said no. The journals say *the positions were cleared.* The account shows you how a position gets cleared: you make the Guild loved first.\n\n**3. Bowser did not know Fawful.** The official history of Highsun 1 needs Bowser and Fawful on the same side of the door. A month before, by this account, Bowser came through a wall to a meeting he had not been invited to, asked for Peach, and had never heard of the bean in the dungeon. Two villains in one castle on one night is not a conspiracy. It is a coincidence somebody later found useful.\n\n**4. The prisoner was never a prisoner.** Unlocked cell. Greeted the door expecting a friend. Led the escort into an ambush. Alerted the castle to Bowser's attack — which means the castle knew Bowser was coming and the only thing that surprised anybody was the timing. Reached the bean shop before the man who crawled there for five hours. The Koopa is the Arrangement's courier, and he is holding a fat vial, and I would like very much to know what is in it.\n\n**5. The son.** The Guild has a small boy and calls it protection, in a sentence that volunteers the word *trafficked* without being asked. I am not going to editorialise on that sentence. I am going to leave it on the record exactly as it was said, because the people who said it chose the word. The boy grows up to read a diary in a Feyward attic while stronger people argue about doors; the archive now knows where he learned that a room full of adults can be wrong at once.\n\n**6. The honest limit.** One witness. No second account. The guard's own telling, in his order, with his omissions. I have not been able to check a single name against the palace roll because the palace roll of Efferd 955 is in whatever vault the Regency keeps the forty-seven minutes in. If a second account of this night exists, it is in a Guild file, and the Guild has no comment on matters under ongoing historical review. WAH.",
+    "xpAwards": [
+      {
+        "xpKey": "john_lee",
+        "articleId": "john_lee",
+        "name": "John Lee",
+        "cat": "survival",
+        "xp": 200,
+        "title": "Event — The Unlocked Cell — Survival",
+        "desc": "One night: an escort dead at his feet, a dragon's fire down the hall, a captain dead in front of him, a Guild bolt that missed, five hours of drain — and he walked into the bean shop on his own legs",
+        "date": "Efferd, 955 BF — one night, 1 a.m. to past dawn; the month is inferred (the last month of the reign, a kart night), the hours are the account's own",
+        "dateSort": 9550612
+      },
+      {
+        "xpKey": "john_lee",
+        "articleId": "john_lee",
+        "name": "John Lee",
+        "cat": "combat",
+        "xp": 25,
+        "title": "Event — The Unlocked Cell — Combat",
+        "desc": "One Goomba, stomped, in the warp drain under the castle — the first thing the ceremonial guard ever killed; by the book, that is twenty-five",
+        "date": "Efferd, 955 BF — one night, 1 a.m. to past dawn; the month is inferred (the last month of the reign, a kart night), the hours are the account's own",
+        "dateSort": 9550612
+      },
+      {
+        "xpKey": "john_lee",
+        "articleId": "john_lee",
+        "name": "John Lee",
+        "cat": "exploration",
+        "xp": 100,
+        "title": "Event — The Unlocked Cell — Exploration",
+        "desc": "Got lost five times inside the castle and once, correctly, under it: the warp system and the sewers from the dungeon to Fawful's Bean Badge with a second Goomba ambush out of a pipe on the way",
+        "date": "Efferd, 955 BF — one night, 1 a.m. to past dawn; the month is inferred (the last month of the reign, a kart night), the hours are the account's own",
+        "dateSort": 9550612
+      },
+      {
+        "xpKey": "john_lee",
+        "articleId": "john_lee",
+        "name": "John Lee",
+        "cat": "loyalty",
+        "xp": 75,
+        "title": "Event — The Unlocked Cell — Loyalty",
+        "desc": "Said out loud, in a hall that had just cheered the Guild, that the Guild works with Fawful; then asked the Guild to walk him to his son anyway, because the son matters more than being right",
+        "date": "Efferd, 955 BF — one night, 1 a.m. to past dawn; the month is inferred (the last month of the reign, a kart night), the hours are the account's own",
+        "dateSort": 9550612
+      }
+    ],
+    "image": "assets/images/events/the-unlocked-cell-955/cell-01-the-handshake.jpg",
+    "imageCaption": "The dungeon corridor under Peach's Castle as the account places it: the cell door standing open, the Koopa out of it and shaking Fawful's hand, three Mages' Guild hoods arriving behind them with their hands lit, the escort down on the flagstones, and a ceremonial guard with a lantern and a sword who has just understood that the cell was never locked. Nobody in the picture is looking at him yet.",
+    "sections": [
+      {
+        "name": "I. The One O'Clock Post",
+        "icon": "🏮",
+        "overview": "One in the morning at Peach's Castle, and the castle was awake. The account is specific about why: the kart races were on. Somewhere in the building a hall of Toads was watching a broadcast, and the noise of it came down the corridors in waves — a cheer, a groan, the particular silence of a last lap — so that a guard standing a lantern post on the ceremonial route could follow the race without seeing it.\n\nJohn Lee [[prop:prop_john_lee_night_posting|stood the post]]. Ceremonial guard: a lantern in one hand, a sword at the hip that the kingdom had issued for the look of it, livery pressed, the instruction to stand where the lamp made the castle look guarded. He had a small son asleep somewhere in the household wing, or so he believed at one o'clock. The account does not say how long he had held the post. It says he was good at standing.\n\nTwo things were being talked about by every Toad who passed him, and he collected both. The first was the prisoner. There was a prisoner in the dungeon — captured, held, *tense* was the word that travelled with him — and nobody who said the word prisoner would say what the prisoner was. The second was the meeting. Mario and Luigi were expected. They were coming to the castle that night to mediate a meeting with *this toad guy*, and the account never names the Toad, because the guards who said it did not know either.\n\nJohn Lee jumped. The account counts it: four times, straight up, lantern and all, at the news that the brothers were coming to the building he was standing in. The head guard came down the route to find out what a ceremonial post was doing bouncing, and questioned him. The account records the questions as a formality and the jumping as the only honest thing anybody did before midnight became one.\n\n*WAH. A kingdom a month from losing its princess, and the palace is up late for a kart race, talking about a prisoner nobody will describe to a guard they have put next to a lamp. I have read a great many accounts of the last weeks of the reign. This is the first one in which the building sounds like a building.*",
+        "waluigi_note": "The race is a time anchor, and the only one the account gives above ground. A broadcast at one in the morning is a repeat or a late card, and the castle watching it at that hour tells me the court kept the hours of people who did not expect to be assassinated. The prisoner's species was withheld from the guards on purpose — every Toad who passed John Lee knew there was a prisoner and not one knew it was a Koopa. That is not secrecy about a prisoner. That is secrecy about a guest."
+      },
+      {
+        "name": "II. The Keys to Every Door",
+        "icon": "🗝️",
+        "overview": "Toadsworth came down the route after the head guard had gone. The account calls him the chancellor and describes the suit first: new, cut for him, worn the way a Toad wears a thing he has just been given and has decided he deserved. He did not question John Lee about the jumping. He explained the building to him.\n\n*\"I have the keys to every door,\"* he said. Not as a threat; as an inventory. A chamberlain's sentence — the account did not know that, and said chancellor, and I have left the word where the guard put it and the man where I believe he stands.\n\nThen, to a ceremonial guard with a lantern who had jumped four times because the Mario brothers were coming: *\"Bask in your inferiority.\"* And on down the corridor, in the new suit, with the keys.\n\n*I have read the son. The son would not say that to a guard — the son would write a memorandum about the guard. The father, by every account that is not the Regency's, was a Toad who had recently been given something and wanted to be seen holding it. A month before Highsun 1 he had the keys to every door and told a guard so. The journals, if they are his, say the positions were cleared. The keys clear positions.*",
+        "waluigi_note": "The attribution problem, stated once and plainly. The account says 'the chancellor'. In 955 BF both Toadsworths were in the palace and the son was already styled Chancellor; it is the son the Highsun 1 record shows finding the figure in the chimney and taking a beam from Fawful for it. The man who told a guard he had the keys to every door and, later this night, told the Mages' Guild whom to dispatch of is a man with the household's keys and the Guild's ear — which is the Chamberlain, Toadsworth the Elder, and which is also precisely what his disputed journals confess to. I file him as the Elder. If a second account names the son, I will amend this note and apologise to nobody, because a reading stated as a reading is not a lie."
+      },
+      {
+        "name": "III. Lost, in Order",
+        "icon": "🧭",
+        "overview": "After the suit went by, John Lee left the post. The account does not say he was relieved and does not say he deserted; it says he went to find where the brothers would be, and then it says, in order, where he was instead.\n\nThe ballroom first. Trumpets — a fanfare being rehearsed or performed at one in the morning, the account cannot tell which — and Toads marching, in step, across the ballroom floor, in a formation that had nothing to do with a kart race and that nobody explained to a guard with a lantern. He backed out.\n\nA corridor of heavy Toads next: big ones, armoured, standing shoulder to shoulder in a wall formation across a passage, facing outward, not moving, not speaking. He did not try to pass them. He went another way.\n\nThe dining hall. And here the account slows down, because at the long table, past midnight, with the kart race audible through the wall, sat a small Toad boy with a plate in front of him and a maid beside him — *Marilyn*, the account names her, the only servant it names — and the boy was his. Toad Lee, awake, at the table, being minded. John Lee saw his son and his son's minder and the account records that he did not stop, because he was a guard who had left his post and was in a room he had no business in, and because a boy at a table with a maid is a boy who is fine.\n\nA hooded figure passed him in the next corridor. Robed, head covered, walking with purpose toward the part of the castle he had just come from. The account notes it and moves on, because at that hour, in that building, a hood was a thing that went past you.\n\nThen a tower, and a storage room at the top of it — crates, dust, the race very faint through the stone — and that is where the guards found him.\n\n*Five rooms. I have read the plans of Peach's Castle; it is a building that gets people lost on purpose. But read the order back. A ballroom rehearsing a procession. A wall of heavy Toads holding a corridor. A hood going toward the dungeon. The guard thought he was lost. He was walking through the Arrangement being set up, room by room, and every room was a thing that would be explained the next morning as perfectly normal.*",
+        "waluigi_note": "The dining hall is the paragraph I would least like to be wrong about, so I will be exact about what it supports. It places Toad Lee — the Disaster Inc. Toad Lee, by John Lee's own identification of his son — in Peach's Castle, as a small child, in the care of a chambermaid, on a night in Efferd 955 BF. It does not place him anywhere on Highsun 1. It does not make him kin to the magistrate Toad Lee the Elder, who signed the evacuation order that day; it only makes the question unavoidable. What it does establish is who had the boy last before the Guild did: Marilyn. The account never sees her again."
+      },
+      {
+        "name": "IV. Escorted",
+        "icon": "👮",
+        "overview": "Two guards. The account does not give them names and does not give them anger; they found a ceremonial post in a storage tower and did what the night's orders apparently said to do with a ceremonial post that was somewhere it should not be, which was to walk it down to the dungeon.\n\nThe account is not clear on whether the dungeon was a punishment, a reassignment, or simply the place where spare guards were being put that night, and I have decided the ambiguity is the guard's and not mine. He went. The lantern went with him. Down past the kitchens, down a stair, down a second stair, into stone that did not carry the race any more.\n\n*Everybody who touched this Toad tonight moved him toward the cell. The suit lectured him off his post. The building funnelled him. Two guards escorted him the last of the way. I am not saying the castle conspired to put one ceremonial guard in front of the handshake — I am saying that if it had, the account would read exactly like this.*",
+        "waluigi_note": "I have tried to make the escort mean something and it will not. Two guards, unnamed, with an order. The one thing I can say is that the dungeon was staffed thinly enough that a lantern post could be sent down to it, which fits a cell that was never meant to hold anyone."
+      },
+      {
+        "name": "V. The Unlocked Cell",
+        "icon": "🚪",
+        "overview": "The cell door was not locked. The account is emphatic: not forced, not open — unlocked, standing as a door stands when the lock has been turned by somebody with a key and left that way. One of the escort put a hand on it and it moved.\n\nThe prisoner was a Koopa.\n\nHe was not surprised by the door. He was surprised by the faces. The account gives his first words in full, and they are the hinge of the night: *\"So you finally came to free me —\"* and then, looking at a ceremonial guard with a lantern and two Toads in corridor livery, *\"— oh. It's you.\"*\n\nHe had been expecting somebody. The door had been unlocked for that somebody. John Lee, a guard who had not known the prisoner was a Koopa until the lantern found him, had walked in on an appointment.\n\nAnd the escort fell. One of the two Toads who had walked him down — the account says only that he fell, dead, between one breath and the next, with no blade in him that John Lee saw and no sound that he heard. The lantern shook. The other escort is not mentioned again, and I have read the passage a dozen times trying to find him.\n\n*\"Oh. It's you.\" A prisoner who knows what free looks like and knows that this is not it. I have been handed a hundred pieces of paper about the Arrangement and not one of them had a voice. This one has a voice and the voice is bored.*",
+        "waluigi_note": "The escort's death is unexplained in the account and I am not going to explain it for him. What the record supports: he died beside an unlocked cell in the half-minute before a bean and three Guild hoods walked in, with no visible wound, and the hood John Lee passed in the corridor was walking this way. A reader may put those together. I have, and I have put it in the leads, not the prose."
+      },
+      {
+        "name": "VI. The Handshake",
+        "icon": "🤝",
+        "overview": "Fawful came in. The account describes him as a Toad would who had never seen one: small, green, the glasses, the teeth, the voice that arrives before the body does. He went to the Koopa and the Koopa put out a hand and Fawful took it.\n\n*\"I HAVE VICTORY,\"* Fawful said, which the account records in capitals because that is how it was said.\n\n*\"Never thought I'd work with a bean,\"* the Koopa said, which the account records as the only thing anybody in that corridor said in a normal voice.\n\nThree hooded figures came in behind Fawful. Mages' Guild — the account knows the robes, every Toad in the palace knew the robes — and they did not greet the Koopa and did not greet the bean. One of them said what they had come to say. *The guild is already in place.* And then: *we won't act yet.*\n\nJohn Lee was still holding the lantern. The account is honest that nobody had yet looked at him, that a ceremonial guard with a dead escort at his feet had been, for the length of a handshake, furniture.\n\nThen he ran.\n\n*Three sentences and the whole file turns over. 'I have victory' — the bean already counts it won, a month out. 'Never thought I'd work with a bean' — the Koopa is working, not conspiring; he has an employer. 'The Guild is already in place; we won't act yet' — the Guild is not joining a plot. The Guild is the schedule. The journals say the Guild provided the method. Here is the Guild explaining that the method is installed and the date is not tonight.*",
+        "waluigi_note": "Compare the Guild's sentence to the Highsun 1 record, where the Guild is 'already positioned' — scrubbing the chambers, snapping fingers at a Chancellor, in the vault during the killing. The same adverb, a month apart, from the Guild's own mouth. I did not expect the archive to be handed the word 'already' twice. The image on this filing is the corridor at this instant; the artist has drawn the hoods with their hands lit, which the account does not say, and I have left it because something put the escort on the floor.",
+        "image": "assets/images/events/the-unlocked-cell-955/cell-01-the-handshake.jpg",
+        "imageCaption": "The handshake. The cell door open behind the Koopa, Fawful's teeth, the three hoods, the escort down, and the lantern. The account says nobody had looked at the guard yet."
+      },
+      {
+        "name": "VII. SURPRISE, IT'S ME",
+        "icon": "🔥",
+        "overview": "He ran up the stairs toward the only authority he had been questioned by that night, and found the captain, and told him: the cell is unlocked, the prisoner is a Koopa, there is a bean, there are hoods, the escort is dead. The account does not record the captain's answer, because the captain did not get to give it.\n\nThe wall came in.\n\n*\"SURPRISE, IT'S ME,\"* said Bowser, through the dust, at a hall of Toads who had been watching a kart race. He had come to the meeting. He said so: *\"I wasn't invited to the meeting.\"* He looked for the brothers and announced that they were not here, which was true, and seemed to disappoint him more than the Toads did.\n\nThen he breathed fire down the hall.\n\nThe captain stood in it. The account is brief about the captain's death in the way that accounts by people who were standing next to the person are brief: the fire went down the corridor, the captain was between the fire and the stair up to the royal apartments, and then there was no captain. John Lee was behind him and lived.\n\n*\"Take me to Peach,\"* Bowser said, to whoever was left.\n\nAnd this is the line the file has been waiting fifteen years for without knowing it: when the bean's name came up — the account is not clear who said it, somebody in the smoke — Bowser did not know it. *He didn't know Fawful.* The Koopa King, a month before the Highsun 1 narrative made him Fawful's partner in the murder, stood in the ruins of a wall asking who that was.\n\n*Two intruders in one castle in one night and they had never met. Bowser came for Peach the way he always came for Peach — loud, through a wall, asking for her by name — and was annoyed the brothers were not there to make it a proper evening. Fawful came through the dungeon with the Guild. Thirty days after Highsun 1 the kingdom decided these were the same visit. The guard who was in both rooms says they were not.*",
+        "waluigi_note": "The captain's death is the night's second body and the first one with a cause: Bowser's fire, in a corridor, at a Toad who did not move. I want to be fair to Bowser about the next part — the account does not say the captain was the target; it says the captain was between the fire and the stair. The Highsun 1 record has Luigi beating Bowser in a corridor of this castle a month later. The archive is accumulating corridors."
+      },
+      {
+        "name": "VIII. The Sash and the Letter",
+        "icon": "🎗️",
+        "overview": "What a ceremonial guard does when the captain is gone and the hall is burning is, by this account, inventory. There was a dead Toad near him — a guard, not the captain, one of the ones the fire had reached first — and John Lee took three things from the floor.\n\nThe shortsword. His own was ceremonial; this one was not, and the account records that he knew the difference by the weight.\n\nA letter, from the dead Toad's livery, which he read by the fire: [[prop:prop_bean_shop_letter|*meet me in Fawful's bean shop.*]] No signature the account mentions. An address, in effect, on the body of a palace guard who had been standing in a hall waiting for the Mario brothers.\n\nAnd the captain's sash — scorched, the account says, but whole — which he wound around both forearms, the way a Toad binds his arms for a fight he does not expect to win or to ask permission for. He was a ceremonial guard. He knew what a captain's sash was for and he knew it was not for this, and he put it on anyway.\n\nAround him, through the dust, the Goombas were coming in behind Bowser and taking Toads. The account uses the word kidnapping; it does not count them. It records that it was happening and that nobody was stopping it, because everybody who might have was dead, on fire, or watching the Koopa King.\n\n*A dead palace guard with directions to a bean shop in his coat. Think about what that means for the hall. The Guild was in the dungeon; the Koopa was in the dungeon; Fawful was in the dungeon; and up here, among the Toads waiting for Mario, at least one guard already had the address. The Arrangement was not a thing happening beneath the castle. It was a thing the castle was already full of.*",
+        "waluigi_note": "The letter is filed as an exhibit and argued over in the capital file. On the record here: it was found on a palace guard, not on a conspirator, and it was found before the bean shop had been mentioned to John Lee by anyone. He went to the shop because a dead Toad's pocket told him to. The sash is also filed, as the account describes it, so that the next person who sees a Toad with a captain's sash on both arms knows whose it was."
+      },
+      {
+        "name": "IX. One Small Orb",
+        "icon": "🔮",
+        "overview": "A Mages' Guild member ended it. The account is clear that it was one hood, one object — *a small orb*, held up, not thrown — and that Bowser went down. Not staggered; down, at once, the way a thing goes down when the thing that was holding it up has been switched off. One shot. The Koopa King on the floor of Peach's Castle with his fire still smoking in the walls.\n\nAnd the Toads cheered. The account says it without comment, which is the comment: the hall that had been burning cheered the Guild, the hoods were heroes, and the mages who had been in the dungeon shaking hands with a Koopa twenty minutes earlier were the mages who had saved the castle.\n\nMario and Luigi arrived then. Late — the account is precise that Bowser was already on the floor — into a hall that smelled of fire and relief, to a cheer that was not for them. Luigi tripped on a striped sock. The account does not say whose; a striped sock on the floor of a palace hall at two in the morning after a kart race and a dragon is a thing the account notes and I note and neither of us can source.\n\n*One small orb. Bowser, who a month later would be dragged unconscious across a corridor of this building and told he was not authorised to know the woman he loved was dead — put down in one by a Guild hood with something the size of a fist, in front of witnesses, to applause. I have no name for the orb. I have put it on the technology ledger as what it did. The brothers walking in behind the applause is the saddest sentence in the account and the guard did not know it was sad; he was still a fan.*",
+        "waluigi_note": "The orb goes on the technology ledger because the archive files what it is shown working, and it was shown working on Bowser. One object, hand-held, one use, one result: a Large dragon-turtle unconscious. Nothing the archive has from the Guild in 1040 looks like it, which is either because they stopped making it or because they stopped showing it. The cheer is on the record because it is the first dated instance of the Mages' Guild being loved inside Peach's Castle, and the kill order follows it by about a minute."
+      },
+      {
+        "name": "X. A Lost Dog",
+        "icon": "🐕",
+        "overview": "John Lee said it. Into the cheer, with the captain's sash on both arms and a dead Toad's sword, to a hall of grateful Toads and two late brothers: the Guild works with Fawful. He had seen the handshake. He said so.\n\nToadsworth answered — the new suit, from the edge of the hall, in the voice of a Toad who has the keys. The account gives it as three sentences. *\"Like a lost dog.\"* Then: *\"A nuisance to the Toads is a nuisance to us.\"* Then, to the hoods who had just been cheered: *\"Mages' Guild — dispatch of them.\"*\n\nA bolt came. The account says a bolt — from a hood's hand, across the hall, at a ceremonial guard — and it missed, because John Lee was already moving, because he had been moving since the dungeon and had not stopped. He went down and out and away, into the part of the castle that does not carry the race, and the hall went back to cheering.\n\n*Read the three sentences as policy. The first makes him an animal. The second makes him the Toads' problem and therefore 'ours' — a chamberlain speaking for the Guild, or with it. The third is an order to the Mages' Guild, given in public, by the man with the keys, and obeyed. The journals say the Regency provided the opportunity. Here is the Regency, a month early, providing one.*",
+        "waluigi_note": "The Loyalists would give a great deal for this paragraph and that is exactly why I have been careful with it. It is a guard's account of a sentence said across a burning hall. It is not a journal, it is not a confession, and it is not notarised. It is, however, the only version of 'the arrangement' in the archive in which the chamberlain is a man speaking rather than a dead man's handwriting, and the man said *dispatch of them* in front of two brothers who, by this account, did nothing. I have opened a lead on that too."
+      },
+      {
+        "name": "XI. Five Hours Under the Castle",
+        "icon": "🕳️",
+        "overview": "The account's clock stops at the bolt and restarts five hours later, and the five hours are the warp system. The pipes under Peach's Castle — the drains, the sewers, the old warp lines that the castle's basements are threaded with — and a ceremonial guard with a lantern going through them in the dark with a letter's worth of destination.\n\nOne Goomba found him. He stomped it. The account is almost shy about it: the first thing he had ever killed, a Goomba in a drain, flattened under a ceremonial boot, and it counted — the account says it counted, that the guard felt it count, which is a thing accounts say when the table has said so.\n\nThen a pipe, and more Goombas out of it — an ambush, the account calls it, a warp pipe mouth and Goombas coming out of it at a Toad who had just learned he could stomp — and he got through it, and the account does not say how, and I believe that too, because the people who get through things in the dark rarely know how.\n\nFive hours. Then a grate, then a cellar, then a shop.\n\n*The warp system under the castle is on the technology ledger already as infrastructure, and I will add nothing to the entry except this: a lost ceremonial guard with a lantern navigated it from the dungeon to a specific shop in Toad Town in five hours, with a letter for a map. Either the drains are better signposted than the castle, or the shop is closer to the dungeon than any honest shop should be.*",
+        "waluigi_note": "The five hours are the only duration the account states outright and I have built the timeline on them. One stomp, one ambush, no other beats; the guard's XP for the night is awarded on this section's two Goomba encounters and on the survival of everything above it, and is a preview until the table confirms it, as every award on an event is."
+      },
+      {
+        "name": "XII. The Bean Badge",
+        "icon": "🫘",
+        "overview": "Fawful's Bean Badge: a bean shop, in Toad Town, with Fawful's name on it and [[prop:prop_bean_badge_shop_card|a tray of badges on the counter]], which the account walked into at dawn with a sash on its arms and found already occupied. The Koopa was there. The prisoner — out of the castle, ahead of a Toad who had crawled five hours to reach the address — sitting in the shop as though he had never been anywhere else.\n\nHe explained himself, and the account gives the explanation plainly. He had led the escort into the ambush. He had alerted the castle to Bowser's attack — it was he who had told them the Koopa King was coming. Two sentences, and the night above rearranged itself: the dead escort was his; the castle had known about Bowser; the unlocked cell had been the one honest door in the building.\n\nTwo Mages' Guild operatives. A Goomba, sitting by the door like a shop cat. And Fawful.\n\nThey told him about his son before he asked. *\"Your son is being taken care of,\"* one of the Guild said. *\"Toad Lee won't have to worry about being trafficked in our care.\"* The account records the sentence whole and records that John Lee did not answer it.\n\nThey told him about the castle. Bowser was waking — screaming, the account says; the ground shaking under Toad Town with it — and the brothers were busy with him, which was the point. That was what Bowser was for.\n\nThey asked him to join.\n\nThen Fawful explained the plan, and put on a cloak to do it. A Mages' Guild cloak, over the red, pulled up. *\"I HAVE PLAN,\"* in capitals, and the plan was a mushroom. The vacuum shroom — Fawful's own make, the account says, Fawful tech — which, inhaled, turns the inhaler into a vacuum: Bowser breathes it and sucks up everything in reach, the brothers included. The castle's wards were still active, which somebody in the shop said as a problem and Fawful said as a detail. The Koopa had a fat vial — the account calls it that, *the fat vial*, a glass thing with weight in it — and the shroom was to go into Bowser by way of it. *\"Dispatch of this finkrat and takeover kingdom,\"* Fawful said, in the Guild's cloak, and the two operatives did not correct the pronoun.\n\nJohn Lee said he wanted to disappear.\n\nThen he said he wanted his son.\n\nThen he asked the Guild for escorts to go and get him, and the Guild said the last sentence of the account: *\"Are you stupid? You just said you don't trust us. We're protecting your son.\"*\n\n*A bean in a Guild cloak. Read it slowly: the Guild is already in place, the Guild will not act yet, and the Guild has given Fawful its robe to wear while he explains how the Koopa King is going to swallow the Mario brothers. Thirty days after Highsun 1 the kingdom chose Bowser as its murderer over Fawful, and the archive has never understood why the first draft said Fawful and the second did not. Here is a reason: by the time anyone was choosing, Fawful was wearing the Guild.*",
+        "waluigi_note": "The shop card is filed as an exhibit — a Bean Badge card, which is what a shop like this hands you, and which the account says was on the counter. The vacuum shroom and the fat vial go on the technology ledger as described and not one word further; the account does not see them used. The provenance of the whole account, promised in the opening: it was played, at the table, as a session in 955 BF, with John Lee as the character at it, and reached this desk as every session reaches this desk — as the record of what the table saw, in the order the table saw it. The archive has one account. It has filed it as one account. That is the last honest sentence available tonight.",
+        "image": "assets/images/events/the-unlocked-cell-955/cell-02-the-bean-badge.jpg",
+        "imageCaption": "Fawful's Bean Badge at dawn, as the account has it: the jars, the badge tray on the counter, Fawful pulling the Guild's cloak on with the vacuum shroom in his other hand, the Koopa with the fat vial, two hoods, a Goomba on a sack by the door, and a ceremonial guard with a captain's sash on both arms who has just been asked whether he is stupid. The sign over the counter is as the account remembers it, which is to say not well."
+      }
+    ],
+    "timeline": {
+      "day": "Efferd, 955 BF — a kart night; the day inferred, the hours the account's",
+      "note": "Reconstructed, not witnessed. Waluigi was not born; the archive had nobody in the building. The times are the account's own two clock readings — one o'clock at the post and five hours of pipe — with the archive's order laid between them. The month is inferred: the last month before Highsun 1, from the Guild's 'we won't act yet' set against the journals' 'six months prior', and from a castle still watching kart races. Nothing in the account names a day.",
+      "method": "Duration anchors: the one o'clock post, stated; a kart broadcast, which runs as long as a kart broadcast runs; four jumps; one handshake; one wall; one orb; and five hours of drain, stated. The hall and the dungeon are ordered by the account; the five rooms are ordered by the guard, who was lost, and the archive has not improved on his order.",
+      "worlds": [
+        {
+          "id": "castle",
+          "label": "Peach's Castle, 955 BF — the building, the dungeon, the drains",
+          "short": "Peach's Castle",
+          "timeOfDay": "One in the morning to about six: the post, the five rooms, the dungeon, the hall on fire, the bolt, the pipes. The account never looks out of a window until it comes up through a grate in Toad Town at dawn.",
+          "weather": "No weather on record, and the archive files that as a finding. The account is indoors from the first line to the last — a lantern post on a ceremonial route, a ballroom, a dining hall, a tower room with no mention of the view, a dungeon, five hours of pipe — and the only sky in it is the grey of a shop window at the end. The kart broadcast through the walls is the closest thing to weather the building had.",
+          "source": "The account itself, read for windows and finding none. The RNN did not exist in 955 BF, the WAH Media Collective's back-issue boxes start a century later, and the palace weather log of Efferd 955 — if a palace kept one — is in the same Regency vault as the forty-seven minutes. The archive has asked. The Regency has no comment on matters under ongoing historical review.",
+          "weatherWidget": [
+            {
+              "when": "1 a.m., the post",
+              "icon": "🏮",
+              "line": "Indoors; lamplight; a kart race through the walls"
+            },
+            {
+              "when": "The hall",
+              "icon": "🔥",
+              "line": "Bowser's fire; dust from a wall that came in"
+            },
+            {
+              "when": "Under the castle",
+              "icon": "🕳️",
+              "line": "Five hours of pipe; no sky"
+            },
+            {
+              "when": "Dawn, the shop",
+              "icon": "🌫️",
+              "line": "Grey in a shop window; the first daylight in the account"
+            }
+          ]
+        }
+      ],
+      "entries": [
+        {
+          "time": "1:00 a.m.",
+          "span": "stated — the account's first clock",
+          "beat": "The one o'clock post",
+          "detail": "John Lee stands the lantern post on the ceremonial route. The castle is up for the kart broadcast; a prisoner nobody will describe is in the dungeon; the brothers are expected to mediate a meeting with 'this toad guy'."
+        },
+        {
+          "time": "Soon after",
+          "span": "four jumps and a head guard's questions",
+          "beat": "The fan",
+          "detail": "He jumps four times at the news. The head guard comes down the route to ask why a ceremonial post is bouncing."
+        },
+        {
+          "time": "Then",
+          "span": "as long as a Toad takes to walk past in a new suit",
+          "beat": "The keys to every door",
+          "detail": "Toadsworth — the Chamberlain, by the archive's reading — in a new suit: 'I have the keys to every door.' 'Bask in your inferiority.'"
+        },
+        {
+          "time": "The small hours",
+          "span": "five wrong rooms — the guard's own count",
+          "beat": "Lost, in order",
+          "detail": "Ballroom (trumpets, marching Toads); a wall of heavy Toads across a corridor; the dining hall, where his son Toad Lee is at the table with the maid Marilyn; a hooded figure passing; a tower storage room."
+        },
+        {
+          "time": "After the tower",
+          "span": "two stairs down — out of range of the race",
+          "beat": "Escorted to the dungeon",
+          "detail": "Two guards walk him down. The account does not say whether it was discipline or a posting."
+        },
+        {
+          "time": "The dungeon",
+          "span": "one door, one sentence, one breath",
+          "beat": "The unlocked cell",
+          "detail": "The cell is unlocked. The prisoner is a Koopa: 'So you finally came to free me — oh. It's you.' The escort falls dead."
+        },
+        {
+          "time": "Immediately",
+          "span": "one handshake",
+          "beat": "'I HAVE VICTORY'",
+          "detail": "Fawful shakes the Koopa's hand. 'Never thought I'd work with a bean.' Three Guild hoods: 'the guild is already in place; we won't act yet.' John Lee runs."
+        },
+        {
+          "time": "Minutes later, the hall",
+          "span": "a wall, a sentence, a breath of fire",
+          "beat": "'SURPRISE, IT'S ME'",
+          "detail": "John Lee reaches the captain. Bowser comes through the wall, uninvited to the meeting, annoyed the brothers are not here. Fire down the hall; the captain dies in it. 'Take me to Peach.' He has never heard of Fawful."
+        },
+        {
+          "time": "In the smoke",
+          "span": "three things off a floor",
+          "beat": "The sash and the letter",
+          "detail": "A dead Toad's shortsword; a letter — 'meet me in Fawful's bean shop'; the captain's sash, wound around both forearms. Goombas taking Toads behind Bowser."
+        },
+        {
+          "time": "Then",
+          "span": "one orb, one cheer",
+          "beat": "One small orb",
+          "detail": "A Guild hood puts Bowser down in one. The Toads cheer the Guild. Mario and Luigi arrive late; Luigi trips on a striped sock."
+        },
+        {
+          "time": "About a minute after the cheer",
+          "span": "three sentences and a bolt",
+          "beat": "A lost dog",
+          "detail": "John Lee says the Guild works with Fawful. Toadsworth: 'Like a lost dog. A nuisance to the Toads is a nuisance to us. Mages' Guild — dispatch of them.' The bolt misses."
+        },
+        {
+          "time": "The next five hours",
+          "span": "five hours — stated, the account's second clock",
+          "beat": "Under the castle",
+          "detail": "The warp system and the sewers. One Goomba stomped — the first thing he ever killed. A Goomba ambush out of a warp pipe. A grate, a cellar, a shop."
+        },
+        {
+          "time": "About 6 a.m. — dawn",
+          "span": "one conversation, ending on a question",
+          "beat": "The Bean Badge",
+          "detail": "The Koopa is already there and admits the ambush and the warning. 'Your son is being taken care of.' Bowser waking under the castle, the ground shaking, the brothers busy. Recruitment. Fawful in a Guild cloak: the vacuum shroom, the fat vial, 'dispatch of this finkrat and takeover kingdom'. John Lee asks for escorts to his son: 'Are you stupid? You just said you don't trust us. We're protecting your son.'"
+        }
+      ]
+    }
+  }
+]
